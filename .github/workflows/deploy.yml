@@ -1,0 +1,49 @@
+name: Build & Deploy to DigitalOcean
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Allow manual trigger
+  workflow_call: # Allow other workflows to call this
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to DigitalOcean
+        run: |
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key" \
+            out/ \
+            root@${{ secrets.DEPLOY_HOST }}:/var/www/pesohub/
+
+      - name: Verify deployment
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://pesohub.ph)
+          echo "Site returned HTTP $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            echo "⚠️ Warning: Site returned non-200 status"
+          fi

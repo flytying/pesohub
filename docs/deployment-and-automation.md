@@ -1,32 +1,58 @@
 # Deployment & Automation
 
-## Deployment (Cloudflare Pages)
+## Deployment (DigitalOcean Droplet)
 
-- **Host:** Cloudflare Pages (static site)
+- **Host:** DigitalOcean droplet (Ubuntu, Singapore region, $6/mo)
+- **IP:** 157.230.246.39
 - **Domain:** pesohub.ph
-- **Staging URL:** pesohub.pages.dev
+- **Staging URL:** pesohub.pages.dev (Cloudflare Pages, legacy backup)
 - **Repo:** github.com/flytying/pesohub (private)
-- **Auto-deploy:** Every push to `main` triggers Cloudflare Pages rebuild
-- **Build command (Cloudflare):** `npm run build`
-- **Build output directory:** `out`
-- **DNS:** Cloudflare (CNAME pesohub.ph → pesohub.pages.dev)
+- **Web server:** nginx serving static files from `/var/www/pesohub/`
+- **SSL:** Let's Encrypt via Certbot (auto-renew)
+- **Auto-deploy:** Every push to `main` triggers GitHub Actions build + rsync to droplet
 
-### DNS Records (Cloudflare)
+### DNS Records (Cloudflare DNS — DNS only, no proxy)
 
-| Type  | Name        | Content              | Proxy   |
-|-------|-------------|----------------------|---------|
-| CNAME | pesohub.ph  | pesohub.pages.dev    | Proxied |
-| A     | mail        | 192.250.235.76       | Proxied |
-| A     | webmail     | 192.250.235.76       | Proxied |
-| MX    | pesohub.ph  | mail.pesohub.ph (10) | DNS only|
-| TXT   | _dmarc      | v=DMARC1; p=none...  | DNS only|
-| TXT   | pesohub.ph  | v=spf1 +mx +a...     | DNS only|
+| Type  | Name        | Content              | Proxy    |
+|-------|-------------|----------------------|----------|
+| A     | pesohub.ph  | 157.230.246.39       | DNS only |
+| A     | mail        | 192.250.235.76       | DNS only |
+| A     | webmail     | 192.250.235.76       | DNS only |
+| MX    | pesohub.ph  | mail.pesohub.ph (10) | DNS only |
+| TXT   | _dmarc      | v=DMARC1; p=none...  | DNS only |
+| TXT   | pesohub.ph  | v=spf1 +mx +a...     | DNS only |
 
-### Cloudflare Account
+### Cloudflare Account (DNS only)
 
 - **Account:** lottobot.ai's account
 - **Plan:** Free
-- **Workers subdomain:** round-dew-8ec5.workers.dev
+- **Workers subdomain:** round-dew-8ec5.workers.dev (still hosts email API)
+- **Note:** Cloudflare is used for DNS management only. Hosting moved to DigitalOcean due to persistent Pages custom domain DNS issues.
+
+### GitHub Actions Auto-Deploy
+
+- **Workflow file:** `.github/workflows/deploy.yml`
+- **Trigger:** Push to `main` or manual dispatch
+- **Process:** `npm ci` → `npm run build` → rsync `out/` to droplet
+- **Secrets required:**
+  - `DEPLOY_SSH_KEY` — SSH private key (ed25519) for droplet access
+  - `DEPLOY_HOST` — Droplet IP address (157.230.246.39)
+
+### Server Setup (DigitalOcean)
+
+```bash
+# SSH into droplet
+ssh root@157.230.246.39
+
+# Nginx config
+/etc/nginx/sites-available/pesohub
+
+# Static files
+/var/www/pesohub/
+
+# SSL certificate renewal
+sudo certbot renew --dry-run
+```
 
 ---
 

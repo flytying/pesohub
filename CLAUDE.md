@@ -44,9 +44,12 @@ src/
 ├── types/                 # TypeScript type definitions
 └── config/                # Site configuration
 scripts/
-└── update-exchange-rates.mjs  # Cron script to fetch rates
+├── update-exchange-rates.mjs  # Cron script to fetch rates
+└── check-content-freshness.mjs # Content staleness checker
 .github/workflows/
-└── update-rates.yml           # Daily rate update workflow
+├── deploy.yml                 # Build & deploy to DigitalOcean
+├── update-rates.yml           # Daily rate update + deploy
+└── content-freshness.yml      # Weekly YMYL content check
 ```
 
 ## Key Commands
@@ -60,10 +63,11 @@ npm run lint     # ESLint
 ## Deployment & Automation
 
 See [docs/deployment-and-automation.md](docs/deployment-and-automation.md) for:
-- Cloudflare Pages deployment and DNS setup
+- DigitalOcean droplet deployment (nginx + Let's Encrypt SSL)
+- GitHub Actions auto-deploy on push to `main` (build → rsync to droplet)
 - GitHub Actions cron job for auto-updating exchange rates
 - Content freshness system (YMYL page review cadences and automated staleness checks)
-- **DNS troubleshooting** — common fix for pesohub.ph not resolving (re-provision custom domain via Pages)
+- DNS setup (Cloudflare DNS → DigitalOcean IP)
 
 ## Email API
 
