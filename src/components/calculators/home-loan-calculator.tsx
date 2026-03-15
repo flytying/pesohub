@@ -71,7 +71,7 @@ export function HomeLoanCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/50">Monthly Payment</p>
+            <p className="text-xs uppercase tracking-wider text-white/50">Estimated Monthly Payment</p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
               {formatPeso(result.monthlyPayment)}
             </p>
@@ -131,7 +131,7 @@ export function HomeLoanCalculator() {
             min={500_000}
             max={50_000_000}
             step={100_000}
-            helpText="Total price of the property"
+            helpText="Enter the total price of the home, condo, or property."
           />
           <CalculatorInput
             label="Down Payment (%)"
@@ -140,7 +140,7 @@ export function HomeLoanCalculator() {
             min={0}
             max={90}
             step={1}
-            helpText="Typical PH requirement: 10-20%"
+            helpText="Enter the amount you plan to pay upfront."
           />
           <CalculatorInput
             label="Loan Term (years)"
@@ -149,7 +149,7 @@ export function HomeLoanCalculator() {
             min={5}
             max={30}
             step={1}
-            helpText="5 to 30 years"
+            helpText="Choose the number of years for repayment."
           />
           <CalculatorInput
             label="Annual Interest Rate (%)"
@@ -158,7 +158,7 @@ export function HomeLoanCalculator() {
             min={0}
             max={20}
             step={0.1}
-            helpText="Pag-IBIG: ~5.375% | Banks: ~6.5-9%"
+            helpText="Enter the estimated annual interest rate offered by the lender."
           />
         </div>
       </CalculatorShell>
@@ -166,10 +166,16 @@ export function HomeLoanCalculator() {
       {/* Amortization Table */}
       {result.schedule.length > 0 && (
         <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
-          <h3 className="mb-3 text-sm font-semibold text-foreground">
+          <h3 className="mb-1 text-sm font-semibold text-foreground">
             Amortization Schedule
           </h3>
+          <p className="mb-3 text-xs text-muted-foreground">
+            Review the estimated monthly breakdown of your home loan payments over the full term.
+          </p>
           <AmortizationTable schedule={result.schedule} />
+          <p className="mt-3 text-xs text-muted-foreground">
+            This schedule is an estimate based on the values you entered. Actual lender computations, fees, and repayment structures may vary.
+          </p>
         </div>
       )}
     </div>
