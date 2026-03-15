@@ -53,7 +53,20 @@ export function CarLoanCalculator() {
 
   return (
     <div className="space-y-6">
-      <CalculatorShell title="Car Loan Calculator" variant="split">
+      <CalculatorShell
+        title="Car Loan Calculator"
+        variant="split"
+        resultsSummary={[
+          `Vehicle Price: ${formatPeso(vehiclePrice)}`,
+          `Down Payment (${downPaymentPercent}%): ${formatPeso(result.downPaymentAmount)}`,
+          `Loan Amount: ${formatPeso(result.loanAmount)}`,
+          `Interest Rate: ${interestRate}% p.a.`,
+          `Term: ${termMonths} months`,
+          `Monthly Payment: ${formatPeso(result.monthlyPayment)}`,
+          `Total Interest: ${formatPeso(result.totalInterest)}`,
+          `Total Cost: ${formatPeso(result.totalCost)}`,
+        ].join("\n")}
+      >
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>

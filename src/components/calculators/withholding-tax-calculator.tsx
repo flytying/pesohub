@@ -66,7 +66,18 @@ export function WithholdingTaxCalculator() {
 
   return (
     <div className="space-y-6">
-      <CalculatorShell title="Withholding Tax Calculator" variant="split">
+      <CalculatorShell
+        title="Withholding Tax Calculator"
+        variant="split"
+        resultsSummary={[
+          `Monthly Gross Salary: ${formatPeso(monthlySalary)}`,
+          `Monthly Tax: ${formatPeso(result.monthlyTax)}`,
+          `Annual Tax: ${formatPeso(result.annualTax)}`,
+          `Monthly Take-Home Pay: ${formatPeso(result.monthlyTakeHome)}`,
+          `Annual Take-Home Pay: ${formatPeso(result.takeHomePay)}`,
+          `Effective Tax Rate: ${formatPercent(result.effectiveRate)}`,
+        ].join("\n")}
+      >
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>

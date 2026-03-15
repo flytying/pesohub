@@ -54,7 +54,20 @@ export function HomeLoanCalculator() {
 
   return (
     <div className="space-y-6">
-      <CalculatorShell title="Home Loan Calculator" variant="split">
+      <CalculatorShell
+        title="Home Loan Calculator"
+        variant="split"
+        resultsSummary={[
+          `Property Price: ${formatPeso(propertyPrice)}`,
+          `Down Payment (${downPaymentPercent}%): ${formatPeso(result.downPaymentAmount)}`,
+          `Loan Amount: ${formatPeso(result.loanAmount)}`,
+          `Interest Rate: ${interestRate}% p.a.`,
+          `Term: ${termYears} years`,
+          `Monthly Payment: ${formatPeso(result.monthlyPayment)}`,
+          `Total Interest: ${formatPeso(result.totalInterest)}`,
+          `Total Cost: ${formatPeso(result.totalCost)}`,
+        ].join("\n")}
+      >
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>

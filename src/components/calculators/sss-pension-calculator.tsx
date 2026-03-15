@@ -101,7 +101,18 @@ export function SSSPensionCalculator() {
 
   return (
     <div className="space-y-6">
-      <CalculatorShell title="SSS Pension Calculator" variant="split">
+      <CalculatorShell
+        title="SSS Pension Calculator"
+        variant="split"
+        resultsSummary={[
+          `Monthly Salary Credit: ${formatPeso(monthlySalaryCredit)}`,
+          `Years of Contribution: ${yearsOfContribution}`,
+          `Estimated Monthly Pension: ${formatPeso(result.monthlyPension)}`,
+          `Winning Formula: ${METHOD_LABELS[result.method] ?? result.method}`,
+          `Monthly Contribution: ${formatPeso(result.monthlyContribution)}`,
+          `Total Contributions (est.): ${formatPeso(result.totalContributions)}`,
+        ].join("\n")}
+      >
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>

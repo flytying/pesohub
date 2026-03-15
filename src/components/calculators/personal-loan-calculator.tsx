@@ -45,7 +45,18 @@ export function PersonalLoanCalculator() {
 
   return (
     <div className="space-y-6">
-      <CalculatorShell title="Personal Loan Calculator" variant="split">
+      <CalculatorShell
+        title="Personal Loan Calculator"
+        variant="split"
+        resultsSummary={[
+          `Loan Amount: ${formatPeso(loanAmount)}`,
+          `Interest Rate: ${interestRate}% p.a.`,
+          `Term: ${termMonths} months`,
+          `Monthly Payment: ${formatPeso(result.monthlyPayment)}`,
+          `Total Interest: ${formatPeso(result.totalInterest)}`,
+          `Total Cost: ${formatPeso(result.totalCost)}`,
+        ].join("\n")}
+      >
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
