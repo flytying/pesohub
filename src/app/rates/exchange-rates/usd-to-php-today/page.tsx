@@ -3,6 +3,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { RelatedPages } from "@/components/shared/related-pages";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
+import { SourceCitation } from "@/components/shared/source-citation";
 // import { AdPlaceholder } from "@/components/ads/ad-placeholder";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Card, CardContent } from "@/components/ui/card";
@@ -222,6 +223,14 @@ export default function UsdToPhpPage() {
 
       <RelatedPages currentSlug="rates/exchange-rates/usd-to-php-today" />
 
+      <div className="py-4">
+        <SourceCitation
+          source="Bangko Sentral ng Pilipinas (BSP)"
+          sourceUrl="https://www.bsp.gov.ph/SitePages/Statistics/ExchangeRate.aspx"
+          updatedAt={USD_PHP_UPDATED_AT}
+          reviewCadence="Daily (weekdays)"
+        />
+      </div>
       <div className="py-8">
         <DisclaimerBox text="Exchange rates shown are BSP reference rates for informational purposes only. Actual rates at banks and money changers will differ due to spreads and fees. Always confirm the final rate with your provider before making a transaction." />
       </div>

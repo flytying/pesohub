@@ -4,6 +4,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { RelatedPages } from "@/components/shared/related-pages";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
+import { SourceCitation } from "@/components/shared/source-citation";
 // import { AdPlaceholder } from "@/components/ads/ad-placeholder";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -257,6 +258,14 @@ export default function SSSPensionTablePage() {
 
       <RelatedPages currentSlug="/government/sss/sss-pension-table" />
 
+      <div className="py-4">
+        <SourceCitation
+          source="Social Security System (SSS)"
+          sourceUrl="https://www.sss.gov.ph/sss/appmanager/pages.jsp?page=retirementbenefits"
+          updatedAt={SSS_PENSION_TABLE_UPDATED_AT}
+          reviewCadence="Every 90 days"
+        />
+      </div>
       <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
     </div>
   );

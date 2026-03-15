@@ -1,0 +1,72 @@
+name: Content Freshness Check
+
+on:
+  schedule:
+    # Every Monday at 9:00 AM PHT (1:00 UTC)
+    - cron: '0 1 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  check-freshness:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run freshness check
+        id: check
+        run: |
+          node scripts/check-content-freshness.mjs --github 2>&1 | tee freshness-output.txt
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Create or update GitHub issue if stale content found
+        if: steps.check.outputs.exit_code == '1' && hashFiles('.github/freshness-report.md') != ''
+        uses: peter-evans/create-or-update-comment@v4
+        continue-on-error: true
+        with:
+          issue-number: ${{ steps.find-issue.outputs.issue-number }}
+          body-path: .github/freshness-report.md
+
+      - name: Find existing freshness issue
+        if: steps.check.outputs.exit_code == '1' && hashFiles('.github/freshness-report.md') != ''
+        id: find-issue
+        run: |
+          ISSUE=$(gh issue list --label "content-freshness" --state open --json number --jq '.[0].number // empty')
+          echo "issue-number=$ISSUE" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create new issue if none exists
+        if: steps.check.outputs.exit_code == '1' && hashFiles('.github/freshness-report.md') != '' && steps.find-issue.outputs.issue-number == ''
+        run: |
+          gh issue create \
+            --title "📋 Content freshness review needed" \
+            --body-file .github/freshness-report.md \
+            --label "content-freshness"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update existing issue
+        if: steps.check.outputs.exit_code == '1' && hashFiles('.github/freshness-report.md') != '' && steps.find-issue.outputs.issue-number != ''
+        run: |
+          gh issue comment ${{ steps.find-issue.outputs.issue-number }} \
+            --body-file .github/freshness-report.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Close issue if all fresh
+        if: steps.check.outputs.exit_code == '0'
+        run: |
+          ISSUE=$(gh issue list --label "content-freshness" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$ISSUE" ]; then
+            gh issue close "$ISSUE" --comment "✅ All content is within review cadence. Closing automatically."
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
