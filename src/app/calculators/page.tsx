@@ -30,7 +30,7 @@ export const metadata = generatePageMetadata({
   title:
     "Financial Calculators Philippines | Loan, Salary, Tax & Savings Tools",
   description:
-    "Use PesoHub financial calculators to estimate loan payments, salary deductions, tax, SSS contributions, and savings goals in the Philippines.",
+    "Free online calculators for loans, salary deductions, and SSS contributions. Get quick estimates based on common Philippine rates, tax tables, and contribution schedules.",
   slug: "calculators",
 });
 
@@ -70,15 +70,15 @@ const borrowingCalculators = [
   {
     title: "Car Loan Calculator",
     description:
-      "Estimate monthly car loan payments based on your loan amount, interest rate, and repayment term.",
-    bestFor: "People planning to finance a vehicle",
+      "Estimate monthly car loan payments and total interest based on your loan amount, down payment, and term.",
+    bestFor: "People planning to finance a vehicle purchase",
     youllNeed: "Loan amount, interest rate, loan term",
     href: "/calculators/loans/car-loan-calculator-philippines",
   },
   {
     title: "Home Loan Calculator",
     description:
-      "Estimate monthly home loan payments for different loan amounts, rates, and repayment periods.",
+      "Estimate monthly housing loan payments from Pag-IBIG or banks based on your loan amount, rate, and term.",
     bestFor: "Buyers exploring housing loan affordability",
     youllNeed: "Loan amount, interest rate, loan term",
     href: "/calculators/loans/home-loan-calculator-philippines",
@@ -86,7 +86,7 @@ const borrowingCalculators = [
   {
     title: "Personal Loan Calculator",
     description:
-      "Estimate possible monthly payments for a personal loan based on the amount borrowed, interest rate, and repayment period.",
+      "Estimate monthly payments and total cost for a personal loan based on how much you borrow, the rate, and your repayment period.",
     bestFor: "Borrowers comparing short- to medium-term loan options",
     youllNeed: "Loan amount, interest rate, loan term",
     href: "/calculators/loans/personal-loan-calculator-philippines",
@@ -97,27 +97,27 @@ const salaryCalculators = [
   {
     title: "Withholding Tax Calculator",
     description:
-      "Estimate monthly withholding tax based on your salary and the applicable tax bracket or tax table assumptions.",
+      "Estimate how much withholding tax may be deducted from your salary based on your income level and applicable tax bracket.",
     bestFor:
-      "Employees who want a clearer estimate of salary tax deductions",
-    youllNeed: "Salary amount, pay frequency, tax assumptions",
+      "Employees who want to understand the tax portion of their payslip",
+    youllNeed: "Monthly salary amount",
     href: "/calculators/tax/withholding-tax-calculator-philippines",
   },
   {
     title: "SSS Contribution Calculator",
     description:
-      "Estimate SSS contribution amounts based on salary level or applicable contribution basis.",
+      "Estimate your SSS contribution based on your salary bracket and member type, using the contribution schedule built into the tool.",
     bestFor:
-      "Employees, employers, and self-paying members checking contribution estimates",
-    youllNeed: "Salary or contribution basis, member type",
+      "Employees, self-employed members, voluntary members, and OFWs",
+    youllNeed: "Monthly salary, member type",
     href: "/calculators/sss/sss-contribution-calculator-philippines",
   },
   {
     title: "Take-Home Pay Calculator",
     description:
-      "Estimate take-home pay after common deductions such as withholding tax and required contributions.",
-    bestFor: "Employees who want a better picture of net pay",
-    youllNeed: "Salary amount, tax estimate, contribution values",
+      "Estimate what you may actually receive after withholding tax, SSS, PhilHealth, and Pag-IBIG are deducted from your gross salary.",
+    bestFor: "Employees who want to see the full deduction picture",
+    youllNeed: "Monthly gross salary",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
   },
 ];
@@ -262,6 +262,11 @@ const faqs = [
     answer:
       "You should confirm final figures with the relevant bank, financial provider, employer, or government agency, depending on the calculation.",
   },
+  {
+    question: "Which calculator should I use?",
+    answer:
+      "Choose a loan calculator if you want to estimate monthly borrowing costs, a tax calculator if you want to estimate salary withholding, the SSS calculator to check your contribution based on salary bracket, or the take-home pay calculator if you want the full deduction picture.",
+  },
 ];
 
 interface CalculatorCardProps {
@@ -331,7 +336,7 @@ export default function CalculatorsPage() {
       {/* Hero */}
       <PageHero
         title="Financial calculators for common money decisions in the Philippines"
-        description="Use these calculators to estimate payments, deductions, and savings scenarios based on common Philippine financial needs. Whether you are checking a loan, reviewing salary deductions, or planning a savings goal, start with the calculator that best matches your situation."
+        description="Free online calculators for loans, salary deductions, and SSS contributions. Get quick estimates based on common Philippine rates, tax tables, and contribution schedules."
         breadcrumbs={breadcrumbs}
       />
 
@@ -356,6 +361,40 @@ export default function CalculatorsPage() {
           See popular calculators
         </Link>
       </div>
+
+      {/* Not sure where to start? */}
+      <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
+        <h2 className="text-sm font-semibold text-foreground">
+          Not sure where to start?
+        </h2>
+        <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+          <li>
+            Use the{" "}
+            <Link href="/calculators/loans/car-loan-calculator-philippines" className="text-primary hover:underline">Car Loan Calculator</Link>{" "}
+            if you want to estimate monthly payments for buying a vehicle.
+          </li>
+          <li>
+            Use the{" "}
+            <Link href="/calculators/loans/home-loan-calculator-philippines" className="text-primary hover:underline">Home Loan Calculator</Link>{" "}
+            for housing loans from Pag-IBIG or banks.
+          </li>
+          <li>
+            Use the{" "}
+            <Link href="/calculators/tax/withholding-tax-calculator-philippines" className="text-primary hover:underline">Withholding Tax Calculator</Link>{" "}
+            to estimate tax on salary income.
+          </li>
+          <li>
+            Use the{" "}
+            <Link href="/calculators/sss/sss-contribution-calculator-philippines" className="text-primary hover:underline">SSS Contribution Calculator</Link>{" "}
+            to check contribution amounts based on salary bracket.
+          </li>
+          <li>
+            Use the{" "}
+            <Link href="/calculators/tax/take-home-pay-calculator-philippines" className="text-primary hover:underline">Take-Home Pay Calculator</Link>{" "}
+            if you want the full picture after all common deductions.
+          </li>
+        </ul>
+      </section>
 
       {/* Important Note */}
       <DisclaimerBox text="Calculator results are estimates based on the inputs and assumptions shown. Actual figures may vary depending on provider terms, official tables, fees, and policy updates. Always confirm final numbers with the relevant bank, financial provider, employer, or government agency when needed." />
