@@ -8,6 +8,7 @@ import {
   HelpCircle,
   BookOpen,
   Calculator,
+  Landmark,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -93,17 +94,18 @@ const relatedContent = [
     icon: Calculator,
   },
   {
-    title: "Loan and savings explainers",
+    title: "Pag-IBIG Housing Loan Guide",
     description:
-      "Understand how interest rate and repayment term affect total cost.",
-    href: "/guides",
-    icon: BookOpen,
+      "Review Pag-IBIG housing loan rates, terms, and requirements.",
+    href: "/government/pag-ibig/pag-ibig-housing-loan-guide",
+    icon: Landmark,
   },
   {
-    title: "Loan comparison pages",
-    description: "Review financing options more clearly before applying.",
+    title: "All loan calculators",
+    description:
+      "Browse all borrowing, salary, and savings calculators in one place.",
     href: "/calculators",
-    icon: Calculator,
+    icon: BookOpen,
   },
 ];
 
@@ -268,13 +270,13 @@ export default function HomeLoanCalculatorPage() {
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              href="/guides"
+              href="/government/pag-ibig/pag-ibig-housing-loan-guide"
               className={buttonVariants({
                 variant: "outline",
                 className: "font-medium",
               })}
             >
-              Explore home loan guides
+              Pag-IBIG housing loan guide
             </Link>
           </div>
         </section>
