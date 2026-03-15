@@ -110,7 +110,7 @@ const salaryCalculators = [
     bestFor:
       "Employees, employers, and self-paying members checking contribution estimates",
     youllNeed: "Salary or contribution basis, member type",
-    href: "/calculators/retirement/sss-pension-calculator",
+    href: "/calculators/sss/sss-contribution-calculator-philippines",
   },
   {
     title: "Take-Home Pay Calculator",
