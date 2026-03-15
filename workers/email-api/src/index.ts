@@ -10,6 +10,7 @@ interface Env {
   FROM_EMAIL: string;
   TO_EMAIL: string;
   ALLOWED_ORIGIN: string;
+  RESEND_API_KEY: string;
 }
 
 interface ContactPayload {
@@ -55,19 +56,23 @@ function jsonResponse(
 }
 
 async function sendEmail(
+  apiKey: string,
   from: string,
   to: string,
   subject: string,
   htmlBody: string
 ): Promise<Response> {
-  const res = await fetch("https://api.mailchannels.net/tx/v1/send", {
+  const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
     body: JSON.stringify({
-      personalizations: [{ to: [{ email: to }] }],
-      from: { email: from, name: "PesoHub" },
+      from: `PesoHub <${from}>`,
+      to: [to],
       subject,
-      content: [{ type: "text/html", value: htmlBody }],
+      html: htmlBody,
     }),
   });
   return res;
@@ -172,6 +177,7 @@ export default {
         };
 
         const emailRes = await sendEmail(
+          env.RESEND_API_KEY,
           env.FROM_EMAIL,
           env.TO_EMAIL,
           `[PesoHub] ${subjectLabels[subject] || subject} from ${name}`,
@@ -180,7 +186,7 @@ export default {
 
         if (!emailRes.ok) {
           const errText = await emailRes.text();
-          console.error("MailChannels error:", errText);
+          console.error("Resend error:", errText);
           return jsonResponse({ error: "Failed to send email" }, 502, origin, env.ALLOWED_ORIGIN);
         }
 
@@ -195,6 +201,7 @@ export default {
         }
 
         const emailRes = await sendEmail(
+          env.RESEND_API_KEY,
           env.FROM_EMAIL,
           email,
           `Your ${calculatorType} Results — PesoHub`,
@@ -203,7 +210,7 @@ export default {
 
         if (!emailRes.ok) {
           const errText = await emailRes.text();
-          console.error("MailChannels error:", errText);
+          console.error("Resend error:", errText);
           return jsonResponse({ error: "Failed to send email" }, 502, origin, env.ALLOWED_ORIGIN);
         }
 
