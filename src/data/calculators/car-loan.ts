@@ -5,13 +5,13 @@ export const carLoanData: CalculatorPageData = {
   category: "loans",
   title: "Car Loan Calculator Philippines",
   metaTitle:
-    "Car Loan Calculator Philippines | Estimate Monthly Car Payments | PesoHub",
+    "Car Loan Calculator Philippines – Estimate Monthly Payment & Amortization | PesoHub",
   metaDescription:
-    "Use this car loan calculator to estimate monthly car payments, total interest, and total repayment in the Philippines. Compare scenarios before checking actual offers.",
+    "Estimate your monthly car loan payment in the Philippines using PesoHub's free car loan calculator. Compare car price, down payment, loan term, and interest rate before applying.",
   h1: "Car Loan Calculator Philippines",
   intro:
-    "Estimate your monthly car loan payment based on loan amount, interest rate, and repayment term. Use this as a planning tool before comparing actual bank, dealership, or financing offers.",
-  updatedAt: "2025-03-01",
+    "Estimate your monthly car loan payment, total interest, and total loan cost before applying. Adjust the car price, down payment, loan term, and interest rate to compare scenarios and find a monthly payment that fits your budget.",
+  updatedAt: "2026-03-16",
   defaultInputs: {
     vehiclePrice: 1_200_000,
     downPaymentPercent: 20,
@@ -19,11 +19,11 @@ export const carLoanData: CalculatorPageData = {
     interestRate: 6.5,
   },
   formula: {
-    name: "Standard Annuity Formula",
+    name: "Monthly Payment Formula",
     description:
-      "This calculator estimates your loan payment using the loan amount, interest rate, and repayment term you enter.",
+      "This car loan calculator estimates your monthly payment using the loan amount, annual interest rate, and repayment term. The loan amount is the car price minus your down payment. The monthly payment is then estimated using a standard amortization formula.",
     explanation:
-      "The loan amount is typically the vehicle price minus your down payment. Results are meant for planning and educational use only. The exact payment method used by a lender may differ from the assumptions in this calculator, which is why your final quote may not match the estimate exactly.",
+      "You do not need to calculate it manually, but understanding the formula can help you see why a larger down payment or shorter term can reduce your total borrowing cost. This formula is commonly used to estimate fixed monthly loan payments based on the amount borrowed, interest rate, and repayment term.",
   },
   exampleCalculation: {
     scenario:
@@ -43,46 +43,49 @@ export const carLoanData: CalculatorPageData = {
     },
   },
   tips: [
-    "A higher down payment usually lowers both your monthly payment and your total interest.",
-    "A longer loan term may reduce the monthly amount, but it can also increase the total interest paid over time.",
-    "A lower rate can reduce both your monthly payment and the total cost of borrowing, even when the loan amount stays the same.",
-    "Compare car loan offers from at least 3 banks or financing companies before deciding.",
+    "Start with the car's total purchase price",
+    "Choose a down payment you can comfortably afford",
+    "Compare 36-, 48-, and 60-month loan terms",
+    "Test different interest rates if you are comparing lenders",
+    "Leave room in your budget for insurance, registration, fuel, and maintenance",
   ],
   faqs: [
     {
-      question: "What does this car loan calculator estimate?",
+      question:
+        "What is a typical car loan interest rate in the Philippines?",
       answer:
-        "It estimates your monthly payment, total interest, and total repayment based on the loan amount, interest rate, and repayment term you enter.",
-    },
-    {
-      question: "Is this an official loan quote?",
-      answer:
-        "No. This is a planning estimate only. Your actual quote may differ depending on the lender, approval terms, fees, promo offers, and credit review.",
-    },
-    {
-      question: "Does down payment affect the result?",
-      answer:
-        "Yes. A higher down payment usually reduces the amount you need to borrow, which can lower both monthly payments and total interest.",
+        "Car loan interest rates in the Philippines vary depending on the lender, loan term, promo offers, and borrower profile. Banks, in-house financing providers, and other lenders may offer different rates, so it is best to compare sample quotations and check both the monthly payment and the total borrowing cost.",
     },
     {
       question:
-        "Why might dealer financing and bank financing look different?",
+        "How much down payment is usually needed for a car loan?",
       answer:
-        "Different lenders may use different rates, fee structures, promo terms, and approval rules. Even for the same vehicle price, the final cost may vary.",
+        "Many car loans require a down payment, often based on a percentage of the vehicle price. The exact amount depends on the lender and the vehicle. A larger down payment can reduce the amount financed, lower your monthly payment, and reduce total interest over time.",
     },
     {
-      question: "Does a longer loan term reduce the monthly payment?",
+      question: "How long can I finance a car loan?",
       answer:
-        "Usually, yes. But a longer term may also increase the total interest paid over the life of the loan.",
+        "Car loan terms commonly range from a few years up to around five years, depending on the lender and the vehicle. A longer term may reduce the monthly payment, but it can increase the total interest paid.",
     },
     {
-      question: "What costs are not included in this estimate?",
+      question: "Can I use this calculator for a used car loan?",
       answer:
-        "This estimate may not include fees, insurance, registration, penalties, or other lender-specific charges.",
+        "Yes. You can use this calculator to estimate payments for a used car as long as you know the vehicle price, target down payment, interest rate, and loan term. Keep in mind that used car financing terms and rates may differ from financing for a brand-new vehicle.",
+    },
+    {
+      question:
+        "Does this calculator include insurance and other car ownership costs?",
+      answer:
+        "No. This calculator estimates the loan payment, total interest, and total loan cost based on the financing details you enter. It does not include insurance, registration, fuel, parking, tolls, maintenance, or other ownership expenses.",
+    },
+    {
+      question: "Is a lower monthly payment always better?",
+      answer:
+        "Not always. A lower monthly payment can be easier to manage in the short term, but it may come from a longer loan term, which can increase the total interest paid. It is important to compare both monthly affordability and total cost before deciding.",
     },
   ],
   relatedPages: [
-    "calculators/loans/home-loan-calculator-philippines",
     "calculators/loans/personal-loan-calculator-philippines",
+    "calculators/loans/home-loan-calculator-philippines",
   ],
 };

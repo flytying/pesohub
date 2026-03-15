@@ -70,7 +70,7 @@ export function CarLoanCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/50">Monthly Payment</p>
+            <p className="text-xs uppercase tracking-wider text-white/50">Estimated Monthly Payment</p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
               {formatPeso(result.monthlyPayment)}
             </p>
@@ -123,14 +123,14 @@ export function CarLoanCalculator() {
         {/* RIGHT: Inputs Panel */}
         <div className="space-y-6 p-8">
           <CalculatorInput
-            label="Vehicle Price"
+            label="Car Price"
             value={vehiclePrice}
             onChange={setVehiclePrice}
             prefix="₱"
             min={100_000}
             max={10_000_000}
             step={10_000}
-            helpText="Total price of the vehicle"
+            helpText="Enter the total vehicle price."
           />
           <CalculatorInput
             label="Down Payment (%)"
@@ -139,7 +139,7 @@ export function CarLoanCalculator() {
             min={0}
             max={90}
             step={1}
-            helpText="Percentage of vehicle price as down payment"
+            helpText="Enter the amount you plan to pay upfront."
           />
           <CalculatorInput
             label="Loan Term (months)"
@@ -148,7 +148,7 @@ export function CarLoanCalculator() {
             min={12}
             max={84}
             step={12}
-            helpText="12 to 84 months"
+            helpText="Choose the number of months for repayment."
           />
           <CalculatorInput
             label="Annual Interest Rate (%)"
@@ -157,7 +157,7 @@ export function CarLoanCalculator() {
             min={0}
             max={30}
             step={0.1}
-            helpText="Typical PH car loan: 5.5% - 12%"
+            helpText="Enter the estimated annual interest rate offered by the lender."
           />
         </div>
       </CalculatorShell>
