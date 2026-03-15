@@ -93,17 +93,18 @@ const relatedContent = [
     icon: Calculator,
   },
   {
-    title: "Loan and savings explainers",
+    title: "Withholding Tax Calculator",
     description:
-      "Understand how interest rate and repayment term affect total cost.",
-    href: "/guides",
-    icon: BookOpen,
+      "Estimate your monthly withholding tax deduction.",
+    href: "/calculators/tax/withholding-tax-calculator-philippines",
+    icon: Calculator,
   },
   {
-    title: "Loan comparison pages",
-    description: "Review financing options more clearly before applying.",
+    title: "All loan calculators",
+    description:
+      "Browse all borrowing, salary, and savings calculators in one place.",
     href: "/calculators",
-    icon: Calculator,
+    icon: BookOpen,
   },
 ];
 
@@ -268,13 +269,13 @@ export default function PersonalLoanCalculatorPage() {
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              href="/guides"
+              href="/calculators/loans/car-loan-calculator-philippines"
               className={buttonVariants({
                 variant: "outline",
                 className: "font-medium",
               })}
             >
-              Explore personal loan guides
+              Try the car loan calculator
             </Link>
           </div>
         </section>

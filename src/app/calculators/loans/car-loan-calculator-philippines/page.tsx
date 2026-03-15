@@ -92,10 +92,10 @@ const relatedContent = [
     icon: Calculator,
   },
   {
-    title: "Loan and savings explainers",
+    title: "All loan calculators",
     description:
-      "Understand how interest rate and repayment term affect total cost.",
-    href: "/guides",
+      "Browse all borrowing, salary, and savings calculators in one place.",
+    href: "/calculators",
     icon: BookOpen,
   },
 ];
@@ -260,13 +260,13 @@ export default function CarLoanCalculatorPage() {
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              href="/guides"
+              href="/calculators/loans/home-loan-calculator-philippines"
               className={buttonVariants({
                 variant: "outline",
                 className: "font-medium",
               })}
             >
-              Explore car loan guides
+              Try the home loan calculator
             </Link>
           </div>
         </section>
