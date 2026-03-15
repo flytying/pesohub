@@ -14,6 +14,10 @@ export const mainNavItems: NavItem[] = [
       { label: "Personal Loan Calculator", href: "/calculators/loans/personal-loan-calculator-philippines" },
       { label: "Withholding Tax Calculator", href: "/calculators/tax/withholding-tax-calculator-philippines" },
       { label: "SSS Pension Calculator", href: "/calculators/retirement/sss-pension-calculator" },
+      { label: "Take-Home Pay Calculator", href: "/calculators/tax/take-home-pay-calculator-philippines" },
+      { label: "Emergency Fund Calculator", href: "/calculators/savings/emergency-fund-calculator-philippines" },
+      { label: "Time Deposit Calculator", href: "/calculators/savings/time-deposit-calculator-philippines" },
+      { label: "Savings Goal Calculator", href: "/calculators/savings/savings-goal-calculator-philippines" },
     ],
   },
   {
@@ -58,6 +62,8 @@ export const footerNavItems = {
     { label: "Personal Loan", href: "/calculators/loans/personal-loan-calculator-philippines" },
     { label: "Withholding Tax", href: "/calculators/tax/withholding-tax-calculator-philippines" },
     { label: "SSS Pension", href: "/calculators/retirement/sss-pension-calculator" },
+    { label: "Take-Home Pay", href: "/calculators/tax/take-home-pay-calculator-philippines" },
+    { label: "Savings Goal", href: "/calculators/savings/savings-goal-calculator-philippines" },
   ],
   company: [
     { label: "About", href: "/about" },
