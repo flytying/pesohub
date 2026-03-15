@@ -33,12 +33,21 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy to DigitalOcean
+      - name: Deploy static site
         run: |
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/deploy_key" \
             out/ \
             root@${{ secrets.DEPLOY_HOST }}:/var/www/pesohub/
+
+      - name: Deploy email API
+        run: |
+          rsync -avz \
+            -e "ssh -i ~/.ssh/deploy_key" \
+            server/package.json server/index.mjs \
+            root@${{ secrets.DEPLOY_HOST }}:/opt/pesohub-api/
+          ssh -i ~/.ssh/deploy_key root@${{ secrets.DEPLOY_HOST }} \
+            'cd /opt/pesohub-api && npm install --production && pm2 restart pesohub-api'
 
       - name: Verify deployment
         run: |

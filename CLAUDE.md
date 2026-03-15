@@ -71,7 +71,7 @@ See [docs/deployment-and-automation.md](docs/deployment-and-automation.md) for:
 
 ## Email API
 
-See [docs/email-api.md](docs/email-api.md) for the Cloudflare Worker + Resend setup that handles contact form submissions and calculator result emails.
+See [docs/email-api.md](docs/email-api.md) for the Express + Resend email API running on the DigitalOcean droplet (contact form and calculator result emails).
 
 ## Data Architecture
 

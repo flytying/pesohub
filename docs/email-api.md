@@ -1,45 +1,43 @@
-# Email API (Cloudflare Worker + Resend)
+# Email API (Express + Resend on DigitalOcean)
 
 ## Overview
 
-Email functionality is handled by a Cloudflare Worker that proxies requests to the Resend API. The static site calls the Worker endpoint from the client side.
+Email functionality is handled by an Express server running on the same DigitalOcean droplet as the static site. Nginx proxies `/api/` requests to the Express server, which calls the Resend API to send emails.
 
 ## Architecture
 
 ```
 Browser (pesohub.ph)
-  → POST to Cloudflare Worker (pesohub-email-api)
-    → Resend API (api.resend.com)
-      → Email delivered
+  → POST to /api/contact or /api/calculator
+    → nginx reverse proxy → Express (port 3001)
+      → Resend API (api.resend.com)
+        → Email delivered
 ```
 
 ## Endpoints
 
 | Endpoint | Purpose | Sends to |
 |----------|---------|----------|
-| `POST /contact` | Contact form submissions | hello@pesohub.ph |
-| `POST /calculator` | Calculator results to user | User's email |
+| `POST /api/contact` | Contact form submissions | hello@pesohub.ph |
+| `POST /api/calculator` | Calculator results to user | User's email |
+| `GET /api/health` | Health check | — |
 
-## Worker Details
+## Server Details
 
-- **Name:** `pesohub-email-api`
-- **URL:** `https://pesohub-email-api.round-dew-8ec5.workers.dev`
-- **Source:** `workers/email-api/src/index.ts`
-- **Config:** `workers/email-api/wrangler.toml`
+- **Location:** `/opt/pesohub-api/` on the droplet
+- **Source:** `server/index.mjs` (in repo)
+- **Process manager:** PM2 (`pesohub-api`)
+- **Port:** 3001 (proxied via nginx at `/api/`)
+- **Node.js:** 20.x
 
-### Environment Variables (wrangler.toml)
+### Environment Variables (set via PM2)
 
 | Variable | Value |
 |----------|-------|
 | `FROM_EMAIL` | `noreply@pesohub.ph` |
 | `TO_EMAIL` | `hello@pesohub.ph` |
 | `ALLOWED_ORIGIN` | `https://pesohub.ph` |
-
-### Secrets (set via `wrangler secret put`)
-
-| Secret | Description |
-|--------|-------------|
-| `RESEND_API_KEY` | Resend API key for sending emails |
+| `RESEND_API_KEY` | Resend API key (secret) |
 
 ## Email Provider: Resend
 
@@ -58,12 +56,19 @@ Browser (pesohub.ph)
 
 ## CORS
 
-The Worker allows requests from:
+The server allows requests from:
 - `https://pesohub.ph` (production)
 - `https://pesohub.pages.dev` (staging)
 - `http://localhost:3000` (development)
 
 ## Frontend Integration
+
+### API URL Config (`src/config/site.ts`)
+
+```typescript
+export const EMAIL_API_URL =
+  process.env.NEXT_PUBLIC_EMAIL_API_URL || "https://pesohub.ph/api";
+```
 
 ### Contact Form (`src/app/contact/page.tsx`)
 
@@ -85,32 +90,35 @@ const res = await fetch(`${EMAIL_API_URL}/calculator`, {
 });
 ```
 
-### API URL Config (`src/config/site.ts`)
-
-```typescript
-export const EMAIL_API_URL =
-  process.env.NEXT_PUBLIC_EMAIL_API_URL ||
-  "https://pesohub-email-api.round-dew-8ec5.workers.dev";
-```
-
-## Deploying Changes
+## Managing the API on the Droplet
 
 ```bash
-cd workers/email-api
-npm install
-npx wrangler deploy
+# SSH into droplet
+ssh root@157.230.246.39
+
+# Check status
+pm2 status
+
+# View logs
+pm2 logs pesohub-api
+
+# Restart
+pm2 restart pesohub-api
+
+# Update API key
+pm2 delete pesohub-api
+RESEND_API_KEY="re_NEW_KEY" FROM_EMAIL="noreply@pesohub.ph" TO_EMAIL="hello@pesohub.ph" ALLOWED_ORIGIN="https://pesohub.ph" pm2 start /opt/pesohub-api/index.mjs --name pesohub-api
+pm2 save
 ```
 
-## Updating the API Key
+## Auto-Deploy
 
-```bash
-cd workers/email-api
-echo "re_NEW_KEY_HERE" | npx wrangler secret put RESEND_API_KEY
-```
+The deploy workflow (`.github/workflows/deploy.yml`) automatically syncs `server/` files to the droplet and restarts PM2 on every push to `main`.
 
 ## Troubleshooting
 
-- **403 "domain not verified"** — Verify domain at resend.com/domains, check DNS records
-- **CORS errors** — Check Origin header matches allowed origins in Worker
-- **502 from Worker** — Check Resend API key is set (`wrangler secret list`), check Worker logs (`wrangler tail`)
-- **Emails going to spam** — Ensure SPF, DKIM, and DMARC DNS records are properly configured
+- **503 from /api/** — PM2 process crashed. Check `pm2 logs pesohub-api` and restart.
+- **403 "domain not verified"** — Verify domain at resend.com/domains, check DNS records.
+- **CORS errors** — Check Origin header matches allowed origins in `server/index.mjs`.
+- **Emails going to spam** — Ensure SPF, DKIM, and DMARC DNS records are properly configured.
+- **Health check:** `curl https://pesohub.ph/api/health`
