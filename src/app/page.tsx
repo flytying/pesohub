@@ -20,14 +20,12 @@ import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { UpdateBadge } from "@/components/shared/update-badge";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-// import { AdPlaceholder } from "@/components/ads/ad-placeholder";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import {
   generateWebsiteSchema,
   generateOrganizationSchema,
 } from "@/lib/schema-markup";
-import { SITE_DESCRIPTION } from "@/config/site";
 
 // Recently updated dates
 import { USD_PHP_UPDATED_AT } from "@/data/rates/exchange-rates";
@@ -43,6 +41,10 @@ export const metadata = generatePageMetadata({
   slug: "",
 });
 
+// ---------------------------------------------------------------------------
+// Data
+// ---------------------------------------------------------------------------
+
 const goalCards = [
   {
     title: "I want to estimate a loan",
@@ -55,7 +57,7 @@ const goalCards = [
     title: "I want to understand my salary deductions",
     description:
       "See how common deductions and take-home pay estimates work in a Philippine context.",
-    href: "/calculators/tax/withholding-tax-calculator-philippines",
+    href: "/calculators/tax/take-home-pay-calculator-philippines",
     icon: Target,
   },
   {
@@ -85,9 +87,9 @@ const popularPages = [
   {
     title: "Salary and Deduction Tools",
     description:
-      "Compute withholding tax and see how common deductions affect take-home pay.",
-    href: "/calculators/tax/withholding-tax-calculator-philippines",
-    category: "Calculator",
+      "Estimate withholding tax, SSS contributions, and take-home pay.",
+    href: "/calculators/tax/take-home-pay-calculator-philippines",
+    category: "Calculators",
   },
   {
     title: "Savings Rate Tables",
@@ -177,15 +179,20 @@ const homeFaqs = [
       "PesoHub provides educational tools and reference content. Final figures, rates, and official details should always be verified with the relevant bank, provider, or government agency.",
   },
   {
-    question: "Does PesoHub give financial advice?",
-    answer: "No. The site is for educational and informational use only.",
+    question: "How accurate are the calculations?",
+    answer:
+      "PesoHub tools are built to provide helpful estimates based on the assumptions shown on each page. Actual figures may vary depending on provider terms, official updates, fees, eligibility rules, or your specific situation.",
   },
   {
-    question: "Why do figures sometimes vary?",
+    question: "Is PesoHub affiliated with any government agency?",
     answer:
-      "Results may differ depending on the provider, product terms, official updates, or the assumptions used in the tool or table.",
+      "No. PesoHub is an independent site and is not affiliated with any government agency, bank, or financial institution. Always confirm official details with the relevant source.",
   },
 ];
+
+// ---------------------------------------------------------------------------
+// Page
+// ---------------------------------------------------------------------------
 
 export default function HomePage() {
   return (
@@ -201,7 +208,9 @@ export default function HomePage() {
             Practical money tools for Filipinos
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
-            {SITE_DESCRIPTION}
+            Free calculators, rate tables, and plain-language guides to help you
+            estimate payments, compare options, and understand common money
+            decisions in the Philippines.
           </p>
 
           {/* CTA Buttons */}
@@ -231,25 +240,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Supporting Intro */}
+      {/* What you can do on PesoHub — SEO depth section */}
       <section className="border-b bg-muted/30 py-12 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-            PesoHub helps you estimate payments, compare financial options, and
-            explore useful reference information for everyday money decisions in
-            the Philippines. From loan and salary tools to savings rates and
-            government tables, the goal is to make important financial
-            information easier to understand and easier to use.
+          <h2 className="text-lg font-semibold tracking-tight text-foreground sm:text-xl">
+            What you can do on PesoHub
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Estimate loan payments, understand salary deductions, compare
+            savings rates, and check key Philippine reference tables in one
+            place.
           </p>
         </div>
       </section>
 
       {/* Main Content */}
       <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        {/* Start with Your Goal */}
+        {/* Start Here (formerly "Start with Your Goal") */}
         <section>
           <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-            Start with your goal
+            Start here
           </h2>
           <p className="mb-6 text-sm text-muted-foreground">
             Choose the path that matches what you want to do.
@@ -258,7 +268,7 @@ export default function HomePage() {
             {goalCards.map((goal) => {
               const Icon = goal.icon;
               return (
-                <Link key={goal.href} href={goal.href} className="group block">
+                <Link key={goal.title} href={goal.href} className="group block">
                   <Card className="h-full transition-shadow duration-200 hover:shadow-md">
                     <CardHeader>
                       <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
@@ -289,28 +299,28 @@ export default function HomePage() {
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             <CategoryCard
               title="Calculators"
-              description="Estimate payments, deductions, and other everyday financial figures."
+              description="Estimate payments, deductions, and contributions using Philippine-specific assumptions."
               href="/calculators"
               icon={Calculator}
-              count={5}
+              count={7}
             />
             <CategoryCard
               title="Rates"
-              description="Browse savings, loan, and other rate tables for easier comparison."
+              description="Compare exchange rates, savings rates, and other financial benchmarks."
               href="/rates"
               icon={TrendingUp}
               count={2}
             />
             <CategoryCard
               title="Guides"
-              description="Read plain-language explainers for common money topics in the Philippines."
+              description="Understand common money topics in plain language."
               href="/guides"
               icon={BookOpen}
               count={2}
             />
             <CategoryCard
               title="Government"
-              description="View helpful reference pages and official table summaries for quick lookup."
+              description="Quick-reference tables and explainers for BIR, SSS, Pag-IBIG, and more."
               href="/government"
               icon={Landmark}
               count={5}
@@ -318,20 +328,20 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Popular in the Philippines */}
+        {/* Popular Tools */}
         <section className="pt-16">
           <div className="mb-6">
             <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-              Popular in the Philippines
+              Popular tools
             </h2>
             <p className="text-sm text-muted-foreground">
-              Explore the most useful tools and reference pages for everyday
-              money decisions.
+              The most-used tools and reference pages for everyday money
+              decisions.
             </p>
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {popularPages.map((page) => (
-              <Link key={page.href} href={page.href} className="group block">
+              <Link key={page.title} href={page.href} className="group block">
                 <Card className="h-full transition-shadow duration-200 hover:shadow-md">
                   <CardHeader>
                     <div className="flex items-center justify-between">
@@ -382,8 +392,16 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Why Use PesoHub */}
+        {/* Trust line — surfaced earlier per recommendation #7 */}
         <section className="pt-16">
+          <div className="rounded-lg border border-border bg-muted/30 px-6 py-4 text-center text-sm text-muted-foreground">
+            Free tools and guides for educational use. Not affiliated with
+            banks or government agencies.
+          </div>
+        </section>
+
+        {/* Why Use PesoHub */}
+        <section className="pt-12">
           <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
             Why use PesoHub
           </h2>
