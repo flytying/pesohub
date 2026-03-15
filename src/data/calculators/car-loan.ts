@@ -5,12 +5,12 @@ export const carLoanData: CalculatorPageData = {
   category: "loans",
   title: "Car Loan Calculator Philippines",
   metaTitle:
-    "Car Loan Calculator Philippines 2025 - Monthly Payment & Amortization",
+    "Car Loan Calculator Philippines | Estimate Monthly Car Payments | PesoHub",
   metaDescription:
-    "Calculate your monthly car loan payment in the Philippines. See the full amortization schedule, total interest, and total cost for bank auto financing.",
+    "Use this car loan calculator to estimate monthly car payments, total interest, and total repayment in the Philippines. Compare scenarios before checking actual offers.",
   h1: "Car Loan Calculator Philippines",
   intro:
-    "Estimate your monthly car loan payment, total interest, and total cost of ownership. Enter the vehicle price, your down payment percentage, loan term, and interest rate to see the full amortization schedule.",
+    "Estimate your monthly car loan payment based on loan amount, interest rate, and repayment term. Use this as a planning tool before comparing actual bank, dealership, or financing offers.",
   updatedAt: "2025-03-01",
   defaultInputs: {
     vehiclePrice: 1_200_000,
@@ -21,13 +21,13 @@ export const carLoanData: CalculatorPageData = {
   formula: {
     name: "Standard Annuity Formula",
     description:
-      "Philippine banks use the standard amortization formula for car loans.",
+      "This calculator estimates your loan payment using the loan amount, interest rate, and repayment term you enter.",
     explanation:
-      "Monthly Payment = P x [r(1+r)^n] / [(1+r)^n - 1], where P is the loan amount (vehicle price minus down payment), r is the monthly interest rate (annual rate / 12 / 100), and n is the total number of monthly payments. This formula produces a fixed monthly payment that covers both principal and interest over the life of the loan.",
+      "The loan amount is typically the vehicle price minus your down payment. Results are meant for planning and educational use only. The exact payment method used by a lender may differ from the assumptions in this calculator, which is why your final quote may not match the estimate exactly.",
   },
   exampleCalculation: {
     scenario:
-      "You buy a car worth PHP 1,200,000 with a 20% down payment, financed over 60 months at 6.5% annual interest.",
+      "You buy a car worth ₱1,200,000 with a 20% down payment, financed over 60 months at 6.5% annual interest.",
     inputs: {
       vehiclePrice: 1_200_000,
       downPaymentPercent: 20,
@@ -43,40 +43,42 @@ export const carLoanData: CalculatorPageData = {
     },
   },
   tips: [
-    "Aim for at least 20% down payment to get better interest rates and lower monthly payments from Philippine banks.",
-    "Choose the shortest loan term you can comfortably afford -- a 36-month term pays significantly less interest than a 60-month term.",
-    "Factor in additional costs like comprehensive insurance, registration, LTO fees, and chattel mortgage fees when budgeting for a new car.",
-    "Compare car loan offers from at least 3 banks or financing companies. BPI, BDO, Metrobank, and EastWest Bank often have competitive auto loan rates.",
+    "A higher down payment usually lowers both your monthly payment and your total interest.",
+    "A longer loan term may reduce the monthly amount, but it can also increase the total interest paid over time.",
+    "A lower rate can reduce both your monthly payment and the total cost of borrowing, even when the loan amount stays the same.",
+    "Compare car loan offers from at least 3 banks or financing companies before deciding.",
   ],
   faqs: [
     {
-      question:
-        "What is the typical interest rate for car loans in the Philippines?",
+      question: "What does this car loan calculator estimate?",
       answer:
-        "Car loan interest rates in the Philippines typically range from 5.5% to 12% per year, depending on the bank, loan term, down payment, and whether the vehicle is brand new or secondhand. Major banks like BPI, BDO, and Metrobank generally offer rates starting at 5.5% to 7% for new cars with at least 20% down payment.",
+        "It estimates your monthly payment, total interest, and total repayment based on the loan amount, interest rate, and repayment term you enter.",
+    },
+    {
+      question: "Is this an official loan quote?",
+      answer:
+        "No. This is a planning estimate only. Your actual quote may differ depending on the lender, approval terms, fees, promo offers, and credit review.",
+    },
+    {
+      question: "Does down payment affect the result?",
+      answer:
+        "Yes. A higher down payment usually reduces the amount you need to borrow, which can lower both monthly payments and total interest.",
     },
     {
       question:
-        "What is the minimum down payment for a car loan in the Philippines?",
+        "Why might dealer financing and bank financing look different?",
       answer:
-        "Most Philippine banks and financing companies require a minimum down payment of 20% of the vehicle price for brand-new cars. Some banks may accept as low as 10-15% for select models or promotions, but a higher down payment typically results in better interest rates and lower monthly payments.",
+        "Different lenders may use different rates, fee structures, promo terms, and approval rules. Even for the same vehicle price, the final cost may vary.",
     },
     {
-      question: "How long can I finance a car loan in the Philippines?",
+      question: "Does a longer loan term reduce the monthly payment?",
       answer:
-        "Car loan terms in the Philippines usually range from 12 to 60 months (1 to 5 years). Some banks offer extended terms of up to 72 or 84 months for brand-new vehicles. Shorter loan terms have higher monthly payments but result in significantly less total interest paid.",
+        "Usually, yes. But a longer term may also increase the total interest paid over the life of the loan.",
     },
     {
-      question:
-        "Can I get a car loan for a secondhand vehicle in the Philippines?",
+      question: "What costs are not included in this estimate?",
       answer:
-        "Yes, several banks and financing companies offer auto loans for pre-owned vehicles. However, the vehicle typically must be no more than 5-7 years old, interest rates are usually 1-3% higher than new car loans, and the maximum loan term may be shorter (usually up to 48 months). BPI, Security Bank, and RCBC are known for secondhand car financing.",
-    },
-    {
-      question:
-        "What additional fees should I expect when getting a car loan in the Philippines?",
-      answer:
-        "Beyond the monthly amortization, expect to pay chattel mortgage fees (around PHP 2,000-5,000), comprehensive car insurance (required by most lenders), processing fees (around PHP 3,000-5,000), LTO registration, and documentary stamp tax. Some banks also charge an early termination fee if you pay off the loan before the term ends.",
+        "This estimate may not include fees, insurance, registration, penalties, or other lender-specific charges.",
     },
   ],
   relatedPages: [
