@@ -61,6 +61,10 @@ npm run lint     # ESLint
 
 See [docs/deployment-and-automation.md](docs/deployment-and-automation.md) for full details on Cloudflare Pages deployment, DNS setup, and the GitHub Actions cron job for auto-updating exchange rates.
 
+## Email API
+
+See [docs/email-api.md](docs/email-api.md) for the Cloudflare Worker + Resend setup that handles contact form submissions and calculator result emails.
+
 ## Data Architecture
 
 All financial data lives in `/src/data/` as TypeScript files. No database, no API routes.
