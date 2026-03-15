@@ -10,6 +10,10 @@ interface CalculatorShellProps {
   className?: string;
   /** "default" = single column card, "split" = two-panel layout */
   variant?: "default" | "split";
+  /** Calculator name for email subject */
+  calculatorType?: string;
+  /** Text summary of results for email body */
+  resultsSummary?: string;
 }
 
 export function CalculatorShell({
@@ -17,6 +21,8 @@ export function CalculatorShell({
   children,
   className,
   variant = "default",
+  calculatorType,
+  resultsSummary,
 }: CalculatorShellProps) {
   if (variant === "split") {
     return (
@@ -28,7 +34,10 @@ export function CalculatorShell({
       >
         <div className="flex items-center justify-between border-b border-border px-6 py-4">
           <h2 className="text-base font-semibold tracking-tight">{title}</h2>
-          <ResultActions />
+          <ResultActions
+            calculatorType={calculatorType || title}
+            resultsSummary={resultsSummary}
+          />
         </div>
         <div className="grid lg:grid-cols-[2fr_3fr]">{children}</div>
       </div>

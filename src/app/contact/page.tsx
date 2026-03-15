@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Send, CheckCircle } from "lucide-react";
-import { SITE_NAME } from "@/config/site";
+import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import { SITE_NAME, EMAIL_API_URL } from "@/config/site";
 
-type FormState = "idle" | "submitting" | "success";
+type FormState = "idle" | "submitting" | "success" | "error";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState<FormState>("idle");
@@ -12,19 +12,36 @@ export default function ContactPage() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setFormState("submitting");
+    setErrorMsg("");
 
-    // Simulate submission — replace with actual API call
-    setTimeout(() => {
+    try {
+      const res = await fetch(`${EMAIL_API_URL}/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to send message");
+      }
+
       setFormState("success");
       setName("");
       setEmail("");
       setSubject("");
       setMessage("");
-    }, 1200);
+    } catch (err) {
+      setErrorMsg(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+      setFormState("error");
+    }
   }
 
   return (
@@ -85,6 +102,13 @@ export default function ContactPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
+              {formState === "error" && (
+                <div className="flex items-start gap-3 rounded-lg border border-red-500/20 bg-red-500/5 px-4 py-3">
+                  <AlertCircle className="mt-0.5 size-4 shrink-0 text-red-500" />
+                  <p className="text-sm text-red-500">{errorMsg}</p>
+                </div>
+              )}
+
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label

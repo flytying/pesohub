@@ -1,23 +1,51 @@
 "use client";
 
 import { useState } from "react";
-import { Printer, Mail, X, CheckCircle, Send } from "lucide-react";
+import { Printer, Mail, X, CheckCircle, Send, AlertCircle } from "lucide-react";
+import { EMAIL_API_URL } from "@/config/site";
 
-export function ResultActions() {
+interface ResultActionsProps {
+  /** Calculator name shown in the email subject, e.g. "Personal Loan Calculator" */
+  calculatorType?: string;
+  /** Text summary of results to include in the email */
+  resultsSummary?: string;
+}
+
+export function ResultActions({
+  calculatorType = "Calculator",
+  resultsSummary = "",
+}: ResultActionsProps) {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [email, setEmail] = useState("");
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   function handlePrint() {
     window.print();
   }
 
-  function handleEmailSubmit(e: React.FormEvent) {
+  async function handleEmailSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSending(true);
-    // Simulate sending — replace with actual API call
-    setTimeout(() => {
+    setError("");
+
+    try {
+      const res = await fetch(`${EMAIL_API_URL}/calculator`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          calculatorType,
+          results: resultsSummary || "No results available. Please recalculate on pesohub.ph.",
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to send email");
+      }
+
       setSending(false);
       setSent(true);
       setTimeout(() => {
@@ -25,7 +53,10 @@ export function ResultActions() {
         setSent(false);
         setEmail("");
       }, 2000);
-    }, 1200);
+    } catch (err) {
+      setSending(false);
+      setError(err instanceof Error ? err.message : "Failed to send. Please try again.");
+    }
   }
 
   return (
@@ -61,6 +92,7 @@ export function ResultActions() {
                 setShowEmailModal(false);
                 setSent(false);
                 setEmail("");
+                setError("");
               }
             }}
           />
@@ -72,6 +104,7 @@ export function ResultActions() {
                   setShowEmailModal(false);
                   setSent(false);
                   setEmail("");
+                  setError("");
                 }
               }}
               className="absolute right-3 top-3 rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
@@ -99,6 +132,14 @@ export function ResultActions() {
                 <p className="mt-1 text-xs text-muted-foreground">
                   We&apos;ll send a summary of your calculation to your email.
                 </p>
+
+                {error && (
+                  <div className="mt-3 flex items-start gap-2 rounded-md border border-red-500/20 bg-red-500/5 px-3 py-2">
+                    <AlertCircle className="mt-0.5 size-3.5 shrink-0 text-red-500" />
+                    <p className="text-xs text-red-500">{error}</p>
+                  </div>
+                )}
+
                 <form onSubmit={handleEmailSubmit} className="mt-4">
                   <label
                     htmlFor="result-email"
