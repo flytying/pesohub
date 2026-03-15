@@ -2,12 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-  TrendingDown,
-  Clock,
-  Percent,
+  Car,
+  Home,
+  Banknote,
+  Timer,
   HelpCircle,
-  BookOpen,
   Calculator,
+  BookOpen,
+  CheckCircle,
+  DollarSign,
+  Percent,
+  Clock,
+  ShieldCheck,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -40,25 +46,94 @@ const breadcrumbs = [
   { label: "Car Loan Calculator" },
 ];
 
+const beforeYouStart = [
+  "Start with the car's total purchase price",
+  "Choose a down payment you can comfortably afford",
+  "Compare 36-, 48-, and 60-month loan terms",
+  "Test different interest rates if you are comparing lenders",
+  "Leave room in your budget for insurance, registration, fuel, and maintenance",
+];
+
+const howToUsePoints = [
+  "estimate your monthly car payment",
+  "see how much you need for the down payment",
+  "compare shorter and longer loan terms",
+  "understand how interest affects the total borrowing cost",
+  "check which car price range is more realistic for your budget",
+];
+
 const exampleScenarios = [
   {
-    icon: TrendingDown,
-    title: "Higher down payment",
+    icon: Car,
+    title: "Budget car example",
     description:
-      "A larger down payment usually reduces the amount you need to borrow, which can lower both monthly payments and total interest.",
+      "A budget car scenario can help first-time buyers estimate a more manageable monthly payment. A lower vehicle price combined with a reasonable down payment may lead to a lower monthly obligation and lower total borrowing cost.",
+  },
+  {
+    icon: Banknote,
+    title: "Mid-range car example",
+    description:
+      "A mid-range car scenario is useful for buyers looking at newer sedans, hatchbacks, or crossovers. A higher vehicle price will usually increase both the amount financed and the monthly payment, even if the down payment percentage stays the same.",
+  },
+  {
+    icon: Home,
+    title: "Family SUV example",
+    description:
+      "A family SUV or larger vehicle usually results in a much higher monthly payment and total interest cost. This scenario is useful for households comparing whether the added size and features are worth the higher long-term cost.",
+  },
+  {
+    icon: Timer,
+    title: "Shorter term vs longer term",
+    description:
+      "Use the same vehicle price and down payment, then compare a shorter loan term with a longer one. A longer term may lower the monthly payment, but it often increases the total interest paid over time.",
+  },
+];
+
+const paymentFactors = [
+  {
+    icon: DollarSign,
+    title: "Vehicle Price",
+    description:
+      "A more expensive car increases the total amount you need to finance, which usually increases the monthly payment.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Down Payment",
+    description:
+      "A larger down payment reduces the amount borrowed. This often lowers both your monthly payment and the total interest you pay over the life of the loan.",
   },
   {
     icon: Clock,
-    title: "Longer loan term",
+    title: "Loan Term",
     description:
-      "A longer repayment term may make the monthly payment easier to manage, but it often increases the total interest paid over time.",
+      "A longer term spreads the cost over more months, which can lower the monthly payment. However, it may also increase the total interest paid overall.",
   },
   {
     icon: Percent,
-    title: "Lower interest rate",
+    title: "Interest Rate",
     description:
-      "A lower rate can reduce both your monthly payment and the total cost of borrowing, even when the loan amount stays the same.",
+      "Even a small difference in interest rate can change the total cost of borrowing. When comparing lenders, check both the monthly payment and the full loan cost.",
   },
+];
+
+const ownershipCosts = [
+  "comprehensive insurance",
+  "chattel mortgage fees",
+  "LTO registration and renewal costs",
+  "fuel",
+  "maintenance and repairs",
+  "parking and tolls",
+];
+
+const compareBeforeApplying = [
+  "estimated monthly payment",
+  "down payment required",
+  "total interest over the full term",
+  "total estimated loan cost",
+  "required insurance or add-on products",
+  "chattel mortgage and processing fees",
+  "early repayment terms",
+  "dealer financing versus bank financing",
 ];
 
 const questionsToConsider = [
@@ -67,15 +142,6 @@ const questionsToConsider = [
   "Should I compare dealer financing and bank financing before deciding?",
   "Does a shorter term save more in total cost, even if the monthly payment is higher?",
   "Are there extra fees or required charges not included in this estimate?",
-];
-
-const actualQuoteDifferences = [
-  "Lender or dealership financing terms",
-  "Approval and credit review",
-  "Processing fees, insurance, and other charges",
-  "Promo rates or limited-time offers",
-  "Required minimum down payment",
-  "The way interest is calculated by the provider",
 ];
 
 const relatedContent = [
@@ -92,10 +158,24 @@ const relatedContent = [
     icon: Calculator,
   },
   {
-    title: "All loan calculators",
+    title: "Loan Guides",
     description:
-      "Browse all borrowing, salary, and savings calculators in one place.",
-    href: "/calculators",
+      "Learn how rates, terms, and payment estimates work before comparing options.",
+    href: "/guides",
+    icon: BookOpen,
+  },
+  {
+    title: "Interest Rate Guides",
+    description:
+      "Understand how rates are set and what affects your borrowing cost.",
+    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
+    icon: BookOpen,
+  },
+  {
+    title: "Financial Planning Guides",
+    description:
+      "Broader guides on budgeting, saving, and managing money in the Philippines.",
+    href: "/guides",
     icon: BookOpen,
   },
 ];
@@ -120,91 +200,134 @@ export default function CarLoanCalculatorPage() {
           breadcrumbs={breadcrumbs}
         />
 
-        {/* Expectation-setting microcopy */}
+        {/* Support text */}
         <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-          This calculator helps you estimate what a car loan may cost per month.
-          It is useful for quick planning, but your actual quote may differ
-          depending on the lender, down payment, fees, promo terms, and credit
-          review.
+          Helpful for comparing loan options before talking to a bank, dealer,
+          or financing company.
         </p>
 
         {/* Calculator */}
         <CarLoanCalculator />
 
-        {/* What Your Results Mean */}
+        {/* Your Estimated Car Loan Results */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            What your results mean
+            Your Estimated Car Loan Results
           </h2>
           <div className="mt-4 space-y-4">
             <div>
               <h3 className="text-sm font-semibold text-foreground">
-                Monthly payment
+                Estimated Monthly Payment
               </h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                Your estimated monthly payment shows how much you may need to
-                set aside each month for the loan alone. This can help you check
-                whether the loan fits your current budget before applying.
+                This is your estimated monthly amortization based on the values
+                you entered.
               </p>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-foreground">
-                Total interest
+                Estimated Loan Amount
               </h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                Your estimated total interest shows how much borrowing may cost
-                over the full repayment period, beyond the amount you actually
-                borrowed.
+                This is the amount financed after subtracting your down payment.
               </p>
             </div>
             <div>
               <h3 className="text-sm font-semibold text-foreground">
-                Total repayment
+                Estimated Total Interest
               </h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                Your estimated total repayment combines the estimated loan
-                principal and total interest. This helps you see the bigger
-                picture, not just the monthly cost.
+                This is the total estimated interest you may pay over the full
+                loan term.
               </p>
             </div>
-          </div>
-          <div className="mt-6 rounded-lg border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-            A higher down payment usually lowers both your monthly payment and
-            your total interest. A longer loan term may reduce the monthly
-            amount, but it can also increase the total interest paid over time.
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">
+                Estimated Total Loan Cost
+              </h3>
+              <p className="mt-1 text-sm text-muted-foreground">
+                This is the estimated loan amount plus total interest. It does
+                not include insurance, registration, fuel, maintenance, or other
+                ownership costs.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Why Your Actual Quote May Be Different */}
+        {/* Before You Start */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Why your actual quote may be different
+            Before You Start
           </h2>
           <p className="mt-3 text-sm text-muted-foreground">
-            Your actual car loan offer may differ from this estimate depending
-            on:
+            If you are still deciding what car budget makes sense, start with a
+            few simple assumptions. Use the full vehicle price, then test
+            different down payments and loan terms to see how your monthly
+            payment changes.
+          </p>
+          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+            {beforeYouStart.map((item) => (
+              <li key={item} className="flex gap-2">
+                <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* How to Use This Car Loan Calculator */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            How to Use This Car Loan Calculator
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Enter the car price, your planned down payment, the loan term, and
+            the annual interest rate. The calculator will estimate your monthly
+            payment, total interest, and total loan cost so you can compare
+            different scenarios before applying.
+          </p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            This tool is useful if you want to:
           </p>
           <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-            {actualQuoteDifferences.map((item) => (
+            {howToUsePoints.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Use this calculator as a planning tool, then compare actual offers
-            before making a decision.
-          </p>
         </section>
 
-        {/* Example Scenarios */}
+        {/* How to Tell if the Monthly Payment Is Realistic */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            See how different inputs can change the estimate
+            How to Tell if the Monthly Payment Is Realistic
           </h2>
           <p className="mt-3 text-sm text-muted-foreground">
-            Small changes in down payment, interest rate, or loan term can make
-            a noticeable difference in both monthly cost and total repayment.
+            A monthly car payment may look manageable at first, but it should
+            still fit comfortably within your overall monthly budget. Before
+            applying, check whether you can still cover your regular expenses,
+            savings, emergency fund, and other debt payments after adding the
+            estimated monthly amortization.
           </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-3">
+          <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
+            A lower monthly payment is not always the cheaper option overall. A
+            longer loan term can reduce the monthly amount, but it may also
+            increase the total interest paid over time. A bigger down payment
+            usually lowers both the monthly payment and the total borrowing cost.
+          </div>
+        </section>
+
+        {/* Sample Car Loan Scenarios */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            Sample Car Loan Scenarios
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Here are example scenarios to help you compare common car price
+            ranges in the Philippines. Use them as a starting point, then adjust
+            the numbers based on your target vehicle, preferred down payment, and
+            lender terms.
+          </p>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2">
             {exampleScenarios.map((scenario) => {
               const Icon = scenario.icon;
               return (
@@ -226,6 +349,79 @@ export default function CarLoanCalculatorPage() {
           </div>
         </section>
 
+        {/* What Affects Your Monthly Car Loan Payment */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            What Affects Your Monthly Car Loan Payment
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Your estimated car loan payment depends on four main factors: the
+            vehicle price, the down payment, the loan term, and the interest
+            rate. Understanding how each one works can help you compare offers
+            more clearly.
+          </p>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+            {paymentFactors.map((factor) => {
+              const Icon = factor.icon;
+              return (
+                <div key={factor.title} className="space-y-2">
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+                    <Icon className="size-5" />
+                  </div>
+                  <h3 className="text-sm font-semibold">{factor.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {factor.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Your Monthly Loan Payment Is Not the Full Cost */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            Your Monthly Loan Payment Is Not the Full Cost of Owning a Car
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            A car loan calculator helps estimate the financing side of the
+            purchase, but your total car budget should include more than just the
+            monthly amortization. Also consider:
+          </p>
+          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
+            {ownershipCosts.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Use the calculator to estimate your loan payment, then add these
+            ownership costs before deciding what vehicle price range is truly
+            affordable.
+          </p>
+        </section>
+
+        {/* What to Compare Before Choosing a Car Loan */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            What to Compare Before Choosing a Car Loan
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Do not compare lenders based on monthly payment alone. Two offers may
+            look similar at first, but the total cost can be very different
+            depending on the term, interest rate, and fees. Before applying,
+            compare:
+          </p>
+          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
+            {compareBeforeApplying.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Use this calculator more than once so you can compare multiple offers
+            side by side before making a decision.
+          </p>
+        </section>
+
         {/* Questions to Consider */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -241,42 +437,16 @@ export default function CarLoanCalculatorPage() {
           </ul>
         </section>
 
-        {/* Compare Financing Options CTA */}
-        <section className="mt-12 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
-          <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-            Compare financing options before you commit
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            This calculator gives you a useful starting estimate, but comparing
-            actual financing offers can help you spot important differences in
-            rates, fees, repayment terms, and total borrowing cost.
-          </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/calculators"
-              className={buttonVariants({ className: "font-medium" })}
-            >
-              Compare financing options
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/calculators/loans/home-loan-calculator-philippines"
-              className={buttonVariants({
-                variant: "outline",
-                className: "font-medium",
-              })}
-            >
-              Try the home loan calculator
-            </Link>
-          </div>
-        </section>
-
-        {/* Related Guides and Tools */}
+        {/* Related Calculators and Guides */}
         <section className="mt-12">
           <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-            Related guides and tools
+            Related calculators and guides
           </h2>
-          <div className="grid gap-5 sm:grid-cols-3">
+          <p className="mb-6 -mt-4 text-sm text-muted-foreground">
+            Looking at other borrowing options or comparing financial decisions?
+            Explore related PesoHub tools and guides below.
+          </p>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {relatedContent.map((item) => {
               const Icon = item.icon;
               return (
@@ -307,7 +477,7 @@ export default function CarLoanCalculatorPage() {
         {/* How This Calculator Works */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How this calculator works
+            How the Car Loan Estimate Is Calculated
           </h2>
           <p className="mt-3 text-sm text-muted-foreground">
             {carLoanData.formula.description}
@@ -340,13 +510,13 @@ export default function CarLoanCalculatorPage() {
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              href="/calculators"
+              href="/calculators/loans/personal-loan-calculator-philippines"
               className={buttonVariants({
                 variant: "outline",
                 className: "font-medium",
               })}
             >
-              Compare financing options
+              Try the personal loan calculator
             </Link>
           </div>
         </section>
