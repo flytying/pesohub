@@ -188,7 +188,7 @@ export default function BestSavingsRatesPage() {
                   <li>Higher interest rates (3% to 15% p.a.)</li>
                   <li>No or very low minimum balance</li>
                   <li>Easy account opening via mobile app</li>
-                  <li>PDIC-insured up to PHP 500,000</li>
+                  <li>PDIC-insured up to PHP 1,000,000</li>
                   <li>Limited or no physical branch access</li>
                   <li>Some promo rates may expire</li>
                 </ul>
@@ -203,7 +203,7 @@ export default function BestSavingsRatesPage() {
                   <li>Lower interest rates (0.10% to 0.50% p.a.)</li>
                   <li>Higher minimum balance requirements</li>
                   <li>Physical branch and ATM network</li>
-                  <li>PDIC-insured up to PHP 500,000</li>
+                  <li>PDIC-insured up to PHP 1,000,000</li>
                   <li>More comprehensive services (loans, checks, etc.)</li>
                   <li>Established reputation and track record</li>
                 </ul>
@@ -226,7 +226,7 @@ export default function BestSavingsRatesPage() {
               <strong>Check if the bank is BSP-licensed and PDIC-insured.</strong>{" "}
               This is the most important factor. All banks listed above are
               BSP-regulated and covered by PDIC deposit insurance up to PHP
-              500,000 per depositor per bank.
+              1,000,000 per depositor per bank.
             </li>
             <li>
               <strong>Look beyond the headline rate.</strong> Some rates are
@@ -248,7 +248,7 @@ export default function BestSavingsRatesPage() {
             </li>
             <li>
               <strong>Diversify across banks.</strong> Since PDIC coverage is
-              capped at PHP 500,000 per bank, consider spreading larger
+              capped at PHP 1,000,000 per bank, consider spreading larger
               deposits across multiple banks to maximize your insured
               coverage.
             </li>

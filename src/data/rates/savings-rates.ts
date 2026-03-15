@@ -85,7 +85,7 @@ export const savingsRateFaqs: FAQ[] = [
     question:
       "Are digital bank deposits in the Philippines safe?",
     answer:
-      "Yes. Digital banks like Maya Bank, Tonik, GoTyme, SeaBank, and CIMB are licensed and regulated by the Bangko Sentral ng Pilipinas (BSP). Deposits up to PHP 500,000 per depositor per bank are insured by the Philippine Deposit Insurance Corporation (PDIC), the same protection that applies to traditional banks.",
+      "Yes. Digital banks like Maya Bank, Tonik, GoTyme, SeaBank, and CIMB are licensed and regulated by the Bangko Sentral ng Pilipinas (BSP). Deposits up to PHP 1,000,000 per depositor per bank are insured by the Philippine Deposit Insurance Corporation (PDIC), the same protection that applies to traditional banks. This increased coverage (from PHP 500,000) took effect on March 15, 2025.",
   },
   {
     question:
@@ -109,6 +109,6 @@ export const savingsRateFaqs: FAQ[] = [
     question:
       "Can I open multiple savings accounts at different banks?",
     answer:
-      "Yes. There is no legal limit on how many savings accounts you can have across different banks in the Philippines. Many savers open accounts at multiple digital banks to take advantage of the highest available rates. Keep in mind that PDIC insurance covers up to PHP 500,000 per depositor per bank.",
+      "Yes. There is no legal limit on how many savings accounts you can have across different banks in the Philippines. Many savers open accounts at multiple digital banks to take advantage of the highest available rates. Keep in mind that PDIC insurance covers up to PHP 1,000,000 per depositor per bank (effective March 15, 2025).",
   },
 ];
