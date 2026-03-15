@@ -57,27 +57,9 @@ npm run build    # Build static site to out/
 npm run lint     # ESLint
 ```
 
-## Deployment
+## Deployment & Automation
 
-- **Host:** Cloudflare Pages (static site)
-- **Domain:** pesohub.ph
-- **Staging URL:** pesohub.pages.dev
-- **Repo:** github.com/flytying/pesohub (private)
-- **Auto-deploy:** Every push to `main` triggers Cloudflare Pages rebuild
-- **Build command (Cloudflare):** `npm run build`
-- **Build output directory:** `out`
-- **DNS:** Cloudflare (CNAME pesohub.ph → pesohub.pages.dev)
-
-## Automated Rate Updates (GitHub Actions Cron)
-
-- **Workflow:** `.github/workflows/update-rates.yml`
-- **Schedule:** Mon-Fri at 8:00 UTC (4:00 PM PHT), after BSP publishes daily rate
-- **API:** `open.er-api.com/v6/latest/USD` (free, no API key needed)
-- **Script:** `scripts/update-exchange-rates.mjs`
-- **Process:** Fetches rate → updates `src/data/rates/exchange-rates.ts` → commits → pushes → Cloudflare auto-redeploys
-- **Manual trigger:** Available via `workflow_dispatch` in GitHub Actions tab
-- **Skips:** Weekends (no BSP rate published) and duplicate same-day updates
-- **Data updated:** `currentRate`, `historicalRates[]` (last 7 business days), `USD_PHP_UPDATED_AT`
+See [docs/deployment-and-automation.md](docs/deployment-and-automation.md) for full details on Cloudflare Pages deployment, DNS setup, and the GitHub Actions cron job for auto-updating exchange rates.
 
 ## Data Architecture
 
