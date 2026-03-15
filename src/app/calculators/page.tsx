@@ -119,7 +119,6 @@ const salaryCalculators = [
     bestFor: "Employees who want a better picture of net pay",
     youllNeed: "Salary amount, tax estimate, contribution values",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
-    comingSoon: true,
   },
 ];
 
@@ -167,7 +166,6 @@ const popularCalculators = [
     description:
       "See a practical estimate of net pay after common deductions.",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
-    comingSoon: true,
   },
   {
     title: "Car Loan Calculator",
