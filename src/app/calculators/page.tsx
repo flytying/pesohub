@@ -452,7 +452,12 @@ export default function CalculatorsPage() {
           ))}
         </div>
         <p className="mt-4 text-xs text-muted-foreground">
-          Related pages: Loan guides, loan rate tables, borrowing explainers
+          Related:{" "}
+          <Link href="/guides" className="text-primary hover:underline">Guides</Link>
+          {" · "}
+          <Link href="/government/pag-ibig/pag-ibig-housing-loan-guide" className="text-primary hover:underline">Pag-IBIG Housing Loan Guide</Link>
+          {" · "}
+          <Link href="/rates/savings-rates/best-savings-interest-rates-philippines" className="text-primary hover:underline">Rate Tables</Link>
         </p>
       </section>
 
@@ -471,7 +476,12 @@ export default function CalculatorsPage() {
           ))}
         </div>
         <p className="mt-4 text-xs text-muted-foreground">
-          Related pages: Salary guides, tax references, contribution tables
+          Related:{" "}
+          <Link href="/guides/tax/how-withholding-tax-works-philippines" className="text-primary hover:underline">How Withholding Tax Works</Link>
+          {" · "}
+          <Link href="/government/bir/withholding-tax-table-philippines" className="text-primary hover:underline">Withholding Tax Table</Link>
+          {" · "}
+          <Link href="/government/sss/sss-contribution-guide" className="text-primary hover:underline">SSS Contribution Table</Link>
         </p>
       </section>
 
@@ -490,8 +500,12 @@ export default function CalculatorsPage() {
           ))}
         </div>
         <p className="mt-4 text-xs text-muted-foreground">
-          Related pages: Savings guides, savings rate tables, financial planning
-          articles
+          Related:{" "}
+          <Link href="/rates/savings-rates/best-savings-interest-rates-philippines" className="text-primary hover:underline">Best Savings Rates</Link>
+          {" · "}
+          <Link href="/rates/exchange-rates/usd-to-php-today" className="text-primary hover:underline">USD to PHP Rate</Link>
+          {" · "}
+          <Link href="/guides" className="text-primary hover:underline">Guides</Link>
         </p>
       </section>
 
