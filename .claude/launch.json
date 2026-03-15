@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["-c", "PATH=/Users/roldanhilario/.nvm/versions/node/v24.13.1/bin:$PATH npm run dev"],
+      "port": 3000,
+      "autoPort": true
+    }
+  ]
+}
