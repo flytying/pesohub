@@ -73,3 +73,96 @@ These data sources change infrequently and require manual verification:
 - **Rate not updating?** API may be down. Script exits with code 1 on API failure — no commit, no redeploy.
 - **Wrong rate?** The API provides market rates, not the exact BSP reference rate. Close but not identical.
 - **Manual trigger:** Go to repo → Actions → "Update Exchange Rates" → "Run workflow"
+
+---
+
+## Content Freshness System
+
+Every YMYL (Your Money or Your Life) page has a review cadence, source citation, and automated staleness checking.
+
+### Overview
+
+- **Registry:** `src/data/content-registry.ts` — central config tracking all 9 YMYL pages
+- **Component:** `src/components/shared/source-citation.tsx` — visible source/freshness box on every page
+- **Checker script:** `scripts/check-content-freshness.mjs` — flags overdue pages
+- **Cron:** `.github/workflows/content-freshness.yml` — runs weekly (Monday 9 AM PHT)
+
+### Review Cadences
+
+| Page | Cadence | Source |
+|------|---------|--------|
+| USD/PHP Exchange Rate | Daily (auto) | BSP |
+| Savings Interest Rates | Every 14 days | Bank websites |
+| Pag-IBIG Housing Loan | Every 60 days | Pag-IBIG Fund |
+| Withholding Tax Table | Every 90 days | BIR (TRAIN Law) |
+| SSS Pension Table | Every 90 days | SSS |
+| SSS Contribution Guide | Every 90 days | SSS |
+| BSP Exchange Rate Guide | Every 90 days | BSP |
+| Withholding Tax Guide | Every 90 days | BIR |
+| SSS Pension Guide | Every 90 days | SSS |
+
+### Running Locally
+
+```bash
+node scripts/check-content-freshness.mjs          # pretty report
+node scripts/check-content-freshness.mjs --json    # JSON for CI
+node scripts/check-content-freshness.mjs --github  # writes GitHub issue body
+```
+
+### How It Works
+
+1. Cron runs every Monday at 9 AM PHT
+2. Script reads each data file's `UPDATED_AT` date
+3. Compares against the page's review cadence
+4. If any page is overdue → creates/updates a GitHub issue labeled `content-freshness`
+5. If all pages are fresh → auto-closes any open freshness issue
+
+---
+
+## DNS & Domain Troubleshooting
+
+### pesohub.ph not accessible (common issue)
+
+This has happened multiple times. The site at `pesohub.pages.dev` always works — it's the custom domain DNS that breaks.
+
+### Quick Diagnosis
+
+```bash
+# Check if Pages subdomain works (should always work)
+curl -sI https://pesohub.pages.dev | head -3
+
+# Check if custom domain resolves
+dig pesohub.ph @1.1.1.1 A +short
+
+# Check nameservers
+dig pesohub.ph NS +short
+# Should return: eric.ns.cloudflare.com and walk.ns.cloudflare.com
+
+# Query Cloudflare NS directly
+dig pesohub.ph @eric.ns.cloudflare.com A +short
+```
+
+### Fix: Re-provision the custom domain via Pages
+
+The most reliable fix when the CNAME exists in Cloudflare DNS but isn't resolving:
+
+1. **Delete** the CNAME record for `pesohub.ph` in Cloudflare DNS
+2. Wait 30 seconds
+3. Go to **Workers & Pages → pesohub → Custom domains**
+4. **Remove** `pesohub.ph`
+5. **Re-add** `pesohub.ph` — Pages will auto-create the correct CNAME
+6. Wait for status to show "Active" with "SSL enabled"
+7. Flush local DNS: `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`
+
+### Why This Happens
+
+Cloudflare Pages manages a special internal binding between the CNAME record and the Pages project. When the CNAME is manually added/deleted, this binding can break — the DNS dashboard shows the record, but the nameservers don't actually serve it. Letting Pages create the record itself ensures the binding is correct.
+
+### Local DNS Cache
+
+If the site works for others but not for you, it's a local DNS cache issue:
+
+```bash
+# macOS: flush DNS cache
+sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+```

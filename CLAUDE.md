@@ -59,7 +59,11 @@ npm run lint     # ESLint
 
 ## Deployment & Automation
 
-See [docs/deployment-and-automation.md](docs/deployment-and-automation.md) for full details on Cloudflare Pages deployment, DNS setup, and the GitHub Actions cron job for auto-updating exchange rates.
+See [docs/deployment-and-automation.md](docs/deployment-and-automation.md) for:
+- Cloudflare Pages deployment and DNS setup
+- GitHub Actions cron job for auto-updating exchange rates
+- Content freshness system (YMYL page review cadences and automated staleness checks)
+- **DNS troubleshooting** — common fix for pesohub.ph not resolving (re-provision custom domain via Pages)
 
 ## Email API
 
