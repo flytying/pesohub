@@ -4,7 +4,7 @@ export const WITHHOLDING_TAX_TABLE_UPDATED_AT = "2026-03-14";
 
 export const withholdingTaxTableMeta = {
   title: "Withholding Tax Table Philippines",
-  metaTitle: "Withholding Tax Table Philippines 2025 — TRAIN Law Brackets & Rates",
+  metaTitle: "Withholding Tax Table Philippines 2026 — TRAIN Law Brackets & Rates",
   metaDescription:
     "Official Philippine withholding tax table under the TRAIN Law (2023 onwards). See annual and monthly tax brackets, rates, and a worked example for employees.",
   slug: "government/bir/withholding-tax-table-philippines",

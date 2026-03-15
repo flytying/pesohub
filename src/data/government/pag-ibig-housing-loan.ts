@@ -4,7 +4,7 @@ export const PAGIBIG_HOUSING_LOAN_UPDATED_AT = "2026-03-14";
 
 export const pagibigHousingLoanMeta = {
   title: "Pag-IBIG Housing Loan Guide",
-  metaTitle: "Pag-IBIG Housing Loan Guide 2025 — Rates, Limits & Requirements",
+  metaTitle: "Pag-IBIG Housing Loan Guide 2026 — Rates, Limits & Requirements",
   metaDescription:
     "Complete guide to Pag-IBIG Fund housing loans. See interest rates, maximum loanable amounts, eligibility requirements, and how to apply for a Pag-IBIG home loan.",
   slug: "government/pag-ibig/pag-ibig-housing-loan-guide",
