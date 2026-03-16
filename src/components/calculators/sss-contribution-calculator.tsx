@@ -36,16 +36,16 @@ export function SSSContributionCalculator() {
         title="SSS Contribution Calculator"
         variant="split"
         resultsSummary={[
-          `Monthly Salary: ${formatPeso(monthlySalary)}`,
-          `Member Type: ${MEMBER_TYPE_LABELS[memberType]}`,
-          `Monthly Salary Credit: ${formatPeso(result.monthlySalaryCredit)}`,
-          `Total Contribution: ${formatPeso(result.totalContribution)}`,
+          `Monthly Compensation or Salary: ${formatPeso(monthlySalary)}`,
+          `Member Type Used: ${MEMBER_TYPE_LABELS[memberType]}`,
+          `Estimated Total Contribution: ${formatPeso(result.totalContribution)}`,
           result.isSharedContribution
             ? `Employee Share: ${formatPeso(result.employeeShare)}`
             : `Your Contribution: ${formatPeso(result.memberContribution)}`,
           result.isSharedContribution
             ? `Employer Share: ${formatPeso(result.employerShare)}`
             : "",
+          `Monthly Salary Credit: ${formatPeso(result.monthlySalaryCredit)}`,
         ]
           .filter(Boolean)
           .join("\n")}
@@ -54,12 +54,10 @@ export function SSSContributionCalculator() {
         <ResultPanel className="flex flex-col justify-between">
           <div>
             <p className="text-xs uppercase tracking-wider text-white/50">
-              {result.isSharedContribution
-                ? "Your SSS Contribution (Employee Share)"
-                : "Your SSS Contribution"}
+              Estimated Total Contribution
             </p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
-              {formatPeso(result.memberContribution)}
+              {formatPeso(result.totalContribution)}
             </p>
             <p className="mt-2 text-sm text-white/50">
               MSC: {formatPeso(result.monthlySalaryCredit, 0)} •{" "}
@@ -97,23 +95,13 @@ export function SSSContributionCalculator() {
           </div>
 
           <div className="space-y-1">
-            <CalculatorResult
-              label="Monthly Salary Credit"
-              value={formatPeso(result.monthlySalaryCredit)}
-              variant="dark"
-            />
-            <CalculatorResult
-              label="Total Contribution"
-              value={formatPeso(result.totalContribution)}
-              variant="dark"
-              highlight
-            />
-            {result.isSharedContribution && (
+            {result.isSharedContribution ? (
               <>
                 <CalculatorResult
                   label="Employee Share"
                   value={formatPeso(result.employeeShare)}
                   variant="dark"
+                  highlight
                 />
                 <CalculatorResult
                   label="Employer Share"
@@ -121,21 +109,38 @@ export function SSSContributionCalculator() {
                   variant="dark"
                 />
               </>
+            ) : (
+              <CalculatorResult
+                label="Your Contribution"
+                value={formatPeso(result.memberContribution)}
+                variant="dark"
+                highlight
+              />
             )}
+            <CalculatorResult
+              label="Monthly Salary Credit"
+              value={formatPeso(result.monthlySalaryCredit)}
+              variant="dark"
+            />
+            <CalculatorResult
+              label="Member Type Used"
+              value={MEMBER_TYPE_LABELS[memberType]}
+              variant="dark"
+            />
           </div>
         </ResultPanel>
 
         {/* RIGHT: Inputs */}
         <div className="space-y-6 p-8">
           <CalculatorInput
-            label="Monthly Salary"
+            label="Monthly Compensation or Salary"
             value={monthlySalary}
             onChange={setMonthlySalary}
             prefix="₱"
             min={0}
             max={100_000}
             step={1_000}
-            helpText="Your monthly salary or compensation basis"
+            helpText="Enter your monthly salary or compensation amount."
           />
 
           <div className="space-y-2">
@@ -155,7 +160,7 @@ export function SSSContributionCalculator() {
               ))}
             </select>
             <p className="text-xs text-muted-foreground">
-              SSS uses different schedules for each member classification
+              Choose the classification that best matches your current SSS status.
             </p>
           </div>
 
