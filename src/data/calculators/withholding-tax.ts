@@ -5,22 +5,22 @@ export const withholdingTaxData: CalculatorPageData = {
   category: "tax",
   title: "Withholding Tax Calculator Philippines",
   metaTitle:
-    "Withholding Tax Calculator Philippines | Estimate Salary Tax | PesoHub",
+    "Withholding Tax Calculator Philippines – Estimate Monthly Tax From Salary | PesoHub",
   metaDescription:
-    "Use this withholding tax calculator to estimate salary tax in the Philippines. This tool focuses on withholding tax only and does not include full net pay deductions unless stated.",
+    "Estimate your monthly withholding tax in the Philippines using your gross monthly salary. See annual tax, tax bracket, and tax-only take-home pay in one place.",
   h1: "Withholding Tax Calculator Philippines",
   intro:
-    "Estimate withholding tax based on your salary and the applicable tax bracket or tax table assumptions. This tool is designed for withholding tax estimates only, so it should be used as a quick planning reference, not as a full take-home pay calculator.",
-  updatedAt: "2025-03-01",
+    "Estimate your monthly withholding tax, annual income tax, and tax-only take-home pay using the current income tax brackets in the Philippines. Use this calculator to get a fast estimate based on your gross monthly salary before checking payroll details or official tables.",
+  updatedAt: "2026-03-16",
   defaultInputs: {
     monthlySalary: 35_000,
   },
   formula: {
     name: "TRAIN Law Graduated Income Tax Table",
     description:
-      "This calculator estimates withholding tax using the salary details you enter and the tax table or bracket assumptions built into the tool. It is intended for educational and planning use only.",
+      "This calculator estimates withholding tax by converting your gross monthly salary into annual taxable income, matching it to the correct income tax bracket under the TRAIN Law, and applying the bracket formula to compute your estimated annual and monthly tax.",
     explanation:
-      "Actual employer payroll systems may apply tax calculations differently depending on payroll treatment, compensation structure, and official updates, which is why your final withheld amount may not match this estimate exactly.",
+      "In short, your monthly tax estimate comes from annual tax logic converted back into a monthly view. Actual employer payroll systems may apply tax calculations differently depending on payroll treatment, compensation structure, and official updates.",
   },
   exampleCalculation: {
     scenario:
@@ -31,51 +31,57 @@ export const withholdingTaxData: CalculatorPageData = {
     result: {
       annualTaxableIncome: 420_000,
       annualTax: 26_500,
-      monthlyTax: 2_208,
+      monthlyTax: 2_208.33,
       effectiveRate: 6.31,
-      monthlyTakeHome: 32_792,
+      monthlyTakeHome: 32_791.67,
       annualTakeHome: 393_500,
     },
   },
   tips: [
-    "A higher taxable salary may increase the withholding tax estimate depending on the applicable tax bracket.",
-    "The estimate may change depending on whether salary is viewed monthly, semi-monthly, or through another supported pay schedule.",
-    "If the tool supports extra taxable amounts, adding them may increase the withholding tax estimate.",
+    "This calculator uses gross monthly salary multiplied by 12 to estimate annual taxable income.",
+    "It does not yet subtract mandatory contributions such as SSS, PhilHealth, and Pag-IBIG before computing tax.",
+    "Because of that, your actual payroll withholding may be lower than this estimate.",
   ],
   faqs: [
     {
-      question: "What does this withholding tax calculator estimate?",
+      question:
+        "How do I compute withholding tax from my monthly salary?",
       answer:
-        "It estimates withholding tax based on your salary input and the tax table or bracket assumptions used by the tool.",
+        "A simple estimate starts by converting your monthly salary into annual taxable income, identifying the matching tax bracket, calculating annual tax using the bracket formula, and then dividing the result by 12 to estimate monthly withholding.",
     },
     {
-      question: "Is this a take-home pay calculator?",
+      question:
+        "What is the difference between withholding tax and income tax?",
       answer:
-        "No. This page is focused on withholding tax only unless explicitly stated otherwise. It does not automatically include SSS, PhilHealth, or Pag-IBIG deductions.",
+        "Income tax is the total tax due based on taxable income. Withholding tax is the amount typically deducted from your pay during the year as an advance collection of that tax.",
     },
     {
-      question: "What deductions are not included here?",
+      question:
+        "Who is exempt from income tax in the Philippines?",
       answer:
-        "Unless the calculator clearly says otherwise, this estimate does not include SSS, PhilHealth, Pag-IBIG, or other employer-specific deductions.",
+        "Under the current TRAIN-law structure, annual taxable income up to ₱250,000 is generally exempt from income tax.",
     },
     {
-      question: "Why is my actual payslip different from this result?",
+      question:
+        "Does this calculator subtract SSS, PhilHealth, and Pag-IBIG first?",
       answer:
-        "Actual payroll tax may differ because of payroll setup, tax table updates, taxable versus non-taxable pay items, bonuses, and other deduction rules used by your employer.",
+        "No. This version uses gross monthly salary multiplied by 12 and does not yet subtract mandatory contributions before estimating income tax. That is why actual payroll withholding may differ.",
     },
     {
-      question: "Where should I go if I want net pay instead?",
+      question:
+        "Why is my payroll withholding different from this estimate?",
       answer:
-        "Use the Take-Home Pay Calculator for a broader estimate of pay after common deductions.",
+        "Payroll withholding can differ because employers may calculate tax using taxable compensation after deductions, include other income items, or use payroll-specific rules and rounding.",
     },
     {
-      question: "What tax period should this calculator show?",
+      question: "Can freelancers use this calculator?",
       answer:
-        "It should clearly show the tax year or reference period used so users can understand what official basis the estimate follows.",
+        "This page is mainly designed for employees estimating withholding tax from salary. Freelancers and self-employed taxpayers may be subject to different tax treatment, including other filing and rate options.",
     },
   ],
   relatedPages: [
-    "calculators/retirement/sss-pension-calculator",
     "calculators/tax/take-home-pay-calculator-philippines",
+    "government/bir/withholding-tax-table-philippines",
+    "guides/tax/how-withholding-tax-works-philippines",
   ],
 };
