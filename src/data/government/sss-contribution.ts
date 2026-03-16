@@ -3,13 +3,13 @@ import type { FAQ } from "@/types/content";
 export const SSS_CONTRIBUTION_UPDATED_AT = "2026-03-14";
 
 export const sssContributionMeta = {
-  title: "SSS Contribution Table 2025",
-  metaTitle: "SSS Contribution Table 2025 — Monthly Rates & Schedule Philippines",
+  title: "SSS Contribution Table 2026",
+  metaTitle: "SSS Contribution Table 2026 — Monthly Rates & Schedule Philippines",
   metaDescription:
-    "Complete SSS contribution table for 2025. See employee and employer shares by salary bracket, who needs to pay, and how to remit contributions.",
+    "Complete SSS contribution table for 2026. See employee and employer shares by salary bracket, who needs to pay, and how to remit contributions.",
   slug: "government/sss/sss-contribution-guide",
   directAnswer:
-    "SSS contributions in 2025 are based on your Monthly Salary Credit (MSC), which ranges from PHP 4,000 to PHP 30,000. The total contribution rate is 14% of MSC — employees pay 4.5% and employers pay 9.5%. Self-employed and voluntary members pay the full 14%.",
+    "SSS contributions in 2026 are based on your Monthly Salary Credit (MSC), which ranges from PHP 4,000 to PHP 30,000. The total contribution rate is 14% of MSC — employees pay 4.5% and employers pay 9.5%. Self-employed and voluntary members pay the full 14%.",
 };
 
 export const whoPaysSections = [
@@ -56,9 +56,9 @@ export const howToPayMethods = [
 
 export const sssContributionFaqs: FAQ[] = [
   {
-    question: "What is the SSS contribution rate for 2025?",
+    question: "What is the SSS contribution rate for 2026?",
     answer:
-      "The total SSS contribution rate for 2025 is 14% of the Monthly Salary Credit (MSC). For employed members, the employee pays 4.5% and the employer pays 9.5%. Self-employed and voluntary members pay the full 14%.",
+      "The total SSS contribution rate for 2026 is 14% of the Monthly Salary Credit (MSC). For employed members, the employee pays 4.5% and the employer pays 9.5%. Self-employed and voluntary members pay the full 14%.",
   },
   {
     question: "What is the maximum SSS contribution per month?",

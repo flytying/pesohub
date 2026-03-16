@@ -79,7 +79,7 @@ export default function SSSContributionGuidePage() {
       {/* Quick Summary */}
       <Card className="mb-8 border-primary/20 bg-primary/5">
         <CardHeader>
-          <CardTitle className="text-lg">2025 SSS Contribution Summary</CardTitle>
+          <CardTitle className="text-lg">2026 SSS Contribution Summary</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm">
           <p><strong>Total Rate:</strong> 14% of Monthly Salary Credit (MSC)</p>
@@ -95,7 +95,7 @@ export default function SSSContributionGuidePage() {
       {/* Full Contribution Table */}
       <section className="py-8">
         <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Complete SSS Contribution Table 2025
+          Complete SSS Contribution Table 2026
         </h2>
         <p className="mb-4 text-sm text-muted-foreground">
           Find your salary range below to see your Monthly Salary Credit (MSC),

@@ -4,7 +4,7 @@ export const SSS_PENSION_TABLE_UPDATED_AT = "2026-03-14";
 
 export const sssPensionTableMeta = {
   title: "SSS Pension Table Philippines",
-  metaTitle: "SSS Pension Table 2025 — Monthly Pension by Salary Credit & Years",
+  metaTitle: "SSS Pension Table 2026 — Monthly Pension by Salary Credit & Years",
   metaDescription:
     "See estimated SSS monthly pension amounts by salary credit and years of contribution. Understand the three pension formulas and minimum pension guarantees.",
   slug: "government/sss/sss-pension-table",
@@ -52,7 +52,7 @@ export const sssPensionTableFaqs: FAQ[] = [
   {
     question: "What is the maximum SSS monthly pension?",
     answer:
-      "There is no hard cap on the SSS pension, but it is limited by the maximum Monthly Salary Credit (PHP 30,000 in 2025) and your total years of contribution. With the maximum MSC and 30 years of contributions, the estimated pension is about PHP 27,300 per month.",
+      "There is no hard cap on the SSS pension, but it is limited by the maximum Monthly Salary Credit (PHP 30,000 in 2026) and your total years of contribution. With the maximum MSC and 30 years of contributions, the estimated pension is about PHP 27,300 per month.",
   },
   {
     question: "Can I receive SSS pension and still work?",

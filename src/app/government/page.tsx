@@ -1,15 +1,32 @@
+import Link from "next/link";
+import {
+  ArrowRight,
+  Shield,
+  Landmark,
+  TrendingUp,
+  Home,
+  Calculator,
+  BookOpen,
+  ScrollText,
+} from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
-import { ToolCard } from "@/components/shared/tool-card";
 import { FaqSection } from "@/components/shared/faq-section";
-// import { AdPlaceholder } from "@/components/ads/ad-placeholder";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { buttonVariants } from "@/lib/button-variants";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import { generateBreadcrumbSchema } from "@/lib/schema-markup";
 
 export const metadata = generatePageMetadata({
-  title: "Philippine Government Finance Reference",
+  title:
+    "Philippine Government Finance Reference | SSS, BIR, BSP & Pag-IBIG | PesoHub",
   description:
-    "Clear, plain-language guides to Philippine government finance rules. Understand SSS contributions, BIR withholding tax, BSP exchange rates, and Pag-IBIG housing loans.",
+    "Browse Philippine government finance reference pages on PesoHub. Check SSS tables, withholding tax references, BSP exchange-rate guides, and Pag-IBIG information in one place.",
   slug: "government",
 });
 
@@ -18,59 +35,182 @@ const breadcrumbs = [
   { label: "Government" },
 ];
 
+const needCards = [
+  {
+    icon: Shield,
+    title: "SSS contributions or pension",
+    description:
+      "Use SSS reference pages if you want to check contribution tables, pension-related figures, or contribution rules before using a calculator.",
+    href: "#all-pages",
+  },
+  {
+    icon: ScrollText,
+    title: "Withholding tax",
+    description:
+      "Use BIR tax reference pages if you want to review tax brackets, tables, or official tax basis before estimating deductions.",
+    href: "#all-pages",
+  },
+  {
+    icon: TrendingUp,
+    title: "Exchange rate reference",
+    description:
+      "Use BSP reference pages if you want to understand official exchange-rate references and how they differ from the rates you may see elsewhere.",
+    href: "#all-pages",
+  },
+  {
+    icon: Home,
+    title: "Pag-IBIG housing or deductions",
+    description:
+      "Use Pag-IBIG pages if you want to review housing-loan reference information or check government-related deduction context.",
+    href: "#all-pages",
+  },
+];
+
 const governmentPages = [
   {
-    title: "SSS Contribution Table 2025",
+    title: "SSS Contribution Table",
     description:
-      "Complete SSS contribution table with employee and employer shares by salary bracket. See rates for employed, self-employed, and voluntary members.",
+      "Check SSS contribution schedules and contribution-related reference details to better understand required amounts and contribution structure.",
     href: "/government/sss/sss-contribution-guide",
     category: "SSS",
   },
   {
     title: "SSS Pension Table",
     description:
-      "Estimated monthly SSS pension amounts by salary credit and years of contribution. Includes the three pension formulas and eligibility requirements.",
+      "Review SSS pension-related reference information to better understand pension figures, contribution history context, and retirement-related estimates.",
     href: "/government/sss/sss-pension-table",
     category: "SSS",
   },
   {
-    title: "Withholding Tax Table Philippines",
+    title: "Withholding Tax Table",
     description:
-      "Official TRAIN Law withholding tax brackets and rates for 2023 onwards. See annual and monthly tax tables with a worked example.",
+      "Check withholding tax brackets and reference tables used to understand salary-based tax deductions in the Philippines.",
     href: "/government/bir/withholding-tax-table-philippines",
     category: "BIR",
   },
   {
     title: "BSP Exchange Rate Guide",
     description:
-      "How the Bangko Sentral ng Pilipinas sets the USD/PHP reference rate, what the PDS is, and why bank rates differ from the BSP rate.",
+      "Review BSP exchange-rate reference information and understand how official reference rates differ from rates used in actual transactions.",
     href: "/government/bsp/bsp-exchange-rate-guide",
     category: "BSP",
   },
   {
     title: "Pag-IBIG Housing Loan Guide",
     description:
-      "Pag-IBIG Fund housing loan interest rates, maximum loanable amounts, eligibility requirements, and how to apply.",
+      "Explore Pag-IBIG housing loan reference information, including key terms, requirements, and government-backed housing loan context.",
     href: "/government/pag-ibig/pag-ibig-housing-loan-guide",
     category: "Pag-IBIG",
   },
 ];
 
+const whenToUse = {
+  reference: [
+    "check a tax table or contribution schedule",
+    "review an official-reference-style summary",
+    "verify the basis for a rate, bracket, or deduction",
+  ],
+  guides: [
+    "understand a topic in plain language",
+    "see examples and common questions",
+    "learn what a figure means before acting on it",
+  ],
+  calculators: [
+    "estimate deductions, payments, or savings",
+    "test scenarios quickly",
+    "move from reference information to a practical number",
+  ],
+};
+
+const guidanceItems = [
+  {
+    condition: "If you want to estimate salary deductions",
+    links: [
+      {
+        label: "Withholding Tax Calculator",
+        href: "/calculators/tax/withholding-tax-calculator-philippines",
+      },
+      {
+        label: "Take-Home Pay Calculator",
+        href: "/calculators/tax/take-home-pay-calculator-philippines",
+      },
+    ],
+  },
+  {
+    condition: "If you want to understand SSS contributions more clearly",
+    links: [
+      {
+        label: "SSS Contribution Guide",
+        href: "/government/sss/sss-contribution-guide",
+      },
+    ],
+  },
+  {
+    condition: "If you want plain-language help with tax or deductions",
+    links: [{ label: "Guides", href: "/guides" }],
+  },
+  {
+    condition: "If you want a faster estimate instead of reading tables",
+    links: [{ label: "Calculators", href: "/calculators" }],
+  },
+];
+
+const howToUsePoints = [
+  "Use reference pages to verify, not replace, official announcements.",
+  "Check effective dates and review dates on year-sensitive pages.",
+  "Use the matching guide or calculator when you need explanation or estimates.",
+];
+
 const faqs = [
   {
-    question: "Is PesoHub affiliated with any Philippine government agency?",
+    question: "What can I find on the Government section of PesoHub?",
     answer:
-      "No. PesoHub is an independent project and is not affiliated with the SSS, BIR, BSP, Pag-IBIG, or any other Philippine government agency. Our government reference pages explain official rules in clearer language but should not be treated as official publications.",
+      "You can browse government-related finance reference pages such as contribution tables, tax references, exchange-rate references, and Pag-IBIG information that help you verify figures and understand official-reference-style information more easily.",
   },
   {
-    question: "Are these government reference pages up to date?",
+    question: "Are these official government pages?",
     answer:
-      "We review and update our reference pages whenever official rules, rates, or schedules change. Each page shows the date it was last updated. Always verify critical information with the relevant government agency.",
+      "PesoHub pages are designed to help organize and explain reference information more clearly, but users should still verify important details with the official government source when needed.",
   },
   {
-    question: "Can I use these pages for official filings or applications?",
+    question: "Should I use a reference page, guide, or calculator?",
     answer:
-      "Our pages are educational references only. For official filings, applications, or compliance, always use the official forms, tables, and guidelines published by the relevant government agency (SSS, BIR, BSP, or Pag-IBIG).",
+      "Use a reference page if you want to check a table, bracket, or official-reference-style summary. Use a guide if you want a plain-language explanation. Use a calculator if you want an estimate based on your own inputs.",
+  },
+  {
+    question: "Why do some government figures change?",
+    answer:
+      "Contribution schedules, tax tables, and other public finance references may change when agencies update rules, thresholds, or rates. That is why year-sensitive pages should always be checked carefully.",
+  },
+  {
+    question:
+      "Where should I go if I want to estimate deductions or payments?",
+    answer:
+      "Visit PesoHub Calculators if you want to estimate tax, contributions, take-home pay, loan payments, or savings scenarios.",
+  },
+];
+
+const relatedSections = [
+  {
+    title: "Calculators",
+    description:
+      "Use calculators to estimate deductions, contributions, payments, and savings.",
+    href: "/calculators",
+    icon: Calculator,
+  },
+  {
+    title: "Guides",
+    description:
+      "Use guides for plain-language explanations of tax, SSS, and government-related topics.",
+    href: "/guides",
+    icon: BookOpen,
+  },
+  {
+    title: "Rates",
+    description:
+      "Browse rate-related pages for exchange rates, savings rates, and other finance references.",
+    href: "/rates",
+    icon: TrendingUp,
   },
 ];
 
@@ -79,28 +219,302 @@ export default function GovernmentPage() {
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
 
+      {/* Hero */}
       <PageHero
         title="Philippine Government Finance Reference"
-        description="Plain-language guides to SSS, BIR, BSP, and Pag-IBIG rules. Understand contribution tables, tax brackets, exchange rates, and housing loan terms."
+        description="Use this section to check government-related finance references in one place. Browse contribution tables, tax references, exchange-rate references, and Pag-IBIG information that help you verify figures, understand official frameworks, and move to the right calculator or guide faster."
         breadcrumbs={breadcrumbs}
       />
 
-      {/* <AdPlaceholder slot="government-top" /> */}
+      {/* Support text */}
+      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
+        If you want to check a table, bracket, schedule, or official reference
+        basis, start here. If you want a plain-language explanation, visit{" "}
+        <Link href="/guides" className="text-primary hover:underline">
+          Guides
+        </Link>
+        . If you want an estimate, use a{" "}
+        <Link href="/calculators" className="text-primary hover:underline">
+          Calculator
+        </Link>
+        .
+      </p>
 
-      <section>
+      {/* CTA */}
+      <div className="-mt-4 mb-10 flex flex-col gap-3 sm:flex-row">
+        <Link
+          href="#all-pages"
+          className={buttonVariants({ className: "font-medium" })}
+        >
+          Browse reference pages
+          <ArrowRight className="size-4" />
+        </Link>
+        <Link
+          href="#related"
+          className={buttonVariants({
+            variant: "outline",
+            className: "font-medium",
+          })}
+        >
+          See related sections
+        </Link>
+      </div>
+
+      {/* Start with What You Need to Check */}
+      <section className="pt-8">
         <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          All Reference Pages
+          Start with what you need to check
         </h2>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {needCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <Link
+                key={card.title}
+                href={card.href}
+                className="group block"
+              >
+                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
+                  <CardHeader>
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+                      <Icon className="size-5" />
+                    </div>
+                    <CardTitle className="mt-3 text-sm">
+                      {card.title}
+                    </CardTitle>
+                    <CardDescription className="text-xs leading-relaxed">
+                      {card.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* When to Use Government Reference Pages */}
+      <section className="pt-16">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          When to use Government Reference pages
+        </h2>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Use a government reference page when you want to check a table,
+          schedule, bracket, contribution rule, or official-reference-style
+          summary. These pages are best when you need to verify information
+          first before calculating, comparing, or reading a longer explanation.
+        </p>
+
+        <div className="mt-6 grid gap-6 sm:grid-cols-3">
+          <div>
+            <h3 className="text-sm font-semibold text-foreground">
+              Use <span className="text-primary">Reference pages</span> when
+              you want to:
+            </h3>
+            <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
+              {whenToUse.reference.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-foreground">
+              Use{" "}
+              <Link
+                href="/guides"
+                className="text-primary hover:underline"
+              >
+                Guides
+              </Link>{" "}
+              when you want to:
+            </h3>
+            <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
+              {whenToUse.guides.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-foreground">
+              Use{" "}
+              <Link
+                href="/calculators"
+                className="text-primary hover:underline"
+              >
+                Calculators
+              </Link>{" "}
+              when you want to:
+            </h3>
+            <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
+              {whenToUse.calculators.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* All Government Reference Pages */}
+      <section id="all-pages" className="scroll-mt-20 pt-16">
+        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+          All Government Reference Pages
+        </h2>
+        <p className="mb-6 text-sm text-muted-foreground">
+          Start with the reference page that best matches what you want to
+          verify or understand.
+        </p>
         <div className="grid gap-5 sm:grid-cols-2">
           {governmentPages.map((page) => (
-            <ToolCard key={page.href} {...page} />
+            <Card key={page.title} className="h-full">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-foreground/80">
+                    {page.category}
+                  </span>
+                </div>
+                <CardTitle className="mt-2 text-base">{page.title}</CardTitle>
+                <CardDescription className="text-sm leading-relaxed">
+                  {page.description}
+                </CardDescription>
+                <div className="mt-3">
+                  <Link
+                    href={page.href}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80"
+                  >
+                    View reference
+                    <ArrowRight className="size-3.5" />
+                  </Link>
+                </div>
+              </CardHeader>
+            </Card>
           ))}
         </div>
       </section>
 
-      {/* <AdPlaceholder slot="government-bottom" /> */}
+      {/* Not Sure Where to Go Next */}
+      <section className="mt-12 rounded-lg border border-border bg-muted/30 p-6">
+        <h2 className="text-sm font-semibold text-foreground">
+          Not sure where to go next?
+        </h2>
+        <p className="mt-1 text-xs text-muted-foreground">
+          Choose the next step based on what you want to do after checking a
+          reference page.
+        </p>
+        <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+          {guidanceItems.map((item) => (
+            <li key={item.condition}>
+              <span className="font-medium text-foreground/80">
+                {item.condition}:
+              </span>{" "}
+              {item.links.map((link, i) => (
+                <span key={link.href}>
+                  {i > 0 && " or "}
+                  <Link
+                    href={link.href}
+                    className="text-primary hover:underline"
+                  >
+                    {link.label}
+                  </Link>
+                </span>
+              ))}
+            </li>
+          ))}
+        </ul>
+      </section>
 
+      {/* How to Use PesoHub Government Reference Pages */}
+      <section className="pt-16">
+        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          How to use PesoHub government reference pages
+        </h2>
+        <p className="mt-3 text-sm text-muted-foreground">
+          PesoHub government reference pages are designed to make public finance
+          information easier to scan and understand. These pages can help you
+          review contribution schedules, tax references, exchange-rate
+          references, and other government-related information in a clearer
+          format.
+        </p>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Because some figures, rules, and schedules may change, users should
+          treat reference pages as a helpful starting point and verify important
+          details with the relevant official source when needed.
+        </p>
+        <ul className="mt-4 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
+          {howToUsePoints.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Related Sections */}
+      <section id="related" className="scroll-mt-20 pt-16">
+        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+          Related Sections
+        </h2>
+        <p className="mb-6 text-sm text-muted-foreground">
+          Need more than a reference page? Explore related tools and explainers
+          to help you understand or estimate the numbers you see here.
+        </p>
+        <div className="grid gap-5 sm:grid-cols-3">
+          {relatedSections.map((section) => {
+            const Icon = section.icon;
+            return (
+              <Link
+                key={section.title}
+                href={section.href}
+                className="group block"
+              >
+                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
+                  <CardHeader>
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+                      <Icon className="size-5" />
+                    </div>
+                    <CardTitle className="mt-3 text-sm">
+                      {section.title}
+                    </CardTitle>
+                    <CardDescription className="text-xs leading-relaxed">
+                      {section.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* FAQ */}
       <FaqSection faqs={faqs} />
+
+      {/* Final CTA */}
+      <section className="mb-4 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
+        <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
+          Check the reference, then take the next step
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
+          Use government reference pages to verify tables, brackets, and
+          schedules. Then move to a calculator for estimates or a guide for
+          plain-language explanations.
+        </p>
+        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Link
+            href="#all-pages"
+            className={buttonVariants({ className: "font-medium" })}
+          >
+            Browse reference pages
+            <ArrowRight className="size-4" />
+          </Link>
+          <Link
+            href="/calculators"
+            className={buttonVariants({
+              variant: "outline",
+              className: "font-medium",
+            })}
+          >
+            Explore calculators
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
