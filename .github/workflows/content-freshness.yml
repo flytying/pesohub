@@ -10,6 +10,7 @@ jobs:
   check-freshness:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       issues: write
 
     steps:
@@ -26,16 +27,8 @@ jobs:
           echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
         continue-on-error: true
 
-      - name: Create or update GitHub issue if stale content found
-        if: steps.check.outputs.exit_code == '1' && hashFiles('.github/freshness-report.md') != ''
-        uses: peter-evans/create-or-update-comment@v4
-        continue-on-error: true
-        with:
-          issue-number: ${{ steps.find-issue.outputs.issue-number }}
-          body-path: .github/freshness-report.md
-
       - name: Find existing freshness issue
-        if: steps.check.outputs.exit_code == '1' && hashFiles('.github/freshness-report.md') != ''
+        if: always()
         id: find-issue
         run: |
           ISSUE=$(gh issue list --label "content-freshness" --state open --json number --jq '.[0].number // empty')
@@ -43,7 +36,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create new issue if none exists
+      - name: Create new issue if stale content found
         if: steps.check.outputs.exit_code == '1' && hashFiles('.github/freshness-report.md') != '' && steps.find-issue.outputs.issue-number == ''
         run: |
           gh issue create \
@@ -62,11 +55,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Close issue if all fresh
-        if: steps.check.outputs.exit_code == '0'
+        if: steps.check.outputs.exit_code == '0' && steps.find-issue.outputs.issue-number != ''
         run: |
-          ISSUE=$(gh issue list --label "content-freshness" --state open --json number --jq '.[0].number // empty')
-          if [ -n "$ISSUE" ]; then
-            gh issue close "$ISSUE" --comment "✅ All content is within review cadence. Closing automatically."
-          fi
+          gh issue close "${{ steps.find-issue.outputs.issue-number }}" \
+            --comment "✅ All content is within review cadence. Closing automatically."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
