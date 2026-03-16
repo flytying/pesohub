@@ -199,7 +199,6 @@ const savingsCalculators: CalculatorData[] = [
     bestNextStep:
       "Check time deposit rates or related savings pages first.",
     href: "/calculators/savings/time-deposit-calculator-philippines",
-    comingSoon: true,
   },
   {
     title: "Savings Goal Calculator",
