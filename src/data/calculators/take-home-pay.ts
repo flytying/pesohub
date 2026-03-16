@@ -5,13 +5,13 @@ export const takeHomePayData: CalculatorPageData = {
   category: "tax",
   title: "Take-Home Pay Calculator Philippines",
   metaTitle:
-    "Take-Home Pay Calculator Philippines | Estimate Net Salary | PesoHub",
+    "Take-Home Pay Calculator Philippines – Estimate Net Pay After Salary Deductions | PesoHub",
   metaDescription:
-    "Estimate your take-home pay in the Philippines after withholding tax, SSS, PhilHealth, and Pag-IBIG deductions. Use this calculator for salary planning.",
+    "Estimate your take-home pay in the Philippines after withholding tax, SSS, PhilHealth, and Pag-IBIG. See a full gross-to-net deduction breakdown with PesoHub's calculator.",
   h1: "Take-Home Pay Calculator Philippines",
   intro:
-    "Estimate your monthly take-home pay after common payroll deductions including withholding tax, SSS, PhilHealth, and Pag-IBIG contributions. This calculator gives you a clearer picture of your likely net pay based on your gross salary.",
-  updatedAt: "2026-03-15",
+    "Estimate your monthly take-home pay in the Philippines after common payroll deductions such as withholding tax, SSS, PhilHealth, and Pag-IBIG. Use this calculator to compare gross salary against estimated net pay and understand where your deductions come from.",
+  updatedAt: "2026-03-16",
   defaultInputs: {
     monthlySalary: 35_000,
   },
@@ -39,44 +39,47 @@ export const takeHomePayData: CalculatorPageData = {
     },
   },
   tips: [
-    "A higher gross salary will increase withholding tax and may also change SSS and PhilHealth deductions.",
-    "Pay period assumptions may affect how deductions are calculated. This tool uses monthly gross salary as the basis.",
-    "Your actual SSS, PhilHealth, or Pag-IBIG contributions may differ if your employer uses a different salary credit or rate basis.",
+    "Your take-home pay is your salary after common deductions are subtracted.",
+    "Even if your gross salary stays the same, your estimated take-home pay will be lower because payroll deductions reduce the amount you actually receive.",
+    "This calculator is useful for a standard estimate, but it does not replace your employer's actual payroll system or full payslip.",
   ],
   faqs: [
     {
       question: "What does this take-home pay calculator estimate?",
       answer:
-        "It estimates your monthly net pay after subtracting common mandatory deductions: withholding tax (TRAIN Law), SSS employee share, PhilHealth employee share, and Pag-IBIG employee share.",
+        "This calculator estimates your monthly net pay after common deductions such as withholding tax, SSS, PhilHealth, and Pag-IBIG. It is designed for planning and comparison, not as a final payroll document.",
     },
     {
       question: "Does this include SSS, PhilHealth, and Pag-IBIG?",
       answer:
-        "Yes. Unlike the withholding tax calculator which only estimates income tax, this tool includes SSS, PhilHealth, and Pag-IBIG employee contributions in the deduction breakdown.",
+        "Yes. This page is intended to estimate take-home pay after those common mandatory employee deductions, along with withholding tax.",
     },
     {
-      question: "Is this a payslip calculator?",
+      question: "Is this the same as a payslip calculator?",
       answer:
-        "No. This tool estimates take-home pay based on standard deduction rules. Your actual payslip may include additional items such as salary loans, allowances, overtime, bonuses, or employer-specific deductions that are not covered here.",
+        "Not exactly. This is a simplified payroll estimate. Your actual payslip may include other deductions, loans, allowances, bonuses, or company-specific payroll treatment.",
     },
     {
-      question: "Why is my result different from my actual payslip?",
+      question:
+        "Why is my actual take-home pay different from this estimate?",
       answer:
-        "Differences may come from employer-specific deductions, different salary credit bases, non-taxable allowances, loans, bonuses, overtime pay, or adjustments that this calculator does not include.",
+        "Actual take-home pay may differ because employers may apply different payroll inputs, taxable compensation treatment, rounding, loans, variable pay items, or voluntary deductions.",
     },
     {
-      question: "What if I only want to see withholding tax?",
+      question:
+        "What if I only want to estimate withholding tax?",
       answer:
-        "Use the Withholding Tax Calculator instead. It focuses specifically on income tax estimation without the other mandatory deductions.",
+        "Use the Withholding Tax Calculator if you want to isolate income tax and understand that deduction more clearly.",
     },
     {
-      question: "What tax year does this calculator use?",
+      question: "Why does gross salary matter?",
       answer:
-        "This calculator uses the TRAIN Law tax brackets effective 2023 onwards, the 2025 SSS contribution table, the current PhilHealth premium rate (5%), and standard Pag-IBIG contribution rules.",
+        "Gross salary is the starting point for the estimate. The calculator subtracts common deductions from gross pay to estimate your monthly net pay.",
     },
   ],
   relatedPages: [
     "calculators/tax/withholding-tax-calculator-philippines",
+    "calculators/sss/sss-contribution-calculator-philippines",
     "government/sss/sss-contribution-guide",
   ],
 };
