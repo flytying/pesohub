@@ -54,13 +54,13 @@ export function PersonalLoanCalculator() {
           `Term: ${termMonths} months`,
           `Monthly Payment: ${formatPeso(result.monthlyPayment)}`,
           `Total Interest: ${formatPeso(result.totalInterest)}`,
-          `Total Cost: ${formatPeso(result.totalCost)}`,
+          `Total Repayment: ${formatPeso(result.totalCost)}`,
         ].join("\n")}
       >
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/50">Monthly Payment</p>
+            <p className="text-xs uppercase tracking-wider text-white/50">Estimated Monthly Payment</p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
               {formatPeso(result.monthlyPayment)}
             </p>
@@ -97,7 +97,7 @@ export function PersonalLoanCalculator() {
               variant="dark"
             />
             <CalculatorResult
-              label="Total Cost"
+              label="Total Repayment"
               value={formatPeso(result.totalCost)}
               variant="dark"
               highlight
@@ -115,16 +115,16 @@ export function PersonalLoanCalculator() {
             min={10_000}
             max={3_000_000}
             step={5_000}
-            helpText="₱10,000 to ₱3,000,000"
+            helpText="Enter the amount you want to borrow."
           />
           <CalculatorInput
-            label="Loan Term (months)"
+            label="Repayment Term (months)"
             value={termMonths}
             onChange={setTermMonths}
             min={3}
             max={60}
             step={1}
-            helpText="3 to 60 months"
+            helpText="Choose the number of months for repayment."
           />
           <CalculatorInput
             label="Annual Interest Rate (%)"
@@ -133,7 +133,7 @@ export function PersonalLoanCalculator() {
             min={0}
             max={36}
             step={0.1}
-            helpText="Typical PH rate: 10% - 24%"
+            helpText="Enter the estimated annual interest rate offered by the lender."
           />
         </div>
       </CalculatorShell>
@@ -141,10 +141,16 @@ export function PersonalLoanCalculator() {
       {/* Amortization Table */}
       {result.schedule.length > 0 && (
         <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
-          <h3 className="mb-3 text-sm font-semibold text-foreground">
+          <h3 className="mb-1 text-sm font-semibold text-foreground">
             Amortization Schedule
           </h3>
+          <p className="mb-3 text-xs text-muted-foreground">
+            Review the estimated monthly breakdown of your loan payments over the full repayment term.
+          </p>
           <AmortizationTable schedule={result.schedule} />
+          <p className="mt-3 text-xs text-muted-foreground">
+            This schedule is an estimate based on the values you entered. Actual lender computations, fees, and repayment structures may vary.
+          </p>
         </div>
       )}
     </div>

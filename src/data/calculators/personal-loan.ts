@@ -5,24 +5,24 @@ export const personalLoanData: CalculatorPageData = {
   category: "loans",
   title: "Personal Loan Calculator Philippines",
   metaTitle:
-    "Personal Loan Calculator Philippines | Estimate Monthly Payments | PesoHub",
+    "Personal Loan Calculator Philippines – Estimate Monthly Payment & Repayment | PesoHub",
   metaDescription:
-    "Use this personal loan calculator to estimate monthly payments, total interest, and total repayment in the Philippines. Compare scenarios before checking actual offers.",
+    "Estimate your monthly personal loan payment in the Philippines using PesoHub's free personal loan calculator. Compare loan amount, repayment term, and interest rate before applying.",
   h1: "Personal Loan Calculator Philippines",
   intro:
-    "Estimate your monthly personal loan payment based on loan amount, interest rate, and repayment term. Use this as a planning tool before comparing actual bank, lender, or financing offers.",
-  updatedAt: "2025-03-01",
+    "Estimate your monthly personal loan payment, total interest, and total repayment before applying. Adjust the loan amount, repayment term, and interest rate to compare scenarios and find a monthly payment that fits your budget.",
+  updatedAt: "2026-03-16",
   defaultInputs: {
     loanAmount: 100_000,
     termMonths: 36,
     interestRate: 12,
   },
   formula: {
-    name: "Standard Annuity Formula",
+    name: "Monthly Payment Formula",
     description:
-      "This calculator estimates your loan payment using the loan amount, interest rate, and repayment term you enter. Results are meant for planning and educational use only.",
+      "This personal loan calculator estimates your monthly payment using the loan amount, annual interest rate, and repayment term. The monthly payment is then estimated using a standard amortization formula.",
     explanation:
-      "The exact payment method used by a lender may differ from the assumptions in this calculator, which is why your final quote may not match the estimate exactly.",
+      "You do not need to calculate it manually, but understanding the formula can help you see why a shorter term may reduce total interest while a longer term may lower the monthly payment. This formula is commonly used to estimate fixed monthly loan payments based on the amount borrowed, interest rate, and repayment term.",
   },
   exampleCalculation: {
     scenario:
@@ -39,41 +39,44 @@ export const personalLoanData: CalculatorPageData = {
     },
   },
   tips: [
-    "A lower loan amount usually reduces both monthly payment and total interest.",
-    "A longer loan term may reduce the monthly amount, but it can also increase the total interest paid over time.",
-    "A lower rate can reduce both your monthly payment and the total cost of borrowing, even when the loan amount stays the same.",
-    "Compare personal loan offers from at least 3 banks or lenders before deciding.",
+    "Borrow only what you actually need",
+    "Compare shorter and longer repayment terms",
+    "Check whether the monthly payment fits your regular budget",
+    "Ask whether fees will be deducted from the amount you receive",
+    "Compare more than one lender type before deciding",
   ],
   faqs: [
     {
       question: "What does this personal loan calculator estimate?",
       answer:
-        "It estimates your monthly payment, total interest, and total repayment based on the loan amount, interest rate, and repayment term you enter.",
+        "This calculator estimates your monthly payment, total interest, and total repayment based on the loan amount, repayment term, and interest rate you enter. It is designed for planning and comparison, not as an official lender quote.",
     },
     {
-      question: "Is this an official loan quote?",
+      question: "Is this an official personal loan offer?",
       answer:
-        "No. This is a planning estimate only. Your actual quote may differ depending on the lender, approval terms, fees, promo offers, and credit review.",
+        "No. This calculator provides an estimate only. Actual loan offers may vary depending on the lender, your credit profile, approval terms, fees, and final repayment structure.",
     },
     {
-      question: "Does the loan amount affect the result?",
+      question: "Why do different lenders show different loan costs?",
       answer:
-        "Yes. A larger loan amount usually increases both monthly payment and total interest, while a smaller loan amount usually lowers them.",
+        "Different lenders may use different interest rates, fee structures, repayment terms, and approval criteria. That is why it is important to compare both the monthly payment and the total repayment before choosing a loan.",
     },
     {
-      question: "Why might different lenders show different results?",
+      question:
+        "Does a longer repayment term always make a loan better?",
       answer:
-        "Different lenders may use different rates, fee structures, promo terms, repayment methods, and approval rules. Even for the same loan amount, the final cost may vary.",
+        "Not always. A longer term can reduce the monthly payment, which may help with short-term affordability, but it can also increase the total interest paid over time. It is important to compare both the monthly amount and the full borrowing cost.",
     },
     {
-      question: "Does a longer loan term reduce the monthly payment?",
+      question: "Does this calculator include fees and deductions?",
       answer:
-        "Usually, yes. But a longer term may also increase the total interest paid over the life of the loan.",
+        "No. This calculator focuses on the estimated repayment based on the amount, term, and interest rate you enter. It may not reflect processing fees, insurance, service charges, or other deductions that affect the actual amount released or the full cost of borrowing.",
     },
     {
-      question: "What costs are not included in this estimate?",
+      question:
+        "Can the approved amount and released amount be different?",
       answer:
-        "Depending on the setup of your calculator, this estimate may not include processing fees, service charges, insurance, penalties, or other lender-specific charges.",
+        "Yes. Some lenders may deduct fees or charges before releasing the funds, which means the actual amount you receive can be lower than the approved loan amount.",
     },
   ],
   relatedPages: [
