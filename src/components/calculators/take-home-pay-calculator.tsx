@@ -37,20 +37,21 @@ export function TakeHomePayCalculator() {
         title="Take-Home Pay Calculator"
         variant="split"
         resultsSummary={[
-          `Monthly Gross Salary: ${formatPeso(monthlySalary)}`,
-          `Withholding Tax: ${formatPeso(result.withholdingTax)}`,
-          `SSS: ${formatPeso(result.sssContribution)}`,
-          `PhilHealth: ${formatPeso(result.philhealthContribution)}`,
-          `Pag-IBIG: ${formatPeso(result.pagibigContribution)}`,
+          `Gross Monthly Salary: ${formatPeso(monthlySalary)}`,
+          `Estimated Monthly Take-Home Pay: ${formatPeso(result.takeHomePay)}`,
           `Total Deductions: ${formatPeso(result.totalDeductions)}`,
-          `Monthly Take-Home Pay: ${formatPeso(result.takeHomePay)}`,
+          `Deductions as % of Gross: ${formatPercent(deductionRate)}`,
+          `Withholding Tax: ${formatPeso(result.withholdingTax)}`,
+          `SSS Employee Share: ${formatPeso(result.sssContribution)}`,
+          `PhilHealth Employee Share: ${formatPeso(result.philhealthContribution)}`,
+          `Pag-IBIG Employee Share: ${formatPeso(result.pagibigContribution)}`,
         ].join("\n")}
       >
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
             <p className="text-xs uppercase tracking-wider text-white/50">
-              Monthly Take-Home Pay
+              Estimated Monthly Take-Home Pay
             </p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
               {formatPeso(result.takeHomePay)}
@@ -94,23 +95,8 @@ export function TakeHomePayCalculator() {
 
           <div className="mt-6 space-y-1">
             <CalculatorResult
-              label="Withholding Tax"
-              value={formatPeso(result.withholdingTax)}
-              variant="dark"
-            />
-            <CalculatorResult
-              label="SSS"
-              value={formatPeso(result.sssContribution)}
-              variant="dark"
-            />
-            <CalculatorResult
-              label="PhilHealth"
-              value={formatPeso(result.philhealthContribution)}
-              variant="dark"
-            />
-            <CalculatorResult
-              label="Pag-IBIG"
-              value={formatPeso(result.pagibigContribution)}
+              label="Gross Monthly Salary"
+              value={formatPeso(monthlySalary)}
               variant="dark"
             />
             <CalculatorResult
@@ -118,6 +104,11 @@ export function TakeHomePayCalculator() {
               value={formatPeso(result.totalDeductions)}
               variant="dark"
               highlight
+            />
+            <CalculatorResult
+              label="Deductions as % of Gross"
+              value={formatPercent(deductionRate)}
+              variant="dark"
             />
           </div>
         </ResultPanel>
@@ -132,7 +123,7 @@ export function TakeHomePayCalculator() {
             min={0}
             max={1_000_000}
             step={1_000}
-            helpText="Your gross monthly salary before any deductions"
+            helpText="Enter your monthly salary before deductions."
           />
 
           <Separator />
