@@ -6,7 +6,10 @@ export interface BankSavingsRate {
   bankName: string;
   accountType: string;
   interestRate: number;
+  rateType: "Promo" | "Standard";
   minimumBalance: number;
+  liquidity: string;
+  bestFor: string;
   notes: string;
 }
 
@@ -19,63 +22,90 @@ export const bankSavingsRates: BankSavingsRate[] = [
     bankName: "Maya",
     accountType: "Personal Savings",
     interestRate: 15,
+    rateType: "Promo",
     minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "Highest promo rate",
     notes: "Promo rate; subject to change. Formerly PayMaya.",
   },
   {
     bankName: "Tonik",
     accountType: "Stash",
     interestRate: 6,
+    rateType: "Standard",
     minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "Everyday digital savings",
     notes: "Digital-only bank licensed by BSP.",
   },
   {
     bankName: "GoTyme",
     accountType: "Regular Savings",
     interestRate: 5,
+    rateType: "Standard",
     minimumBalance: 0,
+    liquidity: "App + kiosk withdrawals",
+    bestFor: "Low minimum balance",
     notes: "Joint venture of Gokongwei Group and Tyme Group.",
   },
   {
     bankName: "SeaBank",
     accountType: "Regular Savings",
     interestRate: 5,
+    rateType: "Standard",
     minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "Everyday digital savings",
     notes: "Backed by Sea Group (Shopee). BSP-licensed digital bank.",
   },
   {
     bankName: "CIMB",
     accountType: "GSave / UpSave",
     interestRate: 3.5,
+    rateType: "Standard",
     minimumBalance: 0,
+    liquidity: "App + GCash integration",
+    bestFor: "Low minimum balance",
     notes: "GCash partner bank. UpSave account offers higher rate.",
   },
   {
     bankName: "ING Philippines",
     accountType: "Savings Account",
     interestRate: 2.5,
+    rateType: "Standard",
     minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "Parked short-term cash",
     notes: "Verify availability; ING has scaled back operations in some markets.",
   },
   {
     bankName: "BDO",
     accountType: "Regular Savings",
     interestRate: 0.25,
+    rateType: "Standard",
     minimumBalance: 10000,
+    liquidity: "Branch + ATM + app",
+    bestFor: "Traditional bank users",
     notes: "Largest bank in the Philippines by assets.",
   },
   {
     bankName: "BPI",
     accountType: "Regular Savings",
     interestRate: 0.25,
+    rateType: "Standard",
     minimumBalance: 3000,
+    liquidity: "Branch + ATM + app",
+    bestFor: "Traditional bank users",
     notes: "One of the oldest banks in the Philippines.",
   },
   {
     bankName: "Metrobank",
     accountType: "Regular Savings",
     interestRate: 0.25,
+    rateType: "Standard",
     minimumBalance: 10000,
+    liquidity: "Branch + ATM + app",
+    bestFor: "Traditional bank users",
     notes: "Major universal bank with nationwide coverage.",
   },
 ];
@@ -83,32 +113,36 @@ export const bankSavingsRates: BankSavingsRate[] = [
 export const savingsRateFaqs: FAQ[] = [
   {
     question:
-      "Are digital bank deposits in the Philippines safe?",
+      "What is the best savings interest rate in the Philippines?",
     answer:
-      "Yes. Digital banks like Maya Bank, Tonik, GoTyme, SeaBank, and CIMB are licensed and regulated by the Bangko Sentral ng Pilipinas (BSP). Deposits up to PHP 1,000,000 per depositor per bank are insured by the Philippine Deposit Insurance Corporation (PDIC), the same protection that applies to traditional banks. This increased coverage (from PHP 500,000) took effect on March 15, 2025.",
+      "The best advertised savings rate can change depending on promotions, conditions, and bank updates. That is why it is better to compare both the headline rate and the actual account requirements instead of choosing based on percentage alone.",
+  },
+  {
+    question: "Are higher savings rates always better?",
+    answer:
+      "Not always. A higher rate may be promotional, conditional, or harder to maintain. It is important to compare access, stability, minimum balance requirements, and account conditions too.",
   },
   {
     question:
-      "Why are digital bank interest rates so much higher than traditional banks?",
+      "What is the difference between a promo rate and a regular rate?",
     answer:
-      "Digital banks operate with lower overhead costs because they have no physical branches, fewer employees, and leaner infrastructure. They pass these savings on to customers in the form of higher interest rates to attract deposits and grow their customer base. Some rates are promotional and may decrease over time.",
+      "A promo rate is usually temporary or tied to conditions such as spending, balance tiers, or limited campaigns. A regular rate is typically more stable and easier to compare over time.",
+  },
+  {
+    question: "Do I need a minimum balance to earn interest?",
+    answer:
+      "That depends on the account. Some accounts require a maintaining or qualifying balance, while others are more flexible. Always check the product rules before opening the account.",
   },
   {
     question:
-      "Is the 15% interest rate from Maya Bank sustainable?",
+      "Are savings interest rates taxed in the Philippines?",
     answer:
-      "The 15% rate from Maya is a promotional rate designed to attract new depositors. Promo rates are typically temporary and may be reduced once the bank reaches its deposit targets. It is wise to take advantage of the rate while it lasts, but plan for the possibility that it will decrease.",
+      "Savings interest is generally subject to withholding tax, so the actual return you receive may be lower than the gross advertised rate.",
   },
   {
     question:
-      "How is interest on savings accounts taxed in the Philippines?",
+      "Should I choose a savings account or a time deposit?",
     answer:
-      "Interest earned on peso savings deposits is subject to a 20% final withholding tax. This means the interest rate you see advertised is the gross rate, and the bank automatically deducts the tax before crediting interest to your account. For example, a 6% gross rate yields an effective rate of 4.8% after tax.",
-  },
-  {
-    question:
-      "Can I open multiple savings accounts at different banks?",
-    answer:
-      "Yes. There is no legal limit on how many savings accounts you can have across different banks in the Philippines. Many savers open accounts at multiple digital banks to take advantage of the highest available rates. Keep in mind that PDIC insurance covers up to PHP 1,000,000 per depositor per bank (effective March 15, 2025).",
+      "A savings account is usually better if you want easier access to your funds. A time deposit may be better if you can lock in your money for a fixed term and are comfortable with lower liquidity.",
   },
 ];
