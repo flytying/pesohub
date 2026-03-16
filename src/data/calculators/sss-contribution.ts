@@ -5,13 +5,13 @@ export const sssContributionCalcData: CalculatorPageData = {
   category: "sss",
   title: "SSS Contribution Calculator Philippines",
   metaTitle:
-    "SSS Contribution Calculator Philippines | Estimate SSS Deductions | PesoHub",
+    "SSS Contribution Calculator Philippines – Estimate Employee, Voluntary, OFW & Self-Employed Contributions | PesoHub",
   metaDescription:
-    "Use this SSS contribution calculator to estimate SSS deductions in the Philippines based on salary and member type. Check the reference period used, then confirm with the official SSS table.",
+    "Estimate your SSS contribution in the Philippines by member type. Check employee share, employer share, total contribution, and Monthly Salary Credit using PesoHub's calculator.",
   h1: "SSS Contribution Calculator Philippines",
   intro:
-    "Estimate your SSS contribution based on your salary level, member type, and the contribution schedule used by this calculator. Use this tool to get a quick planning estimate before checking the official SSS contribution table or your actual payroll details.",
-  updatedAt: "2026-03-15",
+    "Estimate your SSS contribution in the Philippines based on your monthly compensation and member type. Use this calculator to check your employee share, employer share, total contribution, and Monthly Salary Credit before comparing it with the official SSS contribution table.",
+  updatedAt: "2026-03-16",
   defaultInputs: {
     monthlySalary: 25_000,
   },
@@ -36,44 +36,46 @@ export const sssContributionCalcData: CalculatorPageData = {
     },
   },
   tips: [
-    "A higher salary or compensation basis may move the estimate to a higher Monthly Salary Credit range, which can increase the contribution amount.",
-    "The estimate may change depending on whether the user is classified as an employee, self-employed member, voluntary member, non-working spouse, or OFW because the official schedules are not all the same.",
-    "If SSS updates the official schedule or contribution basis, the estimate may change even when salary stays the same.",
+    "Choose the correct member type before relying on the result.",
+    "This calculator estimates SSS contribution only and does not calculate full net pay.",
+    "If SSS updates the official schedule, the final contribution may differ from this estimate.",
   ],
   faqs: [
     {
-      question: "What does this SSS contribution calculator estimate?",
+      question:
+        "What does this SSS contribution calculator estimate?",
       answer:
-        "It estimates SSS contribution based on your salary input, member type, and the contribution schedule assumptions used by the tool.",
+        "This calculator estimates your SSS contribution based on your monthly compensation and selected member type. It may also show employee share, employer share, total contribution, and Monthly Salary Credit depending on the classification used.",
     },
     {
-      question: "Is this the same as a take-home pay calculator?",
+      question: "Is this the same as take-home pay?",
       answer:
-        "No. This page is focused on SSS contribution only. It does not automatically estimate withholding tax, PhilHealth, Pag-IBIG, or final net pay.",
+        "No. This calculator estimates SSS contribution only. It does not calculate full net pay after withholding tax, PhilHealth, Pag-IBIG, and other payroll deductions.",
     },
     {
       question: "Why does member type matter?",
       answer:
-        "SSS publishes separate contribution schedules for different member classifications, including employers and employees, self-employed members, voluntary members, non-working spouses, and land-based OFWs.",
+        "Member type matters because contribution treatment may differ for employees, self-employed members, voluntary members, non-working spouses, and OFWs. The estimate depends on the classification selected.",
+    },
+    {
+      question: "What is Monthly Salary Credit?",
+      answer:
+        "Monthly Salary Credit is the salary band used by SSS to determine the contribution amount. It helps convert actual salary or compensation into the bracket used for contribution computation.",
     },
     {
       question:
-        "What reference period should this calculator show?",
+        "Why is my actual contribution different from this estimate?",
       answer:
-        "It should clearly show the schedule or effectivity period used by the tool. The official SSS site currently points to contribution schedules effective January 2025.",
-    },
-    {
-      question: "Why is my actual contribution different from this result?",
-      answer:
-        "Actual amounts may differ because of member classification, salary credit mapping, payroll processing, official updates, or the specific contribution table used.",
+        "Actual contribution may differ because of official schedule updates, payroll treatment, classification differences, or other compensation details not fully reflected in a simplified estimate.",
     },
     {
       question: "Where should I verify the final amount?",
       answer:
-        "You should check the official SSS contribution table, your payslip, employer payroll record, or your My.SSS account for confirmation. SSS's official contribution table and payment pages are the primary references.",
+        "Use the SSS Contribution Table or official SSS references to verify the final amount, especially if you need the exact contribution under the latest schedule.",
     },
   ],
   relatedPages: [
+    "government/sss/sss-contribution-guide",
     "calculators/tax/take-home-pay-calculator-philippines",
     "calculators/tax/withholding-tax-calculator-philippines",
   ],

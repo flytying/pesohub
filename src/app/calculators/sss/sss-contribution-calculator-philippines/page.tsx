@@ -2,15 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-  TrendingUp,
-  Clock,
+  CheckCircle,
+  XCircle,
+  AlertTriangle,
   Users,
-  HelpCircle,
+  Briefcase,
+  UserCheck,
+  Heart,
+  Globe,
   Calculator,
   Landmark,
   BookOpen,
-  CheckCircle,
-  XCircle,
+  BarChart3,
+  FileText,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -25,6 +29,7 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
+  CardContent,
 } from "@/components/ui/card";
 import { buttonVariants } from "@/lib/button-variants";
 import { SSSContributionCalculator } from "@/components/calculators/sss-contribution-calculator";
@@ -43,93 +48,90 @@ const breadcrumbs = [
   { label: "SSS Contribution Calculator" },
 ];
 
-const exampleScenarios = [
+const resultMeaning = [
+  "Total contribution is the full amount associated with the selected schedule",
+  "Employee share is the amount usually deducted from salary for employed members",
+  "Employer share applies only when the member classification includes employer contribution",
+  "Monthly Salary Credit is the salary band used to determine the contribution amount",
+];
+
+const memberTypes = [
   {
-    icon: TrendingUp,
-    title: "Higher salary level",
+    icon: Briefcase,
+    title: "Employee",
     description:
-      "A higher salary or compensation basis may move the estimate to a higher Monthly Salary Credit range, which can increase the contribution amount.",
+      "For employed members, the estimate may show both employee share and employer share.",
   },
   {
     icon: Users,
-    title: "Different member type",
+    title: "Self-Employed",
     description:
-      "The estimate may change depending on whether the user is classified as an employee, self-employed member, voluntary member, non-working spouse, or OFW because the official schedules are not all the same.",
+      "For self-employed members, the estimate usually depends on declared monthly earnings and may not include an employer share.",
   },
   {
-    icon: Clock,
-    title: "Updated contribution schedule",
+    icon: UserCheck,
+    title: "Voluntary",
     description:
-      "If SSS updates the official schedule or contribution basis, the estimate may change even when salary stays the same. SSS announced that starting January 2025, the contribution rate increased to 15%, with the minimum MSC raised to ₱5,000 and the maximum MSC to ₱35,000.",
+      "For voluntary members, the contribution is usually based on the selected contribution basis under the current schedule.",
   },
-];
-
-const questionsToConsider = [
-  "Am I using the correct member type for this estimate?",
-  "Does this calculator clearly show the contribution schedule or reference period used?",
-  "Am I looking for SSS only, or do I actually need a fuller payroll deduction estimate?",
-  "Does my payslip or actual payment record include other deductions that are not shown here?",
-  "Should I confirm this estimate against the official SSS table or My.SSS records?",
-];
-
-const actualDifferences = [
-  "The member type selected",
-  "The official contribution schedule and reference period used",
-  "The Monthly Salary Credit that applies to your compensation",
-  "Payroll setup or employer processing",
-  "Updates to SSS rules, schedules, or implementation guidance",
-  "Whether your contribution includes other program components under the official schedule",
+  {
+    icon: Heart,
+    title: "Non-Working Spouse",
+    description:
+      "For non-working spouses, contribution treatment may follow separate eligibility or basis rules depending on the applicable SSS classification.",
+  },
+  {
+    icon: Globe,
+    title: "OFW",
+    description:
+      "For OFWs, contribution rules may follow a separate contribution basis from standard local employee payroll computation.",
+  },
 ];
 
 const toolIncludes = [
-  "SSS contribution estimate based on supported salary input",
-  "Member-type-based schedule assumptions",
-  "Contribution estimate using the calculator's stated reference period",
-  "Optional contribution breakdown if supported by the tool",
+  "SSS contribution estimate",
+  "Employee share and employer share depending on member type",
 ];
 
 const toolDoesNotInclude = [
   "Withholding tax",
-  "Full take-home pay estimate",
-  "PhilHealth deductions",
-  "Pag-IBIG deductions",
-  "Employer-specific payroll deductions",
-  "Final posting or confirmation from SSS",
+  "PhilHealth or Pag-IBIG deductions",
+  "Full net pay or take-home pay",
+  "Official SSS table replacement or payroll system",
 ];
 
-const relatedContent = [
+const whyDifferent = [
+  "official SSS schedules may be updated",
+  "member classification may be different from the one selected",
+  "payroll setup may use more detailed assumptions",
+  "compensation basis may be treated differently",
+  "reference schedule changes may not yet be reflected in older estimates",
+];
+
+const relatedPages = [
+  {
+    title: "SSS Contribution Table",
+    href: "/government/sss/sss-contribution-guide",
+    icon: FileText,
+  },
+  {
+    title: "SSS Guide",
+    href: "/guides/sss/how-to-compute-sss-pension",
+    icon: BookOpen,
+  },
   {
     title: "Take-Home Pay Calculator",
-    description:
-      "Estimate net pay after common deductions, not just SSS.",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
     icon: Calculator,
   },
   {
     title: "Withholding Tax Calculator",
-    description: "Estimate salary tax separately.",
     href: "/calculators/tax/withholding-tax-calculator-philippines",
-    icon: Calculator,
+    icon: BarChart3,
   },
   {
-    title: "PhilHealth Contribution Guide",
-    description:
-      "Understand how PhilHealth may affect payroll deductions.",
-    href: "/guides/government/philhealth-contribution-guide",
-    icon: BookOpen,
-  },
-  {
-    title: "Pag-IBIG Deduction Guide",
-    description:
-      "Review how Pag-IBIG contributions may be treated.",
-    href: "/guides/government/pag-ibig-contribution-guide",
-    icon: BookOpen,
-  },
-  {
-    title: "SSS Contribution Table Guide",
-    description:
-      "See the official SSS schedule and member-type references.",
-    href: "/government/sss/sss-contribution-guide",
+    title: "Calculators Hub",
+    href: "/calculators",
     icon: Landmark,
   },
 ];
@@ -154,166 +156,81 @@ export default function SSSContributionCalculatorPage() {
           breadcrumbs={breadcrumbs}
         />
 
-        {/* Scope note / expectation-setting microcopy */}
-        <div className="-mt-4 mb-8 space-y-1 text-sm text-muted-foreground">
-          <p>
-            This calculator is designed for SSS contribution estimates only. It
-            does not automatically represent your full take-home pay, and it does
-            not replace the official SSS contribution table.
-          </p>
-          <p>
-            SSS publishes different contribution schedules depending on member
-            classification, and the latest official schedules currently listed by
-            SSS are effective January 2025.
-          </p>
-          <p>
-            For net pay after multiple deductions, use the{" "}
-            <Link
-              href="/calculators/tax/take-home-pay-calculator-philippines"
-              className="text-primary hover:underline"
-            >
-              Take-Home Pay Calculator
-            </Link>
-            .
-          </p>
-        </div>
+        {/* Support text */}
+        <p className="-mt-4 mb-8 text-sm text-muted-foreground">
+          Useful for employees, self-employed members, voluntary members,
+          non-working spouses, and OFWs who want a fast contribution estimate.
+        </p>
 
         {/* Calculator */}
         <SSSContributionCalculator />
 
+        {/* Result support text */}
+        <p className="mt-4 text-xs text-muted-foreground">
+          This estimate is based on the member type and contribution schedule
+          assumptions currently used by the calculator.
+        </p>
+
+        {/* Important note */}
+        <div className="mt-6 flex items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-50/50 p-4 dark:bg-amber-950/20">
+          <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-600" />
+          <div>
+            <h3 className="text-sm font-semibold text-foreground">
+              Important
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground">
+              If the official SSS schedule changes, the final contribution may
+              differ from this estimate. Always verify against the latest
+              official SSS contribution table.
+            </p>
+          </div>
+        </div>
+
         {/* What Your Result Means */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            What your result means
-          </h2>
-          <div className="mt-4 space-y-4">
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated SSS contribution
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Your estimated SSS contribution shows the amount that may apply
-                based on your salary level or contribution basis and the member
-                type selected in the calculator.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                SSS portion only
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This result helps you understand the SSS portion only of your
-                payroll or personal contribution obligations. It is not the same
-                as a full salary deduction summary or take-home pay estimate.
-              </p>
-            </div>
-          </div>
-          <div className="mt-6 rounded-lg border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-            SSS contribution amounts can differ depending on whether you are an
-            employee, employer, self-employed member, voluntary member,
-            non-working spouse, or land-based OFW because SSS publishes separate
-            schedules for different member types.
-          </div>
-        </section>
-
-        {/* What This Tool Includes and Does Not Include */}
-        <section className="mt-12">
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                What this tool includes
-              </h2>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                {toolIncludes.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                What this tool does not include
-              </h2>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                {toolDoesNotInclude.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <XCircle className="mt-0.5 size-4 shrink-0 text-red-500" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground">
-            For net pay after common deductions, use the{" "}
-            <Link
-              href="/calculators/tax/take-home-pay-calculator-philippines"
-              className="text-primary hover:underline"
-            >
-              Take-Home Pay Calculator
-            </Link>
-            . For tax-only estimates, use the{" "}
-            <Link
-              href="/calculators/tax/withholding-tax-calculator-philippines"
-              className="text-primary hover:underline"
-            >
-              Withholding Tax Calculator
-            </Link>
-            .
-          </p>
-        </section>
-
-        {/* Why Your Actual SSS Contribution May Be Different */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Why your actual SSS contribution may be different
+            What Your Result Means
           </h2>
           <p className="mt-3 text-sm text-muted-foreground">
-            Your actual SSS contribution may differ from this estimate depending
-            on:
+            Your estimate shows the contribution amount tied to your Monthly
+            Salary Credit and member type. For employees, the result may
+            include both employee share and employer share. For other member
+            types, the contribution structure may differ.
           </p>
-          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-            {actualDifferences.map((item) => (
-              <li key={item}>{item}</li>
+          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+            {resultMeaning.map((item) => (
+              <li key={item} className="flex items-start gap-2">
+                <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
+                <span>{item}</span>
+              </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-muted-foreground">
-            SSS states that monthly contributions are based on compensation and
-            payable under specific programs, and the latest official contribution
-            table should be checked for final reference.
-          </p>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Use this calculator as a planning tool, then confirm the final
-            amount using the official SSS contribution table, your payslip, or
-            your My.SSS records.
-          </p>
         </section>
 
-        {/* Example Scenarios */}
+        {/* How Member Type Affects the Estimate */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            See how different inputs can change the estimate
+            How Member Type Affects the Estimate
           </h2>
           <p className="mt-3 text-sm text-muted-foreground">
-            Changes in salary level, member type, or contribution schedule can
-            affect how much SSS contribution may apply.
+            SSS contribution schedules are not interpreted the same way for
+            every member classification. That is why choosing the correct
+            member type matters before relying on the result.
           </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-3">
-            {exampleScenarios.map((scenario) => {
-              const Icon = scenario.icon;
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {memberTypes.map((type) => {
+              const Icon = type.icon;
               return (
-                <Card key={scenario.title} className="h-full">
+                <Card key={type.title} className="h-full">
                   <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
+                    <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
+                      <Icon className="size-4" />
                     </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {scenario.title}
+                    <CardTitle className="mt-2 text-sm">
+                      {type.title}
                     </CardTitle>
                     <CardDescription className="text-xs leading-relaxed">
-                      {scenario.description}
+                      {type.description}
                     </CardDescription>
                   </CardHeader>
                 </Card>
@@ -322,90 +239,139 @@ export default function SSSContributionCalculatorPage() {
           </div>
         </section>
 
-        {/* Questions to Consider */}
+        {/* What Is Monthly Salary Credit? */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Questions to consider
+            What Is Monthly Salary Credit?
           </h2>
-          <ul className="mt-4 space-y-3">
-            {questionsToConsider.map((question, i) => (
-              <li key={i} className="flex gap-3 text-sm text-muted-foreground">
-                <HelpCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-                {question}
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            Monthly Salary Credit, or MSC, is the salary band used by SSS to
+            determine the contribution amount. Your actual salary is mapped to
+            a contribution bracket, and the contribution is computed using the
+            MSC assigned to that bracket.
+          </p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            You do not need to compute MSC manually, but understanding it
+            helps explain why contributions change in steps instead of changing
+            by small amounts every time salary changes.
+          </p>
+        </section>
+
+        {/* What This Calculator Includes and Does Not Include */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            What This Calculator Includes and Does Not Include
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            This page estimates SSS contribution only. It does not calculate
+            your full net pay, total deductions, or income tax.
+          </p>
+          <div className="mt-4 grid gap-6 sm:grid-cols-2">
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">
+                Includes
+              </h3>
+              <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+                {toolIncludes.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">
+                Does not include
+              </h3>
+              <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+                {toolDoesNotInclude.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <XCircle className="mt-0.5 size-4 shrink-0 text-red-500" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4">
+            <p className="text-sm text-muted-foreground">
+              If you want a broader estimate of payroll deductions, use the{" "}
+              <Link
+                href="/calculators/tax/take-home-pay-calculator-philippines"
+                className="text-primary hover:underline"
+              >
+                Take-Home Pay Calculator
+              </Link>{" "}
+              next.
+            </p>
+          </div>
+        </section>
+
+        {/* Why Your Actual SSS Contribution May Be Different */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            Why Your Actual SSS Contribution May Be Different
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Your actual contribution may differ from this estimate for several
+            reasons.
+          </p>
+          <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+            {whyDifferent.map((item) => (
+              <li key={item} className="flex items-start gap-2">
+                <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
+                <span>{item}</span>
               </li>
             ))}
           </ul>
         </section>
 
-        {/* Related Calculators and Guides */}
-        <section className="mt-12">
-          <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-            Related calculators and guides
+        {/* FAQ */}
+        <FaqSection faqs={sssContributionCalcData.faqs} />
+
+        {/* Related Tools and Reference Pages */}
+        <section className="pt-16">
+          <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+            Related Tools and Reference Pages
           </h2>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedContent.map((item) => {
-              const Icon = item.icon;
+          <p className="mb-6 text-sm text-muted-foreground">
+            After estimating your SSS contribution, you may also want to check
+            related payroll tools and reference pages.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedPages.map((page) => {
+              const Icon = page.icon;
               return (
                 <Link
-                  key={item.title}
-                  href={item.href}
-                  className="group block"
+                  key={page.title}
+                  href={page.href}
+                  className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-shadow hover:shadow-md"
                 >
-                  <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                    <CardHeader>
-                      <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                        <Icon className="size-5" />
-                      </div>
-                      <CardTitle className="mt-3 text-sm">
-                        {item.title}
-                      </CardTitle>
-                      <CardDescription className="text-xs leading-relaxed">
-                        {item.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
+                    <Icon className="size-4" />
+                  </div>
+                  <span className="text-sm font-medium group-hover:text-primary">
+                    {page.title}
+                  </span>
+                  <ArrowRight className="ml-auto size-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                 </Link>
               );
             })}
           </div>
         </section>
 
-        {/* How This Calculator Works */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How this calculator works
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {sssContributionCalcData.formula.description}
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            The contribution schedule period should be shown clearly near the
-            calculator, such as &ldquo;Effective January 2025,&rdquo; so users
-            can understand what official basis the estimate follows. The official
-            SSS site provides a contribution table page and circulars listing
-            separate schedules for employers and employees, household
-            employment, self-employed members, voluntary and non-working spouse
-            members, and land-based OFWs.
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {sssContributionCalcData.formula.explanation}
-          </p>
-        </section>
-
-        {/* FAQ */}
-        <FaqSection faqs={sssContributionCalcData.faqs} />
-
-        {/* Final Reassurance Block */}
-        <section className="mb-4 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
+        {/* Final CTA */}
+        <section className="mb-4 mt-16 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
           <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
             Use this estimate to check SSS contributions more clearly
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
             An SSS contribution calculator can help you understand the likely
-            contribution amount tied to your salary level and member type before
-            reviewing your payslip or official records. Use it for quick
-            planning, then confirm the final amount using the latest official SSS
-            table.
+            contribution amount tied to your salary level and member type
+            before reviewing your payslip or official records. Use it for
+            quick planning, then confirm the final amount using the latest
+            official SSS table.
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
