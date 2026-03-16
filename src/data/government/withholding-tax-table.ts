@@ -1,15 +1,16 @@
 import type { FAQ } from "@/types/content";
 
-export const WITHHOLDING_TAX_TABLE_UPDATED_AT = "2026-03-14";
+export const WITHHOLDING_TAX_TABLE_UPDATED_AT = "2026-03-16";
 
 export const withholdingTaxTableMeta = {
-  title: "Withholding Tax Table Philippines",
-  metaTitle: "Withholding Tax Table Philippines 2026 — TRAIN Law Brackets & Rates",
+  title: "Withholding Tax Table Philippines 2026",
+  metaTitle:
+    "Withholding Tax Table Philippines 2026 – Annual & Monthly Reference | PesoHub",
   metaDescription:
-    "Official Philippine withholding tax table under the TRAIN Law (2023 onwards). See annual and monthly tax brackets, rates, and a worked example for employees.",
+    "View the current withholding tax table in the Philippines for 2026 with annual and monthly reference views, a worked salary example, and links to the withholding tax calculator.",
   slug: "government/bir/withholding-tax-table-philippines",
   directAnswer:
-    "Under the TRAIN Law (effective 2023 onwards), the first PHP 250,000 of annual taxable income is tax-exempt. Income above that is taxed at progressive rates: 15% (PHP 250K–400K), 20% (PHP 400K–800K), 25% (PHP 800K–2M), 30% (PHP 2M–8M), and 35% (over PHP 8M).",
+    "View the current withholding tax table used for compensation income in the Philippines, with both annual and monthly reference views. Understand the tax brackets, see how monthly salary maps to annual taxable income, and check a worked example before using the calculator.",
 };
 
 /**
@@ -24,16 +25,52 @@ export interface MonthlyTaxBracket {
 }
 
 export const monthlyTaxBrackets: MonthlyTaxBracket[] = [
-  { overBut: "PHP 0", notOver: "PHP 20,833", baseTax: 0, rate: 0, ofExcessOver: 0 },
-  { overBut: "PHP 20,833", notOver: "PHP 33,333", baseTax: 0, rate: 15, ofExcessOver: 20_833 },
-  { overBut: "PHP 33,333", notOver: "PHP 66,667", baseTax: 1_875, rate: 20, ofExcessOver: 33_333 },
-  { overBut: "PHP 66,667", notOver: "PHP 166,667", baseTax: 8_541.67, rate: 25, ofExcessOver: 66_667 },
-  { overBut: "PHP 166,667", notOver: "PHP 666,667", baseTax: 33_541.67, rate: 30, ofExcessOver: 166_667 },
-  { overBut: "PHP 666,667", notOver: "and above", baseTax: 183_541.67, rate: 35, ofExcessOver: 666_667 },
+  {
+    overBut: "₱0",
+    notOver: "₱20,833",
+    baseTax: 0,
+    rate: 0,
+    ofExcessOver: 0,
+  },
+  {
+    overBut: "₱20,833",
+    notOver: "₱33,332",
+    baseTax: 0,
+    rate: 15,
+    ofExcessOver: 20_833,
+  },
+  {
+    overBut: "₱33,333",
+    notOver: "₱66,666",
+    baseTax: 1_875,
+    rate: 20,
+    ofExcessOver: 33_333,
+  },
+  {
+    overBut: "₱66,667",
+    notOver: "₱166,666",
+    baseTax: 8_541.8,
+    rate: 25,
+    ofExcessOver: 66_667,
+  },
+  {
+    overBut: "₱166,667",
+    notOver: "₱666,666",
+    baseTax: 33_541.8,
+    rate: 30,
+    ofExcessOver: 166_667,
+  },
+  {
+    overBut: "₱666,667",
+    notOver: "and above",
+    baseTax: 183_541.8,
+    rate: 35,
+    ofExcessOver: 666_667,
+  },
 ];
 
 export const taxExemptions = [
-  "13th month pay and other benefits up to PHP 90,000 per year",
+  "13th month pay and other benefits up to ₱90,000 per year",
   "SSS, PhilHealth, and Pag-IBIG employee contributions",
   "De minimis benefits (rice subsidy, uniform, medical allowance, etc.)",
   "Mandatory contributions to retirement funds",
@@ -42,28 +79,38 @@ export const taxExemptions = [
 
 export const withholdingTaxTableFaqs: FAQ[] = [
   {
-    question: "Who is exempt from withholding tax in the Philippines?",
+    question:
+      "What is the current withholding tax table used in 2026?",
     answer:
-      "Employees earning PHP 250,000 or less per year (about PHP 20,833/month) are exempt from income tax. Minimum wage earners are also exempt regardless of the amount, including their holiday pay, overtime pay, night shift differential, and hazard pay.",
+      "BIR's revised withholding tax table in Annex E is the table effective January 1, 2023 and onwards, and it remains the current reference table unless superseded by a later official update.",
   },
   {
-    question: "What is the TRAIN Law?",
+    question:
+      "Why does this page show both annual and monthly views?",
     answer:
-      "The Tax Reform for Acceleration and Inclusion (TRAIN) Law, or Republic Act No. 10963, took effect on January 1, 2018. It simplified the income tax structure, raised the tax-exempt threshold to PHP 250,000, and adjusted brackets. The current rates (effective 2023 onwards) are the final phase of the TRAIN Law reform.",
+      "The tax framework is annual-based, but many employees think in monthly salary terms. Showing both views makes the structure easier to understand in a payroll context. BIR's Annex E itself includes payroll-period views such as daily, weekly, semi-monthly, and monthly.",
   },
   {
-    question: "How does my employer compute my withholding tax?",
+    question: "Is income up to ₱250,000 still tax-exempt?",
     answer:
-      "Your employer calculates your taxable income by subtracting mandatory contributions (SSS, PhilHealth, Pag-IBIG) and other exempt benefits from your gross salary. The remaining taxable income is then matched to the withholding tax table to determine the amount withheld each pay period.",
+      "Yes. Under the current withholding tax structure used from 2023 onward, annual taxable income up to ₱250,000 is generally exempt.",
   },
   {
-    question: "Is the withholding tax my final income tax?",
+    question:
+      "Does the table already account for SSS, PhilHealth, and Pag-IBIG?",
     answer:
-      "For most employees with a single employer, the withholding tax serves as the final tax — your employer handles the year-end adjustment. If you have multiple income sources, you may need to file an annual income tax return (BIR Form 1700 or 1701) and pay any difference or claim a refund.",
+      "The official computation steps say taxable compensation should exclude mandatory contributions and non-taxable benefits before the withholding tax table is applied. Actual payroll treatment depends on the compensation details used by the employer.",
   },
   {
-    question: "How do I check if my employer is computing my tax correctly?",
+    question:
+      "Why is my actual payroll withholding different from the table example?",
     answer:
-      "Review your payslip for the gross salary, deductions (SSS, PhilHealth, Pag-IBIG), and withholding tax amount. You can verify the tax by using the BIR withholding tax table or our Withholding Tax Calculator. Your BIR Form 2316 (Certificate of Compensation Payment/Tax Withheld) issued at year-end should match your total withholdings.",
+      "Payroll systems may account for mandatory deductions, supplementary compensation, allowances, rounding, or other payroll-specific rules. RR 11-2018 explains that more detailed computation methods may be needed in some cases.",
+  },
+  {
+    question:
+      "Where should I go after checking the table?",
+    answer:
+      "Use the Withholding Tax Calculator if you want a faster estimate from salary input, or read the Withholding Tax Guide if you want a plain-language explanation of how withholding tax works.",
   },
 ];
