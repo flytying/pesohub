@@ -70,20 +70,20 @@ export function WithholdingTaxCalculator() {
         title="Withholding Tax Calculator"
         variant="split"
         resultsSummary={[
-          `Monthly Gross Salary: ${formatPeso(monthlySalary)}`,
-          `Monthly Tax: ${formatPeso(result.monthlyTax)}`,
-          `Annual Tax: ${formatPeso(result.annualTax)}`,
-          `Monthly Take-Home Pay: ${formatPeso(result.monthlyTakeHome)}`,
-          `Annual Take-Home Pay: ${formatPeso(result.takeHomePay)}`,
+          `Gross Monthly Salary: ${formatPeso(monthlySalary)}`,
+          `Estimated Monthly Withholding Tax: ${formatPeso(result.monthlyTax)}`,
+          `Estimated Annual Income Tax: ${formatPeso(result.annualTax)}`,
+          `Estimated Tax-Only Take-Home Pay: ${formatPeso(result.monthlyTakeHome)}`,
           `Effective Tax Rate: ${formatPercent(result.effectiveRate)}`,
+          `Current Tax Bracket: ${result.bracket}`,
         ].join("\n")}
       >
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/50">Monthly Take-Home Pay</p>
+            <p className="text-xs uppercase tracking-wider text-white/50">Estimated Monthly Withholding Tax</p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
-              {formatPeso(result.monthlyTakeHome)}
+              {formatPeso(result.monthlyTax)}
             </p>
             <p className="mt-2 text-sm text-white/50">
               Effective tax rate: {formatPercent(result.effectiveRate)}
@@ -109,19 +109,24 @@ export function WithholdingTaxCalculator() {
 
           <div className="mt-6 space-y-1">
             <CalculatorResult
-              label="Monthly Tax"
-              value={formatPeso(result.monthlyTax)}
+              label="Estimated Annual Income Tax"
+              value={formatPeso(result.annualTax)}
               variant="dark"
               highlight
             />
             <CalculatorResult
-              label="Annual Tax"
-              value={formatPeso(result.annualTax)}
+              label="Estimated Tax-Only Take-Home Pay"
+              value={formatPeso(result.monthlyTakeHome)}
               variant="dark"
             />
             <CalculatorResult
-              label="Annual Take-Home"
-              value={formatPeso(result.takeHomePay)}
+              label="Effective Tax Rate"
+              value={formatPercent(result.effectiveRate)}
+              variant="dark"
+            />
+            <CalculatorResult
+              label="Current Tax Bracket"
+              value={result.bracket}
               variant="dark"
             />
           </div>
@@ -137,7 +142,7 @@ export function WithholdingTaxCalculator() {
             min={0}
             max={1_000_000}
             step={1_000}
-            helpText="Your gross monthly salary before deductions"
+            helpText="Enter your monthly salary before deductions."
           />
 
           <Separator />
