@@ -371,12 +371,6 @@ export default function CalculatorsPage() {
         breadcrumbs={breadcrumbs}
       />
 
-      {/* Support text */}
-      <p className="-mt-4 mb-8 text-sm leading-relaxed text-muted-foreground">
-        Useful for comparing numbers before applying, budgeting, or checking
-        how a financial decision may affect your monthly cash flow.
-      </p>
-
       {/* Important Note */}
       <DisclaimerBox text="Calculator results are estimates based on the inputs and assumptions shown. Actual figures may vary depending on provider terms, official tables, fees, and policy updates. Always confirm final numbers with the relevant bank, financial provider, employer, or government agency when needed." />
 
