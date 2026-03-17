@@ -214,7 +214,7 @@ const relatedSections = [
 
 export default function GovernmentPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
 
       {/* Hero */}
@@ -225,6 +225,7 @@ export default function GovernmentPage() {
         variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Start with What You Need to Check */}
       <section className="pt-4">
         <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
@@ -396,5 +397,6 @@ export default function GovernmentPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

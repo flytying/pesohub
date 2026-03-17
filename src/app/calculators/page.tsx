@@ -361,7 +361,7 @@ function CalculatorCard({
 
 export default function CalculatorsPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
 
       {/* Hero */}
@@ -372,6 +372,7 @@ export default function CalculatorsPage() {
         variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Start With Your Need */}
       <section id="needs" className="scroll-mt-20 pt-8">
         <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
@@ -663,5 +664,6 @@ export default function CalculatorsPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

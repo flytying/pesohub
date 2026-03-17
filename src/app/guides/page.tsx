@@ -203,7 +203,7 @@ const faqs = [
 
 export default function GuidesPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
 
       {/* Hero */}
@@ -214,6 +214,7 @@ export default function GuidesPage() {
         variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Start with what you're trying to understand */}
       <section className="mb-12">
         <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -442,5 +443,6 @@ export default function GuidesPage() {
         </p>
       </section>
     </div>
+    </>
   );
 }
