@@ -168,29 +168,6 @@ const quickPaths = [
   },
 ];
 
-const whyEasier = [
-  {
-    title: "Who the guide is for",
-    description:
-      "Each guide should quickly tell users whether it matches their situation.",
-  },
-  {
-    title: "Plain-language summary first",
-    description:
-      "The explanation should start simply before moving into detail.",
-  },
-  {
-    title: "Real examples early",
-    description:
-      "Examples help users connect the topic to real salary, tax, or contribution scenarios.",
-  },
-  {
-    title: "Clear next step",
-    description:
-      "Every guide should point to the matching calculator, reference page, or next guide.",
-  },
-];
-
 const faqs = [
   {
     question: "What are these guides for?",
@@ -268,22 +245,6 @@ export default function GuidesPage() {
               </Link>
             );
           })}
-        </div>
-      </section>
-
-      {/* What guides help you do */}
-      <section className="mb-12">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          What guides help you do
-        </h2>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Guides are here to help you understand a confusing topic before you try
-          to calculate, compare, or verify anything.
-        </p>
-        <div className="mt-3 rounded-lg border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-          Use a guide when you want an explanation in plain language. Use a
-          calculator when you want an estimate. Use a reference page when you
-          want to check a table, schedule, or official basis.
         </div>
       </section>
 
@@ -438,25 +399,6 @@ export default function GuidesPage() {
               </Link>
             );
           })}
-        </div>
-      </section>
-
-      {/* Why these guides are easier to follow */}
-      <section className="mb-12">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Why these guides are easier to follow
-        </h2>
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {whyEasier.map((item) => (
-            <div key={item.title}>
-              <p className="text-sm font-medium text-foreground">
-                {item.title}
-              </p>
-              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                {item.description}
-              </p>
-            </div>
-          ))}
         </div>
       </section>
 
