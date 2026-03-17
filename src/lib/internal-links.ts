@@ -62,6 +62,12 @@ export const ALL_PAGES: PageLink[] = [
     category: "guide",
   },
   {
+    slug: "/guides/government/pag-ibig-deduction-guide",
+    title: "Pag-IBIG Deduction Guide",
+    description: "Learn the difference between regular Pag-IBIG contribution, housing loan payment, and MP2 savings on payroll.",
+    category: "guide",
+  },
+  {
     slug: "/guides/tax/take-home-pay-guide-philippines",
     title: "Take-Home Pay Guide",
     description: "Learn why take-home pay is lower than gross salary and how common deductions affect net pay.",
@@ -168,6 +174,11 @@ const LINK_MAP: Record<string, string[]> = {
     "/calculators/retirement/sss-pension-calculator",
     "/guides/tax/how-withholding-tax-works-philippines",
     "/government/sss/sss-pension-table",
+  ],
+  "/guides/government/pag-ibig-deduction-guide": [
+    "/government/pag-ibig/pag-ibig-contribution-table-philippines",
+    "/government/pag-ibig/pag-ibig-housing-loan-guide",
+    "/calculators/tax/take-home-pay-calculator-philippines",
   ],
   "/guides/government/philhealth-contribution-guide": [
     "/government/philhealth/philhealth-contribution-table-philippines",
