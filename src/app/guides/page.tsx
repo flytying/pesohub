@@ -155,17 +155,17 @@ const allGuides = [
     bestFor: "Employees and payroll learners",
     href: "/guides/government/philhealth-contribution-guide",
   },
-];
-
-const futureGuides = [
   {
     title: "Pag-IBIG Deduction Guide Philippines",
     description:
       "Understand what Pag-IBIG deductions are and how they may appear in salary-related calculations.",
     type: "Explainer",
     bestFor: "Employees and first-time payroll learners",
+    href: "/guides/government/pag-ibig-deduction-guide",
   },
 ];
+
+const futureGuides: typeof allGuides = [];
 
 const quickPaths = [
   {
@@ -429,38 +429,42 @@ export default function GuidesPage() {
         </div>
 
         {/* Future guides (coming soon) */}
-        <h3 className="mb-4 mt-8 text-sm font-semibold text-foreground">
-          Coming soon
-        </h3>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {futureGuides.map((guide) => (
-            <Card key={guide.title} className="h-full opacity-60">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-sm">{guide.title}</CardTitle>
-                  <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
-                    Coming soon
-                  </span>
-                </div>
-                <CardDescription className="text-xs leading-relaxed">
-                  {guide.description}
-                </CardDescription>
-                <div className="mt-1 space-y-0.5 text-xs text-muted-foreground">
-                  <p>
-                    <span className="font-medium text-foreground">Type:</span>{" "}
-                    {guide.type}
-                  </p>
-                  <p>
-                    <span className="font-medium text-foreground">
-                      Best for:
-                    </span>{" "}
-                    {guide.bestFor}
-                  </p>
-                </div>
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
+        {futureGuides.length > 0 && (
+          <>
+            <h3 className="mb-4 mt-8 text-sm font-semibold text-foreground">
+              Coming soon
+            </h3>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {futureGuides.map((guide) => (
+                <Card key={guide.title} className="h-full opacity-60">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-sm">{guide.title}</CardTitle>
+                      <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
+                        Coming soon
+                      </span>
+                    </div>
+                    <CardDescription className="text-xs leading-relaxed">
+                      {guide.description}
+                    </CardDescription>
+                    <div className="mt-1 space-y-0.5 text-xs text-muted-foreground">
+                      <p>
+                        <span className="font-medium text-foreground">Type:</span>{" "}
+                        {guide.type}
+                      </p>
+                      <p>
+                        <span className="font-medium text-foreground">
+                          Best for:
+                        </span>{" "}
+                        {guide.bestFor}
+                      </p>
+                    </div>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          </>
+        )}
       </section>
 
       {/* Quick paths to tools */}
