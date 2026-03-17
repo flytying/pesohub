@@ -54,14 +54,6 @@ const beforeYouBorrow = [
   "Compare more than one lender type before deciding",
 ];
 
-const howToUsePoints = [
-  "estimate your monthly personal loan payment",
-  "see how much interest you could pay over the full term",
-  "compare shorter and longer repayment terms",
-  "understand how rate and term affect total borrowing cost",
-  "check which loan amount feels more realistic for your budget",
-];
-
 const scenarioCards = [
   {
     icon: Banknote,
@@ -185,12 +177,6 @@ export default function PersonalLoanCalculatorPage() {
       />
 
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Support text */}
-        <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-          Helpful for comparing personal loan options before talking to a bank,
-          financing company, or online lender.
-        </p>
-
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <PersonalLoanCalculator
@@ -202,71 +188,6 @@ export default function PersonalLoanCalculatorPage() {
             }}
           />
         </div>
-
-        {/* Your Estimated Personal Loan Results */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Your Estimated Personal Loan Results
-          </h2>
-          <div className="mt-4 space-y-4">
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Monthly Payment
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is your estimated monthly loan payment based on the values
-                you entered.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Loan Amount
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is the loan amount you entered.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Total Interest
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is the total estimated interest you may pay over the full
-                repayment term.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Total Repayment
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is the total amount you may repay over the life of the
-                loan, including principal and interest.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* How to Use This Personal Loan Calculator */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How to Use This Personal Loan Calculator
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Enter the loan amount, repayment term, and annual interest rate. The
-            calculator will estimate your monthly payment, total interest, and
-            total repayment so you can compare different borrowing scenarios
-            before applying.
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            This tool is useful if you want to:
-          </p>
-          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-            {howToUsePoints.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </section>
 
         {/* How to Tell if the Monthly Payment Is Realistic */}
         <section className="mt-12">
@@ -440,38 +361,6 @@ export default function PersonalLoanCalculatorPage() {
           </div>
         </section>
 
-        {/* Sample Personal Loan Scenarios */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Sample Personal Loan Scenarios
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            These examples can help you compare common borrowing situations. Use
-            them as planning references, then adjust the numbers based on your
-            actual loan amount, term, and lender offer.
-          </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2">
-            {scenarioCards.map((scenario) => {
-              const Icon = scenario.icon;
-              return (
-                <Card key={scenario.title} className="h-full">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {scenario.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {scenario.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
-        </section>
-
         {/* What Affects Your Personal Loan Payment */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -565,6 +454,38 @@ export default function PersonalLoanCalculatorPage() {
           </ul>
         </section>
 
+        {/* Sample Personal Loan Scenarios */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            Sample Personal Loan Scenarios
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            These examples can help you compare common borrowing situations. Use
+            them as planning references, then adjust the numbers based on your
+            actual loan amount, term, and lender offer.
+          </p>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2">
+            {scenarioCards.map((scenario) => {
+              const Icon = scenario.icon;
+              return (
+                <Card key={scenario.title} className="h-full">
+                  <CardHeader>
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+                      <Icon className="size-5" />
+                    </div>
+                    <CardTitle className="mt-3 text-sm">
+                      {scenario.title}
+                    </CardTitle>
+                    <CardDescription className="text-xs leading-relaxed">
+                      {scenario.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Related Calculators and Guides */}
         <section className="mt-12">
           <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
@@ -600,19 +521,6 @@ export default function PersonalLoanCalculatorPage() {
               );
             })}
           </div>
-        </section>
-
-        {/* How the Personal Loan Estimate Is Calculated */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How the Personal Loan Estimate Is Calculated
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {personalLoanData.formula.description}
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {personalLoanData.formula.explanation}
-          </p>
         </section>
 
         {/* FAQ */}

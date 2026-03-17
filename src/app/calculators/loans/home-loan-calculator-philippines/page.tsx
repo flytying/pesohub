@@ -55,14 +55,6 @@ const beforeYouStart = [
   "Leave room in your budget for fees, insurance, dues, taxes, and emergency savings",
 ];
 
-const howToUsePoints = [
-  "estimate your monthly home loan payment",
-  "see how much you need for the down payment",
-  "compare shorter and longer loan terms",
-  "understand how interest affects the total borrowing cost",
-  "check which property price range is more realistic for your budget",
-];
-
 const financingScenarios = [
   {
     icon: Landmark,
@@ -224,12 +216,6 @@ export default function HomeLoanCalculatorPage() {
       />
 
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Support text */}
-        <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-          Helpful for comparing home financing options before talking to a bank,
-          developer, or Pag-IBIG.
-        </p>
-
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <HomeLoanCalculator
@@ -240,72 +226,6 @@ export default function HomeLoanCalculatorPage() {
             }}
           />
         </div>
-
-        {/* Your Estimated Home Loan Results */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Your Estimated Home Loan Results
-          </h2>
-          <div className="mt-4 space-y-4">
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Monthly Payment
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is your estimated monthly home loan payment based on the
-                values you entered.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Loan Amount
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is the amount financed after subtracting your down payment.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Total Interest
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is the total estimated interest you may pay over the full
-                loan term.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Total Loan Cost
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is the estimated loan amount plus total interest. It does
-                not include fees, insurance, dues, taxes, or other housing
-                costs.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* How to Use This Home Loan Calculator */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How to Use This Home Loan Calculator
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Enter the property price, your planned down payment, the loan term,
-            and the annual interest rate. The calculator will estimate your
-            monthly amortization, total interest, and total loan cost so you can
-            compare different financing scenarios before applying.
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            This tool is useful if you want to:
-          </p>
-          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-            {howToUsePoints.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </section>
 
         {/* How to Tell if the Monthly Payment Is Realistic */}
         <section className="mt-12">
@@ -468,71 +388,6 @@ export default function HomeLoanCalculatorPage() {
           </div>
         </section>
 
-        {/* Sample Home Financing Scenarios */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Sample Home Financing Scenarios
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            These examples can help you compare common home financing paths in
-            the Philippines. Use them as a starting point, then adjust the
-            numbers based on your target property, down payment, and preferred
-            financing option.
-          </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2">
-            {financingScenarios.map((scenario) => {
-              const Icon = scenario.icon;
-              return (
-                <Card key={scenario.title} className="h-full">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {scenario.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {scenario.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Example Affordability Ranges */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Example Affordability Ranges
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            These example ranges can help you think about what different property
-            budgets may feel like in practice. Use them as planning references,
-            not lender quotes.
-          </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-3">
-            {affordabilityRanges.map((range) => {
-              const Icon = range.icon;
-              return (
-                <Card key={range.title} className="h-full">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {range.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {range.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
-        </section>
-
         {/* What Affects Your Monthly Home Loan Payment */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -620,6 +475,71 @@ export default function HomeLoanCalculatorPage() {
           </ul>
         </section>
 
+        {/* Sample Home Financing Scenarios */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            Sample Home Financing Scenarios
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            These examples can help you compare common home financing paths in
+            the Philippines. Use them as a starting point, then adjust the
+            numbers based on your target property, down payment, and preferred
+            financing option.
+          </p>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2">
+            {financingScenarios.map((scenario) => {
+              const Icon = scenario.icon;
+              return (
+                <Card key={scenario.title} className="h-full">
+                  <CardHeader>
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+                      <Icon className="size-5" />
+                    </div>
+                    <CardTitle className="mt-3 text-sm">
+                      {scenario.title}
+                    </CardTitle>
+                    <CardDescription className="text-xs leading-relaxed">
+                      {scenario.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Example Affordability Ranges */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            Example Affordability Ranges
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            These example ranges can help you think about what different property
+            budgets may feel like in practice. Use them as planning references,
+            not lender quotes.
+          </p>
+          <div className="mt-6 grid gap-5 sm:grid-cols-3">
+            {affordabilityRanges.map((range) => {
+              const Icon = range.icon;
+              return (
+                <Card key={range.title} className="h-full">
+                  <CardHeader>
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+                      <Icon className="size-5" />
+                    </div>
+                    <CardTitle className="mt-3 text-sm">
+                      {range.title}
+                    </CardTitle>
+                    <CardDescription className="text-xs leading-relaxed">
+                      {range.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Related Calculators and Guides */}
         <section className="mt-12">
           <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
@@ -655,19 +575,6 @@ export default function HomeLoanCalculatorPage() {
               );
             })}
           </div>
-        </section>
-
-        {/* How the Home Loan Estimate Is Calculated */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How the Home Loan Estimate Is Calculated
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {homeLoanData.formula.description}
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {homeLoanData.formula.explanation}
-          </p>
         </section>
 
         {/* FAQ */}
