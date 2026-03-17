@@ -147,16 +147,17 @@ const allGuides = [
       "Employees, self-employed members, voluntary members, and OFWs",
     href: "/guides/sss/how-to-compute-sss-pension",
   },
-];
-
-const futureGuides = [
   {
     title: "PhilHealth Contribution Guide Philippines",
     description:
       "Understand how PhilHealth deductions work and where they fit into payroll or contribution estimates.",
     type: "Explainer",
     bestFor: "Employees and payroll learners",
+    href: "/guides/government/philhealth-contribution-guide",
   },
+];
+
+const futureGuides = [
   {
     title: "Pag-IBIG Deduction Guide Philippines",
     description:
