@@ -19,6 +19,7 @@ export const mainNavItems: NavItem[] = [
       { label: "Emergency Fund Calculator", href: "/calculators/savings/emergency-fund-calculator-philippines" },
       { label: "Time Deposit Calculator", href: "/calculators/savings/time-deposit-calculator-philippines" },
       { label: "Savings Goal Calculator", href: "/calculators/savings/savings-goal-calculator-philippines" },
+      { label: "13th Month Pay Calculator", href: "/calculators/salary/thirteenth-month-pay-calculator-philippines" },
     ],
   },
   {
