@@ -369,6 +369,7 @@ export default function CalculatorsPage() {
         title="Financial Calculators Philippines"
         description="Explore financial calculators for common money decisions in the Philippines. Use PesoHub's calculator hub to estimate loan payments, understand salary deductions, plan savings goals, and find the right tool based on what you are trying to figure out."
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
       {/* Start With Your Need */}
