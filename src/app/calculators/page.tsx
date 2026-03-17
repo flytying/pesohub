@@ -39,34 +39,6 @@ const breadcrumbs = [
   { label: "Calculators" },
 ];
 
-const quickLinks = [
-  {
-    question: "Want to estimate a monthly car payment?",
-    label: "Car Loan Calculator",
-    href: "/calculators/loans/car-loan-calculator-philippines",
-  },
-  {
-    question: "Planning for a home loan?",
-    label: "Home Loan Calculator",
-    href: "/calculators/loans/home-loan-calculator-philippines",
-  },
-  {
-    question: "Checking how much tax may be withheld?",
-    label: "Withholding Tax Calculator",
-    href: "/calculators/tax/withholding-tax-calculator-philippines",
-  },
-  {
-    question: "Reviewing SSS contributions?",
-    label: "SSS Contribution Calculator",
-    href: "/calculators/sss/sss-contribution-calculator-philippines",
-  },
-  {
-    question: "Estimating take-home pay?",
-    label: "Take-Home Pay Calculator",
-    href: "/calculators/tax/take-home-pay-calculator-philippines",
-  },
-];
-
 const needCards = [
   {
     title: "Borrowing Money",
@@ -404,30 +376,6 @@ export default function CalculatorsPage() {
         Useful for comparing numbers before applying, budgeting, or checking
         how a financial decision may affect your monthly cash flow.
       </p>
-
-      {/* Not Sure Where to Start? */}
-      <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
-        <h2 className="text-sm font-semibold text-foreground">
-          Not Sure Where to Start?
-        </h2>
-        <p className="mt-1 text-xs text-muted-foreground">
-          Start with the question you are trying to answer. These quick links
-          can help you find the right calculator faster.
-        </p>
-        <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-          {quickLinks.map((link) => (
-            <li key={link.href}>
-              {link.question} Start with the{" "}
-              <Link
-                href={link.href}
-                className="text-primary hover:underline"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
 
       {/* Important Note */}
       <DisclaimerBox text="Calculator results are estimates based on the inputs and assumptions shown. Actual figures may vary depending on provider terms, official tables, fees, and policy updates. Always confirm final numbers with the relevant bank, financial provider, employer, or government agency when needed." />
