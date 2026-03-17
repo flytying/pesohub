@@ -96,7 +96,7 @@ const relatedPages = [
 
 export default function PhilHealthContributionTablePage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -107,14 +107,15 @@ export default function PhilHealthContributionTablePage() {
         })}
       />
 
-      {/* Hero */}
       <PageHero
         title={philhealthMeta.title}
         description={philhealthMeta.directAnswer}
         badge={PHILHEALTH_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Support text */}
       <p className="-mt-4 mb-8 text-sm text-muted-foreground">
         Useful for employees, employers, and payroll users who want a
@@ -573,5 +574,6 @@ export default function PhilHealthContributionTablePage() {
       {/* Disclaimer */}
       <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
     </div>
+    </>
   );
 }

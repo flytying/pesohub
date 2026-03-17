@@ -151,15 +151,15 @@ export default function CarLoanCalculatorPage() {
         })}
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Hero */}
-        <PageHero
-          title={carLoanData.h1}
-          description={carLoanData.intro}
-          badge={carLoanData.updatedAt}
-          breadcrumbs={breadcrumbs}
-        />
+      <PageHero
+        title={carLoanData.h1}
+        description={carLoanData.intro}
+        badge={carLoanData.updatedAt}
+        breadcrumbs={breadcrumbs}
+        variant="dark"
+      />
 
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <CarLoanCalculator

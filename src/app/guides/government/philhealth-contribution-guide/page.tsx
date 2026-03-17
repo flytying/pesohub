@@ -74,7 +74,7 @@ const relatedPages = [
 
 export default function PhilHealthContributionGuidePage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -85,14 +85,15 @@ export default function PhilHealthContributionGuidePage() {
         })}
       />
 
-      {/* Hero */}
       <PageHero
         title={philhealthGuideMeta.title}
         description={philhealthGuideMeta.directAnswer}
         badge={PHILHEALTH_GUIDE_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Support text */}
       <p className="-mt-4 mb-8 text-sm text-muted-foreground">
         Useful for employees and payroll users who want a plain-language
@@ -385,5 +386,6 @@ export default function PhilHealthContributionGuidePage() {
       {/* Disclaimer */}
       <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
     </div>
+    </>
   );
 }

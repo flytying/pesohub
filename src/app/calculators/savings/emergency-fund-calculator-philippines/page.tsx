@@ -21,15 +21,17 @@ const breadcrumbs = [
 
 export default function EmergencyFundCalculatorPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
 
       <PageHero
         title="Emergency Fund Calculator Philippines"
         description="Estimate how much you may want to set aside for emergencies based on your monthly expenses and target number of months."
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       <Card className="mx-auto max-w-lg text-center">
         <CardHeader className="items-center py-12">
           <div className="flex size-12 items-center justify-center rounded-full bg-amber-100 text-amber-700">
@@ -50,5 +52,6 @@ export default function EmergencyFundCalculatorPage() {
         </CardHeader>
       </Card>
     </div>
+    </>
   );
 }

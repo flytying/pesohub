@@ -21,15 +21,17 @@ const breadcrumbs = [
 
 export default function SavingsGoalCalculatorPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
 
       <PageHero
         title="Savings Goal Calculator Philippines"
         description="Estimate how much you may need to save regularly to reach a target amount by your chosen timeline."
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       <Card className="mx-auto max-w-lg text-center">
         <CardHeader className="items-center py-12">
           <div className="flex size-12 items-center justify-center rounded-full bg-amber-100 text-amber-700">
@@ -57,5 +59,6 @@ export default function SavingsGoalCalculatorPage() {
         </CardHeader>
       </Card>
     </div>
+    </>
   );
 }

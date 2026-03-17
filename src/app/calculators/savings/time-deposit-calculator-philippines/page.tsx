@@ -128,15 +128,15 @@ export default function TimeDepositCalculatorPage() {
         })}
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Hero */}
-        <PageHero
-          title={timeDepositData.h1}
-          description={timeDepositData.intro}
-          badge={timeDepositData.updatedAt}
-          breadcrumbs={breadcrumbs}
-        />
+      <PageHero
+        title={timeDepositData.h1}
+        description={timeDepositData.intro}
+        badge={timeDepositData.updatedAt}
+        breadcrumbs={breadcrumbs}
+        variant="dark"
+      />
 
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Support text */}
         <p className="-mt-4 mb-8 text-sm text-muted-foreground">
           Useful for comparing fixed-term savings returns before choosing a bank

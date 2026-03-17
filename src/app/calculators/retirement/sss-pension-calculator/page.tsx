@@ -37,18 +37,19 @@ export default function SSSPensionCalculatorPage() {
         })}
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        <PageHero
-          title={sssPensionData.h1}
-          description={sssPensionData.intro}
-          badge={sssPensionData.updatedAt}
-          breadcrumbs={[
-            { label: "Home", href: "/" },
-            { label: "Calculators", href: "/calculators" },
-            { label: "SSS Pension Calculator" },
-          ]}
-        />
+      <PageHero
+        title={sssPensionData.h1}
+        description={sssPensionData.intro}
+        badge={sssPensionData.updatedAt}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Calculators", href: "/calculators" },
+          { label: "SSS Pension Calculator" },
+        ]}
+        variant="dark"
+      />
 
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         <SSSPensionCalculator />
 
         {/* <AdPlaceholder slot="calc-below-results" className="my-8" /> */}

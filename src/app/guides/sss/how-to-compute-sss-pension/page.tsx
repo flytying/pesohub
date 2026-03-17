@@ -46,7 +46,7 @@ const breadcrumbs = [
 
 export default function SssPensionGuidePage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -62,8 +62,10 @@ export default function SssPensionGuidePage() {
         description="A step-by-step guide to understanding how your SSS retirement pension is calculated. Learn the three pension formulas, eligibility requirements, and see a worked example."
         badge={SSS_PENSION_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Direct Answer Box */}
       <section className="py-8">
         <Card className="border-primary/20 bg-primary/5">
@@ -450,5 +452,6 @@ export default function SssPensionGuidePage() {
         <DisclaimerBox />
       </div>
     </div>
+    </>
   );
 }

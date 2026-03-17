@@ -45,7 +45,7 @@ const breadcrumbs = [
 
 export default function BSPExchangeRateGuidePage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -61,8 +61,10 @@ export default function BSPExchangeRateGuidePage() {
         description={bspExchangeRateMeta.directAnswer}
         badge={BSP_EXCHANGE_RATE_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Government Disclaimer */}
       <Card className="mb-8 border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20">
         <CardContent className="p-4 text-sm text-muted-foreground">
@@ -242,5 +244,6 @@ export default function BSPExchangeRateGuidePage() {
       </div>
       <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
     </div>
+    </>
   );
 }

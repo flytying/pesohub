@@ -100,7 +100,7 @@ const relatedPages = [
 
 export default function WithholdingTaxTablePage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -111,14 +111,15 @@ export default function WithholdingTaxTablePage() {
         })}
       />
 
-      {/* Hero */}
       <PageHero
         title={withholdingTaxTableMeta.title}
         description={withholdingTaxTableMeta.directAnswer}
         badge={WITHHOLDING_TAX_TABLE_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Support text */}
       <p className="-mt-4 mb-8 text-sm text-muted-foreground">
         Useful for employees, payroll users, and anyone who wants a
@@ -525,5 +526,6 @@ export default function WithholdingTaxTablePage() {
       {/* Disclaimer */}
       <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
     </div>
+    </>
   );
 }
