@@ -14,7 +14,15 @@ const LoanDonutChart = dynamic(
 import { calculateLoan } from "@/lib/calculators/loan";
 import { formatPeso } from "@/lib/formatters";
 
-export function PersonalLoanCalculator() {
+interface PersonalLoanCalculatorProps {
+  beforeYouStart?: {
+    title?: string;
+    description: string;
+    items: string[];
+  };
+}
+
+export function PersonalLoanCalculator({ beforeYouStart }: PersonalLoanCalculatorProps = {}) {
   const [loanAmount, setLoanAmount] = useState(100_000);
   const [termMonths, setTermMonths] = useState(36);
   const [interestRate, setInterestRate] = useState(12);
@@ -48,6 +56,7 @@ export function PersonalLoanCalculator() {
       <CalculatorShell
         title="Personal Loan Calculator"
         variant="split"
+        beforeYouStart={beforeYouStart}
         resultsSummary={[
           `Loan Amount: ${formatPeso(loanAmount)}`,
           `Interest Rate: ${interestRate}% p.a.`,

@@ -9,7 +9,6 @@ import {
   HelpCircle,
   Calculator,
   BookOpen,
-  CheckCircle,
   DollarSign,
   Percent,
   Clock,
@@ -194,7 +193,14 @@ export default function PersonalLoanCalculatorPage() {
 
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
-          <PersonalLoanCalculator />
+          <PersonalLoanCalculator
+            beforeYouStart={{
+              title: "Before You Borrow",
+              description:
+                "A personal loan can help cover planned expenses or urgent needs, but it should still fit comfortably within your monthly budget. Before applying, test different loan amounts and repayment terms so you can compare affordability, not just approval.",
+              items: beforeYouBorrow,
+            }}
+          />
         </div>
 
         {/* Your Estimated Personal Loan Results */}
@@ -239,27 +245,6 @@ export default function PersonalLoanCalculatorPage() {
               </p>
             </div>
           </div>
-        </section>
-
-        {/* Before You Borrow */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Before You Borrow
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            A personal loan can help cover planned expenses or urgent needs, but
-            it should still fit comfortably within your monthly budget. Before
-            applying, test different loan amounts and repayment terms so you can
-            compare affordability, not just approval.
-          </p>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            {beforeYouBorrow.map((item) => (
-              <li key={item} className="flex gap-2">
-                <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
-                {item}
-              </li>
-            ))}
-          </ul>
         </section>
 
         {/* How to Use This Personal Loan Calculator */}
