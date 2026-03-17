@@ -131,7 +131,9 @@ export default function ThirteenthMonthPayCalculatorPage() {
         </p>
 
         {/* Calculator */}
-        <ThirteenthMonthCalculator />
+        <div id="calculator" className="scroll-mt-20">
+          <ThirteenthMonthCalculator />
+        </div>
 
         {/* Result support text */}
         <p className="mt-4 text-xs text-muted-foreground">
@@ -458,7 +460,7 @@ export default function ThirteenthMonthPayCalculatorPage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/calculators/salary/thirteenth-month-pay-calculator-philippines"
+              href="#calculator"
               className={buttonVariants({ className: "font-medium" })}
             >
               Calculate 13th month pay

@@ -144,7 +144,9 @@ export default function TimeDepositCalculatorPage() {
         </p>
 
         {/* Calculator */}
-        <TimeDepositCalculator />
+        <div id="calculator" className="scroll-mt-20">
+          <TimeDepositCalculator />
+        </div>
 
         {/* Result support text */}
         <p className="mt-4 text-xs text-muted-foreground">
@@ -373,7 +375,7 @@ export default function TimeDepositCalculatorPage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/calculators/savings/time-deposit-calculator-philippines"
+              href="#calculator"
               className={buttonVariants({ className: "font-medium" })}
             >
               Estimate time deposit return

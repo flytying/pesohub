@@ -164,7 +164,9 @@ export default function TakeHomePayCalculatorPage() {
         </p>
 
         {/* Calculator */}
-        <TakeHomePayCalculator />
+        <div id="calculator" className="scroll-mt-20">
+          <TakeHomePayCalculator />
+        </div>
 
         {/* Result support text */}
         <p className="mt-4 text-xs text-muted-foreground">
@@ -375,7 +377,7 @@ export default function TakeHomePayCalculatorPage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/calculators/tax/take-home-pay-calculator-philippines"
+              href="#calculator"
               className={buttonVariants({ className: "font-medium" })}
             >
               Calculate take-home pay
