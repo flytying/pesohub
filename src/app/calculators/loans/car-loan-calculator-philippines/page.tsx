@@ -2,10 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-  Car,
-  Home,
-  Banknote,
-  Timer,
   HelpCircle,
   Calculator,
   BookOpen,
@@ -52,33 +48,6 @@ const beforeYouStart = [
   "Compare 36-, 48-, and 60-month loan terms",
   "Test different interest rates if you are comparing lenders",
   "Leave room in your budget for insurance, registration, fuel, and maintenance",
-];
-
-const exampleScenarios = [
-  {
-    icon: Car,
-    title: "Budget car example",
-    description:
-      "A budget car scenario can help first-time buyers estimate a more manageable monthly payment. A lower vehicle price combined with a reasonable down payment may lead to a lower monthly obligation and lower total borrowing cost.",
-  },
-  {
-    icon: Banknote,
-    title: "Mid-range car example",
-    description:
-      "A mid-range car scenario is useful for buyers looking at newer sedans, hatchbacks, or crossovers. A higher vehicle price will usually increase both the amount financed and the monthly payment, even if the down payment percentage stays the same.",
-  },
-  {
-    icon: Home,
-    title: "Family SUV example",
-    description:
-      "A family SUV or larger vehicle usually results in a much higher monthly payment and total interest cost. This scenario is useful for households comparing whether the added size and features are worth the higher long-term cost.",
-  },
-  {
-    icon: Timer,
-    title: "Shorter term vs longer term",
-    description:
-      "Use the same vehicle price and down payment, then compare a shorter loan term with a longer one. A longer term may lower the monthly payment, but it often increases the total interest paid over time.",
-  },
 ];
 
 const paymentFactors = [
@@ -324,39 +293,6 @@ export default function CarLoanCalculatorPage() {
               </li>
             ))}
           </ul>
-        </section>
-
-        {/* Sample Car Loan Scenarios */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Sample Car Loan Scenarios
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Here are example scenarios to help you compare common car price
-            ranges in the Philippines. Use them as a starting point, then adjust
-            the numbers based on your target vehicle, preferred down payment, and
-            lender terms.
-          </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2">
-            {exampleScenarios.map((scenario) => {
-              const Icon = scenario.icon;
-              return (
-                <Card key={scenario.title} className="h-full">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {scenario.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {scenario.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
         </section>
 
         {/* Related Calculators and Guides */}
