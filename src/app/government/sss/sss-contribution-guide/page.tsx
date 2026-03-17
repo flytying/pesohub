@@ -114,7 +114,7 @@ const relatedPages = [
 
 export default function SSSContributionGuidePage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -125,14 +125,15 @@ export default function SSSContributionGuidePage() {
         })}
       />
 
-      {/* Hero */}
       <PageHero
         title={sssContributionMeta.title}
         description={sssContributionMeta.directAnswer}
         badge={SSS_CONTRIBUTION_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Support text */}
       <p className="-mt-4 mb-8 text-sm text-muted-foreground">
         Useful for employees, employers, voluntary members, self-employed
@@ -556,5 +557,6 @@ export default function SSSContributionGuidePage() {
       {/* Disclaimer */}
       <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
     </div>
+    </>
   );
 }

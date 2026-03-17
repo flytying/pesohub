@@ -215,15 +215,15 @@ export default function HomeLoanCalculatorPage() {
         })}
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Hero */}
-        <PageHero
-          title={homeLoanData.h1}
-          description={homeLoanData.intro}
-          badge={homeLoanData.updatedAt}
-          breadcrumbs={breadcrumbs}
-        />
+      <PageHero
+        title={homeLoanData.h1}
+        description={homeLoanData.intro}
+        badge={homeLoanData.updatedAt}
+        breadcrumbs={breadcrumbs}
+        variant="dark"
+      />
 
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Support text */}
         <p className="-mt-4 mb-8 text-sm text-muted-foreground">
           Helpful for comparing home financing options before talking to a bank,

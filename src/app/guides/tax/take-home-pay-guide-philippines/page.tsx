@@ -82,7 +82,7 @@ const relatedPages = [
 
 export default function TakeHomePayGuidePage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -93,14 +93,15 @@ export default function TakeHomePayGuidePage() {
         })}
       />
 
-      {/* Hero */}
       <PageHero
         title={takeHomePayGuideMeta.title}
         description={takeHomePayGuideMeta.directAnswer}
         badge={TAKE_HOME_PAY_GUIDE_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Support text */}
       <p className="-mt-4 mb-8 text-sm text-muted-foreground">
         Useful for employees who want a plain-language explanation of salary
@@ -387,5 +388,6 @@ export default function TakeHomePayGuidePage() {
       {/* Disclaimer */}
       <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
     </div>
+    </>
   );
 }

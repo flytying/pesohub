@@ -147,15 +147,15 @@ export default function SSSContributionCalculatorPage() {
         })}
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Hero */}
-        <PageHero
-          title={sssContributionCalcData.h1}
-          description={sssContributionCalcData.intro}
-          badge={sssContributionCalcData.updatedAt}
-          breadcrumbs={breadcrumbs}
-        />
+      <PageHero
+        title={sssContributionCalcData.h1}
+        description={sssContributionCalcData.intro}
+        badge={sssContributionCalcData.updatedAt}
+        breadcrumbs={breadcrumbs}
+        variant="dark"
+      />
 
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Support text */}
         <p className="-mt-4 mb-8 text-sm text-muted-foreground">
           Useful for employees, self-employed members, voluntary members,

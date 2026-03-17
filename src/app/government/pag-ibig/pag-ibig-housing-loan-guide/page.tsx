@@ -88,7 +88,7 @@ const relatedPages = [
 
 export default function PagibigHousingLoanGuidePage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -99,14 +99,15 @@ export default function PagibigHousingLoanGuidePage() {
         })}
       />
 
-      {/* Hero */}
       <PageHero
         title={pagibigHousingLoanMeta.title}
         description={pagibigHousingLoanMeta.directAnswer}
         badge={PAGIBIG_HOUSING_LOAN_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Support text */}
       <p className="-mt-4 mb-8 text-sm text-muted-foreground">
         Useful for homebuyers who want a plain-language overview before using a
@@ -445,5 +446,6 @@ export default function PagibigHousingLoanGuidePage() {
       {/* Disclaimer */}
       <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
     </div>
+    </>
   );
 }

@@ -45,7 +45,7 @@ const breadcrumbs = [
 
 export default function UsdToPhpPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -62,8 +62,10 @@ export default function UsdToPhpPage() {
         description="Track the latest US Dollar to Philippine Peso conversion rate sourced from the Bangko Sentral ng Pilipinas (BSP)."
         badge={USD_PHP_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Current Rate Summary */}
       <section className="py-8">
         <div className="gradient-result overflow-hidden rounded-lg p-6 text-white sm:p-8">
@@ -235,5 +237,6 @@ export default function UsdToPhpPage() {
         <DisclaimerBox text="Exchange rates shown are BSP reference rates for informational purposes only. Actual rates at banks and money changers will differ due to spreads and fees. Always confirm the final rate with your provider before making a transaction." />
       </div>
     </div>
+    </>
   );
 }

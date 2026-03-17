@@ -185,7 +185,7 @@ export default function BestSavingsRatesPage() {
   const topBanks = bankSavingsRates.slice(0, 3);
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -197,14 +197,15 @@ export default function BestSavingsRatesPage() {
         })}
       />
 
-      {/* Hero */}
       <PageHero
         title="Best Savings Interest Rates Philippines"
         description="Compare the best savings interest rates in the Philippines across digital banks and traditional banks. Use this page to review headline rates, minimum balance requirements, liquidity, and account notes so you can find a savings option that fits how you actually use your money."
         badge={SAVINGS_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Support text */}
       <p className="-mt-4 mb-8 text-sm text-muted-foreground">
         Useful for comparing savings accounts before opening an account or
@@ -687,5 +688,6 @@ export default function BestSavingsRatesPage() {
         <DisclaimerBox text="Interest rates shown are subject to change without prior notice. Rates are gross (before the 20% final withholding tax on interest income). Promotional rates may expire. Always verify the current rate directly with the bank before opening an account. This page is not affiliated with any bank listed." />
       </div>
     </div>
+    </>
   );
 }

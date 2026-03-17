@@ -146,7 +146,7 @@ const relatedPages = [
 
 export default function TimeDepositRatesPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -158,14 +158,15 @@ export default function TimeDepositRatesPage() {
         })}
       />
 
-      {/* Hero */}
       <PageHero
         title="Time Deposit Rates Philippines"
         description="Compare time deposit rates in the Philippines across different banks, terms, and minimum deposit requirements. Use this page to review gross advertised rates, check lock-in periods, compare minimum placement amounts, and understand what to look at before choosing a fixed-term deposit."
         badge={TIME_DEPOSIT_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Support text */}
       <p className="-mt-4 mb-8 text-sm text-muted-foreground">
         Useful for comparing fixed-term deposit options before opening an
@@ -552,5 +553,6 @@ export default function TimeDepositRatesPage() {
         <DisclaimerBox text="Time deposit rates shown are subject to change without prior notice. Rates are gross (before the 20% final withholding tax on interest income). Promotional rates may expire, and product tenors may be revised or removed. Always verify the current rate and terms directly with the bank before placing funds. This page is not affiliated with any bank listed." />
       </div>
     </div>
+    </>
   );
 }

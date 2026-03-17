@@ -148,15 +148,15 @@ export default function TakeHomePayCalculatorPage() {
         })}
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Hero */}
-        <PageHero
-          title={takeHomePayData.h1}
-          description={takeHomePayData.intro}
-          badge={takeHomePayData.updatedAt}
-          breadcrumbs={breadcrumbs}
-        />
+      <PageHero
+        title={takeHomePayData.h1}
+        description={takeHomePayData.intro}
+        badge={takeHomePayData.updatedAt}
+        breadcrumbs={breadcrumbs}
+        variant="dark"
+      />
 
+      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Support text */}
         <p className="-mt-4 mb-8 text-sm text-muted-foreground">
           Useful for employees who want a clearer estimate of what may

@@ -46,7 +46,7 @@ const breadcrumbs = [
 
 export default function WithholdingTaxGuidePage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
@@ -62,8 +62,10 @@ export default function WithholdingTaxGuidePage() {
         description="A practical, plain-language guide to understanding Philippine withholding tax under the TRAIN Law. Learn the tax brackets, computation formula, and how to verify your payslip."
         badge={WITHHOLDING_TAX_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Direct Answer Box */}
       <section className="py-8">
         <Card className="border-primary/20 bg-primary/5">
@@ -414,5 +416,6 @@ export default function WithholdingTaxGuidePage() {
         <DisclaimerBox />
       </div>
     </div>
+    </>
   );
 }
