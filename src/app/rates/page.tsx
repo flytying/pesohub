@@ -7,7 +7,6 @@ import {
   Smartphone,
   Calculator,
   BookOpen,
-  CheckCircle,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
@@ -107,48 +106,6 @@ const howToUseColumns = [
       "review newer bank products",
       "check promo-driven rate categories",
     ],
-  },
-];
-
-const compareChecklist = [
-  "current rate or quoted yield",
-  "whether the rate is fixed or promotional",
-  "access to funds",
-  "minimum deposit or balance requirements",
-  "lock-in period, if any",
-  "account type or provider type",
-  "update frequency",
-  "whether the page is for tracking, planning, or product comparison",
-];
-
-const whichToStart = [
-  {
-    condition: "Start with Exchange Rates if...",
-    answer:
-      "You want to check USD to PHP or compare currency value today.",
-    href: "/rates/exchange-rates/usd-to-php-today",
-    label: "Exchange Rates",
-  },
-  {
-    condition: "Start with Savings Rates if...",
-    answer:
-      "You want a deposit account that keeps funds accessible while earning interest.",
-    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
-    label: "Savings Rates",
-  },
-  {
-    condition: "Start with Time Deposit Rates if...",
-    answer:
-      "You are willing to lock funds for a fixed period in exchange for a potentially stronger rate.",
-    href: "/rates/savings-rates/time-deposit-rates-philippines",
-    label: "Time Deposit Rates",
-  },
-  {
-    condition: "Start with Digital Bank Rates if...",
-    answer:
-      "You want to compare newer app-based banks and savings products.",
-    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
-    label: "Digital Bank Rates",
   },
 ];
 
@@ -322,53 +279,6 @@ export default function RatesPage() {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* What to Compare When Looking at Rates */}
-      <section className="pt-16">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          What to Compare When Looking at Rates
-        </h2>
-        <p className="mt-3 text-sm text-muted-foreground">
-          A higher number is not always enough reason to choose one option over
-          another. It helps to compare the full context around the rate so you
-          can make a more informed decision. Before relying on a rate, compare:
-        </p>
-        <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-          {compareChecklist.map((item) => (
-            <li key={item} className="flex gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Which Rate Page Should You Start With */}
-      <section className="mt-12 rounded-lg border border-border bg-muted/30 p-6">
-        <h2 className="text-sm font-semibold text-foreground">
-          Which Rate Page Should You Start With?
-        </h2>
-        <p className="mt-1 text-xs text-muted-foreground">
-          If you are not sure where to begin, use this quick guide.
-        </p>
-        <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
-          {whichToStart.map((item) => (
-            <li key={item.label}>
-              <span className="font-medium text-foreground/80">
-                {item.condition}
-              </span>
-              <br />
-              <span>{item.answer} </span>
-              <Link
-                href={item.href}
-                className="text-primary hover:underline"
-              >
-                Go to {item.label} →
-              </Link>
-            </li>
-          ))}
-        </ul>
       </section>
 
       {/* Explore Related Rate Pages */}
