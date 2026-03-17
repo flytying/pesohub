@@ -1,15 +1,16 @@
 import type { FAQ } from "@/types/content";
 
-export const PAGIBIG_HOUSING_LOAN_UPDATED_AT = "2026-03-14";
+export const PAGIBIG_HOUSING_LOAN_UPDATED_AT = "2026-03-17";
 
 export const pagibigHousingLoanMeta = {
-  title: "Pag-IBIG Housing Loan Guide",
-  metaTitle: "Pag-IBIG Housing Loan Guide 2026 — Rates, Limits & Requirements",
+  title: "Pag-IBIG Housing Loan Guide Philippines",
+  metaTitle:
+    "Pag-IBIG Housing Loan Guide Philippines – Eligibility, Loanable Amount & Requirements | PesoHub",
   metaDescription:
-    "Complete guide to Pag-IBIG Fund housing loans. See interest rates, maximum loanable amounts, eligibility requirements, and how to apply for a Pag-IBIG home loan.",
+    "Learn how a Pag-IBIG housing loan works in the Philippines, including eligibility, loanable amount, rates, repricing, and common requirements before applying.",
   slug: "government/pag-ibig/pag-ibig-housing-loan-guide",
   directAnswer:
-    "Pag-IBIG housing loans offer interest rates from 5.375% to 10.375% per year depending on loan amount and term. Maximum loanable amount is PHP 6 million (or PHP 10 million under the Affordable Housing Program). You need at least 24 monthly Pag-IBIG contributions to qualify.",
+    "Learn how a Pag-IBIG housing loan works in the Philippines, who may qualify, what affects the loanable amount, how rates and repricing work, and what documents are usually required. Use this guide to understand the basics before you estimate payments or prepare an application.",
 };
 
 export interface HousingLoanRate {
@@ -19,11 +20,11 @@ export interface HousingLoanRate {
 }
 
 export const housingLoanRates: HousingLoanRate[] = [
-  { loanAmount: "PHP 450,000 and below", repricingPeriod: "End of loan term (fixed)", interestRate: 5.375 },
-  { loanAmount: "PHP 450,001 – PHP 750,000", repricingPeriod: "End of loan term (fixed)", interestRate: 6.375 },
-  { loanAmount: "PHP 750,001 – PHP 1,500,000", repricingPeriod: "End of loan term (fixed)", interestRate: 6.625 },
-  { loanAmount: "PHP 1,500,001 – PHP 2,500,000", repricingPeriod: "3 years", interestRate: 7.375 },
-  { loanAmount: "PHP 2,500,001 – PHP 6,000,000", repricingPeriod: "3 years", interestRate: 8.375 },
+  { loanAmount: "₱450,000 and below", repricingPeriod: "End of loan term (fixed)", interestRate: 5.375 },
+  { loanAmount: "₱450,001 – ₱750,000", repricingPeriod: "End of loan term (fixed)", interestRate: 6.375 },
+  { loanAmount: "₱750,001 – ₱1,500,000", repricingPeriod: "End of loan term (fixed)", interestRate: 6.625 },
+  { loanAmount: "₱1,500,001 – ₱2,500,000", repricingPeriod: "3 years", interestRate: 7.375 },
+  { loanAmount: "₱2,500,001 – ₱6,000,000", repricingPeriod: "3 years", interestRate: 8.375 },
 ];
 
 export interface LoanLimit {
@@ -32,55 +33,93 @@ export interface LoanLimit {
 }
 
 export const loanLimits: LoanLimit[] = [
-  { contributionYears: "2–4 years", maxLoanAmount: "PHP 500,000" },
-  { contributionYears: "5–9 years", maxLoanAmount: "PHP 1,000,000" },
-  { contributionYears: "10–14 years", maxLoanAmount: "PHP 2,000,000" },
-  { contributionYears: "15–19 years", maxLoanAmount: "PHP 4,000,000" },
-  { contributionYears: "20 years and above", maxLoanAmount: "PHP 6,000,000" },
+  { contributionYears: "2–4 years", maxLoanAmount: "₱500,000" },
+  { contributionYears: "5–9 years", maxLoanAmount: "₱1,000,000" },
+  { contributionYears: "10–14 years", maxLoanAmount: "₱2,000,000" },
+  { contributionYears: "15–19 years", maxLoanAmount: "₱4,000,000" },
+  { contributionYears: "20 years and above", maxLoanAmount: "₱6,000,000" },
 ];
 
-export const eligibilityRequirements = [
-  "Active Pag-IBIG member with at least 24 monthly contributions",
-  "Not more than 65 years old at the time of loan application",
-  "Must not have an existing Pag-IBIG housing loan or must have fully paid a previous one",
-  "Has legal capacity to acquire and encumber real property",
-  "Must not have had a Pag-IBIG housing loan that was foreclosed, canceled, or bought back",
+export const eligibilityItems = [
+  "Active Pag-IBIG membership",
+  "Required contribution history (at least 24 monthly contributions)",
+  "Age and loan maturity conditions (not over 65 at application, not over 70 at loan maturity)",
+  "Capacity to repay the monthly loan",
+  "Acceptable loan purpose and property type",
 ];
 
-export const documentRequirements = [
-  "Pag-IBIG Housing Loan Application Form (HQP-HLF-068)",
-  "Valid government-issued IDs (2 copies)",
-  "Proof of income (COE with compensation, ITR, or business permit)",
-  "Transfer Certificate of Title (TCT) or Condominium Certificate of Title (CCT)",
-  "Tax Declaration and Tax Clearance",
-  "Lot plan and vicinity map",
-  "Contract to Sell or Deed of Absolute Sale",
+export const loanableAmountFactors = [
+  "Ability to repay the monthly loan",
+  "Appraised value or collateral basis",
+  "Contribution and membership standing",
+  "Chosen loan term",
+  "Product rules and internal evaluation",
+];
+
+export const rateComparisonPoints = [
+  "The starting rate",
+  "The monthly payment under different terms",
+  "How long the rate is expected to stay fixed",
+  "What may happen when the loan is repriced later",
+];
+
+export const documentChecklist = [
+  "Membership and account information",
+  "Valid identification",
+  "Proof of income",
+  "Employment or business documents",
+  "Property-related documents",
+  "Signed application forms",
+  "Additional supporting documents if required",
+];
+
+export const housingPurposes = [
+  "Home purchase",
+  "House and lot purchase",
+  "Condominium purchase",
+  "Home construction",
+  "Home improvement",
+  "Refinancing or related approved housing purposes",
+];
+
+export const questionsBeforeApplying = [
+  "Am I likely to meet the membership and contribution conditions?",
+  "Is the property type likely to fit the loan purpose?",
+  "Does the monthly payment look realistic for my budget?",
+  "Have I compared loan terms and rate scenarios?",
+  "Do I already have the basic documents I will need?",
 ];
 
 export const pagibigHousingLoanFaqs: FAQ[] = [
   {
-    question: "How long can I pay my Pag-IBIG housing loan?",
+    question: "What is a Pag-IBIG housing loan?",
     answer:
-      "Pag-IBIG housing loans can be paid over a maximum term of 30 years. The minimum term is 1 year. Longer terms mean lower monthly payments but higher total interest paid.",
+      "A Pag-IBIG housing loan is a housing financing option designed for qualified Pag-IBIG members who meet the required conditions and want to finance an approved housing purpose.",
   },
   {
-    question: "What is the maximum Pag-IBIG housing loan amount?",
+    question: "How do I know if I may qualify?",
     answer:
-      "The maximum loanable amount is PHP 6 million for regular housing loans. Under the Affordable Housing Program, members can borrow up to PHP 10 million for properties in designated areas. The actual amount depends on your paying capacity, contribution years, and property appraisal value.",
+      "Qualification usually depends on factors such as membership standing, contribution history, age or maturity conditions, repayment capacity, and the type of property or housing purpose involved.",
   },
   {
-    question: "Can I use my Pag-IBIG savings as down payment?",
+    question: "What affects how much I may borrow?",
     answer:
-      "Yes. You can use your Total Accumulated Value (TAV) in your Pag-IBIG savings as part of your equity or down payment for the housing loan. You can request a TAV withdrawal for this purpose.",
+      "Loanable amount usually depends on repayment capacity, property value or appraisal basis, contribution standing, chosen term, and the program rules used in the evaluation.",
   },
   {
-    question: "How do I apply for a Pag-IBIG housing loan?",
+    question: "Why do rates and repricing matter?",
     answer:
-      "You can apply online through the Pag-IBIG Fund Virtual Office or in person at any Pag-IBIG branch. Submit the required documents, wait for property appraisal and credit investigation, then sign the loan documents upon approval. The process typically takes 20-30 business days.",
+      "The rate and repricing structure affect your monthly payment and may also affect how your payment changes over time. That is why it helps to compare scenarios before applying.",
   },
   {
-    question: "What happens if I miss a Pag-IBIG housing loan payment?",
+    question:
+      "Do I need complete documents before estimating my payment?",
     answer:
-      "Late payments incur a penalty of 1/20 of 1% per day of delay. If you miss three consecutive monthly payments, your loan account is classified as delinquent. After six months of non-payment, foreclosure proceedings may begin. Contact Pag-IBIG immediately if you are having difficulty making payments to explore restructuring options.",
+      "No. You can use a calculator first to estimate the possible monthly payment, then gather documents once you are more confident the loan scenario fits your budget.",
+  },
+  {
+    question: "What should I do after reading this guide?",
+    answer:
+      "Use the Home Loan Calculator if you want to estimate payments, or check the Pag-IBIG Contribution Table if you want to understand the contribution side of the broader Pag-IBIG journey.",
   },
 ];
