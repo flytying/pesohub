@@ -97,6 +97,12 @@ export const ALL_PAGES: PageLink[] = [
     description: "Estimate your 13th month pay based on basic salary and months worked.",
     category: "calculator",
   },
+  {
+    slug: "/rates/savings-rates/time-deposit-rates-philippines",
+    title: "Time Deposit Rates",
+    description: "Compare time deposit rates by term length, minimum deposit, and gross rate.",
+    category: "rate",
+  },
 ];
 
 const LINK_MAP: Record<string, string[]> = {
@@ -179,6 +185,11 @@ const LINK_MAP: Record<string, string[]> = {
     "/calculators/tax/take-home-pay-calculator-philippines",
     "/calculators/tax/withholding-tax-calculator-philippines",
     "/calculators/sss/sss-contribution-calculator-philippines",
+  ],
+  "/rates/savings-rates/time-deposit-rates-philippines": [
+    "/rates/savings-rates/best-savings-interest-rates-philippines",
+    "/rates/exchange-rates/usd-to-php-today",
+    "/calculators/savings/time-deposit-calculator-philippines",
   ],
 };
 
