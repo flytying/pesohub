@@ -48,13 +48,6 @@ const breadcrumbs = [
   { label: "SSS Contribution Calculator" },
 ];
 
-const resultMeaning = [
-  "Total contribution is the full amount associated with the selected schedule",
-  "Employee share is the amount usually deducted from salary for employed members",
-  "Employer share applies only when the member classification includes employer contribution",
-  "Monthly Salary Credit is the salary band used to determine the contribution amount",
-];
-
 const memberTypes = [
   {
     icon: Briefcase,
@@ -156,12 +149,6 @@ export default function SSSContributionCalculatorPage() {
       />
 
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Support text */}
-        <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-          Useful for employees, self-employed members, voluntary members,
-          non-working spouses, and OFWs who want a fast contribution estimate.
-        </p>
-
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <SSSContributionCalculator />
@@ -187,59 +174,6 @@ export default function SSSContributionCalculatorPage() {
             </p>
           </div>
         </div>
-
-        {/* What Your Result Means */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            What Your Result Means
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Your estimate shows the contribution amount tied to your Monthly
-            Salary Credit and member type. For employees, the result may
-            include both employee share and employer share. For other member
-            types, the contribution structure may differ.
-          </p>
-          <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-            {resultMeaning.map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* How Member Type Affects the Estimate */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How Member Type Affects the Estimate
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            SSS contribution schedules are not interpreted the same way for
-            every member classification. That is why choosing the correct
-            member type matters before relying on the result.
-          </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {memberTypes.map((type) => {
-              const Icon = type.icon;
-              return (
-                <Card key={type.title} className="h-full">
-                  <CardHeader>
-                    <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-4" />
-                    </div>
-                    <CardTitle className="mt-2 text-sm">
-                      {type.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {type.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
-        </section>
 
         {/* What Is Monthly Salary Credit? */}
         <section className="mt-12">
@@ -327,6 +261,38 @@ export default function SSSContributionCalculatorPage() {
               </li>
             ))}
           </ul>
+        </section>
+
+        {/* How Member Type Affects the Estimate */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            How Member Type Affects the Estimate
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            SSS contribution schedules are not interpreted the same way for
+            every member classification. That is why choosing the correct
+            member type matters before relying on the result.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {memberTypes.map((type) => {
+              const Icon = type.icon;
+              return (
+                <Card key={type.title} className="h-full">
+                  <CardHeader>
+                    <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
+                      <Icon className="size-4" />
+                    </div>
+                    <CardTitle className="mt-2 text-sm">
+                      {type.title}
+                    </CardTitle>
+                    <CardDescription className="text-xs leading-relaxed">
+                      {type.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              );
+            })}
+          </div>
         </section>
 
         {/* FAQ */}
