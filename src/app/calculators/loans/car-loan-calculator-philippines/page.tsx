@@ -236,39 +236,6 @@ export default function CarLoanCalculatorPage() {
           </div>
         </section>
 
-        {/* Sample Car Loan Scenarios */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Sample Car Loan Scenarios
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Here are example scenarios to help you compare common car price
-            ranges in the Philippines. Use them as a starting point, then adjust
-            the numbers based on your target vehicle, preferred down payment, and
-            lender terms.
-          </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2">
-            {exampleScenarios.map((scenario) => {
-              const Icon = scenario.icon;
-              return (
-                <Card key={scenario.title} className="h-full">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {scenario.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {scenario.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
-        </section>
-
         {/* What Affects Your Monthly Car Loan Payment */}
         <section className="mt-12">
           <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -357,6 +324,39 @@ export default function CarLoanCalculatorPage() {
           </ul>
         </section>
 
+        {/* Sample Car Loan Scenarios */}
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+            Sample Car Loan Scenarios
+          </h2>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Here are example scenarios to help you compare common car price
+            ranges in the Philippines. Use them as a starting point, then adjust
+            the numbers based on your target vehicle, preferred down payment, and
+            lender terms.
+          </p>
+          <div className="mt-6 grid gap-5 sm:grid-cols-2">
+            {exampleScenarios.map((scenario) => {
+              const Icon = scenario.icon;
+              return (
+                <Card key={scenario.title} className="h-full">
+                  <CardHeader>
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+                      <Icon className="size-5" />
+                    </div>
+                    <CardTitle className="mt-3 text-sm">
+                      {scenario.title}
+                    </CardTitle>
+                    <CardDescription className="text-xs leading-relaxed">
+                      {scenario.description}
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Related Calculators and Guides */}
         <section className="mt-12">
           <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
@@ -392,19 +392,6 @@ export default function CarLoanCalculatorPage() {
               );
             })}
           </div>
-        </section>
-
-        {/* How This Calculator Works */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How the Car Loan Estimate Is Calculated
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {carLoanData.formula.description}
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            {carLoanData.formula.explanation}
-          </p>
         </section>
 
         {/* FAQ */}
