@@ -131,6 +131,14 @@ const allGuides = [
     href: "/guides/tax/how-withholding-tax-works-philippines",
   },
   {
+    title: "Take-Home Pay Guide Philippines",
+    description:
+      "Understand why take-home pay differs from gross salary and how common deductions affect net pay.",
+    type: "Explainer",
+    bestFor: "Employees reviewing salary deductions",
+    href: "/guides/tax/take-home-pay-guide-philippines",
+  },
+  {
     title: "SSS Contribution Guide Philippines",
     description:
       "Understand how SSS contributions work, how much may apply to your salary or member type, and how to check your records or contribution schedule.",
@@ -142,13 +150,6 @@ const allGuides = [
 ];
 
 const futureGuides = [
-  {
-    title: "Take-Home Pay Guide Philippines",
-    description:
-      "Understand why take-home pay differs from gross salary and how common deductions affect net pay.",
-    type: "Explainer",
-    bestFor: "Employees reviewing salary deductions",
-  },
   {
     title: "PhilHealth Contribution Guide Philippines",
     description:

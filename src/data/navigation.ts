@@ -35,6 +35,7 @@ export const mainNavItems: NavItem[] = [
     href: "/guides",
     children: [
       { label: "How Withholding Tax Works", href: "/guides/tax/how-withholding-tax-works-philippines" },
+      { label: "Take-Home Pay Guide", href: "/guides/tax/take-home-pay-guide-philippines" },
       { label: "How to Compute SSS Pension", href: "/guides/sss/how-to-compute-sss-pension" },
     ],
   },

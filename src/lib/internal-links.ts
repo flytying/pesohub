@@ -56,6 +56,12 @@ export const ALL_PAGES: PageLink[] = [
     category: "guide",
   },
   {
+    slug: "/guides/tax/take-home-pay-guide-philippines",
+    title: "Take-Home Pay Guide",
+    description: "Learn why take-home pay is lower than gross salary and how common deductions affect net pay.",
+    category: "guide",
+  },
+  {
     slug: "/government/sss/sss-contribution-guide",
     title: "SSS Contribution Table",
     description: "Complete 2025 SSS contribution table with employee and employer shares by salary bracket.",
@@ -156,6 +162,11 @@ const LINK_MAP: Record<string, string[]> = {
     "/calculators/retirement/sss-pension-calculator",
     "/guides/tax/how-withholding-tax-works-philippines",
     "/government/sss/sss-pension-table",
+  ],
+  "/guides/tax/take-home-pay-guide-philippines": [
+    "/calculators/tax/take-home-pay-calculator-philippines",
+    "/guides/tax/how-withholding-tax-works-philippines",
+    "/government/philhealth/philhealth-contribution-table-philippines",
   ],
   "/government/sss/sss-contribution-guide": [
     "/calculators/retirement/sss-pension-calculator",
