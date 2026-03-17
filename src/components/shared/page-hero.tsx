@@ -63,7 +63,7 @@ export function PageHero({
             {description}
           </p>
           {badge && (
-            <p className="mt-4 flex items-center gap-1.5 text-xs text-white/40">
+            <p className="mt-4 flex items-center gap-1.5 text-xs text-amber-300/60">
               <Clock className="size-3" />
               Updated {formatDate(badge)}
             </p>
