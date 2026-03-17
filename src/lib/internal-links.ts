@@ -91,6 +91,12 @@ export const ALL_PAGES: PageLink[] = [
     description: "Current PhilHealth premium rate, salary floor, salary ceiling, employee and employer share.",
     category: "government",
   },
+  {
+    slug: "/calculators/salary/thirteenth-month-pay-calculator-philippines",
+    title: "13th Month Pay Calculator",
+    description: "Estimate your 13th month pay based on basic salary and months worked.",
+    category: "calculator",
+  },
 ];
 
 const LINK_MAP: Record<string, string[]> = {
@@ -168,6 +174,11 @@ const LINK_MAP: Record<string, string[]> = {
     "/calculators/tax/take-home-pay-calculator-philippines",
     "/calculators/sss/sss-contribution-calculator-philippines",
     "/government/sss/sss-contribution-guide",
+  ],
+  "/calculators/salary/thirteenth-month-pay-calculator-philippines": [
+    "/calculators/tax/take-home-pay-calculator-philippines",
+    "/calculators/tax/withholding-tax-calculator-philippines",
+    "/calculators/sss/sss-contribution-calculator-philippines",
   ],
 };
 

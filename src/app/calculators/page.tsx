@@ -174,6 +174,17 @@ const salaryCalculators: CalculatorData[] = [
       "Review deduction guides or compare against contribution tables if you want to verify each part of your payslip.",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
   },
+  {
+    title: "13th Month Pay Calculator",
+    description:
+      "Estimate your 13th month pay based on monthly basic salary and months worked, with full-year and prorated scenarios.",
+    bestFor:
+      "Employees checking expected 13th month pay before year-end or after partial service.",
+    youllNeed: "Monthly basic salary, months worked during the year",
+    bestNextStep:
+      "Review which pay items are included or excluded, or check the take-home pay calculator for a fuller salary estimate.",
+    href: "/calculators/salary/thirteenth-month-pay-calculator-philippines",
+  },
 ];
 
 const savingsCalculators: CalculatorData[] = [
