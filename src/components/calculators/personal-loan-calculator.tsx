@@ -116,6 +116,7 @@ export function PersonalLoanCalculator() {
             max={3_000_000}
             step={5_000}
             helpText="Enter the amount you want to borrow."
+            tooltip="The total amount you plan to borrow from the lender, excluding fees and charges."
           />
           <CalculatorInput
             label="Repayment Term (months)"
@@ -125,6 +126,7 @@ export function PersonalLoanCalculator() {
             max={60}
             step={1}
             helpText="Choose the number of months for repayment."
+            tooltip="How long you have to repay the loan. A longer term lowers monthly payments but increases total interest paid."
           />
           <CalculatorInput
             label="Annual Interest Rate (%)"
@@ -134,6 +136,7 @@ export function PersonalLoanCalculator() {
             max={36}
             step={0.1}
             helpText="Enter the estimated annual interest rate offered by the lender."
+            tooltip="The yearly interest rate charged by the lender. Rates vary by lender, loan amount, and your credit profile."
           />
         </div>
       </CalculatorShell>

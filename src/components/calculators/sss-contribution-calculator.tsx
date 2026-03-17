@@ -141,6 +141,7 @@ export function SSSContributionCalculator() {
             max={100_000}
             step={1_000}
             helpText="Enter your monthly salary or compensation amount."
+            tooltip="Your monthly salary or declared earnings used to determine your SSS contribution bracket."
           />
 
           <div className="space-y-2">

@@ -124,6 +124,7 @@ export function TakeHomePayCalculator() {
             max={1_000_000}
             step={1_000}
             helpText="Enter your monthly salary before deductions."
+            tooltip="Your total monthly salary before withholding tax, SSS, PhilHealth, and Pag-IBIG deductions are applied."
           />
 
           <Separator />
