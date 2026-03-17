@@ -107,7 +107,9 @@ export default function WithholdingTaxCalculatorPage() {
         </p>
 
         {/* Calculator */}
-        <WithholdingTaxCalculator />
+        <div id="calculator" className="scroll-mt-20">
+          <WithholdingTaxCalculator />
+        </div>
 
         {/* Result support text */}
         <p className="mt-4 text-xs text-muted-foreground">
@@ -440,7 +442,7 @@ export default function WithholdingTaxCalculatorPage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/calculators/tax/withholding-tax-calculator-philippines"
+              href="#calculator"
               className={buttonVariants({ className: "font-medium" })}
             >
               Calculate tax

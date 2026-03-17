@@ -193,7 +193,9 @@ export default function CarLoanCalculatorPage() {
         />
 
         {/* Calculator */}
-        <CarLoanCalculator />
+        <div id="calculator" className="scroll-mt-20">
+          <CarLoanCalculator />
+        </div>
 
         {/* Before You Start */}
         <section className="mt-12">
@@ -410,7 +412,7 @@ export default function CarLoanCalculatorPage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/calculators/loans/car-loan-calculator-philippines"
+              href="#calculator"
               className={buttonVariants({ className: "font-medium" })}
             >
               Calculate payment

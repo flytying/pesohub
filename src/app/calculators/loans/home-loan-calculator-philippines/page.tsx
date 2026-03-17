@@ -232,7 +232,9 @@ export default function HomeLoanCalculatorPage() {
         </p>
 
         {/* Calculator */}
-        <HomeLoanCalculator />
+        <div id="calculator" className="scroll-mt-20">
+          <HomeLoanCalculator />
+        </div>
 
         {/* Your Estimated Home Loan Results */}
         <section className="mt-12">
@@ -700,7 +702,7 @@ export default function HomeLoanCalculatorPage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/calculators/loans/home-loan-calculator-philippines"
+              href="#calculator"
               className={buttonVariants({ className: "font-medium" })}
             >
               Calculate payment

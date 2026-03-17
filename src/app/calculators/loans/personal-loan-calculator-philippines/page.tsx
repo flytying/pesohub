@@ -193,7 +193,9 @@ export default function PersonalLoanCalculatorPage() {
         </p>
 
         {/* Calculator */}
-        <PersonalLoanCalculator />
+        <div id="calculator" className="scroll-mt-20">
+          <PersonalLoanCalculator />
+        </div>
 
         {/* Your Estimated Personal Loan Results */}
         <section className="mt-12">
@@ -644,7 +646,7 @@ export default function PersonalLoanCalculatorPage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/calculators/loans/personal-loan-calculator-philippines"
+              href="#calculator"
               className={buttonVariants({ className: "font-medium" })}
             >
               Calculate payment

@@ -163,7 +163,9 @@ export default function SSSContributionCalculatorPage() {
         </p>
 
         {/* Calculator */}
-        <SSSContributionCalculator />
+        <div id="calculator" className="scroll-mt-20">
+          <SSSContributionCalculator />
+        </div>
 
         {/* Result support text */}
         <p className="mt-4 text-xs text-muted-foreground">
@@ -375,7 +377,7 @@ export default function SSSContributionCalculatorPage() {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-              href="/calculators/sss/sss-contribution-calculator-philippines"
+              href="#calculator"
               className={buttonVariants({ className: "font-medium" })}
             >
               Calculate SSS contribution
