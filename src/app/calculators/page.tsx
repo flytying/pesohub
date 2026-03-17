@@ -371,9 +371,6 @@ export default function CalculatorsPage() {
         breadcrumbs={breadcrumbs}
       />
 
-      {/* Important Note */}
-      <DisclaimerBox text="Calculator results are estimates based on the inputs and assumptions shown. Actual figures may vary depending on provider terms, official tables, fees, and policy updates. Always confirm final numbers with the relevant bank, financial provider, employer, or government agency when needed." />
-
       {/* Start With Your Need */}
       <section id="needs" className="scroll-mt-20 pt-16">
         <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
@@ -594,6 +591,11 @@ export default function CalculatorsPage() {
           ))}
         </ul>
       </section>
+
+      {/* Important Note */}
+      <div className="pt-16">
+        <DisclaimerBox text="Calculator results are estimates based on the inputs and assumptions shown. Actual figures may vary depending on provider terms, official tables, fees, and policy updates. Always confirm final numbers with the relevant bank, financial provider, employer, or government agency when needed." />
+      </div>
 
       {/* FAQ */}
       <FaqSection faqs={faqs} />
