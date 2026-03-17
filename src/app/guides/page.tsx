@@ -3,13 +3,9 @@ import {
   ArrowRight,
   BookOpen,
   Calculator,
-  CheckCircle,
   FileText,
   Landmark,
-  Lightbulb,
-  MessageCircle,
   Shield,
-  Target,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
@@ -72,33 +68,6 @@ const startPaths = [
       "See what common payroll and contribution references mean before checking official figures.",
     cta: "Explore reference-related guides",
     href: "/government",
-  },
-];
-
-const reassuranceItems = [
-  {
-    icon: Lightbulb,
-    title: "Understand confusing topics faster",
-    description:
-      "Guides are written to make technical or bureaucratic topics easier to follow.",
-  },
-  {
-    icon: MessageCircle,
-    title: "Learn in plain language",
-    description:
-      "Definitions, examples, and next steps are explained more simply.",
-  },
-  {
-    icon: Target,
-    title: "Move from confusion to action",
-    description:
-      "Each guide is meant to help you understand the topic, then find the next useful tool or reference.",
-  },
-  {
-    icon: CheckCircle,
-    title: "Confirm with official sources when needed",
-    description:
-      "Rules, schedules, and official tables can change, so final details should still be checked with the relevant agency, employer, or provider.",
   },
 ];
 
@@ -266,36 +235,6 @@ export default function GuidesPage() {
         description="Plain-language guides to help you understand confusing money topics in the Philippines, from taxes and salary deductions to SSS contributions and government reference tables."
         breadcrumbs={breadcrumbs}
       />
-
-      {/* Helper line */}
-      <p className="-mt-4 mb-10 text-sm text-muted-foreground">
-        Start with the question you&rsquo;re trying to answer, then move to the
-        right guide, calculator, or reference page.
-      </p>
-
-      {/* Reassurance strip */}
-      <section className="mb-12">
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {reassuranceItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.title} className="flex gap-3">
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
-                  <Icon className="size-4" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-foreground">
-                    {item.title}
-                  </p>
-                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
 
       {/* Start with what you're trying to understand */}
       <section className="mb-12">
