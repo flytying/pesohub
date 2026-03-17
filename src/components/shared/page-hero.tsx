@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Clock } from "lucide-react";
 import { UpdateBadge } from "@/components/shared/update-badge";
+import { formatDate } from "@/lib/formatters";
 
 interface PageHeroProps {
   title: string;
@@ -62,9 +63,10 @@ export function PageHero({
             {description}
           </p>
           {badge && (
-            <div className="mt-5">
-              <UpdateBadge date={badge} />
-            </div>
+            <p className="mt-4 flex items-center gap-1.5 text-xs text-white/40">
+              <Clock className="size-3" />
+              Updated {formatDate(badge)}
+            </p>
           )}
         </div>
       </section>
