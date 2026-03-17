@@ -1,6 +1,6 @@
 "use client";
 
-import { Info } from "lucide-react";
+import { Info, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ResultActions } from "@/components/calculators/result-actions";
@@ -65,7 +65,7 @@ export function CalculatorShell({
                   <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
                     {beforeYouStart.items.map((item) => (
                       <li key={item} className="flex gap-2">
-                        <span className="mt-0.5 size-1.5 shrink-0 rounded-full bg-primary" />
+                        <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
                         {item}
                       </li>
                     ))}
