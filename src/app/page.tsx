@@ -202,14 +202,24 @@ export default function HomePage() {
       <JsonLd data={generateOrganizationSchema()} />
 
       {/* Hero */}
-      <section className="gradient-hero py-20 text-white sm:py-28 lg:py-32">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl lg:leading-tight">
-            Practical money tools for Filipinos
+      <section className="gradient-hero py-24 text-white sm:py-32 lg:py-40">
+        <div className="hero-glow" />
+        <div className="hero-grid" />
+        <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          {/* Badge pill */}
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-peso-blue backdrop-blur-sm">
+            <span className="inline-block size-1.5 rounded-full bg-peso-blue animate-pulse" />
+            Free tools for Filipinos
+          </div>
+
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl lg:leading-[1.1]">
+            Practical tools for{" "}
+            <span className="text-peso-blue">smarter money</span>{" "}
+            decisions
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
             Free calculators, rate tables, and plain-language guides to help you
-            estimate payments, compare options, and understand common money
+            estimate payments, compare options, and understand common financial
             decisions in the Philippines.
           </p>
 
@@ -217,22 +227,14 @@ export default function HomePage() {
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               href="/calculators"
-              className={buttonVariants({
-                size: "lg",
-                className:
-                  "bg-navy-400 text-white hover:bg-navy-500 border-transparent font-medium",
-              })}
+              className="inline-flex items-center gap-2 rounded-full bg-peso-blue px-6 py-3 text-sm font-semibold text-white transition-all hover:brightness-110 hover:shadow-lg hover:shadow-peso-blue/25"
             >
               Browse Calculators
               <ArrowRight className="size-4" />
             </Link>
             <Link
               href="/rates"
-              className={buttonVariants({
-                size: "lg",
-                className:
-                  "bg-navy-700 text-white hover:bg-navy-600 border-transparent font-medium",
-              })}
+              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/25"
             >
               View Rates
             </Link>

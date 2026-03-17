@@ -150,7 +150,30 @@
 
 /* Gradient utilities */
 @utility gradient-hero {
-  background-color: oklch(0.18 0.06 250);
+  background-color: oklch(0.14 0.04 250);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grid overlay for hero */
+@utility hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 6%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 6%) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Center glow for hero */
+@utility hero-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 60% at 50% 55%, oklch(0.30 0.12 250 / 60%) 0%, transparent 100%);
+  pointer-events: none;
 }
 
 @utility gradient-result {
