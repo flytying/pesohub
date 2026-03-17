@@ -14,7 +14,15 @@ const LoanDonutChart = dynamic(
 import { calculateLoan } from "@/lib/calculators/loan";
 import { formatPeso } from "@/lib/formatters";
 
-export function HomeLoanCalculator() {
+interface HomeLoanCalculatorProps {
+  beforeYouStart?: {
+    title?: string;
+    description: string;
+    items: string[];
+  };
+}
+
+export function HomeLoanCalculator({ beforeYouStart }: HomeLoanCalculatorProps = {}) {
   const [propertyPrice, setPropertyPrice] = useState(3_500_000);
   const [downPaymentPercent, setDownPaymentPercent] = useState(20);
   const [termYears, setTermYears] = useState(20);
@@ -57,6 +65,7 @@ export function HomeLoanCalculator() {
       <CalculatorShell
         title="Home Loan Calculator"
         variant="split"
+        beforeYouStart={beforeYouStart}
         resultsSummary={[
           `Property Price: ${formatPeso(propertyPrice)}`,
           `Down Payment (${downPaymentPercent}%): ${formatPeso(result.downPaymentAmount)}`,

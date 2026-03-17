@@ -10,7 +10,6 @@ import {
   Calculator,
   BookOpen,
   Landmark,
-  CheckCircle,
   DollarSign,
   Percent,
   Clock,
@@ -233,7 +232,13 @@ export default function HomeLoanCalculatorPage() {
 
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
-          <HomeLoanCalculator />
+          <HomeLoanCalculator
+            beforeYouStart={{
+              description:
+                "If you are still deciding what property budget makes sense, start by testing a few simple scenarios. Use the property price you are considering, then compare different down payments, loan terms, and interest rates to see how the monthly amount changes.",
+              items: beforeYouStart,
+            }}
+          />
         </div>
 
         {/* Your Estimated Home Loan Results */}
@@ -279,27 +284,6 @@ export default function HomeLoanCalculatorPage() {
               </p>
             </div>
           </div>
-        </section>
-
-        {/* Before You Start */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Before You Start
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            If you are still deciding what property budget makes sense, start by
-            testing a few simple scenarios. Use the property price you are
-            considering, then compare different down payments, loan terms, and
-            interest rates to see how the monthly amount changes.
-          </p>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            {beforeYouStart.map((item) => (
-              <li key={item} className="flex gap-2">
-                <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
-                {item}
-              </li>
-            ))}
-          </ul>
         </section>
 
         {/* How to Use This Home Loan Calculator */}

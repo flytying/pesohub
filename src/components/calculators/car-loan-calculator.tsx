@@ -14,7 +14,15 @@ const LoanDonutChart = dynamic(
 import { calculateLoan } from "@/lib/calculators/loan";
 import { formatPeso } from "@/lib/formatters";
 
-export function CarLoanCalculator() {
+interface CarLoanCalculatorProps {
+  beforeYouStart?: {
+    title?: string;
+    description: string;
+    items: string[];
+  };
+}
+
+export function CarLoanCalculator({ beforeYouStart }: CarLoanCalculatorProps = {}) {
   const [vehiclePrice, setVehiclePrice] = useState(1_200_000);
   const [downPaymentPercent, setDownPaymentPercent] = useState(20);
   const [termMonths, setTermMonths] = useState(60);
@@ -56,6 +64,7 @@ export function CarLoanCalculator() {
       <CalculatorShell
         title="Car Loan Calculator"
         variant="split"
+        beforeYouStart={beforeYouStart}
         resultsSummary={[
           `Vehicle Price: ${formatPeso(vehiclePrice)}`,
           `Down Payment (${downPaymentPercent}%): ${formatPeso(result.downPaymentAmount)}`,

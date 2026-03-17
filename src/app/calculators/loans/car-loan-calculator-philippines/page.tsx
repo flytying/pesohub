@@ -5,7 +5,6 @@ import {
   HelpCircle,
   Calculator,
   BookOpen,
-  CheckCircle,
   DollarSign,
   Percent,
   Clock,
@@ -163,29 +162,14 @@ export default function CarLoanCalculatorPage() {
 
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
-          <CarLoanCalculator />
+          <CarLoanCalculator
+            beforeYouStart={{
+              description:
+                "If you are still deciding what car budget makes sense, start with a few simple assumptions. Use the full vehicle price, then test different down payments and loan terms to see how your monthly payment changes.",
+              items: beforeYouStart,
+            }}
+          />
         </div>
-
-        {/* Before You Start */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Before You Start
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            If you are still deciding what car budget makes sense, start with a
-            few simple assumptions. Use the full vehicle price, then test
-            different down payments and loan terms to see how your monthly
-            payment changes.
-          </p>
-          <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            {beforeYouStart.map((item) => (
-              <li key={item} className="flex gap-2">
-                <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
 
         {/* How to Tell if the Monthly Payment Is Realistic */}
         <section className="mt-12">
