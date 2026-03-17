@@ -75,33 +75,6 @@ const rateTypeCards = [
   },
 ];
 
-const exploreCategories = [
-  {
-    icon: TrendingUp,
-    title: "Exchange Rates",
-    description:
-      "Use exchange rate pages when you want to check how much one currency is worth in Philippine pesos or compare rate movement over time. This is helpful for remittances, travel planning, international payments, and general tracking.",
-  },
-  {
-    icon: PiggyBank,
-    title: "Savings Rates",
-    description:
-      "Use savings rate pages when you want to compare deposit account yields while keeping your money relatively accessible. This is helpful if you are looking for a place to park emergency funds or short-term savings.",
-  },
-  {
-    icon: Clock,
-    title: "Time Deposit Rates",
-    description:
-      "Use time deposit rate pages when you want to compare fixed-term options that may offer higher returns in exchange for locking in your funds for a set period.",
-  },
-  {
-    icon: Smartphone,
-    title: "Digital Bank Rates",
-    description:
-      "Use digital bank rate pages when you want to compare savings options from app-based banks and fintech-style providers. These pages are useful for users looking for flexible access, competitive yields, or promo-driven rate offers.",
-  },
-];
-
 const howToUseColumns = [
   {
     title: "Use exchange rates if you want to:",
@@ -316,35 +289,6 @@ export default function RatesPage() {
                       <ArrowRight className="size-3.5" />
                     </Link>
                   </div>
-                </CardHeader>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Explore Rate Categories */}
-      <section id="explore" className="scroll-mt-20 pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Explore Rate Categories
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Each category below supports a different financial decision. Choose
-          the one that best matches what you want to compare.
-        </p>
-        <div className="grid gap-5 sm:grid-cols-2">
-          {exploreCategories.map((cat) => {
-            const Icon = cat.icon;
-            return (
-              <Card key={cat.title} className="h-full">
-                <CardHeader>
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                    <Icon className="size-5" />
-                  </div>
-                  <CardTitle className="mt-3 text-sm">{cat.title}</CardTitle>
-                  <CardDescription className="text-xs leading-relaxed">
-                    {cat.description}
-                  </CardDescription>
                 </CardHeader>
               </Card>
             );
