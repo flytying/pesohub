@@ -54,14 +54,6 @@ const beforeYouStart = [
   "Leave room in your budget for insurance, registration, fuel, and maintenance",
 ];
 
-const howToUsePoints = [
-  "estimate your monthly car payment",
-  "see how much you need for the down payment",
-  "compare shorter and longer loan terms",
-  "understand how interest affects the total borrowing cost",
-  "check which car price range is more realistic for your budget",
-];
-
 const exampleScenarios = [
   {
     icon: Car,
@@ -200,59 +192,8 @@ export default function CarLoanCalculatorPage() {
           breadcrumbs={breadcrumbs}
         />
 
-        {/* Support text */}
-        <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-          Helpful for comparing loan options before talking to a bank, dealer,
-          or financing company.
-        </p>
-
         {/* Calculator */}
         <CarLoanCalculator />
-
-        {/* Your Estimated Car Loan Results */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            Your Estimated Car Loan Results
-          </h2>
-          <div className="mt-4 space-y-4">
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Monthly Payment
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is your estimated monthly amortization based on the values
-                you entered.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Loan Amount
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is the amount financed after subtracting your down payment.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Total Interest
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is the total estimated interest you may pay over the full
-                loan term.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
-                Estimated Total Loan Cost
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                This is the estimated loan amount plus total interest. It does
-                not include insurance, registration, fuel, maintenance, or other
-                ownership costs.
-              </p>
-            </div>
-          </div>
-        </section>
 
         {/* Before You Start */}
         <section className="mt-12">
@@ -271,27 +212,6 @@ export default function CarLoanCalculatorPage() {
                 <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
                 {item}
               </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* How to Use This Car Loan Calculator */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How to Use This Car Loan Calculator
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Enter the car price, your planned down payment, the loan term, and
-            the annual interest rate. The calculator will estimate your monthly
-            payment, total interest, and total loan cost so you can compare
-            different scenarios before applying.
-          </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            This tool is useful if you want to:
-          </p>
-          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-            {howToUsePoints.map((item) => (
-              <li key={item}>{item}</li>
             ))}
           </ul>
         </section>
