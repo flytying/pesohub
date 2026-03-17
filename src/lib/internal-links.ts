@@ -80,6 +80,12 @@ export const ALL_PAGES: PageLink[] = [
     category: "government",
   },
   {
+    slug: "/government/pag-ibig/pag-ibig-contribution-table-philippines",
+    title: "Pag-IBIG Contribution Table",
+    description: "Current Pag-IBIG contribution table with employee share, employer share, salary cap, and payroll examples.",
+    category: "government",
+  },
+  {
     slug: "/government/pag-ibig/pag-ibig-housing-loan-guide",
     title: "Pag-IBIG Housing Loan Guide",
     description: "Pag-IBIG Fund housing loan interest rates, limits, and eligibility requirements.",
@@ -171,10 +177,15 @@ const LINK_MAP: Record<string, string[]> = {
     "/rates/savings-rates/best-savings-interest-rates-philippines",
     "/government/bir/withholding-tax-table-philippines",
   ],
+  "/government/pag-ibig/pag-ibig-contribution-table-philippines": [
+    "/calculators/tax/take-home-pay-calculator-philippines",
+    "/government/pag-ibig/pag-ibig-housing-loan-guide",
+    "/government/philhealth/philhealth-contribution-table-philippines",
+  ],
   "/government/pag-ibig/pag-ibig-housing-loan-guide": [
     "/calculators/loans/home-loan-calculator-philippines",
+    "/government/pag-ibig/pag-ibig-contribution-table-philippines",
     "/government/sss/sss-contribution-guide",
-    "/rates/savings-rates/best-savings-interest-rates-philippines",
   ],
   "/government/philhealth/philhealth-contribution-table-philippines": [
     "/calculators/tax/take-home-pay-calculator-philippines",

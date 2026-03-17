@@ -60,9 +60,9 @@ const needCards = [
   },
   {
     icon: Home,
-    title: "Pag-IBIG housing or deductions",
+    title: "Pag-IBIG contributions or housing",
     description:
-      "Use Pag-IBIG pages if you want to review housing-loan reference information or check government-related deduction context.",
+      "Use Pag-IBIG pages if you want to check the contribution table, review housing-loan reference information, or understand Pag-IBIG payroll deductions.",
     href: "#all-pages",
   },
   {
@@ -102,6 +102,13 @@ const governmentPages = [
       "Review BSP exchange-rate reference information and understand how official reference rates differ from rates used in actual transactions.",
     href: "/government/bsp/bsp-exchange-rate-guide",
     category: "BSP",
+  },
+  {
+    title: "Pag-IBIG Contribution Table",
+    description:
+      "Check the current Pag-IBIG contribution table, including employee share, employer share, salary cap, and sample payroll cuts.",
+    href: "/government/pag-ibig/pag-ibig-contribution-table-philippines",
+    category: "Pag-IBIG",
   },
   {
     title: "Pag-IBIG Housing Loan Guide",
