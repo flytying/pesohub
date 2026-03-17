@@ -36,14 +36,6 @@ const breadcrumbs = [
   { label: "Withholding Tax Calculator" },
 ];
 
-const howItWorksSteps = [
-  "Start with your gross monthly salary",
-  "Multiply it by 12 to estimate annual taxable income",
-  "Match that amount to the correct income tax bracket",
-  "Apply the bracket formula to compute annual income tax",
-  "Divide the result by 12 to estimate monthly withholding tax",
-];
-
 const whyDifferent = [
   "mandatory deductions may reduce taxable income",
   "employer payroll settings may apply more specific tax treatment",
@@ -100,12 +92,6 @@ export default function WithholdingTaxCalculatorPage() {
       />
 
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Support text */}
-        <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-          Useful for employees who want a quick estimate of how income tax
-          affects monthly pay.
-        </p>
-
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <WithholdingTaxCalculator />
@@ -136,34 +122,6 @@ export default function WithholdingTaxCalculatorPage() {
             </p>
           </div>
         </div>
-
-        {/* How This Withholding Tax Estimate Works */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How This Withholding Tax Estimate Works
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            This calculator follows a simple step-by-step logic to estimate
-            your withholding tax from monthly salary.
-          </p>
-          <ol className="mt-4 space-y-2">
-            {howItWorksSteps.map((step, i) => (
-              <li
-                key={i}
-                className="flex items-start gap-3 text-sm text-muted-foreground"
-              >
-                <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
-                  {i + 1}
-                </span>
-                <span>{step}</span>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-4 text-sm text-muted-foreground">
-            In short, your monthly tax estimate comes from annual tax logic
-            converted back into a monthly view.
-          </p>
-        </section>
 
         {/* Why Monthly Salary Is Converted to Annual Taxable Income */}
         <section className="mt-12">
@@ -379,19 +337,17 @@ export default function WithholdingTaxCalculatorPage() {
             not fully calculate your final payroll net pay after all mandatory
             deductions.
           </p>
-          <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4">
-            <p className="text-sm text-muted-foreground">
-              If you want a broader estimate of what may actually reach your
-              payslip or bank account, use the{" "}
-              <Link
-                href="/calculators/tax/take-home-pay-calculator-philippines"
-                className="text-primary hover:underline"
-              >
-                Take-Home Pay Calculator
-              </Link>{" "}
-              as your next step.
-            </p>
-          </div>
+          <p className="mt-3 text-sm text-muted-foreground">
+            If you want a broader estimate of what may actually reach your
+            payslip or bank account, use the{" "}
+            <Link
+              href="/calculators/tax/take-home-pay-calculator-philippines"
+              className="text-primary hover:underline"
+            >
+              Take-Home Pay Calculator
+            </Link>{" "}
+            as your next step.
+          </p>
         </section>
 
         {/* FAQ */}
