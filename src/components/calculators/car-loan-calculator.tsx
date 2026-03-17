@@ -131,6 +131,7 @@ export function CarLoanCalculator() {
             max={10_000_000}
             step={10_000}
             helpText="Enter the total vehicle price."
+            tooltip="The full selling price of the car before any down payment or financing."
           />
           <CalculatorInput
             label="Down Payment (%)"
@@ -140,6 +141,7 @@ export function CarLoanCalculator() {
             max={90}
             step={1}
             helpText="Enter the amount you plan to pay upfront."
+            tooltip="The percentage of the car price you pay upfront. A higher down payment means a smaller loan and lower monthly payments."
           />
           <CalculatorInput
             label="Loan Term (months)"
@@ -149,6 +151,7 @@ export function CarLoanCalculator() {
             max={84}
             step={12}
             helpText="Choose the number of months for repayment."
+            tooltip="How long you have to repay the loan. A longer term lowers monthly payments but increases total interest paid."
           />
           <CalculatorInput
             label="Annual Interest Rate (%)"
@@ -158,6 +161,7 @@ export function CarLoanCalculator() {
             max={30}
             step={0.1}
             helpText="Enter the estimated annual interest rate offered by the lender."
+            tooltip="The yearly interest rate charged by the bank or lender. Rates vary by lender, loan term, and your credit profile."
           />
         </div>
       </CalculatorShell>

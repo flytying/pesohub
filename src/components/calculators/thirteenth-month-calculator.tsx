@@ -130,6 +130,7 @@ export function ThirteenthMonthCalculator() {
             max={500_000}
             step={1_000}
             helpText="Enter your regular basic monthly salary."
+            tooltip="Your regular monthly basic pay, excluding overtime, commissions, allowances, and other supplementary income."
           />
 
           <div className="space-y-2">
@@ -163,6 +164,7 @@ export function ThirteenthMonthCalculator() {
               max={12}
               step={1}
               helpText="Enter the number of months counted for the computation."
+              tooltip="The number of months you actually worked during the calendar year. Used to prorate the 13th month pay."
             />
           )}
 

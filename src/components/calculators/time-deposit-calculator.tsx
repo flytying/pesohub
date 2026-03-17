@@ -114,6 +114,7 @@ export function TimeDepositCalculator() {
             max={10_000_000}
             step={10_000}
             helpText="Enter the amount you plan to place in the time deposit."
+            tooltip="The lump-sum amount you plan to lock in for a fixed period. Most banks require a minimum placement."
           />
 
           <CalculatorInput
@@ -124,6 +125,7 @@ export function TimeDepositCalculator() {
             max={15}
             step={0.1}
             helpText="Enter the estimated annual rate offered by the bank."
+            tooltip="The yearly interest rate offered by the bank for this time deposit. Rates may vary by term length and deposit amount."
           />
 
           <CalculatorInput
@@ -134,6 +136,7 @@ export function TimeDepositCalculator() {
             max={termUnit === "years" ? 10 : 120}
             step={1}
             helpText="Enter the deposit duration."
+            tooltip="How long your money will be locked in. Longer terms may offer higher rates but less access to your funds."
           />
 
           <div className="space-y-2">

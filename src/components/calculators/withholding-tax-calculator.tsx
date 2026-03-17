@@ -143,6 +143,7 @@ export function WithholdingTaxCalculator() {
             max={1_000_000}
             step={1_000}
             helpText="Enter your monthly salary before deductions."
+            tooltip="Your total monthly salary before any deductions like tax, SSS, PhilHealth, or Pag-IBIG."
           />
 
           <Separator />

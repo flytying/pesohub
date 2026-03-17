@@ -132,6 +132,7 @@ export function HomeLoanCalculator() {
             max={50_000_000}
             step={100_000}
             helpText="Enter the total price of the home, condo, or property."
+            tooltip="The total selling price of the property including VAT, if applicable."
           />
           <CalculatorInput
             label="Down Payment (%)"
@@ -141,6 +142,7 @@ export function HomeLoanCalculator() {
             max={90}
             step={1}
             helpText="Enter the amount you plan to pay upfront."
+            tooltip="The percentage of the property price you pay upfront. A higher down payment reduces the loan amount and monthly payments."
           />
           <CalculatorInput
             label="Loan Term (years)"
@@ -150,6 +152,7 @@ export function HomeLoanCalculator() {
             max={30}
             step={1}
             helpText="Choose the number of years for repayment."
+            tooltip="The number of years to repay the loan. Home loans typically range from 5 to 30 years."
           />
           <CalculatorInput
             label="Annual Interest Rate (%)"
@@ -159,6 +162,7 @@ export function HomeLoanCalculator() {
             max={20}
             step={0.1}
             helpText="Enter the estimated annual interest rate offered by the lender."
+            tooltip="The yearly interest rate from the bank. Some lenders offer a fixed rate for the first few years, then a variable rate after."
           />
         </div>
       </CalculatorShell>

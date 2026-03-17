@@ -175,6 +175,7 @@ export function SSSPensionCalculator() {
             max={30_000}
             step={500}
             helpText="₱4,000 to ₱30,000 (SSS MSC range)"
+            tooltip="The salary credit assigned by SSS based on your compensation bracket. This determines your contribution and pension amounts."
           />
           <CalculatorInput
             label="Years of Contribution"
@@ -184,6 +185,7 @@ export function SSSPensionCalculator() {
             max={45}
             step={1}
             helpText="Minimum 10 years to qualify for pension"
+            tooltip="The total number of years you have contributed to SSS. At least 10 years of contributions are needed to qualify for a pension."
           />
         </div>
       </CalculatorShell>

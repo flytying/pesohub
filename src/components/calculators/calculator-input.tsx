@@ -1,10 +1,17 @@
 "use client";
 
 import { useCallback, useId, useState } from "react";
+import { Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 import { formatNumber } from "@/lib/formatters";
 
 interface CalculatorInputProps {
@@ -16,6 +23,7 @@ interface CalculatorInputProps {
   max?: number;
   step?: number;
   helpText?: string;
+  tooltip?: string;
 }
 
 export function CalculatorInput({
@@ -27,6 +35,7 @@ export function CalculatorInput({
   max = 10_000_000,
   step = 1,
   helpText,
+  tooltip,
 }: CalculatorInputProps) {
   const id = useId();
   const [isFocused, setIsFocused] = useState(false);
@@ -75,7 +84,23 @@ export function CalculatorInput({
 
   return (
     <div className="space-y-2">
-      <Label htmlFor={id}>{label}</Label>
+      <div className="flex items-center gap-1.5">
+        <Label htmlFor={id}>{label}</Label>
+        {tooltip && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger
+                type="button"
+                className="inline-flex text-muted-foreground hover:text-foreground transition-colors"
+                aria-label={`Info about ${label}`}
+              >
+                <Info className="size-3.5" />
+              </TooltipTrigger>
+              <TooltipContent side="top">{tooltip}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
+      </div>
       <Input
         id={id}
         type={isFocused ? "number" : "text"}
