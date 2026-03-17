@@ -55,10 +55,10 @@ export function PageHero({
             </ol>
           </nav>
 
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl lg:leading-tight">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
             {title}
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/60 sm:text-lg">
+          <p className="mt-3 text-sm leading-relaxed text-white/60 sm:text-base">
             {description}
           </p>
           {badge && (
