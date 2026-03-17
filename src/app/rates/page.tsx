@@ -35,13 +35,6 @@ const breadcrumbs = [
   { label: "Rates" },
 ];
 
-const whatYouCanCompare = [
-  "exchange rates for currency tracking and conversion",
-  "savings rates for deposit account comparison",
-  "time deposit rates for fixed-term return planning",
-  "digital bank rates for app-based savings comparison",
-];
-
 const rateTypeCards = [
   {
     icon: TrendingUp,
@@ -279,52 +272,8 @@ export default function RatesPage() {
         breadcrumbs={breadcrumbs}
       />
 
-      {/* Support text */}
-      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-        Useful for checking rate categories before choosing where to save,
-        compare, or convert.
-      </p>
-
-      {/* CTA */}
-      <div className="-mt-4 mb-10 flex flex-col gap-3 sm:flex-row">
-        <Link
-          href="#choose"
-          className={buttonVariants({ className: "font-medium" })}
-        >
-          Choose a rate type
-          <ArrowRight className="size-4" />
-        </Link>
-        <Link
-          href="#explore"
-          className={buttonVariants({
-            variant: "outline",
-            className: "font-medium",
-          })}
-        >
-          Explore rate categories
-        </Link>
-      </div>
-
-      {/* What You Can Compare Here */}
-      <section className="pt-8">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          What You Can Compare Here
-        </h2>
-        <p className="mt-3 text-sm text-muted-foreground">
-          PesoHub&apos;s rates section helps you explore different types of
-          financial rates commonly used in the Philippines. Instead of mixing
-          everything into one list, this hub helps you choose the right path
-          based on what you want to compare.
-        </p>
-        <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-          {whatYouCanCompare.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
-
       {/* Choose a Rate Type */}
-      <section id="choose" className="scroll-mt-20 pt-16">
+      <section id="choose" className="scroll-mt-20 pt-8">
         <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
           Choose a Rate Type
         </h2>
