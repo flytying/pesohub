@@ -126,24 +126,6 @@ const governmentPages = [
   },
 ];
 
-const whenToUse = {
-  reference: [
-    "check a tax table or contribution schedule",
-    "review an official-reference-style summary",
-    "verify the basis for a rate, bracket, or deduction",
-  ],
-  guides: [
-    "understand a topic in plain language",
-    "see examples and common questions",
-    "learn what a figure means before acting on it",
-  ],
-  calculators: [
-    "estimate deductions, payments, or savings",
-    "test scenarios quickly",
-    "move from reference information to a practical number",
-  ],
-};
-
 const guidanceItems = [
   {
     condition: "If you want to estimate salary deductions",
@@ -175,12 +157,6 @@ const guidanceItems = [
     condition: "If you want a faster estimate instead of reading tables",
     links: [{ label: "Calculators", href: "/calculators" }],
   },
-];
-
-const howToUsePoints = [
-  "Use reference pages to verify, not replace, official announcements.",
-  "Check effective dates and review dates on year-sensitive pages.",
-  "Use the matching guide or calculator when you need explanation or estimates.",
 ];
 
 const faqs = [
@@ -248,42 +224,8 @@ export default function GovernmentPage() {
         breadcrumbs={breadcrumbs}
       />
 
-      {/* Support text */}
-      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-        If you want to check a table, bracket, schedule, or official reference
-        basis, start here. If you want a plain-language explanation, visit{" "}
-        <Link href="/guides" className="text-primary hover:underline">
-          Guides
-        </Link>
-        . If you want an estimate, use a{" "}
-        <Link href="/calculators" className="text-primary hover:underline">
-          Calculator
-        </Link>
-        .
-      </p>
-
-      {/* CTA */}
-      <div className="-mt-4 mb-10 flex flex-col gap-3 sm:flex-row">
-        <Link
-          href="#all-pages"
-          className={buttonVariants({ className: "font-medium" })}
-        >
-          Browse reference pages
-          <ArrowRight className="size-4" />
-        </Link>
-        <Link
-          href="#related"
-          className={buttonVariants({
-            variant: "outline",
-            className: "font-medium",
-          })}
-        >
-          See related sections
-        </Link>
-      </div>
-
       {/* Start with What You Need to Check */}
-      <section className="pt-8">
+      <section className="pt-4">
         <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
           Start with what you need to check
         </h2>
@@ -312,67 +254,6 @@ export default function GovernmentPage() {
               </Link>
             );
           })}
-        </div>
-      </section>
-
-      {/* When to Use Government Reference Pages */}
-      <section className="pt-16">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          When to use Government Reference pages
-        </h2>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Use a government reference page when you want to check a table,
-          schedule, bracket, contribution rule, or official-reference-style
-          summary. These pages are best when you need to verify information
-          first before calculating, comparing, or reading a longer explanation.
-        </p>
-
-        <div className="mt-6 grid gap-6 sm:grid-cols-3">
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">
-              Use <span className="text-primary">Reference pages</span> when
-              you want to:
-            </h3>
-            <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
-              {whenToUse.reference.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">
-              Use{" "}
-              <Link
-                href="/guides"
-                className="text-primary hover:underline"
-              >
-                Guides
-              </Link>{" "}
-              when you want to:
-            </h3>
-            <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
-              {whenToUse.guides.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-foreground">
-              Use{" "}
-              <Link
-                href="/calculators"
-                className="text-primary hover:underline"
-              >
-                Calculators
-              </Link>{" "}
-              when you want to:
-            </h3>
-            <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
-              {whenToUse.calculators.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
         </div>
       </section>
 
@@ -440,30 +321,6 @@ export default function GovernmentPage() {
                 </span>
               ))}
             </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* How to Use PesoHub Government Reference Pages */}
-      <section className="pt-16">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          How to use PesoHub government reference pages
-        </h2>
-        <p className="mt-3 text-sm text-muted-foreground">
-          PesoHub government reference pages are designed to make public finance
-          information easier to scan and understand. These pages can help you
-          review contribution schedules, tax references, exchange-rate
-          references, and other government-related information in a clearer
-          format.
-        </p>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Because some figures, rules, and schedules may change, users should
-          treat reference pages as a helpful starting point and verify important
-          details with the relevant official source when needed.
-        </p>
-        <ul className="mt-4 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
-          {howToUsePoints.map((item) => (
-            <li key={item}>{item}</li>
           ))}
         </ul>
       </section>
