@@ -222,6 +222,7 @@ export default function GovernmentPage() {
         title="Philippine Government Finance Reference"
         description="Use this section to check government-related finance references in one place. Browse contribution tables, tax references, exchange-rate references, and Pag-IBIG information that help you verify figures, understand official frameworks, and move to the right calculator or guide faster."
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
       {/* Start with What You Need to Check */}

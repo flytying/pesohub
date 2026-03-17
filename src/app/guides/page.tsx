@@ -211,6 +211,7 @@ export default function GuidesPage() {
         title="Finance Guides Philippines"
         description="Plain-language guides to help you understand confusing money topics in the Philippines, from taxes and salary deductions to SSS contributions and government reference tables."
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
       {/* Start with what you're trying to understand */}

@@ -201,6 +201,7 @@ export default function RatesPage() {
         title="Rates in the Philippines"
         description="Compare exchange rates, savings rates, time deposit rates, and digital bank rates in one place. Use PesoHub's rates hub to explore major financial rate categories and find the pages that help you compare returns, track currency movement, and make more informed money decisions."
         breadcrumbs={breadcrumbs}
+        variant="dark"
       />
 
       {/* Choose a Rate Type */}
