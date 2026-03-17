@@ -1,83 +1,117 @@
 import type { FAQ } from "@/types/content";
 
-export const SSS_CONTRIBUTION_UPDATED_AT = "2026-03-14";
+export const SSS_CONTRIBUTION_UPDATED_AT = "2026-03-17";
 
 export const sssContributionMeta = {
-  title: "SSS Contribution Table 2026",
-  metaTitle: "SSS Contribution Table 2026 — Monthly Rates & Schedule Philippines",
+  title: "SSS Contribution Table Philippines 2026",
+  metaTitle:
+    "SSS Contribution Table Philippines 2026 – Employee, Employer & MSC Reference | PesoHub",
   metaDescription:
-    "Complete SSS contribution table for 2026. See employee and employer shares by salary bracket, who needs to pay, and how to remit contributions.",
+    "View the latest SSS contribution table used in the Philippines, including employee share, employer share, MSC, and member-type shortcuts. Check the current schedule and compare contribution amounts more easily.",
   slug: "government/sss/sss-contribution-guide",
   directAnswer:
-    "SSS contributions in 2026 are based on your Monthly Salary Credit (MSC), which ranges from PHP 4,000 to PHP 30,000. The total contribution rate is 14% of MSC — employees pay 4.5% and employers pay 9.5%. Self-employed and voluntary members pay the full 14%.",
+    "View the latest SSS contribution table used in the Philippines, including employee share, employer share, Monthly Salary Credit, and member-type contribution structure. Use this page to check the current schedule, compare contribution amounts across salary ranges, and move to the calculator if you want a faster estimate.",
 };
 
-export const whoPaysSections = [
+export interface SSSPayrollExample {
+  label: string;
+  salary: number;
+  msc: number;
+  employeeShare: number;
+  employerShare: number;
+  totalContribution: number;
+  note: string;
+}
+
+export const sssPayrollExamples: SSSPayrollExample[] = [
   {
-    type: "Employed",
+    label: "Salary Near the Minimum MSC",
+    salary: 5_000,
+    msc: 5_000,
+    employeeShare: 250,
+    employerShare: 462.5,
+    totalContribution: 712.5,
+    note: "Near the lowest MSC bracket. Employee share is relatively small.",
+  },
+  {
+    label: "Salary in the Middle Range",
+    salary: 15_000,
+    msc: 15_000,
+    employeeShare: 750,
+    employerShare: 1_387.5,
+    totalContribution: 2_137.5,
+    note: "Mid-range bracket. Both employee and employer shares increase proportionally.",
+  },
+  {
+    label: "Salary Near or Above the Maximum MSC",
+    salary: 35_000,
+    msc: 30_000,
+    employeeShare: 1_500,
+    employerShare: 2_775,
+    totalContribution: 4_275,
+    note: "At or above the maximum MSC. Contribution does not increase further beyond the ceiling.",
+  },
+];
+
+export const memberTypeCards = [
+  {
+    type: "Employee",
     description:
-      "Both employee and employer share the contribution. The employer deducts the employee share from the salary and remits the total to SSS.",
+      "Employee and employer shares are both relevant. The employer deducts the employee share from the salary and remits the total to SSS.",
   },
   {
     type: "Self-Employed",
     description:
-      "Self-employed members pay the full contribution amount based on their declared monthly earnings. They can choose their MSC bracket.",
+      "Contribution depends on declared monthly earnings and the self-employed schedule. The member pays the full contribution amount.",
   },
   {
     type: "Voluntary",
     description:
-      "OFWs, separated employees, and non-working spouses can continue contributing voluntarily. They pay the full contribution based on their chosen MSC bracket.",
+      "Contribution follows the voluntary-member schedule. The member pays the full contribution based on their chosen MSC bracket.",
   },
   {
-    type: "Household Employer (Kasambahay)",
+    type: "Non-Working Spouse",
     description:
-      "For household helpers earning below PHP 5,000 per month, the employer pays the full contribution. For those earning PHP 5,000 and above, the regular employee-employer sharing applies.",
-  },
-];
-
-export const howToPayMethods = [
-  {
-    method: "Online via My.SSS Portal",
-    description: "Generate a Payment Reference Number (PRN) and pay through partner banks and e-wallets.",
+      "Contribution follows the applicable spouse-based rule shown by SSS. Paid in full by the member.",
   },
   {
-    method: "Banks and Payment Centers",
-    description: "Pay over the counter at authorized banks (BDO, BPI, Landbank, etc.) and payment centers (Bayad, 7-Eleven).",
-  },
-  {
-    method: "GCash / Maya / ShopeePay",
-    description: "Use the SSS billing option in your preferred e-wallet app with your PRN.",
-  },
-  {
-    method: "SSS Branch",
-    description: "Walk in to any SSS branch and pay at the cashier. Available during business hours.",
+    type: "OFW",
+    description:
+      "Contribution follows the OFW schedule shown in the official table set. The member pays the full contribution.",
   },
 ];
 
 export const sssContributionFaqs: FAQ[] = [
   {
-    question: "What is the SSS contribution rate for 2026?",
+    question:
+      "What is the current SSS contribution table used in 2026?",
     answer:
-      "The total SSS contribution rate for 2026 is 14% of the Monthly Salary Credit (MSC). For employed members, the employee pays 4.5% and the employer pays 9.5%. Self-employed and voluntary members pay the full 14%.",
+      "The latest official SSS contribution schedule currently published on the SSS contribution table page is Effective January 2025. Unless SSS releases a newer official schedule, that is the table users are relying on in 2026 payroll contexts.",
   },
   {
-    question: "What is the maximum SSS contribution per month?",
+    question: "What is the current SSS contribution rate?",
     answer:
-      "The maximum monthly SSS contribution is PHP 4,275, based on the highest Monthly Salary Credit of PHP 30,000. For employed members, the employee share is PHP 1,500 and the employer share is PHP 2,775.",
+      "SSS announced that the contribution rate increased to 15% starting January 2025, from 14% previously.",
   },
   {
-    question: "What is the minimum SSS contribution per month?",
+    question: "What are the current minimum and maximum MSC values?",
     answer:
-      "The minimum monthly SSS contribution is PHP 570, based on the lowest Monthly Salary Credit of PHP 4,000. For employed members, the employee share is PHP 200 and the employer share is PHP 370.",
+      "SSS states that starting January 2025, the minimum MSC is ₱5,000 and the maximum MSC is ₱35,000.",
   },
   {
-    question: "When is the deadline for SSS contribution payments?",
+    question:
+      "Why does the table show employee and employer shares separately?",
     answer:
-      "For employers, the deadline depends on the last digit of the employer's SSS number: digit 1-2 is the 10th of the following month, 3-4 is the 15th, 5-6 is the 20th, 7-8 is the 25th, and 9-0 is the last day. Self-employed and voluntary members can pay anytime within the applicable month or quarter.",
+      "For employed members, the employee and employer each contribute a portion of the total amount. The employee share is the part usually seen on the payslip deduction, while the employer pays its own share.",
   },
   {
-    question: "Can I change my SSS contribution bracket?",
+    question: "Why does member type matter?",
     answer:
-      "Yes. Self-employed and voluntary members can change their MSC bracket by updating their contribution amount. For employed members, the MSC is automatically determined by their actual monthly salary as reported by the employer.",
+      "SSS contribution handling differs for employees, voluntary members, self-employed members, OFWs, and non-working spouses, so users should check the section that matches their actual classification.",
+  },
+  {
+    question: "Where should I go after checking the table?",
+    answer:
+      "Use the SSS Contribution Calculator for a faster estimate, the SSS Guide for plain-language explanation, or the Take-Home Pay Calculator if you want to see SSS together with tax and other payroll deductions.",
   },
 ];
