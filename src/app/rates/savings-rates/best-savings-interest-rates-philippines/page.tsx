@@ -156,7 +156,6 @@ const relatedPages = [
     title: "Time Deposit Rates",
     href: "/rates/savings-rates/time-deposit-rates-philippines",
     icon: Clock,
-    comingSoon: true,
   },
   {
     title: "Digital Banks Comparison",

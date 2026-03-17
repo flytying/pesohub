@@ -69,7 +69,6 @@ const rateTypeCards = [
     href: "/rates/savings-rates/time-deposit-rates-philippines",
     cta: "View Time Deposit Rates",
     bestFor: "Best for fixed returns",
-    comingSoon: true,
   },
   {
     icon: Smartphone,
