@@ -20,10 +20,10 @@ export function PageHero({
 }: PageHeroProps) {
   if (variant === "dark") {
     return (
-      <section className="gradient-hero -mx-4 -mt-8 mb-10 px-4 py-10 text-white sm:-mx-6 sm:px-6 sm:py-12 lg:-mx-8 lg:px-8">
+      <section className="gradient-hero py-10 text-white sm:py-12">
         <div className="hero-glow" />
         <div className="hero-grid" />
-        <div className="relative">
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb pill */}
           <nav aria-label="Breadcrumb" className="mb-6">
             <ol className="inline-flex flex-wrap items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-white/50 backdrop-blur-sm">

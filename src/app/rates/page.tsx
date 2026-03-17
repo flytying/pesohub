@@ -193,7 +193,7 @@ const relatedRatePages = [
 
 export default function RatesPage() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
 
       {/* Hero */}
@@ -204,6 +204,7 @@ export default function RatesPage() {
         variant="dark"
       />
 
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Choose a Rate Type */}
       <section id="choose" className="scroll-mt-20 pt-8">
         <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
@@ -360,5 +361,6 @@ export default function RatesPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }
