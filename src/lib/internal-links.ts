@@ -85,6 +85,12 @@ export const ALL_PAGES: PageLink[] = [
     description: "Pag-IBIG Fund housing loan interest rates, limits, and eligibility requirements.",
     category: "government",
   },
+  {
+    slug: "/government/philhealth/philhealth-contribution-table-philippines",
+    title: "PhilHealth Contribution Table",
+    description: "Current PhilHealth premium rate, salary floor, salary ceiling, employee and employer share.",
+    category: "government",
+  },
 ];
 
 const LINK_MAP: Record<string, string[]> = {
@@ -157,6 +163,11 @@ const LINK_MAP: Record<string, string[]> = {
     "/calculators/loans/home-loan-calculator-philippines",
     "/government/sss/sss-contribution-guide",
     "/rates/savings-rates/best-savings-interest-rates-philippines",
+  ],
+  "/government/philhealth/philhealth-contribution-table-philippines": [
+    "/calculators/tax/take-home-pay-calculator-philippines",
+    "/calculators/sss/sss-contribution-calculator-philippines",
+    "/government/sss/sss-contribution-guide",
   ],
 };
 
