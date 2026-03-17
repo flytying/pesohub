@@ -46,6 +46,7 @@ export const mainNavItems: NavItem[] = [
       { label: "Withholding Tax Table", href: "/government/bir/withholding-tax-table-philippines" },
       { label: "BSP Exchange Rate Guide", href: "/government/bsp/bsp-exchange-rate-guide" },
       { label: "Pag-IBIG Housing Loan", href: "/government/pag-ibig/pag-ibig-housing-loan-guide" },
+      { label: "PhilHealth Contribution Table", href: "/government/philhealth/philhealth-contribution-table-philippines" },
     ],
   },
 ];

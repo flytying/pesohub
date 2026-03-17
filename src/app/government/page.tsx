@@ -8,6 +8,7 @@ import {
   Calculator,
   BookOpen,
   ScrollText,
+  Heart,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
@@ -64,6 +65,13 @@ const needCards = [
       "Use Pag-IBIG pages if you want to review housing-loan reference information or check government-related deduction context.",
     href: "#all-pages",
   },
+  {
+    icon: Heart,
+    title: "PhilHealth contributions",
+    description:
+      "Use PhilHealth pages if you want to check the premium rate, salary floor and ceiling, or employee and employer share for payroll purposes.",
+    href: "#all-pages",
+  },
 ];
 
 const governmentPages = [
@@ -101,6 +109,13 @@ const governmentPages = [
       "Explore Pag-IBIG housing loan reference information, including key terms, requirements, and government-backed housing loan context.",
     href: "/government/pag-ibig/pag-ibig-housing-loan-guide",
     category: "Pag-IBIG",
+  },
+  {
+    title: "PhilHealth Contribution Table",
+    description:
+      "Check the current PhilHealth premium rate, salary floor, salary ceiling, employee share, employer share, and sample monthly payroll cuts.",
+    href: "/government/philhealth/philhealth-contribution-table-philippines",
+    category: "PhilHealth",
   },
 ];
 
