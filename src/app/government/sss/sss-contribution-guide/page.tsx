@@ -1,14 +1,24 @@
 import Link from "next/link";
-import { Calculator, ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Calculator,
+  CheckCircle,
+  BookOpen,
+  BarChart3,
+  Landmark,
+  FileText,
+} from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import { RelatedPages } from "@/components/shared/related-pages";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
-// import { AdPlaceholder } from "@/components/ads/ad-placeholder";
 import { JsonLd } from "@/components/seo/json-ld";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/card";
 import {
   Table,
   TableHeader,
@@ -17,6 +27,7 @@ import {
   TableHead,
   TableCell,
 } from "@/components/ui/table";
+import { buttonVariants } from "@/lib/button-variants";
 import { generatePageMetadata } from "@/lib/seo";
 import {
   generateArticleSchema,
@@ -30,8 +41,8 @@ import {
 } from "@/lib/calculators/sss";
 import {
   sssContributionMeta,
-  whoPaysSections,
-  howToPayMethods,
+  sssPayrollExamples,
+  memberTypeCards,
   sssContributionFaqs,
   SSS_CONTRIBUTION_UPDATED_AT,
 } from "@/data/government/sss-contribution";
@@ -46,7 +57,59 @@ export const metadata = generatePageMetadata({
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Government", href: "/government" },
-  { label: "SSS Contribution Guide" },
+  { label: "SSS Contribution Table" },
+];
+
+const howToUsePoints = [
+  "check the current contribution rate and schedule",
+  "view employee and employer shares by salary range",
+  "understand what Monthly Salary Credit means",
+  "review sample payroll cuts",
+  "move to the SSS Contribution Calculator for a faster estimate",
+];
+
+const memberTypeShortcuts = [
+  "Employee and Employer",
+  "Self-Employed",
+  "Voluntary",
+  "Non-Working Spouse",
+  "OFW",
+];
+
+const whyDifferent = [
+  "the member type may be different from what the user assumes",
+  "payroll may use more detailed classification logic",
+  "SSS may later publish a new contribution schedule",
+  "the Employees\u2019 Compensation (EC) component may apply separately",
+  "rounding or timing differences may affect the exact amount",
+];
+
+const relatedPages = [
+  {
+    title: "SSS Contribution Calculator",
+    href: "/calculators/sss/sss-contribution-calculator-philippines",
+    icon: Calculator,
+  },
+  {
+    title: "SSS Pension Table",
+    href: "/government/sss/sss-pension-table",
+    icon: FileText,
+  },
+  {
+    title: "Take-Home Pay Calculator",
+    href: "/calculators/tax/take-home-pay-calculator-philippines",
+    icon: BarChart3,
+  },
+  {
+    title: "Calculators Hub",
+    href: "/calculators",
+    icon: Calculator,
+  },
+  {
+    title: "Government Hub",
+    href: "/government",
+    icon: Landmark,
+  },
 ];
 
 export default function SSSContributionGuidePage() {
@@ -62,6 +125,7 @@ export default function SSSContributionGuidePage() {
         })}
       />
 
+      {/* Hero */}
       <PageHero
         title={sssContributionMeta.title}
         description={sssContributionMeta.directAnswer}
@@ -69,172 +133,427 @@ export default function SSSContributionGuidePage() {
         breadcrumbs={breadcrumbs}
       />
 
-      {/* Government Disclaimer */}
-      <Card className="mb-8 border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20">
-        <CardContent className="p-4 text-sm text-muted-foreground">
-          {GOVERNMENT_DISCLAIMER}
-        </CardContent>
-      </Card>
+      {/* Support text */}
+      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
+        Useful for employees, employers, voluntary members, self-employed
+        members, OFWs, and payroll users who want a plain-language SSS
+        contribution reference.
+      </p>
 
-      {/* Quick Summary */}
-      <Card className="mb-8 border-primary/20 bg-primary/5">
-        <CardHeader>
-          <CardTitle className="text-lg">2026 SSS Contribution Summary</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2 text-sm">
-          <p><strong>Total Rate:</strong> 14% of Monthly Salary Credit (MSC)</p>
-          <p><strong>Employee Share:</strong> 4.5% of MSC</p>
-          <p><strong>Employer Share:</strong> 9.5% of MSC</p>
-          <p><strong>MSC Range:</strong> PHP 4,000 – PHP 30,000</p>
-          <p><strong>Contribution Range:</strong> PHP 570 – PHP 4,275/month</p>
-        </CardContent>
-      </Card>
+      {/* How to Use This Page */}
+      <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
+        <h2 className="text-sm font-semibold text-foreground">
+          How to Use This Page
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          This page summarizes the current SSS contribution schedule in a format
+          that is easier to scan than the official PDF. Use it to check the
+          contribution rate, salary brackets, employee and employer shares, and
+          Monthly Salary Credit structure.
+        </p>
+        <p className="mt-3 text-sm font-medium text-foreground/80">
+          Use this page to:
+        </p>
+        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+          {howToUsePoints.map((item) => (
+            <li key={item} className="flex items-start gap-2">
+              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-      {/* <AdPlaceholder slot="gov-sss-contrib-top" className="my-8" /> */}
-
-      {/* Full Contribution Table */}
+      {/* Current Schedule Used on This Page */}
       <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Complete SSS Contribution Table 2026
+        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          Current Schedule Used on This Page
+        </h2>
+        <p className="mb-6 text-sm text-muted-foreground">
+          As of the latest official SSS publication currently available, the
+          contribution table is Effective January 2025. SSS also states that the
+          contribution rate increased to 15%, with the minimum MSC at ₱5,000 and
+          the maximum MSC at ₱35,000 starting January 2025.
+        </p>
+
+        {/* Summary cards */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Effective Period
+              </p>
+              <p className="mt-1 text-lg font-bold text-primary">
+                January 2025
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Contribution Rate
+              </p>
+              <p className="mt-1 text-lg font-bold text-primary">15%</p>
+            </CardContent>
+          </Card>
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Minimum MSC
+              </p>
+              <p className="mt-1 text-lg font-bold text-primary">₱5,000</p>
+            </CardContent>
+          </Card>
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Maximum MSC
+              </p>
+              <p className="mt-1 text-lg font-bold text-primary">₱35,000</p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Choose the Member Type */}
+      <section className="py-8">
+        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          Choose the Member Type You Want to Check
+        </h2>
+        <p className="mb-4 text-sm text-muted-foreground">
+          The SSS contribution table is easier to use when grouped by member
+          type. Start with the category that applies to you.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {memberTypeShortcuts.map((label) => (
+            <span
+              key={label}
+              className="rounded-full bg-secondary px-3.5 py-1.5 text-xs font-medium text-foreground/80"
+            >
+              {label}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* SSS Contribution Table Reference */}
+      <section className="py-8">
+        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          SSS Contribution Table Reference
         </h2>
         <p className="mb-4 text-sm text-muted-foreground">
           Find your salary range below to see your Monthly Salary Credit (MSC),
-          employee share, employer share, and total monthly contribution.
+          employee share, employer share, and total monthly contribution. For
+          employed members, both shares apply. For voluntary, self-employed,
+          OFW, and non-working spouse members, the total contribution is usually
+          paid by the member.
         </p>
-        <div className="overflow-x-auto rounded-lg border">
+        <div className="overflow-x-auto rounded-lg border border-border">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="whitespace-nowrap">Salary Range</TableHead>
-                <TableHead className="text-right whitespace-nowrap">MSC</TableHead>
-                <TableHead className="text-right whitespace-nowrap">Employee</TableHead>
-                <TableHead className="text-right whitespace-nowrap">Employer</TableHead>
-                <TableHead className="text-right whitespace-nowrap">Total</TableHead>
+                <TableHead className="whitespace-nowrap">
+                  Range of Compensation
+                </TableHead>
+                <TableHead className="whitespace-nowrap text-right">
+                  MSC
+                </TableHead>
+                <TableHead className="whitespace-nowrap text-right">
+                  Employee Share
+                </TableHead>
+                <TableHead className="whitespace-nowrap text-right">
+                  Employer Share
+                </TableHead>
+                <TableHead className="whitespace-nowrap text-right">
+                  Total Contribution
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {SSS_CONTRIBUTION_TABLE_2025.map((bracket: SSSContributionBracket) => (
-                <TableRow key={bracket.monthlySalaryCredit}>
-                  <TableCell className="whitespace-nowrap text-sm">
-                    {formatPeso(bracket.minSalary)} – {formatPeso(bracket.maxSalary)}
-                  </TableCell>
-                  <TableCell className="text-right font-mono text-sm">
-                    {formatPeso(bracket.monthlySalaryCredit)}
-                  </TableCell>
-                  <TableCell className="text-right font-mono text-sm">
-                    {formatPeso(bracket.employeeShare)}
-                  </TableCell>
-                  <TableCell className="text-right font-mono text-sm">
-                    {formatPeso(bracket.employerShare)}
-                  </TableCell>
-                  <TableCell className="text-right font-mono text-sm font-medium">
-                    {formatPeso(bracket.totalContribution)}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {SSS_CONTRIBUTION_TABLE_2025.map(
+                (bracket: SSSContributionBracket) => (
+                  <TableRow key={bracket.monthlySalaryCredit}>
+                    <TableCell className="whitespace-nowrap text-sm text-muted-foreground">
+                      {formatPeso(bracket.minSalary)} –{" "}
+                      {formatPeso(bracket.maxSalary)}
+                    </TableCell>
+                    <TableCell className="text-right font-mono text-sm">
+                      {formatPeso(bracket.monthlySalaryCredit)}
+                    </TableCell>
+                    <TableCell className="text-right font-mono text-sm font-medium text-primary">
+                      {formatPeso(bracket.employeeShare)}
+                    </TableCell>
+                    <TableCell className="text-right font-mono text-sm text-muted-foreground">
+                      {formatPeso(bracket.employerShare)}
+                    </TableCell>
+                    <TableCell className="text-right font-mono text-sm font-medium">
+                      {formatPeso(bracket.totalContribution)}
+                    </TableCell>
+                  </TableRow>
+                ),
+              )}
             </TableBody>
           </Table>
         </div>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Always verify the latest official SSS schedule if you need the exact
+          contribution basis for payroll or remittance. The official SSS
+          contribution table page currently points to the schedule effective
+          January 2025.
+        </p>
       </section>
 
-      {/* Who Pays */}
+      {/* How to Read the Employee and Employer Shares */}
       <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Who Pays SSS Contributions?
+        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          How to Read the Employee and Employer Shares
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {whoPaysSections.map((section) => (
-            <Card key={section.type}>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          For employed members, the SSS table separates the employee share and
+          employer share. The employee portion is what usually appears as the
+          payroll deduction, while the employer contributes its own share on top
+          of that.
+        </p>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4 text-center">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Employee Share
+              </p>
+              <p className="mt-1 text-xl font-bold text-primary">
+                Your Payslip Deduction
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Deducted from your salary
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Employer Share
+              </p>
+              <p className="mt-1 text-xl font-bold text-foreground">
+                Paid by Your Employer
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                On top of your salary
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Total Contribution
+              </p>
+              <p className="mt-1 text-xl font-bold text-foreground">
+                Both Combined
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Remitted to SSS
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* What Is Monthly Salary Credit? */}
+      <section className="py-8">
+        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          What Is Monthly Salary Credit?
+        </h2>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          Monthly Salary Credit, or MSC, is the salary band SSS uses to
+          determine contribution amounts and some benefit computations. The
+          official SSS site explains that monthly contributions are based on
+          member compensation and that MSC is the compensation base used in
+          contribution and benefit calculations.
+        </p>
+        <p className="mt-3 text-sm text-muted-foreground">
+          This is why contributions move by bracket instead of changing by very
+          small peso amounts every time salary changes.
+        </p>
+      </section>
+
+      {/* How Member Type Affects the Table */}
+      <section className="py-8">
+        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          How Member Type Affects the Table
+        </h2>
+        <p className="mb-4 text-sm text-muted-foreground">
+          Different member classifications may not use the same contribution
+          breakdown. Employees typically have both employer and employee shares.
+          Voluntary, self-employed, OFW, and non-working spouse views should be
+          understood separately.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {memberTypeCards.map((card) => (
+            <Card key={card.type} className="h-full">
               <CardHeader>
-                <CardTitle className="text-base">
-                  <Badge variant="secondary" className="mr-2">{section.type}</Badge>
-                </CardTitle>
+                <CardTitle className="text-sm">{card.type}</CardTitle>
               </CardHeader>
-              <CardContent className="text-sm text-muted-foreground">
-                {section.description}
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  {card.description}
+                </p>
               </CardContent>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* <AdPlaceholder slot="gov-sss-contrib-mid" className="my-8" /> */}
-
-      {/* Worked Example */}
+      {/* Sample SSS Payroll Cuts */}
       <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Worked Example
+        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          Sample SSS Payroll Cuts
         </h2>
-        <Card>
-          <CardContent className="space-y-3 p-6 text-sm">
-            <p><strong>Scenario:</strong> An employee earns PHP 25,000 per month.</p>
-            <ol className="list-decimal space-y-2 pl-5">
-              <li>Find the salary range: PHP 24,750 – PHP 25,249</li>
-              <li>Monthly Salary Credit (MSC): <strong>PHP 25,000</strong></li>
-              <li>Employee share (4.5%): <strong>PHP 1,250</strong></li>
-              <li>Employer share (9.5%): <strong>PHP 2,312.50</strong></li>
-              <li>Total monthly contribution: <strong>PHP 3,562.50</strong></li>
-            </ol>
-            <p className="text-muted-foreground">
-              The employer deducts PHP 1,250 from the employee&apos;s salary and remits
-              the total PHP 3,562.50 to SSS.
-            </p>
-          </CardContent>
-        </Card>
-      </section>
-
-      {/* How to Pay */}
-      <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          How to Pay SSS Contributions
-        </h2>
-        <div className="space-y-3">
-          {howToPayMethods.map((method) => (
-            <Card key={method.method}>
-              <CardContent className="p-4">
-                <p className="font-medium text-sm">{method.method}</p>
-                <p className="mt-1 text-sm text-muted-foreground">{method.description}</p>
+        <p className="mb-4 text-sm text-muted-foreground">
+          These examples help show how the SSS contribution may look in a
+          payroll context for employed members.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {sssPayrollExamples.map((example) => (
+            <Card key={example.label}>
+              <CardHeader>
+                <CardTitle className="text-sm">{example.label}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <dl className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">Monthly Salary</dt>
+                    <dd className="font-medium text-foreground">
+                      {formatPeso(example.salary)}
+                    </dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">MSC Used</dt>
+                    <dd className="font-medium text-foreground">
+                      {formatPeso(example.msc)}
+                    </dd>
+                  </div>
+                  <div className="flex justify-between border-t border-border pt-2">
+                    <dt className="text-muted-foreground">Employee Share</dt>
+                    <dd className="font-semibold text-primary">
+                      {formatPeso(example.employeeShare)}
+                    </dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-muted-foreground">Employer Share</dt>
+                    <dd className="font-medium text-foreground">
+                      {formatPeso(example.employerShare)}
+                    </dd>
+                  </div>
+                  <div className="flex justify-between border-t border-border pt-2">
+                    <dt className="text-muted-foreground">
+                      Total Contribution
+                    </dt>
+                    <dd className="font-medium text-foreground">
+                      {formatPeso(example.totalContribution)}
+                    </dd>
+                  </div>
+                </dl>
+                <p className="mt-3 text-xs text-muted-foreground">
+                  {example.note}
+                </p>
               </CardContent>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Related Calculator Callout */}
+      {/* Why Your Actual SSS Contribution May Differ */}
+      <section className="py-8">
+        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          Why Your Actual SSS Contribution May Differ
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          Actual contributions may differ from this reference table for several
+          reasons. That is why this page should always show the effective period
+          of the table prominently.
+        </p>
+        <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+          {whyDifferent.map((item) => (
+            <li key={item} className="flex items-start gap-2">
+              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Want a Faster Estimate? */}
       <Card className="my-8 border-primary/20 bg-primary/5">
-        <CardContent className="flex items-center gap-4 p-4">
+        <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center">
           <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
             <Calculator className="size-5 text-primary" />
           </div>
           <div className="flex-1">
-            <p className="font-medium text-sm">Estimate Your SSS Pension</p>
-            <p className="text-sm text-muted-foreground">
-              Use our calculator to see how your contributions translate into retirement benefits.
+            <h2 className="text-sm font-semibold text-foreground">
+              Want a Faster Estimate?
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              If you already know your salary and member type, use the SSS
+              Contribution Calculator to get a quicker estimate without scanning
+              the full table.
             </p>
           </div>
           <Link
-            href="/calculators/retirement/sss-pension-calculator"
-            className="flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+            href="/calculators/sss/sss-contribution-calculator-philippines"
+            className={buttonVariants({
+              className: "shrink-0 font-medium",
+            })}
           >
-            Calculate <ArrowRight className="size-3.5" />
+            Use the SSS Contribution Calculator
+            <ArrowRight className="size-4" />
           </Link>
         </CardContent>
       </Card>
 
-      {/* <AdPlaceholder slot="gov-sss-contrib-bottom" className="my-8" /> */}
-
+      {/* FAQ */}
       <FaqSection faqs={sssContributionFaqs} />
 
-      <RelatedPages currentSlug="/government/sss/sss-contribution-guide" />
+      {/* Related Payroll Tools and Guides */}
+      <section className="pt-16">
+        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+          Related Payroll Tools and Guides
+        </h2>
+        <p className="mb-6 text-sm text-muted-foreground">
+          After checking the SSS table, you may also want to review these
+          related pages.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {relatedPages.map((page) => {
+            const Icon = page.icon;
+            return (
+              <Link
+                key={page.title}
+                href={page.href}
+                className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-shadow hover:shadow-md"
+              >
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
+                  <Icon className="size-4" />
+                </div>
+                <span className="text-sm font-medium group-hover:text-primary">
+                  {page.title}
+                </span>
+                <ArrowRight className="ml-auto size-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
-      <div className="py-4">
+      {/* Source Citation */}
+      <div className="py-8">
         <SourceCitation
-          source="Social Security System (SSS)"
+          source="Social Security System (SSS) — Schedule of Contributions"
           sourceUrl="https://www.sss.gov.ph/sss/appmanager/pages.jsp?page=scheduleofcontribution"
           updatedAt={SSS_CONTRIBUTION_UPDATED_AT}
           reviewCadence="Every 90 days"
         />
       </div>
+
+      {/* Disclaimer */}
       <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
     </div>
   );
