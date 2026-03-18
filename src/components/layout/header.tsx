@@ -19,7 +19,7 @@ export function Header() {
           className="flex items-center gap-2 text-foreground"
         >
           <Image
-            src="/pesohub-logo.png"
+            src="/pesohub-logo.webp"
             alt="PesoHub"
             width={140}
             height={36}

@@ -71,7 +71,7 @@ export function Footer() {
         <div className="mt-14 border-t border-white/10 pt-8">
           <div className="mb-4">
             <Image
-              src="/pesohub-dark.png"
+              src="/pesohub-dark.webp"
               alt="PesoHub"
               width={40}
               height={40}
