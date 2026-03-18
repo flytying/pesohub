@@ -2,7 +2,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   Calculator,
-  CheckCircle,
   BookOpen,
   BarChart3,
   Landmark,
@@ -48,22 +47,6 @@ const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Government", href: "/government" },
   { label: "PhilHealth Contribution Table" },
-];
-
-const howToUsePoints = [
-  "check the current premium rate",
-  "view the salary floor and salary ceiling",
-  "see employee and employer share",
-  "review sample monthly payroll cuts",
-  "move to the Take-Home Pay Calculator for a fuller deduction estimate",
-];
-
-const whatThisHelps = [
-  "verify the PhilHealth contribution basis used in payroll",
-  "understand why PhilHealth deduction changes as salary changes",
-  "see how the salary floor and ceiling work",
-  "check employee share versus employer share",
-  "compare PhilHealth with other payroll deductions",
 ];
 
 const relatedPages = [
@@ -116,37 +99,6 @@ export default function PhilHealthContributionTablePage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Support text */}
-      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-        Useful for employees, employers, and payroll users who want a
-        plain-language PhilHealth contribution reference.
-      </p>
-
-      {/* How to Use This Page */}
-      <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
-        <h2 className="text-sm font-semibold text-foreground">
-          How to Use This Page
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          This page summarizes the current PhilHealth premium contribution
-          structure in a format that is easier to scan than a raw circular or
-          PDF. Use it to understand how PhilHealth premium is computed, how the
-          monthly salary floor and ceiling affect the amount, and how the
-          contribution is usually split for employed members.
-        </p>
-        <p className="mt-3 text-sm font-medium text-foreground/80">
-          Use this page to:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          {howToUsePoints.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
       {/* Current PhilHealth Contribution Structure */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -465,24 +417,6 @@ export default function PhilHealthContributionTablePage() {
             </CardContent>
           </Card>
         </div>
-      </section>
-
-      {/* What This Page Helps You Check */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          What This Page Helps You Check
-        </h2>
-        <p className="mb-3 text-sm text-muted-foreground">
-          Use this page if you want to:
-        </p>
-        <ul className="space-y-1.5 text-sm text-muted-foreground">
-          {whatThisHelps.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
       </section>
 
       {/* Why Your Actual PhilHealth Deduction May Differ */}
