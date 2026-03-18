@@ -109,13 +109,6 @@ const accessPoints = [
   "transfer experience matters for people moving money often",
 ];
 
-const visibleNotesChecklist = [
-  "a visible review date",
-  "a clear notes column",
-  "distinction between base and promo rates",
-  "notes on changing access features or policies",
-];
-
 const relatedPages = [
   {
     title: "Best Savings Interest Rates",
@@ -319,30 +312,6 @@ export default function DigitalBankRatesPage() {
           clearest trust signals users look for when comparing where to keep
           money.
         </p>
-      </section>
-
-      {/* Why This Page Needs Visible Notes and Update Dates */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Why This Page Needs Visible Notes and Update Dates
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Digital-bank comparison pages are high-maintenance because product
-          terms can change quickly. Even comparison content in the Philippines
-          market shifts as product names, positioning, and account features
-          evolve.
-        </p>
-        <p className="mt-4 text-sm font-medium text-foreground/80">
-          That is why this page should always show:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          {visibleNotesChecklist.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
       </section>
 
       {/* Best Digital Bank Options by Need */}
