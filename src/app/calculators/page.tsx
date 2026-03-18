@@ -27,9 +27,9 @@ import { generateBreadcrumbSchema } from "@/lib/schema-markup";
 
 export const metadata = generatePageMetadata({
   title:
-    "Financial Calculators Philippines – Loan, Salary, Tax, SSS & Savings Tools | PesoHub",
+    "Financial Calculators Philippines: Loan, Salary, Tax & Savings | PesoHub",
   description:
-    "Explore financial calculators in the Philippines for loans, tax, SSS contributions, take-home pay, and savings planning. Find the right tool faster with PesoHub's calculator hub.",
+    "Use free Philippine financial calculators for car loans, home loans, withholding tax, SSS contributions, take-home pay, and savings planning.",
   slug: "calculators",
 });
 

@@ -25,9 +25,9 @@ import { generateBreadcrumbSchema } from "@/lib/schema-markup";
 
 export const metadata = generatePageMetadata({
   title:
-    "Philippine Government Finance Reference | SSS, BIR, BSP & Pag-IBIG | PesoHub",
+    "SSS, BIR, Pag-IBIG, PhilHealth & BSP Reference Tables | PesoHub",
   description:
-    "Browse Philippine government finance reference pages on PesoHub. Check SSS tables, withholding tax references, BSP exchange-rate guides, and Pag-IBIG information in one place.",
+    "Check Philippine government finance references including SSS contribution tables, withholding tax tables, Pag-IBIG deductions, PhilHealth rates, and BSP exchange guides.",
   slug: "government",
 });
 

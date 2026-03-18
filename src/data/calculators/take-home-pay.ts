@@ -5,9 +5,9 @@ export const takeHomePayData: CalculatorPageData = {
   category: "tax",
   title: "Take-Home Pay Calculator Philippines",
   metaTitle:
-    "Take-Home Pay Calculator Philippines – Estimate Net Pay After Salary Deductions | PesoHub",
+    "Take-Home Pay Calculator Philippines: Net Salary After Deductions | PesoHub",
   metaDescription:
-    "Estimate your take-home pay in the Philippines after withholding tax, SSS, PhilHealth, and Pag-IBIG. See a full gross-to-net deduction breakdown with PesoHub's calculator.",
+    "Compute your estimated net salary after withholding tax, SSS, PhilHealth, and Pag-IBIG deductions with this Philippine take-home pay calculator.",
   h1: "Take-Home Pay Calculator Philippines",
   intro:
     "Estimate your monthly take-home pay in the Philippines after common payroll deductions such as withholding tax, SSS, PhilHealth, and Pag-IBIG. Use this calculator to compare gross salary against estimated net pay and understand where your deductions come from.",

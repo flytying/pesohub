@@ -35,9 +35,10 @@ import { WITHHOLDING_TAX_TABLE_UPDATED_AT } from "@/data/government/withholding-
 import { PAGIBIG_HOUSING_LOAN_UPDATED_AT } from "@/data/government/pag-ibig-housing-loan";
 
 export const metadata = generatePageMetadata({
-  title: "PesoHub — Practical Money Tools for Filipinos",
+  title:
+    "Financial Calculators, Savings Rates & Money Guides Philippines | PesoHub",
   description:
-    "Free financial calculators, exchange rates, and guides for Filipinos. Compute car loans, withholding tax, SSS contributions, and more.",
+    "Compare loan payments, estimate take-home pay, check withholding tax, review savings rates, and browse Philippine finance guides and government reference tables on PesoHub.",
   slug: "",
 });
 

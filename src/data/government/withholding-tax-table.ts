@@ -5,9 +5,9 @@ export const WITHHOLDING_TAX_TABLE_UPDATED_AT = "2026-03-16";
 export const withholdingTaxTableMeta = {
   title: "Withholding Tax Table Philippines 2026",
   metaTitle:
-    "Withholding Tax Table Philippines 2026 – Annual & Monthly Reference | PesoHub",
+    "Withholding Tax Table Philippines 2026: TRAIN Law Rates & Brackets | PesoHub",
   metaDescription:
-    "View the current withholding tax table in the Philippines for 2026 with annual and monthly reference views, a worked salary example, and links to the withholding tax calculator.",
+    "Check Philippine withholding tax brackets and TRAIN Law salary tax tables, then use PesoHub tools to estimate your payroll deductions.",
   slug: "government/bir/withholding-tax-table-philippines",
   directAnswer:
     "View the current withholding tax table used for compensation income in the Philippines, with both annual and monthly reference views. Understand the tax brackets, see how monthly salary maps to annual taxable income, and check a worked example before using the calculator.",

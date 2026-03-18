@@ -5,9 +5,9 @@ export const sssContributionCalcData: CalculatorPageData = {
   category: "sss",
   title: "SSS Contribution Calculator Philippines",
   metaTitle:
-    "SSS Contribution Calculator Philippines – Estimate Employee, Voluntary, OFW & Self-Employed Contributions | PesoHub",
+    "SSS Contribution Calculator Philippines: Salary Deduction Estimate | PesoHub",
   metaDescription:
-    "Estimate your SSS contribution in the Philippines by member type. Check employee share, employer share, total contribution, and Monthly Salary Credit using PesoHub's calculator.",
+    "Estimate SSS contributions for employees, self-employed members, voluntary members, and OFWs based on salary and member type.",
   h1: "SSS Contribution Calculator Philippines",
   intro:
     "Estimate your SSS contribution in the Philippines based on your monthly compensation and member type. Use this calculator to check your employee share, employer share, total contribution, and Monthly Salary Credit before comparing it with the official SSS contribution table.",

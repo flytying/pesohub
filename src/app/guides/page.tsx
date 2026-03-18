@@ -21,9 +21,9 @@ import {
 import { buttonVariants } from "@/lib/button-variants";
 
 export const metadata = generatePageMetadata({
-  title: "Finance Guides Philippines | Taxes, SSS, Salary & Deductions",
+  title: "Salary Deductions, Tax & SSS Guides Philippines | PesoHub",
   description:
-    "Plain-language guides to help you understand confusing money topics in the Philippines, from taxes and salary deductions to SSS contributions and government reference tables.",
+    "Learn how withholding tax, SSS, PhilHealth, Pag-IBIG, and take-home pay work with simple Philippine finance guides written in plain language.",
   slug: "guides",
 });
 

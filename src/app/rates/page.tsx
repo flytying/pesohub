@@ -23,9 +23,9 @@ import { generateBreadcrumbSchema } from "@/lib/schema-markup";
 
 export const metadata = generatePageMetadata({
   title:
-    "Rates in the Philippines – Compare Savings, Exchange, Time Deposit & Digital Bank Rates | PesoHub",
+    "Savings Rates, Time Deposit Rates & Exchange Rates Philippines | PesoHub",
   description:
-    "Compare exchange rates, savings rates, time deposit rates, and digital bank rates in the Philippines. Explore PesoHub's rates hub to find the right comparison page.",
+    "Compare savings interest rates, check time deposit options, and track USD to PHP exchange rates with practical Philippine rate pages and comparisons.",
   slug: "rates",
 });
 

@@ -5,9 +5,9 @@ export const carLoanData: CalculatorPageData = {
   category: "loans",
   title: "Car Loan Calculator Philippines",
   metaTitle:
-    "Car Loan Calculator Philippines – Estimate Monthly Payment & Amortization | PesoHub",
+    "Car Loan Calculator Philippines: Monthly Amortization & Interest | PesoHub",
   metaDescription:
-    "Estimate your monthly car loan payment in the Philippines using PesoHub's free car loan calculator. Compare car price, down payment, loan term, and interest rate before applying.",
+    "Estimate monthly car loan payments, total interest, down payment, and total cost before comparing bank or dealer financing in the Philippines.",
   h1: "Car Loan Calculator Philippines",
   intro:
     "Estimate your monthly car loan payment, total interest, and total loan cost before applying. Adjust the car price, down payment, loan term, and interest rate to compare scenarios and find a monthly payment that fits your budget.",

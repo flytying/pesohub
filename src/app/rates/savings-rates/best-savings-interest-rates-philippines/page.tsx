@@ -49,9 +49,9 @@ import {
 
 export const metadata = generatePageMetadata({
   title:
-    "Best Savings Interest Rates Philippines – Compare Digital & Traditional Banks | PesoHub",
+    "Best Savings Interest Rates Philippines 2026: Compare Banks | PesoHub",
   description:
-    "Compare the best savings interest rates in the Philippines across digital and traditional banks. Review promo rates, minimum balance, liquidity, and account notes in one place.",
+    "Compare savings account interest rates in the Philippines, including traditional and digital bank options, to find accounts with better returns.",
   slug: "rates/savings-rates/best-savings-interest-rates-philippines",
   updatedAt: SAVINGS_RATES_UPDATED_AT,
 });

@@ -5,9 +5,9 @@ export const withholdingTaxData: CalculatorPageData = {
   category: "tax",
   title: "Withholding Tax Calculator Philippines",
   metaTitle:
-    "Withholding Tax Calculator Philippines – Estimate Monthly Tax From Salary | PesoHub",
+    "Withholding Tax Calculator Philippines: Compute Salary Tax | PesoHub",
   metaDescription:
-    "Estimate your monthly withholding tax in the Philippines using your gross monthly salary. See annual tax, tax bracket, and tax-only take-home pay in one place.",
+    "Estimate withholding tax on salary income in the Philippines and understand how tax brackets may affect your monthly deductions.",
   h1: "Withholding Tax Calculator Philippines",
   intro:
     "Estimate your monthly withholding tax, annual income tax, and tax-only take-home pay using the current income tax brackets in the Philippines. Use this calculator to get a fast estimate based on your gross monthly salary before checking payroll details or official tables.",
