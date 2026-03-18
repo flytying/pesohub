@@ -60,14 +60,6 @@ const breadcrumbs = [
   { label: "SSS Contribution Table" },
 ];
 
-const howToUsePoints = [
-  "check the current contribution rate and schedule",
-  "view employee and employer shares by salary range",
-  "understand what Monthly Salary Credit means",
-  "review sample payroll cuts",
-  "move to the SSS Contribution Calculator for a faster estimate",
-];
-
 const memberTypeShortcuts = [
   "Employee and Employer",
   "Self-Employed",
@@ -134,88 +126,6 @@ export default function SSSContributionGuidePage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Support text */}
-      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-        Useful for employees, employers, voluntary members, self-employed
-        members, OFWs, and payroll users who want a plain-language SSS
-        contribution reference.
-      </p>
-
-      {/* How to Use This Page */}
-      <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
-        <h2 className="text-sm font-semibold text-foreground">
-          How to Use This Page
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          This page summarizes the current SSS contribution schedule in a format
-          that is easier to scan than the official PDF. Use it to check the
-          contribution rate, salary brackets, employee and employer shares, and
-          Monthly Salary Credit structure.
-        </p>
-        <p className="mt-3 text-sm font-medium text-foreground/80">
-          Use this page to:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          {howToUsePoints.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Current Schedule Used on This Page */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Current Schedule Used on This Page
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          As of the latest official SSS publication currently available, the
-          contribution table is Effective January 2025. SSS also states that the
-          contribution rate increased to 15%, with the minimum MSC at ₱5,000 and
-          the maximum MSC at ₱35,000 starting January 2025.
-        </p>
-
-        {/* Summary cards */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Effective Period
-              </p>
-              <p className="mt-1 text-lg font-bold text-primary">
-                January 2025
-              </p>
-            </CardContent>
-          </Card>
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Contribution Rate
-              </p>
-              <p className="mt-1 text-lg font-bold text-primary">15%</p>
-            </CardContent>
-          </Card>
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Minimum MSC
-              </p>
-              <p className="mt-1 text-lg font-bold text-primary">₱5,000</p>
-            </CardContent>
-          </Card>
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Maximum MSC
-              </p>
-              <p className="mt-1 text-lg font-bold text-primary">₱35,000</p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
       {/* Choose the Member Type */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -480,6 +390,55 @@ export default function SSSContributionGuidePage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      {/* Current Schedule Used on This Page */}
+      <section className="py-8">
+        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+          Current Schedule Used on This Page
+        </h2>
+        <p className="mb-6 text-sm text-muted-foreground">
+          As of the latest official SSS publication currently available, the
+          contribution table is Effective January 2025. SSS also states that the
+          contribution rate increased to 15%, with the minimum MSC at ₱5,000 and
+          the maximum MSC at ₱35,000 starting January 2025.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Effective Period
+              </p>
+              <p className="mt-1 text-lg font-bold text-primary">
+                January 2025
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Contribution Rate
+              </p>
+              <p className="mt-1 text-lg font-bold text-primary">15%</p>
+            </CardContent>
+          </Card>
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Minimum MSC
+              </p>
+              <p className="mt-1 text-lg font-bold text-primary">₱5,000</p>
+            </CardContent>
+          </Card>
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Maximum MSC
+              </p>
+              <p className="mt-1 text-lg font-bold text-primary">₱35,000</p>
+            </CardContent>
+          </Card>
+        </div>
       </section>
 
       {/* Want a Faster Estimate? */}
