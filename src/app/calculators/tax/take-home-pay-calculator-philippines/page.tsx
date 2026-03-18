@@ -157,12 +157,6 @@ export default function TakeHomePayCalculatorPage() {
       />
 
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Support text */}
-        <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-          Useful for employees who want a clearer estimate of what may
-          actually reach their payslip or bank account.
-        </p>
-
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <TakeHomePayCalculator />
