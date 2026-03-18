@@ -55,14 +55,6 @@ const breadcrumbs = [
   { label: "Pag-IBIG Housing Loan Guide" },
 ];
 
-const howToUsePoints = [
-  "who may be eligible",
-  "what affects the amount you may borrow",
-  "how rates and repricing can affect monthly payments",
-  "what requirements are usually needed",
-  "where to go next if you want to estimate payments",
-];
-
 const relatedPages = [
   {
     title: "Home Loan Calculator",
@@ -108,35 +100,6 @@ export default function PagibigHousingLoanGuidePage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Support text */}
-      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-        Useful for homebuyers who want a plain-language overview before using a
-        calculator or starting a housing loan application.
-      </p>
-
-      {/* What This Guide Helps You Understand */}
-      <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
-        <h2 className="text-sm font-semibold text-foreground">
-          What This Guide Helps You Understand
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          This page is designed to help you understand the main parts of a
-          Pag-IBIG housing loan without reading a long, technical document
-          first.
-        </p>
-        <p className="mt-3 text-sm font-medium text-foreground/80">
-          Use this guide to understand:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          {howToUsePoints.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
       {/* Who May Qualify */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
