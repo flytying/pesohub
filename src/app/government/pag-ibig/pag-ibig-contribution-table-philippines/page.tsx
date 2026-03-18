@@ -51,22 +51,6 @@ const breadcrumbs = [
   { label: "Pag-IBIG Contribution Table" },
 ];
 
-const howToUsePoints = [
-  "check the current employee share",
-  "check the employer share",
-  "review salary cap rules",
-  "see sample payroll cuts",
-  "move to the Take-Home Pay Calculator for a fuller payroll estimate",
-];
-
-const whatThisHelps = [
-  "verify the Pag-IBIG deduction basis used in payroll",
-  "understand who pays the employee and employer portions",
-  "see whether a salary cap affects the deduction",
-  "compare Pag-IBIG with other payroll deductions",
-  "move from a reference table to a broader payroll estimate",
-];
-
 const whyDifferItems = [
   "Payroll systems may apply updated contribution settings not yet reflected in a simplified reference",
   "Compensation treatment may differ depending on how salary components are classified",
@@ -130,36 +114,6 @@ export default function PagIBIGContributionTablePage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Support text */}
-      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-        Useful for employees, employers, and payroll users who want a
-        plain-language Pag-IBIG contribution reference.
-      </p>
-
-      {/* How to Use This Page */}
-      <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
-        <h2 className="text-sm font-semibold text-foreground">
-          How to Use This Page
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          This page is designed as a practical reference for Pag-IBIG regular
-          savings contributions. Use it to understand how the deduction is
-          usually split, what salary caps may apply, and how Pag-IBIG fits
-          into the wider payroll deduction picture.
-        </p>
-        <p className="mt-3 text-sm font-medium text-foreground/80">
-          Use this page to:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          {howToUsePoints.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
       {/* Current Pag-IBIG Contribution Structure */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -520,24 +474,6 @@ export default function PagIBIGContributionTablePage() {
           </Link>{" "}
           next.
         </p>
-      </section>
-
-      {/* What This Page Helps You Check */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          What This Page Helps You Check
-        </h2>
-        <p className="mb-3 text-sm text-muted-foreground">
-          Use this page if you want to:
-        </p>
-        <ul className="space-y-1.5 text-sm text-muted-foreground">
-          {whatThisHelps.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
       </section>
 
       {/* Why Your Actual Pag-IBIG Deduction May Differ */}
