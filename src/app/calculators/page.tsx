@@ -4,7 +4,6 @@ import {
   Wallet,
   Target,
   PiggyBank,
-  CheckCircle,
   BookOpen,
   ScrollText,
   TrendingUp,
@@ -226,13 +225,6 @@ const popularCalculators = [
       "See a practical estimate of net pay after common deductions.",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
   },
-];
-
-const whyUsePoints = [
-  "Find calculators by real-life need",
-  "Estimate before you apply or commit",
-  "Compare monthly costs and deductions more clearly",
-  "Move from calculator to guide or reference page easily",
 ];
 
 const relatedPages = [
@@ -567,31 +559,6 @@ export default function CalculatorsPage() {
             </Link>
           ))}
         </div>
-      </section>
-
-      {/* Why Use PesoHub's Calculator Hub */}
-      <section className="pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Why Use PesoHub&apos;s Calculator Hub
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          This page is designed to help you find the right calculator faster
-          based on the financial question you are trying to answer. Instead of
-          starting from a long list, you can begin with your goal, compare
-          scenarios, and move to the next useful guide or reference page when
-          you need more context.
-        </p>
-        <ul className="space-y-3">
-          {whyUsePoints.map((point) => (
-            <li
-              key={point}
-              className="flex items-start gap-3 text-sm text-muted-foreground"
-            >
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{point}</span>
-            </li>
-          ))}
-        </ul>
       </section>
 
       {/* Important Note */}
