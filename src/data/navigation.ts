@@ -28,6 +28,7 @@ export const mainNavItems: NavItem[] = [
     children: [
       { label: "USD to PHP Today", href: "/rates/exchange-rates/usd-to-php-today" },
       { label: "Best Savings Rates", href: "/rates/savings-rates/best-savings-interest-rates-philippines" },
+      { label: "Digital Banks Comparison", href: "/rates/savings-rates/best-digital-bank-rates-philippines" },
     ],
   },
   {

@@ -144,7 +144,6 @@ const relatedPages = [
     title: "Digital Banks Comparison",
     href: "/rates/savings-rates/best-digital-bank-rates-philippines",
     icon: Smartphone,
-    comingSoon: true,
   },
   {
     title: "Savings Goal Calculator",

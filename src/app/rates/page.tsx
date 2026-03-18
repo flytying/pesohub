@@ -70,7 +70,6 @@ const rateTypeCards = [
     href: "/rates/savings-rates/best-digital-bank-rates-philippines",
     cta: "View Digital Bank Rates",
     bestFor: "Best for digital-first options",
-    comingSoon: true,
   },
 ];
 
@@ -173,7 +172,6 @@ const relatedRatePages = [
       "Review digital bank savings options and compare rate-focused products.",
     href: "/rates/savings-rates/best-digital-bank-rates-philippines",
     icon: Smartphone,
-    comingSoon: true,
   },
   {
     title: "Calculators Hub",
@@ -223,16 +221,9 @@ export default function RatesPage() {
                     <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
                       <Icon className="size-5" />
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-foreground/80">
-                        {card.bestFor}
-                      </span>
-                      {card.comingSoon && (
-                        <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
-                          Coming soon
-                        </span>
-                      )}
-                    </div>
+                    <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-foreground/80">
+                      {card.bestFor}
+                    </span>
                   </div>
                   <CardTitle className="mt-3 text-base">
                     {card.title}
@@ -307,16 +298,9 @@ export default function RatesPage() {
                     <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
                       <Icon className="size-5" />
                     </div>
-                    <div className="mt-3 flex items-center justify-between">
-                      <CardTitle className="text-sm">
-                        {item.title}
-                      </CardTitle>
-                      {item.comingSoon && (
-                        <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
-                          Coming soon
-                        </span>
-                      )}
-                    </div>
+                    <CardTitle className="mt-3 text-sm">
+                      {item.title}
+                    </CardTitle>
                     <CardDescription className="text-xs leading-relaxed">
                       {item.description}
                     </CardDescription>
