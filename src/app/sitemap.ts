@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     /* ── Homepage ──────────────────────────────────────────── */
     {
-      url: SITE_URL,
+      url: `${SITE_URL}/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1.0,
@@ -38,25 +38,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Hub pages ─────────────────────────────────────────── */
     {
-      url: `${SITE_URL}/calculators`,
+      url: `${SITE_URL}/calculators/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/rates`,
+      url: `${SITE_URL}/rates/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/guides`,
+      url: `${SITE_URL}/guides/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/government`,
+      url: `${SITE_URL}/government/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
@@ -64,19 +64,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Calculators — Loans ───────────────────────────────── */
     {
-      url: `${SITE_URL}/calculators/loans/car-loan-calculator-philippines`,
+      url: `${SITE_URL}/calculators/loans/car-loan-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/calculators/loans/home-loan-calculator-philippines`,
+      url: `${SITE_URL}/calculators/loans/home-loan-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/calculators/loans/personal-loan-calculator-philippines`,
+      url: `${SITE_URL}/calculators/loans/personal-loan-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
@@ -84,19 +84,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Calculators — Tax & Salary ────────────────────────── */
     {
-      url: `${SITE_URL}/calculators/tax/withholding-tax-calculator-philippines`,
+      url: `${SITE_URL}/calculators/tax/withholding-tax-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/calculators/tax/take-home-pay-calculator-philippines`,
+      url: `${SITE_URL}/calculators/tax/take-home-pay-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/calculators/salary/thirteenth-month-pay-calculator-philippines`,
+      url: `${SITE_URL}/calculators/salary/thirteenth-month-pay-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -104,13 +104,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Calculators — SSS & Retirement ────────────────────── */
     {
-      url: `${SITE_URL}/calculators/sss/sss-contribution-calculator-philippines`,
+      url: `${SITE_URL}/calculators/sss/sss-contribution-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/calculators/retirement/sss-pension-calculator`,
+      url: `${SITE_URL}/calculators/retirement/sss-pension-calculator/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -118,19 +118,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Calculators — Savings ─────────────────────────────── */
     {
-      url: `${SITE_URL}/calculators/savings/time-deposit-calculator-philippines`,
+      url: `${SITE_URL}/calculators/savings/time-deposit-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${SITE_URL}/calculators/savings/emergency-fund-calculator-philippines`,
+      url: `${SITE_URL}/calculators/savings/emergency-fund-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.4,
     },
     {
-      url: `${SITE_URL}/calculators/savings/savings-goal-calculator-philippines`,
+      url: `${SITE_URL}/calculators/savings/savings-goal-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.4,
@@ -138,7 +138,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Rates — Exchange ──────────────────────────────────── */
     {
-      url: `${SITE_URL}/rates/exchange-rates/usd-to-php-today`,
+      url: `${SITE_URL}/rates/exchange-rates/usd-to-php-today/`,
       lastModified: toDate(USD_PHP_UPDATED_AT),
       changeFrequency: "daily",
       priority: 0.9,
@@ -146,19 +146,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Rates — Savings & Deposits ────────────────────────── */
     {
-      url: `${SITE_URL}/rates/savings-rates/best-savings-interest-rates-philippines`,
+      url: `${SITE_URL}/rates/savings-rates/best-savings-interest-rates-philippines/`,
       lastModified: toDate(SAVINGS_RATES_UPDATED_AT),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/rates/savings-rates/time-deposit-rates-philippines`,
+      url: `${SITE_URL}/rates/savings-rates/time-deposit-rates-philippines/`,
       lastModified: toDate(TIME_DEPOSIT_RATES_UPDATED_AT),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/rates/savings-rates/best-digital-bank-rates-philippines`,
+      url: `${SITE_URL}/rates/savings-rates/best-digital-bank-rates-philippines/`,
       lastModified: toDate(DIGITAL_BANK_RATES_UPDATED_AT),
       changeFrequency: "weekly",
       priority: 0.8,
@@ -166,13 +166,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Guides — Tax & Salary ─────────────────────────────── */
     {
-      url: `${SITE_URL}/guides/tax/how-withholding-tax-works-philippines`,
+      url: `${SITE_URL}/guides/tax/how-withholding-tax-works-philippines/`,
       lastModified: toDate(WITHHOLDING_TAX_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${SITE_URL}/guides/tax/take-home-pay-guide-philippines`,
+      url: `${SITE_URL}/guides/tax/take-home-pay-guide-philippines/`,
       lastModified: toDate(TAKE_HOME_PAY_GUIDE_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -180,19 +180,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Guides — Government Programs ──────────────────────── */
     {
-      url: `${SITE_URL}/guides/sss/how-to-compute-sss-pension`,
+      url: `${SITE_URL}/guides/sss/how-to-compute-sss-pension/`,
       lastModified: toDate(SSS_PENSION_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${SITE_URL}/guides/government/philhealth-contribution-guide`,
+      url: `${SITE_URL}/guides/government/philhealth-contribution-guide/`,
       lastModified: toDate(PHILHEALTH_GUIDE_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${SITE_URL}/guides/government/pag-ibig-deduction-guide`,
+      url: `${SITE_URL}/guides/government/pag-ibig-deduction-guide/`,
       lastModified: toDate(PAGIBIG_GUIDE_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -200,13 +200,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Government — SSS ──────────────────────────────────── */
     {
-      url: `${SITE_URL}/government/sss/sss-contribution-guide`,
+      url: `${SITE_URL}/government/sss/sss-contribution-guide/`,
       lastModified: toDate(SSS_CONTRIBUTION_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${SITE_URL}/government/sss/sss-pension-table`,
+      url: `${SITE_URL}/government/sss/sss-pension-table/`,
       lastModified: toDate(SSS_PENSION_TABLE_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -214,7 +214,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Government — BIR ──────────────────────────────────── */
     {
-      url: `${SITE_URL}/government/bir/withholding-tax-table-philippines`,
+      url: `${SITE_URL}/government/bir/withholding-tax-table-philippines/`,
       lastModified: toDate(WITHHOLDING_TAX_TABLE_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -222,7 +222,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Government — PhilHealth ───────────────────────────── */
     {
-      url: `${SITE_URL}/government/philhealth/philhealth-contribution-table-philippines`,
+      url: `${SITE_URL}/government/philhealth/philhealth-contribution-table-philippines/`,
       lastModified: toDate(PHILHEALTH_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -230,13 +230,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Government — Pag-IBIG ─────────────────────────────── */
     {
-      url: `${SITE_URL}/government/pag-ibig/pag-ibig-contribution-table-philippines`,
+      url: `${SITE_URL}/government/pag-ibig/pag-ibig-contribution-table-philippines/`,
       lastModified: toDate(PAGIBIG_CONTRIBUTION_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${SITE_URL}/government/pag-ibig/pag-ibig-housing-loan-guide`,
+      url: `${SITE_URL}/government/pag-ibig/pag-ibig-housing-loan-guide/`,
       lastModified: toDate(PAGIBIG_HOUSING_LOAN_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -244,7 +244,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     /* ── Government — BSP ──────────────────────────────────── */
     {
-      url: `${SITE_URL}/government/bsp/bsp-exchange-rate-guide`,
+      url: `${SITE_URL}/government/bsp/bsp-exchange-rate-guide/`,
       lastModified: toDate(BSP_EXCHANGE_RATE_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
