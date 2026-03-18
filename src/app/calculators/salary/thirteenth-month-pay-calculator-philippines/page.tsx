@@ -124,12 +124,6 @@ export default function ThirteenthMonthPayCalculatorPage() {
       />
 
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Support text */}
-        <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-          Useful for employees who want a quick 13th month pay estimate and a
-          plain-language explanation of how it is computed.
-        </p>
-
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <ThirteenthMonthCalculator />
