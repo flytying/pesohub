@@ -60,14 +60,6 @@ const breadcrumbs = [
   { label: "SSS Contribution Table" },
 ];
 
-const memberTypeShortcuts = [
-  "Employee and Employer",
-  "Self-Employed",
-  "Voluntary",
-  "Non-Working Spouse",
-  "OFW",
-];
-
 const whyDifferent = [
   "the member type may be different from what the user assumes",
   "payroll may use more detailed classification logic",
@@ -126,27 +118,6 @@ export default function SSSContributionGuidePage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Choose the Member Type */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Choose the Member Type You Want to Check
-        </h2>
-        <p className="mb-4 text-sm text-muted-foreground">
-          The SSS contribution table is easier to use when grouped by member
-          type. Start with the category that applies to you.
-        </p>
-        <div className="flex flex-wrap gap-2">
-          {memberTypeShortcuts.map((label) => (
-            <span
-              key={label}
-              className="rounded-full bg-secondary px-3.5 py-1.5 text-xs font-medium text-foreground/80"
-            >
-              {label}
-            </span>
-          ))}
-        </div>
-      </section>
-
       {/* SSS Contribution Table Reference */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
