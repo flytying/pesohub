@@ -61,15 +61,6 @@ const breadcrumbs = [
   { label: "Time Deposit Rates" },
 ];
 
-const beforeYouChoose = [
-  "gross advertised rate",
-  "deposit term",
-  "minimum deposit",
-  "lock-in period",
-  "product notes or eligibility conditions",
-  "tax treatment on interest income",
-];
-
 const needCards = [
   {
     icon: Clock,
@@ -107,13 +98,6 @@ const taxExamples = [
   { gross: 4, net: 3.2 },
   { gross: 5, net: 4 },
   { gross: 6, net: 4.8 },
-];
-
-const howToUsePoints = [
-  "compare multiple banks side by side",
-  "sort by term or minimum deposit",
-  "check whether a higher rate is worth a longer lock-in",
-  "move from rate comparison to actual return estimation",
 ];
 
 const relatedPages = [
@@ -167,65 +151,6 @@ export default function TimeDepositRatesPage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Support text */}
-      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-        Useful for comparing fixed-term deposit options before opening an
-        account or using a time deposit calculator.
-      </p>
-
-      {/* What to Compare Before Choosing */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          What to Compare Before Choosing a Time Deposit
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          The highest rate is not always the best option on its own. A time
-          deposit should be compared using the full product context, including
-          term length, minimum placement, liquidity, and whether the rate is
-          gross before tax.
-        </p>
-        <p className="mt-4 text-sm font-medium text-foreground/80">
-          Before choosing, compare:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          {beforeYouChoose.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Quick Picks by Deposit Need */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Quick Picks by Deposit Need
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Start with the kind of time deposit setup you want, not just the
-          highest published number.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {needCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Card key={card.title} className="h-full">
-                <CardHeader>
-                  <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
-                    <Icon className="size-4" />
-                  </div>
-                  <CardTitle className="mt-2 text-sm">{card.title}</CardTitle>
-                  <CardDescription className="text-xs leading-relaxed">
-                    {card.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
-
       {/* Time Deposit Comparison Table */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -441,28 +366,33 @@ export default function TimeDepositRatesPage() {
         </ul>
       </section>
 
-      {/* How to Use This Comparison Page */}
+      {/* Quick Picks by Deposit Need */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          How to Use This Comparison Page
+          Quick Picks by Deposit Need
         </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Use this page to narrow your shortlist first, then move to the
-          calculator or the bank&apos;s product page. Start by filtering
-          products based on your deposit amount and preferred term, then compare
-          gross rate, tax note, and product conditions before deciding.
+        <p className="mb-6 text-sm text-muted-foreground">
+          Start with the kind of time deposit setup you want, not just the
+          highest published number.
         </p>
-        <p className="mt-4 text-sm font-medium text-foreground/80">
-          This page is most useful if you want to:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          {howToUsePoints.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {needCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <Card key={card.title} className="h-full">
+                <CardHeader>
+                  <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
+                    <Icon className="size-4" />
+                  </div>
+                  <CardTitle className="mt-2 text-sm">{card.title}</CardTitle>
+                  <CardDescription className="text-xs leading-relaxed">
+                    {card.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            );
+          })}
+        </div>
       </section>
 
       {/* Calculator CTA */}
