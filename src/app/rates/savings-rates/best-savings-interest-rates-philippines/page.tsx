@@ -62,15 +62,6 @@ const breadcrumbs = [
   { label: "Savings Rates" },
 ];
 
-const beforeYouChoose = [
-  "headline rate versus regular rate",
-  "promo conditions",
-  "minimum balance",
-  "ease of withdrawal",
-  "digital-only versus branch-based access",
-  "tax treatment on interest income",
-];
-
 const needCards = [
   {
     icon: Trophy,
@@ -143,14 +134,6 @@ const chooseChecklist = [
   "match the product to your savings goal",
 ];
 
-const whoIsThisFor = [
-  "comparing where to keep emergency funds",
-  "looking for better returns than a basic savings account",
-  "deciding between digital banks and traditional banks",
-  "reviewing where to park idle cash",
-  "exploring savings options before considering a time deposit",
-];
-
 const relatedPages = [
   {
     title: "Time Deposit Rates",
@@ -206,66 +189,6 @@ export default function BestSavingsRatesPage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Support text */}
-      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-        Useful for comparing savings accounts before opening an account or
-        moving idle cash.
-      </p>
-
-      {/* What to Check Before Choosing */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          What to Check Before Choosing a Savings Account
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          The highest advertised rate is not always the best option for
-          everyone. Some savings accounts offer promotional rates, while others
-          offer lower but more stable returns. Before deciding, compare how
-          easy it is to access your funds, whether there is a minimum balance,
-          and whether the rate depends on conditions or promo mechanics.
-        </p>
-        <p className="mt-4 text-sm font-medium text-foreground/80">
-          Before choosing, compare:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          {beforeYouChoose.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Best Savings Account Options by Need */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Best Savings Account Options by Need
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Start with the type of savings experience you want, not just the
-          highest percentage.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {needCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Card key={card.title} className="h-full">
-                <CardHeader>
-                  <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
-                    <Icon className="size-4" />
-                  </div>
-                  <CardTitle className="mt-2 text-sm">{card.title}</CardTitle>
-                  <CardDescription className="text-xs leading-relaxed">
-                    {card.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
-
       {/* Top 3 Banks Summary */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -600,22 +523,33 @@ export default function BestSavingsRatesPage() {
         </div>
       </section>
 
-      {/* Who This Comparison Is For */}
+      {/* Best Savings Account Options by Need */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Who This Comparison Is For
+          Best Savings Account Options by Need
         </h2>
-        <p className="mb-3 text-sm text-muted-foreground">
-          This page is useful if you are:
+        <p className="mb-6 text-sm text-muted-foreground">
+          Start with the type of savings experience you want, not just the
+          highest percentage.
         </p>
-        <ul className="space-y-1.5 text-sm text-muted-foreground">
-          {whoIsThisFor.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {needCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <Card key={card.title} className="h-full">
+                <CardHeader>
+                  <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
+                    <Icon className="size-4" />
+                  </div>
+                  <CardTitle className="mt-2 text-sm">{card.title}</CardTitle>
+                  <CardDescription className="text-xs leading-relaxed">
+                    {card.description}
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            );
+          })}
+        </div>
       </section>
 
       {/* Editorial note */}
