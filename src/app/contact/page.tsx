@@ -58,7 +58,7 @@ export default function ContactPage() {
 
           <div className="mt-10 space-y-6">
             <div>
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Response Time
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
@@ -66,7 +66,7 @@ export default function ContactPage() {
               </p>
             </div>
             <div>
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 Important Note
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">

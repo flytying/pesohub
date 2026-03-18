@@ -78,7 +78,7 @@
   --secondary: oklch(0.96 0.01 250);
   --secondary-foreground: oklch(0.25 0.08 250);
   --muted: oklch(0.96 0.008 250);
-  --muted-foreground: oklch(0.50 0.03 250);
+  --muted-foreground: oklch(0.45 0.03 250);
   --accent: oklch(0.60 0.14 180);
   --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.577 0.245 27.325);
@@ -226,9 +226,7 @@
     color: #111 !important;
   }
 
-  .gradient-result .text-white\/50,
-  .gradient-result .text-white\/60,
-  .gradient-result .text-white\/40 {
+  .gradient-result .text-white\/70 {
     color: #666 !important;
   }
 

@@ -30,7 +30,7 @@ export function CalculatorResult({
       <span
         className={cn(
           "text-sm",
-          isDark ? "text-white/60" : "text-muted-foreground",
+          isDark ? "text-white/70" : "text-muted-foreground",
           highlight && !isDark && "font-medium text-foreground",
           highlight && isDark && "font-medium text-white"
         )}

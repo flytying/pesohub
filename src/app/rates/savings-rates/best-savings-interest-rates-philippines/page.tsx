@@ -232,7 +232,7 @@ export default function BestSavingsRatesPage() {
                 {formatPercent(bank.interestRate)}
               </p>
               <p
-                className={`text-xs ${index === 0 ? "text-white/50" : "text-muted-foreground"}`}
+                className={`text-xs ${index === 0 ? "text-white/70" : "text-muted-foreground"}`}
               >
                 per annum
               </p>
@@ -245,7 +245,7 @@ export default function BestSavingsRatesPage() {
                   {bank.accountType}
                 </p>
                 <p
-                  className={`mt-1 text-xs ${index === 0 ? "text-white/50" : "text-muted-foreground/70"}`}
+                  className={`mt-1 text-xs ${index === 0 ? "text-white/70" : "text-muted-foreground"}`}
                 >
                   {bank.rateType === "Promo" ? "Promo rate" : "Standard rate"}
                   {" · "}

@@ -47,13 +47,13 @@ export function ThirteenthMonthCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/50">
+            <p className="text-xs uppercase tracking-wider text-white/70">
               Estimated 13th Month Pay
             </p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
               {formatPeso(result.thirteenthMonthPay)}
             </p>
-            <p className="mt-2 text-sm text-white/50">
+            <p className="mt-2 text-sm text-white/70">
               {COMPUTATION_TYPE_LABELS[computationType]} •{" "}
               {result.monthsWorked} month{result.monthsWorked !== 1 ? "s" : ""}{" "}
               counted
@@ -62,7 +62,7 @@ export function ThirteenthMonthCalculator() {
 
           {/* Visual breakdown */}
           <div className="my-6 space-y-3">
-            <p className="text-xs font-medium text-white/60">
+            <p className="text-xs font-medium text-white/70">
               Computation Breakdown
             </p>
             <div className="rounded-lg bg-white/10 p-4 text-sm">

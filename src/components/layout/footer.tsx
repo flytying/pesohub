@@ -11,7 +11,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-3">
           {/* Tools */}
           <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/50">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/70">
               Tools
             </h3>
             <ul className="space-y-2.5">
@@ -30,7 +30,7 @@ export function Footer() {
 
           {/* Calculators */}
           <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/50">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/70">
               Calculators
             </h3>
             <ul className="space-y-2.5">
@@ -49,7 +49,7 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/50">
+            <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/70">
               Company
             </h3>
             <ul className="space-y-2.5">
@@ -78,10 +78,10 @@ export function Footer() {
               className="size-10 rounded-lg"
             />
           </div>
-          <p className="text-sm text-white/50">
+          <p className="text-sm text-white/70">
             &copy; {new Date().getFullYear()} {SITE_NAME}
           </p>
-          <p className="mt-3 text-xs leading-relaxed text-white/30">
+          <p className="mt-3 text-xs leading-relaxed text-white/60">
             {SITE_NAME} provides free financial tools and information for
             educational purposes only. This website is not affiliated with any
             government agency or financial institution. Always consult a

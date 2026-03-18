@@ -27,7 +27,7 @@ export function PageHero({
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb pill */}
           <nav aria-label="Breadcrumb" className="mb-6">
-            <ol className="inline-flex flex-wrap items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-white/50 backdrop-blur-sm">
+            <ol className="inline-flex flex-wrap items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-white/70 backdrop-blur-sm">
               {breadcrumbs.map((item, index) => {
                 const isLast = index === breadcrumbs.length - 1;
                 return (
@@ -59,11 +59,11 @@ export function PageHero({
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
             {title}
           </h1>
-          <p className="mt-3 text-sm leading-relaxed text-white/60 sm:text-base">
+          <p className="mt-3 text-sm leading-relaxed text-white/70 sm:text-base">
             {description}
           </p>
           {badge && (
-            <p className="mt-4 flex items-center gap-1.5 text-xs text-amber-300/60">
+            <p className="mt-4 flex items-center gap-1.5 text-xs text-amber-300">
               <Clock className="size-3" />
               Updated {formatDate(badge)}
             </p>

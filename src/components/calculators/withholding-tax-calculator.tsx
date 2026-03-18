@@ -81,11 +81,11 @@ export function WithholdingTaxCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/50">Estimated Monthly Withholding Tax</p>
+            <p className="text-xs uppercase tracking-wider text-white/70">Estimated Monthly Withholding Tax</p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
               {formatPeso(result.monthlyTax)}
             </p>
-            <p className="mt-2 text-sm text-white/50">
+            <p className="mt-2 text-sm text-white/70">
               Effective tax rate: {formatPercent(result.effectiveRate)}
             </p>
           </div>
@@ -99,11 +99,11 @@ export function WithholdingTaxCalculator() {
           <div className="flex justify-center gap-6 text-xs print:hidden">
             <div className="flex items-center gap-1.5">
               <span className="inline-block size-2.5 rounded-full bg-white/35" />
-              <span className="text-white/60">Tax</span>
+              <span className="text-white/70">Tax</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="inline-block size-2.5 rounded-full bg-white/85" />
-              <span className="text-white/60">Take-Home</span>
+              <span className="text-white/70">Take-Home</span>
             </div>
           </div>
 

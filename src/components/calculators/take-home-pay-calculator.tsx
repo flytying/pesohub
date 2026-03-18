@@ -50,13 +50,13 @@ export function TakeHomePayCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/50">
+            <p className="text-xs uppercase tracking-wider text-white/70">
               Estimated Monthly Take-Home Pay
             </p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
               {formatPeso(result.takeHomePay)}
             </p>
-            <p className="mt-2 text-sm text-white/50">
+            <p className="mt-2 text-sm text-white/70">
               Total deductions: {formatPercent(deductionRate)} of gross
             </p>
           </div>
@@ -73,23 +73,23 @@ export function TakeHomePayCalculator() {
           <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs print:hidden">
             <div className="flex items-center gap-1.5">
               <span className="inline-block size-2.5 rounded-full bg-white/85" />
-              <span className="text-white/60">Take-Home</span>
+              <span className="text-white/70">Take-Home</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="inline-block size-2.5 rounded-full bg-white/35" />
-              <span className="text-white/60">Tax</span>
+              <span className="text-white/70">Tax</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="inline-block size-2.5 rounded-full bg-[#4CAF50]/60" />
-              <span className="text-white/60">SSS</span>
+              <span className="text-white/70">SSS</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="inline-block size-2.5 rounded-full bg-[#FF9800]/60" />
-              <span className="text-white/60">PhilHealth</span>
+              <span className="text-white/70">PhilHealth</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="inline-block size-2.5 rounded-full bg-[#9C27B0]/60" />
-              <span className="text-white/60">Pag-IBIG</span>
+              <span className="text-white/70">Pag-IBIG</span>
             </div>
           </div>
 

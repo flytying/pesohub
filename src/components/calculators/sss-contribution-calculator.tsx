@@ -53,13 +53,13 @@ export function SSSContributionCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/50">
+            <p className="text-xs uppercase tracking-wider text-white/70">
               Estimated Total Contribution
             </p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
               {formatPeso(result.totalContribution)}
             </p>
-            <p className="mt-2 text-sm text-white/50">
+            <p className="mt-2 text-sm text-white/70">
               MSC: {formatPeso(result.monthlySalaryCredit, 0)} •{" "}
               {MEMBER_TYPE_LABELS[memberType]}
             </p>
@@ -67,7 +67,7 @@ export function SSSContributionCalculator() {
 
           {/* Contribution bar visual */}
           <div className="my-6 space-y-3">
-            <p className="text-xs font-medium text-white/60">
+            <p className="text-xs font-medium text-white/70">
               Contribution Breakdown
             </p>
             {result.isSharedContribution ? (
@@ -210,10 +210,10 @@ function ContributionBar({
   return (
     <div className="space-y-1">
       <div className="flex items-center justify-between text-xs">
-        <span className={highlight ? "font-medium text-white" : "text-white/60"}>
+        <span className={highlight ? "font-medium text-white" : "text-white/70"}>
           {label}
         </span>
-        <span className={highlight ? "font-bold text-white" : "text-white/60"}>
+        <span className={highlight ? "font-bold text-white" : "text-white/70"}>
           {formatPeso(value)}
         </span>
       </div>

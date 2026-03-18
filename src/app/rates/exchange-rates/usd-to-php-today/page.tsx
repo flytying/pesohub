@@ -69,16 +69,16 @@ export default function UsdToPhpPage() {
       {/* Current Rate Summary */}
       <section className="py-8">
         <div className="gradient-result overflow-hidden rounded-lg p-6 text-white sm:p-8">
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/50">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/70">
             <DollarSign className="size-4" />
             BSP Reference Rate
           </div>
           <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-sm text-white/60">1 US Dollar =</p>
+              <p className="text-sm text-white/70">1 US Dollar =</p>
               <p className="mt-1 text-5xl font-bold tracking-tight sm:text-6xl">
                 {formatNumber(currentRate.rate, 4)}
-                <span className="ml-2 text-2xl font-medium text-white/50 sm:text-3xl">PHP</span>
+                <span className="ml-2 text-2xl font-medium text-white/70 sm:text-3xl">PHP</span>
               </p>
               <div className="mt-3 flex items-center gap-2">
                 <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${
@@ -93,10 +93,10 @@ export default function UsdToPhpPage() {
                   )}
                   {currentRate.change > 0 ? "+" : ""}{currentRate.change.toFixed(2)}
                 </span>
-                <span className="text-xs text-white/40">vs previous day</span>
+                <span className="text-xs text-white/70">vs previous day</span>
               </div>
             </div>
-            <div className="text-sm text-white/50 sm:text-right">
+            <div className="text-sm text-white/70 sm:text-right">
               <p>Source: <span className="text-white/70">{EXCHANGE_RATE_SOURCE}</span></p>
               <p>{formatDate(currentRate.date)}</p>
             </div>

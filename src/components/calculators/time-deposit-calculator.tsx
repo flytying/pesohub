@@ -49,20 +49,20 @@ export function TimeDepositCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/50">
+            <p className="text-xs uppercase tracking-wider text-white/70">
               Estimated Maturity Amount
             </p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
               {formatPeso(result.netMaturityValue)}
             </p>
-            <p className="mt-2 text-sm text-white/50">
+            <p className="mt-2 text-sm text-white/70">
               After 20% withholding tax on interest · {result.termUsed}
             </p>
           </div>
 
           {/* Visual breakdown */}
           <div className="my-6 space-y-3">
-            <p className="text-xs font-medium text-white/60">
+            <p className="text-xs font-medium text-white/70">
               Return Breakdown
             </p>
             <ReturnBar
@@ -257,12 +257,12 @@ function ReturnBar({
     <div className="space-y-1">
       <div className="flex items-center justify-between text-xs">
         <span
-          className={highlight ? "font-medium text-white" : "text-white/60"}
+          className={highlight ? "font-medium text-white" : "text-white/70"}
         >
           {label}
         </span>
         <span
-          className={highlight ? "font-bold text-white" : "text-white/60"}
+          className={highlight ? "font-bold text-white" : "text-white/70"}
         >
           {formatPeso(value)}
         </span>

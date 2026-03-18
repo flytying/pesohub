@@ -33,14 +33,14 @@ function FormulaBar({
     <div className="space-y-1">
       <div className="flex items-center justify-between text-xs">
         <span
-          className={isWinner ? "font-medium text-white" : "text-white/60"}
+          className={isWinner ? "font-medium text-white" : "text-white/70"}
         >
           {label}
         </span>
         <span className="flex items-center gap-1">
           <span
             className={
-              isWinner ? "font-bold text-white" : "text-white/60"
+              isWinner ? "font-bold text-white" : "text-white/70"
             }
           >
             {formatPeso(value)}
@@ -116,18 +116,18 @@ export function SSSPensionCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div>
-            <p className="text-xs uppercase tracking-wider text-white/50">Estimated Monthly Pension</p>
+            <p className="text-xs uppercase tracking-wider text-white/70">Estimated Monthly Pension</p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
               {formatPeso(result.monthlyPension)}
             </p>
-            <p className="mt-2 text-sm text-white/50">
+            <p className="mt-2 text-sm text-white/70">
               via {METHOD_LABELS[result.method] ?? result.method}
             </p>
           </div>
 
           {/* Formula Comparison Bars */}
           <div className="my-6 space-y-3">
-            <p className="text-xs font-medium text-white/60">
+            <p className="text-xs font-medium text-white/70">
               Formula Comparison
             </p>
             <FormulaBar

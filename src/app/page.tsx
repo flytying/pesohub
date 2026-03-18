@@ -217,7 +217,7 @@ export default function HomePage() {
             <span className="text-peso-blue">smarter money</span>{" "}
             decisions
           </h1>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
+          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
             Free calculators, rate tables, and plain-language guides to help you
             estimate payments, compare options, and understand common financial
             decisions in the Philippines.
