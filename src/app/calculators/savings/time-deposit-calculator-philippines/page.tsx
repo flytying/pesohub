@@ -44,13 +44,6 @@ const maturityMeaning = [
   "Net maturity value is the estimated total amount you may receive at the end of the term",
 ];
 
-const howToUse = [
-  "compare 6-month and 12-month time deposits",
-  "check how much interest a fixed deposit may earn",
-  "compare time deposit returns against savings accounts",
-  "estimate the effect of different rates before choosing a bank",
-];
-
 const toolIncludes = [
   "estimated gross interest",
   "estimated after-tax interest",
@@ -137,12 +130,6 @@ export default function TimeDepositCalculatorPage() {
       />
 
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Support text */}
-        <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-          Useful for comparing fixed-term savings returns before choosing a bank
-          or deposit term.
-        </p>
-
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <TimeDepositCalculator />
@@ -190,30 +177,6 @@ export default function TimeDepositCalculatorPage() {
           </p>
           <ul className="mt-4 space-y-1.5 text-sm text-muted-foreground">
             {maturityMeaning.map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* How to Use This Time Deposit Calculator */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-            How to Use This Time Deposit Calculator
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-            This calculator is useful if you want to compare possible deposit
-            outcomes before opening an account. It works best when you already
-            know the approximate deposit amount, the bank&apos;s advertised
-            rate, and the term you are considering.
-          </p>
-          <p className="mt-3 text-sm font-medium text-foreground">
-            Use it to:
-          </p>
-          <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-            {howToUse.map((item) => (
               <li key={item} className="flex items-start gap-2">
                 <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
                 <span>{item}</span>
