@@ -47,22 +47,6 @@ const breadcrumbs = [
   { label: "Withholding Tax Table" },
 ];
 
-const howToUsePoints = [
-  "check the current withholding tax brackets",
-  "view the monthly equivalent structure",
-  "understand how the table works",
-  "review a sample salary computation",
-  "move to the calculator for a faster estimate",
-];
-
-const howToReadSteps = [
-  "Identify taxable compensation",
-  "Choose the correct payroll period",
-  "Find the matching compensation range",
-  "Use the base or prescribed tax",
-  "Add the percentage on the excess amount",
-];
-
 const whyDifferent = [
   "employers may compute on taxable compensation after mandatory contributions",
   "supplementary compensation may be included separately",
@@ -120,38 +104,6 @@ export default function WithholdingTaxTablePage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Support text */}
-      <p className="-mt-4 mb-8 text-sm text-muted-foreground">
-        Useful for employees, payroll users, and anyone who wants a
-        plain-language reference before estimating withholding tax.
-      </p>
-
-      {/* How to Use This Page */}
-      <section className="mb-10 rounded-lg border border-border bg-muted/30 p-6">
-        <h2 className="text-sm font-semibold text-foreground">
-          How to Use This Page
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          This page is a reference guide for the current withholding tax
-          structure used for compensation income. The official withholding tax
-          framework is annual-based, but many employees think in monthly salary
-          terms, so this page shows both views to make the table easier to use.
-          BIR&apos;s revised withholding tax table in Annex E is effective
-          January 1, 2023 and onwards.
-        </p>
-        <p className="mt-3 text-sm font-medium text-foreground/80">
-          Use this page to:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          {howToUsePoints.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
       {/* Annual Withholding Tax Table */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -328,39 +280,6 @@ export default function WithholdingTaxTablePage() {
         <p className="mt-2 text-xs text-muted-foreground">
           Source: BIR Annex E, revised withholding tax table for monthly
           payroll period.
-        </p>
-      </section>
-
-      {/* How to Read the Withholding Tax Table */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          How to Read the Withholding Tax Table
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          BIR&apos;s computation logic is straightforward once the taxable
-          compensation amount is identified. Under RR 11-2018, employers
-          determine taxable compensation excluding non-taxable benefits and
-          mandatory contributions, choose the correct payroll-period table,
-          identify the compensation range, and compute withholding tax using
-          the prescribed amount plus the rate on the excess over the range
-          minimum.
-        </p>
-        <ol className="mt-4 space-y-2">
-          {howToReadSteps.map((step, i) => (
-            <li
-              key={i}
-              className="flex items-start gap-3 text-sm text-muted-foreground"
-            >
-              <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
-                {i + 1}
-              </span>
-              <span>{step}</span>
-            </li>
-          ))}
-        </ol>
-        <p className="mt-4 text-sm text-muted-foreground">
-          This is why the table can be shown in both annual and monthly form
-          while still following the same tax structure.
         </p>
       </section>
 
