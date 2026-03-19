@@ -45,10 +45,16 @@ src/
 └── config/                # Site configuration
 scripts/
 ├── update-exchange-rates.mjs  # Cron script to fetch rates
-└── check-content-freshness.mjs # Content staleness checker
+├── check-content-freshness.mjs # Content staleness checker
+└── data-updater/              # Automated data update agent
+    ├── run-update.mjs         # Orchestrator CLI
+    ├── lib/                   # Shared: fetcher, AI extractor, validator, etc.
+    └── sources/               # Per-source scripts (bank rates, gov data)
 .github/workflows/
 ├── deploy.yml                 # Build & deploy to DigitalOcean
 ├── update-rates.yml           # Daily rate update + deploy
+├── update-bank-rates.yml      # Biweekly bank rate scraping (Tavily AI)
+├── update-government-data.yml # Monthly gov data check (Tavily AI)
 └── content-freshness.yml      # Weekly YMYL content check
 ```
 
@@ -77,9 +83,9 @@ See [docs/email-api.md](docs/email-api.md) for the Express + Resend email API ru
 
 All financial data lives in `/src/data/` as TypeScript files. No database, no API routes.
 
-- **Exchange rates** (`rates/exchange-rates.ts`): Auto-updated daily via cron
-- **Savings rates** (`rates/savings-rates.ts`): Updated manually (rates change infrequently)
-- **Government data** (`government/`): SSS contributions, withholding tax tables, Pag-IBIG rates — updated manually when government publishes changes
+- **Exchange rates** (`rates/exchange-rates.ts`): Auto-updated daily via cron (open.er-api.com)
+- **Bank rates** (`rates/savings-rates.ts`, `digital-bank-rates.ts`, `time-deposit-rates.ts`): Auto-scraped biweekly via data-updater agent (Tavily AI), creates PRs for review
+- **Government data** (`government/`): SSS, Pag-IBIG, PhilHealth, BIR — auto-checked monthly via data-updater agent, creates PRs when changes detected
 - **Calculator logic** lives in `/src/lib/calculators/` as pure functions (no side effects)
 
 ## Brand
@@ -88,6 +94,42 @@ All financial data lives in `/src/data/` as TypeScript files. No database, no AP
 - **Logo:** `/public/pesohub-logo.svg` (horizontal with text)
 - **Symbol:** `/public/pesohub-symbol.svg` (standalone P icon)
 - **Dark background:** Used for hero sections and cards
+
+## Automated Data Updater
+
+The data-updater agent (`scripts/data-updater/`) automatically scrapes financial data and creates PRs for review.
+
+### How It Works
+
+1. **Tavily Extract** fetches page content from bank/government websites
+2. **Tavily AI Search** extracts structured data from the page text
+3. **Validator** checks for anomalies (large rate changes, empty data)
+4. **File Writer** updates the TypeScript data files (preserving FAQs, types)
+5. A **Pull Request** is created for human review (never auto-merges)
+
+### Manual Run
+
+```bash
+# Bank rates
+TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources savings-rates,digital-rates,time-deposit-rates
+
+# Government data
+TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources sss-contribution,sss-pension,pagibig-housing,pagibig-contribution,philhealth,withholding-tax
+
+# All sources
+TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources all
+```
+
+### Adding a New Source
+
+1. Add source config to `scripts/data-updater/lib/config.mjs`
+2. Create a source script in `scripts/data-updater/sources/`
+3. Register the source module in `run-update.mjs` sourceModules map
+4. Add the page to `src/data/content-registry.ts`
+
+### Required Secrets (GitHub)
+
+- `TAVILY_API_KEY` — Tavily API for web extraction and AI-powered data parsing (free tier: 1,000 credits/month)
 
 ## Important Notes
 
