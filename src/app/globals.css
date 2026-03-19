@@ -64,6 +64,12 @@
   --color-teal-600: oklch(0.55 0.14 180);
   --color-teal-500: oklch(0.60 0.14 180);
   --color-teal-400: oklch(0.68 0.12 180);
+
+  /* Enforce 16px minimum font size for readability */
+  --text-xs: 1rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 1rem;
+  --text-sm--line-height: 1.5;
 }
 
 :root {
