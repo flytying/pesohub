@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import { CalculatorShell } from "@/components/calculators/calculator-shell";
 import { CalculatorInput } from "@/components/calculators/calculator-input";
-import { CalculatorResult } from "@/components/calculators/calculator-result";
 import { ResultPanel } from "@/components/calculators/result-panel";
 import dynamic from "next/dynamic";
 const TaxBreakdownChart = dynamic(
@@ -107,24 +106,26 @@ export function WithholdingTaxCalculator() {
             </div>
           </div>
 
-          <div className="mt-6 space-y-1">
-            <CalculatorResult
-              label="Estimated Annual Income Tax"
-              value={formatPeso(result.annualTax)}
-              variant="dark"
-              highlight
-            />
-            <CalculatorResult
-              label="Estimated Tax-Only Take-Home Pay"
-              value={formatPeso(result.monthlyTakeHome)}
-              variant="dark"
-            />
-            <CalculatorResult
-              label="Effective Tax Rate"
-              value={formatPercent(result.effectiveRate)}
-              variant="dark"
-            />
-            <div className="py-2.5">
+          <div className="mt-6 space-y-4">
+            <div className="border-t border-b border-white/15 py-3">
+              <span className="text-sm font-medium text-white">Estimated Annual Income Tax</span>
+              <span className="mt-1 block font-mono text-lg font-semibold tabular-nums text-white">
+                {formatPeso(result.annualTax)}
+              </span>
+            </div>
+            <div className="py-1">
+              <span className="text-sm text-white/70">Estimated Tax-Only Take-Home Pay</span>
+              <span className="mt-1 block font-mono text-sm tabular-nums text-white/90">
+                {formatPeso(result.monthlyTakeHome)}
+              </span>
+            </div>
+            <div className="py-1">
+              <span className="text-sm text-white/70">Effective Tax Rate</span>
+              <span className="mt-1 block font-mono text-sm tabular-nums text-white/90">
+                {formatPercent(result.effectiveRate)}
+              </span>
+            </div>
+            <div className="py-1">
               <span className="text-sm text-white/70">Current Tax Bracket</span>
               <span className="mt-1 block font-mono text-sm tabular-nums text-white/90">
                 {result.bracket}
