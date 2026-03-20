@@ -124,11 +124,12 @@ export function WithholdingTaxCalculator() {
               value={formatPercent(result.effectiveRate)}
               variant="dark"
             />
-            <CalculatorResult
-              label="Current Tax Bracket"
-              value={result.bracket}
-              variant="dark"
-            />
+            <div className="py-2.5">
+              <span className="text-sm text-white/70">Current Tax Bracket</span>
+              <span className="mt-1 block font-mono text-sm tabular-nums text-white/90">
+                {result.bracket}
+              </span>
+            </div>
           </div>
         </ResultPanel>
 
@@ -149,7 +150,7 @@ export function WithholdingTaxCalculator() {
           <Separator />
 
           {/* TRAIN Law Tax Bracket Table */}
-          <div>
+          <div className="overflow-x-auto">
             <h3 className="mb-3 text-sm font-semibold text-foreground">
               TRAIN Law Tax Brackets (2023 Onwards)
             </h3>

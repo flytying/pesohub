@@ -84,7 +84,7 @@ export function CalculatorShell({
             resultsSummary={resultsSummary}
           />
         </div>
-        <div className="grid lg:grid-cols-[2fr_3fr]">{children}</div>
+        <div className="grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">{children}</div>
       </div>
     );
   }
