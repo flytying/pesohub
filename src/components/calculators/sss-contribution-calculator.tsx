@@ -52,8 +52,8 @@ export function SSSContributionCalculator() {
       >
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-wider text-white/70">
+          <div className="text-center">
+            <p className="text-sm tracking-wide text-white/70">
               Estimated Total Contribution
             </p>
             <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
