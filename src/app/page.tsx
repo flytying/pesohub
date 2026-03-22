@@ -219,9 +219,9 @@ export default function HomePage() {
             decisions
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
-            Free calculators, rate tables, and plain-language guides to help you
-            estimate payments, compare options, and understand common financial
-            decisions in the Philippines.
+            Estimate loan payments, understand salary deductions, compare
+            savings rates, and check key Philippine reference tables in one
+            place.
           </p>
 
           {/* CTA Buttons */}
@@ -240,20 +240,6 @@ export default function HomePage() {
               View Rates
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* What you can do on PesoHub — SEO depth section */}
-      <section className="border-b bg-muted/30 py-12 sm:py-16">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-lg font-semibold tracking-tight text-foreground sm:text-xl">
-            What you can do on PesoHub
-          </h2>
-          <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Estimate loan payments, understand salary deductions, compare
-            savings rates, and check key Philippine reference tables in one
-            place.
-          </p>
         </div>
       </section>
 
