@@ -1,9 +1,6 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  Wallet,
-  Target,
-  PiggyBank,
   BookOpen,
   ScrollText,
   TrendingUp,
@@ -36,33 +33,6 @@ export const metadata = generatePageMetadata({
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Calculators" },
-];
-
-const needCards = [
-  {
-    title: "Borrowing Money",
-    description:
-      "Use these calculators if you want to estimate monthly payments, compare repayment scenarios, and check affordability before applying for a loan.",
-    href: "#borrowing",
-    cta: "Explore borrowing calculators",
-    icon: Wallet,
-  },
-  {
-    title: "Salary and Deductions",
-    description:
-      "Use these calculators if you want to estimate payroll deductions, understand contribution amounts, and get a clearer picture of what affects take-home pay.",
-    href: "#salary",
-    cta: "Explore salary calculators",
-    icon: Target,
-  },
-  {
-    title: "Saving and Planning",
-    description:
-      "Use these tools if you want to plan savings targets, compare fixed-return options, and estimate how long it may take to reach a financial goal.",
-    href: "#savings",
-    cta: "Explore savings calculators",
-    icon: PiggyBank,
-  },
 ];
 
 interface CalculatorData {
@@ -365,44 +335,6 @@ export default function CalculatorsPage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Start With Your Need */}
-      <section id="needs" className="scroll-mt-20 pt-8">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Start With Your Need
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Instead of browsing a long list of tools, start with the type of
-          decision you are making. PesoHub groups calculators by common money
-          tasks so you can go straight to the tools most relevant to you.
-        </p>
-        <div className="grid gap-5 sm:grid-cols-3">
-          {needCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Link key={card.href} href={card.href} className="group block">
-                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-base">
-                      {card.title}
-                    </CardTitle>
-                    <CardDescription className="text-sm leading-relaxed">
-                      {card.description}
-                    </CardDescription>
-                    <p className="mt-3 flex items-center gap-1.5 text-sm font-medium text-primary">
-                      {card.cta}
-                      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-                    </p>
-                  </CardHeader>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
       {/* Borrowing Money */}
       <section id="borrowing" className="scroll-mt-20 pt-16">
         <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
