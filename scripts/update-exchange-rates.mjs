@@ -1,15 +1,22 @@
 #!/usr/bin/env node
 
 /**
- * Fetches the latest USD/PHP exchange rate and updates the data file.
- * Used by GitHub Actions cron to keep rates current.
+ * Fetches the latest USD/PHP exchange rate from BSP's Daily Reference
+ * Exchange Rate Bulletin (RERB) PDF and updates the data file.
  *
- * API: https://open.er-api.com/v6/latest/USD (free, no key required)
+ * Source: https://www.bsp.gov.ph/SitePages/Statistics/DailyRERB.aspx
+ *
+ * Flow:
+ *  1. Query BSP's SharePoint API to find today's RERB PDF
+ *  2. Download and parse the PDF
+ *  3. Extract the BSP Reference Rate for USD/PHP
+ *  4. Update src/data/rates/exchange-rates.ts
  */
 
 import { readFileSync, writeFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
+import { PDFParse } from "pdf-parse";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_FILE = resolve(
@@ -17,21 +24,11 @@ const DATA_FILE = resolve(
   "../src/data/rates/exchange-rates.ts"
 );
 
-async function fetchRate() {
-  const res = await fetch("https://open.er-api.com/v6/latest/USD");
-  if (!res.ok) {
-    throw new Error(`API returned ${res.status}: ${res.statusText}`);
-  }
-  const data = await res.json();
-  if (data.result !== "success") {
-    throw new Error(`API error: ${data["error-type"] || "unknown"}`);
-  }
-  const phpRate = data.rates?.PHP;
-  if (!phpRate) {
-    throw new Error("PHP rate not found in API response");
-  }
-  return Math.round(phpRate * 100) / 100; // Round to 2 decimal places
-}
+const BSP_API_BASE =
+  "https://www.bsp.gov.ph/_api/web/lists/getbytitle('RERB')/items";
+const BSP_BASE_URL = "https://www.bsp.gov.ph";
+
+// ── Date helpers ──────────────────────────────────────────────────
 
 function getTodayDate() {
   // Format as YYYY-MM-DD in Philippine Time (UTC+8)
@@ -44,8 +41,96 @@ function isWeekend() {
   const now = new Date();
   const pht = new Date(now.getTime() + 8 * 60 * 60 * 1000);
   const day = pht.getUTCDay();
-  return day === 0 || day === 6; // Sunday or Saturday
+  return day === 0 || day === 6;
 }
+
+function formatBSPDate(dateStr) {
+  // "2026-03-19" → "19Mar2026"
+  const months = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+  ];
+  const [y, m, d] = dateStr.split("-");
+  return `${d}${months[parseInt(m) - 1]}${y}`;
+}
+
+// ── BSP PDF fetching ──────────────────────────────────────────────
+
+async function fetchPdfUrl(bspDate) {
+  const url = `${BSP_API_BASE}?$filter=Title%20eq%20'${bspDate}'&$expand=AttachmentFiles&$top=1`;
+  const res = await fetch(url, {
+    headers: { Accept: "application/json;odata=verbose" },
+  });
+
+  if (!res.ok) {
+    throw new Error(`BSP API returned ${res.status}: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  const items = data.d?.results;
+
+  if (!items || items.length === 0) {
+    return null; // No RERB published for this date (holiday, etc.)
+  }
+
+  const files = items[0].AttachmentFiles?.results;
+  if (!files || files.length === 0) {
+    throw new Error(`RERB item found for ${bspDate} but has no PDF attachment`);
+  }
+
+  return `${BSP_BASE_URL}${files[0].ServerRelativeUrl}`;
+}
+
+async function downloadAndParsePdf(pdfUrl) {
+  const res = await fetch(pdfUrl);
+  if (!res.ok) {
+    throw new Error(`PDF download failed: ${res.status} ${res.statusText}`);
+  }
+
+  const arrayBuf = await res.arrayBuffer();
+  const uint8 = new Uint8Array(arrayBuf);
+  const parser = new PDFParse(uint8, {});
+  await parser.load();
+  const result = await parser.getText();
+  return result.text;
+}
+
+function extractBSPReferenceRate(pdfText) {
+  // Look for "BSP Reference Rate:" line
+  // Format: "BSP Reference Rate: \tPHP \t59.500"
+  const match = pdfText.match(
+    /BSP Reference Rate:\s*PHP\s+([\d.]+)/
+  );
+  if (!match) {
+    throw new Error(
+      "Could not find BSP Reference Rate in PDF text"
+    );
+  }
+  return parseFloat(match[1]);
+}
+
+async function fetchRate() {
+  const today = getTodayDate();
+  const bspDate = formatBSPDate(today);
+
+  console.log(`Querying BSP RERB for ${bspDate}...`);
+
+  const pdfUrl = await fetchPdfUrl(bspDate);
+  if (!pdfUrl) {
+    console.log(`No RERB published for ${bspDate} (possible holiday).`);
+    return null;
+  }
+
+  console.log(`Downloading PDF: ${pdfUrl}`);
+  const pdfText = await downloadAndParsePdf(pdfUrl);
+
+  const rate = extractBSPReferenceRate(pdfText);
+  console.log(`Extracted BSP Reference Rate: ${rate} PHP/USD`);
+
+  return Math.round(rate * 100) / 100;
+}
+
+// ── File parsing helpers ──────────────────────────────────────────
 
 function generateFileContent(today, newRate, change, historicalRates, faqs) {
   const historicalLines = historicalRates
@@ -88,7 +173,6 @@ ${faqs}
 }
 
 function extractFaqs(content) {
-  // Extract everything from "export const exchangeRateFaqs" to end of file
   const faqMatch = content.match(
     /(export const exchangeRateFaqs[\s\S]*)/
   );
@@ -100,7 +184,6 @@ function extractHistoricalRates(content) {
   const rateRegex =
     /\{\s*date:\s*"([^"]+)",\s*rate:\s*([\d.]+),\s*change:\s*(-?[\d.]+)\s*\}/g;
 
-  // Find the historicalRates array section
   const histSection = content.match(
     /export const historicalRates[\s\S]*?\[([^\]]*)\]/
   );
@@ -124,6 +207,8 @@ function extractCurrentRate(content) {
   return match ? parseFloat(match[1]) : null;
 }
 
+// ── Main ──────────────────────────────────────────────────────────
+
 async function main() {
   // Skip weekends — BSP doesn't publish rates
   if (isWeekend()) {
@@ -145,13 +230,18 @@ async function main() {
     process.exit(0);
   }
 
-  // Fetch new rate
+  // Fetch new rate from BSP
   let newRate;
   try {
     newRate = await fetchRate();
   } catch (err) {
-    console.error(`Failed to fetch rate: ${err.message}`);
+    console.error(`Failed to fetch rate from BSP: ${err.message}`);
     process.exit(1);
+  }
+
+  // No RERB published (holiday) — skip gracefully
+  if (newRate === null) {
+    process.exit(0);
   }
 
   console.log(`Fetched USD/PHP rate: ${newRate} (previous: ${previousRate})`);
