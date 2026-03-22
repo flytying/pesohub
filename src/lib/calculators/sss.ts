@@ -107,6 +107,54 @@ export const SSS_CONTRIBUTION_TABLE_2025: SSSContributionBracket[] = [
 ];
 
 // ---------------------------------------------------------------------------
+// Member type definitions for the contribution table tabs
+// ---------------------------------------------------------------------------
+
+export type SSSMemberType =
+  | "employer-employee"
+  | "kasambahay"
+  | "self-employed"
+  | "voluntary"
+  | "ofw";
+
+export const SSS_MEMBER_TYPES: {
+  id: SSSMemberType;
+  label: string;
+  description: string;
+}[] = [
+  {
+    id: "employer-employee",
+    label: "Employee",
+    description:
+      "For business employers and their employees. The contribution is split between the employee and employer.",
+  },
+  {
+    id: "kasambahay",
+    label: "Kasambahay",
+    description:
+      "For household employers and kasambahay (household employees). The contribution is split between the household employer and the kasambahay.",
+  },
+  {
+    id: "self-employed",
+    label: "Self-Employed",
+    description:
+      "For self-employed members. The member pays the full contribution based on declared monthly earnings.",
+  },
+  {
+    id: "voluntary",
+    label: "Voluntary / NWS",
+    description:
+      "For voluntary members and non-working spouses. The member pays the full contribution based on the chosen MSC bracket.",
+  },
+  {
+    id: "ofw",
+    label: "OFW",
+    description:
+      "For land-based OFW members. The member pays the full contribution based on declared monthly income.",
+  },
+];
+
+// ---------------------------------------------------------------------------
 // Main computation
 // ---------------------------------------------------------------------------
 

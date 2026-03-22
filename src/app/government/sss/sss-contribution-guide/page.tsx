@@ -19,14 +19,6 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-} from "@/components/ui/table";
 import { buttonVariants } from "@/lib/button-variants";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -35,10 +27,7 @@ import {
 } from "@/lib/schema-markup";
 import { formatPeso } from "@/lib/formatters";
 import { GOVERNMENT_DISCLAIMER } from "@/lib/constants";
-import {
-  SSS_CONTRIBUTION_TABLE_2025,
-  type SSSContributionBracket,
-} from "@/lib/calculators/sss";
+import { SSSContributionTabs } from "@/components/government/sss-contribution-tabs";
 import {
   sssContributionMeta,
   sssPayrollExamples,
@@ -124,64 +113,16 @@ export default function SSSContributionGuidePage() {
           SSS Contribution Table Reference
         </h2>
         <p className="mb-4 text-sm text-muted-foreground">
-          Find your salary range below to see your Monthly Salary Credit (MSC),
-          employee share, employer share, and total monthly contribution. For
-          employed members, both shares apply. For voluntary, self-employed,
-          OFW, and non-working spouse members, the total contribution is usually
-          paid by the member.
+          Select your member type to see the contribution table that applies to
+          you. For employed and kasambahay members, the contribution is split
+          between the member and the employer. For self-employed, voluntary, OFW,
+          and non-working spouse members, the member pays the full amount.
         </p>
-        <div className="overflow-x-auto rounded-lg border border-border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="whitespace-nowrap">
-                  Range of Compensation
-                </TableHead>
-                <TableHead className="whitespace-nowrap text-right">
-                  MSC
-                </TableHead>
-                <TableHead className="whitespace-nowrap text-right">
-                  Employee Share
-                </TableHead>
-                <TableHead className="whitespace-nowrap text-right">
-                  Employer Share
-                </TableHead>
-                <TableHead className="whitespace-nowrap text-right">
-                  Total Contribution
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {SSS_CONTRIBUTION_TABLE_2025.map(
-                (bracket: SSSContributionBracket) => (
-                  <TableRow key={bracket.monthlySalaryCredit}>
-                    <TableCell className="whitespace-nowrap text-sm text-muted-foreground">
-                      {formatPeso(bracket.minSalary)} –{" "}
-                      {formatPeso(bracket.maxSalary)}
-                    </TableCell>
-                    <TableCell className="text-right font-mono text-sm">
-                      {formatPeso(bracket.monthlySalaryCredit)}
-                    </TableCell>
-                    <TableCell className="text-right font-mono text-sm font-medium text-primary">
-                      {formatPeso(bracket.employeeShare)}
-                    </TableCell>
-                    <TableCell className="text-right font-mono text-sm text-muted-foreground">
-                      {formatPeso(bracket.employerShare)}
-                    </TableCell>
-                    <TableCell className="text-right font-mono text-sm font-medium">
-                      {formatPeso(bracket.totalContribution)}
-                    </TableCell>
-                  </TableRow>
-                ),
-              )}
-            </TableBody>
-          </Table>
-        </div>
-        <p className="mt-2 text-xs text-muted-foreground">
+        <SSSContributionTabs />
+        <p className="mt-3 text-xs text-muted-foreground">
+          Based on the SSS contribution schedule effective January 2025.
           Always verify the latest official SSS schedule if you need the exact
-          contribution basis for payroll or remittance. The official SSS
-          contribution table page currently points to the schedule effective
-          January 2025.
+          contribution basis for payroll or remittance.
         </p>
       </section>
 
