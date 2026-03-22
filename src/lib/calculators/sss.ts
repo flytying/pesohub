@@ -1,6 +1,7 @@
 // ---------------------------------------------------------------------------
-// SSS Pension Calculator – Pure TypeScript computation library
-// Based on the 2025 SSS contribution schedule and pension formulas.
+// SSS Contribution & Pension Calculator – Pure TypeScript computation library
+// Based on the January 2025 SSS contribution schedule (Circulars 2024-006
+// through 2024-010) and pension formulas.
 // ---------------------------------------------------------------------------
 
 /**
@@ -28,87 +29,154 @@ export interface SSSResult {
 }
 
 // ---------------------------------------------------------------------------
-// 2025 SSS Contribution Table
+// 2025 SSS Contribution Table (Effective January 2025)
 //
-// Each entry defines a salary bracket (minSalary to maxSalary inclusive),
-// the corresponding Monthly Salary Credit (MSC), and the total monthly
-// contribution (employee + employer shares combined).
+// Contribution rate: 15%
+// Minimum MSC: ₱5,000 (₱1,000 for kasambahay, ₱8,000 for OFW)
+// Maximum MSC: ₱35,000
+// MPF (Mandatory Provident Fund) applies for MSC > ₱20,000
+// EC (Employees' Compensation) applies to Employee, Kasambahay, Self-Employed
+//
+// Sources: SSS Circulars 2024-006 through 2024-010
 // ---------------------------------------------------------------------------
 
 export interface SSSContributionBracket {
-  /** Lower bound of the salary range (inclusive, PHP). */
   minSalary: number;
-  /** Upper bound of the salary range (inclusive, PHP). */
   maxSalary: number;
-  /** Monthly Salary Credit assigned to this bracket. */
   monthlySalaryCredit: number;
-  /** Total monthly contribution (employee + employer). */
   totalContribution: number;
-  /** Employee share of the monthly contribution. */
   employeeShare: number;
-  /** Employer share of the monthly contribution. */
   employerShare: number;
 }
 
-export const SSS_CONTRIBUTION_TABLE_2025: SSSContributionBracket[] = [
-  { minSalary: 0, maxSalary: 4_249, monthlySalaryCredit: 4_000, totalContribution: 570, employeeShare: 200, employerShare: 370 },
-  { minSalary: 4_250, maxSalary: 4_749, monthlySalaryCredit: 4_500, totalContribution: 640.50, employeeShare: 225, employerShare: 415.50 },
-  { minSalary: 4_750, maxSalary: 5_249, monthlySalaryCredit: 5_000, totalContribution: 712.50, employeeShare: 250, employerShare: 462.50 },
-  { minSalary: 5_250, maxSalary: 5_749, monthlySalaryCredit: 5_500, totalContribution: 782.50, employeeShare: 275, employerShare: 507.50 },
-  { minSalary: 5_750, maxSalary: 6_249, monthlySalaryCredit: 6_000, totalContribution: 855, employeeShare: 300, employerShare: 555 },
-  { minSalary: 6_250, maxSalary: 6_749, monthlySalaryCredit: 6_500, totalContribution: 925, employeeShare: 325, employerShare: 600 },
-  { minSalary: 6_750, maxSalary: 7_249, monthlySalaryCredit: 7_000, totalContribution: 997.50, employeeShare: 350, employerShare: 647.50 },
-  { minSalary: 7_250, maxSalary: 7_749, monthlySalaryCredit: 7_500, totalContribution: 1_067.50, employeeShare: 375, employerShare: 692.50 },
-  { minSalary: 7_750, maxSalary: 8_249, monthlySalaryCredit: 8_000, totalContribution: 1_140, employeeShare: 400, employerShare: 740 },
-  { minSalary: 8_250, maxSalary: 8_749, monthlySalaryCredit: 8_500, totalContribution: 1_210, employeeShare: 425, employerShare: 785 },
-  { minSalary: 8_750, maxSalary: 9_249, monthlySalaryCredit: 9_000, totalContribution: 1_282.50, employeeShare: 450, employerShare: 832.50 },
-  { minSalary: 9_250, maxSalary: 9_749, monthlySalaryCredit: 9_500, totalContribution: 1_352.50, employeeShare: 475, employerShare: 877.50 },
-  { minSalary: 9_750, maxSalary: 10_249, monthlySalaryCredit: 10_000, totalContribution: 1_425, employeeShare: 500, employerShare: 925 },
-  { minSalary: 10_250, maxSalary: 10_749, monthlySalaryCredit: 10_500, totalContribution: 1_495, employeeShare: 525, employerShare: 970 },
-  { minSalary: 10_750, maxSalary: 11_249, monthlySalaryCredit: 11_000, totalContribution: 1_567.50, employeeShare: 550, employerShare: 1_017.50 },
-  { minSalary: 11_250, maxSalary: 11_749, monthlySalaryCredit: 11_500, totalContribution: 1_637.50, employeeShare: 575, employerShare: 1_062.50 },
-  { minSalary: 11_750, maxSalary: 12_249, monthlySalaryCredit: 12_000, totalContribution: 1_710, employeeShare: 600, employerShare: 1_110 },
-  { minSalary: 12_250, maxSalary: 12_749, monthlySalaryCredit: 12_500, totalContribution: 1_780, employeeShare: 625, employerShare: 1_155 },
-  { minSalary: 12_750, maxSalary: 13_249, monthlySalaryCredit: 13_000, totalContribution: 1_852.50, employeeShare: 650, employerShare: 1_202.50 },
-  { minSalary: 13_250, maxSalary: 13_749, monthlySalaryCredit: 13_500, totalContribution: 1_922.50, employeeShare: 675, employerShare: 1_247.50 },
-  { minSalary: 13_750, maxSalary: 14_249, monthlySalaryCredit: 14_000, totalContribution: 1_995, employeeShare: 700, employerShare: 1_295 },
-  { minSalary: 14_250, maxSalary: 14_749, monthlySalaryCredit: 14_500, totalContribution: 2_065, employeeShare: 725, employerShare: 1_340 },
-  { minSalary: 14_750, maxSalary: 15_249, monthlySalaryCredit: 15_000, totalContribution: 2_137.50, employeeShare: 750, employerShare: 1_387.50 },
-  { minSalary: 15_250, maxSalary: 15_749, monthlySalaryCredit: 15_500, totalContribution: 2_207.50, employeeShare: 775, employerShare: 1_432.50 },
-  { minSalary: 15_750, maxSalary: 16_249, monthlySalaryCredit: 16_000, totalContribution: 2_280, employeeShare: 800, employerShare: 1_480 },
-  { minSalary: 16_250, maxSalary: 16_749, monthlySalaryCredit: 16_500, totalContribution: 2_350, employeeShare: 825, employerShare: 1_525 },
-  { minSalary: 16_750, maxSalary: 17_249, monthlySalaryCredit: 17_000, totalContribution: 2_422.50, employeeShare: 850, employerShare: 1_572.50 },
-  { minSalary: 17_250, maxSalary: 17_749, monthlySalaryCredit: 17_500, totalContribution: 2_492.50, employeeShare: 875, employerShare: 1_617.50 },
-  { minSalary: 17_750, maxSalary: 18_249, monthlySalaryCredit: 18_000, totalContribution: 2_565, employeeShare: 900, employerShare: 1_665 },
-  { minSalary: 18_250, maxSalary: 18_749, monthlySalaryCredit: 18_500, totalContribution: 2_635, employeeShare: 925, employerShare: 1_710 },
-  { minSalary: 18_750, maxSalary: 19_249, monthlySalaryCredit: 19_000, totalContribution: 2_707.50, employeeShare: 950, employerShare: 1_757.50 },
-  { minSalary: 19_250, maxSalary: 19_749, monthlySalaryCredit: 19_500, totalContribution: 2_777.50, employeeShare: 975, employerShare: 1_802.50 },
-  { minSalary: 19_750, maxSalary: 20_249, monthlySalaryCredit: 20_000, totalContribution: 2_850, employeeShare: 1_000, employerShare: 1_850 },
-  { minSalary: 20_250, maxSalary: 20_749, monthlySalaryCredit: 20_500, totalContribution: 2_920, employeeShare: 1_025, employerShare: 1_895 },
-  { minSalary: 20_750, maxSalary: 21_249, monthlySalaryCredit: 21_000, totalContribution: 2_992.50, employeeShare: 1_050, employerShare: 1_942.50 },
-  { minSalary: 21_250, maxSalary: 21_749, monthlySalaryCredit: 21_500, totalContribution: 3_062.50, employeeShare: 1_075, employerShare: 1_987.50 },
-  { minSalary: 21_750, maxSalary: 22_249, monthlySalaryCredit: 22_000, totalContribution: 3_135, employeeShare: 1_100, employerShare: 2_035 },
-  { minSalary: 22_250, maxSalary: 22_749, monthlySalaryCredit: 22_500, totalContribution: 3_205, employeeShare: 1_125, employerShare: 2_080 },
-  { minSalary: 22_750, maxSalary: 23_249, monthlySalaryCredit: 23_000, totalContribution: 3_277.50, employeeShare: 1_150, employerShare: 2_127.50 },
-  { minSalary: 23_250, maxSalary: 23_749, monthlySalaryCredit: 23_500, totalContribution: 3_347.50, employeeShare: 1_175, employerShare: 2_172.50 },
-  { minSalary: 23_750, maxSalary: 24_249, monthlySalaryCredit: 24_000, totalContribution: 3_420, employeeShare: 1_200, employerShare: 2_220 },
-  { minSalary: 24_250, maxSalary: 24_749, monthlySalaryCredit: 24_500, totalContribution: 3_490, employeeShare: 1_225, employerShare: 2_265 },
-  { minSalary: 24_750, maxSalary: 25_249, monthlySalaryCredit: 25_000, totalContribution: 3_562.50, employeeShare: 1_250, employerShare: 2_312.50 },
-  { minSalary: 25_250, maxSalary: 25_749, monthlySalaryCredit: 25_500, totalContribution: 3_632.50, employeeShare: 1_275, employerShare: 2_357.50 },
-  { minSalary: 25_750, maxSalary: 26_249, monthlySalaryCredit: 26_000, totalContribution: 3_705, employeeShare: 1_300, employerShare: 2_405 },
-  { minSalary: 26_250, maxSalary: 26_749, monthlySalaryCredit: 26_500, totalContribution: 3_775, employeeShare: 1_325, employerShare: 2_450 },
-  { minSalary: 26_750, maxSalary: 27_249, monthlySalaryCredit: 27_000, totalContribution: 3_847.50, employeeShare: 1_350, employerShare: 2_497.50 },
-  { minSalary: 27_250, maxSalary: 27_749, monthlySalaryCredit: 27_500, totalContribution: 3_917.50, employeeShare: 1_375, employerShare: 2_542.50 },
-  { minSalary: 27_750, maxSalary: 28_249, monthlySalaryCredit: 28_000, totalContribution: 3_990, employeeShare: 1_400, employerShare: 2_590 },
-  { minSalary: 28_250, maxSalary: 28_749, monthlySalaryCredit: 28_500, totalContribution: 4_060, employeeShare: 1_425, employerShare: 2_635 },
-  { minSalary: 28_750, maxSalary: 29_249, monthlySalaryCredit: 29_000, totalContribution: 4_132.50, employeeShare: 1_450, employerShare: 2_682.50 },
-  { minSalary: 29_250, maxSalary: 29_749, monthlySalaryCredit: 29_500, totalContribution: 4_202.50, employeeShare: 1_475, employerShare: 2_727.50 },
-  { minSalary: 29_750, maxSalary: 30_000, monthlySalaryCredit: 30_000, totalContribution: 4_275, employeeShare: 1_500, employerShare: 2_775 },
+/** Row for per-member-type contribution tables displayed on the reference page. */
+export interface SSSContributionRow {
+  minSalary: number;
+  maxSalary: number;
+  msc: number;
+  memberShare: number;
+  employerShare: number;
+  total: number;
+}
+
+// ── Bracket generation ────────────────────────────────────────────
+
+const CONTRIBUTION_RATE = 0.15;
+const EMPLOYEE_RATE = 0.05; // 1/3 of 15%
+const EMPLOYER_RATE = 0.10; // 2/3 of 15%
+const MPF_THRESHOLD = 20_000;
+const EC_LOW = 10; // EC for MSC ≤ 14,500
+const EC_HIGH = 30; // EC for MSC ≥ 15,000
+
+function getEC(msc: number): number {
+  return msc <= 14_500 ? EC_LOW : EC_HIGH;
+}
+
+function buildBrackets(
+  minMSC: number,
+  maxMSC: number,
+  step: number,
+): { minSalary: number; maxSalary: number; msc: number }[] {
+  const brackets: { minSalary: number; maxSalary: number; msc: number }[] = [];
+  for (let msc = minMSC; msc <= maxMSC; msc += step) {
+    const isFirst = msc === minMSC;
+    const isLast = msc === maxMSC;
+    brackets.push({
+      minSalary: isFirst ? 0 : msc - step / 2,
+      maxSalary: isLast ? Infinity : msc + step / 2 - 0.01,
+      msc,
+    });
+  }
+  return brackets;
+}
+
+// Standard brackets: MSC 5,000 to 35,000 in ₱500 steps
+const STANDARD_BRACKETS = buildBrackets(5_000, 35_000, 500);
+
+// Kasambahay low brackets: MSC 1,000 to 4,500 in ₱500 steps
+const KASAMBAHAY_LOW_BRACKETS = buildBrackets(1_000, 4_500, 500);
+
+// OFW brackets: MSC 8,000 to 35,000 in ₱500 steps
+const OFW_BRACKETS = buildBrackets(8_000, 35_000, 500);
+
+// ── Per-member-type contribution computation ──────────────────────
+
+function computeEmployeeRow(b: { minSalary: number; maxSalary: number; msc: number }): SSSContributionRow {
+  const { msc } = b;
+  const ec = getEC(msc);
+  const regularSS_EE = Math.min(msc, MPF_THRESHOLD) * EMPLOYEE_RATE;
+  const mpf_EE = msc > MPF_THRESHOLD ? (msc - MPF_THRESHOLD) * EMPLOYEE_RATE : 0;
+  const regularSS_ER = Math.min(msc, MPF_THRESHOLD) * EMPLOYER_RATE;
+  const mpf_ER = msc > MPF_THRESHOLD ? (msc - MPF_THRESHOLD) * EMPLOYER_RATE : 0;
+  const memberShare = regularSS_EE + mpf_EE;
+  const employerShare = regularSS_ER + mpf_ER + ec;
+  return { ...b, memberShare, employerShare, total: memberShare + employerShare };
+}
+
+function computeKasambahayRow(b: { minSalary: number; maxSalary: number; msc: number }, isLow: boolean): SSSContributionRow {
+  const { msc } = b;
+  const ec = getEC(msc);
+  if (isLow) {
+    // Below MSC 5,000: kasambahay pays nothing, household employer pays all
+    const employerShare = msc * CONTRIBUTION_RATE + ec;
+    return { ...b, memberShare: 0, employerShare, total: employerShare };
+  }
+  // From MSC 5,000+: same split as regular employee
+  return computeEmployeeRow(b);
+}
+
+function computeSelfEmployedRow(b: { minSalary: number; maxSalary: number; msc: number }): SSSContributionRow {
+  const { msc } = b;
+  const ec = getEC(msc);
+  const total = msc * CONTRIBUTION_RATE + ec;
+  return { ...b, memberShare: total, employerShare: 0, total };
+}
+
+function computeVoluntaryRow(b: { minSalary: number; maxSalary: number; msc: number }): SSSContributionRow {
+  const { msc } = b;
+  // No EC for voluntary/NWS
+  const total = msc * CONTRIBUTION_RATE;
+  return { ...b, memberShare: total, employerShare: 0, total };
+}
+
+function computeOFWRow(b: { minSalary: number; maxSalary: number; msc: number }): SSSContributionRow {
+  // Same as voluntary (no EC)
+  return computeVoluntaryRow(b);
+}
+
+// ── Exported contribution tables ──────────────────────────────────
+
+export const SSS_EMPLOYEE_TABLE: SSSContributionRow[] =
+  STANDARD_BRACKETS.map(computeEmployeeRow);
+
+export const SSS_KASAMBAHAY_TABLE: SSSContributionRow[] = [
+  ...KASAMBAHAY_LOW_BRACKETS.map((b) => computeKasambahayRow(b, true)),
+  ...STANDARD_BRACKETS.map((b) => computeKasambahayRow(b, false)),
 ];
 
-// ---------------------------------------------------------------------------
-// Member type definitions for the contribution table tabs
-// ---------------------------------------------------------------------------
+export const SSS_SELF_EMPLOYED_TABLE: SSSContributionRow[] =
+  STANDARD_BRACKETS.map(computeSelfEmployedRow);
+
+export const SSS_VOLUNTARY_TABLE: SSSContributionRow[] =
+  STANDARD_BRACKETS.map(computeVoluntaryRow);
+
+export const SSS_OFW_TABLE: SSSContributionRow[] =
+  OFW_BRACKETS.map(computeOFWRow);
+
+// ── Legacy compatibility: SSS_CONTRIBUTION_TABLE_2025 ─────────────
+// Used by the SSS contribution calculator and pension calculator.
+
+export const SSS_CONTRIBUTION_TABLE_2025: SSSContributionBracket[] =
+  SSS_EMPLOYEE_TABLE.map((r) => ({
+    minSalary: r.minSalary,
+    maxSalary: r.maxSalary === Infinity ? 99_999 : r.maxSalary,
+    monthlySalaryCredit: r.msc,
+    totalContribution: r.total,
+    employeeShare: r.memberShare,
+    employerShare: r.employerShare,
+  }));
+
+// ── Member type definitions ───────────────────────────────────────
 
 export type SSSMemberType =
   | "employer-employee"
@@ -120,37 +188,73 @@ export type SSSMemberType =
 export const SSS_MEMBER_TYPES: {
   id: SSSMemberType;
   label: string;
+  shortLabel: string;
   description: string;
+  circular: string;
+  table: SSSContributionRow[];
+  hasSplit: boolean;
+  memberLabel: string;
+  employerLabel: string;
 }[] = [
   {
     id: "employer-employee",
     label: "Employee",
+    shortLabel: "EE",
     description:
-      "For business employers and their employees. The contribution is split between the employee and employer.",
+      "For business employers and their employees (Circular 2024-006). The contribution is split between the employee and employer.",
+    circular: "2024-006",
+    table: SSS_EMPLOYEE_TABLE,
+    hasSplit: true,
+    memberLabel: "Employee Share",
+    employerLabel: "Employer Share",
   },
   {
     id: "kasambahay",
     label: "Kasambahay",
+    shortLabel: "HE",
     description:
-      "For household employers and kasambahay (household employees). The contribution is split between the household employer and the kasambahay.",
+      "For household employers and kasambahay (Circular 2024-007). Below MSC ₱5,000, the household employer pays the full contribution. From MSC ₱5,000 onwards, both share.",
+    circular: "2024-007",
+    table: SSS_KASAMBAHAY_TABLE,
+    hasSplit: true,
+    memberLabel: "Kasambahay Share",
+    employerLabel: "HH Employer Share",
   },
   {
     id: "self-employed",
     label: "Self-Employed",
+    shortLabel: "SE",
     description:
-      "For self-employed members. The member pays the full contribution based on declared monthly earnings.",
+      "For self-employed members (Circular 2024-008). The member pays the full contribution including EC based on declared monthly earnings.",
+    circular: "2024-008",
+    table: SSS_SELF_EMPLOYED_TABLE,
+    hasSplit: false,
+    memberLabel: "Total Contribution",
+    employerLabel: "",
   },
   {
     id: "voluntary",
     label: "Voluntary / NWS",
+    shortLabel: "VM",
     description:
-      "For voluntary members and non-working spouses. The member pays the full contribution based on the chosen MSC bracket.",
+      "For voluntary members and non-working spouses (Circular 2024-009). The member pays the full contribution. EC does not apply.",
+    circular: "2024-009",
+    table: SSS_VOLUNTARY_TABLE,
+    hasSplit: false,
+    memberLabel: "Total Contribution",
+    employerLabel: "",
   },
   {
     id: "ofw",
     label: "OFW",
+    shortLabel: "OFW",
     description:
-      "For land-based OFW members. The member pays the full contribution based on declared monthly income.",
+      "For land-based OFW members (Circular 2024-010). Minimum MSC is ₱8,000. The member pays the full contribution. EC does not apply.",
+    circular: "2024-010",
+    table: SSS_OFW_TABLE,
+    hasSplit: false,
+    memberLabel: "Total Contribution",
+    employerLabel: "",
   },
 ];
 
@@ -216,40 +320,24 @@ export function calculateSSPension(input: SSSInput): SSSResult {
 // Lookup helper
 // ---------------------------------------------------------------------------
 
-/**
- * Find the SSS contribution bracket that corresponds to the given Monthly
- * Salary Credit.  Falls back to the nearest bracket when an exact match is
- * not found.
- */
 function findContributionBracket(msc: number): SSSContributionBracket {
-  // Try exact MSC match first
   const exact = SSS_CONTRIBUTION_TABLE_2025.find(
     (b) => b.monthlySalaryCredit === msc,
   );
-  if (exact) {
-    return exact;
-  }
+  if (exact) return exact;
 
-  // Fall back to salary-range lookup (treat msc as a salary figure)
   for (const bracket of SSS_CONTRIBUTION_TABLE_2025) {
     if (msc >= bracket.minSalary && msc <= bracket.maxSalary) {
       return bracket;
     }
   }
 
-  // If above the highest bracket, use the maximum
   const last = SSS_CONTRIBUTION_TABLE_2025[SSS_CONTRIBUTION_TABLE_2025.length - 1];
-  if (msc > last.maxSalary) {
-    return last;
-  }
+  if (msc > last.maxSalary) return last;
 
-  // If below the lowest bracket, use the minimum
   return SSS_CONTRIBUTION_TABLE_2025[0];
 }
 
-/**
- * Round a number to two decimal places.
- */
 function round(value: number): number {
   return Math.round(value * 100) / 100;
 }

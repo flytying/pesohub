@@ -16,20 +16,27 @@ import {
 } from "@/components/ui/table";
 import { formatPeso } from "@/lib/formatters";
 import {
-  SSS_CONTRIBUTION_TABLE_2025,
   SSS_MEMBER_TYPES,
-  type SSSMemberType,
+  type SSSContributionRow,
 } from "@/lib/calculators/sss";
 
-function ContributionTable({ memberType }: { memberType: SSSMemberType }) {
-  const isSplit =
-    memberType === "employer-employee" || memberType === "kasambahay";
+function formatRange(row: SSSContributionRow): string {
+  if (row.minSalary === 0) return `Below ${formatPeso(row.maxSalary + 0.01)}`;
+  if (row.maxSalary === Infinity) return `${formatPeso(row.minSalary)} & over`;
+  return `${formatPeso(row.minSalary)} – ${formatPeso(row.maxSalary)}`;
+}
 
-  const shareLabels =
-    memberType === "kasambahay"
-      ? { employee: "Kasambahay Share", employer: "Household Employer Share" }
-      : { employee: "Employee Share", employer: "Employer Share" };
-
+function ContributionTable({
+  rows,
+  hasSplit,
+  memberLabel,
+  employerLabel,
+}: {
+  rows: SSSContributionRow[];
+  hasSplit: boolean;
+  memberLabel: string;
+  employerLabel: string;
+}) {
   return (
     <div className="overflow-x-auto rounded-lg border border-border">
       <Table>
@@ -39,43 +46,42 @@ function ContributionTable({ memberType }: { memberType: SSSMemberType }) {
               Range of Compensation
             </TableHead>
             <TableHead className="whitespace-nowrap text-right">MSC</TableHead>
-            {isSplit ? (
+            {hasSplit ? (
               <>
                 <TableHead className="whitespace-nowrap text-right">
-                  {shareLabels.employee}
+                  {memberLabel}
                 </TableHead>
                 <TableHead className="whitespace-nowrap text-right">
-                  {shareLabels.employer}
+                  {employerLabel}
                 </TableHead>
               </>
             ) : null}
             <TableHead className="whitespace-nowrap text-right">
-              Total Contribution
+              {hasSplit ? "Total" : memberLabel}
             </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {SSS_CONTRIBUTION_TABLE_2025.map((bracket) => (
-            <TableRow key={bracket.monthlySalaryCredit}>
+          {rows.map((row) => (
+            <TableRow key={row.msc}>
               <TableCell className="whitespace-nowrap text-sm text-muted-foreground">
-                {formatPeso(bracket.minSalary)} –{" "}
-                {formatPeso(bracket.maxSalary)}
+                {formatRange(row)}
               </TableCell>
               <TableCell className="text-right font-mono text-sm">
-                {formatPeso(bracket.monthlySalaryCredit)}
+                {formatPeso(row.msc)}
               </TableCell>
-              {isSplit ? (
+              {hasSplit ? (
                 <>
                   <TableCell className="text-right font-mono text-sm font-medium text-primary">
-                    {formatPeso(bracket.employeeShare)}
+                    {formatPeso(row.memberShare)}
                   </TableCell>
                   <TableCell className="text-right font-mono text-sm text-muted-foreground">
-                    {formatPeso(bracket.employerShare)}
+                    {formatPeso(row.employerShare)}
                   </TableCell>
                 </>
               ) : null}
               <TableCell className="text-right font-mono text-sm font-medium">
-                {formatPeso(bracket.totalContribution)}
+                {formatPeso(row.total)}
               </TableCell>
             </TableRow>
           ))}
@@ -101,7 +107,12 @@ export function SSSContributionTabs() {
           <p className="mb-4 text-sm text-muted-foreground">
             {type.description}
           </p>
-          <ContributionTable memberType={type.id} />
+          <ContributionTable
+            rows={type.table}
+            hasSplit={type.hasSplit}
+            memberLabel={type.memberLabel}
+            employerLabel={type.employerLabel}
+          />
         </TabsContent>
       ))}
     </Tabs>
