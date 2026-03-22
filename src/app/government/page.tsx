@@ -1,14 +1,10 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  Shield,
   Landmark,
   TrendingUp,
-  Home,
   Calculator,
   BookOpen,
-  ScrollText,
-  Heart,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
@@ -34,44 +30,6 @@ export const metadata = generatePageMetadata({
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Government" },
-];
-
-const needCards = [
-  {
-    icon: Shield,
-    title: "SSS contributions or pension",
-    description:
-      "Use SSS reference pages if you want to check contribution tables, pension-related figures, or contribution rules before using a calculator.",
-    href: "#all-pages",
-  },
-  {
-    icon: ScrollText,
-    title: "Withholding tax",
-    description:
-      "Use BIR tax reference pages if you want to review tax brackets, tables, or official tax basis before estimating deductions.",
-    href: "#all-pages",
-  },
-  {
-    icon: TrendingUp,
-    title: "Exchange rate reference",
-    description:
-      "Use BSP reference pages if you want to understand official exchange-rate references and how they differ from the rates you may see elsewhere.",
-    href: "#all-pages",
-  },
-  {
-    icon: Home,
-    title: "Pag-IBIG contributions or housing",
-    description:
-      "Use Pag-IBIG pages if you want to check the contribution table, review housing-loan reference information, or understand Pag-IBIG payroll deductions.",
-    href: "#all-pages",
-  },
-  {
-    icon: Heart,
-    title: "PhilHealth contributions",
-    description:
-      "Use PhilHealth pages if you want to check the premium rate, salary floor and ceiling, or employee and employer share for payroll purposes.",
-    href: "#all-pages",
-  },
 ];
 
 const governmentPages = [
@@ -226,39 +184,6 @@ export default function GovernmentPage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Start with What You Need to Check */}
-      <section className="pt-4">
-        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Start with what you need to check
-        </h2>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {needCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Link
-                key={card.title}
-                href={card.href}
-                className="group block"
-              >
-                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {card.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {card.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
       {/* All Government Reference Pages */}
       <section id="all-pages" className="scroll-mt-20 pt-16">
         <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
