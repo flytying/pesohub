@@ -25,11 +25,10 @@ import {
   generateArticleSchema,
   generateBreadcrumbSchema,
 } from "@/lib/schema-markup";
-import { formatPeso } from "@/lib/formatters";
 import { GOVERNMENT_DISCLAIMER } from "@/lib/constants";
+import { WithholdingTaxTabs } from "@/components/government/withholding-tax-tabs";
 import {
   withholdingTaxTableMeta,
-  monthlyTaxBrackets,
   withholdingTaxTableFaqs,
   WITHHOLDING_TAX_TABLE_UPDATED_AT,
 } from "@/data/government/withholding-tax-table";
@@ -104,182 +103,21 @@ export default function WithholdingTaxTablePage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Annual Withholding Tax Table */}
+      {/* Withholding Tax Tables */}
       <section className="py-8">
         <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Annual Withholding Tax Table
+          Withholding Tax Table Reference
         </h2>
         <p className="mb-4 text-sm text-muted-foreground">
-          Philippine income tax brackets for compensation income are
-          annual-based. Annual taxable income up to ₱250,000 is generally
-          exempt, and the next brackets apply progressively above that
-          threshold.
+          View the current and previous withholding tax tables for
+          compensation income. The current table is effective January 1, 2023
+          onwards under the TRAIN Law (RA 10963). The previous table was in
+          effect from January 1, 2018 to December 31, 2022.
         </p>
-        <div className="overflow-x-auto rounded-lg border border-border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-muted/50">
-                <th className="px-4 py-3 text-left font-medium text-foreground">
-                  Annual Taxable Income
-                </th>
-                <th className="px-4 py-3 text-left font-medium text-foreground">
-                  Income Tax Due
-                </th>
-                <th className="px-4 py-3 text-center font-medium text-foreground">
-                  Marginal Rate
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  Not over ₱250,000
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">₱0</td>
-                <td className="px-4 py-2.5 text-center text-muted-foreground">
-                  0%
-                </td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  Over ₱250,000 to ₱400,000
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  15% of excess over ₱250,000
-                </td>
-                <td className="px-4 py-2.5 text-center text-muted-foreground">
-                  15%
-                </td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  Over ₱400,000 to ₱800,000
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  ₱22,500 + 20% of excess over ₱400,000
-                </td>
-                <td className="px-4 py-2.5 text-center text-muted-foreground">
-                  20%
-                </td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  Over ₱800,000 to ₱2,000,000
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  ₱102,500 + 25% of excess over ₱800,000
-                </td>
-                <td className="px-4 py-2.5 text-center text-muted-foreground">
-                  25%
-                </td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  Over ₱2,000,000 to ₱8,000,000
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  ₱402,500 + 30% of excess over ₱2,000,000
-                </td>
-                <td className="px-4 py-2.5 text-center text-muted-foreground">
-                  30%
-                </td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  Over ₱8,000,000
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  ₱2,202,500 + 35% of excess over ₱8,000,000
-                </td>
-                <td className="px-4 py-2.5 text-center text-muted-foreground">
-                  35%
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-2 text-xs text-muted-foreground">
-          Source: TRAIN Law (RA 10963), BIR Annex E — effective January 1,
-          2023 and onwards.
-        </p>
-      </section>
-
-      {/* Monthly Withholding Tax Table View */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Monthly Withholding Tax Table View
-        </h2>
-        <p className="mb-4 text-sm text-muted-foreground">
-          Most employees think in monthly salary, so this monthly view helps
-          translate the annual structure into a payroll-friendly format.
-          BIR&apos;s Annex E includes monthly compensation ranges and
-          prescribed withholding tax for monthly payroll periods.
-        </p>
-        <div className="overflow-x-auto rounded-lg border border-border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-muted/50">
-                <th className="px-4 py-3 text-left font-medium text-foreground">
-                  Monthly Taxable Compensation
-                </th>
-                <th className="px-4 py-3 text-left font-medium text-foreground">
-                  Prescribed Withholding Tax
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  ₱20,833 and below
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">₱0</td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  Over ₱20,833 to ₱33,332
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  15% of excess over ₱20,833
-                </td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  Over ₱33,333 to ₱66,666
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  ₱1,875 + 20% of excess over ₱33,333
-                </td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  Over ₱66,667 to ₱166,666
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  ₱8,541.80 + 25% of excess over ₱66,667
-                </td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  Over ₱166,667 to ₱666,666
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  ₱33,541.80 + 30% of excess over ₱166,667
-                </td>
-              </tr>
-              <tr>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  ₱666,667 and above
-                </td>
-                <td className="px-4 py-2.5 text-muted-foreground">
-                  ₱183,541.80 + 35% of excess over ₱666,667
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-2 text-xs text-muted-foreground">
-          Source: BIR Annex E, revised withholding tax table for monthly
-          payroll period.
+        <WithholdingTaxTabs />
+        <p className="mt-3 text-xs text-muted-foreground">
+          Source: TRAIN Law (RA 10963), BIR Revenue Regulations No. 11-2018,
+          Annex E.
         </p>
       </section>
 

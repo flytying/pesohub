@@ -14,59 +14,52 @@ export const withholdingTaxTableMeta = {
 };
 
 /**
- * Monthly equivalents for reference display.
+ * Shared interface for withholding tax bracket rows.
  */
-export interface MonthlyTaxBracket {
-  overBut: string;
-  notOver: string;
-  baseTax: number;
+export interface TaxBracketRow {
+  range: string;
+  taxDue: string;
   rate: number;
-  ofExcessOver: number;
 }
 
-export const monthlyTaxBrackets: MonthlyTaxBracket[] = [
-  {
-    overBut: "₱0",
-    notOver: "₱20,833",
-    baseTax: 0,
-    rate: 0,
-    ofExcessOver: 0,
-  },
-  {
-    overBut: "₱20,833",
-    notOver: "₱33,332",
-    baseTax: 0,
-    rate: 15,
-    ofExcessOver: 20_833,
-  },
-  {
-    overBut: "₱33,333",
-    notOver: "₱66,666",
-    baseTax: 1_875,
-    rate: 20,
-    ofExcessOver: 33_333,
-  },
-  {
-    overBut: "₱66,667",
-    notOver: "₱166,666",
-    baseTax: 8_541.8,
-    rate: 25,
-    ofExcessOver: 66_667,
-  },
-  {
-    overBut: "₱166,667",
-    notOver: "₱666,666",
-    baseTax: 33_541.8,
-    rate: 30,
-    ofExcessOver: 166_667,
-  },
-  {
-    overBut: "₱666,667",
-    notOver: "and above",
-    baseTax: 183_541.8,
-    rate: 35,
-    ofExcessOver: 666_667,
-  },
+// ── Current tables (January 1, 2023 onwards) ──────────────────────
+
+export const annualTaxBrackets: TaxBracketRow[] = [
+  { range: "Not over ₱250,000", taxDue: "₱0", rate: 0 },
+  { range: "Over ₱250,000 to ₱400,000", taxDue: "15% of excess over ₱250,000", rate: 15 },
+  { range: "Over ₱400,000 to ₱800,000", taxDue: "₱22,500 + 20% of excess over ₱400,000", rate: 20 },
+  { range: "Over ₱800,000 to ₱2,000,000", taxDue: "₱102,500 + 25% of excess over ₱800,000", rate: 25 },
+  { range: "Over ₱2,000,000 to ₱8,000,000", taxDue: "₱402,500 + 30% of excess over ₱2,000,000", rate: 30 },
+  { range: "Over ₱8,000,000", taxDue: "₱2,202,500 + 35% of excess over ₱8,000,000", rate: 35 },
+];
+
+export const monthlyTaxBrackets: TaxBracketRow[] = [
+  { range: "Not over ₱20,833", taxDue: "₱0", rate: 0 },
+  { range: "Over ₱20,833 to ₱33,332", taxDue: "15% of excess over ₱20,833", rate: 15 },
+  { range: "Over ₱33,333 to ₱66,666", taxDue: "₱1,875 + 20% of excess over ₱33,333", rate: 20 },
+  { range: "Over ₱66,667 to ₱166,666", taxDue: "₱8,541.80 + 25% of excess over ₱66,667", rate: 25 },
+  { range: "Over ₱166,667 to ₱666,666", taxDue: "₱33,541.80 + 30% of excess over ₱166,667", rate: 30 },
+  { range: "Over ₱666,667", taxDue: "₱183,541.80 + 35% of excess over ₱666,667", rate: 35 },
+];
+
+// ── Previous tables (January 1, 2018 – December 31, 2022) ────────
+
+export const annualTaxBracketsOld: TaxBracketRow[] = [
+  { range: "Not over ₱250,000", taxDue: "₱0", rate: 0 },
+  { range: "Over ₱250,000 to ₱400,000", taxDue: "20% of excess over ₱250,000", rate: 20 },
+  { range: "Over ₱400,000 to ₱800,000", taxDue: "₱30,000 + 25% of excess over ₱400,000", rate: 25 },
+  { range: "Over ₱800,000 to ₱2,000,000", taxDue: "₱130,000 + 30% of excess over ₱800,000", rate: 30 },
+  { range: "Over ₱2,000,000 to ₱8,000,000", taxDue: "₱490,000 + 32% of excess over ₱2,000,000", rate: 32 },
+  { range: "Over ₱8,000,000", taxDue: "₱2,410,000 + 35% of excess over ₱8,000,000", rate: 35 },
+];
+
+export const monthlyTaxBracketsOld: TaxBracketRow[] = [
+  { range: "Not over ₱20,833", taxDue: "₱0", rate: 0 },
+  { range: "Over ₱20,833 to ₱33,332", taxDue: "20% of excess over ₱20,833", rate: 20 },
+  { range: "Over ₱33,333 to ₱66,666", taxDue: "₱2,500 + 25% of excess over ₱33,333", rate: 25 },
+  { range: "Over ₱66,667 to ₱166,666", taxDue: "₱10,833.33 + 30% of excess over ₱66,667", rate: 30 },
+  { range: "Over ₱166,667 to ₱666,666", taxDue: "₱40,833.33 + 32% of excess over ₱166,667", rate: 32 },
+  { range: "Over ₱666,667", taxDue: "₱200,833.33 + 35% of excess over ₱666,667", rate: 35 },
 ];
 
 export const taxExemptions = [
