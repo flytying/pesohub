@@ -472,7 +472,7 @@ export default function TimeDepositRatesPage() {
       <div className="py-8">
         <SourceCitation
           source="Individual bank websites and product disclosures"
-          sourceUrl="https://www.bsp.gov.ph/SitePages/FinancialStability/DirBanksFIs.aspx"
+          sourceUrl="https://www.bsp.gov.ph/SitePages/FinancialStability/DirBanksFIList.aspx"
           updatedAt={TIME_DEPOSIT_RATES_UPDATED_AT}
           reviewCadence="Every 2 weeks"
         />

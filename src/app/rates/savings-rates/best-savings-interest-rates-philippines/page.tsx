@@ -610,7 +610,7 @@ export default function BestSavingsRatesPage() {
       <div className="py-8">
         <SourceCitation
           source="Individual bank websites"
-          sourceUrl="https://www.bsp.gov.ph/SitePages/FinancialStability/DirBanksFIs.aspx"
+          sourceUrl="https://www.bsp.gov.ph/SitePages/FinancialStability/DirBanksFIList.aspx"
           updatedAt={SAVINGS_RATES_UPDATED_AT}
           reviewCadence="Every 2 weeks"
         />
