@@ -6,6 +6,7 @@ import Image from "next/image";
 import { mainNavItems } from "@/data/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { HeaderSearch } from "@/components/layout/header-search";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -28,21 +29,26 @@ export function Header() {
           />
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 md:flex">
-          {mainNavItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        {/* Desktop Navigation + Search */}
+        <div className="hidden items-center gap-6 md:flex">
+          <nav className="flex items-center gap-8">
+            {mainNavItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <HeaderSearch />
+        </div>
 
-        {/* Mobile Hamburger Button */}
-        <button
+        {/* Mobile: Search + Hamburger */}
+        <div className="flex items-center gap-1 md:hidden">
+          <HeaderSearch />
+          <button
           type="button"
           className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -55,6 +61,7 @@ export function Header() {
             <Menu className="size-5" />
           )}
         </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}

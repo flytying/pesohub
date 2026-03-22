@@ -1,0 +1,114 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
+import { Search } from "lucide-react";
+import { search, type SearchResult } from "@/lib/search";
+
+const CATEGORY_LABELS: Record<string, string> = {
+  calculator: "Calculators",
+  rates: "Rates",
+  guide: "Guides",
+  government: "Government",
+  general: "General",
+};
+
+const CATEGORY_ORDER = ["calculator", "rates", "guide", "government", "general"];
+
+function groupByCategory(results: SearchResult[]) {
+  const groups: Record<string, SearchResult[]> = {};
+  for (const result of results) {
+    const cat = result.category;
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(result);
+  }
+  return CATEGORY_ORDER
+    .filter((cat) => groups[cat]?.length)
+    .map((cat) => ({ category: cat, label: CATEGORY_LABELS[cat], items: groups[cat] }));
+}
+
+export function SearchResults() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const initialQuery = searchParams.get("q") ?? "";
+  const [query, setQuery] = useState(initialQuery);
+
+  // Sync from URL changes (e.g. browser back/forward)
+  useEffect(() => {
+    setQuery(searchParams.get("q") ?? "");
+  }, [searchParams]);
+
+  const results = query.trim().length >= 2 ? search(query.trim()) : [];
+  const groups = groupByCategory(results);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!query.trim()) return;
+    router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+  }
+
+  return (
+    <div>
+      {/* Search input */}
+      <form onSubmit={handleSubmit} className="relative mb-8">
+        <Search className="absolute left-3.5 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
+        <input
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for calculators, rates, guides..."
+          className="h-12 w-full rounded-xl border border-input bg-background pl-11 pr-4 text-base outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/50"
+          autoFocus
+        />
+      </form>
+
+      {/* Results */}
+      {query.trim().length >= 2 && (
+        <>
+          <p className="mb-6 text-sm text-muted-foreground">
+            {results.length === 0
+              ? `No results found for "${query.trim()}"`
+              : `Found ${results.length} result${results.length !== 1 ? "s" : ""} for "${query.trim()}"`}
+          </p>
+
+          {results.length === 0 && (
+            <div className="rounded-xl border border-border bg-muted/30 px-6 py-8 text-center">
+              <p className="mb-3 text-base font-medium text-foreground">
+                Try different keywords
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Search for topics like &ldquo;car loan&rdquo;, &ldquo;SSS pension&rdquo;,
+                &ldquo;exchange rate&rdquo;, or &ldquo;withholding tax&rdquo;.
+              </p>
+            </div>
+          )}
+
+          {groups.map((group) => (
+            <section key={group.category} className="mb-8">
+              <h2 className="mb-3 text-lg font-semibold text-foreground">
+                {group.label}
+              </h2>
+              <div className="space-y-3">
+                {group.items.map((result) => (
+                  <Link
+                    key={result.href}
+                    href={result.href}
+                    className="block rounded-xl border border-border bg-background p-4 transition-colors hover:border-primary/30 hover:bg-secondary/50"
+                  >
+                    <h3 className="text-sm font-medium text-foreground">
+                      {result.title}
+                    </h3>
+                    <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
+                      {result.description}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          ))}
+        </>
+      )}
+    </div>
+  );
+}
