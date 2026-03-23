@@ -11,8 +11,7 @@ import {
   ScrollText,
   Globe,
   FileText,
-  Shield,
-  Building2,
+  RefreshCw,
 } from "lucide-react";
 import { buttonVariants } from "@/lib/button-variants";
 import { CategoryCard } from "@/components/shared/category-card";
@@ -139,27 +138,21 @@ const recentlyUpdated = [
 const trustPoints = [
   {
     icon: Globe,
-    title: "Built for Philippine financial scenarios",
+    title: "Philippine financial focus",
     description:
       "The site is organized around common money questions and decisions relevant to users in the Philippines.",
   },
   {
     icon: FileText,
-    title: "Plain-language explanations",
+    title: "Simple explanations",
     description:
       "Complex terms and tables are presented in a simpler, easier-to-follow format.",
   },
   {
-    icon: Shield,
-    title: "Educational use only",
+    icon: RefreshCw,
+    title: "Up-to-date and reliable data",
     description:
-      "PesoHub is designed to help you understand and compare information, not replace official advice or provider disclosures.",
-  },
-  {
-    icon: Building2,
-    title: "Independent and not affiliated",
-    description:
-      "PesoHub is not affiliated with government agencies, banks, or financial providers unless clearly stated.",
+      "Tools and tables are regularly updated to reflect current rates, policies, and commonly used financial references in the Philippines.",
   },
 ];
 
@@ -394,7 +387,7 @@ export default function HomePage() {
           <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
             Why use PesoHub
           </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {trustPoints.map((point) => {
               const Icon = point.icon;
               return (
