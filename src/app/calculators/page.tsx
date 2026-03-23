@@ -17,7 +17,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { buttonVariants } from "@/lib/button-variants";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import { generateBreadcrumbSchema } from "@/lib/schema-markup";
@@ -230,14 +229,9 @@ export default function CalculatorsPage() {
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Borrowing Money */}
       <section id="borrowing" className="scroll-mt-20 pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
           Borrowing Money
         </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Use these calculators if you want to estimate monthly payments,
-          compare repayment scenarios, and check affordability before applying
-          for a loan.
-        </p>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {borrowingCalculators.map((calc) => (
             <CalculatorCard key={calc.href} {...calc} />
@@ -277,14 +271,9 @@ export default function CalculatorsPage() {
 
       {/* Salary and Deductions */}
       <section id="salary" className="scroll-mt-20 pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
           Salary and Deductions
         </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Use these calculators if you want to estimate payroll deductions,
-          understand contribution amounts, and get a clearer picture of what
-          affects take-home pay.
-        </p>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {salaryCalculators.map((calc) => (
             <CalculatorCard key={calc.href} {...calc} />
@@ -317,14 +306,9 @@ export default function CalculatorsPage() {
 
       {/* Saving and Planning */}
       <section id="savings" className="scroll-mt-20 pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
           Saving and Planning
         </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Use these tools if you want to plan savings targets, compare
-          fixed-return options, and estimate how long it may take to reach a
-          financial goal.
-        </p>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {savingsCalculators.map((calc) => (
             <CalculatorCard key={calc.href} {...calc} />
@@ -394,36 +378,6 @@ export default function CalculatorsPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="mb-4 mt-16 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-12">
-        <h2 className="text-xl font-semibold tracking-tight sm:text-2xl">
-          Find the right calculator for your situation
-        </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-          Estimate payments, deductions, and savings goals using practical
-          tools built around common financial needs in the Philippines.
-        </p>
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link
-            href="#needs"
-            className={buttonVariants({
-              className: "font-medium",
-            })}
-          >
-            Browse by need
-            <ArrowRight className="size-4" />
-          </Link>
-          <Link
-            href="#salary"
-            className={buttonVariants({
-              variant: "outline",
-              className: "font-medium",
-            })}
-          >
-            Salary & deductions
-          </Link>
-        </div>
-      </section>
     </div>
     </>
   );
