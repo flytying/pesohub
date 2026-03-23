@@ -89,8 +89,7 @@ async function downloadAndParsePdf(pdfUrl) {
 
   const arrayBuf = await res.arrayBuffer();
   const uint8 = new Uint8Array(arrayBuf);
-  const parser = new PDFParse(uint8, {});
-  await parser.load();
+  const parser = new PDFParse({ data: uint8 });
   const result = await parser.getText();
   return result.text;
 }
