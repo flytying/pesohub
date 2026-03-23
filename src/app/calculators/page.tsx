@@ -38,9 +38,6 @@ const breadcrumbs = [
 interface CalculatorData {
   title: string;
   description: string;
-  bestFor: string;
-  youllNeed: string;
-  bestNextStep: string;
   href: string;
   comingSoon?: boolean;
 }
@@ -50,33 +47,18 @@ const borrowingCalculators: CalculatorData[] = [
     title: "Car Loan Calculator",
     description:
       "Estimate monthly payment, total interest, and total borrowing cost for a car loan based on vehicle price, down payment, loan term, and interest rate.",
-    bestFor:
-      "Comparing car financing scenarios before talking to a bank, dealer, or financing company.",
-    youllNeed: "Vehicle price, down payment, loan term, interest rate",
-    bestNextStep:
-      "Compare rates or review your borrowing options before applying.",
     href: "/calculators/loans/car-loan-calculator-philippines",
   },
   {
     title: "Home Loan Calculator",
     description:
       "Estimate monthly home loan payments, total interest, and total loan cost based on property price, down payment, repayment term, and interest rate.",
-    bestFor:
-      "Planning affordability for a home purchase or comparing Pag-IBIG-style and bank-style financing scenarios.",
-    youllNeed: "Property price, down payment, loan term, interest rate",
-    bestNextStep:
-      "Review Pag-IBIG housing loan guidance or compare rate options before deciding.",
     href: "/calculators/loans/home-loan-calculator-philippines",
   },
   {
     title: "Personal Loan Calculator",
     description:
       "Estimate monthly personal loan payments, total interest, and total repayment based on loan amount, repayment term, and annual interest rate.",
-    bestFor:
-      "Checking whether a short-to-medium term personal loan fits your monthly budget.",
-    youllNeed: "Loan amount, repayment term, interest rate",
-    bestNextStep:
-      "Compare lender types, rates, and borrowing costs before applying.",
     href: "/calculators/loans/personal-loan-calculator-philippines",
   },
 ];
@@ -86,44 +68,24 @@ const salaryCalculators: CalculatorData[] = [
     title: "Withholding Tax Calculator",
     description:
       "Estimate withholding tax based on salary and pay frequency using the current tax framework in the Philippines.",
-    bestFor:
-      "Checking how much tax may be withheld from your pay before payroll is processed.",
-    youllNeed: "Gross pay, pay frequency",
-    bestNextStep:
-      "Review the withholding tax table or read a plain-language guide if you want to understand how the deduction works.",
     href: "/calculators/tax/withholding-tax-calculator-philippines",
   },
   {
     title: "SSS Contribution Calculator",
     description:
       "Estimate SSS contributions based on salary or monthly compensation and see how contribution levels change across income ranges.",
-    bestFor:
-      "Employees, employers, and self-paying members checking estimated contribution amounts.",
-    youllNeed: "Monthly salary or compensation amount",
-    bestNextStep:
-      "View the SSS contribution table or check member category guidance if you need the official reference.",
     href: "/calculators/sss/sss-contribution-calculator-philippines",
   },
   {
     title: "Take-Home Pay Calculator",
     description:
       "Estimate net pay after common deductions so you can see what may actually reach your bank account or payslip.",
-    bestFor:
-      "Employees checking how salary, tax, and contributions affect take-home pay.",
-    youllNeed: "Gross salary, pay frequency, contribution assumptions",
-    bestNextStep:
-      "Review deduction guides or compare against contribution tables if you want to verify each part of your payslip.",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
   },
   {
     title: "13th Month Pay Calculator",
     description:
       "Estimate your 13th month pay based on monthly basic salary and months worked, with full-year and prorated scenarios.",
-    bestFor:
-      "Employees checking expected 13th month pay before year-end or after partial service.",
-    youllNeed: "Monthly basic salary, months worked during the year",
-    bestNextStep:
-      "Review which pay items are included or excluded, or check the take-home pay calculator for a fuller salary estimate.",
     href: "/calculators/salary/thirteenth-month-pay-calculator-philippines",
   },
 ];
@@ -133,11 +95,6 @@ const savingsCalculators: CalculatorData[] = [
     title: "Emergency Fund Calculator",
     description:
       "Estimate a target emergency fund amount based on your monthly expenses and preferred safety buffer.",
-    bestFor:
-      "Planning a savings cushion for unexpected expenses or income gaps.",
-    youllNeed: "Monthly expenses, target number of months",
-    bestNextStep:
-      "Explore savings guides or compare savings rates while this tool is being added.",
     href: "/calculators/savings/emergency-fund-calculator-philippines",
     comingSoon: true,
   },
@@ -145,55 +102,14 @@ const savingsCalculators: CalculatorData[] = [
     title: "Time Deposit Calculator",
     description:
       "Estimate returns from a time deposit based on amount, term, and interest rate assumptions.",
-    bestFor:
-      "Comparing fixed-term savings options and understanding what locked savings may earn.",
-    youllNeed: "Deposit amount, interest rate, deposit term",
-    bestNextStep:
-      "Check time deposit rates or related savings pages first.",
     href: "/calculators/savings/time-deposit-calculator-philippines",
   },
   {
     title: "Savings Goal Calculator",
     description:
       "Estimate how much you may need to save regularly to reach a target amount within a chosen time frame.",
-    bestFor: "Planning for short-term or medium-term savings goals.",
-    youllNeed:
-      "Goal amount, target date or timeline, current savings, regular contribution amount",
-    bestNextStep:
-      "Review savings rates or budgeting guides while this calculator is in progress.",
     href: "/calculators/savings/savings-goal-calculator-philippines",
     comingSoon: true,
-  },
-];
-
-const popularCalculators = [
-  {
-    title: "Withholding Tax Calculator",
-    description: "Estimate salary tax deductions more clearly.",
-    href: "/calculators/tax/withholding-tax-calculator-philippines",
-  },
-  {
-    title: "SSS Contribution Calculator",
-    description: "Check estimated SSS contribution amounts by salary bracket.",
-    href: "/calculators/sss/sss-contribution-calculator-philippines",
-  },
-  {
-    title: "Car Loan Calculator",
-    description:
-      "Estimate monthly payments before applying for a vehicle loan.",
-    href: "/calculators/loans/car-loan-calculator-philippines",
-  },
-  {
-    title: "Home Loan Calculator",
-    description:
-      "Compare Pag-IBIG and bank financing scenarios for a home purchase.",
-    href: "/calculators/loans/home-loan-calculator-philippines",
-  },
-  {
-    title: "Take-Home Pay Calculator",
-    description:
-      "See a practical estimate of net pay after common deductions.",
-    href: "/calculators/tax/take-home-pay-calculator-philippines",
   },
 ];
 
@@ -267,9 +183,6 @@ const faqs = [
 function CalculatorCard({
   title,
   description,
-  bestFor,
-  youllNeed,
-  bestNextStep,
   href,
   comingSoon,
 }: CalculatorData) {
@@ -287,26 +200,6 @@ function CalculatorCard({
         <CardDescription className="text-sm leading-relaxed">
           {description}
         </CardDescription>
-        <dl className="mt-3 space-y-1.5 text-xs text-muted-foreground">
-          <div>
-            <dt className="inline font-medium text-foreground/80">
-              Best for:{" "}
-            </dt>
-            <dd className="inline">{bestFor}</dd>
-          </div>
-          <div>
-            <dt className="inline font-medium text-foreground/80">
-              You&apos;ll usually need:{" "}
-            </dt>
-            <dd className="inline">{youllNeed}</dd>
-          </div>
-          <div>
-            <dt className="inline font-medium text-foreground/80">
-              Best next step:{" "}
-            </dt>
-            <dd className="inline">{bestNextStep}</dd>
-          </div>
-        </dl>
         <div className="mt-4">
           <Link
             href={href}
@@ -462,37 +355,6 @@ export default function CalculatorsPage() {
         </p>
       </section>
 
-      {/* Popular Calculators */}
-      <section id="popular" className="scroll-mt-20 pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Popular Calculators
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          These are some of the most commonly used tools on PesoHub for
-          everyday financial questions.
-        </p>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {popularCalculators.map((calc) => (
-            <Link key={calc.href} href={calc.href} className="group block">
-              <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                <CardHeader>
-                  <CardTitle className="text-sm font-medium group-hover:text-primary">
-                    {calc.title}
-                  </CardTitle>
-                  <CardDescription className="text-xs leading-relaxed">
-                    {calc.description}
-                  </CardDescription>
-                  <p className="mt-2 flex items-center gap-1 text-xs font-medium text-primary">
-                    Use calculator
-                    <ArrowRight className="size-3" />
-                  </p>
-                </CardHeader>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
-
       {/* Important Note */}
       <div className="pt-16">
         <DisclaimerBox text="Calculator results are estimates based on the inputs and assumptions shown. Actual figures may vary depending on provider terms, official tables, fees, and policy updates. Always confirm final numbers with the relevant bank, financial provider, employer, or government agency when needed." />
@@ -552,13 +414,13 @@ export default function CalculatorsPage() {
             <ArrowRight className="size-4" />
           </Link>
           <Link
-            href="#popular"
+            href="#salary"
             className={buttonVariants({
               variant: "outline",
               className: "font-medium",
             })}
           >
-            See popular calculators
+            Salary & deductions
           </Link>
         </div>
       </section>
