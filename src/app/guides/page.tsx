@@ -43,7 +43,7 @@ const startPaths = [
     description:
       "Learn how salary deductions work, what withholding tax means, and why take-home pay is lower than gross pay.",
     cta: "Explore salary and tax guides",
-    href: "#all-guides",
+    href: "/guides/tax/take-home-pay-guide-philippines",
   },
   {
     icon: Landmark,
