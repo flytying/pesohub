@@ -7,7 +7,17 @@ import {
   BarChart3,
   FileText,
   DollarSign,
+  Car,
+  Home,
+  Wallet,
+  Calculator,
+  Shield,
+  HandCoins,
+  Gift,
+  Clock,
+  Target,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
@@ -35,6 +45,7 @@ const breadcrumbs = [
 ];
 
 interface CalculatorData {
+  icon: LucideIcon;
   title: string;
   description: string;
   href: string;
@@ -43,18 +54,21 @@ interface CalculatorData {
 
 const borrowingCalculators: CalculatorData[] = [
   {
+    icon: Car,
     title: "Car Loan Calculator",
     description:
       "Estimate monthly payment, total interest, and total borrowing cost for a car loan based on vehicle price, down payment, loan term, and interest rate.",
     href: "/calculators/loans/car-loan-calculator-philippines",
   },
   {
+    icon: Home,
     title: "Home Loan Calculator",
     description:
       "Estimate monthly home loan payments, total interest, and total loan cost based on property price, down payment, repayment term, and interest rate.",
     href: "/calculators/loans/home-loan-calculator-philippines",
   },
   {
+    icon: Wallet,
     title: "Personal Loan Calculator",
     description:
       "Estimate monthly personal loan payments, total interest, and total repayment based on loan amount, repayment term, and annual interest rate.",
@@ -64,24 +78,28 @@ const borrowingCalculators: CalculatorData[] = [
 
 const salaryCalculators: CalculatorData[] = [
   {
+    icon: Calculator,
     title: "Withholding Tax Calculator",
     description:
       "Estimate withholding tax based on salary and pay frequency using the current tax framework in the Philippines.",
     href: "/calculators/tax/withholding-tax-calculator-philippines",
   },
   {
+    icon: Shield,
     title: "SSS Contribution Calculator",
     description:
       "Estimate SSS contributions based on salary or monthly compensation and see how contribution levels change across income ranges.",
     href: "/calculators/sss/sss-contribution-calculator-philippines",
   },
   {
+    icon: HandCoins,
     title: "Take-Home Pay Calculator",
     description:
       "Estimate net pay after common deductions so you can see what may actually reach your bank account or payslip.",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
   },
   {
+    icon: Gift,
     title: "13th Month Pay Calculator",
     description:
       "Estimate your 13th month pay based on monthly basic salary and months worked, with full-year and prorated scenarios.",
@@ -91,6 +109,7 @@ const salaryCalculators: CalculatorData[] = [
 
 const savingsCalculators: CalculatorData[] = [
   {
+    icon: Shield,
     title: "Emergency Fund Calculator",
     description:
       "Estimate a target emergency fund amount based on your monthly expenses and preferred safety buffer.",
@@ -98,12 +117,14 @@ const savingsCalculators: CalculatorData[] = [
     comingSoon: true,
   },
   {
+    icon: Clock,
     title: "Time Deposit Calculator",
     description:
       "Estimate returns from a time deposit based on amount, term, and interest rate assumptions.",
     href: "/calculators/savings/time-deposit-calculator-philippines",
   },
   {
+    icon: Target,
     title: "Savings Goal Calculator",
     description:
       "Estimate how much you may need to save regularly to reach a target amount within a chosen time frame.",
@@ -180,6 +201,7 @@ const faqs = [
 ];
 
 function CalculatorCard({
+  icon: Icon,
   title,
   description,
   href,
@@ -188,7 +210,10 @@ function CalculatorCard({
   return (
     <Card className="h-full">
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+          <Icon className="size-5" />
+        </div>
+        <div className="mt-3 flex items-center justify-between">
           <CardTitle className="text-base">{title}</CardTitle>
           {comingSoon && (
             <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
@@ -199,7 +224,7 @@ function CalculatorCard({
         <CardDescription className="text-sm leading-relaxed">
           {description}
         </CardDescription>
-        <div className="mt-4">
+        <div className="mt-3">
           <Link
             href={href}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80"
