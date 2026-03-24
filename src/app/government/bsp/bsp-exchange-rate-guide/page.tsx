@@ -65,13 +65,6 @@ export default function BSPExchangeRateGuidePage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Government Disclaimer */}
-      <Card className="mb-8 border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20">
-        <CardContent className="p-4 text-sm text-muted-foreground">
-          {GOVERNMENT_DISCLAIMER}
-        </CardContent>
-      </Card>
-
       {/* Key Facts */}
       <Card className="mb-8 border-primary/20 bg-primary/5">
         <CardHeader>

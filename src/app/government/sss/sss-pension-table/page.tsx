@@ -67,15 +67,6 @@ export default function SSSPensionTablePage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Government Disclaimer */}
-      <Card className="mb-8 border-amber-500/30 bg-amber-50/50 dark:bg-amber-950/20">
-        <CardContent className="p-4 text-sm text-muted-foreground">
-          {GOVERNMENT_DISCLAIMER}
-        </CardContent>
-      </Card>
-
-      {/* <AdPlaceholder slot="gov-sss-pension-top" className="my-8" /> */}
-
       {/* Pension Estimate Table */}
       <section className="py-8">
         <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">

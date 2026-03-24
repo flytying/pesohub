@@ -237,36 +237,6 @@ export default function CalculatorsPage() {
             <CalculatorCard key={calc.href} {...calc} />
           ))}
         </div>
-        <p className="mt-4 text-xs text-muted-foreground">
-          Related:{" "}
-          <Link
-            href="/guides"
-            className="text-primary hover:underline"
-          >
-            Guides Hub
-          </Link>
-          {" · "}
-          <Link
-            href="/government/pag-ibig/pag-ibig-housing-loan-guide"
-            className="text-primary hover:underline"
-          >
-            Pag-IBIG Housing Loan Guide
-          </Link>
-          {" · "}
-          <Link
-            href="/rates/savings-rates/best-savings-interest-rates-philippines"
-            className="text-primary hover:underline"
-          >
-            Rate Tables
-          </Link>
-          {" · "}
-          <Link
-            href="/rates"
-            className="text-primary hover:underline"
-          >
-            Rates Hub
-          </Link>
-        </p>
       </section>
 
       {/* Salary and Deductions */}
@@ -279,29 +249,6 @@ export default function CalculatorsPage() {
             <CalculatorCard key={calc.href} {...calc} />
           ))}
         </div>
-        <p className="mt-4 text-xs text-muted-foreground">
-          Related:{" "}
-          <Link
-            href="/calculators/tax/withholding-tax-calculator-philippines"
-            className="text-primary hover:underline"
-          >
-            Withholding Tax Calculator
-          </Link>
-          {" · "}
-          <Link
-            href="/government/sss/sss-contribution-guide"
-            className="text-primary hover:underline"
-          >
-            SSS Contribution Table
-          </Link>
-          {" · "}
-          <Link
-            href="/guides"
-            className="text-primary hover:underline"
-          >
-            Guides Hub
-          </Link>
-        </p>
       </section>
 
       {/* Saving and Planning */}
@@ -314,29 +261,6 @@ export default function CalculatorsPage() {
             <CalculatorCard key={calc.href} {...calc} />
           ))}
         </div>
-        <p className="mt-4 text-xs text-muted-foreground">
-          Related:{" "}
-          <Link
-            href="/rates/savings-rates/best-savings-interest-rates-philippines"
-            className="text-primary hover:underline"
-          >
-            Best Savings Rates
-          </Link>
-          {" · "}
-          <Link
-            href="/rates/exchange-rates/usd-to-php-today"
-            className="text-primary hover:underline"
-          >
-            USD to PHP Exchange Rate
-          </Link>
-          {" · "}
-          <Link
-            href="/guides"
-            className="text-primary hover:underline"
-          >
-            Guides Hub
-          </Link>
-        </p>
       </section>
 
       {/* Important Note */}

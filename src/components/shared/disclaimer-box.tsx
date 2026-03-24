@@ -3,7 +3,7 @@ import { DISCLAIMER_TEXT } from "@/lib/constants";
 import { Info } from "lucide-react";
 
 interface DisclaimerBoxProps {
-  text?: string;
+  text?: string | string[];
   className?: string;
 }
 
@@ -11,6 +11,7 @@ export function DisclaimerBox({
   text = DISCLAIMER_TEXT,
   className,
 }: DisclaimerBoxProps) {
+  const texts = Array.isArray(text) ? text : [text];
   return (
     <div
       className={cn(
@@ -19,7 +20,11 @@ export function DisclaimerBox({
       )}
     >
       <Info className="mt-0.5 size-4 shrink-0" />
-      <p>{text}</p>
+      <div className="space-y-2">
+        {texts.map((t, i) => (
+          <p key={i}>{t}</p>
+        ))}
+      </div>
     </div>
   );
 }

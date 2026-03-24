@@ -23,7 +23,7 @@ import {
   generateBreadcrumbSchema,
 } from "@/lib/schema-markup";
 import { formatPeso } from "@/lib/formatters";
-import { GOVERNMENT_DISCLAIMER } from "@/lib/constants";
+import { DISCLAIMER_TEXT, GOVERNMENT_DISCLAIMER } from "@/lib/constants";
 import {
   withholdingTaxMeta,
   trainLawBrackets,
@@ -411,9 +411,8 @@ export default function WithholdingTaxGuidePage() {
           reviewCadence="Every 90 days"
         />
       </div>
-      <div className="py-8 space-y-4">
-        <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
-        <DisclaimerBox />
+      <div className="py-8">
+        <DisclaimerBox text={[GOVERNMENT_DISCLAIMER, DISCLAIMER_TEXT]} />
       </div>
     </div>
     </>
