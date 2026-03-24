@@ -3,7 +3,14 @@ import {
   ArrowRight,
   Calculator,
   Landmark,
+  Receipt,
+  HandCoins,
+  Shield,
+  HeartPulse,
+  Home,
+  ScrollText,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -32,59 +39,59 @@ const breadcrumbs = [
 // Data
 // ---------------------------------------------------------------------------
 
-const allGuides = [
+interface GuideData {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  href: string;
+}
+
+const allGuides: GuideData[] = [
   {
+    icon: Receipt,
     title: "Withholding Tax Guide Philippines",
     description:
       "Understand what withholding tax is, how it is usually computed from salary, and how to check whether your payslip looks reasonable.",
-    type: "Explainer",
-    bestFor: "Employees trying to understand salary tax",
     href: "/guides/tax/how-withholding-tax-works-philippines",
   },
   {
+    icon: HandCoins,
     title: "Take-Home Pay Guide Philippines",
     description:
       "Understand why take-home pay differs from gross salary and how common deductions affect net pay.",
-    type: "Explainer",
-    bestFor: "Employees reviewing salary deductions",
     href: "/guides/tax/take-home-pay-guide-philippines",
   },
   {
+    icon: Shield,
     title: "SSS Contribution Guide Philippines",
     description:
       "Understand how SSS contributions work, how much may apply to your salary or member type, and how to check your records or contribution schedule.",
-    type: "Explainer",
-    bestFor:
-      "Employees, self-employed members, voluntary members, and OFWs",
     href: "/guides/sss/how-to-compute-sss-pension",
   },
   {
+    icon: HeartPulse,
     title: "PhilHealth Contribution Guide Philippines",
     description:
       "Understand how PhilHealth deductions work and where they fit into payroll or contribution estimates.",
-    type: "Explainer",
-    bestFor: "Employees and payroll learners",
     href: "/guides/government/philhealth-contribution-guide",
   },
   {
+    icon: Home,
     title: "Pag-IBIG Deduction Guide Philippines",
     description:
       "Understand what Pag-IBIG deductions are and how they may appear in salary-related calculations.",
-    type: "Explainer",
-    bestFor: "Employees and first-time payroll learners",
     href: "/guides/government/pag-ibig-deduction-guide",
   },
   {
+    icon: ScrollText,
     title: "Government Deductions and Tables",
     description:
       "See what common payroll and contribution references mean before checking official figures.",
-    type: "Reference",
-    bestFor: "Employees reviewing payroll deductions",
     href: "/government",
   },
 ];
 
-const futureGuides: typeof allGuides = [];
+const futureGuides: GuideData[] = [];
 
 const quickPaths = [
   {
@@ -175,34 +182,28 @@ export default function GuidesPage() {
           topics easier to understand.
         </p>
         <div className="grid gap-5 sm:grid-cols-2">
-          {allGuides.map((guide) => (
-            <Link key={guide.title} href={guide.href} className="group block">
-              <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                <CardHeader>
-                  <CardTitle className="text-base">{guide.title}</CardTitle>
-                  <CardDescription className="text-sm leading-relaxed">
-                    {guide.description}
-                  </CardDescription>
-                  <div className="mt-2 space-y-1 text-xs text-muted-foreground">
-                    <p>
-                      <span className="font-medium text-foreground">Type:</span>{" "}
-                      {guide.type}
-                    </p>
-                    <p>
-                      <span className="font-medium text-foreground">
-                        Best for:
-                      </span>{" "}
-                      {guide.bestFor}
-                    </p>
-                  </div>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                    Read guide
-                    <ArrowRight className="size-3.5" />
-                  </span>
-                </CardHeader>
-              </Card>
-            </Link>
-          ))}
+          {allGuides.map((guide) => {
+            const Icon = guide.icon;
+            return (
+              <Link key={guide.title} href={guide.href} className="group block">
+                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
+                  <CardHeader>
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+                      <Icon className="size-5" />
+                    </div>
+                    <CardTitle className="mt-3 text-base">{guide.title}</CardTitle>
+                    <CardDescription className="text-sm leading-relaxed">
+                      {guide.description}
+                    </CardDescription>
+                    <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                      Read guide
+                      <ArrowRight className="size-3.5" />
+                    </span>
+                  </CardHeader>
+                </Card>
+              </Link>
+            );
+          })}
         </div>
 
         {/* Future guides (coming soon) */}
@@ -212,33 +213,27 @@ export default function GuidesPage() {
               Coming soon
             </h3>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {futureGuides.map((guide) => (
-                <Card key={guide.title} className="h-full opacity-60">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-sm">{guide.title}</CardTitle>
-                      <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
-                        Coming soon
-                      </span>
-                    </div>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {guide.description}
-                    </CardDescription>
-                    <div className="mt-1 space-y-0.5 text-xs text-muted-foreground">
-                      <p>
-                        <span className="font-medium text-foreground">Type:</span>{" "}
-                        {guide.type}
-                      </p>
-                      <p>
-                        <span className="font-medium text-foreground">
-                          Best for:
-                        </span>{" "}
-                        {guide.bestFor}
-                      </p>
-                    </div>
-                  </CardHeader>
-                </Card>
-              ))}
+              {futureGuides.map((guide) => {
+                const Icon = guide.icon;
+                return (
+                  <Card key={guide.title} className="h-full opacity-60">
+                    <CardHeader>
+                      <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+                        <Icon className="size-5" />
+                      </div>
+                      <div className="mt-3 flex items-center justify-between">
+                        <CardTitle className="text-sm">{guide.title}</CardTitle>
+                        <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
+                          Coming soon
+                        </span>
+                      </div>
+                      <CardDescription className="text-xs leading-relaxed">
+                        {guide.description}
+                      </CardDescription>
+                    </CardHeader>
+                  </Card>
+                );
+              })}
             </div>
           </>
         )}
