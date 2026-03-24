@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -37,6 +38,7 @@ const governmentPages = [
       "Check SSS contribution schedules and contribution-related reference details to better understand required amounts and contribution structure.",
     href: "/government/sss/sss-contribution-guide",
     category: "SSS",
+    logo: "/logos/sss.png",
   },
   {
     title: "SSS Pension Table",
@@ -44,6 +46,7 @@ const governmentPages = [
       "Review SSS pension-related reference information to better understand pension figures, contribution history context, and retirement-related estimates.",
     href: "/government/sss/sss-pension-table",
     category: "SSS",
+    logo: "/logos/sss.png",
   },
   {
     title: "Withholding Tax Table",
@@ -51,6 +54,7 @@ const governmentPages = [
       "Check withholding tax brackets and reference tables used to understand salary-based tax deductions in the Philippines.",
     href: "/government/bir/withholding-tax-table-philippines",
     category: "BIR",
+    logo: "/logos/bir.png",
   },
   {
     title: "BSP Exchange Rate Guide",
@@ -58,6 +62,7 @@ const governmentPages = [
       "Review BSP exchange-rate reference information and understand how official reference rates differ from rates used in actual transactions.",
     href: "/government/bsp/bsp-exchange-rate-guide",
     category: "BSP",
+    logo: "/logos/bsp.png",
   },
   {
     title: "Pag-IBIG Contribution Table",
@@ -65,6 +70,7 @@ const governmentPages = [
       "Check the current Pag-IBIG contribution table, including employee share, employer share, salary cap, and sample payroll cuts.",
     href: "/government/pag-ibig/pag-ibig-contribution-table-philippines",
     category: "Pag-IBIG",
+    logo: "/logos/pagibig.png",
   },
   {
     title: "Pag-IBIG Housing Loan Guide",
@@ -72,6 +78,7 @@ const governmentPages = [
       "Explore Pag-IBIG housing loan reference information, including key terms, requirements, and government-backed housing loan context.",
     href: "/government/pag-ibig/pag-ibig-housing-loan-guide",
     category: "Pag-IBIG",
+    logo: "/logos/pagibig.png",
   },
   {
     title: "PhilHealth Contribution Table",
@@ -79,6 +86,7 @@ const governmentPages = [
       "Check the current PhilHealth premium rate, salary floor, salary ceiling, employee share, employer share, and sample monthly payroll cuts.",
     href: "/government/philhealth/philhealth-contribution-table-philippines",
     category: "PhilHealth",
+    logo: "/logos/philhealth.png",
   },
 ];
 
@@ -162,18 +170,30 @@ export default function GovernmentPage() {
           {governmentPages.map((page) => (
             <Card key={page.title} className="h-full">
               <CardHeader>
-                <CardTitle className="text-base">{page.title}</CardTitle>
-                <CardDescription className="text-sm leading-relaxed">
-                  {page.description}
-                </CardDescription>
-                <div className="mt-3">
-                  <Link
-                    href={page.href}
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80"
-                  >
-                    View reference
-                    <ArrowRight className="size-3.5" />
-                  </Link>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0 flex-1">
+                    <CardTitle className="text-base">{page.title}</CardTitle>
+                    <CardDescription className="mt-1.5 text-sm leading-relaxed">
+                      {page.description}
+                    </CardDescription>
+                    <div className="mt-3">
+                      <Link
+                        href={page.href}
+                        className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80"
+                      >
+                        View reference
+                        <ArrowRight className="size-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                  <Image
+                    src={page.logo}
+                    alt={`${page.category} logo`}
+                    width={48}
+                    height={48}
+                    className="size-12 shrink-0 object-contain opacity-60"
+                    unoptimized
+                  />
                 </div>
               </CardHeader>
             </Card>
