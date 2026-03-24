@@ -18,7 +18,6 @@ import {
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import { buttonVariants } from "@/lib/button-variants";
 import {
   Card,
   CardHeader,
@@ -442,35 +441,6 @@ export default function ThirteenthMonthPayCalculatorPage() {
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="mb-4 mt-16 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
-          <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-            Use this estimate to plan for your 13th month pay
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            A 13th month pay calculator helps you estimate what you may receive
-            based on your basic salary and months worked. Use it to plan your
-            year-end budget or compare full-year and prorated scenarios.
-          </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="#calculator"
-              className={buttonVariants({ className: "font-medium" })}
-            >
-              Calculate 13th month pay
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/calculators/tax/take-home-pay-calculator-philippines"
-              className={buttonVariants({
-                variant: "outline",
-                className: "font-medium",
-              })}
-            >
-              See take-home pay estimate
-            </Link>
-          </div>
-        </section>
       </div>
     </>
   );

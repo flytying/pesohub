@@ -19,7 +19,6 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { buttonVariants } from "@/lib/button-variants";
 import { WithholdingTaxCalculator } from "@/components/calculators/withholding-tax-calculator";
 import { withholdingTaxData } from "@/data/calculators/withholding-tax";
 
@@ -384,37 +383,6 @@ export default function WithholdingTaxCalculatorPage() {
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="mb-4 mt-16 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
-          <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-            Use this estimate to check withholding tax more clearly
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            A withholding tax calculator can help you understand the likely tax
-            portion of your payroll deductions before reviewing your payslip or
-            employer estimate. Use it to check salary-based tax scenarios, then
-            use related tools if you also need contribution or net-pay
-            estimates.
-          </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="#calculator"
-              className={buttonVariants({ className: "font-medium" })}
-            >
-              Calculate tax
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/calculators/tax/take-home-pay-calculator-philippines"
-              className={buttonVariants({
-                variant: "outline",
-                className: "font-medium",
-              })}
-            >
-              See take-home pay instead
-            </Link>
-          </div>
-        </section>
       </div>
     </>
   );

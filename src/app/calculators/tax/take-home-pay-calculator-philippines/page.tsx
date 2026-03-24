@@ -19,7 +19,6 @@ import {
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import { buttonVariants } from "@/lib/button-variants";
 import { TakeHomePayCalculator } from "@/components/calculators/take-home-pay-calculator";
 import { takeHomePayData } from "@/data/calculators/take-home-pay";
 
@@ -358,36 +357,6 @@ export default function TakeHomePayCalculatorPage() {
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="mb-4 mt-16 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
-          <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-            Use this estimate to understand your likely take-home pay
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            A take-home pay calculator can help you estimate what you may
-            actually receive after common mandatory deductions. Use it to plan
-            your budget, compare salary scenarios, or prepare before reviewing
-            your payslip or employer estimate.
-          </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="#calculator"
-              className={buttonVariants({ className: "font-medium" })}
-            >
-              Calculate take-home pay
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/calculators/tax/withholding-tax-calculator-philippines"
-              className={buttonVariants({
-                variant: "outline",
-                className: "font-medium",
-              })}
-            >
-              See withholding tax only
-            </Link>
-          </div>
-        </section>
       </div>
     </>
   );
