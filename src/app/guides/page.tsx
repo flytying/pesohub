@@ -1,11 +1,8 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BookOpen,
   Calculator,
-  FileText,
   Landmark,
-  Shield,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
@@ -18,7 +15,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { buttonVariants } from "@/lib/button-variants";
 
 export const metadata = generatePageMetadata({
   title: "Salary Deductions, Tax & SSS Guides Philippines | PesoHub",
@@ -35,60 +31,6 @@ const breadcrumbs = [
 // ---------------------------------------------------------------------------
 // Data
 // ---------------------------------------------------------------------------
-
-const startPaths = [
-  {
-    icon: FileText,
-    title: "I want to understand my payslip",
-    description:
-      "Learn how salary deductions work, what withholding tax means, and why take-home pay is lower than gross pay.",
-    cta: "Explore salary and tax guides",
-    href: "/guides/tax/take-home-pay-guide-philippines",
-  },
-  {
-    icon: Landmark,
-    title: "I want to understand withholding tax",
-    description:
-      "See what withholding tax is, how it is usually applied to salary, and what to check if your payslip feels unclear.",
-    cta: "Read tax guide",
-    href: "/guides/tax/how-withholding-tax-works-philippines",
-  },
-  {
-    icon: Shield,
-    title: "I want to understand SSS contributions",
-    description:
-      "Learn how SSS contributions work, who pays what, and how contribution schedules affect the amount.",
-    cta: "Read SSS guide",
-    href: "/guides/sss/how-to-compute-sss-pension",
-  },
-  {
-    icon: BookOpen,
-    title: "I want to understand government deductions and tables",
-    description:
-      "See what common payroll and contribution references mean before checking official figures.",
-    cta: "Explore reference-related guides",
-    href: "/government",
-  },
-];
-
-const featuredGuides = [
-  {
-    title: "How Withholding Tax Works in the Philippines",
-    description:
-      "For employees who want to understand what withholding tax is, how it affects salary, and what to check on a payslip.",
-    learn:
-      "What withholding tax means, how it is usually applied, and where confusion often comes from.",
-    href: "/guides/tax/how-withholding-tax-works-philippines",
-  },
-  {
-    title: "SSS Contributions Explained in Plain Language",
-    description:
-      "For employees, self-employed members, and voluntary members who want a clearer view of how SSS contributions work.",
-    learn:
-      "Who contributes, what affects the amount, and how to check the right schedule or record.",
-    href: "/guides/sss/how-to-compute-sss-pension",
-  },
-];
 
 const allGuides = [
   {
@@ -131,6 +73,14 @@ const allGuides = [
     type: "Explainer",
     bestFor: "Employees and first-time payroll learners",
     href: "/guides/government/pag-ibig-deduction-guide",
+  },
+  {
+    title: "Government Deductions and Tables",
+    description:
+      "See what common payroll and contribution references mean before checking official figures.",
+    type: "Reference",
+    bestFor: "Employees reviewing payroll deductions",
+    href: "/government",
   },
 ];
 
@@ -215,81 +165,6 @@ export default function GuidesPage() {
       />
 
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Start with what you're trying to understand */}
-      <section className="mb-12">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Start with what you&rsquo;re trying to understand
-        </h2>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Choose the path that best matches the question or problem you have
-          right now.
-        </p>
-        <div className="mt-6 grid gap-5 sm:grid-cols-2">
-          {startPaths.map((path) => {
-            const Icon = path.icon;
-            return (
-              <Link key={path.title} href={path.href} className="group block">
-                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">{path.title}</CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {path.description}
-                    </CardDescription>
-                    <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary">
-                      {path.cta}
-                      <ArrowRight className="size-3" />
-                    </span>
-                  </CardHeader>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Featured guides */}
-      <section className="mb-12">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Featured guides
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Start with these plain-language explainers for common money questions
-          in the Philippines.
-        </p>
-        <div className="grid gap-5 sm:grid-cols-2">
-          {featuredGuides.map((guide) => (
-            <Link key={guide.title} href={guide.href} className="group block">
-              <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                <CardHeader>
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                    <BookOpen className="size-5" />
-                  </div>
-                  <CardTitle className="mt-3 text-base">
-                    {guide.title}
-                  </CardTitle>
-                  <CardDescription className="text-sm leading-relaxed">
-                    {guide.description}
-                  </CardDescription>
-                  <p className="mt-2 text-xs text-muted-foreground">
-                    <span className="font-medium text-foreground">
-                      What you&rsquo;ll learn:
-                    </span>{" "}
-                    {guide.learn}
-                  </p>
-                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                    Read guide
-                    <ArrowRight className="size-3.5" />
-                  </span>
-                </CardHeader>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
-
       {/* All guides */}
       <section id="all-guides" className="mb-12 scroll-mt-20">
         <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
@@ -407,41 +282,6 @@ export default function GuidesPage() {
       {/* FAQ */}
       <FaqSection faqs={faqs} />
 
-      {/* Final CTA section */}
-      <section className="mb-4 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
-        <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-          Understand the topic first, then take the next step
-        </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-          Use PesoHub guides to make taxes, salary deductions, SSS
-          contributions, and other everyday money topics easier to understand.
-          Then move to the right calculator or reference page when you&rsquo;re
-          ready.
-        </p>
-        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link
-            href="#all-guides"
-            className={buttonVariants({ className: "font-medium" })}
-          >
-            Browse all guides
-            <ArrowRight className="size-4" />
-          </Link>
-          <Link
-            href="/calculators"
-            className={buttonVariants({
-              variant: "outline",
-              className: "font-medium",
-            })}
-          >
-            See related calculators
-          </Link>
-        </div>
-        <p className="mx-auto mt-6 max-w-lg text-xs text-muted-foreground">
-          Educational use only. These guides are for general understanding and
-          plain-language learning. Always confirm final figures, tables, and
-          official details with the relevant source.
-        </p>
-      </section>
     </div>
     </>
   );
