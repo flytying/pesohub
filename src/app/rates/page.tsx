@@ -16,7 +16,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { buttonVariants } from "@/lib/button-variants";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import { generateBreadcrumbSchema } from "@/lib/schema-markup";
@@ -42,7 +41,6 @@ const rateTypeCards = [
       "Track exchange rate pages such as USD to PHP and other currency conversions. Useful if you want to monitor movement, estimate value, or compare recent rate changes.",
     href: "/rates/exchange-rates/usd-to-php-today",
     cta: "View Exchange Rates",
-    bestFor: "Best for tracking",
   },
   {
     icon: PiggyBank,
@@ -51,7 +49,6 @@ const rateTypeCards = [
       "Compare savings account interest rate categories and explore options for keeping funds accessible while earning interest.",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
     cta: "View Savings Rates",
-    bestFor: "Best for comparison",
   },
   {
     icon: Clock,
@@ -60,7 +57,6 @@ const rateTypeCards = [
       "Review fixed-term deposit rate categories if you want to compare returns for money you can set aside for a locked period.",
     href: "/rates/savings-rates/time-deposit-rates-philippines",
     cta: "View Time Deposit Rates",
-    bestFor: "Best for fixed returns",
   },
   {
     icon: Smartphone,
@@ -69,42 +65,6 @@ const rateTypeCards = [
       "Explore rates commonly associated with digital banks and app-based savings options. Useful if you want to compare newer savings products against more traditional options.",
     href: "/rates/savings-rates/best-digital-bank-rates-philippines",
     cta: "View Digital Bank Rates",
-    bestFor: "Best for digital-first options",
-  },
-];
-
-const howToUseColumns = [
-  {
-    title: "Use exchange rates if you want to:",
-    items: [
-      "track currency value",
-      "estimate conversion",
-      "follow recent movement",
-    ],
-  },
-  {
-    title: "Use savings rates if you want to:",
-    items: [
-      "compare accessible deposit options",
-      "review savings yields",
-      "keep funds flexible",
-    ],
-  },
-  {
-    title: "Use time deposit rates if you want to:",
-    items: [
-      "compare fixed-term returns",
-      "set aside money for a defined period",
-      "weigh yield against flexibility",
-    ],
-  },
-  {
-    title: "Use digital bank rates if you want to:",
-    items: [
-      "compare app-based savings options",
-      "review newer bank products",
-      "check promo-driven rate categories",
-    ],
   },
 ];
 
@@ -146,34 +106,6 @@ const faqs = [
 
 const relatedRatePages = [
   {
-    title: "Savings Rates",
-    description:
-      "Compare savings account interest rates across traditional and high-yield options.",
-    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
-    icon: PiggyBank,
-  },
-  {
-    title: "USD to PHP Exchange Rate",
-    description:
-      "Check the latest USD to PHP rate and understand how reference rates work.",
-    href: "/rates/exchange-rates/usd-to-php-today",
-    icon: TrendingUp,
-  },
-  {
-    title: "Time Deposit Rates",
-    description:
-      "Compare fixed-term deposit rates and return potential across account options.",
-    href: "/rates/savings-rates/time-deposit-rates-philippines",
-    icon: Clock,
-  },
-  {
-    title: "Digital Banks Comparison",
-    description:
-      "Review digital bank savings options and compare rate-focused products.",
-    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
-    icon: Smartphone,
-  },
-  {
     title: "Calculators Hub",
     description:
       "Estimate savings, loan payments, deductions, and more with free tools.",
@@ -205,25 +137,17 @@ export default function RatesPage() {
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Choose a Rate Type */}
       <section id="choose" className="scroll-mt-20 pt-8">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
           Choose a Rate Type
         </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Start with the category that matches what you want to compare.
-        </p>
         <div className="grid gap-5 sm:grid-cols-2">
           {rateTypeCards.map((card) => {
             const Icon = card.icon;
             return (
               <Card key={card.title} className="h-full">
                 <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-foreground/80">
-                      {card.bestFor}
-                    </span>
+                  <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
+                    <Icon className="size-5" />
                   </div>
                   <CardTitle className="mt-3 text-base">
                     {card.title}
@@ -247,43 +171,11 @@ export default function RatesPage() {
         </div>
       </section>
 
-      {/* How to Use These Rate Pages */}
-      <section className="pt-16">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          How to Use These Rate Pages
-        </h2>
-        <p className="mt-3 text-sm text-muted-foreground">
-          Different rate pages support different goals. Exchange rates help you
-          understand currency value. Deposit rate pages help you compare
-          potential returns on saved money. The best page for you depends on
-          whether you want liquidity, fixed returns, convenience, or simple
-          comparison.
-        </p>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {howToUseColumns.map((col) => (
-            <div key={col.title}>
-              <h3 className="text-sm font-semibold text-foreground">
-                {col.title}
-              </h3>
-              <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted-foreground">
-                {col.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Explore Related Rate Pages */}
       <section className="pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
           Explore Related Rate Pages
         </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Start with the category that best matches your goal, then move into a
-          more specific comparison page.
-        </p>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {relatedRatePages.map((item) => {
             const Icon = item.icon;
@@ -315,35 +207,6 @@ export default function RatesPage() {
       {/* FAQ */}
       <FaqSection faqs={faqs} />
 
-      {/* Final CTA */}
-      <section className="mb-4 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
-        <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-          Find the rate category that fits your goal
-        </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-          Whether you want to track currency value, compare savings yields,
-          explore fixed-term returns, or review digital bank options — start
-          with the right rate type and move to a more specific comparison page.
-        </p>
-        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link
-            href="#choose"
-            className={buttonVariants({ className: "font-medium" })}
-          >
-            Choose a rate type
-            <ArrowRight className="size-4" />
-          </Link>
-          <Link
-            href="/calculators"
-            className={buttonVariants({
-              variant: "outline",
-              className: "font-medium",
-            })}
-          >
-            Explore calculators
-          </Link>
-        </div>
-      </section>
     </div>
     </>
   );
