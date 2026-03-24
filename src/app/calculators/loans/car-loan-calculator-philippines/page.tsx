@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  ArrowRight,
   HelpCircle,
   Calculator,
   BookOpen,
@@ -24,7 +23,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { buttonVariants } from "@/lib/button-variants";
 import { CarLoanCalculator } from "@/components/calculators/car-loan-calculator";
 import { carLoanData } from "@/data/calculators/car-loan";
 
@@ -319,36 +317,6 @@ export default function CarLoanCalculatorPage() {
         {/* FAQ */}
         <FaqSection faqs={carLoanData.faqs} />
 
-        {/* Final Reassurance Block */}
-        <section className="mb-4 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
-          <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-            Use this estimate to plan with more confidence
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            A car loan calculator can help you understand the likely monthly cost
-            before you apply. Use the estimate to test different down payments,
-            rates, and terms, then compare actual offers from banks or dealers to
-            find the option that fits your budget better.
-          </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="#calculator"
-              className={buttonVariants({ className: "font-medium" })}
-            >
-              Calculate payment
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/calculators/loans/personal-loan-calculator-philippines"
-              className={buttonVariants({
-                variant: "outline",
-                className: "font-medium",
-              })}
-            >
-              Try the personal loan calculator
-            </Link>
-          </div>
-        </section>
       </div>
     </>
   );

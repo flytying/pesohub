@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  ArrowRight,
   Banknote,
   ShoppingBag,
   Wallet,
@@ -29,7 +28,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { buttonVariants } from "@/lib/button-variants";
 import { PersonalLoanCalculator } from "@/components/calculators/personal-loan-calculator";
 import { personalLoanData } from "@/data/calculators/personal-loan";
 
@@ -526,36 +524,6 @@ export default function PersonalLoanCalculatorPage() {
         {/* FAQ */}
         <FaqSection faqs={personalLoanData.faqs} />
 
-        {/* Final Reassurance Block */}
-        <section className="mb-4 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
-          <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-            Use this estimate to plan with more confidence
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            A personal loan calculator can help you understand the likely
-            monthly cost before you apply. Use the estimate to test different
-            loan amounts, rates, and terms, then compare actual offers from
-            banks or lenders to find the option that fits your budget better.
-          </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="#calculator"
-              className={buttonVariants({ className: "font-medium" })}
-            >
-              Calculate payment
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/calculators/loans/car-loan-calculator-philippines"
-              className={buttonVariants({
-                variant: "outline",
-                className: "font-medium",
-              })}
-            >
-              Try the car loan calculator
-            </Link>
-          </div>
-        </section>
       </div>
     </>
   );

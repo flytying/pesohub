@@ -31,7 +31,6 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { buttonVariants } from "@/lib/button-variants";
 import { SSSContributionCalculator } from "@/components/calculators/sss-contribution-calculator";
 import { sssContributionCalcData } from "@/data/calculators/sss-contribution";
 
@@ -329,37 +328,6 @@ export default function SSSContributionCalculatorPage() {
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section className="mb-4 mt-16 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
-          <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-            Use this estimate to check SSS contributions more clearly
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            An SSS contribution calculator can help you understand the likely
-            contribution amount tied to your salary level and member type
-            before reviewing your payslip or official records. Use it for
-            quick planning, then confirm the final amount using the latest
-            official SSS table.
-          </p>
-          <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="#calculator"
-              className={buttonVariants({ className: "font-medium" })}
-            >
-              Calculate SSS contribution
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/calculators/tax/take-home-pay-calculator-philippines"
-              className={buttonVariants({
-                variant: "outline",
-                className: "font-medium",
-              })}
-            >
-              See take-home pay instead
-            </Link>
-          </div>
-        </section>
       </div>
     </>
   );
