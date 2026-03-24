@@ -1,7 +1,6 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  Landmark,
   TrendingUp,
   Calculator,
   BookOpen,
@@ -14,7 +13,6 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { buttonVariants } from "@/lib/button-variants";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import { generateBreadcrumbSchema } from "@/lib/schema-markup";
@@ -81,39 +79,6 @@ const governmentPages = [
       "Check the current PhilHealth premium rate, salary floor, salary ceiling, employee share, employer share, and sample monthly payroll cuts.",
     href: "/government/philhealth/philhealth-contribution-table-philippines",
     category: "PhilHealth",
-  },
-];
-
-const guidanceItems = [
-  {
-    condition: "If you want to estimate salary deductions",
-    links: [
-      {
-        label: "Withholding Tax Calculator",
-        href: "/calculators/tax/withholding-tax-calculator-philippines",
-      },
-      {
-        label: "Take-Home Pay Calculator",
-        href: "/calculators/tax/take-home-pay-calculator-philippines",
-      },
-    ],
-  },
-  {
-    condition: "If you want to understand SSS contributions more clearly",
-    links: [
-      {
-        label: "SSS Contribution Guide",
-        href: "/government/sss/sss-contribution-guide",
-      },
-    ],
-  },
-  {
-    condition: "If you want plain-language help with tax or deductions",
-    links: [{ label: "Guides", href: "/guides" }],
-  },
-  {
-    condition: "If you want a faster estimate instead of reading tables",
-    links: [{ label: "Calculators", href: "/calculators" }],
   },
 ];
 
@@ -197,12 +162,7 @@ export default function GovernmentPage() {
           {governmentPages.map((page) => (
             <Card key={page.title} className="h-full">
               <CardHeader>
-                <div className="flex items-center justify-between">
-                  <span className="rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-foreground/80">
-                    {page.category}
-                  </span>
-                </div>
-                <CardTitle className="mt-2 text-base">{page.title}</CardTitle>
+                <CardTitle className="text-base">{page.title}</CardTitle>
                 <CardDescription className="text-sm leading-relaxed">
                   {page.description}
                 </CardDescription>
@@ -219,37 +179,6 @@ export default function GovernmentPage() {
             </Card>
           ))}
         </div>
-      </section>
-
-      {/* Not Sure Where to Go Next */}
-      <section className="mt-12 rounded-lg border border-border bg-muted/30 p-6">
-        <h2 className="text-sm font-semibold text-foreground">
-          Not sure where to go next?
-        </h2>
-        <p className="mt-1 text-xs text-muted-foreground">
-          Choose the next step based on what you want to do after checking a
-          reference page.
-        </p>
-        <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-          {guidanceItems.map((item) => (
-            <li key={item.condition}>
-              <span className="font-medium text-foreground/80">
-                {item.condition}:
-              </span>{" "}
-              {item.links.map((link, i) => (
-                <span key={link.href}>
-                  {i > 0 && " or "}
-                  <Link
-                    href={link.href}
-                    className="text-primary hover:underline"
-                  >
-                    {link.label}
-                  </Link>
-                </span>
-              ))}
-            </li>
-          ))}
-        </ul>
       </section>
 
       {/* Related Sections */}
@@ -292,35 +221,6 @@ export default function GovernmentPage() {
       {/* FAQ */}
       <FaqSection faqs={faqs} />
 
-      {/* Final CTA */}
-      <section className="mb-4 rounded-lg border border-border bg-muted/30 p-8 text-center sm:p-10">
-        <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
-          Check the reference, then take the next step
-        </h2>
-        <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-          Use government reference pages to verify tables, brackets, and
-          schedules. Then move to a calculator for estimates or a guide for
-          plain-language explanations.
-        </p>
-        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Link
-            href="#all-pages"
-            className={buttonVariants({ className: "font-medium" })}
-          >
-            Browse reference pages
-            <ArrowRight className="size-4" />
-          </Link>
-          <Link
-            href="/calculators"
-            className={buttonVariants({
-              variant: "outline",
-              className: "font-medium",
-            })}
-          >
-            Explore calculators
-          </Link>
-        </div>
-      </section>
     </div>
     </>
   );
