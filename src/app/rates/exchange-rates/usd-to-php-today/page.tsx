@@ -31,6 +31,7 @@ import {
 import { formatDate, formatNumber } from "@/lib/formatters";
 import {
   currentRate,
+  bspRateDetails,
   historicalRates,
   exchangeRateFaqs,
   EXCHANGE_RATE_SOURCE,
@@ -150,17 +151,17 @@ export default function UsdToPhpPage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Current Rate Summary */}
         <section>
-          <div className="overflow-hidden rounded-xl bg-brand-dark p-6 text-white sm:p-8">
-            <div className="flex items-center gap-2 text-[14px] font-bold uppercase tracking-[0.2em] text-white/70">
+          <div className="overflow-hidden rounded-xl border border-gray-200 bg-white p-6 sm:p-8">
+            <div className="flex items-center gap-2 text-[14px] font-bold uppercase tracking-[0.2em] text-brand">
               <DollarSign className="size-4" />
               BSP Reference Rate
             </div>
             <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-[14px] text-white/60">1 US Dollar =</p>
-                <p className="mt-1 text-5xl font-bold tracking-tight text-white sm:text-6xl">
+                <p className="text-[14px] text-gray-300">1 US Dollar =</p>
+                <p className="mt-1 text-5xl font-bold tracking-tight text-gray-500 sm:text-6xl">
                   {formatNumber(currentRate.rate, 4)}
-                  <span className="ml-2 text-2xl font-medium text-white/50 sm:text-3xl">
+                  <span className="ml-2 text-2xl font-medium text-gray-300 sm:text-3xl">
                     PHP
                   </span>
                 </p>
@@ -168,8 +169,8 @@ export default function UsdToPhpPage() {
                   <span
                     className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[14px] font-medium ${
                       currentRate.change < 0
-                        ? "bg-red-500/20 text-red-300"
-                        : "bg-emerald-500/20 text-emerald-300"
+                        ? "bg-red-50 text-red-600"
+                        : "bg-emerald-50 text-emerald-600"
                     }`}
                   >
                     {currentRate.change < 0 ? (
@@ -180,15 +181,15 @@ export default function UsdToPhpPage() {
                     {currentRate.change > 0 ? "+" : ""}
                     {currentRate.change.toFixed(2)}
                   </span>
-                  <span className="text-[14px] text-white/60">
+                  <span className="text-[14px] text-gray-300">
                     vs previous day
                   </span>
                 </div>
               </div>
-              <div className="text-[14px] text-white/60 sm:text-right">
+              <div className="text-[14px] text-gray-300 sm:text-right">
                 <p>
                   Source:{" "}
-                  <span className="text-white/80">{EXCHANGE_RATE_SOURCE}</span>
+                  <span className="text-gray-400">{EXCHANGE_RATE_SOURCE}</span>
                 </p>
                 <p>{formatDate(currentRate.date)}</p>
               </div>
@@ -196,7 +197,41 @@ export default function UsdToPhpPage() {
           </div>
         </section>
 
-        {/* <AdPlaceholder slot="usd-php-top" /> */}
+        {/* BSP Rate Details */}
+        <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
+          <table className="w-full text-[16px]">
+            <tbody className="divide-y divide-gray-100">
+              <tr>
+                <td className="px-6 py-3 text-gray-400">BSP Buying Rate (T/T): PHP</td>
+                <td className="px-6 py-3 text-right font-mono tabular-nums text-gray-500">{formatNumber(bspRateDetails.buyingRate, 3)}</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-3 text-gray-400">BSP Selling Rate (T/T): PHP</td>
+                <td className="px-6 py-3 text-right font-mono tabular-nums text-gray-500">{formatNumber(bspRateDetails.sellingRate, 3)}</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-3 text-gray-400">BSP Reference Rate: PHP</td>
+                <td className="px-6 py-3 text-right font-mono tabular-nums text-gray-500">{formatNumber(bspRateDetails.referenceRate, 3)}</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-3 text-gray-400">PDS Closing Rate ({formatDate(bspRateDetails.pdsClosingDate)}): PHP</td>
+                <td className="px-6 py-3 text-right font-mono tabular-nums text-gray-500">{formatNumber(bspRateDetails.pdsClosingRate, 3)}</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-3 text-gray-400">SDR Rate: $</td>
+                <td className="px-6 py-3 text-right font-mono tabular-nums text-gray-500">{bspRateDetails.sdrRate.toFixed(5)} /SDR</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-3 text-gray-400">Gold Buying: $</td>
+                <td className="px-6 py-3 text-right font-mono tabular-nums text-gray-500">{formatNumber(bspRateDetails.goldBuying, 2)}</td>
+              </tr>
+              <tr>
+                <td className="px-6 py-3 text-gray-400">Silver Buying: $</td>
+                <td className="px-6 py-3 text-right font-mono tabular-nums text-gray-500">{bspRateDetails.silverBuying.toFixed(2)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         {/* Historical Rates Table */}
         <section className="mt-16">
