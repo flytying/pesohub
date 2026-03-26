@@ -127,7 +127,7 @@ export function PersonalLoanCalculator({ beforeYouStart }: PersonalLoanCalculato
             value={interestRate}
             onChange={setInterestRate}
             min={0}
-            max={36}
+            max={150}
             step={0.1}
             helpText="Enter the estimated annual interest rate offered by the lender."
             tooltip="The yearly interest rate charged by the lender. Rates vary by lender, loan amount, and your credit profile."
