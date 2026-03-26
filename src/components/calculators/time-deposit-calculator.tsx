@@ -118,7 +118,7 @@ export function TimeDepositCalculator() {
             value={annualRate}
             onChange={setAnnualRate}
             min={0.1}
-            max={15}
+            max={150}
             step={0.1}
             helpText="Enter the estimated annual rate offered by the bank."
             tooltip="The yearly interest rate offered by the bank for this time deposit. Rates may vary by term length and deposit amount."
