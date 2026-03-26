@@ -24,6 +24,12 @@ export const currentRate: ExchangeRateEntry = {
  */
 export const historicalRates: ExchangeRateEntry[] = [
   { date: "2026-03-26", rate: 60.1, change: 0.15 },
+  { date: "2026-03-25", rate: 59.95, change: -0.35 },
+  { date: "2026-03-24", rate: 60.3, change: 0.15 },
+  { date: "2026-03-21", rate: 60.15, change: -0.1 },
+  { date: "2026-03-20", rate: 60.25, change: 0.2 },
+  { date: "2026-03-19", rate: 60.05, change: -0.15 },
+  { date: "2026-03-18", rate: 60.2, change: 0.1 },
 ];
 
 export const exchangeRateFaqs: FAQ[] = [
