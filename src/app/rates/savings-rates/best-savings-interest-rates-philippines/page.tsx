@@ -14,19 +14,13 @@ import {
   TrendingUp,
   Calculator,
   Target,
+  TriangleAlert,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
 import { JsonLd } from "@/components/seo/json-ld";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
 import {
   Table,
   TableHeader,
@@ -149,7 +143,6 @@ const relatedPages = [
     title: "Savings Goal Calculator",
     href: "/calculators/savings/savings-goal-calculator-philippines",
     icon: Target,
-    comingSoon: true,
   },
   {
     title: "Rates Hub",
@@ -187,97 +180,96 @@ export default function BestSavingsRatesPage() {
         variant="dark"
       />
 
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Top 3 Banks Summary */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Top 3 Highest Interest Rates
-        </h2>
-        <p className="mb-4 text-xs text-muted-foreground">
-          These are not universal winners. They are starting points based on
-          the highest advertised yield.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-3">
-          {topBanks.map((bank, index) => (
-            <div
-              key={bank.bankName}
-              className={`overflow-hidden rounded-lg p-5 ${
-                index === 0
-                  ? "gradient-result text-white"
-                  : "bg-card ring-1 ring-foreground/10"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <p
-                  className={`text-sm font-semibold ${index === 0 ? "text-white" : "text-foreground"}`}
-                >
-                  {bank.bankName}
-                </p>
-                <span
-                  className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
-                    index === 0
-                      ? "bg-white/15 text-white/80"
-                      : "bg-secondary text-secondary-foreground"
-                  }`}
-                >
-                  {index === 0 && <Trophy className="size-3" />}
-                  #{index + 1}
-                </span>
-              </div>
-              <p
-                className={`mt-3 text-4xl font-bold tracking-tight ${
-                  index === 0 ? "text-white" : "text-foreground"
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        {/* Top 3 Banks Summary */}
+        <section>
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Top 3 Highest Interest Rates
+          </h2>
+          <p className="mt-2 text-[14px] text-gray-400">
+            These are not universal winners. They are starting points based on
+            the highest advertised yield.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {topBanks.map((bank, index) => (
+              <div
+                key={bank.bankName}
+                className={`overflow-hidden rounded-xl p-5 ${
+                  index === 0
+                    ? "bg-brand text-white"
+                    : "bg-white ring-1 ring-gray-200"
                 }`}
               >
-                {formatPercent(bank.interestRate)}
-              </p>
-              <p
-                className={`text-xs ${index === 0 ? "text-white/70" : "text-muted-foreground"}`}
-              >
-                per annum
-              </p>
-              <div
-                className={`mt-3 border-t pt-3 ${index === 0 ? "border-white/15" : "border-border"}`}
-              >
+                <div className="flex items-center justify-between">
+                  <p
+                    className={`text-[14px] font-semibold ${index === 0 ? "text-white" : "text-gray-500"}`}
+                  >
+                    {bank.bankName}
+                  </p>
+                  <span
+                    className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[14px] font-medium ${
+                      index === 0
+                        ? "bg-white/15 text-white/80"
+                        : "bg-gray-50 text-gray-400"
+                    }`}
+                  >
+                    {index === 0 && <Trophy className="size-3" />}
+                    #{index + 1}
+                  </span>
+                </div>
                 <p
-                  className={`text-sm ${index === 0 ? "text-white/70" : "text-muted-foreground"}`}
+                  className={`mt-3 text-4xl font-bold tracking-tight ${
+                    index === 0 ? "text-white" : "text-gray-500"
+                  }`}
                 >
-                  {bank.accountType}
+                  {formatPercent(bank.interestRate)}
                 </p>
                 <p
-                  className={`mt-1 text-xs ${index === 0 ? "text-white/70" : "text-muted-foreground"}`}
+                  className={`text-[14px] ${index === 0 ? "text-white/70" : "text-gray-400"}`}
                 >
-                  {bank.rateType === "Promo" ? "Promo rate" : "Standard rate"}
-                  {" · "}
-                  {bank.minimumBalance === 0
-                    ? "No min. balance"
-                    : `Min. ${formatPeso(bank.minimumBalance, 0)}`}
+                  per annum
                 </p>
+                <div
+                  className={`mt-3 border-t pt-3 ${index === 0 ? "border-white/15" : "border-gray-200"}`}
+                >
+                  <p
+                    className={`text-[14px] ${index === 0 ? "text-white/70" : "text-gray-400"}`}
+                  >
+                    {bank.accountType}
+                  </p>
+                  <p
+                    className={`mt-1 text-[14px] ${index === 0 ? "text-white/70" : "text-gray-400"}`}
+                  >
+                    {bank.rateType === "Promo" ? "Promo rate" : "Standard rate"}
+                    {" · "}
+                    {bank.minimumBalance === 0
+                      ? "No min. balance"
+                      : `Min. ${formatPeso(bank.minimumBalance, 0)}`}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      {/* Savings Account Comparison Table */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Savings Account Comparison Table
-        </h2>
-        <p className="mb-2 text-sm text-muted-foreground">
-          Compare savings account options using the factors that matter most in
-          real use, not just the highest advertised yield.
-        </p>
-        <div className="mb-4 flex items-start gap-2 rounded-md border border-blue-200/50 bg-blue-50/50 p-3 text-xs text-blue-800 dark:border-blue-900/50 dark:bg-blue-950/20 dark:text-blue-300">
-          <Info className="mt-0.5 size-3.5 shrink-0" />
-          <span>
-            Use this table to compare both the advertised return and the
-            practical tradeoffs of each account. A higher rate may come with
-            promo conditions, limited duration, or account requirements.
-          </span>
-        </div>
-        <Card>
-          <CardContent>
+        {/* Savings Account Comparison Table */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Savings Account Comparison Table
+          </h2>
+          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            Compare savings account options using the factors that matter most in
+            real use, not just the highest advertised yield.
+          </p>
+          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+            <p className="text-[16px] leading-[22px] text-gray-400">
+              Use this table to compare both the advertised return and the
+              practical tradeoffs of each account. A higher rate may come with
+              promo conditions, limited duration, or account requirements.
+            </p>
+          </div>
+          <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -301,15 +293,15 @@ export default function BestSavingsRatesPage() {
                     <TableCell className="font-medium">
                       {bank.bankName}
                     </TableCell>
-                    <TableCell className="text-sm">
+                    <TableCell className="text-[14px]">
                       {bank.accountType}
                     </TableCell>
-                    <TableCell className="text-right font-semibold text-primary">
+                    <TableCell className="text-right font-semibold text-brand">
                       {formatPercent(bank.interestRate)}
                     </TableCell>
                     <TableCell>
                       <span
-                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
+                        className={`inline-flex rounded-full px-2 py-0.5 text-[14px] font-medium ${
                           bank.rateType === "Promo"
                             ? "bg-amber-100 text-amber-800"
                             : "bg-green-100 text-green-800"
@@ -323,304 +315,298 @@ export default function BestSavingsRatesPage() {
                         ? "None"
                         : formatPeso(bank.minimumBalance, 0)}
                     </TableCell>
-                    <TableCell className="hidden text-sm text-muted-foreground lg:table-cell">
+                    <TableCell className="hidden text-[14px] text-gray-400 lg:table-cell">
                       {bank.liquidity}
                     </TableCell>
-                    <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">
+                    <TableCell className="hidden text-[14px] text-gray-400 sm:table-cell">
                       {bank.bestFor}
                     </TableCell>
-                    <TableCell className="hidden text-sm text-muted-foreground xl:table-cell">
+                    <TableCell className="hidden text-[14px] text-gray-400 xl:table-cell">
                       {bank.notes}
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
-          </CardContent>
-        </Card>
-        <p className="mt-3 text-xs text-muted-foreground">
-          Rates, terms, and product details may change. Always verify the
-          latest information directly with the bank before opening an account
-          or moving funds.
-        </p>
-      </section>
-
-      {/* Promo Rates vs Standard Rates */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Promo Rates vs Standard Rates
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Some banks advertise high promotional yields that may depend on
-          spending activity, time-limited offers, balance tiers, or other
-          conditions. Others offer lower but simpler rates that are easier to
-          understand and maintain.
-        </p>
-        <p className="mt-3 text-sm text-muted-foreground">
-          If you want a simpler savings setup, do not compare headline rates
-          alone. Check whether the rate is promotional, conditional, or more
-          stable over time.
-        </p>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">
-                A promo rate may be useful if:
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-1.5 text-sm text-muted-foreground">
-                {promoUseful.map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <Star className="mt-0.5 size-3.5 shrink-0 text-amber-500" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">
-                A more standard rate may be better if:
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-1.5 text-sm text-muted-foreground">
-                {standardBetter.map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <CheckCircle className="mt-0.5 size-3.5 shrink-0 text-green-600" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Savings Interest Is Usually Shown Before Tax */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Savings Interest Is Usually Shown Before Tax
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Savings interest rates are often shown as gross rates. In the
-          Philippines, interest income from deposit accounts is generally
-          subject to withholding tax, which means your effective return may be
-          lower than the advertised figure.
-        </p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          {taxExamples.map((ex) => (
-            <div
-              key={ex.gross}
-              className="rounded-lg border border-border bg-card p-4 text-center"
-            >
-              <p className="text-2xl font-bold text-foreground">
-                {formatPercent(ex.gross)}
-              </p>
-              <p className="text-xs text-muted-foreground">gross rate</p>
-              <div className="my-2 border-t border-border" />
-              <p className="text-lg font-semibold text-primary">
-                ≈ {formatPercent(ex.net)}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                after 20% withholding tax
-              </p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-3 text-xs text-muted-foreground">
-          Use gross rates for comparison, but keep after-tax return in mind
-          when deciding where to park your money.
-        </p>
-      </section>
-
-      {/* Digital Banks vs Traditional Banks */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Digital Banks vs Traditional Banks
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Digital banks may offer higher advertised savings rates, app-first
-          convenience, and lower minimum balance requirements. Traditional
-          banks may offer broader branch access, more familiar service models,
-          and easier integration with existing accounts.
-        </p>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Smartphone className="size-4 text-primary" />
-                Digital banks may suit you if:
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-1.5 text-sm text-muted-foreground">
-                {digitalBankPros.map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <CheckCircle className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <Landmark className="size-4 text-primary" />
-                Traditional banks may suit you if:
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-1.5 text-sm text-muted-foreground">
-                {traditionalBankPros.map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <CheckCircle className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-        <p className="mt-4 text-sm text-muted-foreground">
-          The better option depends on how you plan to use the account, not
-          just which one advertises the highest rate.
-        </p>
-      </section>
-
-      {/* How to Choose the Right Savings Account */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          How to Choose the Right Savings Account
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          The right account depends on how you plan to use the money. A strong
-          savings rate matters, but it should be considered together with
-          access, requirements, and account purpose.
-        </p>
-        <p className="mt-4 text-sm font-medium text-foreground/80">
-          Before choosing an account:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          {chooseChecklist.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-6 rounded-lg border border-border bg-muted/30 p-4">
-          <p className="text-sm text-muted-foreground">
-            If the money is for emergencies or everyday use, easy access may
-            matter more than the highest possible yield. If the funds are
-            parked for a short period, a stronger promotional rate may be worth
-            considering if the conditions are manageable.
+          </div>
+          <p className="mt-3 text-[14px] text-gray-400">
+            Rates, terms, and product details may change. Always verify the
+            latest information directly with the bank before opening an account
+            or moving funds.
           </p>
-        </div>
-      </section>
+        </section>
 
-      {/* Best Savings Account Options by Need */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Best Savings Account Options by Need
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Start with the type of savings experience you want, not just the
-          highest percentage.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {needCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Card key={card.title} className="h-full">
-                <CardHeader>
-                  <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
+        {/* Promo Rates vs Standard Rates */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Promo Rates vs Standard Rates
+          </h2>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            Some banks advertise high promotional yields that may depend on
+            spending activity, time-limited offers, balance tiers, or other
+            conditions. Others offer lower but simpler rates that are easier to
+            understand and maintain.
+          </p>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            If you want a simpler savings setup, do not compare headline rates
+            alone. Check whether the rate is promotional, conditional, or more
+            stable over time.
+          </p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
+                A promo rate may be useful if:
+              </h3>
+              <ul className="mt-4 space-y-3">
+                {promoUseful.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                  >
+                    <Star className="mt-0.5 size-4 shrink-0 text-amber-500" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
+                A more standard rate may be better if:
+              </h3>
+              <ul className="mt-4 space-y-3">
+                {standardBetter.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                  >
+                    <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Savings Interest Is Usually Shown Before Tax */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Savings Interest Is Usually Shown Before Tax
+          </h2>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            Savings interest rates are often shown as gross rates. In the
+            Philippines, interest income from deposit accounts is generally
+            subject to withholding tax, which means your effective return may be
+            lower than the advertised figure.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {taxExamples.map((ex) => (
+              <div
+                key={ex.gross}
+                className="rounded-xl border border-gray-200 bg-white p-4 text-center"
+              >
+                <p className="text-2xl font-bold text-gray-500">
+                  {formatPercent(ex.gross)}
+                </p>
+                <p className="text-[14px] text-gray-400">gross rate</p>
+                <div className="my-2 border-t border-gray-200" />
+                <p className="text-lg font-semibold text-brand">
+                  ≈ {formatPercent(ex.net)}
+                </p>
+                <p className="text-[14px] text-gray-400">
+                  after 20% withholding tax
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-[14px] text-gray-400">
+            Use gross rates for comparison, but keep after-tax return in mind
+            when deciding where to park your money.
+          </p>
+        </section>
+
+        {/* Digital Banks vs Traditional Banks */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Digital Banks vs Traditional Banks
+          </h2>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            Digital banks may offer higher advertised savings rates, app-first
+            convenience, and lower minimum balance requirements. Traditional
+            banks may offer broader branch access, more familiar service models,
+            and easier integration with existing accounts.
+          </p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
+                Digital banks may suit you if:
+              </h3>
+              <ul className="mt-4 space-y-3">
+                {digitalBankPros.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                  >
+                    <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
+                Traditional banks may suit you if:
+              </h3>
+              <ul className="mt-4 space-y-3">
+                {traditionalBankPros.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                  >
+                    <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            The better option depends on how you plan to use the account, not
+            just which one advertises the highest rate.
+          </p>
+        </section>
+
+        {/* How to Choose the Right Savings Account */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            How to Choose the Right Savings Account
+          </h2>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            The right account depends on how you plan to use the money. A strong
+            savings rate matters, but it should be considered together with
+            access, requirements, and account purpose.
+          </p>
+          <p className="mt-4 text-[16px] font-medium text-gray-500">
+            Before choosing an account:
+          </p>
+          <ul className="mt-4 space-y-3">
+            {chooseChecklist.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+              >
+                <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+            <p className="text-[16px] leading-[22px] text-gray-400">
+              If the money is for emergencies or everyday use, easy access may
+              matter more than the highest possible yield. If the funds are
+              parked for a short period, a stronger promotional rate may be worth
+              considering if the conditions are manageable.
+            </p>
+          </div>
+        </section>
+
+        {/* Best Savings Account Options by Need */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Best Savings Account Options by Need
+          </h2>
+          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            Start with the type of savings experience you want, not just the
+            highest percentage.
+          </p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {needCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={card.title}
+                  className="rounded-xl border border-gray-200 bg-white p-6"
+                >
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-6" />
+                  </div>
+                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {card.title}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                    {card.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Editorial note */}
+        <section className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+          <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+          <div>
+            <h3 className="text-[16px] font-semibold text-gray-500">
+              How we compare savings accounts
+            </h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-gray-400">
+              PesoHub compares savings accounts using publicly available product
+              information such as advertised interest rates, account type,
+              minimum balance, access method, and notes about promo conditions.
+              Rates and account details may change, so always verify the latest
+              information with the bank directly.
+            </p>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <div className="mt-16">
+          <FaqSection faqs={savingsRateFaqs} />
+        </div>
+
+        {/* Related Pages */}
+        <section className="mt-16">
+          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+            Related rates and guides
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedPages.map((page) => {
+              const Icon = page.icon;
+              return (
+                <Link
+                  key={page.title}
+                  href={page.href}
+                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                >
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
                     <Icon className="size-4" />
                   </div>
-                  <CardTitle className="mt-2 text-sm">{card.title}</CardTitle>
-                  <CardDescription className="text-xs leading-relaxed">
-                    {card.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Editorial note */}
-      <section className="rounded-lg border border-border bg-muted/30 p-5">
-        <h3 className="text-sm font-semibold text-foreground">
-          How we compare savings accounts
-        </h3>
-        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-          PesoHub compares savings accounts using publicly available product
-          information such as advertised interest rates, account type, minimum
-          balance, access method, and notes about promo conditions. Rates and
-          account details may change, so always verify the latest information
-          with the bank directly.
-        </p>
-      </section>
-
-      {/* FAQ */}
-      <FaqSection faqs={savingsRateFaqs} />
-
-      {/* Related Pages */}
-      <section className="pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Related Pages
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          After comparing savings accounts, you may also want to explore these
-          related pages.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {relatedPages.map((page) => {
-            const Icon = page.icon;
-            return (
-              <Link
-                key={page.title}
-                href={page.href}
-                className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-shadow hover:shadow-md"
-              >
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
-                  <Icon className="size-4" />
-                </div>
-                <div className="flex-1">
-                  <span className="text-sm font-medium group-hover:text-primary">
+                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
                     {page.title}
                   </span>
-                  {page.comingSoon && (
-                    <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
-                      Coming Soon
-                    </span>
-                  )}
-                </div>
-                <ArrowRight className="size-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            );
-          })}
+                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Source Citation */}
+        <div className="mt-16">
+          <SourceCitation
+            source="Individual bank websites"
+            sourceUrl="https://www.bsp.gov.ph/SitePages/FinancialStability/DirBanksFIList.aspx"
+            updatedAt={SAVINGS_RATES_UPDATED_AT}
+            reviewCadence="Every 2 weeks"
+          />
         </div>
-      </section>
 
-      {/* Source Citation */}
-      <div className="py-8">
-        <SourceCitation
-          source="Individual bank websites"
-          sourceUrl="https://www.bsp.gov.ph/SitePages/FinancialStability/DirBanksFIList.aspx"
-          updatedAt={SAVINGS_RATES_UPDATED_AT}
-          reviewCadence="Every 2 weeks"
-        />
+        {/* Disclaimer */}
+        <div className="mt-8">
+          <DisclaimerBox text="Interest rates shown are subject to change without prior notice. Rates are gross (before the 20% final withholding tax on interest income). Promotional rates may expire. Always verify the current rate directly with the bank before opening an account. This page is not affiliated with any bank listed." />
+        </div>
       </div>
-
-      {/* Disclaimer */}
-      <div className="pb-4">
-        <DisclaimerBox text="Interest rates shown are subject to change without prior notice. Rates are gross (before the 20% final withholding tax on interest income). Promotional rates may expire. Always verify the current rate directly with the bank before opening an account. This page is not affiliated with any bank listed." />
-      </div>
-    </div>
     </>
   );
 }

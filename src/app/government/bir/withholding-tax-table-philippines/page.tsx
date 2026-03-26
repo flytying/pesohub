@@ -7,18 +7,13 @@ import {
   BarChart3,
   Landmark,
   FileText,
+  Info,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
 import { JsonLd } from "@/components/seo/json-ld";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
 import { buttonVariants } from "@/lib/button-variants";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -102,79 +97,75 @@ export default function WithholdingTaxTablePage() {
         variant="dark"
       />
 
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Withholding Tax Tables */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section>
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Withholding Tax Table Reference
         </h2>
-        <p className="mb-4 text-sm text-muted-foreground">
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           View the current and previous withholding tax tables for
           compensation income. The current table is effective January 1, 2023
           onwards under the TRAIN Law (RA 10963). The previous table was in
           effect from January 1, 2018 to December 31, 2022.
         </p>
-        <WithholdingTaxTabs />
-        <p className="mt-3 text-xs text-muted-foreground">
+        <div className="mt-4">
+          <WithholdingTaxTabs />
+        </div>
+        <p className="mt-3 text-[14px] text-gray-400">
           Source: TRAIN Law (RA 10963), BIR Revenue Regulations No. 11-2018,
           Annex E.
         </p>
       </section>
 
       {/* Worked Example */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Worked Example: Monthly Salary Estimate
         </h2>
-        <p className="mb-4 text-sm text-muted-foreground">
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           Here is a simple example using the current monthly withholding tax
           table.
         </p>
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">
+        <div className="mt-4 overflow-hidden rounded-xl border border-gray-200 bg-white">
+          <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+            <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
               ₱35,000 Monthly Taxable Compensation
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <dl className="space-y-2 text-sm">
+            </h3>
+          </div>
+          <div className="px-6 py-4">
+            <dl className="space-y-2.5 text-[16px] leading-[22px]">
               <div className="flex justify-between">
-                <dt className="text-muted-foreground">
-                  Monthly taxable compensation
-                </dt>
-                <dd className="font-medium text-foreground">₱35,000</dd>
+                <dt className="text-gray-400">Monthly taxable compensation</dt>
+                <dd className="font-mono tabular-nums text-gray-500">₱35,000</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-muted-foreground">
-                  Matching monthly bracket
-                </dt>
-                <dd className="font-medium text-foreground">
-                  Over ₱33,333 to ₱66,666
-                </dd>
+                <dt className="text-gray-400">Matching monthly bracket</dt>
+                <dd className="font-mono tabular-nums text-gray-500">₱33,333 – ₱66,666</dd>
               </div>
-              <div className="border-t border-border pt-2">
-                <p className="text-xs text-muted-foreground">
-                  Prescribed tax: ₱1,875
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Excess over ₱33,333: ₱35,000 − ₱33,333 = ₱1,667
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Additional tax: 20% × ₱1,667 = about ₱333.40
-                </p>
+              <div className="my-3 border-t border-dashed border-gray-200" />
+              <div className="flex justify-between">
+                <dt className="text-gray-400">Prescribed tax</dt>
+                <dd className="font-mono tabular-nums text-gray-500">₱1,875</dd>
               </div>
-              <div className="flex justify-between border-t border-border pt-2">
-                <dt className="text-muted-foreground">
-                  Estimated monthly withholding tax
-                </dt>
-                <dd className="font-semibold text-primary">
-                  ≈ ₱2,208.40
-                </dd>
+              <div className="flex justify-between">
+                <dt className="text-gray-400">Excess over ₱33,333</dt>
+                <dd className="font-mono tabular-nums text-gray-500">₱1,667</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-gray-400">Additional tax (20%)</dt>
+                <dd className="font-mono tabular-nums text-gray-500">₱333.40</dd>
               </div>
             </dl>
-          </CardContent>
-        </Card>
-        <p className="mt-3 text-xs text-muted-foreground">
+          </div>
+          <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+            <div className="flex justify-between text-[16px] leading-[22px]">
+              <span className="font-semibold text-gray-500">Est. Monthly Withholding</span>
+              <span className="font-mono tabular-nums font-bold text-brand">₱2,208.40</span>
+            </div>
+          </div>
+        </div>
+        <p className="mt-3 text-[14px] text-gray-400">
           This is a simplified reference example. Actual payroll withholding
           may differ if taxable compensation is adjusted for mandatory
           deductions, allowances, supplementary compensation, or
@@ -185,69 +176,59 @@ export default function WithholdingTaxTablePage() {
       </section>
 
       {/* Why Your Actual Payroll Withholding May Differ */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Why Your Actual Payroll Withholding May Differ
         </h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           The table is a strong reference, but actual payroll withholding can
           differ because:
         </p>
-        <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+        <ul className="mt-4 space-y-3">
           {whyDifferent.map((item) => (
-            <li key={item} className="flex items-start gap-2">
-              <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
+            <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <ArrowRight className="size-4 shrink-0 text-gray-300" />
               <span>{item}</span>
             </li>
           ))}
         </ul>
       </section>
 
-      {/* Want a Faster Estimate? */}
-      <Card className="my-8 border-primary/20 bg-primary/5">
-        <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
-            <Calculator className="size-5 text-primary" />
-          </div>
-          <div className="flex-1">
-            <h2 className="text-sm font-semibold text-foreground">
-              Want a Faster Estimate?
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              If you already know your salary and want a quick estimate, use
-              the Withholding Tax Calculator to see your monthly withholding
-              tax, annual tax, and tax-only take-home pay faster.
-            </p>
-            <p className="mt-2 text-xs text-muted-foreground">
-              BIR also provides an official withholding tax calculator, but
-              this reference page is designed to make the structure easier to
-              understand before you estimate.
-            </p>
-          </div>
-          <Link
-            href="/calculators/tax/withholding-tax-calculator-philippines"
-            className={buttonVariants({
-              className: "shrink-0 font-medium",
-            })}
-          >
-            Use the Calculator
-            <ArrowRight className="size-4" />
-          </Link>
-        </CardContent>
-      </Card>
+    </div>
 
+      {/* Calculator CTA */}
+      <section className="bg-surface-tertiary py-20">
+        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Want a Faster Estimate?
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
+            If you already know your salary and want a quick estimate, use
+            the Withholding Tax Calculator to see your monthly withholding
+            tax, annual tax, and tax-only take-home pay faster.
+          </p>
+          <div className="mt-6">
+            <Link
+              href="/calculators/tax/withholding-tax-calculator-philippines"
+              className="inline-flex items-center rounded-full bg-brand px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
+            >
+              USE THE WITHHOLDING TAX CALCULATOR
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
       {/* FAQ */}
-      <FaqSection faqs={withholdingTaxTableFaqs} />
+      <div className="mt-16">
+        <FaqSection faqs={withholdingTaxTableFaqs} />
+      </div>
 
       {/* Related Tax Pages and Payroll Tools */}
-      <section className="pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Related Tax Pages and Payroll Tools
+      <section className="mt-16">
+        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          Related tax pages and payroll tools
         </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          After checking the table, use the calculator or guide to go from
-          reference to action.
-        </p>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {relatedPages.map((page) => {
             const Icon = page.icon;
@@ -255,15 +236,15 @@ export default function WithholdingTaxTablePage() {
               <Link
                 key={page.title}
                 href={page.href}
-                className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-shadow hover:shadow-md"
+                className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
               >
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
                   <Icon className="size-4" />
                 </div>
-                <span className="text-sm font-medium group-hover:text-primary">
+                <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
                   {page.title}
                 </span>
-                <ArrowRight className="ml-auto size-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+                <ArrowRight className="size-4 shrink-0 text-gray-300" />
               </Link>
             );
           })}
@@ -271,7 +252,7 @@ export default function WithholdingTaxTablePage() {
       </section>
 
       {/* Source Citation */}
-      <div className="py-8">
+      <div className="mt-16">
         <SourceCitation
           source="Bureau of Internal Revenue (BIR) — TRAIN Law (RA 10963), RR 11-2018, Annex E"
           sourceUrl="https://www.bir.gov.ph/tax-information/tax-rates"
@@ -281,7 +262,9 @@ export default function WithholdingTaxTablePage() {
       </div>
 
       {/* Disclaimer */}
-      <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
+      <div className="mt-4">
+        <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
+      </div>
     </div>
     </>
   );

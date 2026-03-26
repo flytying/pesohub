@@ -10,12 +10,12 @@ export const metadata = generatePageMetadata({
 
 export default function DisclaimerPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight">Disclaimer</h1>
-      <p className="mt-2 text-sm text-muted-foreground">Last updated: March 14, 2026</p>
+    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <h1 className="text-[32px] font-medium leading-[48px] text-gray-500">Disclaimer</h1>
+      <p className="mt-2 text-[16px] leading-[22px] text-gray-400">Last updated: March 14, 2026</p>
 
-      <div className="mt-6 space-y-6 text-muted-foreground leading-relaxed">
-        <h2 className="text-xl font-semibold text-foreground pt-4">General Disclaimer</h2>
+      <div className="mt-6 space-y-6 text-[16px] leading-[22px] text-gray-400">
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">General Disclaimer</h2>
         <p>
           The information provided on {SITE_NAME} is for general informational and
           educational purposes only. It should not be construed as professional
@@ -23,7 +23,7 @@ export default function DisclaimerPage() {
           qualified professional before making any financial decisions.
         </p>
 
-        <h2 className="text-xl font-semibold text-foreground pt-4">Calculator Disclaimer</h2>
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Calculator Disclaimer</h2>
         <p>
           The calculators on this website use standard financial formulas to generate
           estimates. Results are approximate and may not account for all fees,
@@ -32,7 +32,7 @@ export default function DisclaimerPage() {
           figures may vary from the estimates provided by our calculators.
         </p>
 
-        <h2 className="text-xl font-semibold text-foreground pt-4">Rate Disclaimer</h2>
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Rate Disclaimer</h2>
         <p>
           Exchange rates, interest rates, and other financial data displayed on this
           website are gathered from publicly available sources and are provided for
@@ -41,7 +41,7 @@ export default function DisclaimerPage() {
           financial institution before making any financial decision.
         </p>
 
-        <h2 className="text-xl font-semibold text-foreground pt-4">Government Information Disclaimer</h2>
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Government Information Disclaimer</h2>
         <p>
           {SITE_NAME} is not affiliated with any Philippine government agency,
           including but not limited to SSS, BIR, BSP, Pag-IBIG, and PhilHealth.
@@ -51,7 +51,7 @@ export default function DisclaimerPage() {
           relevant government office.
         </p>
 
-        <h2 className="text-xl font-semibold text-foreground pt-4">No Guarantee</h2>
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">No Guarantee</h2>
         <p>
           While we strive to keep the information on {SITE_NAME} accurate and
           up-to-date, we make no representations or warranties of any kind,

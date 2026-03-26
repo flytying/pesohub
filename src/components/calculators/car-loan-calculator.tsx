@@ -79,8 +79,10 @@ export function CarLoanCalculator({ beforeYouStart }: CarLoanCalculatorProps = {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div className="text-center">
-            <p className="text-sm tracking-wide text-white/70">Estimated Monthly Payment</p>
-            <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
+            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">
+              Estimated Monthly Payment
+            </p>
+            <p className="mt-2 text-[36px] font-semibold tabular-nums text-brand sm:text-[42px]">
               {formatPeso(result.monthlyPayment)}
             </p>
           </div>
@@ -92,38 +94,23 @@ export function CarLoanCalculator({ beforeYouStart }: CarLoanCalculatorProps = {
             />
           )}
 
-          {/* Chart Legend */}
-          <div className="flex justify-center gap-6 text-xs print:hidden">
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block size-2.5 rounded-full bg-white/85" />
-              <span className="text-white/70">Principal</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block size-2.5 rounded-full bg-white/35" />
-              <span className="text-white/70">Interest</span>
-            </div>
-          </div>
 
-          <div className="mt-6 space-y-1">
+          <div className="mt-6 space-y-0">
             <CalculatorResult
               label="Down Payment"
               value={formatPeso(result.downPaymentAmount)}
-              variant="dark"
             />
             <CalculatorResult
               label="Loan Amount"
               value={formatPeso(result.loanAmount)}
-              variant="dark"
             />
             <CalculatorResult
               label="Total Interest"
               value={formatPeso(result.totalInterest)}
-              variant="dark"
             />
             <CalculatorResult
-              label="Total Cost"
+              label="Total Interest"
               value={formatPeso(result.totalCost)}
-              variant="dark"
               highlight
             />
           </div>
@@ -177,8 +164,8 @@ export function CarLoanCalculator({ beforeYouStart }: CarLoanCalculatorProps = {
 
       {/* Amortization Table */}
       {result.schedule.length > 0 && (
-        <div className="rounded-xl border border-border bg-card p-4 sm:p-6">
-          <h3 className="mb-3 text-sm font-semibold text-foreground">
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+          <h3 className="px-6 pt-6 pb-4 text-[16px] font-semibold text-gray-500">
             Amortization Schedule
           </h3>
           <AmortizationTable schedule={result.schedule} />

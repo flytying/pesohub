@@ -1,13 +1,11 @@
 import Link from "next/link";
-import { Calculator, ArrowRight } from "lucide-react";
+import { Calculator, ArrowRight, Info } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import { RelatedPages } from "@/components/shared/related-pages";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
 // import { AdPlaceholder } from "@/components/ads/ad-placeholder";
 import { JsonLd } from "@/components/seo/json-ld";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Table,
   TableHeader,
@@ -45,6 +43,29 @@ const breadcrumbs = [
   { label: "SSS Pension Table" },
 ];
 
+const memberTypes = [
+  {
+    title: "Employed members",
+    description: "private sector employees whose employers remit SSS contributions",
+  },
+  {
+    title: "Self-employed members",
+    description: "freelancers, business owners, and professionals who pay their own contributions",
+  },
+  {
+    title: "Voluntary members",
+    description: "separated employees, overseas Filipino workers (OFWs), and non-working spouses who continue contributing",
+  },
+];
+
+const relatedContent = [
+  {
+    title: "SSS Pension Calculator",
+    href: "/calculators/retirement/sss-pension-calculator",
+    icon: Calculator,
+  },
+];
+
 export default function SSSPensionTablePage() {
   return (
     <>
@@ -66,18 +87,18 @@ export default function SSSPensionTablePage() {
         variant="dark"
       />
 
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Pension Estimate Table */}
-      <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section>
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Estimated Monthly Pension by Salary Credit & Years
         </h2>
-        <p className="mb-4 text-sm text-muted-foreground">
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           This table shows estimated monthly pension amounts based on your Average
           Monthly Salary Credit (AMSC) and total Credited Years of Service (CYS).
           The highest of the three SSS pension formulas is used.
         </p>
-        <div className="overflow-x-auto rounded-lg border">
+        <div className="mt-4 overflow-x-auto rounded-xl border border-gray-200">
           <Table>
             <TableHeader>
               <TableRow>
@@ -92,22 +113,22 @@ export default function SSSPensionTablePage() {
             <TableBody>
               {pensionEstimates.map((row) => (
                 <TableRow key={row.monthlySalaryCredit}>
-                  <TableCell className="font-medium text-sm whitespace-nowrap">
+                  <TableCell className="font-medium text-[16px] whitespace-nowrap">
                     {formatPeso(row.monthlySalaryCredit)}
                   </TableCell>
-                  <TableCell className="text-right font-mono text-sm">
+                  <TableCell className="text-right font-mono text-[16px]">
                     {formatPeso(row.pensionAt10Years)}
                   </TableCell>
-                  <TableCell className="text-right font-mono text-sm">
+                  <TableCell className="text-right font-mono text-[16px]">
                     {formatPeso(row.pensionAt15Years)}
                   </TableCell>
-                  <TableCell className="text-right font-mono text-sm">
+                  <TableCell className="text-right font-mono text-[16px]">
                     {formatPeso(row.pensionAt20Years)}
                   </TableCell>
-                  <TableCell className="text-right font-mono text-sm">
+                  <TableCell className="text-right font-mono text-[16px]">
                     {formatPeso(row.pensionAt25Years)}
                   </TableCell>
-                  <TableCell className="text-right font-mono text-sm font-medium">
+                  <TableCell className="text-right font-mono text-[16px] font-medium">
                     {formatPeso(row.pensionAt30Years)}
                   </TableCell>
                 </TableRow>
@@ -115,32 +136,30 @@ export default function SSSPensionTablePage() {
             </TableBody>
           </Table>
         </div>
-        <p className="mt-3 text-xs text-muted-foreground">
+        <p className="mt-3 text-[14px] text-gray-400">
           Estimates based on the SSS pension formula. Actual pension may vary based on
           contribution history and average monthly salary credit.
         </p>
       </section>
 
       {/* Three Pension Formulas */}
-      <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           The Three SSS Pension Formulas
         </h2>
-        <p className="mb-4 text-sm text-muted-foreground">
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           SSS computes your pension using all three formulas and gives you the
           highest amount.
         </p>
-        <div className="space-y-4">
+        <div className="mt-6 space-y-4">
           {pensionFormulas.map((formula) => (
-            <Card key={formula.label}>
-              <CardHeader>
-                <CardTitle className="text-base">{formula.label}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <p className="font-mono text-sm font-medium">{formula.formula}</p>
-                <p className="text-sm text-muted-foreground">{formula.description}</p>
-              </CardContent>
-            </Card>
+            <div key={formula.label} className="rounded-xl border border-gray-200 bg-white p-6">
+              <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
+                {formula.label}
+              </h3>
+              <p className="mt-2 font-mono text-[16px] font-medium text-gray-500">{formula.formula}</p>
+              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">{formula.description}</p>
+            </div>
           ))}
         </div>
       </section>
@@ -148,110 +167,146 @@ export default function SSSPensionTablePage() {
       {/* <AdPlaceholder slot="gov-sss-pension-mid" className="my-8" /> */}
 
       {/* Who It Applies To */}
-      <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Who It Applies To
         </h2>
-        <Card>
-          <CardContent className="space-y-3 p-6 text-sm text-muted-foreground">
-            <p>
-              The SSS retirement pension applies to all SSS members who have reached
-              retirement age (60 for optional, 65 for mandatory) and have made at least
-              120 monthly contributions (10 years).
-            </p>
-            <p>This includes:</p>
-            <ul className="space-y-1.5 pl-4">
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
-                <span><strong>Employed members</strong> — private sector employees whose employers remit SSS contributions</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
-                <span><strong>Self-employed members</strong> — freelancers, business owners, and professionals who pay their own contributions</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
-                <span><strong>Voluntary members</strong> — separated employees, overseas Filipino workers (OFWs), and non-working spouses who continue contributing</span>
-              </li>
-            </ul>
-            <p>
-              Members who do not meet the minimum 120 contributions will receive a
-              lump-sum benefit instead of a monthly pension.
-            </p>
-          </CardContent>
-        </Card>
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          The SSS retirement pension applies to all SSS members who have reached
+          retirement age (60 for optional, 65 for mandatory) and have made at least
+          120 monthly contributions (10 years).
+        </p>
+        <p className="mt-3 text-[16px] leading-[22px] text-gray-400">This includes:</p>
+        <ul className="mt-4 space-y-3">
+          {memberTypes.map((member) => (
+            <li key={member.title} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <ArrowRight className="size-4 shrink-0 text-gray-300" />
+              <span><strong className="text-gray-500">{member.title}</strong> — {member.description}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          Members who do not meet the minimum 120 contributions will receive a
+          lump-sum benefit instead of a monthly pension.
+        </p>
       </section>
 
       {/* Eligibility */}
-      <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Eligibility Requirements
         </h2>
-        <Card>
-          <CardContent className="p-6">
-            <ul className="space-y-2">
-              {eligibilityRequirements.map((req) => (
-                <li key={req} className="flex items-start gap-2 text-sm">
-                  <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
-                  {req}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+        <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
+          <ul className="space-y-3">
+            {eligibilityRequirements.map((req) => (
+              <li key={req} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                {req}
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       {/* Worked Example */}
-      <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Worked Example
         </h2>
-        <Card>
-          <CardContent className="space-y-3 p-6 text-sm">
-            <p><strong>Scenario:</strong> Average MSC of PHP 20,000 with 25 years of contributions.</p>
-            <div className="space-y-2 pl-1">
-              <p><strong>Formula 1:</strong> PHP 300 + (20% x 20,000) + (2% x 20,000 x 15) = PHP 300 + 4,000 + 6,000 = <strong>PHP 10,300</strong></p>
-              <p><strong>Formula 2:</strong> 40% x 20,000 = <strong>PHP 8,000</strong></p>
-              <p><strong>Formula 3:</strong> Minimum pension (20+ CYS) = <strong>PHP 4,000</strong></p>
+        <div className="mt-4 overflow-hidden rounded-xl border border-gray-200 bg-white">
+          {/* Scenario header */}
+          <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+            <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+              Average MSC of ₱20,000 with 25 years of contributions
+            </p>
+          </div>
+          {/* Formula line items */}
+          <div className="px-6 py-4">
+            <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <div className="flex justify-between">
+                <dt className="text-gray-400">Formula 1</dt>
+                <dd className="font-mono tabular-nums text-gray-500">₱10,300/mo</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-gray-400">Formula 2</dt>
+                <dd className="font-mono tabular-nums text-gray-500">₱8,000/mo</dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-gray-400">Formula 3 (minimum)</dt>
+                <dd className="font-mono tabular-nums text-gray-500">₱4,000/mo</dd>
+              </div>
+            </dl>
+          </div>
+          {/* Result */}
+          <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+            <div className="flex justify-between text-[16px] leading-[22px]">
+              <span className="font-semibold text-gray-500">Monthly Pension</span>
+              <span className="font-mono tabular-nums font-bold text-brand">₱10,300</span>
             </div>
-            <p className="mt-2 font-medium">
-              Highest amount: PHP 10,300/month (Formula 1 wins)
+          </div>
+          {/* Note */}
+          <div className="border-t border-gray-100 px-6 py-3">
+            <p className="text-[14px] text-gray-300">
+              Highest of three formulas. Plus a 13th month pension every December.
             </p>
-            <p className="text-muted-foreground">
-              Plus a 13th month pension of PHP 10,300 every December.
-            </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </section>
 
-      {/* Related Calculator Callout */}
-      <Card className="my-8 border-primary/20 bg-primary/5">
-        <CardContent className="flex items-center gap-4 p-4">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
-            <Calculator className="size-5 text-primary" />
-          </div>
-          <div className="flex-1">
-            <p className="font-medium text-sm">Calculate Your SSS Pension</p>
-            <p className="text-sm text-muted-foreground">
-              Enter your salary credit and years to get a personalized pension estimate.
-            </p>
-          </div>
-          <Link
-            href="/calculators/retirement/sss-pension-calculator"
-            className="flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-          >
-            Calculate <ArrowRight className="size-3.5" />
-          </Link>
-        </CardContent>
-      </Card>
+    </div>
 
-      {/* <AdPlaceholder slot="gov-sss-pension-bottom" className="my-8" /> */}
+    {/* Calculator CTA */}
+    <section className="bg-surface-tertiary py-20">
+      <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          Want to Estimate Your SSS Pension?
+        </h2>
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          Enter your salary credit and years of contribution to get a
+          personalized pension estimate.
+        </p>
+        <Link
+          href="/calculators/retirement/sss-pension-calculator"
+          className="mt-6 inline-block rounded-full bg-brand px-8 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
+        >
+          Use the SSS Pension Calculator
+        </Link>
+      </div>
+    </section>
 
-      <FaqSection faqs={sssPensionTableFaqs} />
+    <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
+      <div className="mt-20">
+        <FaqSection faqs={sssPensionTableFaqs} />
+      </div>
 
-      <RelatedPages currentSlug="/government/sss/sss-pension-table" />
+      {/* Related Content */}
+      <section className="mt-16">
+        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          Related calculators and guides
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {relatedContent.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+              >
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                  <Icon className="size-4" />
+                </div>
+                <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                  {item.title}
+                </span>
+                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
-      <div className="py-4">
+      <div className="mt-16">
         <SourceCitation
           source="Social Security System (SSS)"
           sourceUrl="https://www.sss.gov.ph/sss/appmanager/pages.jsp?page=retirementbenefits"
@@ -259,7 +314,9 @@ export default function SSSPensionTablePage() {
           reviewCadence="Every 90 days"
         />
       </div>
-      <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
+      <div className="mt-4">
+        <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
+      </div>
     </div>
     </>
   );

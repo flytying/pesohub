@@ -52,13 +52,13 @@ export function SearchResults() {
     <div>
       {/* Search input */}
       <form onSubmit={handleSubmit} className="relative mb-8">
-        <Search className="absolute left-3.5 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
+        <Search className="absolute left-3.5 top-1/2 size-5 -translate-y-1/2 text-gray-300" />
         <input
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for calculators, rates, guides..."
-          className="h-12 w-full rounded-xl border border-input bg-background pl-11 pr-4 text-base outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/50"
+          className="h-12 w-full rounded-xl border border-gray-200 bg-white pl-11 pr-4 text-[16px] leading-[22px] text-gray-500 outline-none transition-colors placeholder:text-gray-300 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
           autoFocus
         />
       </form>
@@ -66,18 +66,18 @@ export function SearchResults() {
       {/* Results */}
       {query.trim().length >= 2 && (
         <>
-          <p className="mb-6 text-sm text-muted-foreground">
+          <p className="mb-6 text-[14px] text-gray-300">
             {results.length === 0
               ? `No results found for "${query.trim()}"`
               : `Found ${results.length} result${results.length !== 1 ? "s" : ""} for "${query.trim()}"`}
           </p>
 
           {results.length === 0 && (
-            <div className="rounded-xl border border-border bg-muted/30 px-6 py-8 text-center">
-              <p className="mb-3 text-base font-medium text-foreground">
+            <div className="rounded-xl border border-gray-200 bg-gray-200/20 px-6 py-8 text-center">
+              <p className="mb-3 text-[16px] font-semibold text-gray-500">
                 Try different keywords
               </p>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-[16px] leading-[22px] text-gray-400">
                 Search for topics like &ldquo;car loan&rdquo;, &ldquo;SSS pension&rdquo;,
                 &ldquo;exchange rate&rdquo;, or &ldquo;withholding tax&rdquo;.
               </p>
@@ -86,7 +86,7 @@ export function SearchResults() {
 
           {groups.map((group) => (
             <section key={group.category} className="mb-8">
-              <h2 className="mb-3 text-lg font-semibold text-foreground">
+              <h2 className="mb-3 text-[20px] font-semibold leading-[26px] text-gray-500">
                 {group.label}
               </h2>
               <div className="space-y-3">
@@ -94,12 +94,12 @@ export function SearchResults() {
                   <Link
                     key={result.href}
                     href={result.href}
-                    className="block rounded-xl border border-border bg-background p-4 transition-colors hover:border-primary/30 hover:bg-secondary/50"
+                    className="block rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
                   >
-                    <h3 className="text-sm font-medium text-foreground">
+                    <h3 className="text-[16px] font-semibold text-gray-500">
                       {result.title}
                     </h3>
-                    <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
+                    <p className="mt-1 line-clamp-2 text-[14px] text-gray-400">
                       {result.description}
                     </p>
                   </Link>

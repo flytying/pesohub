@@ -53,13 +53,13 @@ export function SSSContributionCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div className="text-center">
-            <p className="text-sm tracking-wide text-white/70">
+            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">
               Estimated Total Contribution
             </p>
-            <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
+            <p className="mt-2 text-[36px] font-semibold tabular-nums text-brand sm:text-[42px] animate-count-up">
               {formatPeso(result.totalContribution)}
             </p>
-            <p className="mt-2 text-sm text-white/70">
+            <p className="mt-2 text-sm text-gray-400">
               MSC: {formatPeso(result.monthlySalaryCredit, 0)} •{" "}
               {MEMBER_TYPE_LABELS[memberType]}
             </p>
@@ -67,7 +67,7 @@ export function SSSContributionCalculator() {
 
           {/* Contribution bar visual */}
           <div className="my-6 space-y-3">
-            <p className="text-xs font-medium text-white/70">
+            <p className="text-[14px] font-medium text-gray-400">
               Contribution Breakdown
             </p>
             {result.isSharedContribution ? (
@@ -100,32 +100,27 @@ export function SSSContributionCalculator() {
                 <CalculatorResult
                   label="Employee Share"
                   value={formatPeso(result.employeeShare)}
-                  variant="dark"
                   highlight
                 />
                 <CalculatorResult
                   label="Employer Share"
                   value={formatPeso(result.employerShare)}
-                  variant="dark"
                 />
               </>
             ) : (
               <CalculatorResult
                 label="Your Contribution"
                 value={formatPeso(result.memberContribution)}
-                variant="dark"
                 highlight
               />
             )}
             <CalculatorResult
               label="Monthly Salary Credit"
               value={formatPeso(result.monthlySalaryCredit)}
-              variant="dark"
             />
             <CalculatorResult
               label="Member Type Used"
               value={MEMBER_TYPE_LABELS[memberType]}
-              variant="dark"
             />
           </div>
         </ResultPanel>
@@ -152,7 +147,7 @@ export function SSSContributionCalculator() {
               onChange={(e) =>
                 setMemberType(e.target.value as SSSMemberType)
               }
-              className="flex h-9 w-full rounded-lg border border-input bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+              className="flex h-9 w-full rounded-lg border border-gray-200 bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-brand/20 focus-visible:outline-none"
             >
               {MEMBER_TYPES.map((type) => (
                 <option key={type} value={type}>
@@ -160,7 +155,7 @@ export function SSSContributionCalculator() {
                 </option>
               ))}
             </select>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-[14px] text-gray-400">
               Choose the classification that best matches your current SSS status.
             </p>
           </div>
@@ -168,11 +163,11 @@ export function SSSContributionCalculator() {
           <Separator />
 
           {/* Reference info */}
-          <div className="rounded-lg border border-border bg-muted/30 p-4">
-            <p className="text-xs font-medium text-foreground">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <p className="text-[14px] font-medium text-gray-500">
               Contribution Schedule Reference
             </p>
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-1 text-[14px] text-gray-400">
               Effective January 2025. Based on the SSS contribution table with
               MSC range ₱4,000–₱30,000 and a 14% total contribution rate for
               employed members (4.5% employee + 9.5% employer).
@@ -180,7 +175,7 @@ export function SSSContributionCalculator() {
           </div>
 
           {/* Scope note */}
-          <p className="text-xs text-muted-foreground">
+          <p className="text-[14px] text-gray-400">
             This tool focuses on SSS contribution estimates only. For tax or
             fuller net-pay estimates, use the related salary calculators.
           </p>
@@ -209,18 +204,18 @@ function ContributionBar({
 
   return (
     <div className="space-y-1">
-      <div className="flex items-center justify-between text-xs">
-        <span className={highlight ? "font-medium text-white" : "text-white/70"}>
+      <div className="flex items-center justify-between text-[14px]">
+        <span className={highlight ? "font-medium text-gray-500" : "text-gray-400"}>
           {label}
         </span>
-        <span className={highlight ? "font-bold text-white" : "text-white/70"}>
+        <span className={highlight ? "font-bold text-brand" : "text-gray-400"}>
           {formatPeso(value)}
         </span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-white/20">
+      <div className="h-2 overflow-hidden rounded-full bg-gray-100">
         <div
           className={`h-full rounded-full transition-all duration-500 ${
-            highlight ? "bg-white/90" : "bg-white/30"
+            highlight ? "bg-brand" : "bg-gray-300"
           }`}
           style={{ width: `${Math.max(percentage, 2)}%` }}
         />

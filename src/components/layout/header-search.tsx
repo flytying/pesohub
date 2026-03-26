@@ -84,7 +84,7 @@ export function HeaderSearch() {
         <button
           type="button"
           onClick={openSearch}
-          className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+          className="inline-flex items-center justify-center rounded-md p-2 text-white transition-colors hover:bg-white/20"
           aria-label="Search (⌘K)"
         >
           <Search className="size-5" />
@@ -95,7 +95,7 @@ export function HeaderSearch() {
       {open && (
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-gray-400" />
             <input
               ref={inputRef}
               type="search"
@@ -110,13 +110,13 @@ export function HeaderSearch() {
                 }
               }}
               placeholder="Search PesoHub..."
-              className="h-9 w-48 rounded-lg border border-input bg-background pl-9 pr-3 text-sm outline-none transition-all placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/50 sm:w-64"
+              className="h-9 w-48 rounded-lg border border-input bg-white pl-9 pr-3 text-sm outline-none transition-all placeholder:text-gray-400 focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/50 sm:w-64"
             />
           </div>
           <button
             type="button"
             onClick={closeSearch}
-            className="inline-flex items-center justify-center rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+            className="inline-flex items-center justify-center rounded-md p-1.5 text-white transition-colors hover:bg-white/20"
             aria-label="Close search"
           >
             <X className="size-4" />
@@ -126,19 +126,19 @@ export function HeaderSearch() {
 
       {/* Instant results dropdown */}
       {open && showDropdown && results.length > 0 && (
-        <div className="fixed left-4 right-4 top-16 z-50 overflow-hidden rounded-xl border border-border bg-background shadow-lg sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:w-96">
+        <div className="fixed left-4 right-4 top-16 z-50 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:w-96">
           <ul className="py-1">
             {results.map((result) => (
               <li key={result.href}>
                 <Link
                   href={result.href}
                   onClick={closeSearch}
-                  className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-secondary"
+                  className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm transition-colors hover:bg-gray-50"
                 >
-                  <span className="min-w-0 truncate font-medium text-foreground">
+                  <span className="min-w-0 truncate font-medium text-gray-500">
                     {result.title}
                   </span>
-                  <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
+                  <span className="shrink-0 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-400">
                     {CATEGORY_LABELS[result.category]}
                   </span>
                 </Link>
@@ -146,11 +146,11 @@ export function HeaderSearch() {
             ))}
           </ul>
           {query.trim() && (
-            <div className="border-t border-border px-4 py-2">
+            <div className="border-t border-gray-200 px-4 py-2">
               <button
                 type="button"
                 onClick={navigateToResults}
-                className="w-full text-left text-sm text-primary hover:underline"
+                className="w-full text-left text-sm text-brand hover:underline"
               >
                 View all results for &ldquo;{query.trim()}&rdquo;
               </button>

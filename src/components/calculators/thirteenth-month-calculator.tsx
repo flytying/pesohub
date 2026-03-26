@@ -47,13 +47,13 @@ export function ThirteenthMonthCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div className="text-center">
-            <p className="text-sm tracking-wide text-white/70">
+            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">
               Estimated 13th Month Pay
             </p>
-            <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
+            <p className="mt-2 text-[36px] font-semibold tabular-nums text-brand sm:text-[42px] animate-count-up">
               {formatPeso(result.thirteenthMonthPay)}
             </p>
-            <p className="mt-2 text-sm text-white/70">
+            <p className="mt-2 text-sm text-gray-400">
               {COMPUTATION_TYPE_LABELS[computationType]} •{" "}
               {result.monthsWorked} month{result.monthsWorked !== 1 ? "s" : ""}{" "}
               counted
@@ -62,35 +62,35 @@ export function ThirteenthMonthCalculator() {
 
           {/* Visual breakdown */}
           <div className="my-6 space-y-3">
-            <p className="text-xs font-medium text-white/70">
+            <p className="text-[14px] font-medium text-gray-400">
               Computation Breakdown
             </p>
-            <div className="rounded-lg bg-white/10 p-4 text-sm">
-              <div className="flex items-center justify-between text-white/70">
+            <div className="rounded-lg bg-gray-50 p-4 text-sm">
+              <div className="flex items-center justify-between text-gray-400">
                 <span>Monthly Basic Salary</span>
                 <span className="font-mono tabular-nums">
                   {formatPeso(monthlyBasicSalary)}
                 </span>
               </div>
-              <div className="mt-1 flex items-center justify-between text-white/70">
+              <div className="mt-1 flex items-center justify-between text-gray-400">
                 <span>× Months Worked</span>
                 <span className="font-mono tabular-nums">
                   {result.monthsWorked}
                 </span>
               </div>
-              <div className="my-2 border-t border-white/20" />
-              <div className="flex items-center justify-between text-white/70">
+              <div className="my-2 border-t border-gray-200" />
+              <div className="flex items-center justify-between text-gray-400">
                 <span>Total Basic Salary Earned</span>
                 <span className="font-mono tabular-nums">
                   {formatPeso(result.totalBasicSalaryEarned)}
                 </span>
               </div>
-              <div className="mt-1 flex items-center justify-between text-white/70">
+              <div className="mt-1 flex items-center justify-between text-gray-400">
                 <span>÷ 12</span>
                 <span />
               </div>
-              <div className="my-2 border-t border-white/20" />
-              <div className="flex items-center justify-between font-medium text-white">
+              <div className="my-2 border-t border-gray-200" />
+              <div className="flex items-center justify-between font-medium text-brand">
                 <span>Estimated 13th Month Pay</span>
                 <span className="font-mono tabular-nums">
                   {formatPeso(result.thirteenthMonthPay)}
@@ -103,18 +103,15 @@ export function ThirteenthMonthCalculator() {
             <CalculatorResult
               label="Monthly Basic Salary Used"
               value={formatPeso(monthlyBasicSalary)}
-              variant="dark"
             />
             <CalculatorResult
               label="Months Counted"
               value={String(result.monthsWorked)}
-              variant="dark"
               highlight
             />
             <CalculatorResult
               label="Computation Type Used"
               value={COMPUTATION_TYPE_LABELS[computationType]}
-              variant="dark"
             />
           </div>
         </ResultPanel>
@@ -141,7 +138,7 @@ export function ThirteenthMonthCalculator() {
               onChange={(e) =>
                 setComputationType(e.target.value as ComputationType)
               }
-              className="flex h-9 w-full rounded-lg border border-input bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+              className="flex h-9 w-full rounded-lg border border-gray-200 bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-brand/20 focus-visible:outline-none"
             >
               {COMPUTATION_TYPES.map((type) => (
                 <option key={type} value={type}>
@@ -149,7 +146,7 @@ export function ThirteenthMonthCalculator() {
                 </option>
               ))}
             </select>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-[14px] text-gray-400">
               Choose full-year if you worked the whole year. Choose prorated if
               you worked only part of the year.
             </p>
@@ -171,17 +168,17 @@ export function ThirteenthMonthCalculator() {
           <Separator />
 
           {/* Reference info */}
-          <div className="rounded-lg border border-border bg-muted/30 p-4">
-            <p className="text-xs font-medium text-foreground">
+          <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
+            <p className="text-[14px] font-medium text-gray-500">
               Computation Reference
             </p>
-            <p className="mt-1 text-xs text-muted-foreground">
+            <p className="mt-1 text-[14px] text-gray-400">
               13th month pay = total basic salary earned during the calendar year
               ÷ 12. Based on PD 851 and its implementing rules.
             </p>
           </div>
 
-          <p className="text-xs text-muted-foreground">
+          <p className="text-[14px] text-gray-400">
             This estimate focuses on basic salary and may not reflect every
             payroll-specific classification.
           </p>

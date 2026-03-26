@@ -38,7 +38,7 @@ function ContributionTable({
   employerLabel: string;
 }) {
   return (
-    <div className="overflow-x-auto rounded-lg border border-border">
+    <div className="overflow-x-auto rounded-lg border border-gray-200">
       <Table>
         <TableHeader>
           <TableRow>
@@ -64,7 +64,7 @@ function ContributionTable({
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.msc}>
-              <TableCell className="whitespace-nowrap text-sm text-muted-foreground">
+              <TableCell className="whitespace-nowrap text-[14px] text-gray-400">
                 {formatRange(row)}
               </TableCell>
               <TableCell className="text-right font-mono text-sm">
@@ -72,10 +72,10 @@ function ContributionTable({
               </TableCell>
               {hasSplit ? (
                 <>
-                  <TableCell className="text-right font-mono text-sm font-medium text-primary">
+                  <TableCell className="text-right font-mono text-sm font-medium text-brand">
                     {formatPeso(row.memberShare)}
                   </TableCell>
-                  <TableCell className="text-right font-mono text-sm text-muted-foreground">
+                  <TableCell className="text-right font-mono text-[14px] text-gray-400">
                     {formatPeso(row.employerShare)}
                   </TableCell>
                 </>
@@ -96,7 +96,7 @@ export function SSSContributionTabs() {
     <Tabs defaultValue="employer-employee">
       <TabsList className="mb-4 flex w-full flex-wrap gap-1 sm:flex-nowrap">
         {SSS_MEMBER_TYPES.map((type) => (
-          <TabsTrigger key={type.id} value={type.id} className="text-xs sm:text-sm">
+          <TabsTrigger key={type.id} value={type.id} className="text-[14px]">
             {type.label}
           </TabsTrigger>
         ))}
@@ -104,7 +104,7 @@ export function SSSContributionTabs() {
 
       {SSS_MEMBER_TYPES.map((type) => (
         <TabsContent key={type.id} value={type.id}>
-          <p className="mb-4 text-sm text-muted-foreground">
+          <p className="mb-4 text-[14px] text-gray-400">
             {type.description}
           </p>
           <ContributionTable

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-  CheckCircle,
-  XCircle,
-  AlertTriangle,
+  Check,
+  X,
+  Info,
   Users,
   Briefcase,
   UserCheck,
@@ -15,6 +15,8 @@ import {
   BookOpen,
   BarChart3,
   FileText,
+  HelpCircle,
+  TriangleAlert,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -24,13 +26,6 @@ import {
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
 import { SSSContributionCalculator } from "@/components/calculators/sss-contribution-calculator";
 import { sssContributionCalcData } from "@/data/calculators/sss-contribution";
 
@@ -147,26 +142,26 @@ export default function SSSContributionCalculatorPage() {
         variant="dark"
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <SSSContributionCalculator />
         </div>
 
         {/* Result support text */}
-        <p className="mt-4 text-xs text-muted-foreground">
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           This estimate is based on the member type and contribution schedule
           assumptions currently used by the calculator.
         </p>
 
         {/* Important note */}
-        <div className="mt-6 flex items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-50/50 p-4 dark:bg-amber-950/20">
-          <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-600" />
+        <div className="mt-6 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+          <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
           <div>
-            <h3 className="text-sm font-semibold text-foreground">
+            <h3 className="text-[16px] font-semibold leading-[22px] text-gray-500">
               Important
             </h3>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-[16px] leading-[22px] text-gray-400">
               If the official SSS schedule changes, the final contribution may
               differ from this estimate. Always verify against the latest
               official SSS contribution table.
@@ -175,17 +170,17 @@ export default function SSSContributionCalculatorPage() {
         </div>
 
         {/* What Is Monthly Salary Credit? */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What Is Monthly Salary Credit?
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Monthly Salary Credit, or MSC, is the salary band used by SSS to
             determine the contribution amount. Your actual salary is mapped to
             a contribution bracket, and the contribution is computed using the
             MSC assigned to that bracket.
           </p>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             You do not need to compute MSC manually, but understanding it
             helps explain why contributions change in steps instead of changing
             by small amounts every time salary changes.
@@ -193,48 +188,49 @@ export default function SSSContributionCalculatorPage() {
         </section>
 
         {/* What This Calculator Includes and Does Not Include */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What This Calculator Includes and Does Not Include
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             This page estimates SSS contribution only. It does not calculate
             your full net pay, total deductions, or income tax.
           </p>
           <div className="mt-4 grid gap-6 sm:grid-cols-2">
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
+            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6">
+              <h3 className="text-[16px] font-semibold leading-[22px] text-emerald-800">
                 Includes
               </h3>
-              <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+              <ul className="mt-4 space-y-3">
                 {toolIncludes.map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
-                    <span>{item}</span>
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-emerald-700">
+                    <Check className="size-4 shrink-0 text-emerald-500" />
+                    {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <div>
-              <h3 className="text-sm font-semibold text-foreground">
+            <div className="rounded-xl border border-red-200 bg-red-50 p-6">
+              <h3 className="text-[16px] font-semibold leading-[22px] text-red-800">
                 Does not include
               </h3>
-              <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+              <ul className="mt-4 space-y-3">
                 {toolDoesNotInclude.map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <XCircle className="mt-0.5 size-4 shrink-0 text-red-500" />
-                    <span>{item}</span>
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-red-700">
+                    <X className="size-4 shrink-0 text-red-400" />
+                    {item}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-          <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4">
-            <p className="text-sm text-muted-foreground">
+          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+            <p className="text-[16px] leading-[22px] text-gray-400">
               If you want a broader estimate of payroll deductions, use the{" "}
               <Link
                 href="/calculators/tax/take-home-pay-calculator-philippines"
-                className="text-primary hover:underline"
+                className="text-brand hover:underline"
               >
                 Take-Home Pay Calculator
               </Link>{" "}
@@ -244,68 +240,64 @@ export default function SSSContributionCalculatorPage() {
         </section>
 
         {/* Why Your Actual SSS Contribution May Be Different */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Why Your Actual SSS Contribution May Be Different
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Your actual contribution may differ from this estimate for several
             reasons.
           </p>
-          <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+          <ul className="mt-4 space-y-3">
             {whyDifferent.map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-                <span>{item}</span>
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                {item}
               </li>
             ))}
           </ul>
         </section>
 
         {/* How Member Type Affects the Estimate */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How Member Type Affects the Estimate
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             SSS contribution schedules are not interpreted the same way for
             every member classification. That is why choosing the correct
             member type matters before relying on the result.
           </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
             {memberTypes.map((type) => {
               const Icon = type.icon;
               return (
-                <Card key={type.title} className="h-full">
-                  <CardHeader>
-                    <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-4" />
-                    </div>
-                    <CardTitle className="mt-2 text-sm">
-                      {type.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {type.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
+                <div key={type.title} className="rounded-xl border border-gray-200 bg-white p-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-6" />
+                  </div>
+                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {type.title}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                    {type.description}
+                  </p>
+                </div>
               );
             })}
           </div>
         </section>
 
         {/* FAQ */}
-        <FaqSection faqs={sssContributionCalcData.faqs} />
+        <div className="mt-16">
+          <FaqSection faqs={sssContributionCalcData.faqs} />
+        </div>
 
         {/* Related Tools and Reference Pages */}
-        <section className="pt-16">
-          <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-            Related Tools and Reference Pages
+        <section className="mt-16">
+          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+            Related tools and reference pages
           </h2>
-          <p className="mb-6 text-sm text-muted-foreground">
-            After estimating your SSS contribution, you may also want to check
-            related payroll tools and reference pages.
-          </p>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {relatedPages.map((page) => {
               const Icon = page.icon;
@@ -313,21 +305,20 @@ export default function SSSContributionCalculatorPage() {
                 <Link
                   key={page.title}
                   href={page.href}
-                  className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-shadow hover:shadow-md"
+                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
                 >
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
                     <Icon className="size-4" />
                   </div>
-                  <span className="text-sm font-medium group-hover:text-primary">
+                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
                     {page.title}
                   </span>
-                  <ArrowRight className="ml-auto size-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 </Link>
               );
             })}
           </div>
         </section>
-
       </div>
     </>
   );

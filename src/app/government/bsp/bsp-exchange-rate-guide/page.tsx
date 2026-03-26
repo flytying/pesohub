@@ -1,13 +1,11 @@
 import Link from "next/link";
-import { TrendingUp, ArrowRight } from "lucide-react";
+import { TrendingUp, ArrowRight, Info } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import { RelatedPages } from "@/components/shared/related-pages";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
 // import { AdPlaceholder } from "@/components/ads/ad-placeholder";
 import { JsonLd } from "@/components/seo/json-ld";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Table,
   TableHeader,
@@ -43,6 +41,14 @@ const breadcrumbs = [
   { label: "BSP Exchange Rate Guide" },
 ];
 
+const relatedContent = [
+  {
+    title: "View Today's Exchange Rate",
+    href: "/rates/exchange-rates/usd-to-php-today",
+    icon: TrendingUp,
+  },
+];
+
 export default function BSPExchangeRateGuidePage() {
   return (
     <>
@@ -64,32 +70,32 @@ export default function BSPExchangeRateGuidePage() {
         variant="dark"
       />
 
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Key Facts */}
-      <Card className="mb-8 border-primary/20 bg-primary/5">
-        <CardHeader>
-          <CardTitle className="text-lg">BSP Reference Rate at a Glance</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <section>
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          BSP Reference Rate at a Glance
+        </h2>
+        <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
           <dl className="space-y-2">
             {keyFacts.map((fact) => (
-              <div key={fact.label} className="flex gap-2 text-sm">
-                <dt className="font-medium shrink-0 w-36">{fact.label}:</dt>
-                <dd className="text-muted-foreground">{fact.value}</dd>
+              <div key={fact.label} className="flex gap-2 text-[16px] leading-[22px]">
+                <dt className="font-medium shrink-0 w-36 text-gray-500">{fact.label}:</dt>
+                <dd className="text-gray-400">{fact.value}</dd>
               </div>
             ))}
           </dl>
-        </CardContent>
-      </Card>
+        </div>
+      </section>
 
       {/* <AdPlaceholder slot="gov-bsp-rate-top" className="my-8" /> */}
 
       {/* What is the PDS */}
-      <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           What Is the Philippine Dealing System (PDS)?
         </h2>
-        <div className="space-y-3 text-sm text-muted-foreground">
+        <div className="mt-4 space-y-3 text-[16px] leading-[22px] text-gray-400">
           <p>
             The Philippine Dealing System is an electronic trading platform where
             banks and authorized dealer institutions trade foreign currencies with
@@ -110,15 +116,15 @@ export default function BSPExchangeRateGuidePage() {
       </section>
 
       {/* Bank Spreads Explained */}
-      <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Why Bank Rates Differ from the BSP Rate
         </h2>
-        <p className="mb-4 text-sm text-muted-foreground">
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           Banks, money changers, and remittance services add a spread (markup) to
           the BSP reference rate. Here is a typical comparison:
         </p>
-        <div className="overflow-x-auto rounded-lg border">
+        <div className="mt-4 overflow-x-auto rounded-xl border border-gray-200">
           <Table>
             <TableHeader>
               <TableRow>
@@ -131,16 +137,16 @@ export default function BSPExchangeRateGuidePage() {
             <TableBody>
               {bankSpreadExamples.map((row) => (
                 <TableRow key={row.type}>
-                  <TableCell className="text-sm font-medium">{row.type}</TableCell>
-                  <TableCell className="text-right font-mono text-sm">{row.buyRate}</TableCell>
-                  <TableCell className="text-right font-mono text-sm">{row.sellRate}</TableCell>
-                  <TableCell className="text-right text-sm">{row.spread}</TableCell>
+                  <TableCell className="text-[16px] font-medium">{row.type}</TableCell>
+                  <TableCell className="text-right font-mono text-[16px]">{row.buyRate}</TableCell>
+                  <TableCell className="text-right font-mono text-[16px]">{row.sellRate}</TableCell>
+                  <TableCell className="text-right text-[16px]">{row.spread}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </div>
-        <p className="mt-3 text-xs text-muted-foreground">
+        <p className="mt-3 text-[14px] text-gray-400">
           Rates are illustrative examples. Actual rates vary by provider and transaction size.
         </p>
       </section>
@@ -148,11 +154,11 @@ export default function BSPExchangeRateGuidePage() {
       {/* <AdPlaceholder slot="gov-bsp-rate-mid" className="my-8" /> */}
 
       {/* How to Use the BSP Rate */}
-      <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           How to Use the BSP Reference Rate
         </h2>
-        <div className="space-y-3 text-sm text-muted-foreground">
+        <div className="mt-4 space-y-3 text-[16px] leading-[22px] text-gray-400">
           <p>
             The BSP reference rate is a benchmark — use it to evaluate whether the
             rate offered by your bank or money changer is reasonable. A smaller
@@ -177,57 +183,63 @@ export default function BSPExchangeRateGuidePage() {
       </section>
 
       {/* Worked Example */}
-      <section className="py-8">
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Worked Example
         </h2>
-        <Card>
-          <CardContent className="space-y-3 p-6 text-sm">
-            <p><strong>Scenario:</strong> You need to send $500 USD to a family member in the Philippines.</p>
-            <ol className="list-decimal space-y-2 pl-5 text-muted-foreground">
+        <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
+          <div className="space-y-3 text-[16px] leading-[22px]">
+            <p className="text-gray-500"><strong>Scenario:</strong> You need to send $500 USD to a family member in the Philippines.</p>
+            <ol className="list-decimal space-y-2 pl-5 text-gray-400">
               <li>Today&apos;s BSP reference rate: PHP 56.20 per USD</li>
               <li>At the BSP rate, $500 = PHP 28,100</li>
               <li>Your remittance provider offers a rate of PHP 55.80 per USD</li>
               <li>At the provider&apos;s rate, $500 = PHP 27,900</li>
               <li>Difference: PHP 28,100 – PHP 27,900 = <strong>PHP 200 less</strong> due to the spread</li>
             </ol>
-            <p className="text-muted-foreground">
+            <p className="text-gray-400">
               A second provider offers PHP 56.10 per USD, giving PHP 28,050 — only PHP 50
               less than the BSP rate. Comparing rates across providers before sending can
               save you hundreds of pesos per transaction.
             </p>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </section>
-
-      {/* Related Page Callout */}
-      <Card className="my-8 border-primary/20 bg-primary/5">
-        <CardContent className="flex items-center gap-4 p-4">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
-            <TrendingUp className="size-5 text-primary" />
-          </div>
-          <div className="flex-1">
-            <p className="font-medium text-sm">View Today&apos;s Exchange Rate</p>
-            <p className="text-sm text-muted-foreground">
-              See the current USD to PHP rate with historical trends.
-            </p>
-          </div>
-          <Link
-            href="/rates/exchange-rates/usd-to-php-today"
-            className="flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-          >
-            View Rate <ArrowRight className="size-3.5" />
-          </Link>
-        </CardContent>
-      </Card>
 
       {/* <AdPlaceholder slot="gov-bsp-rate-bottom" className="my-8" /> */}
 
-      <FaqSection faqs={bspExchangeRateFaqs} />
+      <div className="mt-16">
+        <FaqSection faqs={bspExchangeRateFaqs} />
+      </div>
 
-      <RelatedPages currentSlug="/government/bsp/bsp-exchange-rate-guide" />
+      {/* Related Content */}
+      <section className="mt-16">
+        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          Related pages
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {relatedContent.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.title}
+                href={item.href}
+                className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+              >
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                  <Icon className="size-4" />
+                </div>
+                <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                  {item.title}
+                </span>
+                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+              </Link>
+            );
+          })}
+        </div>
+      </section>
 
-      <div className="py-4">
+      <div className="mt-16">
         <SourceCitation
           source="Bangko Sentral ng Pilipinas (BSP)"
           sourceUrl="https://www.bsp.gov.ph/SitePages/Statistics/ExchangeRate.aspx"
@@ -235,7 +247,9 @@ export default function BSPExchangeRateGuidePage() {
           reviewCadence="Every 90 days"
         />
       </div>
-      <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
+      <div className="mt-4">
+        <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
+      </div>
     </div>
     </>
   );

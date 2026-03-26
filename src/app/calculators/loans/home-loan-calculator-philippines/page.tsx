@@ -14,6 +14,9 @@ import {
   Clock,
   ShieldCheck,
   TrendingUp,
+  ArrowRight,
+  Info,
+  TriangleAlert,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -23,12 +26,6 @@ import {
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
 import { HomeLoanCalculator } from "@/components/calculators/home-loan-calculator";
 import { homeLoanData } from "@/data/calculators/home-loan";
 
@@ -161,34 +158,26 @@ const questionsToConsider = [
 const relatedContent = [
   {
     title: "Pag-IBIG Housing Loan Guide",
-    description:
-      "Review Pag-IBIG housing loan rates, terms, and requirements.",
     href: "/government/pag-ibig/pag-ibig-housing-loan-guide",
     icon: Landmark,
   },
   {
     title: "Pag-IBIG Contribution Table",
-    description:
-      "Check Pag-IBIG contribution amounts based on your salary bracket.",
     href: "/government/pag-ibig/pag-ibig-housing-loan-guide",
     icon: Landmark,
   },
   {
     title: "Rates Hub",
-    description:
-      "Compare savings rates, exchange rates, and other financial references.",
     href: "/rates",
     icon: TrendingUp,
   },
   {
     title: "Personal Loan Calculator",
-    description: "Estimate payments for a different type of borrowing.",
     href: "/calculators/loans/personal-loan-calculator-philippines",
     icon: Calculator,
   },
   {
     title: "Car Loan Calculator",
-    description: "Estimate monthly car loan payments and total interest.",
     href: "/calculators/loans/car-loan-calculator-philippines",
     icon: Calculator,
   },
@@ -213,7 +202,7 @@ export default function HomeLoanCalculatorPage() {
         variant="dark"
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <HomeLoanCalculator
@@ -226,31 +215,34 @@ export default function HomeLoanCalculatorPage() {
         </div>
 
         {/* How to Tell if the Monthly Payment Is Realistic */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How to Tell if the Monthly Payment Is Realistic
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             A monthly home loan payment may look affordable at first, but it
             should still fit comfortably within your overall monthly budget.
             Before applying, check whether you can still cover regular expenses,
             savings, emergency funds, and other debt payments after adding the
             estimated amortization.
           </p>
-          <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-            A lower monthly payment is not always the lower-cost option overall.
-            A longer loan term can reduce the monthly amount, but it may also
-            increase the total interest paid over time. A bigger down payment
-            usually lowers both the monthly payment and the total borrowing cost.
+          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+            <p className="text-[16px] leading-[22px] text-gray-400">
+              A lower monthly payment is not always the lower-cost option overall.
+              A longer loan term can reduce the monthly amount, but it may also
+              increase the total interest paid over time. A bigger down payment
+              usually lowers both the monthly payment and the total borrowing cost.
+            </p>
           </div>
         </section>
 
         {/* Worked Examples */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Side-by-Side: Pag-IBIG vs Bank Financing
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             These two worked examples show how the same type of decision —
             financing a home — can produce very different numbers depending on
             the interest rate, loan term, and property price. Use them to
@@ -259,154 +251,148 @@ export default function HomeLoanCalculatorPage() {
 
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             {/* Pag-IBIG Example */}
-            <div className="rounded-lg border border-border bg-card p-6">
-              <div className="flex items-center gap-2">
-                <div className="flex size-8 items-center justify-center rounded-lg bg-secondary text-primary">
-                  <Landmark className="size-4" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+              <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+                <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                   Pag-IBIG-Style Example
                 </h3>
               </div>
-              <p className="mt-3 text-xs text-muted-foreground">
-                A ₱2,500,000 property with 20% down payment, financed at 5.375%
-                over 30 years through Pag-IBIG.
-              </p>
-              <dl className="mt-4 space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Property Price</dt>
-                  <dd className="font-medium tabular-nums">₱2,500,000</dd>
+              <div className="px-6 py-4">
+                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Property Price</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱2,500,000</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Down Payment (20%)</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱500,000</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Loan Amount</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱2,000,000</dd>
+                  </div>
+                  <div className="my-3 border-t border-dashed border-gray-200" />
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Interest Rate</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">5.375%</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Loan Term</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">30 years</dd>
+                  </div>
+                  <div className="my-3 border-t border-dashed border-gray-200" />
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Total Interest</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱2,031,793</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Total Loan Cost</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱4,031,793</dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+                <div className="flex justify-between text-[16px] leading-[22px]">
+                  <span className="font-semibold text-gray-500">Est. Monthly Payment</span>
+                  <span className="font-mono tabular-nums font-bold text-brand">₱11,199</span>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Down Payment (20%)</dt>
-                  <dd className="font-medium tabular-nums">₱500,000</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Loan Amount</dt>
-                  <dd className="font-medium tabular-nums">₱2,000,000</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Interest Rate</dt>
-                  <dd className="font-medium tabular-nums">5.375%</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Loan Term</dt>
-                  <dd className="font-medium tabular-nums">30 years</dd>
-                </div>
-                <div className="my-2 border-t border-border" />
-                <div className="flex justify-between">
-                  <dt className="font-medium text-foreground">
-                    Est. Monthly Payment
-                  </dt>
-                  <dd className="font-semibold tabular-nums text-primary">
-                    ₱11,199
-                  </dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Total Interest</dt>
-                  <dd className="font-medium tabular-nums">₱2,031,793</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Total Loan Cost</dt>
-                  <dd className="font-medium tabular-nums">₱4,031,793</dd>
-                </div>
-              </dl>
-              <p className="mt-4 text-xs text-muted-foreground">
-                Lower monthly payment, but the 30-year term means you pay over
-                ₱2M in interest — more than the original loan amount.
-              </p>
+              </div>
+              <div className="border-t border-gray-100 px-6 py-3">
+                <p className="text-[14px] text-gray-300">
+                  Lower monthly payment, but the 30-year term means you pay over ₱2M in interest.
+                </p>
+              </div>
             </div>
 
             {/* Bank Example */}
-            <div className="rounded-lg border border-border bg-card p-6">
-              <div className="flex items-center gap-2">
-                <div className="flex size-8 items-center justify-center rounded-lg bg-secondary text-primary">
-                  <Building2 className="size-4" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+              <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+                <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                   Bank Financing Example
                 </h3>
               </div>
-              <p className="mt-3 text-xs text-muted-foreground">
-                A ₱3,500,000 property with 20% down payment, financed at 7%
-                over 20 years through a commercial bank.
-              </p>
-              <dl className="mt-4 space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Property Price</dt>
-                  <dd className="font-medium tabular-nums">₱3,500,000</dd>
+              <div className="px-6 py-4">
+                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Property Price</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱3,500,000</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Down Payment (20%)</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱700,000</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Loan Amount</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱2,800,000</dd>
+                  </div>
+                  <div className="my-3 border-t border-dashed border-gray-200" />
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Interest Rate</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">7%</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Loan Term</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">20 years</dd>
+                  </div>
+                  <div className="my-3 border-t border-dashed border-gray-200" />
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Total Interest</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱2,410,009</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Total Loan Cost</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱5,210,009</dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+                <div className="flex justify-between text-[16px] leading-[22px]">
+                  <span className="font-semibold text-gray-500">Est. Monthly Payment</span>
+                  <span className="font-mono tabular-nums font-bold text-brand">₱21,708</span>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Down Payment (20%)</dt>
-                  <dd className="font-medium tabular-nums">₱700,000</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Loan Amount</dt>
-                  <dd className="font-medium tabular-nums">₱2,800,000</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Interest Rate</dt>
-                  <dd className="font-medium tabular-nums">7%</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Loan Term</dt>
-                  <dd className="font-medium tabular-nums">20 years</dd>
-                </div>
-                <div className="my-2 border-t border-border" />
-                <div className="flex justify-between">
-                  <dt className="font-medium text-foreground">
-                    Est. Monthly Payment
-                  </dt>
-                  <dd className="font-semibold tabular-nums text-primary">
-                    ₱21,708
-                  </dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Total Interest</dt>
-                  <dd className="font-medium tabular-nums">₱2,410,009</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Total Loan Cost</dt>
-                  <dd className="font-medium tabular-nums">₱5,210,009</dd>
-                </div>
-              </dl>
-              <p className="mt-4 text-xs text-muted-foreground">
-                Higher monthly payment, but the shorter term and higher loan
-                amount explain the larger total cost. Compare the interest-to-loan
-                ratio to see which deal costs more per peso borrowed.
-              </p>
+              </div>
+              <div className="border-t border-gray-100 px-6 py-3">
+                <p className="text-[14px] text-gray-300">
+                  Higher monthly payment, but the shorter term reduces total interest per peso borrowed.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-            These are planning estimates only. Actual Pag-IBIG and bank offers
-            will vary based on lender terms, borrower profile, fees, and
-            approved conditions. Use the calculator above to test your own
-            numbers.
+          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+            <p className="text-[16px] leading-[22px] text-gray-400">
+              These are planning estimates only. Actual Pag-IBIG and bank offers
+              will vary based on lender terms, borrower profile, fees, and
+              approved conditions. Use the calculator above to test your own
+              numbers.
+            </p>
           </div>
         </section>
 
         {/* What Affects Your Monthly Home Loan Payment */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What Affects Your Monthly Home Loan Payment
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Your estimated monthly home loan payment depends on four main
             factors: the property price, the down payment, the loan term, and
             the interest rate. Understanding how each one works can help you
             compare offers more clearly.
           </p>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
             {paymentFactors.map((factor) => {
               const Icon = factor.icon;
               return (
-                <div key={factor.title} className="space-y-2">
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                    <Icon className="size-5" />
+                <div key={factor.title} className="rounded-xl border border-gray-200 bg-white p-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-6" />
                   </div>
-                  <h3 className="text-sm font-semibold">{factor.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {factor.title}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
                     {factor.description}
                   </p>
                 </div>
@@ -416,57 +402,63 @@ export default function HomeLoanCalculatorPage() {
         </section>
 
         {/* Your Loan Payment Is Not Your Full Housing Budget */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Your Loan Payment Is Not Your Full Housing Budget
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             A home loan calculator helps estimate the financing side of the
             purchase, but your total housing budget should include more than just
             the monthly amortization. Also consider:
           </p>
-          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
+          <ul className="mt-4 space-y-3">
             {housingBudgetItems.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                {item}
+              </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Use the calculator to estimate the loan payment, then add these
             costs before deciding what property price range is truly affordable.
           </p>
         </section>
 
         {/* What to Compare Before Choosing a Home Loan */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What to Compare Before Choosing a Home Loan
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Do not compare financing options based on monthly payment alone. Two
             offers may look similar at first, but the total borrowing cost can
             vary depending on the term, interest rate, fees, and financing
             structure. Before applying, compare:
           </p>
-          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
+          <ul className="mt-4 space-y-3">
             {compareBeforeApplying.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                {item}
+              </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Use this calculator more than once so you can compare multiple
             options side by side before making a decision.
           </p>
         </section>
 
         {/* Questions to Consider */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Questions to consider before applying
           </h2>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-6 space-y-4">
             {questionsToConsider.map((question, i) => (
-              <li key={i} className="flex gap-3 text-sm text-muted-foreground">
-                <HelpCircle className="mt-0.5 size-4 shrink-0 text-primary" />
+              <li key={i} className="flex gap-3 text-[16px] leading-[22px] text-gray-400">
+                <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
                 {question}
               </li>
             ))}
@@ -474,110 +466,97 @@ export default function HomeLoanCalculatorPage() {
         </section>
 
         {/* Sample Home Financing Scenarios */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Sample Home Financing Scenarios
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             These examples can help you compare common home financing paths in
             the Philippines. Use them as a starting point, then adjust the
             numbers based on your target property, down payment, and preferred
             financing option.
           </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
             {financingScenarios.map((scenario) => {
               const Icon = scenario.icon;
               return (
-                <Card key={scenario.title} className="h-full">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {scenario.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {scenario.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
+                <div key={scenario.title} className="rounded-xl border border-gray-200 bg-white p-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-6" />
+                  </div>
+                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {scenario.title}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                    {scenario.description}
+                  </p>
+                </div>
               );
             })}
           </div>
         </section>
 
         {/* Example Affordability Ranges */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Example Affordability Ranges
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             These example ranges can help you think about what different property
             budgets may feel like in practice. Use them as planning references,
             not lender quotes.
           </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-3">
+          <div className="mt-8 grid gap-5 sm:grid-cols-3">
             {affordabilityRanges.map((range) => {
               const Icon = range.icon;
               return (
-                <Card key={range.title} className="h-full">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {range.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {range.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Related Calculators and Guides */}
-        <section className="mt-12">
-          <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-            Related calculators and guides
-          </h2>
-          <p className="mb-6 -mt-4 text-sm text-muted-foreground">
-            Looking at related home financing or borrowing resources? Explore
-            these PesoHub tools and guides next.
-          </p>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedContent.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  className="group block"
-                >
-                  <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                    <CardHeader>
-                      <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                        <Icon className="size-5" />
-                      </div>
-                      <CardTitle className="mt-3 text-sm">
-                        {item.title}
-                      </CardTitle>
-                      <CardDescription className="text-xs leading-relaxed">
-                        {item.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Link>
+                <div key={range.title} className="rounded-xl border border-gray-200 bg-white p-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-6" />
+                  </div>
+                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {range.title}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                    {range.description}
+                  </p>
+                </div>
               );
             })}
           </div>
         </section>
 
         {/* FAQ */}
-        <FaqSection faqs={homeLoanData.faqs} />
+        <div className="mt-16">
+          <FaqSection faqs={homeLoanData.faqs} />
+        </div>
 
+        {/* Related Calculators and Guides */}
+        <section className="mt-16">
+          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+            Related calculators and guides
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedContent.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.title}
+                  href={item.href}
+                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                >
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-4" />
+                  </div>
+                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                    {item.title}
+                  </span>
+                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                </Link>
+              );
+            })}
+          </div>
+        </section>
       </div>
     </>
   );

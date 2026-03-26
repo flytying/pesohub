@@ -13,6 +13,9 @@ import {
   Clock,
   AlertTriangle,
   TrendingUp,
+  ArrowRight,
+  Info,
+  TriangleAlert,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -22,12 +25,6 @@ import {
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
 import { PersonalLoanCalculator } from "@/components/calculators/personal-loan-calculator";
 import { personalLoanData } from "@/data/calculators/personal-loan";
 
@@ -122,34 +119,26 @@ const questionsToAsk = [
 const relatedContent = [
   {
     title: "Guides Hub",
-    description:
-      "Read plain-language guides on loans, taxes, and financial planning.",
     href: "/guides",
     icon: BookOpen,
   },
   {
     title: "Rates Hub",
-    description:
-      "Compare savings rates, exchange rates, and other financial references.",
     href: "/rates",
     icon: TrendingUp,
   },
   {
     title: "Car Loan Calculator",
-    description: "Estimate monthly car loan payments and total interest.",
     href: "/calculators/loans/car-loan-calculator-philippines",
     icon: Calculator,
   },
   {
     title: "Home Loan Calculator",
-    description: "Compare how larger long-term housing loans work.",
     href: "/calculators/loans/home-loan-calculator-philippines",
     icon: Calculator,
   },
   {
     title: "All Calculators",
-    description:
-      "Browse all borrowing, salary, and savings calculators in one place.",
     href: "/calculators",
     icon: Calculator,
   },
@@ -174,7 +163,7 @@ export default function PersonalLoanCalculatorPage() {
         variant="dark"
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <PersonalLoanCalculator
@@ -188,30 +177,33 @@ export default function PersonalLoanCalculatorPage() {
         </div>
 
         {/* How to Tell if the Monthly Payment Is Realistic */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How to Tell if the Monthly Payment Is Realistic
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             A monthly personal loan payment may look manageable at first, but it
             should still leave room for rent, food, bills, savings, and
             emergency expenses. Before applying, check whether the payment still
             feels comfortable even during tighter months.
           </p>
-          <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-            A lower monthly payment is not always the lower-cost option overall.
-            A longer repayment term can reduce the monthly amount, but it may
-            also increase the total interest paid over time. A higher loan
-            amount increases both the monthly payment and the total repayment.
+          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+            <p className="text-[16px] leading-[22px] text-gray-400">
+              A lower monthly payment is not always the lower-cost option overall.
+              A longer repayment term can reduce the monthly amount, but it may
+              also increase the total interest paid over time. A higher loan
+              amount increases both the monthly payment and the total repayment.
+            </p>
           </div>
         </section>
 
         {/* Worked Examples */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Compare Common Loan Sizes at a Glance
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             These three examples show how the loan amount, term, and interest
             rate affect your monthly payment and total borrowing cost. Use them
             as a quick reference, then run your own numbers in the calculator
@@ -220,165 +212,158 @@ export default function PersonalLoanCalculatorPage() {
 
           <div className="mt-6 grid gap-5 sm:grid-cols-3">
             {/* Small */}
-            <div className="rounded-lg border border-border bg-card p-5">
-              <div className="flex items-center gap-2">
-                <div className="flex size-8 items-center justify-center rounded-lg bg-secondary text-primary">
-                  <Banknote className="size-4" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+              <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+                <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                   Small Emergency Loan
                 </h3>
               </div>
-              <p className="mt-2 text-xs text-muted-foreground">
-                ₱30,000 at 18% over 12 months
-              </p>
-              <dl className="mt-3 space-y-1.5 text-sm">
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Loan Amount</dt>
-                  <dd className="font-medium tabular-nums">₱30,000</dd>
+              <div className="px-6 py-4">
+                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Loan Amount</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱30,000</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Term</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">12 months</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Rate</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">18%</dd>
+                  </div>
+                  <div className="my-3 border-t border-dashed border-gray-200" />
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Total Interest</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱3,005</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Total Repayment</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱33,005</dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+                <div className="flex justify-between text-[16px] leading-[22px]">
+                  <span className="font-semibold text-gray-500">Monthly Payment</span>
+                  <span className="font-mono tabular-nums font-bold text-brand">₱2,750</span>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Term</dt>
-                  <dd className="font-medium tabular-nums">12 months</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Rate</dt>
-                  <dd className="font-medium tabular-nums">18%</dd>
-                </div>
-                <div className="my-1.5 border-t border-border" />
-                <div className="flex justify-between">
-                  <dt className="font-medium text-foreground">Monthly</dt>
-                  <dd className="font-semibold tabular-nums text-primary">
-                    ₱2,750
-                  </dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Total Interest</dt>
-                  <dd className="font-medium tabular-nums">₱3,005</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Total Repayment</dt>
-                  <dd className="font-medium tabular-nums">₱33,005</dd>
-                </div>
-              </dl>
+              </div>
             </div>
 
             {/* Mid */}
-            <div className="rounded-lg border border-border bg-card p-5">
-              <div className="flex items-center gap-2">
-                <div className="flex size-8 items-center justify-center rounded-lg bg-secondary text-primary">
-                  <ShoppingBag className="size-4" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+              <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+                <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                   Mid-Size Planned Expense
                 </h3>
               </div>
-              <p className="mt-2 text-xs text-muted-foreground">
-                ₱100,000 at 15% over 24 months
-              </p>
-              <dl className="mt-3 space-y-1.5 text-sm">
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Loan Amount</dt>
-                  <dd className="font-medium tabular-nums">₱100,000</dd>
+              <div className="px-6 py-4">
+                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Loan Amount</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱100,000</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Term</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">24 months</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Rate</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">15%</dd>
+                  </div>
+                  <div className="my-3 border-t border-dashed border-gray-200" />
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Total Interest</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱16,368</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Total Repayment</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱116,368</dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+                <div className="flex justify-between text-[16px] leading-[22px]">
+                  <span className="font-semibold text-gray-500">Monthly Payment</span>
+                  <span className="font-mono tabular-nums font-bold text-brand">₱4,849</span>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Term</dt>
-                  <dd className="font-medium tabular-nums">24 months</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Rate</dt>
-                  <dd className="font-medium tabular-nums">15%</dd>
-                </div>
-                <div className="my-1.5 border-t border-border" />
-                <div className="flex justify-between">
-                  <dt className="font-medium text-foreground">Monthly</dt>
-                  <dd className="font-semibold tabular-nums text-primary">
-                    ₱4,849
-                  </dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Total Interest</dt>
-                  <dd className="font-medium tabular-nums">₱16,368</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Total Repayment</dt>
-                  <dd className="font-medium tabular-nums">₱116,368</dd>
-                </div>
-              </dl>
+              </div>
             </div>
 
             {/* Larger */}
-            <div className="rounded-lg border border-border bg-card p-5">
-              <div className="flex items-center gap-2">
-                <div className="flex size-8 items-center justify-center rounded-lg bg-secondary text-primary">
-                  <Wallet className="size-4" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground">
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+              <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+                <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                   Larger Personal Loan
                 </h3>
               </div>
-              <p className="mt-2 text-xs text-muted-foreground">
-                ₱300,000 at 12% over 36 months
-              </p>
-              <dl className="mt-3 space-y-1.5 text-sm">
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Loan Amount</dt>
-                  <dd className="font-medium tabular-nums">₱300,000</dd>
+              <div className="px-6 py-4">
+                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Loan Amount</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱300,000</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Term</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">36 months</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Rate</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">12%</dd>
+                  </div>
+                  <div className="my-3 border-t border-dashed border-gray-200" />
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Total Interest</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱58,715</dd>
+                  </div>
+                  <div className="flex justify-between">
+                    <dt className="text-gray-400">Total Repayment</dt>
+                    <dd className="font-mono tabular-nums text-gray-500">₱358,715</dd>
+                  </div>
+                </dl>
+              </div>
+              <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
+                <div className="flex justify-between text-[16px] leading-[22px]">
+                  <span className="font-semibold text-gray-500">Monthly Payment</span>
+                  <span className="font-mono tabular-nums font-bold text-brand">₱9,964</span>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Term</dt>
-                  <dd className="font-medium tabular-nums">36 months</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Rate</dt>
-                  <dd className="font-medium tabular-nums">12%</dd>
-                </div>
-                <div className="my-1.5 border-t border-border" />
-                <div className="flex justify-between">
-                  <dt className="font-medium text-foreground">Monthly</dt>
-                  <dd className="font-semibold tabular-nums text-primary">
-                    ₱9,964
-                  </dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Total Interest</dt>
-                  <dd className="font-medium tabular-nums">₱58,715</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-muted-foreground">Total Repayment</dt>
-                  <dd className="font-medium tabular-nums">₱358,715</dd>
-                </div>
-              </dl>
+              </div>
             </div>
           </div>
 
-          <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-            These are planning estimates only. Actual lender offers will vary
-            based on approval terms, fees, and repayment structure. Use the
-            calculator above to test your own numbers.
+          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+            <p className="text-[16px] leading-[22px] text-gray-400">
+              These are planning estimates only. Actual lender offers will vary
+              based on approval terms, fees, and repayment structure. Use the
+              calculator above to test your own numbers.
+            </p>
           </div>
         </section>
 
         {/* What Affects Your Personal Loan Payment */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What Affects Your Personal Loan Payment
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Your estimated payment depends on three main factors: the loan
             amount, the repayment term, and the interest rate. Understanding how
             each one works can help you compare offers more clearly.
           </p>
-          <div className="mt-6 grid gap-6 sm:grid-cols-3">
+          <div className="mt-8 grid gap-5 sm:grid-cols-3">
             {paymentFactors.map((factor) => {
               const Icon = factor.icon;
               return (
-                <div key={factor.title} className="space-y-2">
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                    <Icon className="size-5" />
+                <div key={factor.title} className="rounded-xl border border-gray-200 bg-white p-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-6" />
                   </div>
-                  <h3 className="text-sm font-semibold">{factor.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {factor.title}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
                     {factor.description}
                   </p>
                 </div>
@@ -388,43 +373,46 @@ export default function PersonalLoanCalculatorPage() {
         </section>
 
         {/* What to Compare Before Choosing */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What to Compare Before Choosing a Personal Loan
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Do not compare personal loans based on monthly payment alone. Two
             offers may look similar at first, but the total borrowing cost,
             fees, and repayment structure can be very different depending on the
             lender type. Before applying, compare:
           </p>
-          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
+          <ul className="mt-4 space-y-3">
             {compareBeforeApplying.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                {item}
+              </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Use this calculator more than once so you can compare multiple loan
             options side by side before making a decision.
           </p>
         </section>
 
         {/* Release Amount Warning */}
-        <section className="mt-12">
-          <div className="rounded-lg border border-amber-500/30 bg-amber-50/50 p-5 dark:bg-amber-950/20">
+        <section className="mt-16">
+          <div className="rounded-lg border border-gray-200 bg-white p-6">
             <div className="flex gap-3">
-              <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-600" />
+              <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
               <div>
-                <h2 className="text-sm font-semibold text-foreground">
+                <h2 className="text-[16px] font-semibold text-gray-500">
                   You May Not Receive the Full Loan Amount in Cash
                 </h2>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
                   Some lenders charge processing fees, service fees, insurance,
                   or other deductions that may reduce the actual amount released
                   to you. That means the approved loan amount and the cash you
                   receive may not always be the same.
                 </p>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
                   Before applying, ask the lender whether any fees will be
                   deducted upfront or added to your repayment amount.
                 </p>
@@ -434,18 +422,18 @@ export default function PersonalLoanCalculatorPage() {
         </section>
 
         {/* Questions to Ask */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Questions to Ask Before Applying
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Before choosing a personal loan, it helps to ask a few practical
             questions:
           </p>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-6 space-y-4">
             {questionsToAsk.map((question, i) => (
-              <li key={i} className="flex gap-3 text-sm text-muted-foreground">
-                <HelpCircle className="mt-0.5 size-4 shrink-0 text-primary" />
+              <li key={i} className="flex gap-3 text-[16px] leading-[22px] text-gray-400">
+                <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
                 {question}
               </li>
             ))}
@@ -453,77 +441,66 @@ export default function PersonalLoanCalculatorPage() {
         </section>
 
         {/* Sample Personal Loan Scenarios */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Sample Personal Loan Scenarios
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             These examples can help you compare common borrowing situations. Use
             them as planning references, then adjust the numbers based on your
             actual loan amount, term, and lender offer.
           </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
             {scenarioCards.map((scenario) => {
               const Icon = scenario.icon;
               return (
-                <Card key={scenario.title} className="h-full">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {scenario.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {scenario.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Related Calculators and Guides */}
-        <section className="mt-12">
-          <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-            Related calculators and guides
-          </h2>
-          <p className="mb-6 -mt-4 text-sm text-muted-foreground">
-            Looking at other borrowing tools or financial resources? Explore
-            these PesoHub pages next.
-          </p>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedContent.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  className="group block"
-                >
-                  <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                    <CardHeader>
-                      <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                        <Icon className="size-5" />
-                      </div>
-                      <CardTitle className="mt-3 text-sm">
-                        {item.title}
-                      </CardTitle>
-                      <CardDescription className="text-xs leading-relaxed">
-                        {item.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Link>
+                <div key={scenario.title} className="rounded-xl border border-gray-200 bg-white p-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-6" />
+                  </div>
+                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {scenario.title}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                    {scenario.description}
+                  </p>
+                </div>
               );
             })}
           </div>
         </section>
 
         {/* FAQ */}
-        <FaqSection faqs={personalLoanData.faqs} />
+        <div className="mt-16">
+          <FaqSection faqs={personalLoanData.faqs} />
+        </div>
 
+        {/* Related Calculators and Guides */}
+        <section className="mt-16">
+          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+            Related calculators and guides
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedContent.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.title}
+                  href={item.href}
+                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                >
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-4" />
+                  </div>
+                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                    {item.title}
+                  </span>
+                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                </Link>
+              );
+            })}
+          </div>
+        </section>
       </div>
     </>
   );

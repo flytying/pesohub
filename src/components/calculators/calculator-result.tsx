@@ -5,7 +5,7 @@ interface CalculatorResultProps {
   value: string;
   highlight?: boolean;
   className?: string;
-  /** "default" for light backgrounds, "dark" for inside gradient panels */
+  /** "default" for light backgrounds, "dark" kept for backwards compat */
   variant?: "default" | "dark";
 }
 
@@ -14,39 +14,27 @@ export function CalculatorResult({
   value,
   highlight = false,
   className,
-  variant = "default",
 }: CalculatorResultProps) {
-  const isDark = variant === "dark";
-
   return (
     <div
       className={cn(
-        "flex items-center justify-between py-2.5",
-        highlight && !isDark && "border-t border-b border-border",
-        highlight && isDark && "border-t border-b border-white/15",
+        "flex items-center justify-between border-b border-gray-100 py-3",
+        highlight && "border-b-gray-200",
         className
       )}
     >
       <span
         className={cn(
-          "text-sm",
-          isDark ? "text-white/70" : "text-muted-foreground",
-          highlight && !isDark && "font-medium text-foreground",
-          highlight && isDark && "font-medium text-white"
+          "text-[16px] leading-[22px] text-gray-400",
+          highlight && "font-semibold uppercase tracking-wide text-gray-500"
         )}
       >
         {label}
       </span>
       <span
         className={cn(
-          "font-mono tabular-nums",
-          highlight
-            ? isDark
-              ? "text-lg font-semibold text-white"
-              : "text-lg font-semibold text-foreground"
-            : isDark
-              ? "text-sm text-white/90"
-              : "text-sm text-foreground"
+          "font-mono tabular-nums text-[16px] text-gray-500",
+          highlight && "text-[18px] font-semibold"
         )}
       >
         {value}

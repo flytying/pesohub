@@ -8,6 +8,9 @@ import {
   Percent,
   Clock,
   ShieldCheck,
+  ArrowRight,
+  Info,
+  TriangleAlert,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -17,12 +20,6 @@ import {
 import { JsonLd } from "@/components/seo/json-ld";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
 import { CarLoanCalculator } from "@/components/calculators/car-loan-calculator";
 import { carLoanData } from "@/data/calculators/car-loan";
 
@@ -105,34 +102,26 @@ const questionsToConsider = [
 const relatedContent = [
   {
     title: "Personal Loan Calculator",
-    description: "Estimate payments for a different type of borrowing.",
     href: "/calculators/loans/personal-loan-calculator-philippines",
     icon: Calculator,
   },
   {
     title: "Home Loan Calculator",
-    description: "Compare how larger long-term loans work.",
     href: "/calculators/loans/home-loan-calculator-philippines",
     icon: Calculator,
   },
   {
     title: "Loan Guides",
-    description:
-      "Learn how rates, terms, and payment estimates work before comparing options.",
     href: "/guides",
     icon: BookOpen,
   },
   {
     title: "Interest Rate Guides",
-    description:
-      "Understand how rates are set and what affects your borrowing cost.",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
     icon: BookOpen,
   },
   {
     title: "Financial Planning Guides",
-    description:
-      "Broader guides on budgeting, saving, and managing money in the Philippines.",
     href: "/guides",
     icon: BookOpen,
   },
@@ -157,7 +146,7 @@ export default function CarLoanCalculatorPage() {
         variant="dark"
       />
 
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <CarLoanCalculator
@@ -170,46 +159,51 @@ export default function CarLoanCalculatorPage() {
         </div>
 
         {/* How to Tell if the Monthly Payment Is Realistic */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How to Tell if the Monthly Payment Is Realistic
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             A monthly car payment may look manageable at first, but it should
             still fit comfortably within your overall monthly budget. Before
             applying, check whether you can still cover your regular expenses,
             savings, emergency fund, and other debt payments after adding the
             estimated monthly amortization.
           </p>
-          <div className="mt-4 rounded-lg border border-border bg-muted/30 p-4 text-sm text-muted-foreground">
-            A lower monthly payment is not always the cheaper option overall. A
-            longer loan term can reduce the monthly amount, but it may also
-            increase the total interest paid over time. A bigger down payment
-            usually lowers both the monthly payment and the total borrowing cost.
+          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+            <p className="text-[16px] leading-[22px] text-gray-400">
+              A lower monthly payment is not always the cheaper option overall. A
+              longer loan term can reduce the monthly amount, but it may also
+              increase the total interest paid over time. A bigger down payment
+              usually lowers both the monthly payment and the total borrowing cost.
+            </p>
           </div>
         </section>
 
         {/* What Affects Your Monthly Car Loan Payment */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What Affects Your Monthly Car Loan Payment
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Your estimated car loan payment depends on four main factors: the
             vehicle price, the down payment, the loan term, and the interest
             rate. Understanding how each one works can help you compare offers
             more clearly.
           </p>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
             {paymentFactors.map((factor) => {
               const Icon = factor.icon;
               return (
-                <div key={factor.title} className="space-y-2">
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                    <Icon className="size-5" />
+                <div key={factor.title} className="rounded-xl border border-gray-200 bg-white p-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-6" />
                   </div>
-                  <h3 className="text-sm font-semibold">{factor.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {factor.title}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
                     {factor.description}
                   </p>
                 </div>
@@ -219,21 +213,24 @@ export default function CarLoanCalculatorPage() {
         </section>
 
         {/* Your Monthly Loan Payment Is Not the Full Cost */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Your Monthly Loan Payment Is Not the Full Cost of Owning a Car
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             A car loan calculator helps estimate the financing side of the
             purchase, but your total car budget should include more than just the
             monthly amortization. Also consider:
           </p>
-          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
+          <ul className="mt-4 space-y-3">
             {ownershipCosts.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                {item}
+              </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Use the calculator to estimate your loan payment, then add these
             ownership costs before deciding what vehicle price range is truly
             affordable.
@@ -241,82 +238,76 @@ export default function CarLoanCalculatorPage() {
         </section>
 
         {/* What to Compare Before Choosing a Car Loan */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What to Compare Before Choosing a Car Loan
           </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Do not compare lenders based on monthly payment alone. Two offers may
             look similar at first, but the total cost can be very different
             depending on the term, interest rate, and fees. Before applying,
             compare:
           </p>
-          <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-muted-foreground">
+          <ul className="mt-4 space-y-3">
             {compareBeforeApplying.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                {item}
+              </li>
             ))}
           </ul>
-          <p className="mt-4 text-sm text-muted-foreground">
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Use this calculator more than once so you can compare multiple offers
             side by side before making a decision.
           </p>
         </section>
 
         {/* Questions to Consider */}
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Questions to consider before applying
           </h2>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-6 space-y-4">
             {questionsToConsider.map((question, i) => (
-              <li key={i} className="flex gap-3 text-sm text-muted-foreground">
-                <HelpCircle className="mt-0.5 size-4 shrink-0 text-primary" />
+              <li key={i} className="flex gap-3 text-[16px] leading-[22px] text-gray-400">
+                <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
                 {question}
               </li>
             ))}
           </ul>
         </section>
 
+        {/* FAQ */}
+        <div className="mt-16">
+          <FaqSection faqs={carLoanData.faqs} />
+        </div>
+
         {/* Related Calculators and Guides */}
-        <section className="mt-12">
-          <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+        <section className="mt-16">
+          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related calculators and guides
           </h2>
-          <p className="mb-6 -mt-4 text-sm text-muted-foreground">
-            Looking at other borrowing options or comparing financial decisions?
-            Explore related PesoHub tools and guides below.
-          </p>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {relatedContent.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.title}
                   href={item.href}
-                  className="group block"
+                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
                 >
-                  <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                    <CardHeader>
-                      <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                        <Icon className="size-5" />
-                      </div>
-                      <CardTitle className="mt-3 text-sm">
-                        {item.title}
-                      </CardTitle>
-                      <CardDescription className="text-xs leading-relaxed">
-                        {item.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-4" />
+                  </div>
+                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                    {item.title}
+                  </span>
+                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 </Link>
               );
             })}
           </div>
         </section>
-
-        {/* FAQ */}
-        <FaqSection faqs={carLoanData.faqs} />
-
       </div>
     </>
   );

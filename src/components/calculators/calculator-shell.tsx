@@ -44,34 +44,33 @@ export function CalculatorShell({
     return (
       <div
         className={cn(
-          "w-full overflow-hidden rounded-xl ring-1 ring-border bg-card",
+          "w-full overflow-hidden rounded-xl border border-gray-200 bg-white",
           className
         )}
       >
-        <div className="flex items-center justify-between border-b border-border px-6 py-4">
+        <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
           <div className="flex items-center gap-3">
-            <h2 className="text-base font-semibold tracking-tight">{title}</h2>
             {beforeYouStart && (
               <Dialog>
-                <DialogTrigger className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-primary hover:bg-secondary transition-colors">
-                  <Info className="size-3.5" />
-                  <span className="hidden sm:inline">{beforeYouStart.title || "Before You Start"}</span>
+                <DialogTrigger className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[14px] font-semibold text-brand hover:bg-gray-50 transition-colors">
+                  <Info className="size-4" />
+                  <span className="hidden sm:inline">{beforeYouStart.title || "Before you start"}</span>
                 </DialogTrigger>
                 <DialogPopup>
                   <DialogTitle>{beforeYouStart.title || "Before You Start"}</DialogTitle>
-                  <DialogDescription className="mt-3">
+                  <DialogDescription className="mt-3 text-[16px] leading-[22px] text-gray-400">
                     {beforeYouStart.description}
                   </DialogDescription>
-                  <ul className="mt-4 space-y-2.5 text-sm text-muted-foreground">
+                  <ul className="mt-4 space-y-2.5 text-[16px] leading-[22px] text-gray-400">
                     {beforeYouStart.items.map((item) => (
                       <li key={item} className="flex gap-2">
-                        <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
+                        <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
                         {item}
                       </li>
                     ))}
                   </ul>
                   <div className="mt-6 flex justify-end">
-                    <DialogClose className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+                    <DialogClose className="rounded-full bg-brand px-5 py-2.5 text-[14px] font-bold text-white hover:bg-brand-dark transition-colors">
                       Got it
                     </DialogClose>
                   </div>
@@ -90,9 +89,9 @@ export function CalculatorShell({
   }
 
   return (
-    <Card className={cn("w-full", className)}>
+    <Card className={cn("w-full border-gray-200", className)}>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
+        <CardTitle className="text-[20px] font-semibold leading-[26px] text-gray-500">{title}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">{children}</CardContent>
     </Card>

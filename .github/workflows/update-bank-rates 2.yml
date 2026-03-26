@@ -1,0 +1,58 @@
+name: Update Bank Rates
+
+on:
+  schedule:
+    # 1st and 15th of each month at 02:00 UTC (10:00 AM PHT)
+    - cron: "0 2 1,15 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run bank rate updater
+        env:
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/data-updater/run-update.mjs --sources savings-rates,digital-rates,time-deposit-rates
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet src/data/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create PR
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="auto/update-bank-rates-$(date +%Y-%m-%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add src/data/rates/
+          git commit -m "chore: update bank rates (automated)"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "chore: update bank rates $(date +%Y-%m-%d)" \
+            --body-file /tmp/pr-body.md \
+            --label "auto-update,needs-review"

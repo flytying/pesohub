@@ -19,8 +19,8 @@ interface DeductionBreakdownChartProps {
 }
 
 const COLORS = [
-  "#2180FF", // Take-Home (brand blue)
-  "rgba(255,255,255,0.35)", // Tax
+  "#093CB5", // Take-Home (brand blue)
+  "#00D2D8", // Tax (accent-cyan)
   "rgba(76,175,80,0.6)", // SSS (green)
   "rgba(255,152,0,0.6)", // PhilHealth (orange)
   "rgba(156,39,176,0.6)", // Pag-IBIG (purple)
@@ -87,7 +87,7 @@ export function DeductionBreakdownChart({
                   <tspan
                     x="50%"
                     dy="-0.5em"
-                    fill="rgba(255,255,255,0.6)"
+                    fill="#9CA3AF"
                     fontSize="12"
                   >
                     Monthly
@@ -95,7 +95,7 @@ export function DeductionBreakdownChart({
                   <tspan
                     x="50%"
                     dy="1.4em"
-                    fill="#fff"
+                    fill="#28314B"
                     fontSize="14"
                     fontWeight="bold"
                   >
@@ -108,15 +108,15 @@ export function DeductionBreakdownChart({
           <Tooltip
             formatter={(value) => formatPeso(Number(value))}
             contentStyle={{
-              borderRadius: "6px",
-              border: "1px solid rgba(255,255,255,0.15)",
-              backgroundColor: "rgba(255, 255, 255, 0.95)",
-              color: "#1a1a2e",
-              boxShadow: "0 4px 12px rgb(0 0 0 / 0.25)",
-              fontSize: "13px",
+              borderRadius: "8px",
+              border: "1px solid #CFD5E4",
+              backgroundColor: "#fff",
+              color: "#28314B",
+              boxShadow: "0 4px 12px rgb(0 0 0 / 0.04)",
+              fontSize: "14px",
             }}
-            itemStyle={{ color: "#1a1a2e" }}
-            labelStyle={{ color: "#555" }}
+            itemStyle={{ color: "#28314B" }}
+            labelStyle={{ color: "#474F66" }}
           />
         </PieChart>
       </ResponsiveContainer>

@@ -16,12 +16,6 @@ import { FaqSection } from "@/components/shared/faq-section";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import { generateBreadcrumbSchema } from "@/lib/schema-markup";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
 
 export const metadata = generatePageMetadata({
   title: "Salary Deductions, Tax & SSS Guides Philippines | PesoHub",
@@ -91,27 +85,22 @@ const allGuides: GuideData[] = [
   },
 ];
 
-const futureGuides: GuideData[] = [];
-
 const quickPaths = [
   {
     title: "Withholding Tax Calculator",
     description: "Estimate salary tax based on salary and tax assumptions.",
-    cta: "Use calculator",
     href: "/calculators/tax/withholding-tax-calculator-philippines",
     icon: Calculator,
   },
   {
     title: "Take-Home Pay Calculator",
     description: "Estimate net pay after common deductions.",
-    cta: "Use calculator",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
     icon: Calculator,
   },
   {
     title: "SSS Contribution Calculator",
     description: "Estimate SSS contributions based on salary and member type.",
-    cta: "Use calculator",
     href: "/calculators/sss/sss-contribution-calculator-philippines",
     icon: Calculator,
   },
@@ -119,7 +108,6 @@ const quickPaths = [
     title: "Reference Pages",
     description:
       "Check salary tax tables, contribution schedules, or supporting official references.",
-    cta: "View references",
     href: "/government",
     icon: Landmark,
   },
@@ -166,118 +154,99 @@ export default function GuidesPage() {
       {/* Hero */}
       <PageHero
         title="Finance Guides Philippines"
-        description="Plain-language guides to help you understand confusing money topics in the Philippines, from taxes and salary deductions to SSS contributions and government reference tables."
+        description="Understand how withholding tax, SSS, PhilHealth, and Pag-IBIG actually work — explained in plain language so you can read your payslip, check your deductions, and know what to expect."
         breadcrumbs={breadcrumbs}
         variant="dark"
       />
 
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* All guides */}
-      <section id="all-guides" className="mb-12 scroll-mt-20">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          All guides
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Browse explainers and walkthroughs designed to make everyday financial
-          topics easier to understand.
-        </p>
-        <div className="grid gap-5 sm:grid-cols-2">
-          {allGuides.map((guide) => {
-            const Icon = guide.icon;
-            return (
-              <Link key={guide.title} href={guide.href} className="group block">
-                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-base">{guide.title}</CardTitle>
-                    <CardDescription className="text-sm leading-relaxed">
-                      {guide.description}
-                    </CardDescription>
-                    <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
-                      Read guide
-                      <ArrowRight className="size-3.5" />
-                    </span>
-                  </CardHeader>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Future guides (coming soon) */}
-        {futureGuides.length > 0 && (
-          <>
-            <h3 className="mb-4 mt-8 text-sm font-semibold text-foreground">
-              Coming soon
-            </h3>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {futureGuides.map((guide) => {
+      {/* All Guides — surface-tertiary bg, two-column layout */}
+      <section id="all-guides" className="scroll-mt-20 bg-surface-tertiary py-20 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            <div>
+              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+                All Guides
+              </h2>
+              <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
+                Browse explainers and walkthroughs designed to make everyday
+                financial topics easier to understand.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {allGuides.map((guide) => {
                 const Icon = guide.icon;
                 return (
-                  <Card key={guide.title} className="h-full opacity-60">
-                    <CardHeader>
-                      <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                        <Icon className="size-5" />
-                      </div>
-                      <div className="mt-3 flex items-center justify-between">
-                        <CardTitle className="text-sm">{guide.title}</CardTitle>
-                        <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
-                          Coming soon
-                        </span>
-                      </div>
-                      <CardDescription className="text-xs leading-relaxed">
+                  <div
+                    key={guide.title}
+                    className="flex h-full flex-col rounded-xl bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                  >
+                    <h4 className="text-[20px] font-semibold leading-[26px] text-brand">
+                      {guide.title}
+                    </h4>
+                    <div className="mt-2 flex items-start justify-between gap-4">
+                      <p className="flex-1 text-[16px] leading-[22px] text-gray-400">
                         {guide.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
+                      </p>
+                      <Icon
+                        className="size-16 shrink-0 text-gray-400"
+                        strokeWidth={1.25}
+                      />
+                    </div>
+                    <div className="mt-auto pt-5">
+                      <Link
+                        href={guide.href}
+                        className="inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
+                      >
+                        Read guide
+                      </Link>
+                    </div>
+                  </div>
                 );
               })}
             </div>
-          </>
-        )}
-      </section>
-
-      {/* Quick paths to tools */}
-      <section className="mb-12">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Need an estimate instead?
-        </h2>
-        <p className="mt-3 mb-6 text-sm text-muted-foreground">
-          If you already understand the topic and want a number, these tools may
-          help more than a guide.
-        </p>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {quickPaths.map((path) => {
-            const Icon = path.icon;
-            return (
-              <Link key={path.title} href={path.href} className="group block">
-                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                  <CardHeader>
-                    <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-4" />
-                    </div>
-                    <CardTitle className="mt-2 text-sm">{path.title}</CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {path.description}
-                    </CardDescription>
-                    <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary">
-                      {path.cta}
-                      <ArrowRight className="size-3" />
-                    </span>
-                  </CardHeader>
-                </Card>
-              </Link>
-            );
-          })}
+          </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <FaqSection faqs={faqs} />
+      {/* Need an estimate instead? */}
+      <section className="py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-[14px] font-bold uppercase tracking-[0.2em] text-brand">
+              Need an estimate instead?
+            </p>
+            <h2 className="mt-4 text-[24px] font-semibold leading-[30px] text-gray-500">
+              If you already understand the topic and want a number, these tools
+              may help more than a guide.
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {quickPaths.map((path) => {
+              const Icon = path.icon;
+              return (
+                <Link key={path.title} href={path.href} className="group block">
+                  <div className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
+                    <h4 className="text-[20px] font-semibold leading-[26px] text-gray-500">
+                      {path.title}
+                    </h4>
+                    <p className="mt-2 flex-1 text-[16px] leading-[22px] text-gray-400">
+                      {path.description}
+                    </p>
+                    <div className="mt-4 flex size-10 items-center justify-center rounded-full bg-accent-cyan text-white transition-transform group-hover:translate-x-1">
+                      <ArrowRight className="size-5" />
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-    </div>
+      {/* Disclaimer + FAQ */}
+      <div className="mx-auto max-w-6xl px-4 pt-16 pb-20 sm:px-6 lg:px-8">
+        <FaqSection faqs={faqs} />
+      </div>
     </>
   );
 }

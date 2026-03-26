@@ -80,11 +80,11 @@ export function WithholdingTaxCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div className="text-center">
-            <p className="text-sm tracking-wide text-white/70">Estimated Monthly Withholding Tax</p>
-            <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
+            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">Estimated Monthly Withholding Tax</p>
+            <p className="mt-2 text-[36px] font-semibold tabular-nums text-brand sm:text-[42px] animate-count-up">
               {formatPeso(result.monthlyTax)}
             </p>
-            <p className="mt-2 text-sm text-white/70">
+            <p className="mt-2 text-sm text-gray-400">
               Effective tax rate: {formatPercent(result.effectiveRate)}
             </p>
           </div>
@@ -94,43 +94,29 @@ export function WithholdingTaxCalculator() {
             takeHome={result.takeHomePay}
           />
 
-          {/* Chart Legend */}
-          <div className="flex justify-center gap-6 text-xs print:hidden">
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block size-2.5 rounded-full bg-white/35" />
-              <span className="text-white/70">Tax</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block size-2.5 rounded-full bg-white/85" />
-              <span className="text-white/70">Take-Home</span>
-            </div>
-          </div>
-
-          <div className="mt-6 space-y-4">
-            <div className="border-t border-b border-white/15 py-3">
-              <span className="text-sm font-medium text-white">Estimated Annual Income Tax</span>
-              <span className="mt-1 block font-mono text-lg font-semibold tabular-nums text-white">
-                {formatPeso(result.annualTax)}
-              </span>
-            </div>
-            <div className="py-1">
-              <span className="text-sm text-white/70">Estimated Tax-Only Take-Home Pay</span>
-              <span className="mt-1 block font-mono text-sm tabular-nums text-white/90">
-                {formatPeso(result.monthlyTakeHome)}
-              </span>
-            </div>
-            <div className="py-1">
-              <span className="text-sm text-white/70">Effective Tax Rate</span>
-              <span className="mt-1 block font-mono text-sm tabular-nums text-white/90">
-                {formatPercent(result.effectiveRate)}
-              </span>
-            </div>
-            <div className="py-1">
-              <span className="text-sm text-white/70">Current Tax Bracket</span>
-              <span className="mt-1 block font-mono text-sm tabular-nums text-white/90">
-                {result.bracket}
-              </span>
-            </div>
+          <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
+            <dl className="divide-y divide-dashed divide-gray-200 text-[14px]">
+              <div className="flex justify-between px-4 py-3">
+                <dt className="text-gray-400">Monthly Taxable Compensation</dt>
+                <dd className="font-mono tabular-nums text-gray-500">{formatPeso(monthlySalary)}</dd>
+              </div>
+              <div className="flex justify-between px-4 py-3">
+                <dt className="text-gray-400">Annual Income Tax</dt>
+                <dd className="font-mono tabular-nums font-semibold text-brand">{formatPeso(result.annualTax)}</dd>
+              </div>
+              <div className="flex justify-between px-4 py-3">
+                <dt className="text-gray-400">Tax-Only Take-Home</dt>
+                <dd className="font-mono tabular-nums text-gray-500">{formatPeso(result.monthlyTakeHome)}</dd>
+              </div>
+              <div className="flex justify-between px-4 py-3">
+                <dt className="text-gray-400">Effective Tax Rate</dt>
+                <dd className="font-mono tabular-nums text-gray-500">{formatPercent(result.effectiveRate)}</dd>
+              </div>
+              <div className="flex justify-between px-4 py-3">
+                <dt className="text-gray-400">Current Bracket</dt>
+                <dd className="font-mono tabular-nums text-gray-500">{result.bracket}</dd>
+              </div>
+            </dl>
           </div>
         </ResultPanel>
 
@@ -152,7 +138,7 @@ export function WithholdingTaxCalculator() {
 
           {/* TRAIN Law Tax Bracket Table */}
           <div className="overflow-x-auto">
-            <h3 className="mb-3 text-sm font-semibold text-foreground">
+            <h3 className="mb-3 text-[16px] font-semibold text-gray-500">
               TRAIN Law Tax Brackets (2023 Onwards)
             </h3>
             <Table>
@@ -186,23 +172,23 @@ export function WithholdingTaxCalculator() {
                       key={i}
                       className={
                         isActive
-                          ? "bg-primary/5 font-medium"
+                          ? "bg-brand/5 font-medium"
                           : ""
                       }
                     >
-                      <TableCell className="text-sm">
+                      <TableCell className="text-[14px]">
                         {bracket.range}
                       </TableCell>
-                      <TableCell className="text-center text-sm">
+                      <TableCell className="text-center text-[14px]">
                         {bracket.rate}
                       </TableCell>
-                      <TableCell className="text-sm">{bracket.tax}</TableCell>
+                      <TableCell className="text-[14px]">{bracket.tax}</TableCell>
                     </TableRow>
                   );
                 })}
               </TableBody>
             </Table>
-            <p className="mt-2 text-xs text-muted-foreground">
+            <p className="mt-2 text-[14px] text-gray-400">
               Your current bracket is highlighted. Source: TRAIN Law (RA 10963),
               effective January 1, 2023.
             </p>

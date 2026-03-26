@@ -10,18 +10,18 @@ export const metadata = generatePageMetadata({
 
 export default function PrivacyPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight">Privacy Policy</h1>
-      <p className="mt-2 text-sm text-muted-foreground">Last updated: March 14, 2026</p>
+    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <h1 className="text-[32px] font-medium leading-[48px] text-gray-500">Privacy Policy</h1>
+      <p className="mt-2 text-[16px] leading-[22px] text-gray-400">Last updated: March 14, 2026</p>
 
-      <div className="mt-6 space-y-6 text-muted-foreground leading-relaxed">
+      <div className="mt-6 space-y-6 text-[16px] leading-[22px] text-gray-400">
         <p>
           {SITE_NAME} ({SITE_URL}) respects your privacy. This Privacy Policy
           explains what information we collect, how we use it, and your rights
           regarding your data.
         </p>
 
-        <h2 className="text-xl font-semibold text-foreground pt-4">Information We Collect</h2>
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Information We Collect</h2>
         <p>
           {SITE_NAME} is a utility website that does not require account creation
           or login. We do not collect personal information such as names, email
@@ -35,14 +35,14 @@ export default function PrivacyPage() {
           location.
         </p>
 
-        <h2 className="text-xl font-semibold text-foreground pt-4">Calculator Data</h2>
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Calculator Data</h2>
         <p>
           All calculations performed on {SITE_NAME} happen entirely in your
           browser. We do not send, store, or have access to any values you enter
           into our calculators. Your financial data stays on your device.
         </p>
 
-        <h2 className="text-xl font-semibold text-foreground pt-4">Cookies</h2>
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Cookies</h2>
         <p>
           We use cookies for analytics and advertising purposes. Third-party
           services such as Google Analytics and Google AdSense may place cookies
@@ -50,7 +50,7 @@ export default function PrivacyPage() {
           preferences through your browser settings.
         </p>
 
-        <h2 className="text-xl font-semibold text-foreground pt-4">Third-Party Services</h2>
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Third-Party Services</h2>
         <p>
           We use the following third-party services that may collect data
           according to their own privacy policies:
@@ -60,13 +60,13 @@ export default function PrivacyPage() {
           <li>Google AdSense — for displaying advertisements</li>
         </ul>
 
-        <h2 className="text-xl font-semibold text-foreground pt-4">Changes to This Policy</h2>
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Changes to This Policy</h2>
         <p>
           We may update this Privacy Policy from time to time. Changes will be
           posted on this page with an updated revision date.
         </p>
 
-        <h2 className="text-xl font-semibold text-foreground pt-4">Contact</h2>
+        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Contact</h2>
         <p>
           If you have questions about this Privacy Policy, please reach out
           through our website.

@@ -10,12 +10,6 @@ import {
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import { generateBreadcrumbSchema } from "@/lib/schema-markup";
@@ -104,18 +98,14 @@ const faqs = [
   },
 ];
 
-const relatedRatePages = [
+const relatedPages = [
   {
     title: "Calculators Hub",
-    description:
-      "Estimate savings, loan payments, deductions, and more with free tools.",
     href: "/calculators",
     icon: Calculator,
   },
   {
     title: "Guides Hub",
-    description:
-      "Read plain-language guides on loans, taxes, and financial planning.",
     href: "/guides",
     icon: BookOpen,
   },
@@ -129,85 +119,83 @@ export default function RatesPage() {
       {/* Hero */}
       <PageHero
         title="Rates in the Philippines"
-        description="Compare exchange rates, savings rates, time deposit rates, and digital bank rates in one place. Use PesoHub's rates hub to explore major financial rate categories and find the pages that help you compare returns, track currency movement, and make more informed money decisions."
+        description="See how the peso is moving against the dollar, compare savings interest rates across banks, and find the best time deposit or digital bank rates — updated regularly so you can make informed decisions faster."
         breadcrumbs={breadcrumbs}
         variant="dark"
       />
 
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Choose a Rate Type */}
-      <section id="choose" className="scroll-mt-20 pt-8">
-        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Choose a Rate Type
-        </h2>
-        <div className="grid gap-5 sm:grid-cols-2">
-          {rateTypeCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Card key={card.title} className="h-full">
-                <CardHeader>
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                    <Icon className="size-5" />
-                  </div>
-                  <CardTitle className="mt-3 text-base">
+      <section id="choose" className="scroll-mt-20 py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
+            Choose a Rate Type
+          </h2>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {rateTypeCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={card.title}
+                  className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                >
+                  <h4 className="text-[20px] font-semibold leading-[26px] text-brand">
                     {card.title}
-                  </CardTitle>
-                  <CardDescription className="text-sm leading-relaxed">
-                    {card.description}
-                  </CardDescription>
-                  <div className="mt-3">
+                  </h4>
+                  <div className="mt-2 flex items-start justify-between gap-4">
+                    <p className="flex-1 text-[16px] leading-[22px] text-gray-400">
+                      {card.description}
+                    </p>
+                    <Icon
+                      className="size-16 shrink-0 text-gray-400"
+                      strokeWidth={1.25}
+                    />
+                  </div>
+                  <div className="mt-auto pt-5">
                     <Link
                       href={card.href}
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80"
+                      className="inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
                     >
                       {card.cta}
-                      <ArrowRight className="size-3.5" />
                     </Link>
                   </div>
-                </CardHeader>
-              </Card>
-            );
-          })}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* Explore Related Rate Pages */}
-      <section className="pt-16">
-        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Explore Related Rate Pages
-        </h2>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {relatedRatePages.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.title}
-                href={item.href}
-                className="group block"
-              >
-                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {item.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {item.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+      {/* Disclaimer, FAQ, Related */}
+      <div className="mx-auto max-w-6xl px-4 pt-16 pb-20 sm:px-6 lg:px-8">
+        <FaqSection faqs={faqs} />
 
-      {/* FAQ */}
-      <FaqSection faqs={faqs} />
-
-    </div>
+        {/* Related Pages */}
+        <section className="mt-16">
+          <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
+            Related Pages
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedPages.map((page) => {
+              const Icon = page.icon;
+              return (
+                <Link
+                  key={page.title}
+                  href={page.href}
+                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                >
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-4" />
+                  </div>
+                  <span className="text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                    {page.title}
+                  </span>
+                  <ArrowRight className="ml-auto size-4 text-gray-300 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      </div>
     </>
   );
 }

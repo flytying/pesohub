@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Public_Sans, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/config/site";
@@ -8,9 +8,10 @@ import "./globals.css";
 
 const GA_ID = "G-FL2VDZNMCY";
 
-const inter = Inter({
+const publicSans = Public_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 const geistMono = Geist_Mono({
@@ -55,7 +56,7 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-3392449098044156" />
       </head>
       <body
-        className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${publicSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
         <Header />
         <main className="min-h-screen">{children}</main>

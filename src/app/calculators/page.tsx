@@ -20,7 +20,6 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import {
   Card,
   CardHeader,
@@ -206,35 +205,34 @@ function CalculatorCard({
   description,
   href,
   comingSoon,
-}: CalculatorData) {
+  hasBg = false,
+}: CalculatorData & { hasBg?: boolean }) {
   return (
-    <Card className="h-full">
-      <CardHeader>
-        <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-          <Icon className="size-5" />
-        </div>
-        <div className="mt-3 flex items-center justify-between">
-          <CardTitle className="text-base">{title}</CardTitle>
-          {comingSoon && (
-            <span className="shrink-0 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
-              Coming Soon
-            </span>
-          )}
-        </div>
-        <CardDescription className="text-sm leading-relaxed">
+    <div className={`flex h-full flex-col rounded-xl bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)] ${hasBg ? "" : "border border-gray-200"}`}>
+      <h4 className="text-[20px] font-semibold leading-[26px] text-brand">
+        {title}
+      </h4>
+      <div className="mt-2 flex items-start justify-between gap-4">
+        <p className="flex-1 text-[16px] leading-[22px] text-gray-400">
           {description}
-        </CardDescription>
-        <div className="mt-3">
+        </p>
+        <Icon className="size-16 shrink-0 text-gray-400" strokeWidth={1.25} />
+      </div>
+      <div className="mt-auto pt-5">
+        {comingSoon ? (
+          <span className="inline-flex items-center rounded-full bg-pill-orange px-5 py-2.5 text-[14px] font-bold uppercase tracking-wide text-accent-orange">
+            Coming soon
+          </span>
+        ) : (
           <Link
             href={href}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80"
+            className="inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
           >
             Use calculator
-            <ArrowRight className="size-3.5" />
           </Link>
-        </div>
-      </CardHeader>
-    </Card>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -246,88 +244,91 @@ export default function CalculatorsPage() {
       {/* Hero */}
       <PageHero
         title="Financial Calculators Philippines"
-        description="Explore financial calculators for common money decisions in the Philippines. Use PesoHub's calculator hub to estimate loan payments, understand salary deductions, plan savings goals, and find the right tool based on what you are trying to figure out."
+        description="Estimate car and home loan payments, see how much tax and SSS eat into your salary, or plan how fast your savings can grow — all with free calculators built for Philippine rates and rules."
         breadcrumbs={breadcrumbs}
         variant="dark"
       />
 
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Borrowing Money */}
-      <section id="borrowing" className="scroll-mt-20 pt-16">
-        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Borrowing Money
-        </h2>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {borrowingCalculators.map((calc) => (
-            <CalculatorCard key={calc.href} {...calc} />
-          ))}
+      <section id="borrowing" className="scroll-mt-20 py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
+            Borrowing Money
+          </h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {borrowingCalculators.map((calc) => (
+              <CalculatorCard key={calc.href} {...calc} />
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Salary and Deductions */}
-      <section id="salary" className="scroll-mt-20 pt-16">
-        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Salary and Deductions
-        </h2>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {salaryCalculators.map((calc) => (
-            <CalculatorCard key={calc.href} {...calc} />
-          ))}
+      <section id="salary" className="scroll-mt-20 bg-surface-tertiary py-20 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            <div>
+              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+                Salary and Deductions
+              </h2>
+              <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
+                Estimate withholding tax, SSS, PhilHealth, and Pag-IBIG deductions so you know exactly how much reaches your bank account each payday.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {salaryCalculators.map((calc) => (
+                <CalculatorCard key={calc.href} {...calc} hasBg />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Saving and Planning */}
-      <section id="savings" className="scroll-mt-20 pt-16">
-        <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Saving and Planning
-        </h2>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {savingsCalculators.map((calc) => (
-            <CalculatorCard key={calc.href} {...calc} />
-          ))}
+      <section id="savings" className="scroll-mt-20 py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
+            Saving and Planning
+          </h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {savingsCalculators.map((calc) => (
+              <CalculatorCard key={calc.href} {...calc} />
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Important Note */}
-      <div className="pt-16">
-        <DisclaimerBox text="Calculator results are estimates based on the inputs and assumptions shown. Actual figures may vary depending on provider terms, official tables, fees, and policy updates. Always confirm final numbers with the relevant bank, financial provider, employer, or government agency when needed." />
+      {/* Important Note, FAQ, Related */}
+      <div className="mx-auto max-w-6xl px-4 pt-16 pb-20 sm:px-6 lg:px-8">
+        <FaqSection faqs={faqs} />
+
+        {/* Related Guides and Reference Pages */}
+        <section className="mt-16">
+          <h2 className="mb-4 text-[32px] font-medium leading-[48px] text-gray-500">
+            Related Guides and Reference Pages
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedPages.map((page) => {
+              const Icon = page.icon;
+              return (
+                <Link
+                  key={page.title}
+                  href={page.href}
+                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                >
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-4" />
+                  </div>
+                  <span className="text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                    {page.title}
+                  </span>
+                  <ArrowRight className="ml-auto size-4 text-gray-300 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              );
+            })}
+          </div>
+        </section>
       </div>
-
-      {/* FAQ */}
-      <FaqSection faqs={faqs} />
-
-      {/* Related Guides and Reference Pages */}
-      <section className="pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Related Guides and Reference Pages
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          After using a calculator, you may want to read the matching guide or
-          check the reference table behind the estimate.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {relatedPages.map((page) => {
-            const Icon = page.icon;
-            return (
-              <Link
-                key={page.title}
-                href={page.href}
-                className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-shadow hover:shadow-md"
-              >
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
-                  <Icon className="size-4" />
-                </div>
-                <span className="text-sm font-medium group-hover:text-primary">
-                  {page.title}
-                </span>
-                <ArrowRight className="ml-auto size-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-    </div>
     </>
   );
 }

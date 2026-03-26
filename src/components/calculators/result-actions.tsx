@@ -65,7 +65,7 @@ export function ResultActions({
         <button
           type="button"
           onClick={handlePrint}
-          className="inline-flex items-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary/80 hover:text-foreground"
+          className="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-[14px] font-medium text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-500"
           title="Print results"
         >
           <Printer className="size-3.5" />
@@ -74,7 +74,7 @@ export function ResultActions({
         <button
           type="button"
           onClick={() => setShowEmailModal(true)}
-          className="inline-flex items-center gap-1.5 rounded-md bg-secondary px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary/80 hover:text-foreground"
+          className="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-[14px] font-medium text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-500"
           title="Email results"
         >
           <Mail className="size-3.5" />
@@ -96,7 +96,7 @@ export function ResultActions({
               }
             }}
           />
-          <div className="relative w-full max-w-sm rounded-lg bg-card p-6 shadow-xl">
+          <div className="relative w-full max-w-sm rounded-lg bg-white p-6 shadow-xl">
             <button
               type="button"
               onClick={() => {
@@ -107,7 +107,7 @@ export function ResultActions({
                   setError("");
                 }
               }}
-              className="absolute right-3 top-3 rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
+              className="absolute right-3 top-3 rounded-md p-1 text-gray-400 transition-colors hover:text-gray-500"
             >
               <X className="size-4" />
             </button>
@@ -117,33 +117,33 @@ export function ResultActions({
                 <div className="flex size-12 items-center justify-center rounded-full bg-emerald-500/10">
                   <CheckCircle className="size-6 text-emerald-600" />
                 </div>
-                <p className="mt-3 text-sm font-semibold text-foreground">
+                <p className="mt-3 text-sm font-semibold text-gray-500">
                   Results Sent
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 text-[14px] text-gray-400">
                   Check your inbox for the calculation summary.
                 </p>
               </div>
             ) : (
               <>
-                <h3 className="text-base font-semibold text-foreground">
+                <h3 className="text-base font-semibold text-gray-500">
                   Email Results
                 </h3>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 text-[14px] text-gray-400">
                   We&apos;ll send a summary of your calculation to your email.
                 </p>
 
                 {error && (
                   <div className="mt-3 flex items-start gap-2 rounded-md border border-red-500/20 bg-red-500/5 px-3 py-2">
                     <AlertCircle className="mt-0.5 size-3.5 shrink-0 text-red-500" />
-                    <p className="text-xs text-red-500">{error}</p>
+                    <p className="text-[14px] text-red-500">{error}</p>
                   </div>
                 )}
 
                 <form onSubmit={handleEmailSubmit} className="mt-4">
                   <label
                     htmlFor="result-email"
-                    className="mb-1.5 block text-sm font-medium text-foreground"
+                    className="mb-1.5 block text-sm font-medium text-gray-500"
                   >
                     Email Address
                   </label>
@@ -154,13 +154,13 @@ export function ResultActions({
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full rounded-lg border border-border bg-background px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-500 placeholder:text-gray-300 outline-none transition-colors focus:border-brand focus:ring-1 focus:ring-brand"
                     disabled={sending}
                   />
                   <button
                     type="submit"
                     disabled={sending}
-                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-brand/90 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {sending ? (
                       <>

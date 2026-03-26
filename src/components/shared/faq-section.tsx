@@ -25,16 +25,24 @@ export function FaqSection({ faqs }: FaqSectionProps) {
   };
 
   return (
-    <section className="pt-16 pb-8">
-      <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+    <section>
+      <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
         Frequently Asked Questions
       </h2>
-      <Accordion>
+      <Accordion className="space-y-3">
         {faqs.map((faq, index) => (
-          <AccordionItem key={index} value={`faq-${index}`}>
-            <AccordionTrigger>{faq.question}</AccordionTrigger>
+          <AccordionItem
+            key={index}
+            value={`faq-${index}`}
+            className="overflow-hidden rounded-lg border border-gray-200 bg-white not-last:border-b not-last:border-b-gray-200"
+          >
+            <AccordionTrigger className="px-5 py-4 text-[20px] font-semibold leading-[26px] text-gray-500 hover:no-underline">
+              {faq.question}
+            </AccordionTrigger>
             <AccordionContent>
-              <p className="text-muted-foreground">{faq.answer}</p>
+              <p className="px-5 text-[16px] leading-[22px] text-gray-400">
+                {faq.answer}
+              </p>
             </AccordionContent>
           </AccordionItem>
         ))}

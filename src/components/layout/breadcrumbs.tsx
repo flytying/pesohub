@@ -13,7 +13,7 @@ interface BreadcrumbsProps {
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
     <nav aria-label="Breadcrumb" className="mb-4">
-      <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+      <ol className="flex flex-wrap items-center gap-1.5 text-[14px] text-gray-400">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
 
@@ -29,7 +29,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               ) : (
                 <Link
                   href={item.href}
-                  className="transition-colors hover:text-foreground"
+                  className="transition-colors hover:text-gray-500"
                 >
                   {item.label}
                 </Link>

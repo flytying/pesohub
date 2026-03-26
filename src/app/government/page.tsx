@@ -8,12 +8,6 @@ import {
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import { generateBreadcrumbSchema } from "@/lib/schema-markup";
@@ -122,22 +116,16 @@ const faqs = [
 const relatedSections = [
   {
     title: "Calculators",
-    description:
-      "Use calculators to estimate deductions, contributions, payments, and savings.",
     href: "/calculators",
     icon: Calculator,
   },
   {
     title: "Guides",
-    description:
-      "Use guides for plain-language explanations of tax, SSS, and government-related topics.",
     href: "/guides",
     icon: BookOpen,
   },
   {
     title: "Rates",
-    description:
-      "Browse rate-related pages for exchange rates, savings rates, and other finance references.",
     href: "/rates",
     icon: TrendingUp,
   },
@@ -151,97 +139,91 @@ export default function GovernmentPage() {
       {/* Hero */}
       <PageHero
         title="Philippine Government Finance Reference"
-        description="Use this section to check government-related finance references in one place. Browse contribution tables, tax references, exchange-rate references, and Pag-IBIG information that help you verify figures, understand official frameworks, and move to the right calculator or guide faster."
+        description="Look up SSS contributions, withholding tax brackets, Pag-IBIG schedules, PhilHealth premiums, and BSP exchange rate references — all in one place, without navigating multiple government portals."
         breadcrumbs={breadcrumbs}
         variant="dark"
       />
 
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* All Government Reference Pages */}
-      <section id="all-pages" className="scroll-mt-20 pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          All Government Reference Pages
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Start with the reference page that best matches what you want to
-          verify or understand.
-        </p>
-        <div className="grid gap-5 sm:grid-cols-2">
-          {governmentPages.map((page) => (
-            <Card key={page.title} className="h-full">
-              <CardHeader>
-                <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0 flex-1">
-                    <CardTitle className="text-base">{page.title}</CardTitle>
-                    <CardDescription className="mt-1.5 text-sm leading-relaxed">
+      <section id="all-pages" className="scroll-mt-20 bg-surface-tertiary py-20 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            <div>
+              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+                SSS, BIR, Pag-IBIG & PhilHealth
+              </h2>
+              <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
+                Contribution tables, tax brackets, and official references — organized so you can verify numbers without digging through government websites.
+              </p>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {governmentPages.map((page) => (
+                <div
+                  key={page.title}
+                  className="flex h-full flex-col rounded-xl bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                >
+                  <h4 className="text-[20px] font-semibold leading-[26px] text-brand">
+                    {page.title}
+                  </h4>
+                  <div className="mt-2 flex items-start justify-between gap-4">
+                    <p className="flex-1 text-[16px] leading-[22px] text-gray-400">
                       {page.description}
-                    </CardDescription>
-                    <div className="mt-3">
-                      <Link
-                        href={page.href}
-                        className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80"
-                      >
-                        View reference
-                        <ArrowRight className="size-3.5" />
-                      </Link>
-                    </div>
+                    </p>
+                    <Image
+                      src={page.logo}
+                      alt={`${page.category} logo`}
+                      width={40}
+                      height={40}
+                      className="size-10 shrink-0 object-contain opacity-60"
+                      unoptimized
+                    />
                   </div>
-                  <Image
-                    src={page.logo}
-                    alt={`${page.category} logo`}
-                    width={48}
-                    height={48}
-                    className="size-12 shrink-0 object-contain opacity-60"
-                    unoptimized
-                  />
+                  <div className="mt-auto pt-5">
+                    <Link
+                      href={page.href}
+                      className="inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
+                    >
+                      View reference
+                    </Link>
+                  </div>
                 </div>
-              </CardHeader>
-            </Card>
-          ))}
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Related Sections */}
-      <section id="related" className="scroll-mt-20 pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Related Sections
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Need more than a reference page? Explore related tools and explainers
-          to help you understand or estimate the numbers you see here.
-        </p>
-        <div className="grid gap-5 sm:grid-cols-3">
-          {relatedSections.map((section) => {
-            const Icon = section.icon;
-            return (
-              <Link
-                key={section.title}
-                href={section.href}
-                className="group block"
-              >
-                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                  <CardHeader>
-                    <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                      <Icon className="size-5" />
-                    </div>
-                    <CardTitle className="mt-3 text-sm">
-                      {section.title}
-                    </CardTitle>
-                    <CardDescription className="text-xs leading-relaxed">
-                      {section.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+      {/* Disclaimer + FAQ + Related */}
+      <div className="mx-auto max-w-6xl px-4 pt-16 pb-20 sm:px-6 lg:px-8">
+        <FaqSection faqs={faqs} />
 
-      {/* FAQ */}
-      <FaqSection faqs={faqs} />
-
-    </div>
+        {/* Related Sections */}
+        <section className="mt-16">
+          <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
+            Related Sections
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {relatedSections.map((section) => {
+              const Icon = section.icon;
+              return (
+                <Link
+                  key={section.title}
+                  href={section.href}
+                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                >
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-4" />
+                  </div>
+                  <span className="text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                    {section.title}
+                  </span>
+                  <ArrowRight className="ml-auto size-4 text-gray-300 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      </div>
     </>
   );
 }

@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 
 interface ToolCardProps {
@@ -13,18 +11,16 @@ interface ToolCardProps {
 export function ToolCard({ title, description, href, category }: ToolCardProps) {
   return (
     <Link href={href} className="group block">
-      <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <Badge variant="secondary" className="text-xs font-medium">
-              {category}
-            </Badge>
-            <ArrowRight className="size-4 text-muted-foreground/50 transition-colors group-hover:text-foreground" />
-          </div>
-          <CardTitle className="mt-2 text-base">{title}</CardTitle>
-          <CardDescription className="text-sm leading-relaxed">{description}</CardDescription>
-        </CardHeader>
-      </Card>
+      <div className="h-full rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
+        <div className="flex items-center justify-between">
+          <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-[14px] font-medium text-gray-400">
+            {category}
+          </span>
+          <ArrowRight className="size-4 text-gray-400/50 transition-colors group-hover:text-gray-500" />
+        </div>
+        <p className="mt-2 text-[16px] font-semibold text-gray-500 group-hover:text-brand">{title}</p>
+        <p className="text-[14px] text-gray-400 leading-relaxed">{description}</p>
+      </div>
     </Link>
   );
 }

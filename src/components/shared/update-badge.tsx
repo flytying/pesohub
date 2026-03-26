@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/formatters";
 import { Clock } from "lucide-react";
 
@@ -8,9 +7,9 @@ interface UpdateBadgeProps {
 
 export function UpdateBadge({ date }: UpdateBadgeProps) {
   return (
-    <Badge variant="secondary" className="gap-1.5 text-xs font-normal">
-      <Clock className="size-3" />
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-pill-blue px-4 py-2 text-[14px] font-normal leading-none text-gray-400">
+      <Clock className="size-3.5" />
       Updated {formatDate(date)}
-    </Badge>
+    </span>
   );
 }

@@ -85,16 +85,16 @@ export function CalculatorInput({
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-1.5">
-        <Label htmlFor={id}>{label}</Label>
+        <Label htmlFor={id} className="text-[16px] font-semibold leading-[22px] text-gray-500">{label}</Label>
         {tooltip && (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger
                 type="button"
-                className="inline-flex text-muted-foreground hover:text-foreground transition-colors"
+                className="inline-flex text-gray-300 hover:text-gray-500 transition-colors"
                 aria-label={`Info about ${label}`}
               >
-                <Info className="size-3.5" />
+                <Info className="size-4" />
               </TooltipTrigger>
               <TooltipContent side="top">{tooltip}</TooltipContent>
             </Tooltip>
@@ -112,7 +112,10 @@ export function CalculatorInput({
         min={min}
         max={max}
         step={step}
-        className={cn("font-mono", prefix && "tabular-nums")}
+        className={cn(
+          "rounded-lg border-gray-200 bg-white px-4 py-3 font-mono text-[16px] text-gray-500 focus:border-brand focus:ring-brand",
+          prefix && "tabular-nums"
+        )}
       />
       <Slider
         value={[value]}
@@ -122,7 +125,7 @@ export function CalculatorInput({
         step={step}
       />
       {helpText && (
-        <p className="text-xs text-muted-foreground">{helpText}</p>
+        <p className="text-[14px] text-gray-300">{helpText}</p>
       )}
     </div>
   );

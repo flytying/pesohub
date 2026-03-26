@@ -31,30 +31,30 @@ function FormulaBar({
 
   return (
     <div className="space-y-1">
-      <div className="flex items-center justify-between text-xs">
+      <div className="flex items-center justify-between text-[14px]">
         <span
-          className={isWinner ? "font-medium text-white" : "text-white/70"}
+          className={isWinner ? "font-medium text-gray-500" : "text-gray-400"}
         >
           {label}
         </span>
         <span className="flex items-center gap-1">
           <span
             className={
-              isWinner ? "font-bold text-white" : "text-white/70"
+              isWinner ? "font-bold text-brand" : "text-gray-400"
             }
           >
             {formatPeso(value)}
           </span>
           {isWinner && (
-            <CheckCircle className="size-3 text-white" />
+            <CheckCircle className="size-3 text-brand" />
           )}
         </span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-white/20">
+      <div className="h-2 overflow-hidden rounded-full bg-gray-100">
         <div
           className={cn(
             "h-full rounded-full transition-all duration-500",
-            isWinner ? "bg-white/90" : "bg-white/30"
+            isWinner ? "bg-brand" : "bg-gray-300"
           )}
           style={{ width: `${Math.max(percentage, 2)}%` }}
         />
@@ -116,18 +116,18 @@ export function SSSPensionCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div className="text-center">
-            <p className="text-sm tracking-wide text-white/70">Estimated Monthly Pension</p>
-            <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
+            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">Estimated Monthly Pension</p>
+            <p className="mt-2 text-[36px] font-semibold tabular-nums text-brand sm:text-[42px] animate-count-up">
               {formatPeso(result.monthlyPension)}
             </p>
-            <p className="mt-2 text-sm text-white/70">
+            <p className="mt-2 text-sm text-gray-400">
               via {METHOD_LABELS[result.method] ?? result.method}
             </p>
           </div>
 
           {/* Formula Comparison Bars */}
           <div className="my-6 space-y-3">
-            <p className="text-xs font-medium text-white/70">
+            <p className="text-[14px] font-medium text-gray-400">
               Formula Comparison
             </p>
             <FormulaBar
@@ -154,12 +154,10 @@ export function SSSPensionCalculator() {
             <CalculatorResult
               label="Monthly Contribution"
               value={formatPeso(result.monthlyContribution)}
-              variant="dark"
             />
             <CalculatorResult
               label="Total Contributions (est.)"
               value={formatPeso(result.totalContributions)}
-              variant="dark"
             />
           </div>
         </ResultPanel>

@@ -8,7 +8,7 @@ interface TaxBreakdownChartProps {
   takeHome: number;
 }
 
-const COLORS = ["rgba(255,255,255,0.35)", "#2180FF"]; // Tax (muted), Take-home (brand blue)
+const COLORS = ["#00D2D8", "#093CB5"]; // Tax (accent-cyan), Take-home (brand blue)
 
 export function TaxBreakdownChart({ tax, takeHome }: TaxBreakdownChartProps) {
   const data = [
@@ -42,10 +42,10 @@ export function TaxBreakdownChart({ tax, takeHome }: TaxBreakdownChartProps) {
               position="center"
               content={() => (
                 <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
-                  <tspan x="50%" dy="-0.5em" fill="rgba(255,255,255,0.6)" fontSize="12">
+                  <tspan x="50%" dy="-0.5em" fill="#9CA3AF" fontSize="12">
                     Annual
                   </tspan>
-                  <tspan x="50%" dy="1.4em" fill="#fff" fontSize="14" fontWeight="bold">
+                  <tspan x="50%" dy="1.4em" fill="#28314B" fontSize="14" fontWeight="bold">
                     {formatPeso(total, 0)}
                   </tspan>
                 </text>
@@ -55,15 +55,15 @@ export function TaxBreakdownChart({ tax, takeHome }: TaxBreakdownChartProps) {
           <Tooltip
             formatter={(value) => formatPeso(Number(value))}
             contentStyle={{
-              borderRadius: "6px",
-              border: "1px solid rgba(255,255,255,0.15)",
-              backgroundColor: "rgba(255, 255, 255, 0.95)",
-              color: "#1a1a2e",
-              boxShadow: "0 4px 12px rgb(0 0 0 / 0.25)",
-              fontSize: "13px",
+              borderRadius: "8px",
+              border: "1px solid #CFD5E4",
+              backgroundColor: "#fff",
+              color: "#28314B",
+              boxShadow: "0 4px 12px rgb(0 0 0 / 0.04)",
+              fontSize: "14px",
             }}
-            itemStyle={{ color: "#1a1a2e" }}
-            labelStyle={{ color: "#555" }}
+            itemStyle={{ color: "#28314B" }}
+            labelStyle={{ color: "#474F66" }}
           />
         </PieChart>
       </ResponsiveContainer>

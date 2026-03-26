@@ -50,13 +50,13 @@ export function TakeHomePayCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div className="text-center">
-            <p className="text-sm tracking-wide text-white/70">
+            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">
               Estimated Monthly Take-Home Pay
             </p>
-            <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
+            <p className="mt-2 text-[36px] font-semibold tabular-nums text-brand sm:text-[42px] animate-count-up">
               {formatPeso(result.takeHomePay)}
             </p>
-            <p className="mt-2 text-sm text-white/70">
+            <p className="mt-2 text-sm text-gray-400">
               Total deductions: {formatPercent(deductionRate)} of gross
             </p>
           </div>
@@ -69,46 +69,19 @@ export function TakeHomePayCalculator() {
             takeHome={result.takeHomePay}
           />
 
-          {/* Chart Legend */}
-          <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs print:hidden">
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block size-2.5 rounded-full bg-white/85" />
-              <span className="text-white/70">Take-Home</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block size-2.5 rounded-full bg-white/35" />
-              <span className="text-white/70">Tax</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block size-2.5 rounded-full bg-[#4CAF50]/60" />
-              <span className="text-white/70">SSS</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block size-2.5 rounded-full bg-[#FF9800]/60" />
-              <span className="text-white/70">PhilHealth</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <span className="inline-block size-2.5 rounded-full bg-[#9C27B0]/60" />
-              <span className="text-white/70">Pag-IBIG</span>
-            </div>
-          </div>
-
           <div className="mt-6 space-y-1">
             <CalculatorResult
               label="Gross Monthly Salary"
               value={formatPeso(monthlySalary)}
-              variant="dark"
             />
             <CalculatorResult
               label="Total Deductions"
               value={formatPeso(result.totalDeductions)}
-              variant="dark"
               highlight
             />
             <CalculatorResult
               label="Deductions as % of Gross"
               value={formatPercent(deductionRate)}
-              variant="dark"
             />
           </div>
         </ResultPanel>
@@ -129,55 +102,62 @@ export function TakeHomePayCalculator() {
 
           <Separator />
 
-          {/* Deduction Breakdown Table */}
-          <div>
-            <h3 className="mb-3 text-sm font-semibold text-foreground">
-              Deduction Breakdown
-            </h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between text-muted-foreground">
-                <span>Gross Salary</span>
-                <span className="font-mono tabular-nums">
+          {/* Deduction Breakdown — receipt style */}
+          <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
+            <div className="border-b border-dashed border-gray-200 bg-gray-50 px-5 py-3">
+              <h3 className="text-[16px] font-semibold text-gray-500">
+                Deduction Breakdown
+              </h3>
+            </div>
+            <div className="px-5 py-4">
+              <div className="flex justify-between text-[16px] leading-[22px]">
+                <span className="text-gray-400">Gross Salary</span>
+                <span className="font-mono tabular-nums text-gray-500">
                   {formatPeso(monthlySalary)}
                 </span>
               </div>
-              <Separator />
-              <div className="flex justify-between text-muted-foreground">
-                <span>Withholding Tax</span>
-                <span className="font-mono tabular-nums text-red-600">
-                  −{formatPeso(result.withholdingTax)}
-                </span>
-              </div>
-              <div className="flex justify-between text-muted-foreground">
-                <span>SSS Employee Share</span>
-                <span className="font-mono tabular-nums text-red-600">
-                  −{formatPeso(result.sssContribution)}
-                </span>
-              </div>
-              <div className="flex justify-between text-muted-foreground">
-                <span>PhilHealth Employee Share</span>
-                <span className="font-mono tabular-nums text-red-600">
-                  −{formatPeso(result.philhealthContribution)}
-                </span>
-              </div>
-              <div className="flex justify-between text-muted-foreground">
-                <span>Pag-IBIG Employee Share</span>
-                <span className="font-mono tabular-nums text-red-600">
-                  −{formatPeso(result.pagibigContribution)}
-                </span>
-              </div>
-              <Separator />
-              <div className="flex justify-between font-medium text-foreground">
-                <span>Estimated Take-Home Pay</span>
-                <span className="font-mono tabular-nums">
+              <div className="my-3 border-t border-dashed border-gray-200" />
+              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                <div className="flex justify-between">
+                  <dt className="text-gray-400">– Less: Withholding Tax</dt>
+                  <dd className="font-mono tabular-nums text-gray-500">
+                    ({formatPeso(result.withholdingTax)})
+                  </dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-gray-400">– Less: SSS</dt>
+                  <dd className="font-mono tabular-nums text-gray-500">
+                    ({formatPeso(result.sssContribution)})
+                  </dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-gray-400">– Less: PhilHealth</dt>
+                  <dd className="font-mono tabular-nums text-gray-500">
+                    ({formatPeso(result.philhealthContribution)})
+                  </dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-gray-400">– Less: Pag-IBIG</dt>
+                  <dd className="font-mono tabular-nums text-gray-500">
+                    ({formatPeso(result.pagibigContribution)})
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div className="border-t border-dashed border-gray-200 bg-gray-50 px-5 py-3">
+              <div className="flex justify-between text-[16px] leading-[22px]">
+                <span className="font-semibold text-gray-500">Estimated Take-Home Pay</span>
+                <span className="font-mono tabular-nums font-bold text-brand">
                   {formatPeso(result.takeHomePay)}
                 </span>
               </div>
             </div>
-            <p className="mt-3 text-xs text-muted-foreground">
-              Based on TRAIN Law tax brackets, 2025 SSS table, current
-              PhilHealth rate (5%), and standard Pag-IBIG rules.
-            </p>
+            <div className="border-t border-gray-100 px-5 py-2.5">
+              <p className="text-[14px] text-gray-300">
+                Based on TRAIN Law tax brackets, 2025 SSS table, current
+                PhilHealth rate (5%), and standard Pag-IBIG rules.
+              </p>
+            </div>
           </div>
         </div>
       </CalculatorShell>

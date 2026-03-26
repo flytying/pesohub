@@ -12,15 +12,15 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-brand">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-foreground"
+          className="flex items-center gap-2"
         >
           <Image
-            src="/pesohub-logo.webp"
+            src="/pesohub-logo.png"
             alt="PesoHub"
             width={140}
             height={36}
@@ -36,7 +36,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="text-sm text-white/80 transition-colors hover:text-white"
               >
                 {item.label}
               </Link>
@@ -50,7 +50,7 @@ export function Header() {
           <HeaderSearch />
           <button
           type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground md:hidden"
+          className="inline-flex items-center justify-center rounded-md p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-expanded={mobileMenuOpen}
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
@@ -67,7 +67,7 @@ export function Header() {
       {/* Mobile Navigation */}
       <div
         className={cn(
-          "overflow-hidden border-t border-border md:hidden",
+          "overflow-hidden border-t border-white/10 md:hidden",
           mobileMenuOpen ? "block" : "hidden"
         )}
       >
@@ -76,7 +76,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className="block rounded-md px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white"
               onClick={() => setMobileMenuOpen(false)}
             >
               {item.label}

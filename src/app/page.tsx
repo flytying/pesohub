@@ -1,10 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Calculator,
   TrendingUp,
   BookOpen,
   Landmark,
   ArrowRight,
+  ChevronRight,
   Target,
   Wallet,
   PiggyBank,
@@ -12,6 +14,7 @@ import {
   Globe,
   FileText,
   RefreshCw,
+  Info,
 } from "lucide-react";
 import { buttonVariants } from "@/lib/button-variants";
 import { CategoryCard } from "@/components/shared/category-card";
@@ -47,28 +50,28 @@ export const metadata = generatePageMetadata({
 
 const goalCards = [
   {
-    title: "I want to estimate a loan",
+    title: "Estimate a loan",
     description:
       "Check possible payments, compare borrowing scenarios, and understand the numbers before applying.",
     href: "/calculators",
     icon: Wallet,
   },
   {
-    title: "I want to understand my salary deductions",
+    title: "Understand my salary deductions",
     description:
       "See how common deductions and take-home pay estimates work in a Philippine context.",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
     icon: Target,
   },
   {
-    title: "I want to compare savings rates",
+    title: "Compare savings rates",
     description:
       "Browse rate tables and compare options more easily before deciding where to save.",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
     icon: PiggyBank,
   },
   {
-    title: "I want official reference tables",
+    title: "Official reference tables",
     description:
       "Find commonly used government-related tables and reference pages in one place.",
     href: "/government",
@@ -196,89 +199,113 @@ export default function HomePage() {
       <JsonLd data={generateOrganizationSchema()} />
 
       {/* Hero */}
-      <section className="gradient-hero py-24 text-white sm:py-32 lg:py-40">
-        <div className="hero-glow" />
-        <div className="hero-grid" />
-        <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          {/* Badge pill */}
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-peso-blue backdrop-blur-sm">
-            <span className="inline-block size-1.5 rounded-full bg-peso-blue animate-pulse" />
-            Free tools for Filipinos
+      <section className="bg-brand text-white">
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:py-24">
+          {/* Left column — text */}
+          <div>
+            <h1 className="text-[48px] font-medium leading-[48px] tracking-tight">
+              Practical tools
+              <br />
+              for smarter
+              <br />
+              money decisions
+            </h1>
+            <p className="mt-6 max-w-md text-[20px] leading-[26px] text-surface-secondary">
+              Estimate loan payments, understand salary deductions, compare
+              savings rates, and check key Philippine reference tables in one
+              place.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="mt-8 flex items-center gap-5">
+              <Link
+                href="/calculators"
+                className="inline-flex items-center gap-2 rounded-full bg-white py-2 pl-5 pr-2 text-sm font-semibold uppercase leading-none tracking-wide text-gray-500 transition-all hover:shadow-lg"
+              >
+                Calculators
+                <span className="flex size-7 items-center justify-center rounded-full bg-accent-cyan">
+                  <ChevronRight className="size-4 text-white" />
+                </span>
+              </Link>
+              <Link
+                href="/rates"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-accent-cyan transition-colors hover:text-white"
+              >
+                View Rates
+                <ChevronRight className="size-4" />
+              </Link>
+            </div>
           </div>
 
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl lg:leading-[1.1]">
-            Practical tools for{" "}
-            <span className="text-peso-blue">smarter money</span>{" "}
-            decisions
-          </h1>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
-            Estimate loan payments, understand salary deductions, compare
-            savings rates, and check key Philippine reference tables in one
-            place.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/calculators"
-              className="inline-flex items-center gap-2 rounded-full bg-peso-blue px-6 py-3 text-sm font-semibold text-white transition-all hover:brightness-110 hover:shadow-lg hover:shadow-peso-blue/25"
-            >
-              Browse Calculators
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/rates"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-medium text-white backdrop-blur-sm transition-all hover:bg-white/10 hover:border-white/25"
-            >
-              View Rates
-            </Link>
+          {/* Right column — hero illustration */}
+          <div className="hidden lg:flex lg:justify-end">
+            <div className="relative overflow-hidden rounded-2xl bg-white/10 p-2">
+              <Image
+                src="/hero.png"
+                alt="Filipino financial empowerment"
+                width={520}
+                height={400}
+                className="rounded-xl object-cover"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        {/* Start Here (formerly "Start with Your Goal") */}
-        <section>
-          <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-            Start here
-          </h2>
-          <p className="mb-6 text-sm text-muted-foreground">
-            Choose the path that matches what you want to do.
-          </p>
-          <div className="grid gap-5 sm:grid-cols-2">
-            {goalCards.map((goal) => {
-              const Icon = goal.icon;
-              return (
-                <Link key={goal.title} href={goal.href} className="group block">
-                  <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                    <CardHeader>
-                      <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                        <Icon className="size-5" />
-                      </div>
-                      <CardTitle className="mt-3 text-base">
-                        {goal.title}
-                      </CardTitle>
-                      <CardDescription className="text-sm leading-relaxed">
-                        {goal.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
+      {/* Start Here */}
+      <section className="bg-surface-secondary py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            {/* Left — heading + description */}
+            <div>
+              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+                Start here
+              </h2>
+              <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
+                Choose the path that best matches what you want to do. Each
+                option helps you quickly find the right tools, calculators, or
+                reference information based on your goal.
+              </p>
+            </div>
 
-        {/* Browse by Category */}
-        <section className="pt-16">
-          <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+            {/* Right — 2×2 card grid */}
+            <div className="grid gap-5 sm:grid-cols-2">
+              {goalCards.map((goal) => {
+                const Icon = goal.icon;
+                return (
+                  <Link key={goal.title} href={goal.href} className="group block">
+                    <Card className="h-full ring-0 bg-white p-6 shadow-none transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
+                      <CardHeader className="p-0">
+                        <div className="flex size-16 items-center justify-center rounded-full bg-accent-cyan text-white">
+                          <Icon className="size-7" />
+                        </div>
+                        <CardTitle className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                          {goal.title}
+                        </CardTitle>
+                        <CardDescription className="text-[16px] leading-[22px] text-gray-400">
+                          {goal.description}
+                        </CardDescription>
+                      </CardHeader>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Browse by Category */}
+      <section className="py-16 text-center lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <p className="text-[14px] font-bold uppercase tracking-[0.2em] text-brand">
             Browse by category
-          </h2>
-          <p className="mb-6 text-sm text-muted-foreground">
-            Explore tools, rate tables, guides, and reference pages by topic.
           </p>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <h2 className="mt-4 text-[24px] font-semibold leading-[30px] text-gray-500">
+            Explore tools, rate tables, guides, and reference pages by topic.
+          </h2>
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             <CategoryCard
               title="Calculators"
               description="Estimate payments, deductions, and contributions using Philippine-specific assumptions."
@@ -308,110 +335,117 @@ export default function HomePage() {
               count={5}
             />
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Popular Tools */}
-        <section className="pt-16">
-          <div className="mb-6">
-            <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
+      {/* Popular Tools */}
+      <section className="bg-surface-tertiary py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-[14px] font-bold uppercase tracking-[0.2em] text-brand">
               Popular tools
-            </h2>
-            <p className="text-sm text-muted-foreground">
+            </p>
+            <h2 className="mt-4 text-[24px] font-semibold leading-[30px] text-gray-500">
               The most-used tools and reference pages for everyday money
               decisions.
-            </p>
+            </h2>
           </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {popularPages.map((page) => (
               <Link key={page.title} href={page.href} className="group block">
-                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-medium text-muted-foreground">
-                        {page.category}
-                      </span>
-                      <ArrowRight className="size-4 text-muted-foreground/50 transition-colors group-hover:text-foreground" />
-                    </div>
-                    <CardTitle className="mt-2 text-base">
-                      {page.title}
-                    </CardTitle>
-                    <CardDescription className="text-sm leading-relaxed">
-                      {page.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
+                <div className="flex h-full flex-col rounded-xl bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
+                  <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {page.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-[16px] leading-[22px] text-gray-400">
+                    {page.description}
+                  </p>
+                  <div className="mt-4 flex size-10 items-center justify-center rounded-full bg-accent-cyan text-white transition-transform group-hover:translate-x-1">
+                    <ArrowRight className="size-5" />
+                  </div>
+                </div>
               </Link>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Recently Updated */}
-        <section className="pt-16">
-          <div className="mb-6">
-            <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-              Recently updated
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              We review and update key pages regularly so information stays
-              easier to check and navigate.
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {recentlyUpdated.map((item) => (
-              <Link key={item.href} href={item.href} className="group block">
-                <Card className="h-full transition-shadow duration-200 hover:shadow-md">
-                  <CardHeader>
-                    <CardTitle className="text-sm font-medium group-hover:text-primary">
+      {/* Recently Updated */}
+      <section className="py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            {/* Left — heading + description + disclaimer */}
+            <div>
+              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+                Recently updated
+              </h2>
+              <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
+                We review and update key pages regularly so information stays
+                easier to check and navigate.
+              </p>
+              <div className="mt-6 flex items-start gap-2 text-[14px] leading-[22px] text-gray-300">
+                <Info className="mt-0.5 size-5 flex-shrink-0 text-accent-orange" />
+                <span>
+                  Free tools and guides for educational use. Not affiliated
+                  with banks or government agencies.
+                </span>
+              </div>
+            </div>
+
+            {/* Right — card grid */}
+            <div className="grid gap-5 sm:grid-cols-2">
+              {recentlyUpdated.map((item) => (
+                <Link key={item.href} href={item.href} className="group block">
+                  <div className="h-full rounded-xl border border-gray-100 bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
+                    <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                       {item.title}
-                    </CardTitle>
-                    <div className="mt-2">
+                    </h3>
+                    <div className="mt-3">
                       <UpdateBadge date={item.updatedAt} />
                     </div>
-                  </CardHeader>
-                </Card>
-              </Link>
-            ))}
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Trust line — surfaced earlier per recommendation #7 */}
-        <section className="pt-16">
-          <div className="rounded-lg border border-border bg-muted/30 px-6 py-4 text-center text-sm text-muted-foreground">
-            Free tools and guides for educational use. Not affiliated with
-            banks or government agencies.
-          </div>
-        </section>
-
-        {/* Why Use PesoHub */}
-        <section className="pt-12">
-          <h2 className="mb-6 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-            Why use PesoHub
-          </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Main Content */}
+      {/* Why Use PesoHub */}
+      <section className="bg-surface-tertiary py-16 lg:py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h3 className="text-center text-[24px] font-semibold leading-[30px] text-gray-500">
+            Why Use PesoHub?
+          </h3>
+          <div className="mt-10 grid divide-x divide-gray-200 sm:grid-cols-3">
             {trustPoints.map((point) => {
               const Icon = point.icon;
               return (
-                <div key={point.title} className="space-y-2">
-                  <div className="flex size-10 items-center justify-center rounded-lg bg-secondary text-primary">
-                    <Icon className="size-5" />
+                <div key={point.title} className="flex flex-col items-center px-8 text-center">
+                  <div className="flex size-16 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-7" />
                   </div>
-                  <h3 className="text-sm font-semibold">{point.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
+                  <h4 className="mt-5 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {point.title}
+                  </h4>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
                     {point.description}
                   </p>
                 </div>
               );
             })}
           </div>
-        </section>
-
-        {/* Important Note / Disclaimer */}
-        <div className="pt-16">
-          <DisclaimerBox text="Figures, rates, and reference details may change over time and may vary by provider, product, or official source. Always confirm final details directly with the relevant institution or agency." />
         </div>
+      </section>
+
+      {/* Disclaimer + FAQ */}
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+        {/* Important Note / Disclaimer */}
+        <DisclaimerBox text="Figures, rates, and reference details may change over time and may vary by provider, product, or official source. Always confirm final details directly with the relevant institution or agency." />
 
         {/* FAQ */}
-        <div className="pt-8">
+        <div className="pt-12">
           <FaqSection faqs={homeFaqs} />
         </div>
       </div>

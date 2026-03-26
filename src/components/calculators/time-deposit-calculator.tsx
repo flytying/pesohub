@@ -49,20 +49,20 @@ export function TimeDepositCalculator() {
         {/* LEFT: Result Panel */}
         <ResultPanel className="flex flex-col justify-between">
           <div className="text-center">
-            <p className="text-sm tracking-wide text-white/70">
+            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">
               Estimated Maturity Amount
             </p>
-            <p className="mt-2 text-3xl font-semibold tabular-nums sm:text-4xl animate-count-up">
+            <p className="mt-2 text-[36px] font-semibold tabular-nums text-brand sm:text-[42px] animate-count-up">
               {formatPeso(result.netMaturityValue)}
             </p>
-            <p className="mt-2 text-sm text-white/70">
+            <p className="mt-2 text-sm text-gray-400">
               After 20% withholding tax on interest · {result.termUsed}
             </p>
           </div>
 
           {/* Visual breakdown */}
           <div className="my-6 space-y-3">
-            <p className="text-xs font-medium text-white/70">
+            <p className="text-[14px] font-medium text-gray-400">
               Return Breakdown
             </p>
             <ReturnBar
@@ -82,23 +82,19 @@ export function TimeDepositCalculator() {
             <CalculatorResult
               label="Estimated Gross Interest"
               value={formatPeso(result.grossInterest)}
-              variant="dark"
             />
             <CalculatorResult
               label="Estimated After-Tax Interest"
               value={formatPeso(result.afterTaxInterest)}
-              variant="dark"
               highlight
             />
             <CalculatorResult
               label="Estimated Net Maturity Value"
               value={formatPeso(result.netMaturityValue)}
-              variant="dark"
             />
             <CalculatorResult
               label="Term Used"
               value={result.termUsed}
-              variant="dark"
             />
           </div>
         </ResultPanel>
@@ -147,12 +143,12 @@ export function TimeDepositCalculator() {
               onChange={(e) =>
                 setTermUnit(e.target.value as "months" | "years")
               }
-              className="flex h-9 w-full rounded-lg border border-input bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none"
+              className="flex h-9 w-full rounded-lg border border-gray-200 bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-brand/20 focus-visible:outline-none"
             >
               <option value="months">Months</option>
               <option value="years">Years</option>
             </select>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-[14px] text-gray-400">
               Choose months or years.
             </p>
           </div>
@@ -161,37 +157,37 @@ export function TimeDepositCalculator() {
 
           {/* Deposit Breakdown Table */}
           <div>
-            <h3 className="mb-3 text-sm font-semibold text-foreground">
+            <h3 className="mb-3 text-[16px] font-semibold text-gray-500">
               Deposit Breakdown
             </h3>
             <div className="space-y-2 text-sm">
-              <div className="flex justify-between text-muted-foreground">
+              <div className="flex justify-between text-gray-400">
                 <span>Deposit Amount</span>
                 <span className="font-mono tabular-nums">
                   {formatPeso(depositAmount)}
                 </span>
               </div>
-              <div className="flex justify-between text-muted-foreground">
+              <div className="flex justify-between text-gray-400">
                 <span>+ Estimated Gross Interest</span>
                 <span className="font-mono tabular-nums text-green-600">
                   +{formatPeso(result.grossInterest)}
                 </span>
               </div>
-              <div className="flex justify-between text-muted-foreground">
+              <div className="flex justify-between text-gray-400">
                 <span>− Tax on Interest (20%)</span>
                 <span className="font-mono tabular-nums text-red-600">
                   −{formatPeso(result.taxOnInterest)}
                 </span>
               </div>
               <Separator />
-              <div className="flex justify-between font-medium text-foreground">
+              <div className="flex justify-between font-medium text-gray-500">
                 <span>Estimated Net Maturity Value</span>
                 <span className="font-mono tabular-nums">
                   {formatPeso(result.netMaturityValue)}
                 </span>
               </div>
             </div>
-            <p className="mt-3 text-xs text-muted-foreground">
+            <p className="mt-3 text-[14px] text-gray-400">
               Based on simple interest calculation with 20% withholding tax on
               interest income.
             </p>
@@ -200,11 +196,11 @@ export function TimeDepositCalculator() {
       </CalculatorShell>
 
       {/* Term Comparison Table */}
-      <div className="rounded-xl ring-1 ring-border bg-card p-6">
-        <h3 className="text-sm font-semibold text-foreground">
+      <div className="rounded-xl border border-gray-200 bg-white p-6">
+        <h3 className="text-[16px] font-semibold text-gray-500">
           Compare Different Terms
         </h3>
-        <p className="mt-1 text-xs text-muted-foreground">
+        <p className="mt-1 text-[14px] text-gray-400">
           Check whether a longer deposit term gives a return that feels worth
           the lock-in period.
         </p>
@@ -214,18 +210,18 @@ export function TimeDepositCalculator() {
               key={comp.termInMonths}
               className={`rounded-lg border p-4 ${
                 comp.termInMonths === result.termInMonths
-                  ? "border-primary bg-primary/5"
-                  : "border-border"
+                  ? "border-brand bg-brand/5"
+                  : "border-gray-200"
               }`}
             >
-              <p className="text-xs font-medium text-muted-foreground">
+              <p className="text-[14px] font-medium text-gray-400">
                 {comp.termUsed}
               </p>
-              <p className="mt-1 text-lg font-semibold tabular-nums text-foreground">
+              <p className="mt-1 text-lg font-semibold tabular-nums text-gray-500">
                 {formatPeso(comp.afterTaxInterest)}
               </p>
-              <p className="text-xs text-muted-foreground">after-tax interest</p>
-              <p className="mt-2 text-xs tabular-nums text-muted-foreground">
+              <p className="text-[14px] text-gray-400">after-tax interest</p>
+              <p className="mt-2 text-[14px] tabular-nums text-gray-400">
                 Maturity: {formatPeso(comp.netMaturityValue)}
               </p>
             </div>
@@ -255,22 +251,22 @@ function ReturnBar({
 
   return (
     <div className="space-y-1">
-      <div className="flex items-center justify-between text-xs">
+      <div className="flex items-center justify-between text-[14px]">
         <span
-          className={highlight ? "font-medium text-white" : "text-white/70"}
+          className={highlight ? "font-medium text-gray-500" : "text-gray-400"}
         >
           {label}
         </span>
         <span
-          className={highlight ? "font-bold text-white" : "text-white/70"}
+          className={highlight ? "font-bold text-brand" : "text-gray-400"}
         >
           {formatPeso(value)}
         </span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-white/20">
+      <div className="h-2 overflow-hidden rounded-full bg-gray-100">
         <div
           className={`h-full rounded-full transition-all duration-500 ${
-            highlight ? "bg-white/90" : "bg-white/30"
+            highlight ? "bg-brand" : "bg-gray-300"
           }`}
           style={{ width: `${Math.max(percentage, 2)}%` }}
         />

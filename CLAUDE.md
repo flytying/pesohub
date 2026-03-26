@@ -90,7 +90,7 @@ All financial data lives in `/src/data/` as TypeScript files. No database, no AP
 
 ## Brand
 
-- **Primary color:** #2180FF
+- **Primary color:** #093CB5
 - **Logo:** `/public/pesohub-logo.svg` (horizontal with text)
 - **Symbol:** `/public/pesohub-symbol.svg` (standalone P icon)
 - **Dark background:** Used for hero sections and cards

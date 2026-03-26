@@ -1,31 +1,26 @@
 import Link from "next/link";
 import {
   ArrowRight,
+  ArrowDown,
+  ArrowUp,
   CheckCircle,
   Info,
   Clock,
   Wallet,
   Smartphone,
-  Landmark,
   Shield,
   Calculator,
   TrendingUp,
   PiggyBank,
   BookOpen,
   Target,
+  TriangleAlert,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
 import { JsonLd } from "@/components/seo/json-ld";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
 import {
   Table,
   TableHeader,
@@ -100,6 +95,19 @@ const taxExamples = [
   { gross: 6, net: 4.8 },
 ];
 
+const termLengthPoints = [
+  "shorter terms may suit parked cash",
+  "longer terms may suit planned savings you will not need immediately",
+  "a higher rate may not be worth it if the lock-in is too restrictive",
+];
+
+const notesChecklist = [
+  "a visible notes column",
+  "a visible update date",
+  "clear distinction between current and older terms",
+  "careful handling of promotional or segment-based rates",
+];
+
 const relatedPages = [
   {
     title: "Time Deposit Calculator",
@@ -150,26 +158,25 @@ export default function TimeDepositRatesPage() {
         variant="dark"
       />
 
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Time Deposit Comparison Table */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Time Deposit Comparison Table
-        </h2>
-        <p className="mb-2 text-sm text-muted-foreground">
-          Compare time deposit products using the factors that matter most in
-          real use, not just the highest advertised rate.
-        </p>
-        <div className="mb-4 flex items-start gap-2 rounded-md border border-blue-200/50 bg-blue-50/50 p-3 text-xs text-blue-800 dark:border-blue-900/50 dark:bg-blue-950/20 dark:text-blue-300">
-          <Info className="mt-0.5 size-3.5 shrink-0" />
-          <span>
-            Use this table to compare time deposit products by tenor, rate, and
-            minimum placement. Check the notes column carefully because banks may
-            revise rates or remove certain terms over time.
-          </span>
-        </div>
-        <Card>
-          <CardContent>
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        {/* Time Deposit Comparison Table */}
+        <section>
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Time Deposit Comparison Table
+          </h2>
+          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            Compare time deposit products using the factors that matter most in
+            real use, not just the highest advertised rate.
+          </p>
+          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+            <p className="text-[16px] leading-[22px] text-gray-400">
+              Use this table to compare time deposit products by tenor, rate, and
+              minimum placement. Check the notes column carefully because banks
+              may revise rates or remove certain terms over time.
+            </p>
+          </div>
+          <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -193,296 +200,289 @@ export default function TimeDepositRatesPage() {
                     <TableCell className="font-medium">
                       {rate.bankName}
                     </TableCell>
-                    <TableCell className="text-sm">{rate.product}</TableCell>
-                    <TableCell className="text-sm">{rate.termLength}</TableCell>
-                    <TableCell className="text-right font-semibold text-primary">
+                    <TableCell className="text-[14px]">
+                      {rate.product}
+                    </TableCell>
+                    <TableCell className="text-[14px]">
+                      {rate.termLength}
+                    </TableCell>
+                    <TableCell className="text-right font-semibold text-brand">
                       {formatPercent(rate.grossRate)}
                     </TableCell>
                     <TableCell className="text-right">
                       {formatPeso(rate.minimumDeposit, 0)}
                     </TableCell>
-                    <TableCell className="hidden text-sm text-muted-foreground sm:table-cell">
+                    <TableCell className="hidden text-[14px] text-gray-400 sm:table-cell">
                       {rate.taxNote}
                     </TableCell>
-                    <TableCell className="hidden text-sm text-muted-foreground lg:table-cell">
+                    <TableCell className="hidden text-[14px] text-gray-400 lg:table-cell">
                       {rate.bestFor}
                     </TableCell>
-                    <TableCell className="hidden text-sm text-muted-foreground xl:table-cell">
+                    <TableCell className="hidden text-[14px] text-gray-400 xl:table-cell">
                       {rate.notes}
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
-          </CardContent>
-        </Card>
-        <p className="mt-3 text-xs text-muted-foreground">
-          Rates, terms, and product details may change. Always verify the latest
-          bank terms before placing funds.
-        </p>
-      </section>
+          </div>
+          <p className="mt-3 text-[14px] text-gray-400">
+            Rates, terms, and product details may change. Always verify the
+            latest bank terms before placing funds.
+          </p>
+        </section>
 
-      {/* Time Deposit Rates Are Usually Shown Before Tax */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Time Deposit Rates Are Usually Shown Before Tax
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Banks often show time deposit rates as gross annual rates. But
-          interest income from bank deposits is generally subject to final
-          withholding tax, which means your actual earnings may be lower than the
-          headline rate. Recent BIR guidance and bank advisories reflect a 20%
-          final withholding tax environment for deposit interest.
-        </p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          {taxExamples.map((ex) => (
-            <div
-              key={ex.gross}
-              className="rounded-lg border border-border bg-card p-4 text-center"
-            >
-              <p className="text-2xl font-bold text-foreground">
-                {formatPercent(ex.gross)}
-              </p>
-              <p className="text-xs text-muted-foreground">gross rate</p>
-              <div className="my-2 border-t border-border" />
-              <p className="text-lg font-semibold text-primary">
-                ≈ {formatPercent(ex.net)}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                after 20% withholding tax
-              </p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-3 text-xs text-muted-foreground">
-          Use gross rates for comparison, but keep after-tax return in mind when
-          deciding where to place your money.
-        </p>
-      </section>
+        {/* Time Deposit Rates Are Usually Shown Before Tax */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Time Deposit Rates Are Usually Shown Before Tax
+          </h2>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            Banks often show time deposit rates as gross annual rates. But
+            interest income from bank deposits is generally subject to final
+            withholding tax, which means your actual earnings may be lower than
+            the headline rate. Recent BIR guidance and bank advisories reflect a
+            20% final withholding tax environment for deposit interest.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {taxExamples.map((ex) => (
+              <div
+                key={ex.gross}
+                className="rounded-xl border border-gray-200 bg-white p-4 text-center"
+              >
+                <p className="text-2xl font-bold text-gray-500">
+                  {formatPercent(ex.gross)}
+                </p>
+                <p className="text-[14px] text-gray-400">gross rate</p>
+                <div className="my-2 border-t border-gray-200" />
+                <p className="text-lg font-semibold text-brand">
+                  ≈ {formatPercent(ex.net)}
+                </p>
+                <p className="text-[14px] text-gray-400">
+                  after 20% withholding tax
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 text-[14px] text-gray-400">
+            Use gross rates for comparison, but keep after-tax return in mind
+            when deciding where to place your money.
+          </p>
+        </section>
 
-      {/* Why Term Length Matters */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Why Term Length Matters
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          A longer time deposit term may offer a different rate from a shorter
-          one, but it also means your funds are locked in longer. The best
-          option depends on whether you value flexibility or are willing to
-          commit for a higher or more stable return.
-        </p>
-        <ul className="mt-4 space-y-1.5 text-sm text-muted-foreground">
-          <li className="flex items-start gap-2">
-            <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-            <span>shorter terms may suit parked cash</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-            <span>
-              longer terms may suit planned savings you will not need
-              immediately
-            </span>
-          </li>
-          <li className="flex items-start gap-2">
-            <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-            <span>
-              a higher rate may not be worth it if the lock-in is too
-              restrictive
-            </span>
-          </li>
-        </ul>
-      </section>
+        {/* Why Term Length Matters */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Why Term Length Matters
+          </h2>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            A longer time deposit term may offer a different rate from a shorter
+            one, but it also means your funds are locked in longer. The best
+            option depends on whether you value flexibility or are willing to
+            commit for a higher or more stable return.
+          </p>
+          <ul className="mt-6 space-y-3">
+            {termLengthPoints.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+              >
+                <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      {/* Why Minimum Deposit Matters */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Why Minimum Deposit Matters
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Some time deposit products are accessible with smaller starting
-          amounts, while others require a much larger placement. This is one of
-          the biggest practical filters users apply when comparing rates, so it
-          should be easy to scan in the table.
-        </p>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2">
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-sm font-semibold text-foreground">
+        {/* Why Minimum Deposit Matters */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Why Minimum Deposit Matters
+          </h2>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            Some time deposit products are accessible with smaller starting
+            amounts, while others require a much larger placement. This is one
+            of the biggest practical filters users apply when comparing rates, so
+            it should be easy to scan in the table.
+          </p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                <ArrowDown className="size-6" />
+              </div>
+              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Lower minimum deposit
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
+              </h3>
+              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
                 May be more useful if you are testing a product for the first
                 time or starting with a smaller amount.
               </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-5">
-              <p className="text-sm font-semibold text-foreground">
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                <ArrowUp className="size-6" />
+              </div>
+              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Higher minimum deposit
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
+              </h3>
+              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
                 May be acceptable if the product fits a larger parked-cash
                 strategy or if you already have the funds available.
               </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+            </div>
+          </div>
+        </section>
 
-      {/* Why Notes Matter */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Why Notes Matter on a Time Deposit Page
-        </h2>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Time deposit products can change over time. A product may revise
-          rates, remove certain tenors, or apply different rates based on
-          customer segment. CIMB Bank PH, for example, announced revised
-          MaxSave rates effective January 9, 2026, and later announced that the
-          24-month tenor would no longer be offered for new placements effective
-          February 11, 2026.
-        </p>
-        <p className="mt-4 text-sm font-medium text-foreground/80">
-          That is why a good comparison page needs:
-        </p>
-        <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
-          <li className="flex items-start gap-2">
-            <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-            <span>a visible notes column</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-            <span>a visible update date</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-            <span>clear distinction between current and older terms</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
-            <span>careful handling of promotional or segment-based rates</span>
-          </li>
-        </ul>
-      </section>
+        {/* Why Notes Matter */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Why Notes Matter on a Time Deposit Page
+          </h2>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            Time deposit products can change over time. A product may revise
+            rates, remove certain tenors, or apply different rates based on
+            customer segment. CIMB Bank PH, for example, announced revised
+            MaxSave rates effective January 9, 2026, and later announced that
+            the 24-month tenor would no longer be offered for new placements
+            effective February 11, 2026.
+          </p>
+          <p className="mt-4 text-[16px] font-medium text-gray-500">
+            That is why a good comparison page needs:
+          </p>
+          <ul className="mt-4 space-y-3">
+            {notesChecklist.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+              >
+                <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-      {/* Quick Picks by Deposit Need */}
-      <section className="py-8">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
-          Quick Picks by Deposit Need
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          Start with the kind of time deposit setup you want, not just the
-          highest published number.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {needCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <Card key={card.title} className="h-full">
-                <CardHeader>
-                  <div className="flex size-9 items-center justify-center rounded-lg bg-secondary text-primary">
-                    <Icon className="size-4" />
+        {/* Quick Picks by Deposit Need */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Quick Picks by Deposit Need
+          </h2>
+          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            Start with the kind of time deposit setup you want, not just the
+            highest published number.
+          </p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {needCards.map((card) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={card.title}
+                  className="rounded-xl border border-gray-200 bg-white p-6"
+                >
+                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-6" />
                   </div>
-                  <CardTitle className="mt-2 text-sm">{card.title}</CardTitle>
-                  <CardDescription className="text-xs leading-relaxed">
+                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {card.title}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
                     {card.description}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            );
-          })}
-        </div>
-      </section>
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+      </div>
 
       {/* Calculator CTA */}
-      <Card className="my-8 border-primary/20 bg-primary/5">
-        <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center">
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
-            <Calculator className="size-5 text-primary" />
+      <section className="bg-surface-tertiary py-20">
+        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Want to Estimate Your Return?
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
+            After comparing rates, use the Time Deposit Calculator to
+            estimate gross interest, after-tax interest, and maturity amount
+            for a specific deposit scenario.
+          </p>
+          <div className="mt-6">
+            <Link
+              href="/calculators/savings/time-deposit-calculator-philippines"
+              className="inline-flex items-center rounded-full bg-brand px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
+            >
+              USE THE TIME DEPOSIT CALCULATOR
+            </Link>
           </div>
-          <div className="flex-1">
-            <h2 className="text-sm font-semibold text-foreground">
-              Want to Estimate Your Return?
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              After comparing rates, use the Time Deposit Calculator to estimate
-              gross interest, after-tax interest, and maturity amount for a
-              specific deposit scenario.
-            </p>
-          </div>
-          <Link
-            href="/calculators/savings/time-deposit-calculator-philippines"
-            className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Use the Calculator
-            <ArrowRight className="size-4" />
-          </Link>
-        </CardContent>
-      </Card>
-
-      {/* Editorial note */}
-      <section className="rounded-lg border border-border bg-muted/30 p-5">
-        <h3 className="text-sm font-semibold text-foreground">
-          How we compare time deposits
-        </h3>
-        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-          PesoHub compares time deposit products using publicly available product
-          information such as advertised gross rates, term lengths, minimum
-          deposit requirements, and product notes. Rates and account details may
-          change, so always verify the latest information with the bank directly.
-        </p>
-      </section>
-
-      {/* FAQ */}
-      <FaqSection faqs={timeDepositRateFaqs} />
-
-      {/* Related Pages */}
-      <section className="pt-16">
-        <h2 className="mb-2 text-lg font-semibold uppercase tracking-wide text-muted-foreground sm:text-base">
-          Related Savings and Rates Pages
-        </h2>
-        <p className="mb-6 text-sm text-muted-foreground">
-          After comparing time deposit rates, you may also want to review these
-          related pages.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {relatedPages.map((page) => {
-            const Icon = page.icon;
-            return (
-              <Link
-                key={page.title}
-                href={page.href}
-                className="group flex items-center gap-3 rounded-lg border border-border bg-card p-4 transition-shadow hover:shadow-md"
-              >
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-primary">
-                  <Icon className="size-4" />
-                </div>
-                <span className="text-sm font-medium group-hover:text-primary">
-                  {page.title}
-                </span>
-                <ArrowRight className="ml-auto size-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            );
-          })}
         </div>
       </section>
 
-      {/* Source Citation */}
-      <div className="py-8">
-        <SourceCitation
-          source="Individual bank websites and product disclosures"
-          sourceUrl="https://www.bsp.gov.ph/SitePages/FinancialStability/DirBanksFIList.aspx"
-          updatedAt={TIME_DEPOSIT_RATES_UPDATED_AT}
-          reviewCadence="Every 2 weeks"
-        />
-      </div>
+      <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
+        {/* Editorial note */}
+        <section className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+          <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+          <div>
+            <h3 className="text-[16px] font-semibold text-gray-500">
+              How we compare time deposits
+            </h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-gray-400">
+              PesoHub compares time deposit products using publicly available
+              product information such as advertised gross rates, term lengths,
+              minimum deposit requirements, and product notes. Rates and account
+              details may change, so always verify the latest information with
+              the bank directly.
+            </p>
+          </div>
+        </section>
 
-      {/* Disclaimer */}
-      <div className="pb-4">
-        <DisclaimerBox text="Time deposit rates shown are subject to change without prior notice. Rates are gross (before the 20% final withholding tax on interest income). Promotional rates may expire, and product tenors may be revised or removed. Always verify the current rate and terms directly with the bank before placing funds. This page is not affiliated with any bank listed." />
+        {/* FAQ */}
+        <div className="mt-16">
+          <FaqSection faqs={timeDepositRateFaqs} />
+        </div>
+
+        {/* Related Pages */}
+        <section className="mt-16">
+          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+            Related savings and rates pages
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedPages.map((page) => {
+              const Icon = page.icon;
+              return (
+                <Link
+                  key={page.title}
+                  href={page.href}
+                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                >
+                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-4" />
+                  </div>
+                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                    {page.title}
+                  </span>
+                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Source Citation */}
+        <div className="mt-16">
+          <SourceCitation
+            source="Individual bank websites and product disclosures"
+            sourceUrl="https://www.bsp.gov.ph/SitePages/FinancialStability/DirBanksFIList.aspx"
+            updatedAt={TIME_DEPOSIT_RATES_UPDATED_AT}
+            reviewCadence="Every 2 weeks"
+          />
+        </div>
+
+        {/* Disclaimer */}
+        <div className="mt-8">
+          <DisclaimerBox text="Time deposit rates shown are subject to change without prior notice. Rates are gross (before the 20% final withholding tax on interest income). Promotional rates may expire, and product tenors may be revised or removed. Always verify the current rate and terms directly with the bank before placing funds. This page is not affiliated with any bank listed." />
+        </div>
       </div>
-    </div>
     </>
   );
 }

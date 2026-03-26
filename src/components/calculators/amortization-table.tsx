@@ -69,16 +69,15 @@ export function AmortizationTable({
       </Table>
 
       {hasMore && (
-        <div className="flex justify-center">
-          <Button
-            variant="outline"
-            size="sm"
+        <div className="flex justify-center px-6 py-5">
+          <button
             onClick={() => setShowAll((prev) => !prev)}
+            className="rounded-full border border-gray-200 px-5 py-2.5 text-[14px] font-semibold text-gray-500 transition-colors hover:bg-gray-50"
           >
             {showAll
               ? "Show Less"
               : `Show Full Schedule (${schedule.length} months)`}
-          </Button>
+          </button>
         </div>
       )}
     </div>

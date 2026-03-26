@@ -21,7 +21,7 @@ import {
 
 function TaxTable({ brackets, periodLabel }: { brackets: TaxBracketRow[]; periodLabel: string }) {
   return (
-    <div className="overflow-x-auto rounded-lg border border-border">
+    <div className="overflow-x-auto rounded-lg border border-gray-200">
       <Table>
         <TableHeader>
           <TableRow>
@@ -33,9 +33,9 @@ function TaxTable({ brackets, periodLabel }: { brackets: TaxBracketRow[]; period
         <TableBody>
           {brackets.map((row, i) => (
             <TableRow key={i}>
-              <TableCell className="text-sm text-muted-foreground">{row.range}</TableCell>
-              <TableCell className="text-sm text-muted-foreground">{row.taxDue}</TableCell>
-              <TableCell className="text-center text-sm text-muted-foreground">{row.rate}%</TableCell>
+              <TableCell className="text-[14px] text-gray-400">{row.range}</TableCell>
+              <TableCell className="text-[14px] text-gray-400">{row.taxDue}</TableCell>
+              <TableCell className="text-center text-[14px] text-gray-400">{row.rate}%</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -60,16 +60,16 @@ function TableSection({
   return (
     <div className={current ? "" : "mt-8 opacity-75"}>
       <div className="mb-3 flex items-center gap-2">
-        <h3 className={`text-base font-semibold ${current ? "text-foreground" : "text-muted-foreground"}`}>
+        <h3 className={`text-base font-semibold ${current ? "text-gray-500" : "text-gray-400"}`}>
           {label}
         </h3>
         {current ? (
-          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">Current</span>
+          <span className="rounded-full bg-brand/10 px-2 py-0.5 text-[14px] font-medium text-brand">Current</span>
         ) : (
-          <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">Previous</span>
+          <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[14px] font-medium text-gray-400">Previous</span>
         )}
       </div>
-      <p className="mb-3 text-xs text-muted-foreground">{effectiveDates}</p>
+      <p className="mb-3 text-[14px] text-gray-400">{effectiveDates}</p>
       <TaxTable brackets={brackets} periodLabel={periodLabel} />
     </div>
   );
@@ -80,7 +80,7 @@ export function WithholdingTaxTabs() {
     <Tabs defaultValue="monthly">
       <TabsList className="mb-4 flex w-full flex-wrap gap-1 sm:flex-nowrap">
         {payrollPeriodTables.map((period) => (
-          <TabsTrigger key={period.id} value={period.id} className="text-xs sm:text-sm">
+          <TabsTrigger key={period.id} value={period.id} className="text-[14px] sm:text-sm">
             {period.label}
           </TabsTrigger>
         ))}

@@ -9,7 +9,7 @@ export function ResultPanel({ children, className }: ResultPanelProps) {
   return (
     <div
       className={cn(
-        "gradient-result p-8 text-white",
+        "border-r border-gray-200 bg-white p-8",
         className
       )}
     >

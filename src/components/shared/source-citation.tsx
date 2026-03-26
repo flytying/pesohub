@@ -1,5 +1,12 @@
 import { cn } from "@/lib/utils";
-import { BookOpen, CalendarCheck, RotateCcw } from "lucide-react";
+import {
+  BookOpen,
+  CalendarCheck,
+  RotateCcw,
+  RefreshCw,
+  FileText,
+  ArrowRight,
+} from "lucide-react";
 
 interface SourceCitationProps {
   /** Name of the authoritative source */
@@ -37,70 +44,98 @@ export function SourceCitation({
 }: SourceCitationProps) {
   const checkedAt = sourceCheckedAt || updatedAt;
 
+  const items: {
+    icon: React.ElementType;
+    label: string;
+    value: string;
+    href?: string;
+  }[] = [
+    {
+      icon: BookOpen,
+      label: "Source",
+      value: source,
+      href: sourceUrl,
+    },
+    {
+      icon: CalendarCheck,
+      label: "Updated",
+      value: formatDate(updatedAt),
+    },
+  ];
+
+  if (sourceCheckedAt && sourceCheckedAt !== updatedAt) {
+    items.push({
+      icon: RotateCcw,
+      label: "Verified",
+      value: formatDate(checkedAt),
+    });
+  }
+
+  if (reviewCadence) {
+    items.push({
+      icon: RefreshCw,
+      label: "Review cycle",
+      value: reviewCadence,
+    });
+  }
+
+  if (changeNote) {
+    items.push({
+      icon: FileText,
+      label: "What changed",
+      value: changeNote,
+    });
+  }
+
   return (
-    <div
-      className={cn(
-        "rounded-lg border border-border bg-muted/30 p-4 text-sm",
-        className
-      )}
-    >
-      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        <BookOpen className="size-3.5" />
+    <div className={cn("", className)}>
+      <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
         Source & Freshness
-      </div>
+      </h2>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((item) => {
+          const Icon = item.icon;
+          const content = (
+            <>
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                <Icon className="size-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[14px] text-gray-300">{item.label}</p>
+                <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+                  {item.value}
+                </p>
+              </div>
+              {item.href && (
+                <ArrowRight className="size-4 shrink-0 text-gray-300 transition-colors group-hover:text-brand" />
+              )}
+            </>
+          );
 
-      <dl className="mt-3 space-y-2 text-muted-foreground">
-        {/* Source */}
-        <div className="flex items-start gap-2">
-          <dt className="shrink-0 font-medium text-foreground/80 w-28">Source</dt>
-          <dd>
-            <a
-              href={sourceUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline"
+          if (item.href) {
+            return (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+              >
+                {content}
+              </a>
+            );
+          }
+
+          return (
+            <div
+              key={item.label}
+              className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4"
             >
-              {source}
-            </a>
-          </dd>
-        </div>
-
-        {/* Last Updated */}
-        <div className="flex items-start gap-2">
-          <dt className="shrink-0 font-medium text-foreground/80 w-28 flex items-center gap-1">
-            <CalendarCheck className="size-3" />
-            Updated
-          </dt>
-          <dd>{formatDate(updatedAt)}</dd>
-        </div>
-
-        {/* Source Checked */}
-        {sourceCheckedAt && sourceCheckedAt !== updatedAt && (
-          <div className="flex items-start gap-2">
-            <dt className="shrink-0 font-medium text-foreground/80 w-28 flex items-center gap-1">
-              <RotateCcw className="size-3" />
-              Verified
-            </dt>
-            <dd>{formatDate(checkedAt)}</dd>
-          </div>
-        )}
-
-        {/* Review Cadence */}
-        {reviewCadence && (
-          <div className="flex items-start gap-2">
-            <dt className="shrink-0 font-medium text-foreground/80 w-28">Review cycle</dt>
-            <dd>{reviewCadence}</dd>
-          </div>
-        )}
-
-        {/* Change Note */}
-        {changeNote && (
-          <div className="flex items-start gap-2">
-            <dt className="shrink-0 font-medium text-foreground/80 w-28">What changed</dt>
-            <dd>{changeNote}</dd>
-          </div>
-        )}
-      </dl>
+              {content}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -45,31 +45,40 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.5fr]">
-        {/* Left column — info */}
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Contact Us</h1>
-          <p className="mt-4 text-muted-foreground leading-relaxed">
+    <>
+      {/* Hero header */}
+      <section className="bg-brand py-10 text-white sm:py-12">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h1 className="text-[32px] font-medium leading-[48px] sm:text-[48px] sm:leading-[48px]">
+            Contact Us
+          </h1>
+          <p className="mt-3 text-[16px] leading-[22px] text-surface-secondary sm:text-[20px] sm:leading-[26px]">
             Have a question, suggestion, or found an error? We&apos;d love to
             hear from you. Fill out the form and we&apos;ll get back to you as
             soon as possible.
           </p>
+        </div>
+      </section>
+
+    <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.5fr]">
+        {/* Left column — info */}
+        <div>
 
           <div className="mt-10 space-y-6">
             <div>
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <h2 className="text-[14px] font-semibold uppercase tracking-wider text-gray-400">
                 Response Time
               </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="mt-1 text-[16px] leading-[22px] text-gray-400">
                 We typically respond within 1–2 business days.
               </p>
             </div>
             <div>
-              <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              <h2 className="text-[14px] font-semibold uppercase tracking-wider text-gray-400">
                 Important Note
               </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="mt-1 text-[16px] leading-[22px] text-gray-400">
                 {SITE_NAME} provides free financial tools for educational
                 purposes. We cannot provide personalized financial advice. For
                 specific financial questions, please consult a qualified
@@ -82,20 +91,20 @@ export default function ContactPage() {
         {/* Right column — form */}
         <div>
           {formState === "success" ? (
-            <div className="flex flex-col items-center justify-center rounded-lg border border-border bg-card px-8 py-16 text-center">
+            <div className="flex flex-col items-center justify-center rounded-lg border border-gray-200 bg-white px-8 py-16 text-center">
               <div className="flex size-14 items-center justify-center rounded-full bg-emerald-500/10">
                 <CheckCircle className="size-7 text-emerald-600" />
               </div>
-              <h2 className="mt-5 text-xl font-semibold tracking-tight">
+              <h2 className="mt-5 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Message Sent
               </h2>
-              <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+              <p className="mt-2 max-w-sm text-[16px] leading-[22px] text-gray-400">
                 Thank you for reaching out. We&apos;ll review your message and
                 get back to you shortly.
               </p>
               <button
                 onClick={() => setFormState("idle")}
-                className="mt-6 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                className="mt-6 text-[14px] font-medium text-brand hover:text-brand/80 transition-colors"
               >
                 Send another message
               </button>
@@ -105,7 +114,7 @@ export default function ContactPage() {
               {formState === "error" && (
                 <div className="flex items-start gap-3 rounded-lg border border-red-500/20 bg-red-500/5 px-4 py-3">
                   <AlertCircle className="mt-0.5 size-4 shrink-0 text-red-500" />
-                  <p className="text-sm text-red-500">{errorMsg}</p>
+                  <p className="text-[14px] text-red-500">{errorMsg}</p>
                 </div>
               )}
 
@@ -113,7 +122,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="name"
-                    className="mb-1.5 block text-sm font-medium text-foreground"
+                    className="mb-1.5 block text-[14px] font-medium text-gray-500"
                   >
                     Name
                   </label>
@@ -124,13 +133,13 @@ export default function ContactPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your name"
-                    className="w-full rounded-lg border border-border bg-card px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-[14px] text-gray-500 placeholder:text-gray-400/50 outline-none transition-colors focus:border-brand focus:ring-1 focus:ring-brand"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="email"
-                    className="mb-1.5 block text-sm font-medium text-foreground"
+                    className="mb-1.5 block text-[14px] font-medium text-gray-500"
                   >
                     Email
                   </label>
@@ -141,7 +150,7 @@ export default function ContactPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full rounded-lg border border-border bg-card px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+                    className="w-full rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-[14px] text-gray-500 placeholder:text-gray-400/50 outline-none transition-colors focus:border-brand focus:ring-1 focus:ring-brand"
                   />
                 </div>
               </div>
@@ -149,7 +158,7 @@ export default function ContactPage() {
               <div>
                 <label
                   htmlFor="subject"
-                  className="mb-1.5 block text-sm font-medium text-foreground"
+                  className="mb-1.5 block text-[14px] font-medium text-gray-500"
                 >
                   Subject
                 </label>
@@ -158,7 +167,7 @@ export default function ContactPage() {
                   required
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  className="w-full rounded-lg border border-border bg-card px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+                  className="w-full rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-[14px] text-gray-500 outline-none transition-colors focus:border-brand focus:ring-1 focus:ring-brand"
                 >
                   <option value="" disabled>
                     Select a subject
@@ -175,7 +184,7 @@ export default function ContactPage() {
               <div>
                 <label
                   htmlFor="message"
-                  className="mb-1.5 block text-sm font-medium text-foreground"
+                  className="mb-1.5 block text-[14px] font-medium text-gray-500"
                 >
                   Message
                 </label>
@@ -186,14 +195,14 @@ export default function ContactPage() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Tell us how we can help..."
-                  className="w-full resize-none rounded-lg border border-border bg-card px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+                  className="w-full resize-none rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-[14px] text-gray-500 placeholder:text-gray-400/50 outline-none transition-colors focus:border-brand focus:ring-1 focus:ring-brand"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={formState === "submitting"}
-                className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-brand/90 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {formState === "submitting" ? (
                   <>
@@ -212,5 +221,6 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
