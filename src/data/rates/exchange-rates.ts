@@ -27,28 +27,34 @@ export interface BSPRateDetails {
 export const currentRate: ExchangeRateEntry = {
   date: "2026-03-27",
   rate: 60.25,
-  change: 0,
+  change: 0.15,
 };
 
 /**
  * Additional BSP rate details (buying, selling, PDS, SDR, gold, silver).
  */
 export const bspRateDetails: BSPRateDetails = {
-  buyingRate: 0,
-  sellingRate: 0,
-  referenceRate: 0,
-  pdsClosingRate: 0,
-  pdsClosingDate: "",
-  sdrRate: 0,
-  goldBuying: 0,
-  silverBuying: 0,
+  buyingRate: 60.15,
+  sellingRate: 60.55,
+  referenceRate: 60.25,
+  pdsClosingRate: 60.25,
+  pdsClosingDate: "2026-03-26",
+  sdrRate: 1.36448,
+  goldBuying: 4523.0,
+  silverBuying: 71.35,
 };
 
 /**
  * Historical BSP reference rates for the last 7 business days.
  */
 export const historicalRates: ExchangeRateEntry[] = [
-  { date: "2026-03-27", rate: 60.25, change: 0 },
+  { date: "2026-03-27", rate: 60.25, change: 0.15 },
+  { date: "2026-03-26", rate: 60.1, change: 0.15 },
+  { date: "2026-03-25", rate: 59.95, change: -0.35 },
+  { date: "2026-03-24", rate: 60.3, change: 0.15 },
+  { date: "2026-03-21", rate: 60.15, change: -0.1 },
+  { date: "2026-03-20", rate: 60.25, change: 0.2 },
+  { date: "2026-03-19", rate: 60.05, change: -0.15 },
 ];
 
 export const exchangeRateFaqs: FAQ[] = [
