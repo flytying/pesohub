@@ -4,13 +4,12 @@
  * Fetches the latest USD/PHP exchange rate from BSP's Daily Reference
  * Exchange Rate Bulletin (RERB) PDF and updates the data file.
  *
- * Source: https://www.bsp.gov.ph/SitePages/Statistics/DailyRERB.aspx
+ * IMPORTANT: This script uses targeted find-and-replace to update only
+ * the values it manages (currentRate, historicalRates, USD_PHP_UPDATED_AT).
+ * It never regenerates the full file, so manually added exports (like
+ * bspRateDetails, interfaces, FAQs) are always preserved.
  *
- * Flow:
- *  1. Query BSP's SharePoint API to find today's RERB PDF
- *  2. Download and parse the PDF
- *  3. Extract the BSP Reference Rate for USD/PHP
- *  4. Update src/data/rates/exchange-rates.ts
+ * Source: https://www.bsp.gov.ph/SitePages/Statistics/DailyRERB.aspx
  */
 
 import { readFileSync, writeFileSync } from "fs";
@@ -31,7 +30,6 @@ const BSP_BASE_URL = "https://www.bsp.gov.ph";
 // ── Date helpers ──────────────────────────────────────────────────
 
 function getTodayDate() {
-  // Format as YYYY-MM-DD in Philippine Time (UTC+8)
   const now = new Date();
   const pht = new Date(now.getTime() + 8 * 60 * 60 * 1000);
   return pht.toISOString().split("T")[0];
@@ -45,7 +43,6 @@ function isWeekend() {
 }
 
 function formatBSPDate(dateStr) {
-  // "2026-03-19" → "19Mar2026"
   const months = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
@@ -70,7 +67,7 @@ async function fetchPdfUrl(bspDate) {
   const items = data.d?.results;
 
   if (!items || items.length === 0) {
-    return null; // No RERB published for this date (holiday, etc.)
+    return null;
   }
 
   const files = items[0].AttachmentFiles?.results;
@@ -95,15 +92,11 @@ async function downloadAndParsePdf(pdfUrl) {
 }
 
 function extractBSPReferenceRate(pdfText) {
-  // Look for "BSP Reference Rate:" line
-  // Format: "BSP Reference Rate: \tPHP \t59.500"
   const match = pdfText.match(
     /BSP Reference Rate:\s*PHP\s+([\d.]+)/
   );
   if (!match) {
-    throw new Error(
-      "Could not find BSP Reference Rate in PDF text"
-    );
+    throw new Error("Could not find BSP Reference Rate in PDF text");
   }
   return parseFloat(match[1]);
 }
@@ -129,85 +122,13 @@ async function fetchRate() {
   return Math.round(rate * 100) / 100;
 }
 
-// ── File parsing helpers ──────────────────────────────────────────
+// ── Targeted update helpers ──────────────────────────────────────
 
-function generateFileContent(today, newRate, change, historicalRates, bspDetails, faqs) {
-  const historicalLines = historicalRates
-    .map(
-      (r) =>
-        `  { date: "${r.date}", rate: ${r.rate}, change: ${r.change} },`
-    )
-    .join("\n");
-
-  return `import type { FAQ } from "@/types/content";
-
-export const EXCHANGE_RATE_SOURCE = "Bangko Sentral ng Pilipinas (BSP)";
-
-export const USD_PHP_UPDATED_AT = "${today}";
-
-export interface ExchangeRateEntry {
-  date: string;
-  rate: number;
-  change: number;
-}
-
-export interface BSPRateDetails {
-  buyingRate: number;
-  sellingRate: number;
-  referenceRate: number;
-  pdsClosingRate: number;
-  pdsClosingDate: string;
-  sdrRate: number;
-  goldBuying: number;
-  silverBuying: number;
-}
-
-/**
- * Current BSP reference rate for USD to PHP.
- */
-export const currentRate: ExchangeRateEntry = {
-  date: "${today}",
-  rate: ${newRate},
-  change: ${change},
-};
-
-/**
- * Additional BSP rate details (buying, selling, PDS, SDR, gold, silver).
- */
-${bspDetails}
-
-/**
- * Historical BSP reference rates for the last 7 business days.
- */
-export const historicalRates: ExchangeRateEntry[] = [
-${historicalLines}
-];
-
-${faqs}
-`;
-}
-
-function extractBspDetails(content) {
+function extractCurrentRate(content) {
   const match = content.match(
-    /(export const bspRateDetails[\s\S]*?};)/
+    /export const currentRate[\s\S]*?rate:\s*([\d.]+)/
   );
-  return match ? match[1] : `export const bspRateDetails: BSPRateDetails = {
-  buyingRate: 0,
-  sellingRate: 0,
-  referenceRate: 0,
-  pdsClosingRate: 0,
-  pdsClosingDate: "",
-  sdrRate: 0,
-  goldBuying: 0,
-  silverBuying: 0,
-};`;
-}
-
-function extractFaqs(content) {
-  const faqMatch = content.match(
-    /(export const exchangeRateFaqs[\s\S]*)/
-  );
-  return faqMatch ? faqMatch[1].trimEnd() : "";
+  return match ? parseFloat(match[1]) : null;
 }
 
 function extractHistoricalRates(content) {
@@ -231,11 +152,61 @@ function extractHistoricalRates(content) {
   return rates;
 }
 
-function extractCurrentRate(content) {
-  const match = content.match(
-    /export const currentRate[\s\S]*?rate:\s*([\d.]+)/
+/**
+ * Replace a specific value in the file content using a regex pattern.
+ * Returns the updated content string.
+ */
+function replaceInFile(content, pattern, replacement) {
+  const updated = content.replace(pattern, replacement);
+  if (updated === content) {
+    console.warn(`Warning: pattern did not match anything: ${pattern}`);
+  }
+  return updated;
+}
+
+/**
+ * Apply targeted updates to the data file.
+ * Only touches: USD_PHP_UPDATED_AT, currentRate, historicalRates.
+ * Everything else (interfaces, bspRateDetails, FAQs, etc.) is untouched.
+ */
+function applyUpdates(content, today, newRate, change, newHistorical) {
+  let updated = content;
+
+  // 1. Update USD_PHP_UPDATED_AT
+  updated = replaceInFile(
+    updated,
+    /export const USD_PHP_UPDATED_AT = "[^"]+"/,
+    `export const USD_PHP_UPDATED_AT = "${today}"`
   );
-  return match ? parseFloat(match[1]) : null;
+
+  // 2. Update currentRate object
+  const newCurrentRate = `export const currentRate: ExchangeRateEntry = {
+  date: "${today}",
+  rate: ${newRate},
+  change: ${change},
+}`;
+  updated = replaceInFile(
+    updated,
+    /export const currentRate: ExchangeRateEntry = \{[^}]+\}/,
+    newCurrentRate
+  );
+
+  // 3. Update historicalRates array
+  const historicalLines = newHistorical
+    .map(
+      (r) =>
+        `  { date: "${r.date}", rate: ${r.rate}, change: ${r.change} },`
+    )
+    .join("\n");
+
+  const newHistoricalBlock = `export const historicalRates: ExchangeRateEntry[] = [\n${historicalLines}\n]`;
+  updated = replaceInFile(
+    updated,
+    /export const historicalRates: ExchangeRateEntry\[\] = \[[^\]]*\]/,
+    newHistoricalBlock
+  );
+
+  return updated;
 }
 
 // ── Main ──────────────────────────────────────────────────────────
@@ -253,8 +224,6 @@ async function main() {
   const content = readFileSync(DATA_FILE, "utf-8");
   const previousRate = extractCurrentRate(content);
   const historicalRates = extractHistoricalRates(content);
-  const bspDetails = extractBspDetails(content);
-  const faqs = extractFaqs(content);
 
   // Check if already updated today
   if (historicalRates.length > 0 && historicalRates[0].date === today) {
@@ -290,15 +259,8 @@ async function main() {
     ...historicalRates,
   ].slice(0, 7);
 
-  // Generate updated file
-  const newContent = generateFileContent(
-    today,
-    newRate,
-    change,
-    newHistorical,
-    bspDetails,
-    faqs
-  );
+  // Apply targeted updates (preserves everything else in the file)
+  const newContent = applyUpdates(content, today, newRate, change, newHistorical);
 
   writeFileSync(DATA_FILE, newContent, "utf-8");
   console.log(

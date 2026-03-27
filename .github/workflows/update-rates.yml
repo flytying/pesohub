@@ -29,6 +29,9 @@ jobs:
       - name: Fetch and update exchange rates
         run: node scripts/update-exchange-rates.mjs
 
+      - name: Verify build passes
+        run: npm run build
+
       - name: Commit and push if changed
         id: commit
         run: |
