@@ -131,7 +131,7 @@ async function fetchRate() {
 
 // ── File parsing helpers ──────────────────────────────────────────
 
-function generateFileContent(today, newRate, change, historicalRates, faqs) {
+function generateFileContent(today, newRate, change, historicalRates, bspDetails, faqs) {
   const historicalLines = historicalRates
     .map(
       (r) =>
@@ -151,6 +151,17 @@ export interface ExchangeRateEntry {
   change: number;
 }
 
+export interface BSPRateDetails {
+  buyingRate: number;
+  sellingRate: number;
+  referenceRate: number;
+  pdsClosingRate: number;
+  pdsClosingDate: string;
+  sdrRate: number;
+  goldBuying: number;
+  silverBuying: number;
+}
+
 /**
  * Current BSP reference rate for USD to PHP.
  */
@@ -161,6 +172,11 @@ export const currentRate: ExchangeRateEntry = {
 };
 
 /**
+ * Additional BSP rate details (buying, selling, PDS, SDR, gold, silver).
+ */
+${bspDetails}
+
+/**
  * Historical BSP reference rates for the last 7 business days.
  */
 export const historicalRates: ExchangeRateEntry[] = [
@@ -169,6 +185,22 @@ ${historicalLines}
 
 ${faqs}
 `;
+}
+
+function extractBspDetails(content) {
+  const match = content.match(
+    /(export const bspRateDetails[\s\S]*?};)/
+  );
+  return match ? match[1] : `export const bspRateDetails: BSPRateDetails = {
+  buyingRate: 0,
+  sellingRate: 0,
+  referenceRate: 0,
+  pdsClosingRate: 0,
+  pdsClosingDate: "",
+  sdrRate: 0,
+  goldBuying: 0,
+  silverBuying: 0,
+};`;
 }
 
 function extractFaqs(content) {
@@ -221,6 +253,7 @@ async function main() {
   const content = readFileSync(DATA_FILE, "utf-8");
   const previousRate = extractCurrentRate(content);
   const historicalRates = extractHistoricalRates(content);
+  const bspDetails = extractBspDetails(content);
   const faqs = extractFaqs(content);
 
   // Check if already updated today
@@ -263,6 +296,7 @@ async function main() {
     newRate,
     change,
     newHistorical,
+    bspDetails,
     faqs
   );
 
