@@ -10,20 +10,45 @@ export interface ExchangeRateEntry {
   change: number;
 }
 
+export interface BSPRateDetails {
+  buyingRate: number;
+  sellingRate: number;
+  referenceRate: number;
+  pdsClosingRate: number;
+  pdsClosingDate: string;
+  sdrRate: number;
+  goldBuying: number;
+  silverBuying: number;
+}
+
 /**
  * Current BSP reference rate for USD to PHP.
  */
 export const currentRate: ExchangeRateEntry = {
   date: "2026-03-27",
   rate: 60.25,
-  change: 0.15,
+  change: 0,
+};
+
+/**
+ * Additional BSP rate details (buying, selling, PDS, SDR, gold, silver).
+ */
+export const bspRateDetails: BSPRateDetails = {
+  buyingRate: 0,
+  sellingRate: 0,
+  referenceRate: 0,
+  pdsClosingRate: 0,
+  pdsClosingDate: "",
+  sdrRate: 0,
+  goldBuying: 0,
+  silverBuying: 0,
 };
 
 /**
  * Historical BSP reference rates for the last 7 business days.
  */
 export const historicalRates: ExchangeRateEntry[] = [
-  { date: "2026-03-27", rate: 60.25, change: 0.15 },
+  { date: "2026-03-27", rate: 60.25, change: 0 },
 ];
 
 export const exchangeRateFaqs: FAQ[] = [
