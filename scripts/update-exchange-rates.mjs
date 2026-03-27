@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
 /**
- * Fetches the latest USD/PHP exchange rate from BSP's Daily Reference
- * Exchange Rate Bulletin (RERB) PDF and updates the data file.
+ * Fetches the latest USD/PHP exchange rate data from BSP and updates
+ * src/data/rates/exchange-rates.ts using targeted find-and-replace.
  *
- * IMPORTANT: This script uses targeted find-and-replace to update only
- * the values it manages (currentRate, historicalRates, USD_PHP_UPDATED_AT).
- * It never regenerates the full file, so manually added exports (like
- * bspRateDetails, interfaces, FAQs) are always preserved.
+ * Two independent data pipelines (either can fail without blocking the other):
+ *  1. RERB PDF  → currentRate, historicalRates, USD_PHP_UPDATED_AT
+ *  2. Exchange Rate API (Group 3) → bspRateDetails (buying, selling, PDS, SDR, gold, silver)
  *
- * Source: https://www.bsp.gov.ph/SitePages/Statistics/DailyRERB.aspx
+ * Source: https://www.bsp.gov.ph/SitePages/Statistics/ExchangeRate.aspx
  */
 
 import { readFileSync, writeFileSync } from "fs";
@@ -25,7 +24,10 @@ const DATA_FILE = resolve(
 
 const BSP_API_BASE =
   "https://www.bsp.gov.ph/_api/web/lists/getbytitle('RERB')/items";
+const BSP_EXCHANGE_RATE_API =
+  "https://www.bsp.gov.ph/_api/web/lists/getbytitle('Exchange Rate')/items";
 const BSP_BASE_URL = "https://www.bsp.gov.ph";
+const FETCH_TIMEOUT = 15_000;
 
 // ── Date helpers ──────────────────────────────────────────────────
 
@@ -51,12 +53,39 @@ function formatBSPDate(dateStr) {
   return `${d}${months[parseInt(m) - 1]}${y}`;
 }
 
-// ── BSP PDF fetching ──────────────────────────────────────────────
+const MONTH_MAP = {
+  Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06",
+  Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12",
+};
+
+function parseBspDate(bspDateStr) {
+  const match = bspDateStr.match(/(\d{2})-([A-Za-z]{3})-(\d{4})/);
+  if (!match) return null;
+  const [, day, monthStr, year] = match;
+  const month = MONTH_MAP[monthStr.charAt(0).toUpperCase() + monthStr.slice(1).toLowerCase()];
+  if (!month) return null;
+  return `${year}-${month}-${day}`;
+}
+
+// ── Number parsing ────────────────────────────────────────────────
+
+function parseFormattedNumber(value) {
+  if (typeof value === "number") return value;
+  const cleaned = String(value)
+    .replace(/,/g, "")
+    .replace(/\s*\/SDR\s*$/i, "")
+    .trim();
+  const num = parseFloat(cleaned);
+  return isNaN(num) ? null : num;
+}
+
+// ── BSP RERB PDF fetching (Pipeline 1) ───────────────────────────
 
 async function fetchPdfUrl(bspDate) {
   const url = `${BSP_API_BASE}?$filter=Title%20eq%20'${bspDate}'&$expand=AttachmentFiles&$top=1`;
   const res = await fetch(url, {
     headers: { Accept: "application/json;odata=verbose" },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT),
   });
 
   if (!res.ok) {
@@ -79,7 +108,9 @@ async function fetchPdfUrl(bspDate) {
 }
 
 async function downloadAndParsePdf(pdfUrl) {
-  const res = await fetch(pdfUrl);
+  const res = await fetch(pdfUrl, {
+    signal: AbortSignal.timeout(FETCH_TIMEOUT),
+  });
   if (!res.ok) {
     throw new Error(`PDF download failed: ${res.status} ${res.statusText}`);
   }
@@ -105,21 +136,137 @@ async function fetchRate() {
   const today = getTodayDate();
   const bspDate = formatBSPDate(today);
 
-  console.log(`Querying BSP RERB for ${bspDate}...`);
+  console.log(`[RERB] Querying BSP RERB for ${bspDate}...`);
 
   const pdfUrl = await fetchPdfUrl(bspDate);
   if (!pdfUrl) {
-    console.log(`No RERB published for ${bspDate} (possible holiday).`);
+    console.log(`[RERB] No RERB published for ${bspDate} (possible holiday).`);
     return null;
   }
 
-  console.log(`Downloading PDF: ${pdfUrl}`);
+  console.log(`[RERB] Downloading PDF: ${pdfUrl}`);
   const pdfText = await downloadAndParsePdf(pdfUrl);
 
   const rate = extractBSPReferenceRate(pdfText);
-  console.log(`Extracted BSP Reference Rate: ${rate} PHP/USD`);
+  console.log(`[RERB] Extracted BSP Reference Rate: ${rate} PHP/USD`);
 
   return Math.round(rate * 100) / 100;
+}
+
+// ── BSP Exchange Rate API fetching (Pipeline 2) ──────────────────
+
+function parseBspRateItems(items) {
+  const details = {
+    buyingRate: null,
+    sellingRate: null,
+    referenceRate: null,
+    pdsClosingRate: null,
+    pdsClosingDate: null,
+    sdrRate: null,
+    goldBuying: null,
+    silverBuying: null,
+  };
+
+  for (const item of items) {
+    const unit = item.Unit || "";
+    const value = item.PHPequivalent;
+
+    if (unit.includes("Buying Rate")) {
+      details.buyingRate = parseFormattedNumber(value);
+    } else if (unit.includes("Selling Rate")) {
+      details.sellingRate = parseFormattedNumber(value);
+    } else if (unit.includes("Reference Rate")) {
+      details.referenceRate = parseFormattedNumber(value);
+    } else if (unit.includes("PDS Closing")) {
+      details.pdsClosingRate = parseFormattedNumber(value);
+      const dateMatch = unit.match(/\((\d{2}-[A-Za-z]{3}-\d{4})\)/);
+      if (dateMatch) {
+        details.pdsClosingDate = parseBspDate(dateMatch[1]);
+      }
+    } else if (unit.toUpperCase().includes("SDR")) {
+      details.sdrRate = parseFormattedNumber(value);
+    } else if (unit.toUpperCase().includes("GOLD")) {
+      details.goldBuying = parseFormattedNumber(value);
+    } else if (unit.toUpperCase().includes("SILVER")) {
+      details.silverBuying = parseFormattedNumber(value);
+    }
+  }
+
+  return details;
+}
+
+function validateBspRateDetails(details) {
+  const checks = [
+    [details.buyingRate, "buyingRate", 30, 100],
+    [details.sellingRate, "sellingRate", 30, 100],
+    [details.referenceRate, "referenceRate", 30, 100],
+    [details.pdsClosingRate, "pdsClosingRate", 30, 100],
+    [details.sdrRate, "sdrRate", 0.5, 3.0],
+    [details.goldBuying, "goldBuying", 500, 15000],
+    [details.silverBuying, "silverBuying", 5, 200],
+  ];
+
+  for (const [value, name, min, max] of checks) {
+    if (value === null || value === undefined) {
+      console.warn(`[ExRate] Validation failed: ${name} is null`);
+      return false;
+    }
+    if (value < min || value > max) {
+      console.warn(`[ExRate] Validation failed: ${name}=${value} outside range [${min}, ${max}]`);
+      return false;
+    }
+  }
+
+  if (details.pdsClosingDate === null || !/^\d{4}-\d{2}-\d{2}$/.test(details.pdsClosingDate)) {
+    console.warn(`[ExRate] Validation failed: pdsClosingDate is invalid: ${details.pdsClosingDate}`);
+    return false;
+  }
+
+  if (details.buyingRate >= details.sellingRate) {
+    console.warn(`[ExRate] Validation failed: buyingRate (${details.buyingRate}) >= sellingRate (${details.sellingRate})`);
+    return false;
+  }
+
+  return true;
+}
+
+async function fetchBspRateDetails() {
+  const params = new URLSearchParams({
+    $filter: "Group eq '3'",
+    $select: "Title,Unit,Symbol,PHPequivalent,PublishedDate",
+    $orderby: "Ordering asc",
+  });
+
+  const url = `${BSP_EXCHANGE_RATE_API}?${params}`;
+  console.log("[ExRate] Fetching BSP Exchange Rate details...");
+
+  const res = await fetch(url, {
+    headers: { Accept: "application/json;odata=verbose" },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT),
+  });
+
+  if (!res.ok) {
+    throw new Error(`Exchange Rate API returned ${res.status}: ${res.statusText}`);
+  }
+
+  const data = await res.json();
+  const items = data.d?.results;
+
+  if (!items || items.length === 0) {
+    throw new Error("Exchange Rate API returned no Group 3 items");
+  }
+
+  console.log(`[ExRate] Received ${items.length} Group 3 items`);
+
+  const details = parseBspRateItems(items);
+
+  if (!validateBspRateDetails(details)) {
+    throw new Error("BSP rate details failed validation (see warnings above)");
+  }
+
+  console.log(`[ExRate] Parsed: buying=${details.buyingRate}, selling=${details.sellingRate}, ref=${details.referenceRate}, PDS=${details.pdsClosingRate} (${details.pdsClosingDate}), SDR=${details.sdrRate}, gold=${details.goldBuying}, silver=${details.silverBuying}`);
+
+  return details;
 }
 
 // ── Targeted update helpers ──────────────────────────────────────
@@ -165,21 +312,17 @@ function replaceInFile(content, pattern, replacement) {
 }
 
 /**
- * Apply targeted updates to the data file.
- * Only touches: USD_PHP_UPDATED_AT, currentRate, historicalRates.
- * Everything else (interfaces, bspRateDetails, FAQs, etc.) is untouched.
+ * Apply targeted updates for currentRate, historicalRates, USD_PHP_UPDATED_AT.
  */
-function applyUpdates(content, today, newRate, change, newHistorical) {
+function applyRateUpdates(content, today, newRate, change, newHistorical) {
   let updated = content;
 
-  // 1. Update USD_PHP_UPDATED_AT
   updated = replaceInFile(
     updated,
     /export const USD_PHP_UPDATED_AT = "[^"]+"/,
     `export const USD_PHP_UPDATED_AT = "${today}"`
   );
 
-  // 2. Update currentRate object
   const newCurrentRate = `export const currentRate: ExchangeRateEntry = {
   date: "${today}",
   rate: ${newRate},
@@ -191,7 +334,6 @@ function applyUpdates(content, today, newRate, change, newHistorical) {
     newCurrentRate
   );
 
-  // 3. Update historicalRates array
   const historicalLines = newHistorical
     .map(
       (r) =>
@@ -209,10 +351,31 @@ function applyUpdates(content, today, newRate, change, newHistorical) {
   return updated;
 }
 
+/**
+ * Apply targeted update for bspRateDetails.
+ */
+function applyBspRateDetailsUpdate(content, details) {
+  const newBlock = `export const bspRateDetails: BSPRateDetails = {
+  buyingRate: ${details.buyingRate},
+  sellingRate: ${details.sellingRate},
+  referenceRate: ${details.referenceRate},
+  pdsClosingRate: ${details.pdsClosingRate},
+  pdsClosingDate: "${details.pdsClosingDate}",
+  sdrRate: ${details.sdrRate},
+  goldBuying: ${details.goldBuying},
+  silverBuying: ${details.silverBuying},
+}`;
+
+  return replaceInFile(
+    content,
+    /export const bspRateDetails: BSPRateDetails = \{[^}]+\}/,
+    newBlock
+  );
+}
+
 // ── Main ──────────────────────────────────────────────────────────
 
 async function main() {
-  // Skip weekends — BSP doesn't publish rates
   if (isWeekend()) {
     console.log("Skipping: weekend (no BSP rate published).");
     process.exit(0);
@@ -231,41 +394,60 @@ async function main() {
     process.exit(0);
   }
 
-  // Fetch new rate from BSP
-  let newRate;
-  try {
-    newRate = await fetchRate();
-  } catch (err) {
-    console.error(`Failed to fetch rate from BSP: ${err.message}`);
-    process.exit(1);
+  // Fetch both data sources concurrently (independent pipelines)
+  const [rateResult, detailsResult] = await Promise.allSettled([
+    fetchRate(),
+    fetchBspRateDetails(),
+  ]);
+
+  const newRate = rateResult.status === "fulfilled" ? rateResult.value : null;
+  const bspDetails = detailsResult.status === "fulfilled" ? detailsResult.value : null;
+
+  if (rateResult.status === "rejected") {
+    console.error(`[RERB] Failed: ${rateResult.reason.message}`);
+  }
+  if (detailsResult.status === "rejected") {
+    console.error(`[ExRate] Failed: ${detailsResult.reason.message}`);
   }
 
-  // No RERB published (holiday) — skip gracefully
-  if (newRate === null) {
+  // If both pipelines failed or returned no data, exit
+  if (newRate === null && bspDetails === null) {
+    if (rateResult.status === "rejected" || detailsResult.status === "rejected") {
+      console.error("Both data pipelines failed. Exiting with error.");
+      process.exit(1);
+    }
+    console.log("No new data available (possible holiday). Skipping.");
     process.exit(0);
   }
 
-  console.log(`Fetched USD/PHP rate: ${newRate} (previous: ${previousRate})`);
+  let updated = content;
 
-  // Calculate change
-  const change =
-    previousRate !== null
-      ? Math.round((newRate - previousRate) * 100) / 100
-      : 0;
+  // Pipeline 1: Update reference rate + historical rates
+  if (newRate !== null) {
+    console.log(`Fetched USD/PHP rate: ${newRate} (previous: ${previousRate})`);
 
-  // Build new historical rates: prepend today, keep last 7
-  const newHistorical = [
-    { date: today, rate: newRate, change },
-    ...historicalRates,
-  ].slice(0, 7);
+    const change =
+      previousRate !== null
+        ? Math.round((newRate - previousRate) * 100) / 100
+        : 0;
 
-  // Apply targeted updates (preserves everything else in the file)
-  const newContent = applyUpdates(content, today, newRate, change, newHistorical);
+    const newHistorical = [
+      { date: today, rate: newRate, change },
+      ...historicalRates,
+    ].slice(0, 7);
 
-  writeFileSync(DATA_FILE, newContent, "utf-8");
-  console.log(
-    `Updated exchange-rates.ts: ${newRate} PHP/USD (change: ${change >= 0 ? "+" : ""}${change})`
-  );
+    updated = applyRateUpdates(updated, today, newRate, change, newHistorical);
+    console.log(`[RERB] Applied: ${newRate} PHP/USD (change: ${change >= 0 ? "+" : ""}${change})`);
+  }
+
+  // Pipeline 2: Update BSP rate details
+  if (bspDetails !== null) {
+    updated = applyBspRateDetailsUpdate(updated, bspDetails);
+    console.log("[ExRate] Applied: bspRateDetails updated");
+  }
+
+  writeFileSync(DATA_FILE, updated, "utf-8");
+  console.log("exchange-rates.ts updated successfully.");
 }
 
 main();
