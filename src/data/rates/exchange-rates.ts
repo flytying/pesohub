@@ -27,7 +27,7 @@ export interface BSPRateDetails {
 export const currentRate: ExchangeRateEntry = {
   date: "2026-03-31",
   rate: 60.7,
-  change: 0.15,
+  change: 0.31,
 };
 
 /**
@@ -48,7 +48,13 @@ export const bspRateDetails: BSPRateDetails = {
  * Historical BSP reference rates for the last 7 business days.
  */
 export const historicalRates: ExchangeRateEntry[] = [
-  { date: "2026-03-31", rate: 60.7, change: 0.15 },
+  { date: "2026-03-31", rate: 60.7, change: 0.31 },
+  { date: "2026-03-30", rate: 60.39, change: 0.17 },
+  { date: "2026-03-27", rate: 60.22, change: 0.21 },
+  { date: "2026-03-26", rate: 60.01, change: 0.08 },
+  { date: "2026-03-25", rate: 59.93, change: -0.33 },
+  { date: "2026-03-24", rate: 60.26, change: 0.13 },
+  { date: "2026-03-23", rate: 60.13, change: 0.57 },
 ];
 
 export const exchangeRateFaqs: FAQ[] = [
