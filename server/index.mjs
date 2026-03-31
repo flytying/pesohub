@@ -31,6 +31,7 @@ if (!RESEND_API_KEY) {
 // CORS
 const allowedOrigins = [
   ALLOWED_ORIGIN,
+  "https://www.pesohub.ph",
   "https://pesohub.pages.dev",
   "http://localhost:3000",
 ];
