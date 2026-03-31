@@ -4,4 +4,4 @@ export const SITE_DESCRIPTION =
   "Compare rates, estimate payments, and understand key money topics in the Philippines in plain language.";
 export const SITE_TAGLINE = "Practical Money Tools for Filipinos";
 export const EMAIL_API_URL =
-  process.env.NEXT_PUBLIC_EMAIL_API_URL || "https://pesohub.ph/api";
+  process.env.NEXT_PUBLIC_EMAIL_API_URL || "https://pesohub-email-api.onrender.com";
