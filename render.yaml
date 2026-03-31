@@ -1,0 +1,24 @@
+# Render Blueprint — PesoHub Email API
+# Deploy from the /server directory only
+# Free tier: 750 hours/month, auto-sleep after 15 min idle
+
+services:
+  - type: web
+    name: pesohub-email-api
+    runtime: node
+    region: singapore
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node index.mjs
+    envVars:
+      - key: RESEND_API_KEY
+        sync: false
+      - key: FROM_EMAIL
+        value: noreply@pesohub.ph
+      - key: TO_EMAIL
+        value: hello@pesohub.ph
+      - key: ALLOWED_ORIGIN
+        value: https://pesohub.ph
+      - key: PORT
+        value: "10000"

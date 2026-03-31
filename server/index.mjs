@@ -35,10 +35,18 @@ const allowedOrigins = [
   "http://localhost:3000",
 ];
 
+// Allow Vercel preview deployments (*.vercel.app)
+function isAllowedOrigin(origin) {
+  if (!origin) return true;
+  if (allowedOrigins.includes(origin)) return true;
+  if (/^https:\/\/[\w-]+-[\w-]+\.vercel\.app$/.test(origin)) return true;
+  return false;
+}
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (isAllowedOrigin(origin)) {
         callback(null, true);
       } else {
         callback(null, ALLOWED_ORIGIN);
