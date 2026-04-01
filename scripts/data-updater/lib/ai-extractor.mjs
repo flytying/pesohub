@@ -3,10 +3,11 @@
 /**
  * Tavily Search-based structured data extraction.
  * Uses Tavily's AI-powered search (includeAnswer) to extract structured data
- * from page content, eliminating the need for a separate LLM API key.
+ * from source domains, eliminating the need for a separate LLM API key.
  *
- * The page text (already fetched via Tavily Extract) is embedded in the search
- * query context, and Tavily's AI generates a structured JSON answer.
+ * A short query (under 400 chars, per Tavily API limit) is sent with
+ * includeDomains to restrict results to the source site. Tavily's AI
+ * generates a structured JSON answer from its own search results.
  */
 
 import { tavily } from "@tavily/core";
@@ -29,20 +30,21 @@ function getClient() {
 
 /**
  * Build a search query that instructs Tavily's AI to extract structured data.
+ * Query must stay under 400 characters (Tavily API limit).
+ * Page text is NOT embedded — Tavily searches the domain directly via includeDomains.
  */
-function buildExtractionQuery({ extractionPrompt, schema, pageText }) {
+function buildExtractionQuery({ extractionPrompt, schema }) {
   const schemaFields = Object.keys(schema.properties || {}).join(", ");
+  const query = `${extractionPrompt} Return JSON: { ${schemaFields} }`;
 
-  // Truncate page text to fit in search context (keep under 15K chars for reliability)
-  const truncatedText = pageText.slice(0, 15_000);
+  if (query.length > 400) {
+    console.warn(
+      `⚠ Query is ${query.length} chars (limit 400). Truncating to extractionPrompt only.`
+    );
+    return extractionPrompt.slice(0, 400);
+  }
 
-  return `${extractionPrompt}
-
-Return the answer as valid JSON matching this structure: { ${schemaFields} }
-
-Here is the page content to extract data from:
-
-${truncatedText}`;
+  return query;
 }
 
 /**
@@ -103,7 +105,7 @@ export async function extractStructuredData({
 }) {
   const tvly = getClient();
 
-  const query = buildExtractionQuery({ extractionPrompt, schema, pageText });
+  const query = buildExtractionQuery({ extractionPrompt, schema });
 
   // Use Tavily search with AI answer generation, restricted to the source domain
   const domain = new URL(sourceUrl).hostname;

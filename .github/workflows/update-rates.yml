@@ -47,9 +47,4 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
-  # Trigger deploy if rates were updated
-  deploy:
-    needs: update-rates
-    if: needs.update-rates.outputs.changed == 'true'
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
+  # No deploy step needed — Vercel auto-deploys on push to main
