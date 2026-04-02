@@ -236,38 +236,49 @@ export default function PagibigMp2SavingsGuidePage() {
           </p>
         </section>
 
-        {/* How to Enroll Through Employer */}
-        <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            How to Enroll in MP2 Through Your Employer
-          </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-            Enrolling through your employer is the most convenient way to start
-            MP2 because contributions are automatically deducted each payday.
-            Here are the steps:
-          </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2">
-            {mp2EnrollmentSteps.map((item) => (
-              <div
-                key={item.step}
-                className="rounded-xl border border-gray-200 bg-white p-6"
-              >
-                <div className="flex size-8 items-center justify-center rounded-full bg-brand/10 text-[14px] font-bold text-brand">
-                  {item.step}
-                </div>
-                <h3 className="mt-3 text-[16px] font-semibold text-gray-500">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-[14px] leading-[20px] text-gray-400">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
+      </div>
 
+      {/* How to Enroll Through Employer */}
+      <section className="bg-surface-tertiary py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
+            <div>
+              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+                How to Enroll in MP2 Through Your Employer
+              </h2>
+              <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
+                Enrolling through your employer is the most convenient way to
+                start MP2 because contributions are automatically deducted each
+                payday.
+              </p>
+            </div>
+            <div className="grid gap-5">
+              {mp2EnrollmentSteps.map((item) => (
+                <div
+                  key={item.step}
+                  className="flex gap-5 rounded-xl bg-white p-6"
+                >
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand/10 text-[14px] font-bold text-brand">
+                    {item.step}
+                  </div>
+                  <div>
+                    <h3 className="text-[16px] font-semibold text-gray-500">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1 text-[14px] leading-[20px] text-gray-400">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* How to Contribute Without an Employer */}
-        <section className="mt-16">
+        <section>
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How to Contribute to MP2 Without an Employer
           </h2>
