@@ -24,6 +24,7 @@ const sourceModules = {
   "sss-pension": () => import("./sources/sss-pension.mjs"),
   "pagibig-housing": () => import("./sources/pagibig-housing.mjs"),
   "pagibig-contribution": () => import("./sources/pagibig-contribution.mjs"),
+  "pagibig-mp2": () => import("./sources/pagibig-mp2.mjs"),
   "philhealth": () => import("./sources/philhealth.mjs"),
   "withholding-tax": () => import("./sources/withholding-tax.mjs"),
 };

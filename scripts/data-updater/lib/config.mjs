@@ -290,6 +290,41 @@ export const pagibigContributionConfig = {
   },
 };
 
+export const pagibigMp2Config = {
+  name: "Pag-IBIG MP2 Savings Program",
+  dataFile: "src/data/government/pag-ibig-mp2.ts",
+  updatedAtExport: "PAGIBIG_MP2_UPDATED_AT",
+  urls: ["https://www.pagibigfund.gov.ph/MP2.html"],
+  extractionPrompt:
+    "Extract Pag-IBIG MP2 savings program details from this Philippine government webpage. Return the minimum monthly contribution, maturity period in years, latest annual dividend rate and its year, whether dividends are tax-exempt, and any recent program changes.",
+  schema: {
+    type: "object",
+    properties: {
+      minimumContribution: {
+        type: "number",
+        description: "Minimum monthly contribution in pesos (e.g., 500)",
+      },
+      maturityYears: {
+        type: "number",
+        description: "Lock-in period in years (e.g., 5)",
+      },
+      latestDividendRate: {
+        type: "number",
+        description: "Most recent annual dividend rate as a percentage (e.g., 5.61)",
+      },
+      latestDividendYear: {
+        type: "number",
+        description: "Year of the latest dividend rate (e.g., 2024)",
+      },
+      taxExempt: {
+        type: "boolean",
+        description: "Whether MP2 dividends are tax-exempt",
+      },
+    },
+    required: ["minimumContribution", "maturityYears", "latestDividendRate", "latestDividendYear"],
+  },
+};
+
 export const philhealthConfig = {
   name: "PhilHealth Contribution Table",
   dataFile: "src/data/government/philhealth.ts",
@@ -348,6 +383,7 @@ export const allSources = {
   "sss-pension": sssPensionConfig,
   "pagibig-housing": pagibigHousingConfig,
   "pagibig-contribution": pagibigContributionConfig,
+  "pagibig-mp2": pagibigMp2Config,
   "philhealth": philhealthConfig,
   "withholding-tax": withholdingTaxConfig,
 };
