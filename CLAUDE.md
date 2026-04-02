@@ -51,8 +51,7 @@ scripts/
     ├── lib/                   # Shared: fetcher, AI extractor, validator, etc.
     └── sources/               # Per-source scripts (bank rates, gov data)
 .github/workflows/
-├── deploy.yml                 # Build & deploy to DigitalOcean
-├── update-rates.yml           # Daily rate update + deploy
+├── update-rates.yml           # Daily exchange rate update
 ├── update-bank-rates.yml      # Biweekly bank rate scraping (Tavily AI)
 ├── update-government-data.yml # Monthly gov data check (Tavily AI)
 └── content-freshness.yml      # Weekly YMYL content check
@@ -66,24 +65,51 @@ npm run build    # Build static site to out/
 npm run lint     # ESLint
 ```
 
-## Deployment & Automation
+## Hosting & Deployment
 
-See [docs/deployment-and-automation.md](docs/deployment-and-automation.md) for:
-- DigitalOcean droplet deployment (nginx + Let's Encrypt SSL)
-- GitHub Actions auto-deploy on push to `main` (build → rsync to droplet)
-- GitHub Actions cron job for auto-updating exchange rates
-- Content freshness system (YMYL page review cadences and automated staleness checks)
-- DNS setup (Cloudflare DNS → DigitalOcean IP)
+- **Site:** [Vercel](https://vercel.com) (free tier) — auto-deploys on push to `main`
+- **Email API:** [Render](https://render.com) (free tier) — Express server at `pesohub-email-api.onrender.com`
+- **DNS:** Vercel DNS (nameservers: `ns1.vercel-dns.com`, `ns2.vercel-dns.com`)
+- **Email provider:** [Resend](https://resend.com) (free tier) — sends from `noreply@pesohub.ph`
+- **Email hosting:** dotPH free email (`hello@pesohub.ph`, webmail at `webmail.pesohub.ph`)
+- **Domain registrar:** dotPH (`pesohub.ph`)
+- **Repo:** github.com/flytying/pesohub (private)
+
+### DNS Records (Vercel DNS)
+
+| Type | Name | Value |
+|------|------|-------|
+| A | `mail` | `192.250.235.76` |
+| A | `webmail` | `192.250.235.76` |
+| MX | `@` | `mail.pesohub.ph` (priority 10) |
+| TXT | `send` | `v=spf1 include:amazonses.com ~all` |
+| MX | `send` | `feedback-smtp.ap-northeast-1.amazonses.com` (priority 10) |
+| TXT | `resend._domainkey` | DKIM key |
+| ALIAS | `*` | `cname.vercel-dns.com` (auto) |
+| ALIAS | `@` | Vercel deployment (auto) |
+
+### Vercel Config
+
+- **Framework:** `null` (static site — serves `out/` directory)
+- **Build command:** `npm run build`
+- **Output directory:** `out`
+- See `vercel.json` for headers and config
 
 ## Email API
 
-See [docs/email-api.md](docs/email-api.md) for the Express + Resend email API running on the DigitalOcean droplet (contact form and calculator result emails).
+- **Host:** Render (free tier, Singapore region)
+- **URL:** `https://pesohub-email-api.onrender.com`
+- **Source:** `server/index.mjs`
+- **Endpoints:** `POST /contact`, `POST /calculator`, `GET /health`
+- **CORS:** Allows `pesohub.ph`, `www.pesohub.ph`, `*.vercel.app`, `localhost:3000`
+- **Environment vars (Render dashboard):** `RESEND_API_KEY`, `FROM_EMAIL`, `TO_EMAIL`, `ALLOWED_ORIGIN`
+- See `render.yaml` for deployment blueprint
 
 ## Data Architecture
 
 All financial data lives in `/src/data/` as TypeScript files. No database, no API routes.
 
-- **Exchange rates** (`rates/exchange-rates.ts`): Auto-updated daily via cron (open.er-api.com)
+- **Exchange rates** (`rates/exchange-rates.ts`): Auto-updated daily via cron (BSP RERB API + BSP Exchange Rate API)
 - **Bank rates** (`rates/savings-rates.ts`, `digital-bank-rates.ts`, `time-deposit-rates.ts`): Auto-scraped biweekly via data-updater agent (Tavily AI), creates PRs for review
 - **Government data** (`government/`): SSS, Pag-IBIG, PhilHealth, BIR — auto-checked monthly via data-updater agent, creates PRs when changes detected
 - **Calculator logic** lives in `/src/lib/calculators/` as pure functions (no side effects)
@@ -91,9 +117,13 @@ All financial data lives in `/src/data/` as TypeScript files. No database, no AP
 ## Brand
 
 - **Primary color:** #093CB5
-- **Logo:** `/public/pesohub-logo.svg` (horizontal with text)
-- **Symbol:** `/public/pesohub-symbol.svg` (standalone P icon)
-- **Dark background:** Used for hero sections and cards
+- **Accent Cyan:** #00D2D8
+- **Accent Orange:** #E57300
+- **Font:** Public Sans (400, 500, 600)
+- **Logo:** `/public/pesohub-logo.png` (horizontal with text, dark bg variant: `logo-pesohub-dark.png`)
+- **Favicon:** `/src/app/favicon.ico` + `/src/app/icon.png` (P symbol)
+- **Surfaces:** Primary #FFFFFF, Secondary #EDEEFF, Tertiary #F5F6FF, Quaternary #FCFDFF
+- **Design docs:** See `docs/design-system.md` for full design token reference
 
 ## Automated Data Updater
 

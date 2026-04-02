@@ -1,15 +1,15 @@
-# Email API (Express + Resend on DigitalOcean)
+# Email API (Express + Resend on Render)
 
 ## Overview
 
-Email functionality is handled by an Express server running on the same DigitalOcean droplet as the static site. Nginx proxies `/api/` requests to the Express server, which calls the Resend API to send emails.
+Email functionality is handled by an Express server hosted on Render (free tier). The static site on Vercel sends POST requests directly to the Render API, which calls Resend to deliver emails.
 
 ## Architecture
 
 ```
-Browser (pesohub.ph)
-  → POST to /api/contact or /api/calculator
-    → nginx reverse proxy → Express (port 3001)
+Browser (pesohub.ph on Vercel)
+  → POST to pesohub-email-api.onrender.com/contact or /calculator
+    → Express server (Render, free tier)
       → Resend API (api.resend.com)
         → Email delivered
 ```
@@ -18,19 +18,19 @@ Browser (pesohub.ph)
 
 | Endpoint | Purpose | Sends to |
 |----------|---------|----------|
-| `POST /api/contact` | Contact form submissions | hello@pesohub.ph |
-| `POST /api/calculator` | Calculator results to user | User's email |
-| `GET /api/health` | Health check | — |
+| `POST /contact` | Contact form submissions | hello@pesohub.ph |
+| `POST /calculator` | Calculator results to user | User's email |
+| `GET /health` | Health check | — |
 
 ## Server Details
 
-- **Location:** `/opt/pesohub-api/` on the droplet
-- **Source:** `server/index.mjs` (in repo)
-- **Process manager:** PM2 (`pesohub-api`)
-- **Port:** 3001 (proxied via nginx at `/api/`)
-- **Node.js:** 20.x
+- **Host:** Render (free tier, Singapore region)
+- **URL:** https://pesohub-email-api.onrender.com
+- **Source:** `server/index.mjs` (in repo root)
+- **Blueprint:** `render.yaml`
+- **Note:** Free tier spins down after 15 min inactivity. First request takes ~30s cold start.
 
-### Environment Variables (set via PM2)
+### Environment Variables (Render Dashboard)
 
 | Variable | Value |
 |----------|-------|
@@ -39,26 +39,13 @@ Browser (pesohub.ph)
 | `ALLOWED_ORIGIN` | `https://pesohub.ph` |
 | `RESEND_API_KEY` | Resend API key (secret) |
 
-## Email Provider: Resend
-
-- **Dashboard:** [resend.com](https://resend.com)
-- **Free tier:** 100 emails/day, 3,000 emails/month
-- **Domain:** `pesohub.ph` (verified)
-- **API key prefix:** `re_DnVL7xSH_...`
-
-### Required DNS Records (Cloudflare)
-
-| Type | Name | Content | Purpose |
-|------|------|---------|---------|
-| TXT | `send` | `v=spf1 include:amazonses.com ~all` | SPF for Resend |
-| MX | `send` | `feedback-smtp.ap-n...` (priority 10) | Resend bounce handling |
-| TXT | `resend._domainkey` | `p=MIGfMA0GCSqGSI...` | DKIM signing |
-
 ## CORS
 
 The server allows requests from:
 - `https://pesohub.ph` (production)
-- `https://pesohub.pages.dev` (staging)
+- `https://www.pesohub.ph` (production www)
+- `https://*.vercel.app` (Vercel preview deployments)
+- `https://pesohub.pages.dev` (legacy staging)
 - `http://localhost:3000` (development)
 
 ## Frontend Integration
@@ -67,7 +54,7 @@ The server allows requests from:
 
 ```typescript
 export const EMAIL_API_URL =
-  process.env.NEXT_PUBLIC_EMAIL_API_URL || "https://pesohub.ph/api";
+  process.env.NEXT_PUBLIC_EMAIL_API_URL || "https://pesohub-email-api.onrender.com";
 ```
 
 ### Contact Form (`src/app/contact/page.tsx`)
@@ -90,35 +77,25 @@ const res = await fetch(`${EMAIL_API_URL}/calculator`, {
 });
 ```
 
-## Managing the API on the Droplet
+## Email Provider: Resend
 
-```bash
-# SSH into droplet
-ssh root@157.230.246.39
+- **Dashboard:** [resend.com](https://resend.com)
+- **Free tier:** 100 emails/day, 3,000 emails/month
+- **Domain:** `pesohub.ph` (verified)
+- **Region:** Tokyo (ap-northeast-1)
 
-# Check status
-pm2 status
+### Required DNS Records (Vercel DNS)
 
-# View logs
-pm2 logs pesohub-api
-
-# Restart
-pm2 restart pesohub-api
-
-# Update API key
-pm2 delete pesohub-api
-RESEND_API_KEY="re_NEW_KEY" FROM_EMAIL="noreply@pesohub.ph" TO_EMAIL="hello@pesohub.ph" ALLOWED_ORIGIN="https://pesohub.ph" pm2 start /opt/pesohub-api/index.mjs --name pesohub-api
-pm2 save
-```
-
-## Auto-Deploy
-
-The deploy workflow (`.github/workflows/deploy.yml`) automatically syncs `server/` files to the droplet and restarts PM2 on every push to `main`.
+| Type | Name | Content | Purpose |
+|------|------|---------|---------|
+| TXT | `send` | `v=spf1 include:amazonses.com ~all` | SPF for Resend |
+| MX | `send` | `feedback-smtp.ap-northeast-1.amazonses.com` (10) | Resend bounce handling |
+| TXT | `resend._domainkey` | `p=MIGfMA0GCSqGSI...` | DKIM signing |
 
 ## Troubleshooting
 
-- **503 from /api/** — PM2 process crashed. Check `pm2 logs pesohub-api` and restart.
+- **Contact form shows "Failed to fetch"** — Render may be cold starting (wait 30s, retry). Or check CORS in `server/index.mjs`.
+- **Email sent but not received** — Check Resend dashboard for delivery status. Check MX record exists: `dig pesohub.ph MX`.
 - **403 "domain not verified"** — Verify domain at resend.com/domains, check DNS records.
-- **CORS errors** — Check Origin header matches allowed origins in `server/index.mjs`.
-- **Emails going to spam** — Ensure SPF, DKIM, and DMARC DNS records are properly configured.
-- **Health check:** `curl https://pesohub.ph/api/health`
+- **CORS errors** — Ensure Origin header matches allowed origins in `server/index.mjs`.
+- **Health check:** `curl https://pesohub-email-api.onrender.com/health`

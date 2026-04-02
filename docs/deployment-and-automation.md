@@ -1,104 +1,89 @@
 # Deployment & Automation
 
-## Deployment (DigitalOcean Droplet)
+## Hosting
 
-- **Host:** DigitalOcean droplet (Ubuntu, Singapore region, $6/mo)
-- **IP:** 157.230.246.39
-- **Domain:** pesohub.ph
-- **Staging URL:** pesohub.pages.dev (Cloudflare Pages, legacy backup)
-- **Repo:** github.com/flytying/pesohub (private)
-- **Web server:** nginx serving static files from `/var/www/pesohub/`
-- **SSL:** Let's Encrypt via Certbot (auto-renew)
-- **Auto-deploy:** Every push to `main` triggers GitHub Actions build + rsync to droplet
+### Site — Vercel (Free Tier)
 
-### DNS Records (Cloudflare DNS — DNS only, no proxy)
+- **URL:** https://pesohub.ph (also https://www.pesohub.ph)
+- **Preview URL:** https://pesohub-eight.vercel.app
+- **Framework:** `null` (static site — Vercel serves the `out/` directory)
+- **Build command:** `npm run build`
+- **Output directory:** `out`
+- **Auto-deploy:** Every push to `main` triggers a Vercel build and deploy
+- **Config:** `vercel.json`
 
-| Type  | Name        | Content              | Proxy    |
-|-------|-------------|----------------------|----------|
-| A     | pesohub.ph  | 157.230.246.39       | DNS only |
-| A     | mail        | 192.250.235.76       | DNS only |
-| A     | webmail     | 192.250.235.76       | DNS only |
-| MX    | pesohub.ph  | mail.pesohub.ph (10) | DNS only |
-| TXT   | _dmarc      | v=DMARC1; p=none...  | DNS only |
-| TXT   | pesohub.ph  | v=spf1 +mx +a...     | DNS only |
+### Email API — Render (Free Tier)
 
-### Cloudflare Account (DNS only)
+- **URL:** https://pesohub-email-api.onrender.com
+- **Source:** `server/index.mjs`
+- **Region:** Singapore
+- **Blueprint:** `render.yaml`
+- **Note:** Free tier spins down after 15 min of inactivity. First request may take ~30s to cold start.
 
-- **Account:** lottobot.ai's account
-- **Plan:** Free
-- **Workers subdomain:** round-dew-8ec5.workers.dev (still hosts email API)
-- **Note:** Cloudflare is used for DNS management only. Hosting moved to DigitalOcean due to persistent Pages custom domain DNS issues.
+### DNS — Vercel DNS
 
-### GitHub Actions Auto-Deploy
+- **Nameservers:** `ns1.vercel-dns.com`, `ns2.vercel-dns.com`
+- **Domain registrar:** dotPH (pesohub.ph)
 
-- **Workflow file:** `.github/workflows/deploy.yml`
-- **Trigger:** Push to `main` or manual dispatch
-- **Process:** `npm ci` → `npm run build` → rsync `out/` to droplet
-- **Secrets required:**
-  - `DEPLOY_SSH_KEY` — SSH private key (ed25519) for droplet access
-  - `DEPLOY_HOST` — Droplet IP address (157.230.246.39)
+| Type | Name | Value | Purpose |
+|------|------|-------|---------|
+| A | `mail` | `192.250.235.76` | dotPH mail server |
+| A | `webmail` | `192.250.235.76` | dotPH webmail |
+| MX | `@` | `mail.pesohub.ph` (priority 10) | Email delivery |
+| TXT | `send` | `v=spf1 include:amazonses.com ~all` | Resend SPF |
+| MX | `send` | `feedback-smtp.ap-northeast-1.amazonses.com` (10) | Resend bounce handling |
+| TXT | `resend._domainkey` | DKIM key | Resend DKIM |
+| ALIAS | `*` | `cname.vercel-dns.com` | Vercel (auto-managed) |
+| ALIAS | `@` | Vercel deployment | Vercel (auto-managed) |
 
-### Server Setup (DigitalOcean)
+### Email — dotPH Free Email + Resend
 
-```bash
-# SSH into droplet
-ssh root@157.230.246.39
-
-# Nginx config
-/etc/nginx/sites-available/pesohub
-
-# Static files
-/var/www/pesohub/
-
-# SSL certificate renewal
-sudo certbot renew --dry-run
-```
+- **Receiving:** dotPH free email (`hello@pesohub.ph`, webmail at `webmail.pesohub.ph`)
+- **Sending (transactional):** Resend (`noreply@pesohub.ph`)
+- **Resend dashboard:** https://resend.com
+- **Resend free tier:** 100 emails/day, 3,000 emails/month
 
 ---
 
 ## Automated Rate Updates (GitHub Actions Cron)
 
-### Overview
+### Exchange Rates (Daily)
 
-Exchange rates are auto-updated daily via a GitHub Actions cron job. The workflow fetches the latest USD/PHP rate, updates the data file, commits, and pushes — triggering a Cloudflare Pages auto-redeploy.
-
-### Configuration
-
-- **Workflow file:** `.github/workflows/update-rates.yml`
+- **Workflow:** `.github/workflows/update-rates.yml`
 - **Script:** `scripts/update-exchange-rates.mjs`
-- **Schedule:** Mon-Fri at 8:00 UTC (4:00 PM PHT), after BSP publishes daily rate
-- **API:** `open.er-api.com/v6/latest/USD` (free, no API key needed)
-- **Manual trigger:** Available via `workflow_dispatch` in GitHub Actions tab
+- **Schedule:** Mon-Fri at 1:00 UTC (9:00 AM PHT)
+- **Sources:** BSP RERB API (reference rate) + BSP Exchange Rate API (buying/selling/gold/silver)
+- **Manual trigger:** GitHub Actions → "Update Exchange Rates" → "Run workflow"
 
-### How It Works
+#### How It Works
 
-1. Cron triggers at 4 PM PHT (Mon-Fri)
-2. Script checks if it's a weekend → skips if so
-3. Script checks if already updated today → skips if so
-4. Fetches USD/PHP rate from open.er-api.com
-5. Calculates daily change from previous rate
-6. Updates `src/data/rates/exchange-rates.ts`:
-   - `currentRate` — new date, rate, change
-   - `historicalRates[]` — prepends new entry, keeps last 7 business days
-   - `USD_PHP_UPDATED_AT` — today's date
-7. Commits with message `chore: update USD/PHP exchange rate`
-8. Pushes to `main` → Cloudflare Pages auto-redeploys
+1. Cron triggers at 9 AM PHT (Mon-Fri)
+2. Fetches BSP RERB PDF for the reference rate
+3. Fetches BSP Exchange Rate API for buying/selling/gold/silver rates
+4. Updates `src/data/rates/exchange-rates.ts` using targeted find-and-replace (preserves FAQs and types)
+5. Commits and pushes → Vercel auto-deploys
 
-### Data Not Automated
+### Bank Rates (Biweekly)
 
-These data sources change infrequently and require manual verification:
+- **Workflow:** `.github/workflows/update-bank-rates.yml`
+- **Sources:** Savings rates, digital bank rates, time deposit rates
+- **Method:** Tavily Extract + AI Search (queries must be under 400 chars)
+- **Output:** Creates a PR for review (never auto-merges)
 
-- **Savings rates** (`src/data/rates/savings-rates.ts`) — bank promo rates change irregularly
-- **SSS contributions** (`src/data/government/sss-contribution.ts`) — updated by SSS annually
-- **Withholding tax tables** (`src/data/government/withholding-tax-table.ts`) — updated by BIR
-- **Pag-IBIG rates** (`src/data/government/pag-ibig-housing-loan.ts`) — updated by HDMF
+### Government Data (Monthly)
 
-### Troubleshooting
+- **Workflow:** `.github/workflows/update-government-data.yml`
+- **Sources:** SSS contribution/pension, Pag-IBIG contribution/housing, PhilHealth, withholding tax
+- **Method:** Tavily Extract + AI Search (queries must be under 400 chars)
+- **Output:** Creates a PR for review (never auto-merges)
 
-- **Workflow not running?** Check GitHub Actions tab for errors. Ensure the repo has Actions enabled.
-- **Rate not updating?** API may be down. Script exits with code 1 on API failure — no commit, no redeploy.
-- **Wrong rate?** The API provides market rates, not the exact BSP reference rate. Close but not identical.
-- **Manual trigger:** Go to repo → Actions → "Update Exchange Rates" → "Run workflow"
+### Required Secrets (GitHub)
+
+| Secret | Purpose |
+|--------|---------|
+| `TAVILY_API_KEY` | Tavily API for bank/gov data scraping |
+
+Note: `DEPLOY_SSH_KEY` and `DEPLOY_HOST` are no longer needed (DigitalOcean removed).
 
 ---
 
@@ -106,11 +91,9 @@ These data sources change infrequently and require manual verification:
 
 Every YMYL (Your Money or Your Life) page has a review cadence, source citation, and automated staleness checking.
 
-### Overview
-
-- **Registry:** `src/data/content-registry.ts` — central config tracking all 9 YMYL pages
-- **Component:** `src/components/shared/source-citation.tsx` — visible source/freshness box on every page
-- **Checker script:** `scripts/check-content-freshness.mjs` — flags overdue pages
+- **Registry:** `src/data/content-registry.ts`
+- **Component:** `src/components/shared/source-citation.tsx`
+- **Checker script:** `scripts/check-content-freshness.mjs`
 - **Cron:** `.github/workflows/content-freshness.yml` — runs weekly (Monday 9 AM PHT)
 
 ### Review Cadences
@@ -135,60 +118,27 @@ node scripts/check-content-freshness.mjs --json    # JSON for CI
 node scripts/check-content-freshness.mjs --github  # writes GitHub issue body
 ```
 
-### How It Works
-
-1. Cron runs every Monday at 9 AM PHT
-2. Script reads each data file's `UPDATED_AT` date
-3. Compares against the page's review cadence
-4. If any page is overdue → creates/updates a GitHub issue labeled `content-freshness`
-5. If all pages are fresh → auto-closes any open freshness issue
-
 ---
 
-## DNS & Domain Troubleshooting
+## Troubleshooting
 
-### pesohub.ph not accessible (common issue)
+### Site not loading
+- Check Vercel dashboard for build errors
+- Verify DNS: `dig pesohub.ph A` should return Vercel IPs
+- Preview URL always works: `pesohub-eight.vercel.app`
 
-This has happened multiple times. The site at `pesohub.pages.dev` always works — it's the custom domain DNS that breaks.
+### Email not working
+- Check MX record: `dig pesohub.ph MX` should return `mail.pesohub.ph`
+- Check mail IP: `dig mail.pesohub.ph A` should return `192.250.235.76`
+- Check Resend dashboard for delivery status
+- Render cold start: first request after inactivity takes ~30s
 
-### Quick Diagnosis
+### Exchange rate not updating
+- Check GitHub Actions tab for workflow errors
+- Manual trigger: Actions → "Update Exchange Rates" → "Run workflow"
+- BSP may not publish on holidays
 
-```bash
-# Check if Pages subdomain works (should always work)
-curl -sI https://pesohub.pages.dev | head -3
-
-# Check if custom domain resolves
-dig pesohub.ph @1.1.1.1 A +short
-
-# Check nameservers
-dig pesohub.ph NS +short
-# Should return: eric.ns.cloudflare.com and walk.ns.cloudflare.com
-
-# Query Cloudflare NS directly
-dig pesohub.ph @eric.ns.cloudflare.com A +short
-```
-
-### Fix: Re-provision the custom domain via Pages
-
-The most reliable fix when the CNAME exists in Cloudflare DNS but isn't resolving:
-
-1. **Delete** the CNAME record for `pesohub.ph` in Cloudflare DNS
-2. Wait 30 seconds
-3. Go to **Workers & Pages → pesohub → Custom domains**
-4. **Remove** `pesohub.ph`
-5. **Re-add** `pesohub.ph` — Pages will auto-create the correct CNAME
-6. Wait for status to show "Active" with "SSL enabled"
-7. Flush local DNS: `sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder`
-
-### Why This Happens
-
-Cloudflare Pages manages a special internal binding between the CNAME record and the Pages project. When the CNAME is manually added/deleted, this binding can break — the DNS dashboard shows the record, but the nameservers don't actually serve it. Letting Pages create the record itself ensures the binding is correct.
-
-### Local DNS Cache
-
-If the site works for others but not for you, it's a local DNS cache issue:
-
-```bash
-# macOS: flush DNS cache
-sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
-```
+### Bank/gov data workflow failing
+- Check Tavily API key is valid and has credits remaining
+- Tavily queries must be under 400 characters (API limit)
+- Source websites may be temporarily down
