@@ -111,7 +111,7 @@ All financial data lives in `/src/data/` as TypeScript files. No database, no AP
 
 - **Exchange rates** (`rates/exchange-rates.ts`): Auto-updated daily via cron (BSP RERB API + BSP Exchange Rate API)
 - **Bank rates** (`rates/savings-rates.ts`, `digital-bank-rates.ts`, `time-deposit-rates.ts`): Auto-scraped biweekly via data-updater agent (Tavily AI), creates PRs for review
-- **Government data** (`government/`): SSS, Pag-IBIG, PhilHealth, BIR — auto-checked monthly via data-updater agent, creates PRs when changes detected
+- **Government data** (`government/`): SSS, Pag-IBIG (contributions, housing loan, MP2), PhilHealth, BIR — auto-checked monthly via data-updater agent, creates PRs when changes detected
 - **Calculator logic** lives in `/src/lib/calculators/` as pure functions (no side effects)
 
 ## Brand
@@ -144,7 +144,7 @@ The data-updater agent (`scripts/data-updater/`) automatically scrapes financial
 TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources savings-rates,digital-rates,time-deposit-rates
 
 # Government data
-TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources sss-contribution,sss-pension,pagibig-housing,pagibig-contribution,philhealth,withholding-tax
+TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources sss-contribution,sss-pension,pagibig-housing,pagibig-contribution,pagibig-mp2,philhealth,withholding-tax
 
 # All sources
 TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources all
@@ -155,11 +155,27 @@ TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources all
 1. Add source config to `scripts/data-updater/lib/config.mjs`
 2. Create a source script in `scripts/data-updater/sources/`
 3. Register the source module in `run-update.mjs` sourceModules map
-4. Add the page to `src/data/content-registry.ts`
+4. Add the source to the appropriate GitHub workflow (`.github/workflows/`)
+5. Add the page to `src/data/content-registry.ts`
 
 ### Required Secrets (GitHub)
 
 - `TAVILY_API_KEY` — Tavily API for web extraction and AI-powered data parsing (free tier: 1,000 credits/month)
+
+## Adding a New Government Reference Page
+
+Follow this checklist when creating a new page under `/government/`:
+
+1. **Data file** (`src/data/government/[name].ts`): Export `UPDATED_AT`, meta object (`title`, `metaTitle`, `metaDescription`, `slug`, `directAnswer`), typed data arrays, and FAQ array
+2. **Page component** (`src/app/government/[agency]/[slug]/page.tsx`): Use `PageHero` (variant="dark"), `FaqSection`, `DisclaimerBox`, `SourceCitation`, `JsonLd` (breadcrumb + article schema), `GOVERNMENT_DISCLAIMER`
+3. **Navigation** (`src/data/navigation.ts`): Add to Government children
+4. **Content registry** (`src/data/content-registry.ts`): Add `ContentEntry` with review cadence and checklist
+5. **Government hub** (`src/app/government/page.tsx`): Add to `governmentPages` array
+6. **Internal links** (`src/lib/internal-links.ts`): Add to `ALL_PAGES` and `LINK_MAP`, update sibling entries
+7. **Sibling pages**: Add as related page link on relevant existing pages
+8. **Data updater** (optional): Add source config, source script, and register in workflow
+
+Card rules: On colored backgrounds (`surface-secondary`, `surface-tertiary`) use no border. On white backgrounds use `border border-gray-200`.
 
 ## Important Notes
 
