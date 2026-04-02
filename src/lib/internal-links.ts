@@ -110,6 +110,12 @@ export const ALL_PAGES: PageLink[] = [
     category: "government",
   },
   {
+    slug: "/government/pag-ibig/pag-ibig-mp2-savings-guide",
+    title: "Pag-IBIG MP2 Savings Guide",
+    description: "Learn how Pag-IBIG MP2 salary deduction works, enrollment steps, dividend rates, and how MP2 differs from regular contributions.",
+    category: "government",
+  },
+  {
     slug: "/government/philhealth/philhealth-contribution-table-philippines",
     title: "PhilHealth Contribution Table",
     description: "Current PhilHealth premium rate, salary floor, salary ceiling, employee and employer share.",
@@ -178,7 +184,7 @@ const LINK_MAP: Record<string, string[]> = {
   "/guides/government/pag-ibig-deduction-guide": [
     "/government/pag-ibig/pag-ibig-contribution-table-philippines",
     "/government/pag-ibig/pag-ibig-housing-loan-guide",
-    "/calculators/tax/take-home-pay-calculator-philippines",
+    "/government/pag-ibig/pag-ibig-mp2-savings-guide",
   ],
   "/guides/government/philhealth-contribution-guide": [
     "/government/philhealth/philhealth-contribution-table-philippines",
@@ -213,12 +219,17 @@ const LINK_MAP: Record<string, string[]> = {
   "/government/pag-ibig/pag-ibig-contribution-table-philippines": [
     "/calculators/tax/take-home-pay-calculator-philippines",
     "/government/pag-ibig/pag-ibig-housing-loan-guide",
-    "/government/philhealth/philhealth-contribution-table-philippines",
+    "/government/pag-ibig/pag-ibig-mp2-savings-guide",
   ],
   "/government/pag-ibig/pag-ibig-housing-loan-guide": [
     "/calculators/loans/home-loan-calculator-philippines",
     "/government/pag-ibig/pag-ibig-contribution-table-philippines",
-    "/government/sss/sss-contribution-guide",
+    "/government/pag-ibig/pag-ibig-mp2-savings-guide",
+  ],
+  "/government/pag-ibig/pag-ibig-mp2-savings-guide": [
+    "/government/pag-ibig/pag-ibig-contribution-table-philippines",
+    "/government/pag-ibig/pag-ibig-housing-loan-guide",
+    "/calculators/tax/take-home-pay-calculator-philippines",
   ],
   "/government/philhealth/philhealth-contribution-table-philippines": [
     "/calculators/tax/take-home-pay-calculator-philippines",

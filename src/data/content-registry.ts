@@ -203,6 +203,23 @@ export const contentRegistry: ContentEntry[] = [
     ],
   },
   {
+    slug: "government/pag-ibig/pag-ibig-mp2-savings-guide",
+    title: "Pag-IBIG MP2 Savings Guide",
+    dataFile: "src/data/government/pag-ibig-mp2.ts",
+    updatedAtExport: "PAGIBIG_MP2_UPDATED_AT",
+    source: "Pag-IBIG Fund (HDMF)",
+    sourceUrl: "https://www.pagibigfund.gov.ph/MP2.html",
+    reviewCadenceDays: 90,
+    category: "government",
+    staleness: "medium",
+    reviewChecklist: [
+      "Check if MP2 minimum contribution has changed",
+      "Verify latest dividend rate for the most recent year",
+      "Check for new Pag-IBIG circulars on MP2 program",
+      "Confirm enrollment and withdrawal rules are current",
+    ],
+  },
+  {
     slug: "government/philhealth/philhealth-contribution-table-philippines",
     title: "PhilHealth Contribution Table Philippines",
     dataFile: "src/data/government/philhealth.ts",

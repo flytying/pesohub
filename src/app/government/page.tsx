@@ -75,6 +75,14 @@ const governmentPages = [
     logo: "/logos/pagibig.png",
   },
   {
+    title: "Pag-IBIG MP2 Savings Guide",
+    description:
+      "Learn how the MP2 voluntary savings program works, including employer salary deduction, enrollment, dividend rates, and maturity rules.",
+    href: "/government/pag-ibig/pag-ibig-mp2-savings-guide",
+    category: "Pag-IBIG",
+    logo: "/logos/pagibig.png",
+  },
+  {
     title: "PhilHealth Contribution Table",
     description:
       "Check the current PhilHealth premium rate, salary floor, salary ceiling, employee share, employer share, and sample monthly payroll cuts.",

@@ -52,6 +52,7 @@ export const mainNavItems: NavItem[] = [
       { label: "BSP Exchange Rate Guide", href: "/government/bsp/bsp-exchange-rate-guide" },
       { label: "Pag-IBIG Contribution Table", href: "/government/pag-ibig/pag-ibig-contribution-table-philippines" },
       { label: "Pag-IBIG Housing Loan", href: "/government/pag-ibig/pag-ibig-housing-loan-guide" },
+      { label: "Pag-IBIG MP2 Savings", href: "/government/pag-ibig/pag-ibig-mp2-savings-guide" },
       { label: "PhilHealth Contribution Table", href: "/government/philhealth/philhealth-contribution-table-philippines" },
     ],
   },

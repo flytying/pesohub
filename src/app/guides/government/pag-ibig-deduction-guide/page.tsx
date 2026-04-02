@@ -6,6 +6,7 @@ import {
   Home,
   Shield,
   Landmark,
+  TrendingUp,
   Info,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
@@ -60,6 +61,11 @@ const relatedPages = [
     title: "Pag-IBIG Housing Loan Guide",
     href: "/government/pag-ibig/pag-ibig-housing-loan-guide",
     icon: Home,
+  },
+  {
+    title: "Pag-IBIG MP2 Savings Guide",
+    href: "/government/pag-ibig/pag-ibig-mp2-savings-guide",
+    icon: TrendingUp,
   },
   {
     title: "Take-Home Pay Calculator",

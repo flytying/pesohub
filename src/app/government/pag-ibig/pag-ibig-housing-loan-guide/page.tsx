@@ -8,6 +8,7 @@ import {
   FileText,
   Landmark,
   BarChart3,
+  TrendingUp,
   Info,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
@@ -64,6 +65,11 @@ const relatedPages = [
     title: "Take-Home Pay Calculator",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
     icon: Calculator,
+  },
+  {
+    title: "Pag-IBIG MP2 Savings Guide",
+    href: "/government/pag-ibig/pag-ibig-mp2-savings-guide",
+    icon: TrendingUp,
   },
   {
     title: "Government Hub",
