@@ -34,14 +34,14 @@ export const currentRate: ExchangeRateEntry = {
  * Additional BSP rate details (buying, selling, PDS, SDR, gold, silver).
  */
 export const bspRateDetails: BSPRateDetails = {
-  buyingRate: 60.5,
-  sellingRate: 61,
-  referenceRate: 60.75,
-  pdsClosingRate: 60.748,
-  pdsClosingDate: "2026-03-31",
-  sdrRate: 1.35639,
-  goldBuying: 4700.5,
-  silverBuying: 74.9,
+  buyingRate: 59.9,
+  sellingRate: 60.4,
+  referenceRate: 60.15,
+  pdsClosingRate: 60.16,
+  pdsClosingDate: "2026-04-01",
+  sdrRate: 1.35941,
+  goldBuying: 4620,
+  silverBuying: 72.05,
 };
 
 /**
