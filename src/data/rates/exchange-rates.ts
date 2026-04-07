@@ -49,6 +49,12 @@ export const bspRateDetails: BSPRateDetails = {
  */
 export const historicalRates: ExchangeRateEntry[] = [
   { date: "2026-04-07", rate: 60.05, change: -0.7 },
+  { date: "2026-04-01", rate: 60.75, change: 0.01 },
+  { date: "2026-03-31", rate: 60.74, change: 0.35 },
+  { date: "2026-03-30", rate: 60.39, change: 0.17 },
+  { date: "2026-03-27", rate: 60.22, change: 0.21 },
+  { date: "2026-03-26", rate: 60.01, change: 0.08 },
+  { date: "2026-03-25", rate: 59.93, change: -0.33 },
 ];
 
 export const exchangeRateFaqs: FAQ[] = [

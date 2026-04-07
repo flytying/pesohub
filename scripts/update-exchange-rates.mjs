@@ -284,7 +284,7 @@ function extractHistoricalRates(content) {
     /\{\s*date:\s*"([^"]+)",\s*rate:\s*([\d.]+),\s*change:\s*(-?[\d.]+)\s*\}/g;
 
   const histSection = content.match(
-    /export const historicalRates[\s\S]*?\[([^\]]*)\]/
+    /export const historicalRates:\s*ExchangeRateEntry\[\]\s*=\s*\[([^\]]*)\]/
   );
   if (!histSection) return rates;
 
