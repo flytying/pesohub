@@ -78,6 +78,16 @@ export const digitalBankRates: DigitalBankRate[] = [
 
 export const digitalBankFaqs: FAQ[] = [
   {
+    question: "What is a high yield savings account?",
+    answer:
+      "A high yield savings account (HYSA) is a savings account that offers a significantly higher interest rate than a traditional bank savings account. In the Philippines, most high yield savings accounts are offered by digital banks like Maya, Tonik, GoTyme, and SeaBank, which can offer rates of 5%–15% p.a. compared to the 0.10%–0.25% p.a. typical of traditional banks. These accounts are PDIC-insured up to ₱1,000,000 per depositor, per bank.",
+  },
+  {
+    question: "Which digital bank in the Philippines has the highest interest rate?",
+    answer:
+      "As of 2026, Maya offers the highest promotional savings rate among Philippine digital banks. For standard (non-promotional) rates, Tonik, GoTyme, and SeaBank are consistently among the highest at 5%–6% p.a. Promotional rates are subject to conditions and may change, so compare both the base rate and promo rate when choosing a digital bank.",
+  },
+  {
     question: "What is a digital bank in the Philippines?",
     answer:
       "BSP recognizes digital banks as a distinct bank classification in the Philippines. These banks operate primarily through apps and digital channels, with limited or no physical branches.",

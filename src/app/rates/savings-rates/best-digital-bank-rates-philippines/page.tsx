@@ -43,9 +43,9 @@ import {
 
 export const metadata = generatePageMetadata({
   title:
-    "Digital Banks Comparison Philippines – Rates, Transfers, Cards & Best Use Cases | PesoHub",
+    "Best Digital Banks Philippines 2026: High Yield Savings Accounts Compared | PesoHub",
   description:
-    "Compare digital banks in the Philippines by base rate, promo rate, transfers, card access, limits, and deposit insurance notes. Find the best fit for your use case.",
+    "Compare the best digital banks in the Philippines for 2026. Find high yield savings accounts with the highest interest rates, compare features, and discover which digital bank offers the best returns.",
   slug: "rates/savings-rates/best-digital-bank-rates-philippines",
   updatedAt: DIGITAL_BANK_RATES_UPDATED_AT,
 });
@@ -53,7 +53,7 @@ export const metadata = generatePageMetadata({
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Rates", href: "/rates" },
-  { label: "Digital Banks Comparison" },
+  { label: "Best Digital Banks" },
 ];
 
 const needCards = [
@@ -142,17 +142,17 @@ export default function DigitalBankRatesPage() {
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
-          title: "Digital Banks Comparison Philippines",
+          title: "Best Digital Banks Philippines 2026",
           description:
-            "Compare digital banks in the Philippines based on savings rates, transfer experience, card and ATM access, deposit insurance, account limits, and everyday usability.",
+            "Compare high yield savings accounts from digital banks in the Philippines. Find the highest interest rate digital bank for your needs.",
           updatedAt: DIGITAL_BANK_RATES_UPDATED_AT,
           slug: "rates/savings-rates/best-digital-bank-rates-philippines",
         })}
       />
 
       <PageHero
-        title="Digital Banks Comparison Philippines"
-        description="Compare digital banks in the Philippines based on savings rates, transfer experience, card and ATM access, deposit insurance, account limits, and everyday usability. Use this page to find the digital bank that fits your actual use case, not just the one with the highest advertised rate."
+        title="Best Digital Banks Philippines 2026"
+        description="Compare high yield savings accounts from digital banks in the Philippines for 2026. See which banks offer the highest interest rates, best app experience, and strongest features — including transfers, card access, and deposit insurance coverage."
         badge={DIGITAL_BANK_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
@@ -162,7 +162,7 @@ export default function DigitalBankRatesPage() {
         {/* Digital Bank Comparison Table */}
         <section>
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            Digital Bank Comparison Table
+            High Yield Savings Accounts: Digital Bank Comparison
           </h2>
           <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
             Compare digital banks side by side using the features that matter
@@ -319,7 +319,7 @@ export default function DigitalBankRatesPage() {
         {/* Best Digital Bank Options by Need */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            Best Digital Bank Options by Need
+            Best Digital Bank in the Philippines by Need
           </h2>
           <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
             Start with how you plan to use the account, not just the headline

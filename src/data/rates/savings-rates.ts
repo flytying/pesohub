@@ -112,6 +112,21 @@ export const bankSavingsRates: BankSavingsRate[] = [
 
 export const savingsRateFaqs: FAQ[] = [
   {
+    question: "What is a savings rate?",
+    answer:
+      "A savings rate (or savings interest rate) is the annual percentage a bank pays you for keeping money in a savings account. In the Philippines, rates are expressed as a percentage per annum (p.a.). For example, a 5% p.a. rate means you earn approximately ₱5,000 per year on a ₱100,000 balance. Advertised rates are usually gross — meaning the actual return is lower after the 20% withholding tax on interest income.",
+  },
+  {
+    question: "Which bank has the highest savings interest rate in the Philippines in 2026?",
+    answer:
+      "As of 2026, digital banks tend to offer the highest savings interest rates in the Philippines. Maya currently offers the highest promotional rate, while Tonik, GoTyme, and SeaBank offer competitive standard rates between 5%–6% p.a. Traditional banks like BDO, BPI, and Metrobank typically offer much lower rates of 0.10%–0.25% p.a. for regular savings accounts. Rates change frequently, so always verify directly with the bank.",
+  },
+  {
+    question: "What is a good savings interest rate in the Philippines?",
+    answer:
+      "A good savings interest rate in the Philippines is generally anything above 3% p.a. for a standard (non-promotional) rate. Traditional banks offer 0.10%–0.25% p.a., which barely keeps up with inflation. Digital banks offering 4%–6% p.a. are considered strong, especially if the rate is standard rather than promotional. For higher fixed returns, consider time deposits or Pag-IBIG MP2.",
+  },
+  {
     question:
       "What is the best savings interest rate in the Philippines?",
     answer:
