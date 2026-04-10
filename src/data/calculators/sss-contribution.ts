@@ -5,9 +5,9 @@ export const sssContributionCalcData: CalculatorPageData = {
   category: "sss",
   title: "SSS Contribution Calculator Philippines",
   metaTitle:
-    "SSS Contribution Calculator Philippines: Salary Deduction Estimate | PesoHub",
+    "SSS Contribution Calculator 2026: Compute Your Monthly Deduction | PesoHub",
   metaDescription:
-    "Estimate SSS contributions for employees, self-employed members, voluntary members, and OFWs based on salary and member type.",
+    "Free SSS contribution calculator for 2026 — compute your monthly SSS salary deduction based on the latest contribution table. Works for employees, self-employed, voluntary, and OFW members.",
   h1: "SSS Contribution Calculator Philippines",
   intro:
     "Estimate your SSS contribution in the Philippines based on your monthly compensation and member type. Use this calculator to check your employee share, employer share, total contribution, and Monthly Salary Credit before comparing it with the official SSS contribution table.",
@@ -72,6 +72,18 @@ export const sssContributionCalcData: CalculatorPageData = {
       question: "Where should I verify the final amount?",
       answer:
         "Use the SSS Contribution Table or official SSS references to verify the final amount, especially if you need the exact contribution under the latest schedule.",
+    },
+    {
+      question:
+        "How do I compute my SSS contribution based on salary?",
+      answer:
+        "Find your Monthly Salary Credit (MSC) bracket in the SSS contribution table — this is the salary range your gross pay falls into. The employee share is a fixed percentage of the MSC (currently 4.5%), and the employer pays an additional 9.5%. For example, if your monthly salary is ₱25,000, your MSC is ₱25,000, making your employee share ₱1,125 and the employer share ₱2,375.",
+    },
+    {
+      question:
+        "How much SSS contribution should I pay if I am self-employed?",
+      answer:
+        "Self-employed members pay the full SSS contribution (both employee and employer shares) based on their declared monthly earnings. The total rate is 14% of your chosen Monthly Salary Credit. You can select any MSC bracket from ₱4,000 up to the maximum. Higher contributions mean higher benefits for loans, sickness, and retirement.",
     },
   ],
   relatedPages: [

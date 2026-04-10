@@ -172,7 +172,7 @@ export default function SSSContributionCalculatorPage() {
         {/* What Is Monthly Salary Credit? */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            What Is Monthly Salary Credit?
+            What Is SSS Monthly Salary Credit?
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Monthly Salary Credit, or MSC, is the salary band used by SSS to
@@ -261,7 +261,7 @@ export default function SSSContributionCalculatorPage() {
         {/* How Member Type Affects the Estimate */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            How Member Type Affects the Estimate
+            SSS Contribution by Member Type: Employee, Self-Employed, OFW
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             SSS contribution schedules are not interpreted the same way for

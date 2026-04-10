@@ -5,9 +5,9 @@ export const personalLoanData: CalculatorPageData = {
   category: "loans",
   title: "Personal Loan Calculator Philippines",
   metaTitle:
-    "Personal Loan Calculator Philippines – Estimate Monthly Payment & Repayment | PesoHub",
+    "Personal Loan Calculator Philippines 2026: Monthly Payment Estimator | PesoHub",
   metaDescription:
-    "Estimate your monthly personal loan payment in the Philippines using PesoHub's free personal loan calculator. Compare loan amount, repayment term, and interest rate before applying.",
+    "Free personal loan calculator for the Philippines — estimate your monthly payment, total interest, and repayment schedule. Compare loan amounts from ₱10,000 to ₱2,000,000.",
   h1: "Personal Loan Calculator Philippines",
   intro:
     "Estimate your monthly personal loan payment, total interest, and total repayment before applying. Adjust the loan amount, repayment term, and interest rate to compare scenarios and find a monthly payment that fits your budget.",
@@ -77,6 +77,18 @@ export const personalLoanData: CalculatorPageData = {
         "Can the approved amount and released amount be different?",
       answer:
         "Yes. Some lenders may deduct fees or charges before releasing the funds, which means the actual amount you receive can be lower than the approved loan amount.",
+    },
+    {
+      question:
+        "How do I compute monthly payment on a personal loan?",
+      answer:
+        "Divide the total loan cost (principal plus interest) by the number of months in your repayment term. For flat-rate loans common in the Philippines, the formula is: monthly payment = (loan amount \u00d7 (1 + annual rate \u00d7 years)) \u00f7 (years \u00d7 12). For example, a \u20b1100,000 loan at 1.5% monthly for 12 months has a monthly payment of about \u20b19,833.",
+    },
+    {
+      question:
+        "What is a good interest rate for a personal loan in the Philippines?",
+      answer:
+        "Personal loan interest rates in the Philippines typically range from 1% to 3% per month (12%\u201336% per year) depending on the lender, your credit profile, and loan term. Bank loans tend to offer lower rates (1%\u20131.5%/month), while online lenders may charge 1.5%\u20133%/month. Always compare the total cost of the loan, not just the monthly rate.",
     },
   ],
   relatedPages: [

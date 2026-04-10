@@ -172,7 +172,7 @@ export default function TakeHomePayCalculatorPage() {
         {/* How Gross Salary Turns Into Take-Home Pay */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            How Gross Salary Turns Into Take-Home Pay
+            How to Compute Net Pay From Gross Salary
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Your take-home pay is your salary after common deductions are
@@ -212,7 +212,7 @@ export default function TakeHomePayCalculatorPage() {
         {/* Why Your Gross Pay Is Different From Your Net Pay */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            Why Your Gross Pay Is Different From Your Net Pay
+            Gross Pay vs Net Pay: Understanding Salary Deductions
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Gross pay is your salary before deductions. Net pay, or take-home
@@ -300,7 +300,7 @@ export default function TakeHomePayCalculatorPage() {
         {/* Want to Check One Deduction at a Time? */}
         <section className="mt-16">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
-            Want to Check One Deduction at a Time?
+            Individual Payroll Deduction Calculators
           </h2>
           <p className="mb-6 text-[16px] leading-[22px] text-gray-400">
             If you want to understand one payroll deduction more closely, use

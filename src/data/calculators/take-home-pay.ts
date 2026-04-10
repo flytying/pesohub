@@ -5,9 +5,9 @@ export const takeHomePayData: CalculatorPageData = {
   category: "tax",
   title: "Take-Home Pay Calculator Philippines",
   metaTitle:
-    "Take-Home Pay Calculator Philippines: Net Salary After Deductions | PesoHub",
+    "Take-Home Pay Calculator Philippines 2026: Net Salary After Tax | PesoHub",
   metaDescription:
-    "Compute your estimated net salary after withholding tax, SSS, PhilHealth, and Pag-IBIG deductions with this Philippine take-home pay calculator.",
+    "Free take-home pay calculator for the Philippines \u2014 compute your net salary after withholding tax, SSS, PhilHealth, and Pag-IBIG deductions. Updated for 2026 TRAIN Law rates.",
   h1: "Take-Home Pay Calculator Philippines",
   intro:
     "Estimate your monthly take-home pay in the Philippines after common payroll deductions such as withholding tax, SSS, PhilHealth, and Pag-IBIG. Use this calculator to compare gross salary against estimated net pay and understand where your deductions come from.",
@@ -75,6 +75,16 @@ export const takeHomePayData: CalculatorPageData = {
       question: "Why does gross salary matter?",
       answer:
         "Gross salary is the starting point for the estimate. The calculator subtracts common deductions from gross pay to estimate your monthly net pay.",
+    },
+    {
+      question: "How do I compute my net pay in the Philippines?",
+      answer:
+        "Start with your gross monthly salary, then subtract mandatory deductions in this order: SSS contribution (4.5% of salary credit), PhilHealth (2.5% of basic salary, split with employer), Pag-IBIG (usually \u20B1100 or \u20B1200), and withholding tax (based on taxable income after all contributions). The remaining amount is your take-home pay or net salary.",
+    },
+    {
+      question: "Is this the same as a payroll calculator?",
+      answer:
+        "This take-home pay calculator focuses on the employee\u2019s perspective \u2014 showing your net salary after all mandatory deductions. A full payroll calculator typically includes the employer\u2019s side too (employer SSS, PhilHealth, Pag-IBIG shares, and 13th month pay accrual). Use this tool to quickly estimate what lands in your bank account each payday.",
     },
   ],
   relatedPages: [

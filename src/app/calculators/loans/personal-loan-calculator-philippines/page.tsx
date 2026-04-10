@@ -201,7 +201,7 @@ export default function PersonalLoanCalculatorPage() {
         {/* Worked Examples */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            Compare Common Loan Sizes at a Glance
+            Personal Loan Comparison: Common Amounts and Terms
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             These three examples show how the loan amount, term, and interest
@@ -345,7 +345,7 @@ export default function PersonalLoanCalculatorPage() {
         {/* What Affects Your Personal Loan Payment */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            What Affects Your Personal Loan Payment
+            How Interest Rate Affects Your Loan Monthly Payment
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Your estimated payment depends on three main factors: the loan
@@ -424,7 +424,7 @@ export default function PersonalLoanCalculatorPage() {
         {/* Questions to Ask */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            Questions to Ask Before Applying
+            Questions to Ask Before Applying for a Personal Loan
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Before choosing a personal loan, it helps to ask a few practical
