@@ -5,9 +5,9 @@ export const PAGIBIG_CONTRIBUTION_UPDATED_AT = "2026-03-17";
 export const pagibigContributionMeta = {
   title: "Pag-IBIG Contribution Table Philippines 2026",
   metaTitle:
-    "Pag-IBIG Contribution Table Philippines 2026 – Employee & Employer Share Guide | PesoHub",
+    "Pag-IBIG Contribution Table 2026: Employee & Employer Share (HDMF) | PesoHub",
   metaDescription:
-    "View the current Pag-IBIG contribution table in the Philippines, including employee share, employer share, salary cap, and sample payroll cuts for easier payroll reference.",
+    "Updated Pag-IBIG (HDMF) contribution table for 2026 showing employee share, employer share, and salary bracket caps. Includes sample payroll deductions and a take-home pay calculator.",
   slug: "government/pag-ibig/pag-ibig-contribution-table-philippines",
   directAnswer:
     "View the current Pag-IBIG contribution table used in the Philippines and understand how the deduction usually appears on payroll. Use this page to check employee share, employer share, salary caps, and sample payroll cuts before moving to a broader take-home pay estimate.",
@@ -136,5 +136,17 @@ export const pagibigContributionFaqs: FAQ[] = [
     question: "Where should I go after checking this page?",
     answer:
       "Use the Take-Home Pay Calculator if you want to see Pag-IBIG together with tax, SSS, and PhilHealth. You can also visit the Pag-IBIG Housing Loan Guide or the Government Hub for related reference pages.",
+  },
+  {
+    question:
+      "How much is the Pag-IBIG contribution for employees in 2026?",
+    answer:
+      "For employees earning over ₱1,500 per month, the Pag-IBIG contribution is 2% of the monthly basic salary (employee share) plus 2% from the employer, for a combined 4%. The maximum monthly salary used for computation is capped at ₱10,000 for mandatory contributions, making the maximum employee share ₱200 per month.",
+  },
+  {
+    question:
+      "What does HDMF mean and is it the same as Pag-IBIG?",
+    answer:
+      "HDMF stands for Home Development Mutual Fund, which is the official name of the Pag-IBIG Fund. They are the same government agency — Pag-IBIG is the popular name while HDMF is used in legal and payroll documents. Your payslip may show either 'Pag-IBIG' or 'HDMF' for the same deduction.",
   },
 ];

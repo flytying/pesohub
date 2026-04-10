@@ -7,7 +7,7 @@ export const withholdingTaxTableMeta = {
   metaTitle:
     "Withholding Tax Table Philippines 2026: TRAIN Law Rates & Brackets | PesoHub",
   metaDescription:
-    "Check Philippine withholding tax brackets and TRAIN Law salary tax tables, then use PesoHub tools to estimate your payroll deductions.",
+    "View the 2026 BIR withholding tax table for the Philippines with TRAIN Law income tax brackets, monthly salary tax rates, and a worked example. Use our calculator for quick payroll estimates.",
   slug: "government/bir/withholding-tax-table-philippines",
   directAnswer:
     "View the current withholding tax table used for compensation income in the Philippines, with both annual and monthly reference views. Understand the tax brackets, see how monthly salary maps to annual taxable income, and check a worked example before using the calculator.",
@@ -177,5 +177,17 @@ export const withholdingTaxTableFaqs: FAQ[] = [
       "Where should I go after checking the table?",
     answer:
       "Use the Withholding Tax Calculator if you want a faster estimate from salary input, or read the Withholding Tax Guide if you want a plain-language explanation of how withholding tax works.",
+  },
+  {
+    question:
+      "How do I compute my withholding tax from the BIR tax table?",
+    answer:
+      "Find the row in the withholding tax table that matches your annual taxable income (gross pay minus SSS, PhilHealth, and Pag-IBIG). The tax due is the fixed amount for that bracket plus a percentage of the excess over the bracket floor. For example, annual taxable income of \u20B1400,000 falls in the \u20B1250,001\u2013\u20B1400,000 bracket: \u20B10 + 15% of \u20B1150,000 = \u20B122,500 per year.",
+  },
+  {
+    question:
+      "What are the income tax brackets in the Philippines under TRAIN Law?",
+    answer:
+      "The TRAIN Law (RA 10963) sets six income tax brackets for compensation earners: 0% on income up to \u20B1250,000; 15% on \u20B1250,001\u2013\u20B1400,000; 20% on \u20B1400,001\u2013\u20B1800,000; 25% on \u20B1800,001\u2013\u20B12,000,000; 30% on \u20B12,000,001\u2013\u20B18,000,000; and 35% on income above \u20B18,000,000. These rates have been in effect since January 2023.",
   },
 ];

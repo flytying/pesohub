@@ -112,10 +112,10 @@ export default function PagIBIGContributionTablePage() {
       />
 
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-      {/* Current Pag-IBIG Contribution Structure */}
+      {/* Pag-IBIG (HDMF) Contribution Structure 2026 */}
       <section>
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-          Current Pag-IBIG Contribution Structure
+          Pag-IBIG (HDMF) Contribution Structure 2026
         </h2>
         <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           This section shows the contribution assumptions currently used by
@@ -193,10 +193,10 @@ export default function PagIBIGContributionTablePage() {
         </div>
       </section>
 
-      {/* Pag-IBIG Contribution Table Reference */}
+      {/* Pag-IBIG Employee and Employer Share Table */}
       <section className="mt-16">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-          Pag-IBIG Contribution Table Reference
+          Pag-IBIG Employee and Employer Share Table
         </h2>
         <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           Check the employee share first if you want to match what usually
@@ -373,10 +373,10 @@ export default function PagIBIGContributionTablePage() {
         </div>
       </section>
 
-      {/* Sample Pag-IBIG Payroll Cuts */}
+      {/* How Much Is Pag-IBIG Contribution per Salary Level */}
       <section className="mt-16">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-          Sample Pag-IBIG Payroll Cuts
+          How Much Is Pag-IBIG Contribution per Salary Level
         </h2>
         <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           These examples help connect the reference table to actual payslip

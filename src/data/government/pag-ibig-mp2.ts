@@ -5,9 +5,9 @@ export const PAGIBIG_MP2_UPDATED_AT = "2026-04-02";
 export const pagibigMp2Meta = {
   title: "Pag-IBIG MP2 Savings Guide Philippines 2026",
   metaTitle:
-    "Pag-IBIG MP2 Savings Guide – Salary Deduction, Dividends & Enrollment | PesoHub",
+    "Pag-IBIG MP2 Guide 2026: Dividend Rate, Enrollment & Savings Calculator | PesoHub",
   metaDescription:
-    "Learn how Pag-IBIG MP2 salary deduction works, how to enroll through your employer, dividend rates, and how MP2 compares to regular Pag-IBIG contributions.",
+    "Complete Pag-IBIG MP2 guide for 2026 — current dividend rates, how to enroll, salary deduction process, MP2 vs regular fund comparison, and dividend history since 2010.",
   slug: "government/pag-ibig/pag-ibig-mp2-savings-guide",
   directAnswer:
     "Pag-IBIG MP2 is a voluntary savings program that offers higher dividends than the regular Pag-IBIG fund. You can contribute through employer salary deduction or directly through Pag-IBIG branches and online channels. This guide explains how the salary deduction works, how to enroll, and what to expect.",
@@ -227,5 +227,15 @@ export const pagibigMp2Faqs: FAQ[] = [
     question: "Where should I go after reading this guide?",
     answer:
       "Use the Take-Home Pay Calculator to see how MP2 fits alongside your other payroll deductions. You can also check the Pag-IBIG Contribution Table for details on the mandatory contribution, or visit the Government Hub for other reference pages.",
+  },
+  {
+    question: "What is the Pag-IBIG MP2 dividend rate for 2025?",
+    answer:
+      "The Pag-IBIG MP2 dividend rate for 2025 has not yet been announced — it is typically released in the first half of the following year. The 2024 MP2 dividend rate was announced by Pag-IBIG Fund through its official channels. Check back for updates or visit the Pag-IBIG website for the latest announcement.",
+  },
+  {
+    question: "Is Pag-IBIG MP2 a good investment?",
+    answer:
+      "Pag-IBIG MP2 has historically offered competitive dividend rates compared to bank savings accounts and time deposits, with rates ranging from 5% to over 7% in recent years. It is a low-risk savings option backed by the government. However, your money is locked in for 5 years, and dividends are not guaranteed. It works best as a conservative, medium-term savings vehicle.",
   },
 ];

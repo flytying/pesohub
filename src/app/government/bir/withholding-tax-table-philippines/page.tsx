@@ -98,10 +98,26 @@ export default function WithholdingTaxTablePage() {
       />
 
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-      {/* Withholding Tax Tables */}
+      {/* TRAIN Law Income Tax Brackets Intro */}
       <section>
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-          Withholding Tax Table Reference
+          Philippine Income Tax Brackets Under TRAIN Law
+        </h2>
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          The TRAIN Law (Republic Act 10963) restructured Philippine income tax
+          brackets effective January 2018, with further rate reductions taking
+          effect in January 2023. Under the current schedule, annual taxable
+          income up to ₱250,000 is exempt from withholding tax, while income
+          above that threshold is taxed progressively at rates from 15% to 35%.
+          The tables below show the exact BIR withholding tax brackets for every
+          payroll period.
+        </p>
+      </section>
+
+      {/* Withholding Tax Tables */}
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          2026 BIR Withholding Tax Table
         </h2>
         <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           View the current and previous withholding tax tables for
@@ -121,7 +137,7 @@ export default function WithholdingTaxTablePage() {
       {/* Worked Example */}
       <section className="mt-16">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-          Worked Example: Monthly Salary Estimate
+          How to Compute Withholding Tax: Worked Example
         </h2>
         <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
           Here is a simple example using the current monthly withholding tax

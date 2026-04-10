@@ -98,7 +98,7 @@ export default function PagibigMp2SavingsGuidePage() {
         {/* What Is Pag-IBIG MP2 */}
         <section>
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            What Is Pag-IBIG MP2
+            What Is the Pag-IBIG MP2 Savings Program
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             Pag-IBIG MP2 (Modified Pag-IBIG II) is a voluntary savings program
@@ -244,7 +244,7 @@ export default function PagibigMp2SavingsGuidePage() {
           <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
             <div>
               <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-                How to Enroll in MP2 Through Your Employer
+                How to Enroll in Pag-IBIG MP2 Through Your Employer
               </h2>
               <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
                 Enrolling through your employer is the most convenient way to
@@ -280,7 +280,7 @@ export default function PagibigMp2SavingsGuidePage() {
         {/* How to Contribute Without an Employer */}
         <section>
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            How to Contribute to MP2 Without an Employer
+            How to Contribute to Pag-IBIG MP2 Without an Employer
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             If you are self-employed, a freelancer, or an OFW, you can
@@ -302,7 +302,7 @@ export default function PagibigMp2SavingsGuidePage() {
         {/* MP2 Dividend History */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            MP2 Dividend History
+            MP2 Dividend Rate History (2010–2025)
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             MP2 dividends are computed annually based on the fund&apos;s
