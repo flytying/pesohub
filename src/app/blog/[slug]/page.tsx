@@ -99,6 +99,7 @@ export default async function BlogPostPage({
         badge={post.updatedAt}
         breadcrumbs={breadcrumbs}
         variant="dark"
+        image={post.image}
       />
 
       <article className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">

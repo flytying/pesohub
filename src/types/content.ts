@@ -99,6 +99,8 @@ export interface BlogPostData {
   relatedSlugs: string[];
   keywords: string[];
   disclaimer: boolean;
+  /** Hero image for the blog post (Unsplash/Pexels URL) */
+  image?: { src: string; alt: string };
 }
 
 // ---------------------------------------------------------------------------

@@ -236,6 +236,10 @@ const post: BlogPostData = {
     "good savings account interest rate",
   ],
   disclaimer: true,
+  image: {
+    src: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80",
+    alt: "Philippine peso bills and coins representing savings account comparison",
+  },
 };
 
 export default post;

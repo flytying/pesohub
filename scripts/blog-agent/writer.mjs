@@ -5,6 +5,7 @@
  * generates an outline, writes the full article, and saves the data file.
  */
 
+import { getUnsplashImage } from "./lib/unsplash-image.mjs";
 import { researchTopic } from "./lib/tavily-search.mjs";
 import { generateOutline, writeArticle } from "./lib/claude-writer.mjs";
 import { writePostDataFile, keywordToSlug } from "./lib/file-generator.mjs";
@@ -53,6 +54,7 @@ export async function run(keyword, topicMeta = {}) {
     ),
     keywords: topicMeta.keywords || [keyword],
     disclaimer: true,
+    image: getUnsplashImage(topicMeta.category || outline.category || "general", keyword),
   };
 
   // 5. Write data file
