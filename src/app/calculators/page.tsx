@@ -260,21 +260,21 @@ export default function CalculatorsPage() {
       </section>
 
       {/* Borrowing Money */}
-      <section id="borrowing" className="scroll-mt-20 py-16 lg:py-20">
+      <section id="borrowing" className="scroll-mt-20 bg-surface-secondary py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
             Borrowing Money
           </h2>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {borrowingCalculators.map((calc) => (
-              <CalculatorCard key={calc.href} {...calc} />
+              <CalculatorCard key={calc.href} {...calc} hasBg />
             ))}
           </div>
         </div>
       </section>
 
       {/* Salary and Deductions */}
-      <section id="salary" className="scroll-mt-20 bg-surface-tertiary py-20 lg:py-20">
+      <section id="salary" className="scroll-mt-20 py-20 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
             <div>
@@ -287,7 +287,7 @@ export default function CalculatorsPage() {
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
               {salaryCalculators.map((calc) => (
-                <CalculatorCard key={calc.href} {...calc} hasBg />
+                <CalculatorCard key={calc.href} {...calc} />
               ))}
             </div>
           </div>
@@ -295,14 +295,14 @@ export default function CalculatorsPage() {
       </section>
 
       {/* Saving and Planning */}
-      <section id="savings" className="scroll-mt-20 py-16 lg:py-20">
+      <section id="savings" className="scroll-mt-20 bg-surface-secondary py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
             Saving and Planning
           </h2>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {savingsCalculators.map((calc) => (
-              <CalculatorCard key={calc.href} {...calc} />
+              <CalculatorCard key={calc.href} {...calc} hasBg />
             ))}
           </div>
         </div>
