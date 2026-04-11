@@ -98,7 +98,8 @@ export default async function BlogPostPage({
       <PageHero
         title={post.title}
         description={post.excerpt}
-        badge={post.updatedAt}
+        badge={post.publishedAt}
+        badgeLabel="Posted"
         breadcrumbs={breadcrumbs}
         variant="dark"
         image={post.image}

@@ -8,6 +8,8 @@ interface PageHeroProps {
   title: string;
   description: string;
   badge?: string;
+  /** Label prefix for the badge date (default: "Updated") */
+  badgeLabel?: string;
   breadcrumbs: { label: string; href?: string }[];
   /** "default" = light inline header, "dark" = full-width brand-blue hero */
   variant?: "default" | "dark";
@@ -19,6 +21,7 @@ export function PageHero({
   title,
   description,
   badge,
+  badgeLabel = "Updated",
   breadcrumbs,
   variant = "default",
   image,
@@ -66,7 +69,7 @@ export function PageHero({
         {badge && (
           <p className="mt-4 flex items-center gap-1.5 text-[14px] text-white/70">
             <Clock className="size-3.5" />
-            Updated {formatDate(badge)}
+            {badgeLabel} {formatDate(badge)}
           </p>
         )}
       </>
