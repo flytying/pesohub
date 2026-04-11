@@ -25,6 +25,8 @@ const postModules: Record<string, () => Promise<{ default: BlogPostData }>> = {
   // New entries are added here by the blog agent or manually.
   "best-savings-account-philippines-2026": () =>
     import("@/data/blog/best-savings-account-philippines-2026"),
+  "high-interest-savings-account-philippines": () =>
+    import("@/data/blog/high-interest-savings-account-philippines"),
 };
 
 // ---------------------------------------------------------------------------
