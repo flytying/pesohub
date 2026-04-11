@@ -35,4 +35,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-04-11",
     readTime: 7,
   },
+  {
+    slug: "high-interest-savings-account-philippines",
+    title: "High-Interest Savings Accounts Philippines: What Rates Can You Actually Get?",
+    excerpt: "Philippine high-interest savings accounts offer 3-4% annual rates, but with 5.1% projected inflation, real returns may be near zero for peso savers.",
+    category: "savings",
+    publishedAt: "2026-04-11",
+    updatedAt: "2026-04-11",
+    readTime: 8,
+  },
 ];

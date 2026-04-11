@@ -4,9 +4,17 @@
       "id": 1,
       "title": "How to Choose the Best Savings Account in the Philippines (2026)",
       "slug": "best-savings-account-philippines-2026",
-      "keywords": ["best savings account philippines", "best savings accounts philippines 2026", "cheapest savings account in the philippines", "good savings account interest rate"],
+      "keywords": [
+        "best savings account philippines",
+        "best savings accounts philippines 2026",
+        "cheapest savings account in the philippines",
+        "good savings account interest rate"
+      ],
       "category": "savings",
-      "linksTo": ["/rates/savings-rates/best-savings-interest-rates-philippines", "/rates/savings-rates/best-digital-bank-rates-philippines"],
+      "linksTo": [
+        "/rates/savings-rates/best-savings-interest-rates-philippines",
+        "/rates/savings-rates/best-digital-bank-rates-philippines"
+      ],
       "status": "completed",
       "completedAt": "2026-04-11"
     },
@@ -14,81 +22,158 @@
       "id": 2,
       "title": "High-Interest Savings Accounts Philippines: What Rates Can You Actually Get?",
       "slug": "high-interest-savings-account-philippines",
-      "keywords": ["high interest savings account", "high yield savings account philippines", "highest interest rate savings account philippines", "bank with high interest rate savings account philippines", "savings account with high interest rate philippines"],
+      "keywords": [
+        "high interest savings account",
+        "high yield savings account philippines",
+        "highest interest rate savings account philippines",
+        "bank with high interest rate savings account philippines",
+        "savings account with high interest rate philippines"
+      ],
       "category": "savings",
-      "linksTo": ["/rates/savings-rates/best-savings-interest-rates-philippines", "/rates/savings-rates/time-deposit-rates-philippines"],
-      "status": "pending"
+      "linksTo": [
+        "/rates/savings-rates/best-savings-interest-rates-philippines",
+        "/rates/savings-rates/time-deposit-rates-philippines"
+      ],
+      "status": "completed",
+      "completedAt": "2026-04-11"
     },
     {
       "id": 3,
       "title": "What Is a Savings Rate and Why It Matters for Filipino Savers",
       "slug": "what-is-a-savings-rate-philippines",
-      "keywords": ["what is a savings rate", "savings account rates", "interest rate for savings account in philippines", "best savings account interest rates", "deposit interest rate calculator"],
+      "keywords": [
+        "what is a savings rate",
+        "savings account rates",
+        "interest rate for savings account in philippines",
+        "best savings account interest rates",
+        "deposit interest rate calculator"
+      ],
       "category": "savings",
-      "linksTo": ["/rates/savings-rates/best-savings-interest-rates-philippines", "/calculators/savings/savings-goal-calculator-philippines"],
+      "linksTo": [
+        "/rates/savings-rates/best-savings-interest-rates-philippines",
+        "/calculators/savings/savings-goal-calculator-philippines"
+      ],
       "status": "pending"
     },
     {
       "id": 4,
       "title": "Time Deposit vs Savings Account: Which Earns More in the Philippines?",
       "slug": "time-deposit-vs-savings-account-philippines",
-      "keywords": ["time deposit calculator philippines", "time deposit calculator", "deposit interest rate calculator", "savings calculator"],
+      "keywords": [
+        "time deposit calculator philippines",
+        "time deposit calculator",
+        "deposit interest rate calculator",
+        "savings calculator"
+      ],
       "category": "banking",
-      "linksTo": ["/calculators/savings/time-deposit-calculator-philippines", "/rates/savings-rates/time-deposit-rates-philippines"],
+      "linksTo": [
+        "/calculators/savings/time-deposit-calculator-philippines",
+        "/rates/savings-rates/time-deposit-rates-philippines"
+      ],
       "status": "pending"
     },
     {
       "id": 5,
       "title": "BIR Withholding Tax Table 2026: Monthly, Semi-Monthly, and Daily Rates Explained",
       "slug": "bir-withholding-tax-table-2026-explained",
-      "keywords": ["withholding tax table 2026", "BIR withholding tax table monthly 2026 philippines", "revised withholding tax table 2026", "train law tax table 2026", "tax withholding table 2026", "monthly withholding tax table 2026"],
+      "keywords": [
+        "withholding tax table 2026",
+        "BIR withholding tax table monthly 2026 philippines",
+        "revised withholding tax table 2026",
+        "train law tax table 2026",
+        "tax withholding table 2026",
+        "monthly withholding tax table 2026"
+      ],
       "category": "tax",
-      "linksTo": ["/government/bir/withholding-tax-table-philippines", "/calculators/tax/withholding-tax-calculator-philippines"],
+      "linksTo": [
+        "/government/bir/withholding-tax-table-philippines",
+        "/calculators/tax/withholding-tax-calculator-philippines"
+      ],
       "status": "pending"
     },
     {
       "id": 6,
       "title": "How to Compute Your Withholding Tax in the Philippines (Step-by-Step)",
       "slug": "how-to-compute-withholding-tax-philippines",
-      "keywords": ["withholding tax compensation calculator", "withholding tax calculator ph", "withholding tax philippines", "revised withholding tax table"],
+      "keywords": [
+        "withholding tax compensation calculator",
+        "withholding tax calculator ph",
+        "withholding tax philippines",
+        "revised withholding tax table"
+      ],
       "category": "tax",
-      "linksTo": ["/calculators/tax/withholding-tax-calculator-philippines", "/guides/tax/how-withholding-tax-works-philippines"],
+      "linksTo": [
+        "/calculators/tax/withholding-tax-calculator-philippines",
+        "/guides/tax/how-withholding-tax-works-philippines"
+      ],
       "status": "pending"
     },
     {
       "id": 7,
       "title": "Car Loan Calculator Philippines: How to Estimate Your Monthly Payment Before You Apply",
       "slug": "car-loan-calculator-guide-philippines",
-      "keywords": ["car loan calculator philippines", "auto loan calculator philippines", "car loan calculator", "loan calculator philippines", "loan calculator"],
+      "keywords": [
+        "car loan calculator philippines",
+        "auto loan calculator philippines",
+        "car loan calculator",
+        "loan calculator philippines",
+        "loan calculator"
+      ],
       "category": "banking",
-      "linksTo": ["/calculators/loans/car-loan-calculator-philippines", "/calculators/loans/personal-loan-calculator-philippines"],
+      "linksTo": [
+        "/calculators/loans/car-loan-calculator-philippines",
+        "/calculators/loans/personal-loan-calculator-philippines"
+      ],
       "status": "pending"
     },
     {
       "id": 8,
       "title": "Home Loan vs Pag-IBIG Housing Loan: Which Is Better for First-Time Buyers?",
       "slug": "home-loan-vs-pagibig-housing-loan-philippines",
-      "keywords": ["home loan calculator philippines", "home loan calculator", "housing loan calculator", "sulit housing loan calculator", "personal loan calculator philippines"],
+      "keywords": [
+        "home loan calculator philippines",
+        "home loan calculator",
+        "housing loan calculator",
+        "sulit housing loan calculator",
+        "personal loan calculator philippines"
+      ],
       "category": "banking",
-      "linksTo": ["/calculators/loans/home-loan-calculator-philippines", "/government/pag-ibig/pag-ibig-housing-loan-guide"],
+      "linksTo": [
+        "/calculators/loans/home-loan-calculator-philippines",
+        "/government/pag-ibig/pag-ibig-housing-loan-guide"
+      ],
       "status": "pending"
     },
     {
       "id": 9,
       "title": "Best Digital Banks in the Philippines: Rates, Features, and Who They Are For",
       "slug": "best-digital-banks-philippines-2026",
-      "keywords": ["best digital bank philippines", "high yield savings account in philippines", "high interest rate savings account philippines"],
+      "keywords": [
+        "best digital bank philippines",
+        "high yield savings account in philippines",
+        "high interest rate savings account philippines"
+      ],
       "category": "banking",
-      "linksTo": ["/rates/savings-rates/best-digital-bank-rates-philippines", "/rates/savings-rates/best-savings-interest-rates-philippines"],
+      "linksTo": [
+        "/rates/savings-rates/best-digital-bank-rates-philippines",
+        "/rates/savings-rates/best-savings-interest-rates-philippines"
+      ],
       "status": "pending"
     },
     {
       "id": 10,
       "title": "Pag-IBIG MP2 Salary Deduction: How It Works and Is It Worth It?",
       "slug": "pagibig-mp2-salary-deduction-guide",
-      "keywords": ["mp2 salary deduction by the company", "sss contribution calculator", "emergency fund calculator philippines"],
+      "keywords": [
+        "mp2 salary deduction by the company",
+        "sss contribution calculator",
+        "emergency fund calculator philippines"
+      ],
       "category": "government",
-      "linksTo": ["/government/pag-ibig/pag-ibig-mp2-savings-guide", "/calculators/savings/emergency-fund-calculator-philippines"],
+      "linksTo": [
+        "/government/pag-ibig/pag-ibig-mp2-savings-guide",
+        "/calculators/savings/emergency-fund-calculator-philippines"
+      ],
       "status": "pending"
     }
   ]
