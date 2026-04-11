@@ -155,14 +155,12 @@ export default function GovernmentPage() {
       {/* Intro */}
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <p className="text-[16px] leading-[22px] text-gray-400">
-              Government contribution tables and tax brackets directly affect how much reaches your bank account each payday. SSS, PhilHealth, and Pag-IBIG deductions follow specific schedules tied to your salary range, and withholding tax uses brackets that changed under the TRAIN law. These tables also determine your future benefits — pension amounts, housing loan limits, and health coverage.
-            </p>
-            <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-              The reference pages below present official government data in a clearer format than the original agency publications, with explanations of how each table works and what the numbers mean for your payslip. Every page cites its official source and shows when the data was last verified.
-            </p>
-          </div>
+          <p className="text-[16px] leading-[22px] text-gray-400">
+            Government contribution tables and tax brackets directly affect how much reaches your bank account each payday. SSS, PhilHealth, and Pag-IBIG deductions follow specific schedules tied to your salary range, and withholding tax uses brackets that changed under the TRAIN law. These tables also determine your future benefits — pension amounts, housing loan limits, and health coverage.
+          </p>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            The reference pages below present official government data in a clearer format than the original agency publications, with explanations of how each table works and what the numbers mean for your payslip. Every page cites its official source and shows when the data was last verified.
+          </p>
         </div>
       </section>
 

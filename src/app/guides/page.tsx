@@ -162,14 +162,12 @@ export default function GuidesPage() {
       {/* Intro */}
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <p className="text-[16px] leading-[22px] text-gray-400">
-              Most Filipino workers encounter SSS, PhilHealth, Pag-IBIG, and withholding tax deductions on every payslip — but few understand how these amounts are actually computed. Government circulars and official documentation exist, but they are often written in legal or technical language that makes practical understanding difficult.
-            </p>
-            <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-              These guides bridge that gap. Each one takes a specific financial topic — like how withholding tax is computed from your salary, or how SSS pension amounts are determined — and explains it step by step in plain language. The goal is to help you understand the rules well enough to verify your own payslip, estimate your benefits, or know what questions to ask your employer or agency.
-            </p>
-          </div>
+          <p className="text-[16px] leading-[22px] text-gray-400">
+            Most Filipino workers encounter SSS, PhilHealth, Pag-IBIG, and withholding tax deductions on every payslip — but few understand how these amounts are actually computed. Government circulars and official documentation exist, but they are often written in legal or technical language that makes practical understanding difficult.
+          </p>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            These guides bridge that gap. Each one takes a specific financial topic — like how withholding tax is computed from your salary, or how SSS pension amounts are determined — and explains it step by step in plain language. The goal is to help you understand the rules well enough to verify your own payslip, estimate your benefits, or know what questions to ask your employer or agency.
+          </p>
         </div>
       </section>
 

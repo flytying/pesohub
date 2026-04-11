@@ -130,7 +130,7 @@ export function EmergencyFundCalculator() {
         }}
       >
         {/* LEFT: Result Panel */}
-        <ResultPanel className="flex flex-col justify-between">
+        <ResultPanel className="flex flex-col">
           <div className="text-center">
             <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">
               Emergency Fund Target
@@ -143,8 +143,13 @@ export function EmergencyFundCalculator() {
             </p>
           </div>
 
+          {/* Expense breakdown donut */}
+          <div className="my-6 flex justify-center">
+            <ExpenseDonut expenses={expenses} />
+          </div>
+
           {/* Progress bar */}
-          <div className="my-6 space-y-3">
+          <div className="mb-6 space-y-3">
             <p className="text-[14px] font-medium text-gray-400">
               Your Progress
             </p>
@@ -280,6 +285,88 @@ export function EmergencyFundCalculator() {
             );
           })}
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Expense breakdown donut (SVG)
+// ---------------------------------------------------------------------------
+
+const DONUT_COLORS = [
+  "#093CB5", // brand
+  "#00D2D8", // cyan
+  "#E57300", // orange
+  "#6366f1", // indigo
+  "#10b981", // emerald
+  "#f59e0b", // amber
+  "#8b5cf6", // violet
+];
+
+function ExpenseDonut({ expenses }: { expenses: Record<string, number> }) {
+  const entries = EXPENSE_CATEGORIES
+    .map((cat, i) => ({
+      label: cat.label.split("(")[0].trim(),
+      value: expenses[cat.key],
+      color: DONUT_COLORS[i % DONUT_COLORS.length],
+    }))
+    .filter((e) => e.value > 0);
+
+  const total = entries.reduce((s, e) => s + e.value, 0);
+  if (total === 0) return null;
+
+  const size = 160;
+  const strokeWidth = 28;
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+
+  let offset = 0;
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        {entries.map((entry) => {
+          const pct = entry.value / total;
+          const dashLength = pct * circumference;
+          const dashOffset = -offset * circumference;
+          offset += pct;
+          return (
+            <circle
+              key={entry.label}
+              cx={size / 2}
+              cy={size / 2}
+              r={radius}
+              fill="none"
+              stroke={entry.color}
+              strokeWidth={strokeWidth}
+              strokeDasharray={`${dashLength} ${circumference - dashLength}`}
+              strokeDashoffset={dashOffset}
+              transform={`rotate(-90 ${size / 2} ${size / 2})`}
+              className="transition-all duration-500"
+            />
+          );
+        })}
+        <text
+          x="50%"
+          y="50%"
+          textAnchor="middle"
+          dominantBaseline="central"
+          className="fill-gray-500 text-[14px] font-semibold"
+        >
+          {formatPeso(total, 0)}
+        </text>
+      </svg>
+      <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+        {entries.map((entry) => (
+          <div key={entry.label} className="flex items-center gap-1.5 text-[12px] text-gray-400">
+            <span
+              className="inline-block size-2.5 rounded-full"
+              style={{ backgroundColor: entry.color }}
+            />
+            {entry.label}
+          </div>
+        ))}
       </div>
     </div>
   );

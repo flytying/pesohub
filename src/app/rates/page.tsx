@@ -127,14 +127,12 @@ export default function RatesPage() {
       {/* Intro */}
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <p className="text-[16px] leading-[22px] text-gray-400">
-              Interest rates on Philippine savings accounts vary dramatically — the gap between the lowest and highest rates can be more than 10x. A traditional bank might offer 0.25% per year while a digital bank offers 3% or more on the same deposit. For savers, this difference compounds over time and directly affects how fast your money grows.
-            </p>
-            <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-              The rate pages below gather current rates from Philippine banks and the BSP so you can compare options side by side. Whether you are choosing where to park an emergency fund, comparing time deposit terms, or tracking the peso-dollar exchange rate, these pages help you find the numbers without visiting each bank individually.
-            </p>
-          </div>
+          <p className="text-[16px] leading-[22px] text-gray-400">
+            Interest rates on Philippine savings accounts vary dramatically — the gap between the lowest and highest rates can be more than 10x. A traditional bank might offer 0.25% per year while a digital bank offers 3% or more on the same deposit. For savers, this difference compounds over time and directly affects how fast your money grows.
+          </p>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            The rate pages below gather current rates from Philippine banks and the BSP so you can compare options side by side. Whether you are choosing where to park an emergency fund, comparing time deposit terms, or tracking the peso-dollar exchange rate, these pages help you find the numbers without visiting each bank individually.
+          </p>
         </div>
       </section>
 

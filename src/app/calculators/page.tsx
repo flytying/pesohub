@@ -250,14 +250,12 @@ export default function CalculatorsPage() {
       {/* Intro */}
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <p className="text-[16px] leading-[22px] text-gray-400">
-              Financial decisions in the Philippines come with specific rules and brackets — from TRAIN law tax tables and SSS contribution schedules to bank-specific interest rates. Generic online calculators often miss these details. The tools below are built with Philippine rates, formulas, and thresholds so you get estimates that actually match your payslip, loan quote, or bank statement.
-            </p>
-            <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-              Use these calculators to compare scenarios before committing. Test different loan terms, check how a salary increase changes your take-home pay, or see how much faster you can reach a savings goal with a higher interest rate. Every calculator shows you the math so you can verify the results.
-            </p>
-          </div>
+          <p className="text-[16px] leading-[22px] text-gray-400">
+            Financial decisions in the Philippines come with specific rules and brackets — from TRAIN law tax tables and SSS contribution schedules to bank-specific interest rates. Generic online calculators often miss these details. The tools below are built with Philippine rates, formulas, and thresholds so you get estimates that actually match your payslip, loan quote, or bank statement.
+          </p>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            Use these calculators to compare scenarios before committing. Test different loan terms, check how a salary increase changes your take-home pay, or see how much faster you can reach a savings goal with a higher interest rate. Every calculator shows you the math so you can verify the results.
+          </p>
         </div>
       </section>
 

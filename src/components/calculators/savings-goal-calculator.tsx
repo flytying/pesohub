@@ -103,7 +103,7 @@ export function SavingsGoalCalculator() {
         }}
       >
         {/* LEFT: Result Panel */}
-        <ResultPanel className="flex flex-col justify-between">
+        <ResultPanel className="flex flex-col">
           <div className="text-center">
             <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">
               Monthly Savings Needed
@@ -116,27 +116,14 @@ export function SavingsGoalCalculator() {
             </p>
           </div>
 
-          {/* Progress bar */}
-          <div className="my-6 space-y-3">
-            <p className="text-[14px] font-medium text-gray-400">
-              Starting Progress
-            </p>
-            <div className="space-y-1">
-              <div className="flex items-center justify-between text-[14px]">
-                <span className="text-gray-400">
-                  {formatPeso(startingBalance)} of {formatPeso(targetAmount)}
-                </span>
-                <span className="font-bold text-brand">
-                  {progressPercent.toFixed(0)}%
-                </span>
-              </div>
-              <div className="h-2 overflow-hidden rounded-full bg-gray-100">
-                <div
-                  className="h-full rounded-full bg-brand transition-all duration-500"
-                  style={{ width: `${Math.max(progressPercent, 2)}%` }}
-                />
-              </div>
-            </div>
+          {/* Circle chart breakdown */}
+          <div className="my-6 flex justify-center">
+            <SavingsDonut
+              startingBalance={startingBalance}
+              contributions={result.totalContributions}
+              interest={result.interestEarned}
+              target={targetAmount}
+            />
           </div>
 
           <div className="space-y-1">
@@ -281,6 +268,88 @@ export function SavingsGoalCalculator() {
             </div>
           ))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Savings breakdown donut (SVG circle chart)
+// ---------------------------------------------------------------------------
+
+function SavingsDonut({
+  startingBalance,
+  contributions,
+  interest,
+  target,
+}: {
+  startingBalance: number;
+  contributions: number;
+  interest: number;
+  target: number;
+}) {
+  if (target <= 0) return null;
+
+  const segments = [
+    { label: "Starting Balance", value: startingBalance, color: "#6366f1" },
+    { label: "Contributions", value: contributions, color: "#093CB5" },
+    { label: "Interest", value: interest, color: "#00D2D8" },
+  ].filter((s) => s.value > 0);
+
+  const total = segments.reduce((s, e) => s + e.value, 0);
+  if (total === 0) return null;
+
+  const size = 160;
+  const strokeWidth = 28;
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+
+  let offset = 0;
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        {segments.map((seg) => {
+          const pct = seg.value / total;
+          const dashLength = pct * circumference;
+          const dashOffset = -offset * circumference;
+          offset += pct;
+          return (
+            <circle
+              key={seg.label}
+              cx={size / 2}
+              cy={size / 2}
+              r={radius}
+              fill="none"
+              stroke={seg.color}
+              strokeWidth={strokeWidth}
+              strokeDasharray={`${dashLength} ${circumference - dashLength}`}
+              strokeDashoffset={dashOffset}
+              transform={`rotate(-90 ${size / 2} ${size / 2})`}
+              className="transition-all duration-500"
+            />
+          );
+        })}
+        <text
+          x="50%"
+          y="50%"
+          textAnchor="middle"
+          dominantBaseline="central"
+          className="fill-gray-500 text-[14px] font-semibold"
+        >
+          {formatPeso(total, 0)}
+        </text>
+      </svg>
+      <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+        {segments.map((seg) => (
+          <div key={seg.label} className="flex items-center gap-1.5 text-[12px] text-gray-400">
+            <span
+              className="inline-block size-2.5 rounded-full"
+              style={{ backgroundColor: seg.color }}
+            />
+            {seg.label}
+          </div>
+        ))}
       </div>
     </div>
   );
