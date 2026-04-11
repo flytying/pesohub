@@ -1,0 +1,74 @@
+name: Generate Blog Post
+
+on:
+  workflow_dispatch:
+    inputs:
+      keyword:
+        description: "Target keyword for the blog post (ignored if --from-queue)"
+        required: false
+        type: string
+      topic_id:
+        description: "Specific topic ID from queue (optional)"
+        required: false
+        type: number
+  schedule:
+    # Weekly on Monday at 03:00 UTC (11:00 AM PHT)
+    - cron: "0 3 * * 1"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Generate blog post
+        env:
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -n "${{ inputs.keyword }}" ]; then
+            node scripts/blog-agent/run.mjs --keyword "${{ inputs.keyword }}"
+          elif [ -n "${{ inputs.topic_id }}" ]; then
+            node scripts/blog-agent/run.mjs --from-queue --id ${{ inputs.topic_id }}
+          else
+            node scripts/blog-agent/run.mjs --from-queue
+          fi
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet src/ scripts/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create PR
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SLUG=$(cat /tmp/blog-slug.txt)
+          BRANCH="auto/blog-${SLUG}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add src/ scripts/blog-agent/topic-queue.json
+          git commit -m "blog: add post — ${SLUG} (automated)"
+          git push -u origin "$BRANCH"
+          gh pr create \
+            --title "blog: ${SLUG}" \
+            --body-file /tmp/pr-body.md \
+            --label "blog"

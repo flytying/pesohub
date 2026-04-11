@@ -56,6 +56,10 @@ export const mainNavItems: NavItem[] = [
       { label: "PhilHealth Contribution Table", href: "/government/philhealth/philhealth-contribution-table-philippines" },
     ],
   },
+  {
+    label: "Blog",
+    href: "/blog",
+  },
 ];
 
 export const footerNavItems = {

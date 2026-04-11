@@ -18,6 +18,7 @@ import { SSS_PENSION_UPDATED_AT } from "@/data/guides/sss-pension-guide";
 import { TAKE_HOME_PAY_GUIDE_UPDATED_AT } from "@/data/guides/take-home-pay-guide";
 import { PHILHEALTH_GUIDE_UPDATED_AT } from "@/data/guides/philhealth-guide";
 import { PAGIBIG_GUIDE_UPDATED_AT } from "@/data/guides/pag-ibig-guide";
+import { blogPosts } from "@/data/blog";
 
 export const dynamic = "force-static";
 
@@ -61,6 +62,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${SITE_URL}/blog/`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+
+    /* ── Blog Posts ────────────────────────────────────────── */
+    ...blogPosts.map((post) => ({
+      url: `${SITE_URL}/blog/${post.slug}/`,
+      lastModified: toDate(post.updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
 
     /* ── Calculators — Loans ───────────────────────────────── */
     {
