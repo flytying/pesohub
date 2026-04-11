@@ -127,13 +127,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}/calculators/savings/emergency-fund-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.4,
+      priority: 0.7,
     },
     {
       url: `${SITE_URL}/calculators/savings/savings-goal-calculator-philippines/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.4,
+      priority: 0.7,
     },
 
     /* ── Rates — Exchange ──────────────────────────────────── */

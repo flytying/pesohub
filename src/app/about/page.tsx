@@ -1,7 +1,7 @@
 import { generatePageMetadata } from "@/lib/seo";
 import { SITE_NAME } from "@/config/site";
 import { PageHero } from "@/components/shared/page-hero";
-import { Calculator, TrendingUp, BookOpen, Info, TriangleAlert } from "lucide-react";
+import { Calculator, TrendingUp, BookOpen, Info, TriangleAlert, ShieldCheck, Users, FileCheck, RefreshCw } from "lucide-react";
 
 export const metadata = generatePageMetadata({
   title: `About ${SITE_NAME}`,
@@ -99,6 +99,137 @@ export default function AboutPage() {
                 );
               })}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How We Build and Verify Content */}
+      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        <section>
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            How We Build and Verify Content
+          </h2>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            Every page on {SITE_NAME} follows a consistent editorial process
+            designed to keep financial information accurate and up to date.
+            Because this site covers topics that directly affect people&apos;s
+            money — tax deductions, government contributions, loan payments, and
+            savings rates — we take accuracy seriously.
+          </p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                <FileCheck className="size-6" />
+              </div>
+              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                Official Sources Only
+              </h3>
+              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                All government data — SSS contribution tables, PhilHealth
+                premiums, Pag-IBIG rates, BIR tax brackets — is sourced
+                directly from official agency publications, circulars, and
+                advisories. We link to the original source on every reference
+                page.
+              </p>
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                <RefreshCw className="size-6" />
+              </div>
+              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                Regular Review Cadence
+              </h3>
+              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                Exchange rates update daily. Bank savings rates are reviewed
+                every two weeks. Government contribution tables and tax
+                brackets are checked monthly. Every page shows its last
+                verified date so you know how current the data is.
+              </p>
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                <ShieldCheck className="size-6" />
+              </div>
+              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                Calculator Formulas Cross-Checked
+              </h3>
+              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                Calculator logic uses standard financial formulas (amortization,
+                compound interest, TRAIN law brackets) and is tested against
+                known outputs. Each calculator page explains the formula used
+                and includes worked examples you can verify.
+              </p>
+            </div>
+            <div className="rounded-xl border border-gray-200 bg-white p-6">
+              <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                <Info className="size-6" />
+              </div>
+              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                Clear Disclaimers
+              </h3>
+              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                Every reference page and calculator includes a disclaimer
+                making clear that results are estimates for informational
+                purposes. We label what is an official figure versus a
+                computed estimate so you can make informed decisions.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* Who This Site Is For */}
+      <section className="bg-surface-tertiary py-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Who This Site Is For
+          </h2>
+          <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
+            {SITE_NAME} is built for anyone in the Philippines who needs clear,
+            practical answers to everyday financial questions.
+          </p>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                icon: Users,
+                title: "Employees",
+                description:
+                  "Checking payslip deductions, understanding SSS and PhilHealth contributions, or estimating take-home pay after tax.",
+              },
+              {
+                icon: TrendingUp,
+                title: "Savers & Investors",
+                description:
+                  "Comparing bank savings rates, estimating time deposit returns, or calculating how much to save each month for a goal.",
+              },
+              {
+                icon: Calculator,
+                title: "Loan Applicants",
+                description:
+                  "Estimating monthly car loan, home loan, or personal loan payments before applying. Comparing offers from different lenders.",
+              },
+              {
+                icon: BookOpen,
+                title: "OFWs & Self-Employed",
+                description:
+                  "Checking exchange rates, computing voluntary SSS or Pag-IBIG contributions, or understanding how government benefits work.",
+              },
+            ].map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title} className="rounded-xl bg-white p-6">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-accent-cyan text-white">
+                    <Icon className="size-6" />
+                  </div>
+                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                    {item.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
