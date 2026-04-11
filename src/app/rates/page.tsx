@@ -137,7 +137,7 @@ export default function RatesPage() {
       </section>
 
       {/* Choose a Rate Type */}
-      <section id="choose" className="scroll-mt-20 py-16 lg:py-20">
+      <section id="choose" className="scroll-mt-20 bg-surface-secondary py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
             Choose a Rate Type
@@ -148,7 +148,7 @@ export default function RatesPage() {
               return (
                 <div
                   key={card.title}
-                  className="flex h-full flex-col rounded-xl border border-gray-200 bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                  className="flex h-full flex-col rounded-xl bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
                 >
                   <h4 className="text-[20px] font-semibold leading-[26px] text-brand">
                     {card.title}
