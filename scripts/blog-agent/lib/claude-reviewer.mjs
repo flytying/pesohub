@@ -15,6 +15,21 @@ function parseJsonResponse(text) {
   return JSON.parse(stripped);
 }
 
+/** Retry a Claude API call on transient errors (overloaded, rate-limited). */
+async function withRetry(fn, { retries = 3, delayMs = 5000 } = {}) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      const retryable = err.status === 429 || err.status === 529 || err.status >= 500;
+      if (!retryable || attempt === retries) throw err;
+      const wait = delayMs * attempt;
+      console.log(`  ⏳ API error ${err.status}, retrying in ${wait / 1000}s (attempt ${attempt}/${retries})...`);
+      await new Promise((r) => setTimeout(r, wait));
+    }
+  }
+}
+
 /**
  * Review a blog article for quality and SEO.
  *
@@ -36,7 +51,7 @@ export async function reviewArticle(postData, keyword, research) {
     })
     .reduce((a, b) => a + b, 0);
 
-  const message = await anthropic.messages.create({
+  const message = await withRetry(() => anthropic.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 2000,
     system:
@@ -87,7 +102,7 @@ Respond with valid JSON only (no markdown fences):
 }`,
       },
     ],
-  });
+  }));
 
   const text = message.content[0].text;
   return parseJsonResponse(text);

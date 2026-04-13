@@ -14,6 +14,21 @@ function parseJsonResponse(text) {
   return JSON.parse(stripped);
 }
 
+/** Retry a Claude API call on transient errors (overloaded, rate-limited). */
+async function withRetry(fn, { retries = 3, delayMs = 5000 } = {}) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      const retryable = err.status === 429 || err.status === 529 || err.status >= 500;
+      if (!retryable || attempt === retries) throw err;
+      const wait = delayMs * attempt;
+      console.log(`  ⏳ API error ${err.status}, retrying in ${wait / 1000}s (attempt ${attempt}/${retries})...`);
+      await new Promise((r) => setTimeout(r, wait));
+    }
+  }
+}
+
 const SYSTEM_PROMPT = `You are a Philippine personal finance content writer for PesoHub (pesohub.ph).
 
 Your articles are:
@@ -33,7 +48,7 @@ Write in clear, plain English. Avoid jargon unless you explain it.`;
 export async function generateOutline(keyword, research, topicMeta = {}) {
   console.log(`  📝 Generating outline for: "${keyword}"...`);
 
-  const message = await anthropic.messages.create({
+  const message = await withRetry(() => anthropic.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 2000,
     system: SYSTEM_PROMPT,
@@ -68,7 +83,7 @@ Respond with valid JSON only (no markdown fences):
 }`,
       },
     ],
-  });
+  }));
 
   const text = message.content[0].text;
   return parseJsonResponse(text);
@@ -80,7 +95,7 @@ Respond with valid JSON only (no markdown fences):
 export async function writeArticle(outline, research, topicMeta = {}) {
   console.log(`  ✍️  Writing full article...`);
 
-  const message = await anthropic.messages.create({
+  const message = await withRetry(() => anthropic.messages.create({
     model: "claude-sonnet-4-20250514",
     max_tokens: 8000,
     system: SYSTEM_PROMPT,
@@ -129,7 +144,7 @@ Requirements:
 - Philippine-specific examples, institutions, and peso amounts`,
       },
     ],
-  });
+  }));
 
   const text = message.content[0].text;
   return parseJsonResponse(text);
