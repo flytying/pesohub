@@ -9,7 +9,11 @@ import Anthropic from "@anthropic-ai/sdk";
 const anthropic = new Anthropic();
 
 /** Strip markdown code fences from Claude responses before parsing JSON. */
-function parseJsonResponse(text) {
+function parseJsonResponse(message) {
+  const text = message.content[0].text;
+  if (message.stop_reason === "max_tokens") {
+    throw new Error(`Response truncated (hit max_tokens). stop_reason: max_tokens. Partial response: ${text.slice(-200)}`);
+  }
   const stripped = text.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "");
   return JSON.parse(stripped);
 }
@@ -50,7 +54,7 @@ export async function generateOutline(keyword, research, topicMeta = {}) {
 
   const message = await withRetry(() => anthropic.messages.create({
     model: "claude-sonnet-4-6",
-    max_tokens: 2000,
+    max_tokens: 4096,
     system: SYSTEM_PROMPT,
     messages: [
       {
@@ -85,8 +89,7 @@ Respond with valid JSON only (no markdown fences):
     ],
   }));
 
-  const text = message.content[0].text;
-  return parseJsonResponse(text);
+  return parseJsonResponse(message);
 }
 
 /**
@@ -97,7 +100,7 @@ export async function writeArticle(outline, research, topicMeta = {}) {
 
   const message = await withRetry(() => anthropic.messages.create({
     model: "claude-sonnet-4-6",
-    max_tokens: 8000,
+    max_tokens: 16000,
     system: SYSTEM_PROMPT,
     messages: [
       {
@@ -146,6 +149,5 @@ Requirements:
     ],
   }));
 
-  const text = message.content[0].text;
-  return parseJsonResponse(text);
+  return parseJsonResponse(message);
 }
