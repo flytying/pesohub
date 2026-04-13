@@ -8,6 +8,12 @@ import Anthropic from "@anthropic-ai/sdk";
 
 const anthropic = new Anthropic();
 
+/** Strip markdown code fences from Claude responses before parsing JSON. */
+function parseJsonResponse(text) {
+  const stripped = text.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "");
+  return JSON.parse(stripped);
+}
+
 const SYSTEM_PROMPT = `You are a Philippine personal finance content writer for PesoHub (pesohub.ph).
 
 Your articles are:
@@ -65,7 +71,7 @@ Respond with valid JSON only (no markdown fences):
   });
 
   const text = message.content[0].text;
-  return JSON.parse(text);
+  return parseJsonResponse(text);
 }
 
 /**
@@ -126,5 +132,5 @@ Requirements:
   });
 
   const text = message.content[0].text;
-  return JSON.parse(text);
+  return parseJsonResponse(text);
 }
