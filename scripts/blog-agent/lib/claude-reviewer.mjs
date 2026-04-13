@@ -52,7 +52,7 @@ export async function reviewArticle(postData, keyword, research) {
     .reduce((a, b) => a + b, 0);
 
   const message = await withRetry(() => anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: "claude-sonnet-4-6",
     max_tokens: 2000,
     system:
       "You are an SEO content reviewer for Philippine personal finance content. Be strict but fair. Focus on factual accuracy, keyword relevance, and content depth.",

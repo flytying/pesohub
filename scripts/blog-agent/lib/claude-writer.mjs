@@ -49,7 +49,7 @@ export async function generateOutline(keyword, research, topicMeta = {}) {
   console.log(`  📝 Generating outline for: "${keyword}"...`);
 
   const message = await withRetry(() => anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: "claude-sonnet-4-6",
     max_tokens: 2000,
     system: SYSTEM_PROMPT,
     messages: [
@@ -96,7 +96,7 @@ export async function writeArticle(outline, research, topicMeta = {}) {
   console.log(`  ✍️  Writing full article...`);
 
   const message = await withRetry(() => anthropic.messages.create({
-    model: "claude-sonnet-4-20250514",
+    model: "claude-sonnet-4-6",
     max_tokens: 8000,
     system: SYSTEM_PROMPT,
     messages: [
