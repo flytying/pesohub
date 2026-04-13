@@ -44,4 +44,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-04-11",
     readTime: 8,
   },
+  {
+    slug: "what-is-a-savings-rate-philippines",
+    title: "What Is a Savings Rate and Why It Matters for Filipino Savers",
+    excerpt: "Your savings rate — the percentage of your income you set aside rather than spend — is one of the most powerful numbers in personal finance. This guide explains what it means for Filipino earners, how to calculate yours, what targets make sense at different life stages, and practical strategies to increase it starting today.",
+    category: "savings",
+    publishedAt: "2026-04-13",
+    updatedAt: "2026-04-13",
+    readTime: 9,
+  },
 ];

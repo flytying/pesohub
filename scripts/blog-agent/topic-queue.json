@@ -53,7 +53,8 @@
         "/rates/savings-rates/best-savings-interest-rates-philippines",
         "/calculators/savings/savings-goal-calculator-philippines"
       ],
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-04-13"
     },
     {
       "id": 4,
