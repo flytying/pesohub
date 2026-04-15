@@ -9,7 +9,8 @@
  *   node scripts/data-updater/run-update.mjs --sources all
  *
  * Environment variables required:
- *   TAVILY_API_KEY — Tavily API key (used for both web extraction and AI-powered data parsing)
+ *   TAVILY_API_KEY    — Tavily API key (used for web page extraction via Tavily Extract)
+ *   ANTHROPIC_API_KEY — Anthropic API key (used for structured data extraction via Claude tool use)
  */
 
 import { writeFileSync } from "fs";
@@ -73,6 +74,10 @@ async function main() {
   // Check required environment variables
   if (!process.env.TAVILY_API_KEY) {
     console.error("Error: TAVILY_API_KEY environment variable is required.");
+    process.exit(1);
+  }
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.error("Error: ANTHROPIC_API_KEY environment variable is required.");
     process.exit(1);
   }
 

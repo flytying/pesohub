@@ -1,100 +1,67 @@
 #!/usr/bin/env node
 
 /**
- * Tavily Search-based structured data extraction.
- * Uses Tavily's AI-powered search (includeAnswer) to extract structured data
- * from source domains, eliminating the need for a separate LLM API key.
+ * Claude-based structured data extraction.
  *
- * A short query (under 400 chars, per Tavily API limit) is sent with
- * includeDomains to restrict results to the source site. Tavily's AI
- * generates a structured JSON answer from its own search results.
+ * Takes raw page text (already fetched via Tavily Extract) and uses
+ * Claude's tool-use mode to return schema-compliant JSON. This replaced
+ * the earlier Tavily Search-based extractor, which re-searched the domain
+ * and ignored the page text we'd already fetched — resulting in frequent
+ * "no AI answer" failures on JS-heavy bank sites.
+ *
+ * Requires ANTHROPIC_API_KEY.
  */
 
-import { tavily } from "@tavily/core";
+import Anthropic from "@anthropic-ai/sdk";
 
-const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
+const MODEL = "claude-sonnet-4-6";
+const MAX_TOKENS = 4096;
+// Bank/government pages rarely need more than ~50k chars of context.
+// Rate tables and key data are typically near the top of the page.
+const MAX_PAGE_TEXT_CHARS = 50000;
 
 let client = null;
 
 function getClient() {
-  if (!TAVILY_API_KEY) {
+  if (!process.env.ANTHROPIC_API_KEY) {
     throw new Error(
-      "TAVILY_API_KEY environment variable is required. Get one at https://tavily.com"
+      "ANTHROPIC_API_KEY environment variable is required for structured data extraction."
     );
   }
   if (!client) {
-    client = tavily({ apiKey: TAVILY_API_KEY });
+    client = new Anthropic();
   }
   return client;
 }
 
-/**
- * Build a search query that instructs Tavily's AI to extract structured data.
- * Query must stay under 400 characters (Tavily API limit).
- * Page text is NOT embedded — Tavily searches the domain directly via includeDomains.
- */
-function buildExtractionQuery({ extractionPrompt, schema }) {
-  const schemaFields = Object.keys(schema.properties || {}).join(", ");
-  const query = `${extractionPrompt} Return JSON: { ${schemaFields} }`;
-
-  if (query.length > 400) {
-    console.warn(
-      `⚠ Query is ${query.length} chars (limit 400). Truncating to extractionPrompt only.`
-    );
-    return extractionPrompt.slice(0, 400);
-  }
-
-  return query;
-}
-
-/**
- * Parse JSON from Tavily's AI answer, handling markdown code blocks and prose.
- */
-function parseJsonFromAnswer(answer) {
-  if (!answer || typeof answer !== "string") {
-    throw new Error("Empty or invalid AI answer");
-  }
-
-  // Try 1: Extract JSON from markdown code blocks (```json ... ``` or ``` ... ```)
-  const codeBlockMatch = answer.match(/```(?:json)?\s*\n?([\s\S]*?)\n?\s*```/);
-  if (codeBlockMatch) {
+/** Retry a Claude API call on transient errors (overloaded, rate-limited). */
+async function withRetry(fn, { retries = 3, delayMs = 5000 } = {}) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      return JSON.parse(codeBlockMatch[1].trim());
-    } catch {
-      // Fall through to other strategies
+      return await fn();
+    } catch (err) {
+      const retryable =
+        err.status === 429 || err.status === 529 || err.status >= 500;
+      if (!retryable || attempt === retries) throw err;
+      const wait = delayMs * attempt;
+      console.log(
+        `  ⏳ Claude API error ${err.status}, retrying in ${wait / 1000}s (attempt ${attempt}/${retries})...`
+      );
+      await new Promise((r) => setTimeout(r, wait));
     }
-  }
-
-  // Try 2: Find the first { ... } or [ ... ] block in the answer
-  const jsonMatch = answer.match(/(\{[\s\S]*\}|\[[\s\S]*\])/);
-  if (jsonMatch) {
-    try {
-      return JSON.parse(jsonMatch[1]);
-    } catch {
-      // Fall through
-    }
-  }
-
-  // Try 3: The entire answer might be JSON
-  try {
-    return JSON.parse(answer.trim());
-  } catch {
-    throw new Error(
-      `Could not parse JSON from AI answer. Answer preview: ${answer.slice(0, 200)}...`
-    );
   }
 }
 
 /**
- * Extract structured data from page text using Tavily's AI-powered search.
+ * Extract structured data from page text using Claude with tool use.
  *
  * @param {object} params
  * @param {string} params.pageText - Raw text content from Tavily Extract
  * @param {string} params.sourceUrl - URL the text was extracted from (for context)
  * @param {string} params.extractionPrompt - Source-specific prompt describing what to extract
- * @param {object} params.schema - JSON Schema for the expected result (properties, required fields)
- * @param {string} params.schemaName - Name identifier for the extraction type
- * @returns {Promise<object>} Extracted structured data matching the schema
+ * @param {object} params.schema - JSON Schema for the expected result
+ * @param {string} params.schemaName - Name identifier (used as the tool name)
+ * @returns {Promise<object>} Extracted data matching the schema
  */
 export async function extractStructuredData({
   pageText,
@@ -103,29 +70,66 @@ export async function extractStructuredData({
   schema,
   schemaName,
 }) {
-  const tvly = getClient();
+  const anthropic = getClient();
 
-  const query = buildExtractionQuery({ extractionPrompt, schema });
-
-  // Use Tavily search with AI answer generation, restricted to the source domain
-  const domain = new URL(sourceUrl).hostname;
-  const response = await tvly.search(query, {
-    includeAnswer: "advanced",
-    includeDomains: [domain],
-    searchDepth: "advanced",
-    maxResults: 3,
-    topic: "finance",
-  });
-
-  if (!response.answer) {
+  if (!pageText || pageText.trim().length === 0) {
     throw new Error(
-      `Tavily did not return an AI answer for ${schemaName} (source: ${sourceUrl})`
+      `Empty page text for ${schemaName} (source: ${sourceUrl}) — nothing to extract`
     );
   }
 
-  const extracted = parseJsonFromAnswer(response.answer);
+  const truncatedText =
+    pageText.length > MAX_PAGE_TEXT_CHARS
+      ? pageText.slice(0, MAX_PAGE_TEXT_CHARS)
+      : pageText;
 
-  // Basic validation: ensure we got an object
+  const message = await withRetry(() =>
+    anthropic.messages.create({
+      model: MODEL,
+      max_tokens: MAX_TOKENS,
+      tools: [
+        {
+          name: schemaName,
+          description: extractionPrompt,
+          input_schema: schema,
+        },
+      ],
+      tool_choice: { type: "tool", name: schemaName },
+      messages: [
+        {
+          role: "user",
+          content: `${extractionPrompt}
+
+Source URL: ${sourceUrl}
+
+Page content:
+${truncatedText}
+
+Instructions:
+- Extract only what is explicitly stated on the page. Do NOT invent or guess values.
+- If a field is not present, omit it (the tool schema marks required fields).
+- If no relevant data is visible on the page (e.g., the page is a generic landing page without rates), return an empty array for list fields and omit scalar fields.
+- Philippine peso amounts: return as plain numbers (e.g., 1000000 not "₱1,000,000").
+- Rates: return as percentages (e.g., 4.5 for 4.5%), not decimals (not 0.045).`,
+        },
+      ],
+    })
+  );
+
+  const toolUseBlock = message.content.find((b) => b.type === "tool_use");
+  if (!toolUseBlock) {
+    const textPreview = message.content
+      .filter((b) => b.type === "text")
+      .map((b) => b.text)
+      .join(" ")
+      .slice(0, 200);
+    throw new Error(
+      `Claude did not return tool use for ${schemaName} (source: ${sourceUrl}). Preview: ${textPreview}`
+    );
+  }
+
+  const extracted = toolUseBlock.input;
+
   if (typeof extracted !== "object" || extracted === null) {
     throw new Error(
       `Extracted data is not an object for ${schemaName} (source: ${sourceUrl})`

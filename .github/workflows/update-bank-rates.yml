@@ -28,6 +28,7 @@ jobs:
       - name: Run bank rate updater
         env:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/data-updater/run-update.mjs --sources savings-rates,digital-rates,time-deposit-rates
 
       - name: Check for changes
