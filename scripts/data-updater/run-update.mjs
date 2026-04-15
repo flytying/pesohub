@@ -12,8 +12,11 @@
  *   TAVILY_API_KEY — Tavily API key (used for both web extraction and AI-powered data parsing)
  */
 
+import { writeFileSync } from "fs";
 import { writePrBody } from "./lib/reporter.mjs";
 import { allSources } from "./lib/config.mjs";
+
+const FAILURE_FLAG_PATH = "/tmp/data-updater-failed.txt";
 
 // Source script imports (dynamic)
 const sourceModules = {
@@ -120,9 +123,23 @@ async function main() {
     console.log(`\nNo data changes. No PR needed.`);
   }
 
-  // Exit with error only if ALL sources failed
-  if (failed.length === sources.length) {
-    process.exit(1);
+  // Write a failure flag for the workflow to surface as a job failure
+  // AFTER the PR is created. We exit 0 here so the workflow can still
+  // check for changes and open a PR for any sources that DID succeed
+  // (partial updates aren't lost). A later workflow step reads the flag
+  // and fails the job, so the user still gets an email + red ❌.
+  if (failed.length > 0) {
+    const summary = failed
+      .map((r) => `- ${r.sourceName}: ${r.error || "Unknown error"}`)
+      .join("\n");
+    writeFileSync(
+      FAILURE_FLAG_PATH,
+      `${failed.length} source(s) failed:\n${summary}\n`,
+      "utf-8"
+    );
+    console.log(
+      `\n⚠️  Failure flag written to ${FAILURE_FLAG_PATH} — workflow will fail at the end.`
+    );
   }
 }
 

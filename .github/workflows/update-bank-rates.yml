@@ -58,3 +58,12 @@ jobs:
             --title "chore: update bank rates $(date +%Y-%m-%d)" \
             --body-file /tmp/pr-body.md \
             --label "auto-update,needs-review"
+
+      - name: Fail if any source failed
+        if: always()
+        run: |
+          if [ -f /tmp/data-updater-failed.txt ]; then
+            echo "::error::Data updater had failures:"
+            cat /tmp/data-updater-failed.txt
+            exit 1
+          fi
