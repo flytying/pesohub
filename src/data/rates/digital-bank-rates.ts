@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-03-18";
+export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-04-16";
 
 export interface DigitalBankRate {
   bankName: string;
@@ -20,15 +20,26 @@ export interface DigitalBankRate {
  */
 export const digitalBankRates: DigitalBankRate[] = [
   {
-    bankName: "Tonik",
-    bestFor: "Rate-focused savers",
+    bankName: "Tonik Bank – Tonik Account",
+    bestFor: "High-yield everyday savings account",
     baseRate: 6,
     promoRate: null,
-    cardAtmAccess: "Debit card available",
-    transfers: "App-based transfers, InstaPay, PESONet",
-    limitsConditions: "No maintaining balance",
-    depositInsurance: "PDIC-insured up to ₱1,000,000",
-    notes: "BSP-licensed digital bank. Stash account for savings.",
+    cardAtmAccess: "Mastercard debit card with 3D Secure (Mastercard SecureCode); card lock/block and limit management available in-app",
+    transfers: "Fund transfers available in-app; Zero-fee QR Ph payments to 675,000+ merchants",
+    limitsConditions: "No specific minimum balance or cap stated on page for the Tonik Account",
+    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
+    notes: "App-only onboarding (approximately 5 minutes). Face ID / Touch ID login supported. Also offers Solo Stash (4% p.a.), Group Stash (group savings), and Time Deposits (6–8% p.a.). Credit Builder Loan up to ₱50,000 also available.",
+  },
+  {
+    bankName: "Tonik Bank – Time Deposit",
+    bestFor: "Highest-yield fixed-term deposit",
+    baseRate: 6,
+    promoRate: 8,
+    cardAtmAccess: "Accessed via Tonik App",
+    transfers: "Fund transfers available in-app",
+    limitsConditions: "Tiered rates of 6%, 7%, and 8% p.a. described as having no conditions and no catch; accessible to everyone",
+    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
+    notes: "Announced February 14, 2026: '6–7–8% Rates — No Conditions, No Catch, and Accessible to Everyone.' Rate of 8% p.a. is the maximum; 6% is the entry-level Time Deposit rate.",
   },
   {
     bankName: "GoTyme",
@@ -53,15 +64,15 @@ export const digitalBankRates: DigitalBankRate[] = [
     notes: "Backed by Sea Group (Shopee). BSP-licensed digital bank.",
   },
   {
-    bankName: "Maya",
-    bestFor: "Promo-driven savers",
-    baseRate: 2.5,
-    promoRate: 15,
-    cardAtmAccess: "Virtual and physical card available",
-    transfers: "App-based transfers, InstaPay, PESONet",
-    limitsConditions: "Promo rate subject to change",
-    depositInsurance: "PDIC-insured up to ₱1,000,000",
-    notes: "Promo rate; subject to change. Formerly PayMaya.",
+    bankName: "Tonik Bank – Solo Stash",
+    bestFor: "Goal-based individual savings stash",
+    baseRate: 4,
+    promoRate: null,
+    cardAtmAccess: "Accessed via Tonik App (Mastercard card linked to main account)",
+    transfers: "Fund transfers available in-app",
+    limitsConditions: "No specific minimum balance or cap stated on page",
+    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
+    notes: "Earn 4% p.a. – described as 4x harder than a regular savings account. Part of Tonik's Stashes product suite.",
   },
   {
     bankName: "CIMB",
@@ -73,6 +84,17 @@ export const digitalBankRates: DigitalBankRate[] = [
     limitsConditions: "No maintaining balance",
     depositInsurance: "PDIC-insured up to ₱1,000,000",
     notes: "GCash partner bank. UpSave account offers higher rate.",
+  },
+  {
+    bankName: "Maya",
+    bestFor: "Promo-driven savers",
+    baseRate: 2.5,
+    promoRate: 15,
+    cardAtmAccess: "Virtual and physical card available",
+    transfers: "App-based transfers, InstaPay, PESONet",
+    limitsConditions: "Promo rate subject to change",
+    depositInsurance: "PDIC-insured up to ₱1,000,000",
+    notes: "Promo rate; subject to change. Formerly PayMaya.",
   },
 ];
 
