@@ -14,8 +14,15 @@ import {
   parseDataArray,
   getTodayPHT,
 } from "../lib/file-writer.mjs";
-import { validateRateChanges, validateDataIntegrity } from "../lib/validator.mjs";
+import {
+  validateRateChanges,
+  validateDataIntegrity,
+  filterValidRows,
+} from "../lib/validator.mjs";
 import { bankDigitalRatesConfig as config } from "../lib/config.mjs";
+
+const REQUIRED_STRING_FIELDS = ["bankName"];
+const REQUIRED_NUMBER_FIELDS = ["baseRate"];
 
 function formatRateEntry(rate) {
   const promoRate = rate.promoRate != null ? rate.promoRate : "null";
@@ -69,7 +76,20 @@ export async function run() {
         for (const rate of data.rates) {
           rate.bankName = rate.bankName || bankName;
         }
-        newRatesByBank.set(bankName, data.rates);
+        const { valid, dropped } = filterValidRows(data.rates, {
+          requiredStringFields: REQUIRED_STRING_FIELDS,
+          requiredNumberFields: REQUIRED_NUMBER_FIELDS,
+        });
+        if (dropped > 0) {
+          console.log(
+            `    (dropped ${dropped} invalid row${dropped === 1 ? "" : "s"} from ${bankName})`
+          );
+        }
+        if (valid.length > 0) {
+          newRatesByBank.set(bankName, valid);
+        } else {
+          console.log(`    (no valid rates from ${bankName} page)`);
+        }
       } else {
         console.log(`    (no rates visible on ${bankName} page)`);
       }
@@ -122,8 +142,8 @@ export async function run() {
 
   // Circuit breaker: catch corruption in the MERGED data
   const integrity = validateDataIntegrity(currentRates, mergedRates, {
-    requiredStringFields: ["bankName"],
-    requiredNumberFields: ["baseRate"],
+    requiredStringFields: REQUIRED_STRING_FIELDS,
+    requiredNumberFields: REQUIRED_NUMBER_FIELDS,
     maxRowDropPercent: 30,
     minRows: 4,
   });

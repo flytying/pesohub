@@ -136,6 +136,59 @@ export function validateRateChanges(currentData, newData, options) {
 }
 
 /**
+ * Filter out rows that are missing required fields.
+ * Used to clean AI-extracted rate data before the merge + circuit-breaker step,
+ * so that a single bad row from Claude doesn't fail an otherwise-valid bank.
+ *
+ * @param {Array<object>} rows
+ * @param {object} options
+ * @param {string[]} [options.requiredStringFields]
+ * @param {string[]} [options.requiredNumberFields]
+ * @returns {{ valid: Array<object>, dropped: number }}
+ */
+export function filterValidRows(rows, options = {}) {
+  const {
+    requiredStringFields = [],
+    requiredNumberFields = [],
+  } = options;
+
+  const valid = [];
+  let dropped = 0;
+
+  for (const row of rows) {
+    let ok = true;
+
+    for (const field of requiredStringFields) {
+      const val = row[field];
+      if (val == null || (typeof val === "string" && val.trim() === "")) {
+        ok = false;
+        break;
+      }
+    }
+
+    if (ok) {
+      for (const field of requiredNumberFields) {
+        const val = row[field];
+        if (
+          val == null ||
+          typeof val !== "number" ||
+          !Number.isFinite(val) ||
+          val <= 0
+        ) {
+          ok = false;
+          break;
+        }
+      }
+    }
+
+    if (ok) valid.push(row);
+    else dropped++;
+  }
+
+  return { valid, dropped };
+}
+
+/**
  * Circuit breaker: block writes when extracted data shows signs of corruption
  * or incomplete extraction (large row drop, empty required fields, etc.).
  *
