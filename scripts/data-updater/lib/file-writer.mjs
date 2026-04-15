@@ -97,6 +97,37 @@ export function updateTimestamp(content, exportName, newDate) {
 }
 
 /**
+ * Parse an exported array literal from a TypeScript data file into a JS array.
+ * Uses Function() evaluation — safe here because these files are written by
+ * this same tool and reviewed in PRs.
+ *
+ * @param {string} content - File content
+ * @param {string} exportName - The export const name (e.g., "bankSavingsRates")
+ * @returns {Array<object>} The parsed array, or [] if not found / not parseable
+ */
+export function parseDataArray(content, exportName) {
+  // Match: export const <name>[: type annotation] = [ ... ];
+  // The array body ends at a line that is just "];" after an outer-level close.
+  const regex = new RegExp(
+    `export const ${exportName}[^=]*=\\s*(\\[[\\s\\S]*?\\n\\]);`,
+    "m"
+  );
+  const match = content.match(regex);
+  if (!match) return [];
+
+  try {
+    // Wrap in a function that returns the literal. JS supports unquoted keys,
+    // trailing commas, numeric separators (1_000_000), and null values natively.
+    return new Function(`return ${match[1]}`)();
+  } catch (err) {
+    console.warn(
+      `⚠ Failed to parse array literal for ${exportName}: ${err.message}`
+    );
+    return [];
+  }
+}
+
+/**
  * Replace an exported array in a data file with new content.
  *
  * @param {string} content - File content

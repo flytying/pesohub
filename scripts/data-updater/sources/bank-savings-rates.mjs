@@ -5,37 +5,17 @@
  * Scrapes individual bank websites and extracts savings rates.
  */
 
-import { extractUrls, extractWithFallback } from "../lib/fetcher.mjs";
+import { extractWithFallback } from "../lib/fetcher.mjs";
 import { extractStructuredData } from "../lib/ai-extractor.mjs";
 import {
   readDataFile,
   writeDataFile,
   extractFaqSection,
-  extractUpdatedAt,
+  parseDataArray,
   getTodayPHT,
 } from "../lib/file-writer.mjs";
 import { validateRateChanges, validateDataIntegrity } from "../lib/validator.mjs";
 import { bankSavingsRatesConfig as config } from "../lib/config.mjs";
-
-/**
- * Parse the current bankSavingsRates array from the data file.
- */
-function parseCurrentRates(content) {
-  const rates = [];
-  const regex =
-    /\{\s*bankName:\s*"([^"]+)",\s*accountType:\s*"([^"]+)",\s*interestRate:\s*([\d.]+),\s*rateType:\s*"([^"]+)",\s*minimumBalance:\s*([\d_]+),/g;
-  let match;
-  while ((match = regex.exec(content)) !== null) {
-    rates.push({
-      bankName: match[1],
-      accountType: match[2],
-      interestRate: parseFloat(match[3]),
-      rateType: match[4],
-      minimumBalance: parseInt(match[5].replace(/_/g, ""), 10),
-    });
-  }
-  return rates;
-}
 
 /**
  * Format a rate entry as TypeScript source.
@@ -62,12 +42,12 @@ export async function run() {
   console.log(`\n── ${config.name} ──`);
 
   const content = readDataFile(config.dataFile);
-  const currentRates = parseCurrentRates(content);
+  const currentRates = parseDataArray(content, config.dataArrayExport);
   const sourceUrls = config.urls.map((u) => u.url);
 
   // Extract content from all bank URLs
   const allExtracted = [];
-  const failedUrls = [];
+  const fetchFailedBanks = new Set();
   let rawContentLog = "";
 
   for (const { bankName, url } of config.urls) {
@@ -77,25 +57,17 @@ export async function run() {
       allExtracted.push({ bankName, ...result });
       rawContentLog += `\n--- ${bankName} (${url}) ---\n${result.rawContent.slice(0, 1000)}\n`;
     } else {
-      failedUrls.push(url);
+      fetchFailedBanks.add(bankName);
       console.warn(`  ⚠ Failed to extract ${bankName}`);
     }
   }
 
-  if (allExtracted.length === 0) {
-    return {
-      sourceName: config.name,
-      dataFile: config.dataFile,
-      sourceUrls,
-      status: "failed",
-      changes: [],
-      warnings: [],
-      error: "All bank URL extractions failed",
-    };
-  }
+  // Extract structured data from each bank's page content.
+  // Track which banks produced valid new rate data so we can merge
+  // with existing data for banks whose pages returned nothing.
+  const newRatesByBank = new Map();
+  const aiFailedBanks = new Set();
 
-  // Extract structured data from each bank's page content
-  const extractedRates = [];
   for (const { bankName, rawContent, url } of allExtracted) {
     try {
       console.log(`  Extracting rates for ${bankName}...`);
@@ -108,18 +80,54 @@ export async function run() {
       });
 
       if (data.rates && data.rates.length > 0) {
-        // Ensure bankName is set
         for (const rate of data.rates) {
           rate.bankName = rate.bankName || bankName;
         }
-        extractedRates.push(...data.rates);
+        newRatesByBank.set(bankName, data.rates);
+      } else {
+        console.log(`    (no rates visible on ${bankName} page)`);
       }
     } catch (err) {
+      aiFailedBanks.add(bankName);
       console.warn(`  ⚠ AI extraction failed for ${bankName}: ${err.message}`);
     }
   }
 
-  if (extractedRates.length === 0) {
+  // Merge strategy: use new rates for banks that succeeded,
+  // preserve existing rates for banks that had no new data.
+  const mergedRates = [];
+  const preservedBanks = [];
+  const updatedBanks = [];
+  const missingFromBoth = [];
+
+  const knownBanks = new Set([
+    ...config.urls.map((u) => u.bankName),
+    ...currentRates.map((r) => r.bankName),
+  ]);
+
+  for (const bankName of knownBanks) {
+    if (newRatesByBank.has(bankName)) {
+      mergedRates.push(...newRatesByBank.get(bankName));
+      updatedBanks.push(bankName);
+    } else {
+      const existing = currentRates.filter((r) => r.bankName === bankName);
+      if (existing.length > 0) {
+        mergedRates.push(...existing);
+        preservedBanks.push(bankName);
+      } else {
+        missingFromBoth.push(bankName);
+      }
+    }
+  }
+
+  if (updatedBanks.length > 0) {
+    console.log(`  ✓ Updated: ${updatedBanks.join(", ")}`);
+  }
+  if (preservedBanks.length > 0) {
+    console.log(`  ↻ Preserved existing: ${preservedBanks.join(", ")}`);
+  }
+
+  if (mergedRates.length === 0) {
     return {
       sourceName: config.name,
       dataFile: config.dataFile,
@@ -127,12 +135,14 @@ export async function run() {
       status: "failed",
       changes: [],
       warnings: [],
-      error: "AI extraction returned no rates from any bank",
+      error: "No rates available after merge (both current and new empty)",
     };
   }
 
-  // Circuit breaker: catch partial extractions and corrupted rows BEFORE writing
-  const integrity = validateDataIntegrity(currentRates, extractedRates, {
+  // Circuit breaker: catch corruption (empty/undefined fields) in the MERGED data.
+  // With merge strategy, row count can only stay the same or grow, so the
+  // drop-percent check will never trip unless extraction actually corrupts a row.
+  const integrity = validateDataIntegrity(currentRates, mergedRates, {
     requiredStringFields: ["bankName"],
     requiredNumberFields: ["interestRate"],
     maxRowDropPercent: 30,
@@ -154,7 +164,7 @@ export async function run() {
   // Validate against current data
   const validation = validateRateChanges(
     currentRates,
-    extractedRates,
+    mergedRates,
     config.validationOptions
   );
 
@@ -185,13 +195,13 @@ export async function run() {
   }
 
   // Sort by interestRate descending (match existing file convention)
-  extractedRates.sort((a, b) => (b.interestRate || 0) - (a.interestRate || 0));
+  mergedRates.sort((a, b) => (b.interestRate || 0) - (a.interestRate || 0));
 
   // Build updated file content
   const faqs = extractFaqSection(content, config.faqExport);
   const today = getTodayPHT();
 
-  const rateEntries = extractedRates.map(formatRateEntry).join(",\n");
+  const rateEntries = mergedRates.map(formatRateEntry).join(",\n");
 
   const newContent = `import type { FAQ } from "@/types/content";
 
