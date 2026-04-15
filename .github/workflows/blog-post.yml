@@ -68,6 +68,8 @@ jobs:
           git add src/ scripts/blog-agent/topic-queue.json
           git commit -m "blog: add post — ${SLUG} (automated)"
           git push -u origin "$BRANCH"
+          # Ensure label exists (idempotent)
+          gh label create "blog" --color "5319E7" --description "Blog post PR" 2>/dev/null || true
           gh pr create \
             --title "blog: ${SLUG}" \
             --body-file /tmp/pr-body.md \

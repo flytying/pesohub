@@ -14,7 +14,7 @@ import {
   extractUpdatedAt,
   getTodayPHT,
 } from "../lib/file-writer.mjs";
-import { validateRateChanges } from "../lib/validator.mjs";
+import { validateRateChanges, validateDataIntegrity } from "../lib/validator.mjs";
 import { bankSavingsRatesConfig as config } from "../lib/config.mjs";
 
 /**
@@ -128,6 +128,26 @@ export async function run() {
       changes: [],
       warnings: [],
       error: "AI extraction returned no rates from any bank",
+    };
+  }
+
+  // Circuit breaker: catch partial extractions and corrupted rows BEFORE writing
+  const integrity = validateDataIntegrity(currentRates, extractedRates, {
+    requiredStringFields: ["bankName"],
+    requiredNumberFields: ["interestRate"],
+    maxRowDropPercent: 30,
+    minRows: 5,
+  });
+
+  if (!integrity.isValid) {
+    return {
+      sourceName: config.name,
+      dataFile: config.dataFile,
+      sourceUrls,
+      status: "failed",
+      changes: [],
+      warnings: integrity.warnings,
+      error: "Circuit breaker tripped — data integrity check failed",
     };
   }
 

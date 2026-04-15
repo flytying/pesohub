@@ -51,6 +51,9 @@ jobs:
           git add src/data/rates/
           git commit -m "chore: update bank rates (automated)"
           git push -u origin "$BRANCH"
+          # Ensure labels exist (idempotent)
+          gh label create "auto-update" --color "0E8A16" --description "Automated update PR" 2>/dev/null || true
+          gh label create "needs-review" --color "D93F0B" --description "Needs human review" 2>/dev/null || true
           gh pr create \
             --title "chore: update bank rates $(date +%Y-%m-%d)" \
             --body-file /tmp/pr-body.md \

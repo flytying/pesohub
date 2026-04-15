@@ -136,6 +136,96 @@ export function validateRateChanges(currentData, newData, options) {
 }
 
 /**
+ * Circuit breaker: block writes when extracted data shows signs of corruption
+ * or incomplete extraction (large row drop, empty required fields, etc.).
+ *
+ * This prevents the data updater from publishing data when the AI extraction
+ * partially failed — e.g., only 1 of 10 banks succeeded, or rows have
+ * undefined/empty values that would break TypeScript compilation.
+ *
+ * @param {Array<object>} currentData - Current data array from the TS file
+ * @param {Array<object>} newData - Newly extracted data
+ * @param {object} options
+ * @param {string[]} [options.requiredStringFields=[]] - Fields that must be non-empty strings
+ * @param {string[]} [options.requiredNumberFields=[]] - Fields that must be finite numbers > 0
+ * @param {number} [options.maxRowDropPercent=30] - Max % of rows that can disappear vs current
+ * @param {number} [options.minRows=3] - Absolute minimum row count to accept
+ * @returns {ValidationResult}
+ */
+export function validateDataIntegrity(currentData, newData, options = {}) {
+  const {
+    requiredStringFields = [],
+    requiredNumberFields = [],
+    maxRowDropPercent = 30,
+    minRows = 3,
+  } = options;
+
+  const warnings = [];
+
+  // Check 1: minimum absolute row count
+  if (newData.length < minRows) {
+    warnings.push({
+      level: "error",
+      message: `CIRCUIT BREAKER: Only ${newData.length} rows extracted (minimum: ${minRows}). Likely partial extraction failure. Rejecting.`,
+    });
+  }
+
+  // Check 2: row count drop vs current
+  if (currentData.length > 0) {
+    const dropPercent = ((currentData.length - newData.length) / currentData.length) * 100;
+    if (dropPercent > maxRowDropPercent) {
+      warnings.push({
+        level: "error",
+        message: `CIRCUIT BREAKER: Row count dropped ${dropPercent.toFixed(1)}% (${currentData.length} → ${newData.length}). Threshold: ${maxRowDropPercent}%. Likely incomplete extraction. Rejecting.`,
+      });
+    }
+  }
+
+  // Check 3: required string fields must be non-empty
+  let badStringRows = 0;
+  for (const row of newData) {
+    for (const field of requiredStringFields) {
+      const val = row[field];
+      if (val == null || (typeof val === "string" && val.trim() === "")) {
+        badStringRows++;
+        break;
+      }
+    }
+  }
+  if (badStringRows > 0) {
+    warnings.push({
+      level: "error",
+      message: `CIRCUIT BREAKER: ${badStringRows}/${newData.length} rows have empty required string fields (${requiredStringFields.join(", ")}). Rejecting.`,
+    });
+  }
+
+  // Check 4: required numeric fields must be finite numbers > 0
+  let badNumberRows = 0;
+  for (const row of newData) {
+    for (const field of requiredNumberFields) {
+      const val = row[field];
+      if (val == null || typeof val !== "number" || !Number.isFinite(val) || val <= 0) {
+        badNumberRows++;
+        break;
+      }
+    }
+  }
+  if (badNumberRows > 0) {
+    warnings.push({
+      level: "error",
+      message: `CIRCUIT BREAKER: ${badNumberRows}/${newData.length} rows have invalid required numeric fields (${requiredNumberFields.join(", ")}). Rejecting.`,
+    });
+  }
+
+  const hasErrors = warnings.some((w) => w.level === "error");
+  return {
+    isValid: !hasErrors,
+    changes: [],
+    warnings,
+  };
+}
+
+/**
  * Validate government data changes (contribution tables, tax brackets, etc.).
  * Any change to government data is flagged as a potential policy change.
  *
