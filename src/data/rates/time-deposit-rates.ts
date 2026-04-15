@@ -130,4 +130,35 @@ export const bankTimeDepositRates: BankTimeDepositRate[] = [
   },
 ];
 
-
+export const timeDepositRateFaqs: FAQ[] = [
+  {
+    question: "What are time deposit rates?",
+    answer:
+      "Time deposit rates are the advertised interest rates paid on deposit products that require funds to stay in the account for a fixed period. Products may differ by tenor, minimum placement, and customer segment.",
+  },
+  {
+    question: "Why should I compare gross rate and tax note?",
+    answer:
+      "Because the headline rate is usually gross, while the amount you actually receive may be lower after final withholding tax on deposit interest. Recent Philippine guidance reflects a 20% tax environment for this type of interest income.",
+  },
+  {
+    question: "What is the best term length?",
+    answer:
+      "There is no universal best term. Shorter terms offer more flexibility, while longer terms may fit money you can leave untouched for a fixed period.",
+  },
+  {
+    question: "What happens if a bank changes its rate?",
+    answer:
+      "Banks can revise rates, remove tenors, or change product conditions. That is why this page should show notes and an update date, not just a rate number.",
+  },
+  {
+    question: "Is this page the same as an official bank quote?",
+    answer:
+      "No. This page works as a comparison reference. Final terms, exact eligibility, and product rules should still be verified with the bank directly.",
+  },
+  {
+    question: "Should I use a time deposit or a savings account?",
+    answer:
+      "A time deposit is usually better if you can leave the money untouched for a fixed term. A savings account is usually better if you need easier access to funds.",
+  },
+];

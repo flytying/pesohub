@@ -117,7 +117,7 @@ export const bankTimeDepositRatesConfig = {
   dataFile: "src/data/rates/time-deposit-rates.ts",
   updatedAtExport: "TIME_DEPOSIT_RATES_UPDATED_AT",
   dataArrayExport: "bankTimeDepositRates",
-  faqExport: "timeDepositFaqs",
+  faqExport: "timeDepositRateFaqs",
   urls: [
     { bankName: "Tonik", url: "https://tonikbank.com/" },
     { bankName: "CIMB", url: "https://www.cimbbank.com.ph/en/digital-banking.html" },
