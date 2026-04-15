@@ -117,6 +117,12 @@ async function main() {
     console.log(`\nFailed sources:`);
     for (const r of failed) {
       console.log(`  - ${r.sourceName}: ${r.error}`);
+      if (r.warnings && r.warnings.length > 0) {
+        for (const w of r.warnings) {
+          const icon = w.level === "error" ? "🔴" : "🟡";
+          console.log(`      ${icon} ${w.message}`);
+        }
+      }
     }
   }
 
