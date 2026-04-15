@@ -51,14 +51,22 @@ jobs:
           git checkout -b "$BRANCH"
           git add src/data/government/
           git commit -m "chore: update government data (automated)"
-          git push -u origin "$BRANCH"
+          # Force-push to handle re-runs on the same day. If a PR already
+          # exists for this branch, it gets updated in place; otherwise create.
+          git push -u origin "$BRANCH" --force
           # Ensure labels exist (idempotent)
           gh label create "auto-update" --color "0E8A16" --description "Automated update PR" 2>/dev/null || true
           gh label create "needs-review" --color "D93F0B" --description "Needs human review" 2>/dev/null || true
-          gh pr create \
-            --title "chore: update government data $(date +%Y-%m-%d)" \
-            --body-file /tmp/pr-body.md \
-            --label "auto-update,needs-review"
+          EXISTING_PR=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -z "$EXISTING_PR" ]; then
+            gh pr create \
+              --title "chore: update government data $(date +%Y-%m-%d)" \
+              --body-file /tmp/pr-body.md \
+              --label "auto-update,needs-review"
+          else
+            echo "PR #$EXISTING_PR already exists for $BRANCH — updated via force push."
+            gh pr edit "$EXISTING_PR" --body-file /tmp/pr-body.md
+          fi
 
       - name: Fail if any source failed
         if: always()
