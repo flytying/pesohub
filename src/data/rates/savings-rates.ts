@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SAVINGS_RATES_UPDATED_AT = "2026-03-14";
+export const SAVINGS_RATES_UPDATED_AT = "2026-04-16";
 
 export interface BankSavingsRate {
   bankName: string;
@@ -29,14 +29,14 @@ export const bankSavingsRates: BankSavingsRate[] = [
     notes: "Promo rate; subject to change. Formerly PayMaya.",
   },
   {
-    bankName: "Tonik",
-    accountType: "Stash",
+    bankName: "Tonik Bank",
+    accountType: "Tonik Account",
     interestRate: 6,
     rateType: "Standard",
     minimumBalance: 0,
     liquidity: "App-based transfers",
-    bestFor: "Everyday digital savings",
-    notes: "Digital-only bank licensed by BSP.",
+    bestFor: "",
+    notes: "Main savings account with up to 6% interest p.a.",
   },
   {
     bankName: "GoTyme",
@@ -57,6 +57,26 @@ export const bankSavingsRates: BankSavingsRate[] = [
     liquidity: "App-based transfers",
     bestFor: "Everyday digital savings",
     notes: "Backed by Sea Group (Shopee). BSP-licensed digital bank.",
+  },
+  {
+    bankName: "Tonik Bank",
+    accountType: "Solo Stash",
+    interestRate: 4,
+    rateType: "Standard",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "Individual stash savings account with 4% annual interest rate.",
+  },
+  {
+    bankName: "Tonik Bank",
+    accountType: "Group Stash",
+    interestRate: 4,
+    rateType: "Standard",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "Group savings stash account. Interest rate not explicitly stated; implied same as Solo Stash based on page context.",
   },
   {
     bankName: "CIMB",
@@ -83,7 +103,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "Regular Savings",
     interestRate: 0.25,
     rateType: "Standard",
-    minimumBalance: 10000,
+    minimumBalance: 10_000,
     liquidity: "Branch + ATM + app",
     bestFor: "Traditional bank users",
     notes: "Largest bank in the Philippines by assets.",
@@ -93,7 +113,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "Regular Savings",
     interestRate: 0.25,
     rateType: "Standard",
-    minimumBalance: 3000,
+    minimumBalance: 3_000,
     liquidity: "Branch + ATM + app",
     bestFor: "Traditional bank users",
     notes: "One of the oldest banks in the Philippines.",
@@ -103,7 +123,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "Regular Savings",
     interestRate: 0.25,
     rateType: "Standard",
-    minimumBalance: 10000,
+    minimumBalance: 10_000,
     liquidity: "Branch + ATM + app",
     bestFor: "Traditional bank users",
     notes: "Major universal bank with nationwide coverage.",
