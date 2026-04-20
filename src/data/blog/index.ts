@@ -53,4 +53,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-04-13",
     readTime: 9,
   },
+  {
+    slug: "time-deposit-vs-savings-account-philippines",
+    title: "Time Deposit vs Savings Account: Which Earns More in the Philippines?",
+    excerpt: "Time deposits in the Philippines offer significantly higher interest rates than regular savings accounts — typically 3%–6% per annum versus 0.10%–1% — but your money is locked in for a fixed term. This guide covers current 2025 TD rates, peso-based interest calculations, the 20% BIR withholding tax, TD laddering strategies, and how digital banks are changing the comparison.",
+    category: "banking",
+    publishedAt: "2026-04-20",
+    updatedAt: "2026-04-20",
+    readTime: 9,
+  },
 ];
