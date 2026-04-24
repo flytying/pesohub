@@ -70,7 +70,8 @@ jobs:
           git push -u origin "$BRANCH"
           # Ensure label exists (idempotent)
           gh label create "blog" --color "5319E7" --description "Blog post PR" 2>/dev/null || true
-          gh pr create \
+          PR_URL=$(gh pr create \
             --title "blog: ${SLUG}" \
             --body-file /tmp/pr-body.md \
-            --label "blog"
+            --label "blog")
+          gh pr merge "$PR_URL" --squash --auto --delete-branch || gh pr merge "$PR_URL" --squash --delete-branch
