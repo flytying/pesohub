@@ -29,6 +29,8 @@ const postModules: Record<string, () => Promise<{ default: BlogPostData }>> = {
     import("@/data/blog/high-interest-savings-account-philippines"),
   "what-is-a-savings-rate-philippines": () =>
     import("@/data/blog/what-is-a-savings-rate-philippines"),
+  "time-deposit-vs-savings-account-philippines": () =>
+    import("@/data/blog/time-deposit-vs-savings-account-philippines"),
 };
 
 // ---------------------------------------------------------------------------

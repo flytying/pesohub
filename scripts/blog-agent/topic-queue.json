@@ -71,7 +71,8 @@
         "/calculators/savings/time-deposit-calculator-philippines",
         "/rates/savings-rates/time-deposit-rates-philippines"
       ],
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-04-20"
     },
     {
       "id": 5,
