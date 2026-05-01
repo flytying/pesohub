@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const TIME_DEPOSIT_RATES_UPDATED_AT = "2026-04-16";
+export const TIME_DEPOSIT_RATES_UPDATED_AT = "2026-05-01";
 
 export interface BankTimeDepositRate {
   bankName: string;
@@ -18,6 +18,16 @@ export interface BankTimeDepositRate {
  * Rates are gross annual rates (before 20% final withholding tax on interest income).
  */
 export const bankTimeDepositRates: BankTimeDepositRate[] = [
+  {
+    bankName: "Tonik Bank",
+    product: "Time Deposit",
+    termLength: "<UNKNOWN>",
+    grossRate: 8,
+    minimumDeposit: 0,
+    taxNote: "Gross before 20% WHT",
+    bestFor: "",
+    notes: "Page references 6-7-8% Time Deposit rates per February 2026 news headline ('Tonik Supercharges Time Deposit Offering with 6–7–8% Rates — No Conditions, No Catch, and Accessible to Everyone'). Specific term lengths and minimum deposit amounts are not detailed on this page. The 8% rate is highlighted on the homepage ('Why settle for 6 when you can handle a massive 8% annual interest rate on your Time Deposits?').",
+  },
   {
     bankName: "Tonik Bank",
     product: "Time Deposit",
