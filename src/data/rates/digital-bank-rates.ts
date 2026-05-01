@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-04-16";
+export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-05-01";
 
 export interface DigitalBankRate {
   bankName: string;
@@ -19,6 +19,28 @@ export interface DigitalBankRate {
  * sorted by base rate descending.
  */
 export const digitalBankRates: DigitalBankRate[] = [
+  {
+    bankName: "Tonik Bank – Time Deposit",
+    bestFor: "Maximizing returns via fixed-term time deposit",
+    baseRate: 8,
+    promoRate: null,
+    cardAtmAccess: "Mastercard debit card with 3D Secure (Mastercard SecureCode); card lock/block and limit management available in-app",
+    transfers: "Fund transfers via app; zero-fee QRPH payments to 675,000+ merchants",
+    limitsConditions: "Tiered rates of 6%, 7%, and 8% p.a. available; no conditions or catch stated ('No Conditions, No Catch, and Accessible to Everyone' per news article dated Feb 14, 2026)",
+    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
+    notes: "Time Deposit rates of 6–7–8% p.a. as announced Feb 14, 2026. Described as having no conditions and accessible to everyone.",
+  },
+  {
+    bankName: "Tonik Bank – Tonik Account",
+    bestFor: "High-yield everyday savings account",
+    baseRate: 6,
+    promoRate: null,
+    cardAtmAccess: "Mastercard debit card with 3D Secure (Mastercard SecureCode); card lock/block and limit management available in-app",
+    transfers: "Fund transfers via app; zero-fee QRPH payments to 675,000+ merchants",
+    limitsConditions: "No specific minimum balance or limit stated on homepage for this product",
+    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
+    notes: "Up to 6% p.a. on Tonik Account. Onboarding via mobile app in ~5 minutes. Face ID / Touch ID supported. App available on Google Play and App Store.",
+  },
   {
     bankName: "Tonik Bank – Tonik Account",
     bestFor: "High-yield everyday savings account",
@@ -62,6 +84,28 @@ export const digitalBankRates: DigitalBankRate[] = [
     limitsConditions: "No maintaining balance",
     depositInsurance: "PDIC-insured up to ₱1,000,000",
     notes: "Backed by Sea Group (Shopee). BSP-licensed digital bank.",
+  },
+  {
+    bankName: "Tonik Bank – Solo Stash",
+    bestFor: "Individual goal-based savings",
+    baseRate: 4,
+    promoRate: null,
+    cardAtmAccess: "Mastercard debit card with 3D Secure (Mastercard SecureCode); card lock/block and limit management available in-app",
+    transfers: "Fund transfers via app; zero-fee QRPH payments to 675,000+ merchants",
+    limitsConditions: "No specific minimum balance or limit stated on homepage for this product",
+    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
+    notes: "4% p.a. interest rate on Solo Stash — described as 4x harder-working than a regular savings account. Photo/goal can be attached to Stash.",
+  },
+  {
+    bankName: "Tonik Bank – Group Stash",
+    bestFor: "Collaborative/group goal-based savings",
+    baseRate: 4,
+    promoRate: null,
+    cardAtmAccess: "Mastercard debit card with 3D Secure (Mastercard SecureCode); card lock/block and limit management available in-app",
+    transfers: "Fund transfers via app; zero-fee QRPH payments to 675,000+ merchants",
+    limitsConditions: "Group savings product; no specific minimum balance or limit stated on homepage",
+    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
+    notes: "Group Stash allows saving with a group for shared goals (#SquadGoals). Rate not explicitly stated on page; same Stash product family as Solo Stash (4% p.a. implied). Rate listed as 4% based on Solo Stash parity — note this is an inference from product family context.",
   },
   {
     bankName: "Tonik Bank – Solo Stash",
