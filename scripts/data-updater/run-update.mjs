@@ -19,6 +19,20 @@ import { allSources } from "./lib/config.mjs";
 
 const FAILURE_FLAG_PATH = "/tmp/data-updater-failed.txt";
 
+// Sources whose origin sites actively bot-block our scraper (Pag-IBIG uses
+// reCAPTCHA-Express; BIR is a Cloudflare-fronted Next.js SPA that returns an
+// empty SSR shell). Tavily can't fetch them and direct HTTP gets challenge
+// pages — verified 2026-05-01. Failures from these sources don't fail the
+// workflow; they're surfaced in the summary and PR body for manual review.
+// Revisit if reliable extraction becomes available (headless browser, gov
+// data portal, etc.).
+const BEST_EFFORT_SOURCES = new Set([
+  "pagibig-housing",
+  "pagibig-contribution",
+  "pagibig-mp2",
+  "withholding-tax",
+]);
+
 // Source script imports (dynamic)
 const sourceModules = {
   "savings-rates": () => import("./sources/bank-savings-rates.mjs"),
@@ -85,9 +99,11 @@ async function main() {
 
   // Run each source sequentially to avoid overwhelming APIs
   for (const source of sources) {
+    const bestEffort = BEST_EFFORT_SOURCES.has(source);
     try {
       const mod = await sourceModules[source]();
       const report = await mod.run();
+      report.bestEffort = bestEffort;
       reports.push(report);
     } catch (err) {
       console.error(`\nFatal error in ${source}: ${err.message}`);
@@ -99,6 +115,7 @@ async function main() {
         changes: [],
         warnings: [],
         error: err.message,
+        bestEffort,
       });
     }
   }
@@ -106,16 +123,19 @@ async function main() {
   // Summary
   const updated = reports.filter((r) => r.status === "updated");
   const unchanged = reports.filter((r) => r.status === "unchanged");
-  const failed = reports.filter((r) => r.status === "failed");
+  const allFailed = reports.filter((r) => r.status === "failed");
+  const blockingFailed = allFailed.filter((r) => !r.bestEffort);
+  const skippedFailed = allFailed.filter((r) => r.bestEffort);
 
   console.log(`\n═══ Summary ═══`);
   console.log(`  Updated:   ${updated.length}`);
   console.log(`  Unchanged: ${unchanged.length}`);
-  console.log(`  Failed:    ${failed.length}`);
+  console.log(`  Failed:    ${blockingFailed.length}`);
+  console.log(`  Skipped:   ${skippedFailed.length} (best-effort, bot-blocked)`);
 
-  if (failed.length > 0) {
+  if (blockingFailed.length > 0) {
     console.log(`\nFailed sources:`);
-    for (const r of failed) {
+    for (const r of blockingFailed) {
       console.log(`  - ${r.sourceName}: ${r.error}`);
       if (r.warnings && r.warnings.length > 0) {
         for (const w of r.warnings) {
@@ -123,6 +143,13 @@ async function main() {
           console.log(`      ${icon} ${w.message}`);
         }
       }
+    }
+  }
+
+  if (skippedFailed.length > 0) {
+    console.log(`\nSkipped sources (best-effort, won't fail workflow):`);
+    for (const r of skippedFailed) {
+      console.log(`  - ${r.sourceName}: ${r.error}`);
     }
   }
 
@@ -139,13 +166,15 @@ async function main() {
   // check for changes and open a PR for any sources that DID succeed
   // (partial updates aren't lost). A later workflow step reads the flag
   // and fails the job, so the user still gets an email + red ❌.
-  if (failed.length > 0) {
-    const summary = failed
+  // Best-effort sources (BEST_EFFORT_SOURCES) are excluded — their failures
+  // are expected and surfaced in the PR body for manual review only.
+  if (blockingFailed.length > 0) {
+    const summary = blockingFailed
       .map((r) => `- ${r.sourceName}: ${r.error || "Unknown error"}`)
       .join("\n");
     writeFileSync(
       FAILURE_FLAG_PATH,
-      `${failed.length} source(s) failed:\n${summary}\n`,
+      `${blockingFailed.length} source(s) failed:\n${summary}\n`,
       "utf-8"
     );
     console.log(

@@ -28,7 +28,9 @@ import { writeFileSync } from "fs";
 export function generatePrBody(reports) {
   const updated = reports.filter((r) => r.status === "updated");
   const unchanged = reports.filter((r) => r.status === "unchanged");
-  const failed = reports.filter((r) => r.status === "failed");
+  const allFailed = reports.filter((r) => r.status === "failed");
+  const failed = allFailed.filter((r) => !r.bestEffort);
+  const skipped = allFailed.filter((r) => r.bestEffort);
 
   const allWarnings = reports.flatMap((r) => r.warnings || []);
   const hasWarnings = allWarnings.length > 0;
@@ -39,6 +41,7 @@ export function generatePrBody(reports) {
   body += `**${updated.length}** source(s) updated`;
   if (unchanged.length > 0) body += ` · **${unchanged.length}** unchanged`;
   if (failed.length > 0) body += ` · **${failed.length}** failed`;
+  if (skipped.length > 0) body += ` · **${skipped.length}** skipped`;
   body += `\n\n`;
 
   // Warnings banner
@@ -78,6 +81,19 @@ export function generatePrBody(reports) {
   if (failed.length > 0) {
     body += `### ❌ Failed Sources\n\n`;
     for (const report of failed) {
+      body += `- **${report.sourceName}**: ${report.error || "Unknown error"}\n`;
+      for (const url of report.sourceUrls) {
+        body += `  - ${url}\n`;
+      }
+    }
+    body += `\n`;
+  }
+
+  // Best-effort sources that didn't succeed (bot-blocked, expected to fail)
+  if (skipped.length > 0) {
+    body += `### ⏭️ Skipped Sources (best-effort)\n\n`;
+    body += `These sources actively bot-block our scraper. Failures are expected and don't block this PR — review manually if rates have changed.\n\n`;
+    for (const report of skipped) {
       body += `- **${report.sourceName}**: ${report.error || "Unknown error"}\n`;
       for (const url of report.sourceUrls) {
         body += `  - ${url}\n`;
