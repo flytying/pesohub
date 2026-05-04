@@ -109,7 +109,8 @@
         "/calculators/tax/withholding-tax-calculator-philippines",
         "/guides/tax/how-withholding-tax-works-philippines"
       ],
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-05-04"
     },
     {
       "id": 7,

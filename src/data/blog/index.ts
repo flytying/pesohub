@@ -71,4 +71,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-04-28",
     readTime: 10,
   },
+  {
+    slug: "how-to-compute-withholding-tax-philippines",
+    title: "How to Compute Your Withholding Tax in the Philippines (Step-by-Step)",
+    excerpt: "Learn how to compute your withholding tax on compensation in the Philippines step by step — from identifying your gross pay and subtracting SSS, PhilHealth, and Pag-IBIG contributions, to applying the TRAIN Law's graduated tax rates to find out exactly how much your employer should be deducting from your payslip each month.",
+    category: "tax",
+    publishedAt: "2026-05-04",
+    updatedAt: "2026-05-04",
+    readTime: 9,
+  },
 ];
