@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SSS_PENSION_TABLE_UPDATED_AT = "2026-03-14";
+export const SSS_PENSION_TABLE_UPDATED_AT = "2026-05-01";
 
 export const sssPensionTableMeta = {
   title: "SSS Pension Table Philippines",
