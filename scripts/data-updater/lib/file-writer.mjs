@@ -160,3 +160,24 @@ export function replaceExportedConstant(content, exportName, newValue) {
     typeof newValue === "string" ? `"${newValue}"` : String(newValue);
   return content.replace(regex, `$1${formattedValue};`);
 }
+
+/**
+ * Deduplicate rate rows by a composite key, keeping the first occurrence.
+ * Use after merging new + preserved rate arrays to drop duplicates that
+ * arise when the AI returns bank rows under a more-specific bankName
+ * (e.g. "Tonik Bank – Solo Stash") than the source key ("Tonik Bank").
+ *
+ * @param {object[]} rates
+ * @param {string[]} keyFields - field names composing the dedupe key
+ */
+export function dedupeRates(rates, keyFields) {
+  const seen = new Set();
+  return rates.filter((row) => {
+    const key = keyFields
+      .map((f) => String(row[f] ?? "").trim().toLowerCase())
+      .join("|");
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}

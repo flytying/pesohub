@@ -13,6 +13,7 @@ import {
   extractFaqSection,
   parseDataArray,
   getTodayPHT,
+  dedupeRates,
 } from "../lib/file-writer.mjs";
 import {
   validateRateChanges,
@@ -146,6 +147,17 @@ export async function run() {
   if (preservedBanks.length > 0) {
     console.log(`  ↻ Preserved existing: ${preservedBanks.join(", ")}`);
   }
+
+  // Dedupe by bankName + accountType — new rows iterate first, so duplicates
+  // preserved from the existing file (under more-specific bankName variants)
+  // are dropped here.
+  const beforeDedupe = mergedRates.length;
+  const deduped = dedupeRates(mergedRates, ["bankName", "accountType"]);
+  if (deduped.length < beforeDedupe) {
+    console.log(`  ⊘ Dropped ${beforeDedupe - deduped.length} duplicate row(s)`);
+  }
+  mergedRates.length = 0;
+  mergedRates.push(...deduped);
 
   if (mergedRates.length === 0) {
     return {

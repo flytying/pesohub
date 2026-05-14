@@ -13,6 +13,7 @@ import {
   extractFaqSection,
   parseDataArray,
   getTodayPHT,
+  dedupeRates,
 } from "../lib/file-writer.mjs";
 import {
   validateRateChanges,
@@ -131,6 +132,16 @@ export async function run() {
   if (preservedBanks.length > 0) {
     console.log(`  ↻ Preserved existing: ${preservedBanks.join(", ")}`);
   }
+
+  // Dedupe by bankName + product + termLength — drops duplicates kept under
+  // more-specific bank variants when new and existing keys diverge.
+  const beforeDedupe = mergedRates.length;
+  const deduped = dedupeRates(mergedRates, ["bankName", "product", "termLength"]);
+  if (deduped.length < beforeDedupe) {
+    console.log(`  ⊘ Dropped ${beforeDedupe - deduped.length} duplicate row(s)`);
+  }
+  mergedRates.length = 0;
+  mergedRates.push(...deduped);
 
   if (mergedRates.length === 0) {
     return {
