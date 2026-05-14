@@ -80,4 +80,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-05-04",
     readTime: 9,
   },
+  {
+    slug: "car-loan-calculator-guide-philippines",
+    title: "Car Loan Calculator Philippines: How to Estimate Your Monthly Payment Before You Apply",
+    excerpt: "Learn how a car loan calculator works in the Philippine context, understand the difference between add-on and diminishing balance rates, see real peso-denominated sample computations, and get practical tips to lower your monthly amortization before you walk into any bank or dealership.",
+    category: "banking",
+    publishedAt: "2026-05-14",
+    updatedAt: "2026-05-14",
+    readTime: 12,
+  },
 ];

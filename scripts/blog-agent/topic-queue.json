@@ -128,7 +128,8 @@
         "/calculators/loans/car-loan-calculator-philippines",
         "/calculators/loans/personal-loan-calculator-philippines"
       ],
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-05-14"
     },
     {
       "id": 8,

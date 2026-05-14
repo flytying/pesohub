@@ -35,6 +35,8 @@ const postModules: Record<string, () => Promise<{ default: BlogPostData }>> = {
     import("@/data/blog/bir-withholding-tax-table-2026-explained"),
   "how-to-compute-withholding-tax-philippines": () =>
     import("@/data/blog/how-to-compute-withholding-tax-philippines"),
+  "car-loan-calculator-guide-philippines": () =>
+    import("@/data/blog/car-loan-calculator-guide-philippines"),
 };
 
 // ---------------------------------------------------------------------------
