@@ -5,6 +5,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { JsonLd } from "@/components/seo/json-ld";
+import { DisplayAd } from "@/components/ads/display-ad";
 
 interface FaqSectionProps {
   faqs: { question: string; answer: string }[];
@@ -26,6 +27,9 @@ export function FaqSection({ faqs }: FaqSectionProps) {
 
   return (
     <section>
+      <div className="mb-10">
+        <DisplayAd />
+      </div>
       <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
         Frequently Asked Questions
       </h2>
