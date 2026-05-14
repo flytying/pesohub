@@ -1,24 +1,31 @@
 /**
  * Claude API wrapper for blog article writing.
  *
- * Uses the Anthropic SDK to generate article outlines and full articles.
+ * Uses Anthropic tool use to force structured JSON output — eliminates
+ * fragile string-based JSON parsing from free-form text.
  */
 
 import Anthropic from "@anthropic-ai/sdk";
 
 const anthropic = new Anthropic();
+const MODEL = "claude-sonnet-4-6";
 
-/** Strip markdown code fences from Claude responses before parsing JSON. */
-function parseJsonResponse(message) {
-  const text = message.content[0].text;
+function extractToolInput(message, toolName) {
   if (message.stop_reason === "max_tokens") {
-    throw new Error(`Response truncated (hit max_tokens). stop_reason: max_tokens. Partial response: ${text.slice(-200)}`);
+    throw new Error(`Response truncated (hit max_tokens). stop_reason: max_tokens.`);
   }
-  const stripped = text.replace(/^```(?:json)?\s*\n?/i, "").replace(/\n?```\s*$/i, "");
-  return JSON.parse(stripped);
+  const block = message.content.find(
+    (b) => b.type === "tool_use" && b.name === toolName
+  );
+  if (!block) {
+    const text = message.content.find((b) => b.type === "text")?.text ?? "";
+    throw new Error(
+      `Claude did not call tool "${toolName}". stop_reason: ${message.stop_reason}. Text: ${text.slice(0, 300)}`
+    );
+  }
+  return block.input;
 }
 
-/** Retry a Claude API call on transient errors (overloaded, rate-limited). */
 async function withRetry(fn, { retries = 3, delayMs = 5000 } = {}) {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
@@ -46,20 +53,121 @@ Use Philippine Peso symbol ₱ (not PHP or P).
 Refer to the Bangko Sentral ng Pilipinas (BSP), BIR, SSS, PhilHealth, Pag-IBIG by name.
 Write in clear, plain English. Avoid jargon unless you explain it.`;
 
-/**
- * Generate an article outline from a keyword and research.
- */
+const OUTLINE_TOOL = {
+  name: "save_outline",
+  description: "Save the article outline.",
+  input_schema: {
+    type: "object",
+    properties: {
+      title: { type: "string" },
+      metaTitle: { type: "string", description: "SEO title (max 60 chars)" },
+      metaDescription: { type: "string", description: "Meta description (120-155 chars)" },
+      category: {
+        type: "string",
+        enum: ["savings", "investing", "tax", "government", "banking", "budgeting", "insurance", "general"],
+      },
+      directAnswer: { type: "string", description: "1-2 sentence quick answer" },
+      sections: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            heading: { type: "string" },
+            keyPoints: { type: "array", items: { type: "string" } },
+          },
+          required: ["heading", "keyPoints"],
+        },
+      },
+      suggestedFaqs: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            question: { type: "string" },
+            answer: { type: "string" },
+          },
+          required: ["question", "answer"],
+        },
+      },
+      estimatedReadTime: { type: "integer" },
+    },
+    required: [
+      "title",
+      "metaTitle",
+      "metaDescription",
+      "category",
+      "directAnswer",
+      "sections",
+      "suggestedFaqs",
+      "estimatedReadTime",
+    ],
+  },
+};
+
+const ARTICLE_TOOL = {
+  name: "save_article",
+  description: "Save the full blog article content.",
+  input_schema: {
+    type: "object",
+    properties: {
+      sections: {
+        type: "array",
+        description: "Ordered content blocks composing the article body.",
+        items: {
+          type: "object",
+          properties: {
+            type: {
+              type: "string",
+              enum: ["heading", "paragraph", "list", "ordered-list", "callout", "quote"],
+            },
+            heading: { type: "string", description: "Required for type=heading" },
+            level: { type: "integer", description: "Heading level (2 or 3); required for type=heading" },
+            content: { type: "string", description: "Required for paragraph, callout, quote" },
+            items: {
+              type: "array",
+              items: { type: "string" },
+              description: "Required for list, ordered-list",
+            },
+            variant: {
+              type: "string",
+              enum: ["info", "warning", "tip"],
+              description: "Required for type=callout",
+            },
+          },
+          required: ["type"],
+        },
+      },
+      faqs: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            question: { type: "string" },
+            answer: { type: "string" },
+          },
+          required: ["question", "answer"],
+        },
+      },
+      excerpt: { type: "string", description: "1-2 sentence summary for listing page" },
+    },
+    required: ["sections", "faqs", "excerpt"],
+  },
+};
+
 export async function generateOutline(keyword, research, topicMeta = {}) {
   console.log(`  📝 Generating outline for: "${keyword}"...`);
 
-  const message = await withRetry(() => anthropic.messages.create({
-    model: "claude-sonnet-4-6",
-    max_tokens: 8192,
-    system: SYSTEM_PROMPT,
-    messages: [
-      {
-        role: "user",
-        content: `Generate a detailed article outline for the keyword: "${keyword}"
+  const message = await withRetry(() =>
+    anthropic.messages.create({
+      model: MODEL,
+      max_tokens: 8192,
+      system: SYSTEM_PROMPT,
+      tools: [OUTLINE_TOOL],
+      tool_choice: { type: "tool", name: OUTLINE_TOOL.name },
+      messages: [
+        {
+          role: "user",
+          content: `Generate a detailed article outline for the keyword: "${keyword}"
 
 ${topicMeta.title ? `Suggested title: ${topicMeta.title}` : ""}
 ${topicMeta.linksTo ? `Internal pages to link to: ${topicMeta.linksTo.join(", ")}` : ""}
@@ -70,42 +178,29 @@ ${research.summary}
 Key sources:
 ${research.sources.map((s) => `- ${s.title}: ${s.content.slice(0, 300)}`).join("\n")}
 
-Respond with valid JSON only (no markdown fences):
-{
-  "title": "Article title",
-  "metaTitle": "SEO title (max 60 chars)",
-  "metaDescription": "Meta description (120-155 chars)",
-  "category": "savings|investing|tax|government|banking|budgeting|insurance|general",
-  "directAnswer": "1-2 sentence quick answer",
-  "sections": [
-    { "heading": "H2 heading", "keyPoints": ["point 1", "point 2"] }
-  ],
-  "suggestedFaqs": [
-    { "question": "...", "answer": "..." }
-  ],
-  "estimatedReadTime": 7
-}`,
-      },
-    ],
-  }));
+Call the save_outline tool with the structured outline.`,
+        },
+      ],
+    })
+  );
 
-  return parseJsonResponse(message);
+  return extractToolInput(message, OUTLINE_TOOL.name);
 }
 
-/**
- * Write a full article from an outline and research.
- */
 export async function writeArticle(outline, research, topicMeta = {}) {
   console.log(`  ✍️  Writing full article...`);
 
-  const message = await withRetry(() => anthropic.messages.create({
-    model: "claude-sonnet-4-6",
-    max_tokens: 16000,
-    system: SYSTEM_PROMPT,
-    messages: [
-      {
-        role: "user",
-        content: `Write a complete blog article based on this outline and research.
+  const message = await withRetry(() =>
+    anthropic.messages.create({
+      model: MODEL,
+      max_tokens: 16000,
+      system: SYSTEM_PROMPT,
+      tools: [ARTICLE_TOOL],
+      tool_choice: { type: "tool", name: ARTICLE_TOOL.name },
+      messages: [
+        {
+          role: "user",
+          content: `Write a complete blog article based on this outline and research.
 
 Title: ${outline.title}
 Category: ${outline.category}
@@ -122,32 +217,19 @@ ${research.sources.map((s) => `- ${s.title}: ${s.content.slice(0, 500)}`).join("
 
 ${topicMeta.linksTo ? `Internal PesoHub pages to reference: ${topicMeta.linksTo.join(", ")}` : ""}
 
-IMPORTANT: Respond with valid JSON only (no markdown fences). Use this exact structure:
-{
-  "sections": [
-    { "type": "heading", "heading": "H2 text", "level": 2 },
-    { "type": "paragraph", "content": "paragraph text..." },
-    { "type": "list", "items": ["item 1", "item 2"] },
-    { "type": "ordered-list", "items": ["step 1", "step 2"] },
-    { "type": "callout", "variant": "info|warning|tip", "content": "callout text..." },
-    { "type": "quote", "content": "quote text..." }
-  ],
-  "faqs": [
-    { "question": "...", "answer": "..." }
-  ],
-  "excerpt": "1-2 sentence summary for listing page"
-}
-
 Requirements:
 - Minimum 8 sections with H2 headings
 - At least 5 FAQs
 - At least 1500 words of content across all paragraphs
 - Include at least 1 callout (tip or info)
 - Write original content — do not copy from research sources
-- Philippine-specific examples, institutions, and peso amounts`,
-      },
-    ],
-  }));
+- Philippine-specific examples, institutions, and peso amounts
 
-  return parseJsonResponse(message);
+Call the save_article tool with the structured article content.`,
+        },
+      ],
+    })
+  );
+
+  return extractToolInput(message, ARTICLE_TOOL.name);
 }
