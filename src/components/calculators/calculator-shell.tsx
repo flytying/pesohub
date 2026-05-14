@@ -4,6 +4,7 @@ import { Info, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ResultActions } from "@/components/calculators/result-actions";
+import { DisplayAd } from "@/components/ads/display-ad";
 import {
   Dialog,
   DialogTrigger,
@@ -42,6 +43,7 @@ export function CalculatorShell({
 }: CalculatorShellProps) {
   if (variant === "split") {
     return (
+      <>
       <div
         className={cn(
           "w-full overflow-hidden rounded-xl border border-gray-200 bg-white",
@@ -85,15 +87,24 @@ export function CalculatorShell({
         </div>
         <div className="grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">{children}</div>
       </div>
+      <div className="mt-8">
+        <DisplayAd />
+      </div>
+      </>
     );
   }
 
   return (
+    <>
     <Card className={cn("w-full border-gray-200", className)}>
       <CardHeader>
         <CardTitle className="text-[20px] font-semibold leading-[26px] text-gray-500">{title}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">{children}</CardContent>
     </Card>
+    <div className="mt-8">
+      <DisplayAd />
+    </div>
+    </>
   );
 }
