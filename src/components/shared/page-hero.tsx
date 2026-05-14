@@ -2,7 +2,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, Clock } from "lucide-react";
 import { UpdateBadge } from "@/components/shared/update-badge";
+import { DisplayAd } from "@/components/ads/display-ad";
 import { formatDate } from "@/lib/formatters";
+
+function AdAfterHero() {
+  return (
+    <div className="border-b border-gray-100 bg-white py-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <DisplayAd />
+      </div>
+    </div>
+  );
+}
 
 interface PageHeroProps {
   title: string;
@@ -77,36 +88,43 @@ export function PageHero({
 
     if (image) {
       return (
-        <section className="bg-brand pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-12">
-              <div>{textContent}</div>
-              <div className="hidden overflow-hidden rounded-xl lg:block">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={400}
-                  height={280}
-                  className="size-auto max-h-[280px] rounded-xl object-cover"
-                  unoptimized
-                />
+        <>
+          <section className="bg-brand pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
+            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+              <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-12">
+                <div>{textContent}</div>
+                <div className="hidden overflow-hidden rounded-xl lg:block">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    width={400}
+                    height={280}
+                    className="size-auto max-h-[280px] rounded-xl object-cover"
+                    unoptimized
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+          <AdAfterHero />
+        </>
       );
     }
 
     return (
-      <section className="bg-brand pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          {textContent}
-        </div>
-      </section>
+      <>
+        <section className="bg-brand pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            {textContent}
+          </div>
+        </section>
+        <AdAfterHero />
+      </>
     );
   }
 
   return (
+    <>
     <section className="bg-brand pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb — simple inline text */}
@@ -153,5 +171,7 @@ export function PageHero({
         )}
       </div>
     </section>
+    <AdAfterHero />
+    </>
   );
 }
