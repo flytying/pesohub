@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-04-16";
+export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-05-14";
 
 export interface DigitalBankRate {
   bankName: string;
@@ -20,26 +20,26 @@ export interface DigitalBankRate {
  */
 export const digitalBankRates: DigitalBankRate[] = [
   {
+    bankName: "Tonik Bank – Time Deposit",
+    bestFor: "Highest-yield time deposit savings",
+    baseRate: 8,
+    promoRate: null,
+    cardAtmAccess: "Managed via Tonik app",
+    transfers: "Fund transfers available in-app",
+    limitsConditions: "Tiered rates: 6%, 7%, and 8% p.a. depending on term; no conditions or catches stated",
+    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
+    notes: "Tonik supercharged Time Deposit offering with 6–7–8% p.a. rates (announced February 14, 2026). No conditions, no catch, accessible to everyone.",
+  },
+  {
     bankName: "Tonik Bank – Tonik Account",
-    bestFor: "High-yield everyday savings account",
+    bestFor: "High-interest everyday savings account",
     baseRate: 6,
     promoRate: null,
     cardAtmAccess: "Mastercard debit card with 3D Secure (Mastercard SecureCode); card lock/block and limit management available in-app",
-    transfers: "Fund transfers available in-app; Zero-fee QR Ph payments to 675,000+ merchants",
-    limitsConditions: "No specific minimum balance or cap stated on page for the Tonik Account",
+    transfers: "Fund transfers available in-app; zero-fee QRPH payments to 675,000+ merchants",
+    limitsConditions: "Card limits manageable by user in-app",
     depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
-    notes: "App-only onboarding (approximately 5 minutes). Face ID / Touch ID login supported. Also offers Solo Stash (4% p.a.), Group Stash (group savings), and Time Deposits (6–8% p.a.). Credit Builder Loan up to ₱50,000 also available.",
-  },
-  {
-    bankName: "Tonik Bank – Time Deposit",
-    bestFor: "Highest-yield fixed-term deposit",
-    baseRate: 6,
-    promoRate: 8,
-    cardAtmAccess: "Accessed via Tonik App",
-    transfers: "Fund transfers available in-app",
-    limitsConditions: "Tiered rates of 6%, 7%, and 8% p.a. described as having no conditions and no catch; accessible to everyone",
-    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
-    notes: "Announced February 14, 2026: '6–7–8% Rates — No Conditions, No Catch, and Accessible to Everyone.' Rate of 8% p.a. is the maximum; 6% is the entry-level Time Deposit rate.",
+    notes: "Up to 6% interest p.a. on the Tonik Account. Onboarding takes ~5 minutes via the Tonik app (Android/iOS). Face ID and Touch ID supported for secure access.",
   },
   {
     bankName: "GoTyme",
@@ -65,14 +65,25 @@ export const digitalBankRates: DigitalBankRate[] = [
   },
   {
     bankName: "Tonik Bank – Solo Stash",
-    bestFor: "Goal-based individual savings stash",
+    bestFor: "Goal-based solo savings",
     baseRate: 4,
     promoRate: null,
-    cardAtmAccess: "Accessed via Tonik App (Mastercard card linked to main account)",
+    cardAtmAccess: "Managed via Tonik app",
     transfers: "Fund transfers available in-app",
-    limitsConditions: "No specific minimum balance or cap stated on page",
+    limitsConditions: "Individual savings stash; no minimum balance explicitly stated on page",
     depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
-    notes: "Earn 4% p.a. – described as 4x harder than a regular savings account. Part of Tonik's Stashes product suite.",
+    notes: "4% annual interest rate on Solo Stash — described as 4x harder than a regular savings account.",
+  },
+  {
+    bankName: "Tonik Bank – Group Stash",
+    bestFor: "Collaborative/group savings goals",
+    baseRate: 4,
+    promoRate: null,
+    cardAtmAccess: "Managed via Tonik app",
+    transfers: "Fund transfers available in-app",
+    limitsConditions: "Group savings feature; specific rate not separately stated, grouped under Stashes",
+    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
+    notes: "Group Stash allows saving with a group (squad goals). Rate not separately listed from Solo Stash on the homepage; assumed under the same Stash product family.",
   },
   {
     bankName: "CIMB",

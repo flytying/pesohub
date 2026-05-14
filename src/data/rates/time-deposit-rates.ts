@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const TIME_DEPOSIT_RATES_UPDATED_AT = "2026-04-16";
+export const TIME_DEPOSIT_RATES_UPDATED_AT = "2026-05-14";
 
 export interface BankTimeDepositRate {
   bankName: string;
@@ -26,7 +26,7 @@ export const bankTimeDepositRates: BankTimeDepositRate[] = [
     minimumDeposit: 0,
     taxNote: "Gross before 20% WHT",
     bestFor: "",
-    notes: "Tonik advertises up to 8% annual interest rate on Time Deposits. A February 2026 news headline references a 6–7–8% tiered rate structure described as 'No Conditions, No Catch, and Accessible to Everyone.' Specific term lengths and minimum deposit amounts are not stated on this page.",
+    notes: "Tonik advertises up to 8% annual interest rate on Time Deposits. A February 2026 news headline references a 6–7–8% tiered rate structure with 'no conditions, no catch, and accessible to everyone.' Specific term lengths and minimum deposit amounts are not explicitly stated on this page.",
   },
   {
     bankName: "CIMB",
