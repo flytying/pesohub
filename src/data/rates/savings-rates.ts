@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SAVINGS_RATES_UPDATED_AT = "2026-05-14";
+export const SAVINGS_RATES_UPDATED_AT = "2026-05-15";
 
 export interface BankSavingsRate {
   bankName: string;
@@ -66,7 +66,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
     minimumBalance: 0,
     liquidity: "App-based transfers",
     bestFor: "",
-    notes: "Individual stash savings product with 4% annual interest rate.",
+    notes: "Individual stash savings account with 4% annual interest rate.",
   },
   {
     bankName: "Tonik Bank",
@@ -76,7 +76,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
     minimumBalance: 0,
     liquidity: "App-based transfers",
     bestFor: "",
-    notes: "Group savings stash; interest rate not explicitly stated, inferred from Solo Stash context. Allows saving with a group for shared goals.",
+    notes: "Group savings stash account. Exact rate not explicitly stated; grouped with Solo Stash context on page.",
   },
   {
     bankName: "CIMB",
