@@ -158,16 +158,17 @@ export async function generateOutline(keyword, research, topicMeta = {}) {
   console.log(`  📝 Generating outline for: "${keyword}"...`);
 
   const message = await withRetry(() =>
-    anthropic.messages.create({
-      model: MODEL,
-      max_tokens: 8192,
-      system: SYSTEM_PROMPT,
-      tools: [OUTLINE_TOOL],
-      tool_choice: { type: "tool", name: OUTLINE_TOOL.name },
-      messages: [
-        {
-          role: "user",
-          content: `Generate a detailed article outline for the keyword: "${keyword}"
+    anthropic.messages
+      .stream({
+        model: MODEL,
+        max_tokens: 8192,
+        system: SYSTEM_PROMPT,
+        tools: [OUTLINE_TOOL],
+        tool_choice: { type: "tool", name: OUTLINE_TOOL.name },
+        messages: [
+          {
+            role: "user",
+            content: `Generate a detailed article outline for the keyword: "${keyword}"
 
 ${topicMeta.title ? `Suggested title: ${topicMeta.title}` : ""}
 ${topicMeta.linksTo ? `Internal pages to link to: ${topicMeta.linksTo.join(", ")}` : ""}
@@ -179,9 +180,10 @@ Key sources:
 ${research.sources.map((s) => `- ${s.title}: ${s.content.slice(0, 300)}`).join("\n")}
 
 Call the save_outline tool with the structured outline.`,
-        },
-      ],
-    })
+          },
+        ],
+      })
+      .finalMessage()
   );
 
   return extractToolInput(message, OUTLINE_TOOL.name);
@@ -191,19 +193,22 @@ export async function writeArticle(outline, research, topicMeta = {}) {
   console.log(`  ✍️  Writing full article...`);
 
   const message = await withRetry(() =>
-    anthropic.messages.create({
-      model: MODEL,
-      // Long structured articles (1500+ words + JSON tool overhead)
-      // overran the prior 16k cap → max_tokens truncation. sonnet-4-6
-      // supports up to 64k output; 32k gives ample headroom.
-      max_tokens: 32000,
-      system: SYSTEM_PROMPT,
-      tools: [ARTICLE_TOOL],
-      tool_choice: { type: "tool", name: ARTICLE_TOOL.name },
-      messages: [
-        {
-          role: "user",
-          content: `Write a complete blog article based on this outline and research.
+    anthropic.messages
+      .stream({
+        model: MODEL,
+        // Long structured articles (1500+ words + JSON tool overhead)
+        // overran the prior 16k cap → max_tokens truncation. sonnet-4-6
+        // supports up to 64k output; 32k gives ample headroom.
+        // Streaming required: SDK rejects non-streamed requests whose
+        // max_tokens implies a >10min worst-case duration.
+        max_tokens: 32000,
+        system: SYSTEM_PROMPT,
+        tools: [ARTICLE_TOOL],
+        tool_choice: { type: "tool", name: ARTICLE_TOOL.name },
+        messages: [
+          {
+            role: "user",
+            content: `Write a complete blog article based on this outline and research.
 
 Title: ${outline.title}
 Category: ${outline.category}
@@ -229,9 +234,10 @@ Requirements:
 - Philippine-specific examples, institutions, and peso amounts
 
 Call the save_article tool with the structured article content.`,
-        },
-      ],
-    })
+          },
+        ],
+      })
+      .finalMessage()
   );
 
   return extractToolInput(message, ARTICLE_TOOL.name);
