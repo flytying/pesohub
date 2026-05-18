@@ -193,7 +193,10 @@ export async function writeArticle(outline, research, topicMeta = {}) {
   const message = await withRetry(() =>
     anthropic.messages.create({
       model: MODEL,
-      max_tokens: 16000,
+      // Long structured articles (1500+ words + JSON tool overhead)
+      // overran the prior 16k cap → max_tokens truncation. sonnet-4-6
+      // supports up to 64k output; 32k gives ample headroom.
+      max_tokens: 32000,
       system: SYSTEM_PROMPT,
       tools: [ARTICLE_TOOL],
       tool_choice: { type: "tool", name: ARTICLE_TOOL.name },
