@@ -37,6 +37,8 @@ const postModules: Record<string, () => Promise<{ default: BlogPostData }>> = {
     import("@/data/blog/how-to-compute-withholding-tax-philippines"),
   "car-loan-calculator-guide-philippines": () =>
     import("@/data/blog/car-loan-calculator-guide-philippines"),
+  "home-loan-vs-pagibig-housing-loan-philippines": () =>
+    import("@/data/blog/home-loan-vs-pagibig-housing-loan-philippines"),
 };
 
 // ---------------------------------------------------------------------------

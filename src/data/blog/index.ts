@@ -89,4 +89,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-05-14",
     readTime: 12,
   },
+  {
+    slug: "home-loan-vs-pagibig-housing-loan-philippines",
+    title: "Home Loan vs Pag-IBIG Housing Loan: Which Is Better for First-Time Buyers?",
+    excerpt: "For most Filipino first-time buyers, a Pag-IBIG housing loan offers lower interest rates and longer fixed-rate terms — but bank home loans may be the better fit for mid-to-high-value properties. This guide compares both options side by side, with real-peso scenarios and calculator tips.",
+    category: "banking",
+    publishedAt: "2026-05-18",
+    updatedAt: "2026-05-18",
+    readTime: 14,
+  },
 ];
