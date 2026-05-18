@@ -147,7 +147,8 @@
         "/calculators/loans/home-loan-calculator-philippines",
         "/government/pag-ibig/pag-ibig-housing-loan-guide"
       ],
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-05-18"
     },
     {
       "id": 9,
