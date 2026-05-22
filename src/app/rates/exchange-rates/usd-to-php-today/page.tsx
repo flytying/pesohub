@@ -14,7 +14,6 @@ import { FaqSection } from "@/components/shared/faq-section";
 import { InContentAd } from "@/components/ads/in-content-ad";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
-// import { AdPlaceholder } from "@/components/ads/ad-placeholder";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   Table,
@@ -310,8 +309,6 @@ export default function UsdToPhpPage() {
           </div>
         </section>
 
-        {/* <AdPlaceholder slot="usd-php-mid" /> */}
-
         {/* Where to Get the Best Exchange Rate */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
@@ -329,8 +326,6 @@ export default function UsdToPhpPage() {
             ))}
           </ul>
         </section>
-
-        {/* <AdPlaceholder slot="usd-php-bottom" /> */}
 
         {/* FAQ */}
         <div className="mt-16">

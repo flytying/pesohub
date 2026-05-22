@@ -5,7 +5,6 @@ import { FaqSection } from "@/components/shared/faq-section";
 import { InContentAd } from "@/components/ads/in-content-ad";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
-// import { AdPlaceholder } from "@/components/ads/ad-placeholder";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   Table,
@@ -166,8 +165,6 @@ export default function SSSPensionTablePage() {
           ))}
         </div>
       </section>
-
-      {/* <AdPlaceholder slot="gov-sss-pension-mid" className="my-8" /> */}
 
       {/* Who It Applies To */}
       <section className="mt-16">

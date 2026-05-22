@@ -5,7 +5,6 @@ import { FaqSection } from "@/components/shared/faq-section";
 import { InContentAd } from "@/components/ads/in-content-ad";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
-// import { AdPlaceholder } from "@/components/ads/ad-placeholder";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   Table,
@@ -89,8 +88,6 @@ export default function BSPExchangeRateGuidePage() {
         </div>
       </section>
 
-      {/* <AdPlaceholder slot="gov-bsp-rate-top" className="my-8" /> */}
-
       {/* What is the PDS */}
       <InContentAd />
 
@@ -154,8 +151,6 @@ export default function BSPExchangeRateGuidePage() {
         </p>
       </section>
 
-      {/* <AdPlaceholder slot="gov-bsp-rate-mid" className="my-8" /> */}
-
       {/* How to Use the BSP Rate */}
       <section className="mt-16">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
@@ -208,8 +203,6 @@ export default function BSPExchangeRateGuidePage() {
           </div>
         </div>
       </section>
-
-      {/* <AdPlaceholder slot="gov-bsp-rate-bottom" className="my-8" /> */}
 
       <div className="mt-16">
         <FaqSection faqs={bspExchangeRateFaqs} />
