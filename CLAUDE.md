@@ -28,8 +28,7 @@ src/
 │   ├── shared/            # FAQs, Disclaimers, Cards
 │   ├── ui/                # shadcn/ui primitives
 │   ├── seo/               # JSON-LD schema components
-│   ├── rates/             # Rate display components
-│   └── ads/               # Ad placeholders
+│   └── rates/             # Rate display components
 ├── data/                  # All content data (TypeScript, no DB)
 │   ├── rates/             # exchange-rates.ts, savings-rates.ts
 │   ├── government/        # SSS, tax, Pag-IBIG, BSP data
