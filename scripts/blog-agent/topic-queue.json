@@ -164,7 +164,8 @@
         "/rates/savings-rates/best-digital-bank-rates-philippines",
         "/rates/savings-rates/best-savings-interest-rates-philippines"
       ],
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-05-25"
     },
     {
       "id": 10,
