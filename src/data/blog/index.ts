@@ -98,4 +98,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-05-18",
     readTime: 14,
   },
+  {
+    slug: "best-digital-banks-philippines-2026",
+    title: "Best Digital Banks in the Philippines: Rates, Features, and Who They Are For",
+    excerpt: "The best digital banks in the Philippines in 2026 — including Tonik, Maya Bank, GoTyme Bank, CIMB, and OFBank — offer savings rates up to 60 times higher than traditional banks, zero maintaining balance, and PDIC-insured deposits. Here is how to pick the right one for your situation.",
+    category: "banking",
+    publishedAt: "2026-05-25",
+    updatedAt: "2026-05-25",
+    readTime: 12,
+  },
 ];

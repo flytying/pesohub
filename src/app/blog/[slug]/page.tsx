@@ -39,6 +39,8 @@ const postModules: Record<string, () => Promise<{ default: BlogPostData }>> = {
     import("@/data/blog/car-loan-calculator-guide-philippines"),
   "home-loan-vs-pagibig-housing-loan-philippines": () =>
     import("@/data/blog/home-loan-vs-pagibig-housing-loan-philippines"),
+  "best-digital-banks-philippines-2026": () =>
+    import("@/data/blog/best-digital-banks-philippines-2026"),
 };
 
 // ---------------------------------------------------------------------------
