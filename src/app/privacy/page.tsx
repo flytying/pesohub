@@ -44,10 +44,10 @@ export default function PrivacyPage() {
 
         <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Cookies</h2>
         <p>
-          We use cookies for analytics and advertising purposes. Third-party
-          services such as Google Analytics and Google AdSense may place cookies
-          on your browser to provide their services. You can manage cookie
-          preferences through your browser settings.
+          We use cookies for analytics purposes. Third-party services such as
+          Google Analytics may place cookies on your browser to provide their
+          services. You can manage cookie preferences through your browser
+          settings.
         </p>
 
         <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Third-Party Services</h2>
@@ -57,7 +57,6 @@ export default function PrivacyPage() {
         </p>
         <ul className="list-disc pl-6 space-y-1">
           <li>Google Analytics — for website usage analytics</li>
-          <li>Google AdSense — for displaying advertisements</li>
         </ul>
 
         <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Changes to This Policy</h2>

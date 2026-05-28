@@ -60,13 +60,6 @@ export default function RootLayout({
             gtag('config', '${GA_ID}');
           `}
         </Script>
-        <meta name="google-adsense-account" content="ca-pub-3392449098044156" />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3392449098044156"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
       </head>
       <body
         className={`${publicSans.variable} ${geistMono.variable} font-sans antialiased`}
