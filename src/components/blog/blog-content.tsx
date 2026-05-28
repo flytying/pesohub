@@ -1,6 +1,5 @@
 import { Info, TriangleAlert, Lightbulb } from "lucide-react";
 import type { BlogSection } from "@/types/content";
-import { DisplayAd } from "@/components/ads/display-ad";
 
 const calloutConfig = {
   info: {
@@ -126,22 +125,11 @@ interface BlogContentProps {
 }
 
 export function BlogContent({ sections }: BlogContentProps) {
-  const h2Indices = sections
-    .map((s, i) => (s.type === "heading" && (s.level ?? 2) === 2 ? i : -1))
-    .filter((i) => i >= 0);
-  const adAfterIndex =
-    h2Indices.length >= 4 ? h2Indices[Math.floor(h2Indices.length / 2) - 1] : -1;
-
   return (
     <>
       {sections.map((section, i) => (
         <span key={i} className="contents">
           {renderSection(section, i)}
-          {i === adAfterIndex && (
-            <div className="my-10">
-              <DisplayAd />
-            </div>
-          )}
         </span>
       ))}
     </>

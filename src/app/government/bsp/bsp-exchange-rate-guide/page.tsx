@@ -2,7 +2,6 @@ import Link from "next/link";
 import { TrendingUp, ArrowRight, Info } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
-import { InContentAd } from "@/components/ads/in-content-ad";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -89,7 +88,6 @@ export default function BSPExchangeRateGuidePage() {
       </section>
 
       {/* What is the PDS */}
-      <InContentAd />
 
       <section className="mt-16">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">

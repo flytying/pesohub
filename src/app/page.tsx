@@ -20,7 +20,6 @@ import { buttonVariants } from "@/lib/button-variants";
 import { CategoryCard } from "@/components/shared/category-card";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
-import { DisplayAd } from "@/components/ads/display-ad";
 import { UpdateBadge } from "@/components/shared/update-badge";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -368,13 +367,6 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* In-content ad */}
-      <section className="py-8">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <DisplayAd />
         </div>
       </section>
 
