@@ -17,6 +17,7 @@ export function ResultActions({
 }: ResultActionsProps) {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState(""); // honeypot — humans leave blank
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
@@ -36,6 +37,7 @@ export function ResultActions({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          phone,
           calculatorType,
           results: resultsSummary || "No results available. Please recalculate on pesohub.ph.",
         }),
@@ -156,6 +158,17 @@ export function ResultActions({
                     placeholder="you@example.com"
                     className="w-full rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-500 placeholder:text-gray-300 outline-none transition-colors focus:border-brand focus:ring-1 focus:ring-brand"
                     disabled={sending}
+                  />
+                  {/* Honeypot — hidden from humans; bots that fill it are silently dropped */}
+                  <input
+                    type="text"
+                    name="phone"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
                   />
                   <button
                     type="submit"

@@ -15,8 +15,13 @@
 
 import express from "express";
 import cors from "cors";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 
 const app = express();
+
+// Render runs behind a proxy — trust it so req.ip / rate-limit see the real client IP.
+app.set("trust proxy", 1);
 const PORT = process.env.PORT || 3001;
 const FROM_EMAIL = process.env.FROM_EMAIL || "noreply@pesohub.ph";
 const TO_EMAIL = process.env.TO_EMAIL || "hello@pesohub.ph";
@@ -32,7 +37,6 @@ if (!RESEND_API_KEY) {
 const allowedOrigins = [
   ALLOWED_ORIGIN,
   "https://www.pesohub.ph",
-  "https://pesohub.pages.dev",
   "http://localhost:3000",
 ];
 
@@ -43,6 +47,8 @@ function isAllowedOrigin(origin) {
   if (/^https:\/\/[\w-]+-[\w-]+\.vercel\.app$/.test(origin)) return true;
   return false;
 }
+
+app.use(helmet());
 
 app.use(
   cors({
@@ -59,9 +65,30 @@ app.use(
   })
 );
 
-app.use(express.json());
+// Cap request bodies — these endpoints only ever receive small JSON payloads.
+app.use(express.json({ limit: "16kb" }));
+
+// Rate limit the email-sending routes (5 req/min per IP). /health is unthrottled.
+const emailLimiter = rateLimit({
+  windowMs: 60_000,
+  limit: 5,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res) =>
+    res.status(429).json({ error: "Too many requests. Try again in a minute." }),
+});
 
 // ── Helpers ──────────────────────────────────────────────────────
+
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+// Validate a field is a non-empty string within maxLen. Returns trimmed value or null.
+function cleanField(value, maxLen) {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.length > maxLen) return null;
+  return trimmed;
+}
 
 function escapeHtml(str) {
   return str
@@ -144,12 +171,25 @@ function buildCalculatorEmail({ email, calculatorType, results }) {
 
 // ── Routes ───────────────────────────────────────────────────────
 
-app.post("/contact", async (req, res) => {
+app.post("/contact", emailLimiter, async (req, res) => {
   try {
-    const { name, email, subject, message } = req.body;
+    const body = req.body || {};
+
+    // Honeypot — bots fill the hidden "website" field. Pretend success, send nothing.
+    if (typeof body.website === "string" && body.website.trim() !== "") {
+      return res.json({ success: true });
+    }
+
+    const name = cleanField(body.name, 120);
+    const email = cleanField(body.email, 200);
+    const subject = cleanField(body.subject, 60);
+    const message = cleanField(body.message, 5000);
 
     if (!name || !email || !subject || !message) {
       return res.status(400).json({ error: "All fields are required" });
+    }
+    if (!EMAIL_RE.test(email)) {
+      return res.status(400).json({ error: "Invalid email address" });
     }
 
     const emailRes = await sendEmail(
@@ -172,12 +212,24 @@ app.post("/contact", async (req, res) => {
   }
 });
 
-app.post("/calculator", async (req, res) => {
+app.post("/calculator", emailLimiter, async (req, res) => {
   try {
-    const { email, calculatorType, results } = req.body;
+    const body = req.body || {};
+
+    // Honeypot — bots fill the hidden "phone" field. Pretend success, send nothing.
+    if (typeof body.phone === "string" && body.phone.trim() !== "") {
+      return res.json({ success: true });
+    }
+
+    const email = cleanField(body.email, 200);
+    const calculatorType = cleanField(body.calculatorType, 120);
+    const results = cleanField(body.results, 20000);
 
     if (!email || !calculatorType || !results) {
       return res.status(400).json({ error: "All fields are required" });
+    }
+    if (!EMAIL_RE.test(email)) {
+      return res.status(400).json({ error: "Invalid email address" });
     }
 
     const emailRes = await sendEmail(

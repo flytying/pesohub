@@ -104,6 +104,16 @@ npm run lint     # ESLint
 - **Environment vars (Render dashboard):** `RESEND_API_KEY`, `FROM_EMAIL`, `TO_EMAIL`, `ALLOWED_ORIGIN`
 - See `render.yaml` for deployment blueprint
 
+### Abuse Hardening
+
+The API is the site's only dynamic surface (static frontend has none). Protections in `server/index.mjs`:
+
+- **Rate limit:** 5 req/min per IP on `/contact` + `/calculator` (`express-rate-limit`); `/health` unthrottled. `trust proxy` is set so the limiter sees the real client IP behind Render's proxy.
+- **Body cap:** `express.json({ limit: "16kb" })` → 413 on larger payloads.
+- **Helmet:** default security headers on API responses.
+- **Input validation:** type + length caps (name ≤120, email ≤200, subject ≤60, message ≤5000, calculatorType ≤120, results ≤20000) and email-shape regex → 400 on violation.
+- **Honeypot:** hidden field per form (`website` on contact, `phone` on calculator). If filled, API returns 200 without sending — silently drops bots. Frontend hidden inputs live in `src/app/contact/page.tsx` and `src/components/calculators/result-actions.tsx`; the field name must match the server check.
+
 ## Data Architecture
 
 All financial data lives in `/src/data/` as TypeScript files. No database, no API routes.

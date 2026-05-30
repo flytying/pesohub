@@ -12,6 +12,7 @@ export default function ContactPage() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [website, setWebsite] = useState(""); // honeypot — humans leave blank
   const [errorMsg, setErrorMsg] = useState("");
 
   async function handleSubmit(e: React.FormEvent) {
@@ -23,7 +24,7 @@ export default function ContactPage() {
       const res = await fetch(`${EMAIL_API_URL}/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: JSON.stringify({ name, email, subject, message, website }),
       });
 
       if (!res.ok) {
@@ -198,6 +199,18 @@ export default function ContactPage() {
                   className="w-full resize-none rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-[14px] text-gray-500 placeholder:text-gray-400/50 outline-none transition-colors focus:border-brand focus:ring-1 focus:ring-brand"
                 />
               </div>
+
+              {/* Honeypot — hidden from humans; bots that fill it are silently dropped */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+              />
 
               <button
                 type="submit"
