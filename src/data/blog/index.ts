@@ -107,4 +107,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-05-25",
     readTime: 12,
   },
+  {
+    slug: "pagibig-mp2-salary-deduction-guide",
+    title: "Pag-IBIG MP2 Salary Deduction: How It Works and Is It Worth It?",
+    excerpt: "When your company offers the Pag-IBIG MP2 Salary Deduction Program, your chosen contribution is automatically withheld from your pay and remitted to Pag-IBIG — giving you a disciplined, tax-free savings vehicle backed by the government that has historically earned over 6% per annum.",
+    category: "government",
+    publishedAt: "2026-06-01",
+    updatedAt: "2026-06-01",
+    readTime: 12,
+  },
 ];

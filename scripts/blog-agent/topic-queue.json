@@ -181,7 +181,8 @@
         "/government/pag-ibig/pag-ibig-mp2-savings-guide",
         "/calculators/savings/emergency-fund-calculator-philippines"
       ],
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-06-01"
     }
   ]
 }
