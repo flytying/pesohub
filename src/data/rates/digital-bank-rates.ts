@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-05-14";
+export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-06-01";
 
 export interface DigitalBankRate {
   bankName: string;
@@ -26,9 +26,9 @@ export const digitalBankRates: DigitalBankRate[] = [
     promoRate: null,
     cardAtmAccess: "Managed via Tonik app",
     transfers: "Fund transfers available in-app",
-    limitsConditions: "Tiered rates: 6%, 7%, and 8% p.a. depending on term; no conditions or catches stated",
+    limitsConditions: "Tiered rates by term: 6% (6-month), 7% (9-month), 8% (12-month), 6% (18- and 24-month); minimum deposit PHP 5,000; maximum PHP 250,000 per account (up to 5 active TDs)",
     depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
-    notes: "Tonik supercharged Time Deposit offering with 6–7–8% p.a. rates (announced February 14, 2026). No conditions, no catch, accessible to everyone.",
+    notes: "Rates updated May 20, 2026: 6–7–8% p.a. structure with specific term assignments. No conditions or promo code required. Accessible to everyone.",
   },
   {
     bankName: "Tonik Bank – Tonik Account",
@@ -42,26 +42,15 @@ export const digitalBankRates: DigitalBankRate[] = [
     notes: "Up to 6% interest p.a. on the Tonik Account. Onboarding takes ~5 minutes via the Tonik app (Android/iOS). Face ID and Touch ID supported for secure access.",
   },
   {
-    bankName: "GoTyme",
-    bestFor: "Everyday spending",
-    baseRate: 5,
+    bankName: "Tonik Bank – Group Stash",
+    bestFor: "Collaborative/group savings goals",
+    baseRate: 4.5,
     promoRate: null,
-    cardAtmAccess: "Debit card + kiosk withdrawals",
-    transfers: "App-based transfers, InstaPay",
-    limitsConditions: "No maintaining balance",
-    depositInsurance: "PDIC-insured up to ₱1,000,000",
-    notes: "Joint venture of Gokongwei Group and Tyme Group.",
-  },
-  {
-    bankName: "SeaBank",
-    bestFor: "Simpler setup",
-    baseRate: 5,
-    promoRate: null,
-    cardAtmAccess: "No card; app-only",
-    transfers: "App-based transfers, InstaPay, PESONet",
-    limitsConditions: "No maintaining balance",
-    depositInsurance: "PDIC-insured up to ₱1,000,000",
-    notes: "Backed by Sea Group (Shopee). BSP-licensed digital bank.",
+    cardAtmAccess: "Managed via Tonik app",
+    transfers: "Fund transfers available in-app",
+    limitsConditions: "Requires at least 3 members saving together to earn 4.5% p.a.",
+    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
+    notes: "Group Stash earns 4.5% p.a. when saving with a group of at least 3 people. Allows saving with a group for shared goals.",
   },
   {
     bankName: "Tonik Bank – Solo Stash",
@@ -75,37 +64,48 @@ export const digitalBankRates: DigitalBankRate[] = [
     notes: "4% annual interest rate on Solo Stash — described as 4x harder than a regular savings account.",
   },
   {
-    bankName: "Tonik Bank – Group Stash",
-    bestFor: "Collaborative/group savings goals",
-    baseRate: 4,
-    promoRate: null,
-    cardAtmAccess: "Managed via Tonik app",
-    transfers: "Fund transfers available in-app",
-    limitsConditions: "Group savings feature; specific rate not separately stated, grouped under Stashes",
-    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
-    notes: "Group Stash allows saving with a group (squad goals). Rate not separately listed from Solo Stash on the homepage; assumed under the same Stash product family.",
-  },
-  {
-    bankName: "CIMB",
-    bestFor: "Transfer-heavy users",
-    baseRate: 3.5,
+    bankName: "MariBank",
+    bestFor: "Everyday digital savings",
+    baseRate: 3.25,
     promoRate: null,
     cardAtmAccess: "No card; app-only",
-    transfers: "App + GCash integration, InstaPay",
-    limitsConditions: "No maintaining balance",
+    transfers: "App-based transfers, InstaPay, PESONet",
+    limitsConditions: "3.25% p.a. for balances up to ₱1M; 3.75% p.a. for balances above ₱1M (effective January 15, 2026). No maintaining balance.",
     depositInsurance: "PDIC-insured up to ₱1,000,000",
-    notes: "GCash partner bank. UpSave account offers higher rate.",
+    notes: "Formerly SeaBank Philippines, rebranded to MariBank. Backed by Sea Group (Shopee). BSP-licensed digital bank.",
   },
   {
     bankName: "Maya",
     bestFor: "Promo-driven savers",
-    baseRate: 2.5,
+    baseRate: 3,
     promoRate: 15,
     cardAtmAccess: "Virtual and physical card available",
     transfers: "App-based transfers, InstaPay, PESONet",
-    limitsConditions: "Promo rate subject to change",
+    limitsConditions: "Base rate 3.0% p.a. (lowered from 3.5% effective April 1, 2026). Promo rate up to 15% requires missions (deposits, bills, card spending); capped at ₱100,000.",
     depositInsurance: "PDIC-insured up to ₱1,000,000",
-    notes: "Promo rate; subject to change. Formerly PayMaya.",
+    notes: "Promo rate subject to change. Formerly PayMaya.",
+  },
+  {
+    bankName: "GoTyme",
+    bestFor: "Everyday spending",
+    baseRate: 3,
+    promoRate: null,
+    cardAtmAccess: "Debit card + kiosk withdrawals",
+    transfers: "App-based transfers, InstaPay",
+    limitsConditions: "GoSave rate cut to 3% p.a. from 3.5% effective January 1, 2026. No maintaining balance.",
+    depositInsurance: "PDIC-insured up to ₱1,000,000",
+    notes: "Joint venture of Gokongwei Group and Tyme Group.",
+  },
+  {
+    bankName: "CIMB",
+    bestFor: "Transfer-heavy users",
+    baseRate: 2.5,
+    promoRate: null,
+    cardAtmAccess: "No card; app-only",
+    transfers: "App + GCash integration, InstaPay",
+    limitsConditions: "UpSave base rate 2.5% p.a. Higher rates on Grow (4% base + 3% conditional = up to 7%) and CIMB Prime with ADB growth requirement.",
+    depositInsurance: "PDIC-insured up to ₱1,000,000",
+    notes: "GCash partner bank. UpSave base rate at 2.5% p.a.; Grow and Prime products offer higher conditional rates.",
   },
 ];
 
@@ -113,12 +113,12 @@ export const digitalBankFaqs: FAQ[] = [
   {
     question: "What is a high yield savings account?",
     answer:
-      "A high yield savings account (HYSA) is a savings account that offers a significantly higher interest rate than a traditional bank savings account. In the Philippines, most high yield savings accounts are offered by digital banks like Maya, Tonik, GoTyme, and SeaBank, which can offer rates of 5%–15% p.a. compared to the 0.10%–0.25% p.a. typical of traditional banks. These accounts are PDIC-insured up to ₱1,000,000 per depositor, per bank.",
+      "A high yield savings account (HYSA) is a savings account that offers a significantly higher interest rate than a traditional bank savings account. In the Philippines, most high yield savings accounts are offered by digital banks like Maya, Tonik, GoTyme, and MariBank, which can offer rates of 3%–15% p.a. compared to the 0.10%–0.25% p.a. typical of traditional banks. These accounts are PDIC-insured up to ₱1,000,000 per depositor, per bank.",
   },
   {
     question: "Which digital bank in the Philippines has the highest interest rate?",
     answer:
-      "As of 2026, Maya offers the highest promotional savings rate among Philippine digital banks. For standard (non-promotional) rates, Tonik, GoTyme, and SeaBank are consistently among the highest at 5%–6% p.a. Promotional rates are subject to conditions and may change, so compare both the base rate and promo rate when choosing a digital bank.",
+      "As of mid-2026, Maya offers the highest promotional savings rate (up to 15% p.a. with missions) among Philippine digital banks. For standard (non-promotional) rates, Tonik leads at 6% p.a. on its Tonik Account and 4.5% p.a. on Group Stash. MariBank (formerly SeaBank) offers 3.25% p.a., while GoTyme and Maya each offer a 3% p.a. base rate. Promotional rates are subject to conditions and may change, so compare both the base rate and promo rate when choosing a digital bank.",
   },
   {
     question: "What is a digital bank in the Philippines?",

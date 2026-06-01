@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SAVINGS_RATES_UPDATED_AT = "2026-05-14";
+export const SAVINGS_RATES_UPDATED_AT = "2026-06-01";
 
 export interface BankSavingsRate {
   bankName: string;
@@ -26,7 +26,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
     minimumBalance: 0,
     liquidity: "App-based transfers",
     bestFor: "Highest promo rate",
-    notes: "Promo rate; subject to change. Formerly PayMaya.",
+    notes: "Promo rate of up to 15% p.a. (requires missions: deposits, bills, card spending); capped at ₱100,000. Base rate is 3.0% p.a. as of April 1, 2026 (lowered from 3.5%). Formerly PayMaya.",
   },
   {
     bankName: "Tonik Bank",
@@ -39,24 +39,14 @@ export const bankSavingsRates: BankSavingsRate[] = [
     notes: "Main savings account with up to 6% interest p.a.",
   },
   {
-    bankName: "GoTyme",
-    accountType: "Regular Savings",
-    interestRate: 5,
-    rateType: "Standard",
-    minimumBalance: 0,
-    liquidity: "App + kiosk withdrawals",
-    bestFor: "Low minimum balance",
-    notes: "Joint venture of Gokongwei Group and Tyme Group.",
-  },
-  {
-    bankName: "SeaBank",
-    accountType: "Regular Savings",
-    interestRate: 5,
+    bankName: "Tonik Bank",
+    accountType: "Group Stash",
+    interestRate: 4.5,
     rateType: "Standard",
     minimumBalance: 0,
     liquidity: "App-based transfers",
-    bestFor: "Everyday digital savings",
-    notes: "Backed by Sea Group (Shopee). BSP-licensed digital bank.",
+    bestFor: "Collaborative/group savings goals",
+    notes: "Group savings stash earning 4.5% p.a. when at least 3 members save together for a shared goal.",
   },
   {
     bankName: "Tonik Bank",
@@ -69,24 +59,34 @@ export const bankSavingsRates: BankSavingsRate[] = [
     notes: "Individual stash savings product with 4% annual interest rate.",
   },
   {
-    bankName: "Tonik Bank",
-    accountType: "Group Stash",
-    interestRate: 4,
+    bankName: "MariBank",
+    accountType: "Regular Savings",
+    interestRate: 3.25,
     rateType: "Standard",
     minimumBalance: 0,
     liquidity: "App-based transfers",
-    bestFor: "",
-    notes: "Group savings stash; interest rate not explicitly stated, inferred from Solo Stash context. Allows saving with a group for shared goals.",
+    bestFor: "Everyday digital savings",
+    notes: "Formerly SeaBank Philippines. Rate is 3.25% p.a. for balances up to ₱1M (effective January 15, 2026); 3.75% p.a. for balances above ₱1M. BSP-licensed digital bank backed by Sea Group (Shopee). PDIC-insured up to ₱1M.",
+  },
+  {
+    bankName: "GoTyme",
+    accountType: "GoSave",
+    interestRate: 3,
+    rateType: "Standard",
+    minimumBalance: 0,
+    liquidity: "App + kiosk withdrawals",
+    bestFor: "Low minimum balance",
+    notes: "GoSave rate cut to 3% p.a. from 3.5% effective January 1, 2026. Joint venture of Gokongwei Group and Tyme Group.",
   },
   {
     bankName: "CIMB",
     accountType: "GSave / UpSave",
-    interestRate: 3.5,
+    interestRate: 2.5,
     rateType: "Standard",
     minimumBalance: 0,
     liquidity: "App + GCash integration",
     bestFor: "Low minimum balance",
-    notes: "GCash partner bank. UpSave account offers higher rate.",
+    notes: "UpSave base rate 2.5% p.a. GCash partner bank. Higher rates available via Grow, CIMB Biz, and CIMB Prime products with conditions.",
   },
   {
     bankName: "ING Philippines",
@@ -139,7 +139,7 @@ export const savingsRateFaqs: FAQ[] = [
   {
     question: "Which bank has the highest savings interest rate in the Philippines in 2026?",
     answer:
-      "As of 2026, digital banks tend to offer the highest savings interest rates in the Philippines. Maya currently offers the highest promotional rate, while Tonik, GoTyme, and SeaBank offer competitive standard rates between 5%–6% p.a. Traditional banks like BDO, BPI, and Metrobank typically offer much lower rates of 0.10%–0.25% p.a. for regular savings accounts. Rates change frequently, so always verify directly with the bank.",
+      "As of mid-2026, digital banks tend to offer the highest savings interest rates in the Philippines. Maya currently offers the highest promotional rate (up to 15% p.a. with missions), while Tonik leads standard rates at 6% p.a. MariBank (formerly SeaBank) offers 3.25% p.a. and GoTyme offers 3% p.a. for regular savings. Traditional banks like BDO, BPI, and Metrobank typically offer much lower rates of 0.10%–0.25% p.a. for regular savings accounts. Rates change frequently, so always verify directly with the bank.",
   },
   {
     question: "What is a good savings interest rate in the Philippines?",

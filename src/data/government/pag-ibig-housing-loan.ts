@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const PAGIBIG_HOUSING_LOAN_UPDATED_AT = "2026-03-17";
+export const PAGIBIG_HOUSING_LOAN_UPDATED_AT = "2026-06-01";
 
 export const pagibigHousingLoanMeta = {
   title: "Pag-IBIG Housing Loan Guide Philippines",
