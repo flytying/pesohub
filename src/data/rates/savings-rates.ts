@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SAVINGS_RATES_UPDATED_AT = "2026-05-14";
+export const SAVINGS_RATES_UPDATED_AT = "2026-06-01";
 
 export interface BankSavingsRate {
   bankName: string;
@@ -27,6 +27,16 @@ export const bankSavingsRates: BankSavingsRate[] = [
     liquidity: "App-based transfers",
     bestFor: "Highest promo rate",
     notes: "Promo rate; subject to change. Formerly PayMaya.",
+  },
+  {
+    bankName: "Tonik Bank",
+    accountType: "Time Deposit",
+    interestRate: 8,
+    rateType: "Standard",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "Time Deposit with up to 8% annual interest rate. A February 2026 news headline also references 6–7–8% rates with no conditions.",
   },
   {
     bankName: "Tonik Bank",
@@ -66,7 +76,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
     minimumBalance: 0,
     liquidity: "App-based transfers",
     bestFor: "",
-    notes: "Individual stash savings product with 4% annual interest rate.",
+    notes: "Individual stash savings account with 4% annual interest rate.",
   },
   {
     bankName: "Tonik Bank",
