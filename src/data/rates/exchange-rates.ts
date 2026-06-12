@@ -2,7 +2,7 @@ import type { FAQ } from "@/types/content";
 
 export const EXCHANGE_RATE_SOURCE = "Bangko Sentral ng Pilipinas (BSP)";
 
-export const USD_PHP_UPDATED_AT = "2026-06-11";
+export const USD_PHP_UPDATED_AT = "2026-06-12";
 
 export interface ExchangeRateEntry {
   date: string;
@@ -25,8 +25,8 @@ export interface BSPRateDetails {
  * Current BSP reference rate for USD to PHP.
  */
 export const currentRate: ExchangeRateEntry = {
-  date: "2026-06-11",
-  rate: 61.4,
+  date: "2026-06-12",
+  rate: 61.25,
   change: -0.15,
 };
 
@@ -34,27 +34,27 @@ export const currentRate: ExchangeRateEntry = {
  * Additional BSP rate details (buying, selling, PDS, SDR, gold, silver).
  */
 export const bspRateDetails: BSPRateDetails = {
-  buyingRate: 61.15,
-  sellingRate: 61.65,
-  referenceRate: 61.4,
-  pdsClosingRate: 61.395,
-  pdsClosingDate: "2026-06-10",
-  sdrRate: 1.36421,
-  goldBuying: 4048.15,
-  silverBuying: 62.35,
+  buyingRate: 61.00,
+  sellingRate: 61.50,
+  referenceRate: 61.25,
+  pdsClosingRate: 61.245,
+  pdsClosingDate: "2026-06-11",
+  sdrRate: 1.36550,
+  goldBuying: 8240.50,
+  silverBuying: 126.50,
 };
 
 /**
  * Historical BSP reference rates for the last 7 business days.
  */
 export const historicalRates: ExchangeRateEntry[] = [
+  { date: "2026-06-12", rate: 61.25, change: -0.15 },
   { date: "2026-06-11", rate: 61.4, change: -0.15 },
   { date: "2026-06-10", rate: 61.55, change: -0.15 },
   { date: "2026-06-09", rate: 61.7, change: 0.25 },
   { date: "2026-06-08", rate: 61.45, change: -0.15 },
   { date: "2026-06-05", rate: 61.6, change: -0.15 },
   { date: "2026-06-04", rate: 61.75, change: 0.1 },
-  { date: "2026-06-03", rate: 61.65, change: -0.1 },
 ];
 
 export const exchangeRateFaqs: FAQ[] = [

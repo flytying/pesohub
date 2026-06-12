@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SSS_PENSION_UPDATED_AT = "2026-03-14";
+export const SSS_PENSION_UPDATED_AT = "2026-06-12";
 
 export const sssPensionMeta = {
   title: "How to Compute Your SSS Pension",
@@ -9,7 +9,7 @@ export const sssPensionMeta = {
     "Learn how SSS pension is computed in the Philippines. Understand the three pension formulas, eligibility requirements, and see a worked example with a PHP 20,000 monthly salary credit.",
   slug: "guides/sss/how-to-compute-sss-pension",
   directAnswer:
-    "Your SSS monthly pension is the highest amount from three formulas: (1) PHP 300 + 20% of average monthly salary credit (AMSC) + 2% of AMSC for each credited year of service (CYS) over 10 years, (2) 40% of AMSC, or (3) PHP 2,000 (minimum pension if you have at least 10 CYS). You need at least 120 monthly contributions to qualify for a retirement pension.",
+    "Your SSS monthly pension is the highest amount from three formulas: (1) PHP 300 + 20% of average monthly salary credit (AMSC) + 2% of AMSC for each credited year of service (CYS) over 10 years, (2) 40% of AMSC, or (3) PHP 2,420 (minimum pension if you have at least 10 CYS, reflecting the SSS Pension Reform Program increases in September 2025 and June 2026). You need at least 120 monthly contributions to qualify for a retirement pension.",
 };
 
 /**
@@ -36,9 +36,9 @@ export const pensionFormulas: PensionFormula[] = [
   },
   {
     label: "Formula 3 (Minimum Pension)",
-    formula: "PHP 2,000 (if CYS >= 10 years) or PHP 1,200 (if CYS < 10 years)",
+    formula: "PHP 2,420 (if CYS >= 10 years) or PHP 1,452 (if CYS < 10 years)",
     description:
-      "The guaranteed minimum pension. If Formulas 1 and 2 produce an amount below this floor, the minimum pension applies. Members with at least 10 credited years of service receive PHP 2,000.",
+      "The guaranteed minimum pension floor. If Formulas 1 and 2 produce an amount below this floor, the minimum pension applies. The SSS Pension Reform Program applied two 10% increases to existing minimum pensions (first tranche September 2025, second tranche June 2026): the PHP 2,000 floor for members with at least 10 credited years of service rose to PHP 2,420, and the PHP 1,200 floor for members with fewer than 10 CYS rose to PHP 1,452.",
   },
 ];
 
@@ -47,7 +47,7 @@ export const sssPensionFaqs: FAQ[] = [
     question:
       "How many years do I need to contribute to SSS to get a pension?",
     answer:
-      "You need at least 120 monthly contributions (equivalent to 10 years of credited service) to qualify for the SSS retirement pension. These contributions do not need to be consecutive. You can check your total number of contributions through the My.SSS online portal.",
+      "You need at least 120 monthly contributions (equivalent to 10 years of credited service) to qualify for the SSS retirement pension. These contributions do not need to be consecutive. Members who qualify receive at least PHP 2,420 per month as of June 2026, after two 10% increases under the SSS Pension Reform Program (September 2025 and June 2026). You can check your total number of contributions through the My.SSS online portal.",
   },
   {
     question:
