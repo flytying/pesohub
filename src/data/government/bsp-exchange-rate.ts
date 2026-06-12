@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const BSP_EXCHANGE_RATE_UPDATED_AT = "2026-03-14";
+export const BSP_EXCHANGE_RATE_UPDATED_AT = "2026-06-12";
 
 export const bspExchangeRateMeta = {
   title: "BSP Exchange Rate Guide",
@@ -21,10 +21,10 @@ export const keyFacts = [
 ];
 
 export const bankSpreadExamples = [
-  { type: "BSP Reference Rate", buyRate: "56.50", sellRate: "56.50", spread: "—" },
-  { type: "Major Bank (typical)", buyRate: "56.00", sellRate: "57.00", spread: "PHP 1.00" },
-  { type: "Money Changer (typical)", buyRate: "56.30", sellRate: "56.70", spread: "PHP 0.40" },
-  { type: "Digital Remittance", buyRate: "56.35", sellRate: "56.65", spread: "PHP 0.30" },
+  { type: "BSP Reference Rate", buyRate: "61.25", sellRate: "61.25", spread: "—" },
+  { type: "Major Bank (typical)", buyRate: "60.75", sellRate: "61.75", spread: "PHP 1.00" },
+  { type: "Money Changer (typical)", buyRate: "61.05", sellRate: "61.45", spread: "PHP 0.40" },
+  { type: "Digital Remittance", buyRate: "61.10", sellRate: "61.40", spread: "PHP 0.30" },
 ];
 
 export const bspExchangeRateFaqs: FAQ[] = [

@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const WITHHOLDING_TAX_UPDATED_AT = "2026-03-14";
+export const WITHHOLDING_TAX_UPDATED_AT = "2026-06-12";
 
 export const withholdingTaxMeta = {
   title: "How Withholding Tax Works in the Philippines",
