@@ -41,7 +41,7 @@ export const bspRateDetails: BSPRateDetails = {
   pdsClosingDate: "2026-06-11",
   sdrRate: 1.36550,
   goldBuying: 8240.50,
-  silverBuying: 133.50,
+  silverBuying: 126.50,
 };
 
 /**

@@ -36,9 +36,9 @@ export const pensionFormulas: PensionFormula[] = [
   },
   {
     label: "Formula 3 (Minimum Pension)",
-    formula: "PHP 2,420 (if CYS >= 10 years) or PHP 1,200 (if CYS < 10 years)",
+    formula: "PHP 2,420 (if CYS >= 10 years) or PHP 1,452 (if CYS < 10 years)",
     description:
-      "The guaranteed minimum pension floor. If Formulas 1 and 2 produce an amount below this floor, the minimum pension applies. As of June 2026, members with at least 10 credited years of service receive PHP 2,420 — up from the original PHP 2,000 — after two 10% increases under the SSS Pension Reform Program (first tranche September 2025, second tranche June 2026).",
+      "The guaranteed minimum pension floor. If Formulas 1 and 2 produce an amount below this floor, the minimum pension applies. The SSS Pension Reform Program applied two 10% increases to existing minimum pensions (first tranche September 2025, second tranche June 2026): the PHP 2,000 floor for members with at least 10 credited years of service rose to PHP 2,420, and the PHP 1,200 floor for members with fewer than 10 CYS rose to PHP 1,452.",
   },
 ];
 
