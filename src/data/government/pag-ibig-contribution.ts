@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const PAGIBIG_CONTRIBUTION_UPDATED_AT = "2026-03-17";
+export const PAGIBIG_CONTRIBUTION_UPDATED_AT = "2026-06-15";
 
 export const pagibigContributionMeta = {
   title: "Pag-IBIG Contribution Table Philippines 2026",
@@ -15,15 +15,15 @@ export const pagibigContributionMeta = {
 
 /**
  * Pag-IBIG contribution structure constants.
- * Based on Pag-IBIG Fund Circular No. 274 (as amended).
+ * Based on HDMF Circular No. 460 (effective February 2024).
  *
  * Employee: 1% if salary ≤ ₱1,500, else 2%.
  * Employer: 2% regardless of salary.
- * Maximum Monthly Salary Credit (MSC): ₱5,000.
- * Max employee contribution: ₱100/month.
- * Max employer contribution: ₱100/month.
+ * Maximum Monthly Salary Credit (MSC): ₱10,000.
+ * Max employee contribution: ₱200/month.
+ * Max employer contribution: ₱200/month.
  */
-export const PAGIBIG_MAX_MSC = 5_000;
+export const PAGIBIG_MAX_MSC = 10_000;
 export const PAGIBIG_EMPLOYEE_RATE_LOW = 0.01;
 export const PAGIBIG_EMPLOYEE_RATE_HIGH = 0.02;
 export const PAGIBIG_EMPLOYER_RATE = 0.02;
@@ -50,7 +50,7 @@ export const pagibigContributionTable: PagIBIGContributionRow[] = [
     payrollNote: "Both shares computed on actual salary",
   },
   {
-    compensationRange: "Over ₱1,500 – ₱5,000",
+    compensationRange: "Over ₱1,500 – ₱10,000",
     employeeRate: "2%",
     employerRate: "2%",
     employeeShare: "2% of salary",
@@ -59,13 +59,13 @@ export const pagibigContributionTable: PagIBIGContributionRow[] = [
     payrollNote: "Both shares computed on actual salary",
   },
   {
-    compensationRange: "Over ₱5,000",
+    compensationRange: "Over ₱10,000",
     employeeRate: "2%",
     employerRate: "2%",
-    employeeShare: "₱100 (capped)",
-    employerShare: "₱100 (capped)",
-    totalContribution: "₱200 (capped)",
-    payrollNote: "Contribution capped at ₱5,000 MSC",
+    employeeShare: "₱200 (capped)",
+    employerShare: "₱200 (capped)",
+    totalContribution: "₱400 (capped)",
+    payrollNote: "Contribution capped at ₱10,000 MSC",
   },
 ];
 
@@ -89,19 +89,19 @@ export const pagibigPayrollExamples: PagIBIGPayrollExample[] = [
   },
   {
     label: "Salary at the Cap",
-    salary: 5_000,
-    employeeShare: 100,
-    employerShare: 100,
-    totalContribution: 200,
-    payslipNote: "₱100 employee deduction shown on payslip",
+    salary: 10_000,
+    employeeShare: 200,
+    employerShare: 200,
+    totalContribution: 400,
+    payslipNote: "₱200 employee deduction shown on payslip",
   },
   {
     label: "Salary Above the Cap",
     salary: 25_000,
-    employeeShare: 100,
-    employerShare: 100,
-    totalContribution: 200,
-    payslipNote: "₱100 employee deduction — same as at the cap",
+    employeeShare: 200,
+    employerShare: 200,
+    totalContribution: 400,
+    payslipNote: "₱200 employee deduction — same as at the cap",
   },
 ];
 
@@ -120,7 +120,7 @@ export const pagibigContributionFaqs: FAQ[] = [
     question:
       "Why does my Pag-IBIG deduction stop increasing after a certain salary level?",
     answer:
-      "Because Pag-IBIG contributions are subject to a salary cap (currently ₱5,000 Monthly Salary Credit). Once salary exceeds the cap, the contribution stays at ₱100 employee share and ₱100 employer share.",
+      "Because Pag-IBIG contributions are subject to a salary cap (currently ₱10,000 Monthly Salary Credit under HDMF Circular No. 460, effective February 2024). Once salary exceeds the cap, the contribution stays at ₱200 employee share and ₱200 employer share.",
   },
   {
     question: "Is this the same as a housing loan payment?",
