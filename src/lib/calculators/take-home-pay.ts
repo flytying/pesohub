@@ -49,10 +49,11 @@ const PHILHEALTH_SALARY_CEILING = 100_000;
 // ---------------------------------------------------------------------------
 // Pag-IBIG constants
 // Employee share: 1% if salary ≤ ₱1,500, else 2%.
-// Maximum monthly salary credit: ₱5,000 → max employee contribution: ₱100.
+// Maximum monthly salary credit: ₱10,000 → max employee contribution: ₱200.
+// Per HDMF Circular No. 460, effective February 2024.
 // ---------------------------------------------------------------------------
 
-const PAGIBIG_MAX_MSC = 5_000;
+const PAGIBIG_MAX_MSC = 10_000;
 
 // ---------------------------------------------------------------------------
 // Main computation
@@ -141,7 +142,7 @@ function calculatePhilHealthEmployee(monthlySalary: number): number {
 
 /**
  * Calculate the Pag-IBIG employee share.
- * 1% if salary ≤ ₱1,500, else 2%. Capped at ₱5,000 MSC (max ₱100/month).
+ * 1% if salary ≤ ₱1,500, else 2%. Capped at ₱10,000 MSC (max ₱200/month).
  */
 function calculatePagIBIGEmployee(monthlySalary: number): number {
   const cappedSalary = Math.min(monthlySalary, PAGIBIG_MAX_MSC);

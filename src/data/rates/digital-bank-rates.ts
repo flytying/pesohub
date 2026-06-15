@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-06-01";
+export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-06-15";
 
 export interface DigitalBankRate {
   bankName: string;

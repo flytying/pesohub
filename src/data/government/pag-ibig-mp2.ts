@@ -66,7 +66,7 @@ export const mp2VsRegularComparison: Mp2ComparisonRow[] = [
   },
   {
     feature: "Contribution Amount",
-    regularPagibig: "Based on salary (max ₱100/month employee share)",
+    regularPagibig: "Based on salary (max ₱200/month employee share)",
     mp2: "₱500/month minimum, no maximum",
   },
   {
@@ -206,7 +206,7 @@ export const pagibigMp2Faqs: FAQ[] = [
   {
     question: "What is the difference between regular Pag-IBIG and MP2?",
     answer:
-      "Regular Pag-IBIG is a mandatory contribution (up to ₱100/month employee share) that both employee and employer pay. MP2 is a voluntary savings program with a ₱500/month minimum, paid only by the employee, with a 5-year maturity period. Both earn the same dividend rate and are tax-exempt.",
+      "Regular Pag-IBIG is a mandatory contribution (up to ₱200/month employee share) that both employee and employer pay. MP2 is a voluntary savings program with a ₱500/month minimum, paid only by the employee, with a 5-year maturity period. Both earn the same dividend rate and are tax-exempt.",
   },
   {
     question: "Is the MP2 dividend taxable?",
