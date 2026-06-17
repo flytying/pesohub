@@ -27,7 +27,30 @@ const BSP_API_BASE =
 const BSP_EXCHANGE_RATE_API =
   "https://www.bsp.gov.ph/_api/web/lists/getbytitle('Exchange Rate')/items";
 const BSP_BASE_URL = "https://www.bsp.gov.ph";
-const FETCH_TIMEOUT = 15_000;
+const FETCH_TIMEOUT = 30_000;
+const MAX_RETRIES = 3;
+const RETRY_BASE_DELAY = 2_000;
+
+// Retry an async fn with exponential backoff. BSP endpoints are
+// intermittently slow; a single timeout should not fail the job.
+async function withRetry(fn, label) {
+  let lastErr;
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      if (attempt < MAX_RETRIES) {
+        const delay = RETRY_BASE_DELAY * 2 ** (attempt - 1);
+        console.warn(
+          `[${label}] Attempt ${attempt}/${MAX_RETRIES} failed: ${err.message}. Retrying in ${delay}ms...`
+        );
+        await new Promise((r) => setTimeout(r, delay));
+      }
+    }
+  }
+  throw lastErr;
+}
 
 // ── Date helpers ──────────────────────────────────────────────────
 
@@ -396,8 +419,8 @@ async function main() {
 
   // Fetch both data sources concurrently (independent pipelines)
   const [rateResult, detailsResult] = await Promise.allSettled([
-    fetchRate(),
-    fetchBspRateDetails(),
+    withRetry(fetchRate, "RERB"),
+    withRetry(fetchBspRateDetails, "ExRate"),
   ]);
 
   const newRate = rateResult.status === "fulfilled" ? rateResult.value : null;
