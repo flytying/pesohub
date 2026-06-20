@@ -125,4 +125,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-06-20",
     readTime: 10,
   },
+  {
+    slug: "digital-bank-interest-rates-philippines",
+    title: "Digital Bank Interest Rates in the Philippines, Compared",
+    excerpt: "In 2026, Philippine digital bank savings rates range from 0.05% (OFBank) to 6% gross with Tonik, and time deposits reaching up to 8% — compare every major rate, understand your real after-tax yield, and find the right digital bank for your savings goals.",
+    category: "banking",
+    publishedAt: "2026-06-20",
+    updatedAt: "2026-06-20",
+    readTime: 9,
+  },
 ];
