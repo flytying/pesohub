@@ -27,39 +27,40 @@ export function PageHero({
   image,
 }: PageHeroProps) {
   if (variant === "dark") {
+    const breadcrumbNav = (
+      <nav aria-label="Breadcrumb" className="mb-6">
+        <ol className="flex flex-wrap items-center gap-1.5 text-[14px]">
+          {breadcrumbs.map((item, index) => {
+            const isLast = index === breadcrumbs.length - 1;
+            return (
+              <li key={index} className="flex items-center gap-1.5">
+                {index > 0 && (
+                  <ChevronRight className="size-3.5 text-surface-secondary" aria-hidden="true" />
+                )}
+                {isLast || !item.href ? (
+                  <span
+                    aria-current={isLast ? "page" : undefined}
+                    className="text-surface-secondary"
+                  >
+                    {item.label}
+                  </span>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className="text-accent-cyan transition-colors hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </nav>
+    );
+
     const textContent = (
       <>
-        {/* Breadcrumb — simple inline text */}
-        <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="flex flex-wrap items-center gap-1.5 text-[14px]">
-            {breadcrumbs.map((item, index) => {
-              const isLast = index === breadcrumbs.length - 1;
-              return (
-                <li key={index} className="flex items-center gap-1.5">
-                  {index > 0 && (
-                    <ChevronRight className="size-3.5 text-surface-secondary" aria-hidden="true" />
-                  )}
-                  {isLast || !item.href ? (
-                    <span
-                      aria-current={isLast ? "page" : undefined}
-                      className="text-surface-secondary"
-                    >
-                      {item.label}
-                    </span>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className="text-accent-cyan transition-colors hover:text-white"
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-        </nav>
-
         <h1 className="text-[32px] font-medium leading-[48px] sm:text-[48px] sm:leading-[48px]">
           {title}
         </h1>
@@ -79,6 +80,8 @@ export function PageHero({
       return (
         <section className="bg-brand pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            {/* Breadcrumb spans the full container width, above the grid */}
+            {breadcrumbNav}
             <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-12">
               <div>{textContent}</div>
               <div className="hidden overflow-hidden rounded-xl lg:block">
@@ -100,6 +103,7 @@ export function PageHero({
     return (
       <section className="bg-brand pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          {breadcrumbNav}
           {textContent}
         </div>
       </section>
