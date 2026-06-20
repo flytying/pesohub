@@ -6,9 +6,12 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
+import { createHash } from "crypto";
+import { maybeWrapAnthropic } from "./braintrust.mjs";
 
-const anthropic = new Anthropic();
-const MODEL = "claude-sonnet-4-6";
+// Wrapped for Braintrust auto-tracing when enabled; identical client otherwise.
+const anthropic = maybeWrapAnthropic(new Anthropic());
+export const MODEL = "claude-sonnet-4-6";
 
 function extractToolInput(message, toolName) {
   if (message.stop_reason === "max_tokens") {
@@ -52,6 +55,12 @@ Your articles are:
 Use Philippine Peso symbol ₱ (not PHP or P).
 Refer to the Bangko Sentral ng Pilipinas (BSP), BIR, SSS, PhilHealth, Pag-IBIG by name.
 Write in clear, plain English. Avoid jargon unless you explain it.`;
+
+// Version identifier for the system prompt, logged to Braintrust so prompt
+// effectiveness is attributable to a revision. The hash auto-changes whenever
+// SYSTEM_PROMPT is edited; bump the "v1" prefix for human-readable majors.
+export const SYSTEM_PROMPT_VERSION =
+  "v1-" + createHash("sha256").update(SYSTEM_PROMPT).digest("hex").slice(0, 8);
 
 const OUTLINE_TOOL = {
   name: "save_outline",

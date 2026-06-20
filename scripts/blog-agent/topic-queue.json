@@ -183,6 +183,196 @@
       ],
       "status": "completed",
       "completedAt": "2026-06-01"
+    },
+    {
+      "id": 11,
+      "title": "Best Digital Banks in the Philippines",
+      "slug": "best-digital-banks-philippines",
+      "keywords": [
+        "best digital bank philippines",
+        "best digital banks in the philippines",
+        "top digital banks in the philippines",
+        "digital banks philippines list"
+      ],
+      "category": "banking",
+      "linksTo": [
+        "/rates/savings-rates/best-digital-bank-rates-philippines",
+        "/rates/savings-rates/best-savings-interest-rates-philippines"
+      ],
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending"
+    },
+    {
+      "id": 12,
+      "title": "Digital Bank Interest Rates in the Philippines, Compared",
+      "slug": "digital-bank-interest-rates-philippines",
+      "keywords": [
+        "digital bank interest rates philippines",
+        "digital bank deposit rates philippines",
+        "maya gotyme seabank interest rate",
+        "digital bank savings rate comparison"
+      ],
+      "category": "banking",
+      "linksTo": [
+        "/rates/savings-rates/best-digital-bank-rates-philippines",
+        "/rates/savings-rates/time-deposit-rates-philippines"
+      ],
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending"
+    },
+    {
+      "id": 13,
+      "title": "Digital Banks With the Highest Interest Rates Right Now",
+      "slug": "highest-interest-digital-banks-philippines",
+      "keywords": [
+        "highest interest rate digital bank philippines",
+        "digital bank with highest interest",
+        "highest savings interest philippines",
+        "top digital banks high interest"
+      ],
+      "category": "savings",
+      "linksTo": [
+        "/rates/savings-rates/best-digital-bank-rates-philippines",
+        "/rates/savings-rates/best-savings-interest-rates-philippines"
+      ],
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending"
+    },
+    {
+      "id": 14,
+      "title": "Best High-Yield Savings Accounts in the Philippines",
+      "slug": "high-yield-savings-account-philippines",
+      "keywords": [
+        "high yield savings account philippines",
+        "best savings accounts philippines",
+        "best high interest savings account philippines",
+        "high yield savings philippines"
+      ],
+      "category": "savings",
+      "linksTo": [
+        "/rates/savings-rates/best-savings-interest-rates-philippines",
+        "/rates/savings-rates/best-digital-bank-rates-philippines"
+      ],
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending"
+    },
+    {
+      "id": 15,
+      "title": "How to Maximize Your Digital Bank Interest in the Philippines",
+      "slug": "maximize-digital-bank-interest-philippines",
+      "keywords": [
+        "how to maximize digital bank interest philippines",
+        "digital bank spending missions",
+        "maya 15 percent interest",
+        "earn more digital bank interest"
+      ],
+      "category": "savings",
+      "linksTo": [
+        "/rates/savings-rates/best-digital-bank-rates-philippines",
+        "/calculators/savings/savings-goal-calculator-philippines"
+      ],
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending"
+    },
+    {
+      "id": 16,
+      "title": "Are Digital Banks Safe? PDIC Coverage in the Philippines Explained",
+      "slug": "are-digital-banks-safe-philippines",
+      "keywords": [
+        "are digital banks safe philippines",
+        "are digital banks pdic insured",
+        "is maya bank safe",
+        "digital bank pdic coverage"
+      ],
+      "category": "banking",
+      "linksTo": [
+        "/rates/savings-rates/best-digital-bank-rates-philippines",
+        "/government/bsp/bsp-exchange-rate-guide"
+      ],
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending"
+    },
+    {
+      "id": 17,
+      "title": "Maya vs GoTyme vs SeaBank vs Tonik: Which Digital Bank Wins?",
+      "slug": "maya-vs-gotyme-vs-seabank-vs-tonik",
+      "keywords": [
+        "maya vs gotyme",
+        "seabank vs tonik",
+        "best digital bank comparison philippines",
+        "maya vs gotyme vs seabank"
+      ],
+      "category": "banking",
+      "linksTo": [
+        "/rates/savings-rates/best-digital-bank-rates-philippines",
+        "/rates/savings-rates/best-savings-interest-rates-philippines"
+      ],
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending"
+    },
+    {
+      "id": 18,
+      "title": "A Beginner's Guide to Digital Banking in the Philippines",
+      "slug": "digital-banking-guide-philippines",
+      "keywords": [
+        "digital banking philippines",
+        "how to open digital bank account philippines",
+        "what is a digital bank",
+        "digital bank account philippines guide"
+      ],
+      "category": "banking",
+      "linksTo": [
+        "/rates/savings-rates/best-digital-bank-rates-philippines",
+        "/rates/savings-rates/best-savings-interest-rates-philippines"
+      ],
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending"
+    },
+    {
+      "id": 19,
+      "title": "Digital Bank vs Traditional Bank in the Philippines: Which Should You Choose?",
+      "slug": "digital-bank-vs-traditional-bank-philippines",
+      "keywords": [
+        "digital bank vs traditional bank philippines",
+        "online bank vs traditional bank",
+        "digital bank vs regular bank",
+        "should i use a digital bank philippines"
+      ],
+      "category": "banking",
+      "linksTo": [
+        "/rates/savings-rates/best-digital-bank-rates-philippines",
+        "/rates/savings-rates/best-savings-interest-rates-philippines"
+      ],
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending"
+    },
+    {
+      "id": 20,
+      "title": "Where to Park Your Emergency Fund: Digital Bank vs Time Deposit vs MP2",
+      "slug": "where-to-park-emergency-fund-philippines",
+      "keywords": [
+        "where to keep emergency fund philippines",
+        "high yield savings vs time deposit philippines",
+        "best place for emergency fund philippines",
+        "emergency fund digital bank or time deposit"
+      ],
+      "category": "savings",
+      "linksTo": [
+        "/calculators/savings/emergency-fund-calculator-philippines",
+        "/government/pag-ibig/pag-ibig-mp2-savings-guide"
+      ],
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending"
     }
   ]
 }

@@ -5,10 +5,26 @@
  * properly formatted TypeScript file.
  */
 
-import { writeFileSync } from "fs";
+import { writeFileSync, readFileSync, existsSync } from "fs";
 import { resolve } from "path";
 
 const ROOT = resolve(import.meta.dirname, "../../../");
+
+/**
+ * Read the publishedAt date from an existing post data file, if any.
+ * Used by evergreen refresh to preserve the original publish date while
+ * bumping updatedAt. Returns null when no file exists yet (first generation).
+ *
+ * @param {string} slug
+ * @returns {string|null} "YYYY-MM-DD" or null
+ */
+export function readExistingPublishedAt(slug) {
+  const filePath = resolve(ROOT, `src/data/blog/${slug}.ts`);
+  if (!existsSync(filePath)) return null;
+  const content = readFileSync(filePath, "utf-8");
+  const m = content.match(/"publishedAt":\s*"(\d{4}-\d{2}-\d{2})"/);
+  return m ? m[1] : null;
+}
 
 /**
  * Generate and write a blog post data file.
