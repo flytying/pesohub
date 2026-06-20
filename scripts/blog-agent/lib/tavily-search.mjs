@@ -18,8 +18,13 @@ const client = tavily({ apiKey: process.env.TAVILY_API_KEY });
 export async function researchTopic(keyword) {
   console.log(`  📚 Researching: "${keyword}"...`);
 
-  const result = await client.search(keyword + " philippines 2026", {
-    topic: "finance",
+  // Dynamic year keeps evergreen research current without baking a fixed
+  // year into the codebase. `topic: "general"` returns PH consumer guides
+  // (fintechnews.ph, bitpinas, bank sites); "finance" skews to US/global
+  // news (Forbes/WSJ) and is a poor fit for Philippine queries.
+  const year = new Date().getFullYear();
+  const result = await client.search(`${keyword} philippines ${year}`, {
+    topic: "general",
     searchDepth: "advanced",
     maxResults: 8,
     includeAnswer: "advanced",

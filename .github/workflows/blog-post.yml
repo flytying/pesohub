@@ -37,6 +37,8 @@ jobs:
         env:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Optional — when unset, the agent's Braintrust layer is a clean no-op.
+          BRAINTRUST_API_KEY: ${{ secrets.BRAINTRUST_API_KEY }}
         run: |
           if [ -n "${{ inputs.keyword }}" ]; then
             node scripts/blog-agent/run.mjs --keyword "${{ inputs.keyword }}"
@@ -64,10 +66,12 @@ jobs:
           BRANCH="auto/blog-${SLUG}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$BRANCH"
+          # -B resets the branch if a stale one lingers; force-with-lease keeps
+          # evergreen refresh (same slug → same branch name) from being rejected.
+          git checkout -B "$BRANCH"
           git add src/ scripts/blog-agent/topic-queue.json
           git commit -m "blog: add post — ${SLUG} (automated)"
-          git push -u origin "$BRANCH"
+          git push -u --force-with-lease origin "$BRANCH"
           # Ensure label exists (idempotent)
           gh label create "blog" --color "5319E7" --description "Blog post PR" 2>/dev/null || true
           PR_URL=$(gh pr create \
