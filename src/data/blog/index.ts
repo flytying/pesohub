@@ -116,4 +116,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-06-01",
     readTime: 12,
   },
+  {
+    slug: "best-digital-banks-philippines",
+    title: "Best Digital Banks in the Philippines",
+    excerpt: "GoTyme Bank leads the Philippines' digital banking space in 2026 with a #2 Forbes ranking, while Maya Bank offers rates up to 15% p.a. and Tonik provides stable no-conditions yields. Here's how all six BSP-licensed digital banks compare — and how to pick the right one for your needs.",
+    category: "banking",
+    publishedAt: "2026-06-20",
+    updatedAt: "2026-06-20",
+    readTime: 10,
+  },
 ];
