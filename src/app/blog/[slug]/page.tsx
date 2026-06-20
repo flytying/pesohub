@@ -43,6 +43,8 @@ const postModules: Record<string, () => Promise<{ default: BlogPostData }>> = {
     import("@/data/blog/best-digital-banks-philippines-2026"),
   "pagibig-mp2-salary-deduction-guide": () =>
     import("@/data/blog/pagibig-mp2-salary-deduction-guide"),
+  "best-digital-banks-philippines": () =>
+    import("@/data/blog/best-digital-banks-philippines"),
 };
 
 // ---------------------------------------------------------------------------
