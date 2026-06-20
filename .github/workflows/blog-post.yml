@@ -48,6 +48,13 @@ jobs:
             node scripts/blog-agent/run.mjs --from-queue
           fi
 
+      - name: Sync prompt mirror to Braintrust
+        env:
+          BRAINTRUST_API_KEY: ${{ secrets.BRAINTRUST_API_KEY }}
+        # Updates the Braintrust Prompts mirror only when SYSTEM_PROMPT changed.
+        # Self-guards (no key -> no-op) and never fails the pipeline.
+        run: node scripts/blog-agent/sync-prompt.mjs
+
       - name: Check for changes
         id: changes
         run: |
