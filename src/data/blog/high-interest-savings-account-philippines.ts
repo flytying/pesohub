@@ -250,7 +250,11 @@ const post: BlogPostData = {
     "bank with high interest rate savings account philippines",
     "savings account with high interest rate philippines"
   ],
-  "disclaimer": true
+  "disclaimer": true,
+  "image": {
+    "src": "https://images.unsplash.com/photo-1604594849809-dfedbc827105?w=800&q=80",
+    "alt": "Small figure planning on a stack of coins"
+  }
 };
 
 export default post;

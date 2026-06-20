@@ -294,8 +294,8 @@ const post: BlogPostData = {
   ],
   "disclaimer": true,
   "image": {
-    "src": "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80",
-    "alt": "Money savings and financial planning"
+    "src": "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=800&q=80",
+    "alt": "Spread of paper currency bills"
   }
 };
 

@@ -354,8 +354,8 @@ const post: BlogPostData = {
   ],
   "disclaimer": true,
   "image": {
-    "src": "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=800&q=80",
-    "alt": "Tax documents and calculations"
+    "src": "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80",
+    "alt": "Financial documents and tax filing"
   }
 };
 
