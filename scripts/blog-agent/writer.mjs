@@ -69,7 +69,11 @@ export async function run(keyword, topicMeta = {}, { isRefresh = false } = {}) {
     ),
     keywords: topicMeta.keywords || [keyword],
     disclaimer: true,
-    image: getUnsplashImage(topicMeta.category || outline.category || "general", keyword),
+    image: getUnsplashImage(
+      topicMeta.category || outline.category || "general",
+      keyword,
+      slug
+    ),
   };
 
   // 5. Write data file

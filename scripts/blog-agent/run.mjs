@@ -185,6 +185,11 @@ async function main() {
       // Step 2: Reviewer — runs after writing, score attaches to the span
       const review = await runReviewer(slug, keyword, postData, research);
 
+      // Extract the Unsplash photo id so duplicate hero images across posts
+      // are visible in Braintrust (group logs by imageId to spot repeats).
+      const imageId =
+        (postData.image?.src ?? "").match(/unsplash\.com\/([^?]+)/)?.[1] ?? null;
+
       logSpan(span, {
         output: {
           slug,
@@ -193,6 +198,7 @@ async function main() {
           wordCount: review.wordCount,
           sectionCount: postData.sections.length,
           faqCount: postData.faqs.length,
+          imageId,
         },
         // Braintrust scores must be 0..1 — never log raw 0–100.
         scores: {
@@ -202,6 +208,7 @@ async function main() {
         metadata: {
           issues: review.issues,
           suggestions: review.suggestions,
+          imageId,
         },
       });
 

@@ -271,8 +271,8 @@ const post: BlogPostData = {
   ],
   "disclaimer": true,
   "image": {
-    "src": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
-    "alt": "Bank building and banking services"
+    "src": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80",
+    "alt": "Paying with a card on a laptop"
   }
 };
 
