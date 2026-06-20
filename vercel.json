@@ -2,6 +2,13 @@
   "buildCommand": "npm run build",
   "outputDirectory": "out",
   "framework": null,
+  "redirects": [
+    {
+      "source": "/blog/best-digital-banks-philippines-2026",
+      "destination": "/blog/best-digital-banks-philippines",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
