@@ -14,18 +14,46 @@
 
 import {
   initLogger,
+  initDataset,
   wrapAnthropic,
   traced as btTraced,
   flush as btFlush,
 } from "braintrust";
 
 const ENABLED = Boolean(process.env.BRAINTRUST_API_KEY);
+const PROJECT_NAME = "pesohub-blog-agent";
+const DATASET_NAME = "blog-posts";
 
 if (ENABLED) {
   initLogger({
-    projectName: "pesohub-blog-agent",
+    projectName: PROJECT_NAME,
     apiKey: process.env.BRAINTRUST_API_KEY,
   });
+}
+
+// Lazy dataset handle — only created when first used and Braintrust is enabled.
+let _dataset = null;
+function dataset() {
+  if (!ENABLED) return null;
+  if (!_dataset) {
+    _dataset = initDataset({
+      project: PROJECT_NAME,
+      dataset: DATASET_NAME,
+      apiKey: process.env.BRAINTRUST_API_KEY,
+    });
+  }
+  return _dataset;
+}
+
+/**
+ * Upsert one record into the "blog-posts" dataset (keyed by `record.id`, so a
+ * regenerate/refresh overwrites rather than duplicating). No-op when disabled.
+ *
+ * @param {{id: string, input: object, expected: object, metadata: object}} record
+ */
+export function upsertDatasetRecord(record) {
+  const ds = dataset();
+  if (ds) ds.insert(record);
 }
 
 /**
@@ -63,6 +91,7 @@ export function logSpan(span, payload) {
  */
 export async function flushBraintrust() {
   if (ENABLED) await btFlush();
+  if (_dataset) await _dataset.flush();
 }
 
 export const BRAINTRUST_ENABLED = ENABLED;

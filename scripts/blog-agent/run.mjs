@@ -23,6 +23,7 @@ import {
   tracedGeneration,
   logSpan,
   flushBraintrust,
+  upsertDatasetRecord,
 } from "./lib/braintrust.mjs";
 
 const QUEUE_PATH = resolve(import.meta.dirname, "topic-queue.json");
@@ -209,6 +210,42 @@ async function main() {
           issues: review.issues,
           suggestions: review.suggestions,
           imageId,
+        },
+      });
+
+      // Upsert this post into the "blog-posts" dataset (keyed by slug, so a
+      // refresh overwrites). input = re-runnable topic, expected = the
+      // generated post (golden baseline), metadata = provenance + scores.
+      upsertDatasetRecord({
+        id: slug,
+        input: {
+          keyword,
+          category: topicMeta.category ?? postData.category,
+          keywords: postData.keywords,
+          links: postData.relatedSlugs,
+          title: postData.title,
+        },
+        expected: {
+          title: postData.title,
+          metaTitle: postData.metaTitle,
+          metaDescription: postData.metaDescription,
+          directAnswer: postData.directAnswer,
+          excerpt: postData.excerpt,
+          sections: postData.sections,
+          faqs: postData.faqs,
+          readTime: postData.readTime,
+        },
+        metadata: {
+          slug,
+          systemPromptVersion: SYSTEM_PROMPT_VERSION,
+          model: MODEL,
+          score: review.score,
+          approved: review.approved,
+          wordCount: review.wordCount,
+          imageId,
+          publishedAt: postData.publishedAt,
+          updatedAt: postData.updatedAt,
+          isRefresh,
         },
       });
 
