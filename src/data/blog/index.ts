@@ -99,15 +99,6 @@ export const blogPosts: BlogPostEntry[] = [
     readTime: 14,
   },
   {
-    slug: "best-digital-banks-philippines-2026",
-    title: "Best Digital Banks in the Philippines: Rates, Features, and Who They Are For",
-    excerpt: "The best digital banks in the Philippines in 2026 — including Tonik, Maya Bank, GoTyme Bank, CIMB, and OFBank — offer savings rates up to 60 times higher than traditional banks, zero maintaining balance, and PDIC-insured deposits. Here is how to pick the right one for your situation.",
-    category: "banking",
-    publishedAt: "2026-05-25",
-    updatedAt: "2026-05-25",
-    readTime: 12,
-  },
-  {
     slug: "pagibig-mp2-salary-deduction-guide",
     title: "Pag-IBIG MP2 Salary Deduction: How It Works and Is It Worth It?",
     excerpt: "When your company offers the Pag-IBIG MP2 Salary Deduction Program, your chosen contribution is automatically withheld from your pay and remitted to Pag-IBIG — giving you a disciplined, tax-free savings vehicle backed by the government that has historically earned over 6% per annum.",
