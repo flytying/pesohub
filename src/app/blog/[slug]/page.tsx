@@ -47,6 +47,8 @@ const postModules: Record<string, () => Promise<{ default: BlogPostData }>> = {
     import("@/data/blog/digital-bank-interest-rates-philippines"),
   "high-yield-savings-account-philippines": () =>
     import("@/data/blog/high-yield-savings-account-philippines"),
+  "highest-interest-digital-banks-philippines": () =>
+    import("@/data/blog/highest-interest-digital-banks-philippines"),
 };
 
 // ---------------------------------------------------------------------------
