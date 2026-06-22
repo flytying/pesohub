@@ -264,7 +264,8 @@
       "brief": "Target searchers comparing high-yield savings accounts for 2026. Lead with a current ranked comparison of the highest-rate accounts (digital banks + traditional) with exact rates, then go FUTURE-LOOKING: where Philippine savings rates are heading given the BSP policy-rate cycle and inflation outlook, whether to lock funds in time deposits now vs stay liquid, and a concrete action plan for savers in 2026 and beyond. Use ₱ figures, name banks (Maya, GoTyme, SeaBank, Tonik, CIMB, Salmon), and keep it genuinely useful, not generic.",
       "evergreen": true,
       "refreshIntervalDays": 120,
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-06-22"
     },
     {
       "id": 15,
