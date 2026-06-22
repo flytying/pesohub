@@ -134,4 +134,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-06-22",
     readTime: 12,
   },
+  {
+    slug: "highest-interest-digital-banks-philippines",
+    title: "Digital Banks With the Highest Interest Rates Right Now",
+    excerpt: "As of 2026, Tonik Bank leads with a flat 6.00% p.a. savings rate and no conditions, while Salmon Bank tops fixed-term returns at 8% p.a. Here's a full breakdown of every major Philippine digital bank's rates, conditions, and PDIC coverage to help you pick the right account.",
+    category: "savings",
+    publishedAt: "2026-06-22",
+    updatedAt: "2026-06-22",
+    readTime: 9,
+  },
 ];
