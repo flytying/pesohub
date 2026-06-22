@@ -180,6 +180,7 @@ export async function generateOutline(keyword, research, topicMeta = {}) {
             content: `Generate a detailed article outline for the keyword: "${keyword}"
 
 ${topicMeta.title ? `Suggested title: ${topicMeta.title}` : ""}
+${topicMeta.brief ? `Editorial angle (follow this): ${topicMeta.brief}` : ""}
 ${topicMeta.linksTo ? `Internal pages to link to: ${topicMeta.linksTo.join(", ")}` : ""}
 
 Research summary:
@@ -222,7 +223,7 @@ export async function writeArticle(outline, research, topicMeta = {}) {
 Title: ${outline.title}
 Category: ${outline.category}
 Direct Answer: ${outline.directAnswer}
-
+${topicMeta.brief ? `\nEditorial angle (follow this): ${topicMeta.brief}\n` : ""}
 Outline:
 ${outline.sections.map((s) => `## ${s.heading}\n${s.keyPoints.map((p) => `- ${p}`).join("\n")}`).join("\n\n")}
 

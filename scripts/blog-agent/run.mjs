@@ -146,6 +146,7 @@ async function main() {
       keywords: result.topic.keywords,
       category: result.topic.category,
       linksTo: result.topic.linksTo || [],
+      brief: result.topic.brief,
     };
     console.log(
       `\n📋 Topic #${topicId}: ${topicMeta.title}${isRefresh ? " (refresh)" : ""}`
