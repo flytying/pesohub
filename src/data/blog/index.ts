@@ -125,4 +125,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-06-20",
     readTime: 9,
   },
+  {
+    slug: "high-yield-savings-account-philippines",
+    title: "Best High-Yield Savings Accounts in the Philippines",
+    excerpt: "Digital banks like Tonik (up to 8% on time deposits), Maya, GoTyme, and SeaBank are paying 4–6% p.a. on savings in 2026 — far more than the 0.10–0.25% at traditional banks. Here's how to rank them, what the BSP rate cycle means for your returns, and a concrete action plan to maximize your savings this year.",
+    category: "savings",
+    publishedAt: "2026-06-22",
+    updatedAt: "2026-06-22",
+    readTime: 12,
+  },
 ];
