@@ -255,6 +255,7 @@ Requirements:
 - When comparing banks, rates, or products across consistent attributes, use a "table" section instead of a long list: a 3-column [Bank, Rate, Conditions] ranking, or a 4+ column side-by-side comparison
 - Write original content — do not copy from research sources
 - Philippine-specific examples, institutions, and peso amounts
+- Link to internal PesoHub pages using inline markdown: [descriptive anchor text](/path) — e.g. "use the [Time Deposit Calculator](/calculators/savings/time-deposit-calculator-philippines)". NEVER write a bare path like "at /calculators/..."; always wrap it in a markdown link with natural anchor text. Link each relevant page at least once where it genuinely helps the reader.
 
 Call the save_article tool with the structured article content.`,
           },

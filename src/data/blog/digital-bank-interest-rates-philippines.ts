@@ -89,7 +89,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "For live and continuously updated rates, check our rate tracker at pesohub.ph/rates/savings-rates/best-digital-bank-rates-philippines."
+      "content": "For live and continuously updated rates, check our [digital bank rate tracker](/rates/savings-rates/best-digital-bank-rates-philippines)."
     },
     {
       "type": "heading",
@@ -170,7 +170,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "One strategic approach for savers with larger balances is to split time deposits across multiple digital banks to stay within PDIC's ₱1,000,000 coverage limit per bank while maximizing yields. For example, a saver with ₱2,000,000 in idle funds could place ₱900,000 in a Tonik time deposit at 8% and ₱900,000 in a UNO time deposit at 5.75%, keeping both fully insured and capturing excellent rates across both institutions. For the latest time deposit rates across all Philippine banks, visit pesohub.ph/rates/savings-rates/time-deposit-rates-philippines."
+      "content": "One strategic approach for savers with larger balances is to split time deposits across multiple digital banks to stay within PDIC's ₱1,000,000 coverage limit per bank while maximizing yields. For example, a saver with ₱2,000,000 in idle funds could place ₱900,000 in a Tonik time deposit at 8% and ₱900,000 in a UNO time deposit at 5.75%, keeping both fully insured and capturing excellent rates across both institutions. For the latest time deposit rates across all Philippine banks, visit our [time deposit rates page](/rates/savings-rates/time-deposit-rates-philippines)."
     },
     {
       "type": "heading",

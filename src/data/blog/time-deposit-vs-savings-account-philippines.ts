@@ -76,7 +76,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "BDO, BPI, and Metrobank tend to sit at the lower end of these ranges for retail customers, reflecting their dominant market positions and lower need to aggressively compete for deposits. UnionBank, Landbank (for government depositors), and DBP (Development Bank of the Philippines) often sit in the mid-range. Rural banks affiliated with the Rural Bankers Association of the Philippines may offer the highest rates, but depositors should ensure those institutions are PDIC-insured and verify the insured coverage. For a live rate comparison updated regularly, visit PesoHub's time deposit rates page at /rates/savings-rates/time-deposit-rates-philippines."
+      "content": "BDO, BPI, and Metrobank tend to sit at the lower end of these ranges for retail customers, reflecting their dominant market positions and lower need to aggressively compete for deposits. UnionBank, Landbank (for government depositors), and DBP (Development Bank of the Philippines) often sit in the mid-range. Rural banks affiliated with the Rural Bankers Association of the Philippines may offer the highest rates, but depositors should ensure those institutions are PDIC-insured and verify the insured coverage. For a live rate comparison updated regularly, visit PesoHub's [time deposit rates page](/rates/savings-rates/time-deposit-rates-philippines)."
     },
     {
       "type": "callout",
@@ -98,7 +98,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "You do not need to file anything extra for this tax. The bank automatically withholds the 20% and remits it to the BIR on your behalf. The amount you receive at maturity is already net of tax. This final withholding tax treatment means TD interest income does not need to appear separately on your annual income tax return (BIR Form 1700 or 1701). It is already settled. To model different scenarios instantly — varying the principal, rate, and term — use the free PesoHub Time Deposit Calculator at /calculators/savings/time-deposit-calculator-philippines. It shows both gross and net-of-tax figures so you know exactly what you will receive."
+      "content": "You do not need to file anything extra for this tax. The bank automatically withholds the 20% and remits it to the BIR on your behalf. The amount you receive at maturity is already net of tax. This final withholding tax treatment means TD interest income does not need to appear separately on your annual income tax return (BIR Form 1700 or 1701). It is already settled. To model different scenarios instantly — varying the principal, rate, and term — use the free [PesoHub Time Deposit Calculator](/calculators/savings/time-deposit-calculator-philippines). It shows both gross and net-of-tax figures so you know exactly what you will receive."
     },
     {
       "type": "heading",
@@ -195,7 +195,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "If you hold a foreign currency time deposit — for example, a USD time deposit offered by some Philippine universal banks — the applicable FWT rate is lower at 15%. OFWs and professionals who earn and hold dollar savings locally should factor this into their decision when comparing peso and dollar TDs. For tax-exempt entities such as certain cooperatives registered under the Cooperative Code of the Philippines or qualifying non-stock non-profit organizations, an exemption from this withholding tax may apply — but the organization must submit the required BIR certifications and documentary evidence directly to the bank before the TD is placed. The exemption is not automatic. All interest rate illustrations on PesoHub are presented on both a gross basis (before tax) and a net basis (after the 20% FWT). Use the PesoHub Time Deposit Calculator at /calculators/savings/time-deposit-calculator-philippines to see exactly what you will take home after tax for any combination of principal, rate, and term."
+      "content": "If you hold a foreign currency time deposit — for example, a USD time deposit offered by some Philippine universal banks — the applicable FWT rate is lower at 15%. OFWs and professionals who earn and hold dollar savings locally should factor this into their decision when comparing peso and dollar TDs. For tax-exempt entities such as certain cooperatives registered under the Cooperative Code of the Philippines or qualifying non-stock non-profit organizations, an exemption from this withholding tax may apply — but the organization must submit the required BIR certifications and documentary evidence directly to the bank before the TD is placed. The exemption is not automatic. All interest rate illustrations on PesoHub are presented on both a gross basis (before tax) and a net basis (after the 20% FWT). Use the [PesoHub Time Deposit Calculator](/calculators/savings/time-deposit-calculator-philippines) to see exactly what you will take home after tax for any combination of principal, rate, and term."
     },
     {
       "type": "heading",
@@ -206,7 +206,7 @@ const post: BlogPostData = {
       "type": "ordered-list",
       "items": [
         "Prepare your requirements: one or two valid government-issued IDs (passport, PhilSys National ID, SSS ID, UMID, driver's license, or voter's ID), your Tax Identification Number (TIN), and the minimum placement amount in cash or as a fund transfer from your existing account at the same bank.",
-        "Choose your bank and term: compare rates across banks using the PesoHub time deposit rates table at /rates/savings-rates/time-deposit-rates-philippines, then decide on the term that matches your financial timeline.",
+        "Choose your bank and term: compare rates across banks using the [PesoHub time deposit rates table](/rates/savings-rates/time-deposit-rates-philippines), then decide on the term that matches your financial timeline.",
         "Visit a branch or use online banking: BPI, UnionBank, and BDO allow customers to open or renew time deposits through their mobile apps or internet banking portals. If you are a new customer, you will typically need to open a regular savings account first before placing a TD.",
         "Complete the application: fill out the bank's TD application form, specify the principal amount, term, and whether you want interest credited at maturity or periodically. Some banks offer monthly interest crediting for longer-term TDs.",
         "Read and sign the TD agreement: pay specific attention to the pre-termination penalty clause — this tells you exactly what happens if you need to break the TD early. Some banks forfeit all interest; others apply a reduced rate. Know this before you sign.",
@@ -225,11 +225,11 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Working out time deposit interest by hand is straightforward once you know the formula, but comparing multiple scenarios — different principals, rates, and terms — quickly becomes tedious. The free PesoHub Time Deposit Calculator at /calculators/savings/time-deposit-calculator-philippines is designed to make this instant. Enter your principal amount, the annual interest rate offered by your bank, and the term in days. The calculator immediately shows your gross interest, the 20% BIR final withholding tax amount, your net interest after tax, and your total maturity value."
+      "content": "Working out time deposit interest by hand is straightforward once you know the formula, but comparing multiple scenarios — different principals, rates, and terms — quickly becomes tedious. The free [PesoHub Time Deposit Calculator](/calculators/savings/time-deposit-calculator-philippines) is designed to make this instant. Enter your principal amount, the annual interest rate offered by your bank, and the term in days. The calculator immediately shows your gross interest, the 20% BIR final withholding tax amount, your net interest after tax, and your total maturity value."
     },
     {
       "type": "paragraph",
-      "content": "A practical way to use the calculator: model the same ₱100,000 across a 90-day, 180-day, and 365-day TD at the rates currently available from your preferred bank. The results will show you precisely how much extra you earn by committing to a longer term — and whether that premium is worth the additional months of lock-in for your situation. You can also use it to check whether a rural bank's higher advertised rate, say 6.5% for 365 days, actually results in meaningfully better net income versus a universal bank's 5.0% — sometimes the difference is smaller than it first appears after factoring in tax. For current rate inputs, visit /rates/savings-rates/time-deposit-rates-philippines to find up-to-date indicative rates from major Philippine banks before running your scenarios."
+      "content": "A practical way to use the calculator: model the same ₱100,000 across a 90-day, 180-day, and 365-day TD at the rates currently available from your preferred bank. The results will show you precisely how much extra you earn by committing to a longer term — and whether that premium is worth the additional months of lock-in for your situation. You can also use it to check whether a rural bank's higher advertised rate, say 6.5% for 365 days, actually results in meaningfully better net income versus a universal bank's 5.0% — sometimes the difference is smaller than it first appears after factoring in tax. For current rate inputs, visit the [time deposit rates page](/rates/savings-rates/time-deposit-rates-philippines) to find up-to-date indicative rates from major Philippine banks before running your scenarios."
     },
     {
       "type": "heading",
@@ -247,7 +247,7 @@ const post: BlogPostData = {
         "PDIC coverage is ₱500,000 per depositor per bank across all deposit accounts at that institution. If your total deposits at a single bank — savings, checking, and time deposits combined — exceed ₱500,000, the excess is uninsured. Consider spreading large deposits across multiple PDIC-member institutions.",
         "The BSP's policy rate cycle in 2024–2025 has influenced TD rates, but past rate environments do not predict future rates. A TD placed today at 5% may roll over at a substantially different rate 12 months from now.",
         "Pre-termination of a time deposit usually results in forfeiture of all or part of the interest earned. Only lock in funds you are genuinely certain you will not need during the term.",
-        "PesoHub's TD rate tables are updated periodically — bookmark /rates/savings-rates/time-deposit-rates-philippines and check back regularly before making placement decisions."
+        "PesoHub's TD rate tables are updated periodically — bookmark the [time deposit rates page](/rates/savings-rates/time-deposit-rates-philippines) and check back regularly before making placement decisions."
       ]
     },
     {
