@@ -26,9 +26,10 @@ export const mainNavItems: NavItem[] = [
     label: "Rates",
     href: "/rates",
     children: [
+      { label: "Best Savings Interest Rates", href: "/rates/savings-rates/best-savings-interest-rates-philippines" },
+      { label: "Best Digital Bank Rates", href: "/rates/savings-rates/best-digital-bank-rates-philippines" },
+      { label: "Time Deposit Rates", href: "/rates/savings-rates/time-deposit-rates-philippines" },
       { label: "USD to PHP Today", href: "/rates/exchange-rates/usd-to-php-today" },
-      { label: "Best Savings Rates", href: "/rates/savings-rates/best-savings-interest-rates-philippines" },
-      { label: "Digital Banks Comparison", href: "/rates/savings-rates/best-digital-bank-rates-philippines" },
     ],
   },
   {

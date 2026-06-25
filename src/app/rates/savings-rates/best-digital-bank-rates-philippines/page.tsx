@@ -12,7 +12,6 @@ import {
   BookOpen,
   Calculator,
   Target,
-  CreditCard,
   ArrowLeftRight,
   TriangleAlert,
 } from "lucide-react";
@@ -20,6 +19,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
+import { SavingsInterestCalculator } from "@/components/calculators/savings-interest-calculator";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   Table,
@@ -43,9 +43,9 @@ import {
 
 export const metadata = generatePageMetadata({
   title:
-    "Best Digital Banks Philippines 2026: High Yield Savings Accounts Compared | PesoHub",
+    "Best Digital Bank Rates in the Philippines 2026 | PesoHub",
   description:
-    "Compare the best digital banks in the Philippines for 2026. Find high yield savings accounts with the highest interest rates, compare features, and discover which digital bank offers the best returns.",
+    "Compare digital bank interest rates in the Philippines for 2026. See savings rates, promo rates, balance caps, requirements, and estimated earnings.",
   slug: "rates/savings-rates/best-digital-bank-rates-philippines",
   updatedAt: DIGITAL_BANK_RATES_UPDATED_AT,
 });
@@ -58,34 +58,93 @@ const breadcrumbs = [
 
 const needCards = [
   {
-    icon: Wallet,
-    title: "Best for Everyday Spending",
-    description:
-      "Best for users who want a digital bank that works well for regular payments and daily account use.",
-  },
-  {
     icon: TrendingUp,
-    title: "Best for Rate-Focused Savers",
+    title: "Best digital bank for high interest",
     description:
-      "Best for users comparing where to park cash for stronger savings yield.",
+      "For the highest standard yield, Tonik leads at up to 6% p.a. on the Tonik Account (8% on its 12-month time deposit). Maya advertises up to 15% p.a., but only as a conditional promo capped at ₱100,000.",
   },
   {
-    icon: ArrowLeftRight,
-    title: "Best for Transfer-Heavy Users",
+    icon: PiggyBank,
+    title: "Best digital bank for simple savings",
     description:
-      "Best for users who care most about app-based transfers and day-to-day movement of money.",
-  },
-  {
-    icon: CreditCard,
-    title: "Best for Card and ATM Access",
-    description:
-      "Best for users who want easier cash access or debit-card convenience.",
+      "GoTyme (3% p.a.) and MariBank (3.25% p.a.) pay a flat rate with no missions or promo mechanics — good if you just want interest without tracking conditions.",
   },
   {
     icon: Shield,
-    title: "Best for Simpler Setup",
+    title: "Best digital bank for no complicated requirements",
     description:
-      "Best for users who want a cleaner, easier-to-understand product with fewer moving parts.",
+      "UNO Digital Bank (up to 3.5% p.a.) and NetBank (3.25% p.a.) keep things simple — no spending missions and no maintaining balance to earn the headline rate.",
+  },
+  {
+    icon: Wallet,
+    title: "Best digital bank for small balances",
+    description:
+      "Maya's promo rate is most useful on smaller balances since it caps at ₱100,000. Most digital banks have zero maintaining balance, so you can start small.",
+  },
+  {
+    icon: ArrowLeftRight,
+    title: "Best digital bank for larger balances",
+    description:
+      "Above ₱1,000,000, MariBank pays a higher 3.75% p.a. tier. Remember PDIC insurance covers up to ₱1,000,000 per depositor, per bank, so very large balances may be worth splitting.",
+  },
+];
+
+// Bank-specific sections that answer high-intent "[bank] interest rate 2026"
+// queries directly. Each rate is sourced from the digital bank data file.
+const bankSections = [
+  {
+    id: "seabank-maribank",
+    name: "SeaBank / MariBank interest rate 2026",
+    rate: "3.25% p.a. (3.75% above ₱1M)",
+    body: "SeaBank Philippines has rebranded to MariBank. The account pays 3.25% p.a. on balances up to ₱1,000,000 and 3.75% p.a. on the portion above ₱1,000,000 (effective January 15, 2026), with no maintaining balance. It is a BSP-licensed digital bank backed by Sea Group (Shopee) and is PDIC-insured up to ₱1,000,000.",
+  },
+  {
+    id: "tonik-solo-stash",
+    name: "Tonik Solo Stash interest rate 2026",
+    rate: "4% p.a. (Solo Stash)",
+    body: "Tonik's Solo Stash earns 4% p.a. for goal-based saving. The main Tonik Account pays up to 6% p.a., the Group Stash 4.5% p.a. (with at least 3 members), and Tonik time deposits go up to 8% p.a. on a 12-month term. None require promo missions, and deposits are PDIC-insured up to ₱1,000,000.",
+  },
+  {
+    id: "gotyme",
+    name: "GoTyme interest rate 2026",
+    rate: "3% p.a. (GoSave)",
+    body: "GoTyme's GoSave pays a flat 3% p.a. (cut from 3.5% effective January 1, 2026) with no balance cap and no spending requirements. It includes a physical debit card and kiosk withdrawals, making it convenient for everyday access. PDIC-insured up to ₱1,000,000.",
+  },
+  {
+    id: "maya",
+    name: "Maya savings interest rate 2026",
+    rate: "3% base, up to 15% promo",
+    body: "Maya pays a 3% p.a. base rate (lowered from 3.5% effective April 1, 2026). Its headline up-to-15% p.a. promo is conditional — it requires monthly missions such as deposits, bill payments, and card spending, and the boosted rate is capped at ₱100,000. PDIC-insured up to ₱1,000,000.",
+  },
+  {
+    id: "cimb",
+    name: "CIMB interest rate 2026",
+    rate: "2.5% p.a. (UpSave base)",
+    body: "CIMB's UpSave pays a 2.5% p.a. base rate. Higher rates are available on CIMB GROW (4% base + up to 3% conditional = up to 7% p.a.) and CIMB Prime, both tied to growing your average daily balance. CIMB is a BSP-licensed digital bank and PDIC-insured up to ₱1,000,000.",
+  },
+  {
+    id: "gcash-gsave",
+    name: "GCash (GSave) savings interest rate 2026",
+    rate: "From 2.5% p.a. (via CIMB)",
+    body: "GSave inside GCash is powered by partner bank CIMB, so the base rate tracks CIMB UpSave at 2.5% p.a., with higher conditional tiers available on CIMB's GROW product. Because GSave is a partner-bank deposit, coverage and terms follow the underlying bank.",
+  },
+  {
+    id: "uno",
+    name: "UNO Digital Bank interest rate 2026",
+    rate: "Up to 3.5% p.a.",
+    body: "UNO Digital Bank's UNOReady savings pays up to 3.5% p.a. with daily interest crediting and no spending missions. Time deposits go up to 4.75% p.a. (UNOEarn) and 5.5% p.a. (UNOBoost) depending on tenure. PDIC-insured up to ₱1,000,000.",
+  },
+  {
+    id: "ownbank",
+    name: "OwnBank interest rate 2026",
+    rate: "Up to 3.8% p.a.",
+    body: "OwnBank's \"Own It\" savings pays up to 3.8% p.a. with daily interest and no maintaining balance. Time deposits go up to 5.2% p.a. (with 8% p.a. for the first 7 days for new users only). OwnBank has adjusted rates several times, so confirm the current rate in-app. PDIC-insured up to ₱1,000,000.",
+  },
+  {
+    id: "netbank",
+    name: "NetBank interest rate 2026",
+    rate: "3.25% p.a. (PesoSAVERS)",
+    body: "NetBank's PesoSAVERS pays 3.25% p.a. with daily interest crediting and compounding, no minimum initial deposit, and no maintaining balance (a ₱69 end-of-day balance is needed to earn interest). Time deposits sit around 4.5% p.a. (6-month) and 5% p.a. (12-month). PDIC-insured up to ₱1,000,000.",
   },
 ];
 
@@ -137,22 +196,27 @@ const relatedPages = [
 ];
 
 export default function DigitalBankRatesPage() {
+  const calculatorAccounts = digitalBankRates.map((bank) => ({
+    label: bank.bankName,
+    rate: bank.baseRate,
+  }));
+
   return (
     <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
-          title: "Best Digital Banks Philippines 2026",
+          title: "Best Digital Bank Rates in the Philippines 2026",
           description:
-            "Compare high yield savings accounts from digital banks in the Philippines. Find the highest interest rate digital bank for your needs.",
+            "Compare digital bank interest rates in the Philippines. Find the highest interest rate digital bank for your needs.",
           updatedAt: DIGITAL_BANK_RATES_UPDATED_AT,
           slug: "rates/savings-rates/best-digital-bank-rates-philippines",
         })}
       />
 
       <PageHero
-        title="Best Digital Banks Philippines 2026"
-        description="Compare high yield savings accounts from digital banks in the Philippines for 2026. See which banks offer the highest interest rates, best app experience, and strongest features — including transfers, card access, and deposit insurance coverage."
+        title="Best Digital Bank Rates in the Philippines 2026"
+        description="Compare digital bank interest rates in the Philippines for 2026 — SeaBank (now MariBank), Tonik, GoTyme, Maya, CIMB, GCash, UNO, OwnBank, and NetBank. See base rates, promo rates, balance caps, and the conditions behind each headline number."
         badge={DIGITAL_BANK_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
@@ -181,20 +245,16 @@ export default function DigitalBankRatesPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Bank</TableHead>
-                  <TableHead>Best For</TableHead>
+                  <TableHead>Digital Bank</TableHead>
                   <TableHead className="text-right">Base Rate</TableHead>
                   <TableHead className="text-right">Promo Rate</TableHead>
                   <TableHead className="hidden sm:table-cell">
-                    Card / ATM Access
+                    Balance Cap
                   </TableHead>
                   <TableHead className="hidden lg:table-cell">
-                    Transfers
+                    Requirement
                   </TableHead>
-                  <TableHead className="hidden xl:table-cell">
-                    Deposit Insurance
-                  </TableHead>
-                  <TableHead className="hidden xl:table-cell">Notes</TableHead>
+                  <TableHead className="hidden md:table-cell">Good For</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -202,9 +262,6 @@ export default function DigitalBankRatesPage() {
                   <TableRow key={bank.bankName}>
                     <TableCell className="font-medium">
                       {bank.bankName}
-                    </TableCell>
-                    <TableCell className="text-[14px] text-gray-400">
-                      {bank.bestFor}
                     </TableCell>
                     <TableCell className="text-right font-semibold text-brand">
                       {formatPercent(bank.baseRate)}
@@ -219,16 +276,13 @@ export default function DigitalBankRatesPage() {
                       )}
                     </TableCell>
                     <TableCell className="hidden text-[14px] text-gray-400 sm:table-cell">
-                      {bank.cardAtmAccess}
+                      {bank.balanceCap}
                     </TableCell>
                     <TableCell className="hidden text-[14px] text-gray-400 lg:table-cell">
-                      {bank.transfers}
+                      {bank.requirement}
                     </TableCell>
-                    <TableCell className="hidden text-[14px] text-gray-400 xl:table-cell">
-                      {bank.depositInsurance}
-                    </TableCell>
-                    <TableCell className="hidden text-[14px] text-gray-400 xl:table-cell">
-                      {bank.notes}
+                    <TableCell className="hidden text-[14px] text-gray-400 md:table-cell">
+                      {bank.bestFor}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -240,6 +294,46 @@ export default function DigitalBankRatesPage() {
             conditions directly with the bank before opening an account or
             moving funds.
           </p>
+          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            Want to see how much you can earn?{" "}
+            <Link
+              href="#digital-bank-calculator"
+              className="font-semibold text-brand underline-offset-2 hover:underline"
+            >
+              Try the digital bank interest calculator
+            </Link>{" "}
+            below, or jump to a specific bank:{" "}
+            {bankSections.map((s, i) => (
+              <span key={s.id}>
+                {i > 0 && ", "}
+                <Link
+                  href={`#${s.id}`}
+                  className="text-brand underline-offset-2 hover:underline"
+                >
+                  {s.name.replace(" interest rate 2026", "")}
+                </Link>
+              </span>
+            ))}
+            .
+          </p>
+        </section>
+
+        {/* Digital Bank Interest Calculator */}
+        <section id="digital-bank-calculator" className="mt-16 scroll-mt-20">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Digital Bank Interest Calculator
+          </h2>
+          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            Pick a digital bank, enter your balance, and estimate the monthly
+            and annual interest. Promo rates often apply only up to a balance
+            cap, so compare the base rate too.
+          </p>
+          <div className="mt-6">
+            <SavingsInterestCalculator
+              accounts={calculatorAccounts}
+              title="Digital Bank Interest Calculator"
+            />
+          </div>
         </section>
 
         {/* Base Rate vs Promo Rate */}
@@ -347,6 +441,37 @@ export default function DigitalBankRatesPage() {
               );
             })}
           </div>
+        </section>
+
+        {/* Bank-specific rate sections */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Digital Bank Interest Rates 2026 (By Bank)
+          </h2>
+          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            The exact rate, conditions, and balance caps for the digital banks
+            people search for most. Rates are gross (before the 20% withholding
+            tax) and last checked {DIGITAL_BANK_RATES_UPDATED_AT}.
+          </p>
+          <div className="mt-8 space-y-8">
+            {bankSections.map((section) => (
+              <div key={section.id} id={section.id} className="scroll-mt-20">
+                <h3 className="text-[22px] font-semibold leading-[28px] text-gray-500">
+                  {section.name}
+                </h3>
+                <p className="mt-1 text-[18px] font-semibold text-brand">
+                  {section.rate}
+                </p>
+                <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  {section.body}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 text-[14px] text-gray-400">
+            Digital bank rates change frequently. Always confirm the current
+            rate in the bank&apos;s app before depositing.
+          </p>
         </section>
 
         {/* Editorial note */}

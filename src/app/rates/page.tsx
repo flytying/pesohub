@@ -16,9 +16,9 @@ import { generateBreadcrumbSchema } from "@/lib/schema-markup";
 
 export const metadata = generatePageMetadata({
   title:
-    "Savings Rates, Time Deposit Rates & Exchange Rates Philippines | PesoHub",
+    "Best Savings & Digital Bank Interest Rates Philippines | PesoHub",
   description:
-    "Compare savings interest rates, check time deposit options, and track USD to PHP exchange rates with practical Philippine rate pages and comparisons.",
+    "Compare the best savings interest rates and digital bank rates in the Philippines. Plus time deposit rates and USD to PHP exchange rates, updated regularly.",
   slug: "rates",
 });
 
@@ -27,38 +27,39 @@ const breadcrumbs = [
   { label: "Rates" },
 ];
 
-const rateTypeCards = [
-  {
-    icon: TrendingUp,
-    title: "Exchange Rates",
-    description:
-      "Track exchange rate pages such as USD to PHP and other currency conversions. Useful if you want to monitor movement, estimate value, or compare recent rate changes.",
-    href: "/rates/exchange-rates/usd-to-php-today",
-    cta: "View Exchange Rates",
-  },
+const featuredCards = [
   {
     icon: PiggyBank,
-    title: "Savings Rates",
+    title: "Best Savings Interest Rates in the Philippines",
     description:
-      "Compare savings account interest rate categories and explore options for keeping funds accessible while earning interest.",
+      "Compare savings account rates from Philippine banks and digital banks. See which accounts offer higher interest for your savings.",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
     cta: "View Savings Rates",
   },
   {
+    icon: Smartphone,
+    title: "Best Digital Bank Rates in the Philippines",
+    description:
+      "Compare digital bank interest rates in the Philippines, including app-based savings accounts, stashes, goals, and promo rates.",
+    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
+    cta: "View Digital Bank Rates",
+  },
+];
+
+const otherTrackers = [
+  {
     icon: Clock,
     title: "Time Deposit Rates",
     description:
-      "Review fixed-term deposit rate categories if you want to compare returns for money you can set aside for a locked period.",
+      "Compare fixed-term deposit returns and estimate maturity with the time deposit calculator.",
     href: "/rates/savings-rates/time-deposit-rates-philippines",
-    cta: "View Time Deposit Rates",
   },
   {
-    icon: Smartphone,
-    title: "Digital Bank Rates",
+    icon: TrendingUp,
+    title: "Exchange Rates",
     description:
-      "Explore rates commonly associated with digital banks and app-based savings options. Useful if you want to compare newer savings products against more traditional options.",
-    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
-    cta: "View Digital Bank Rates",
+      "Track the USD to PHP exchange rate sourced from the BSP, with recent history.",
+    href: "/rates/exchange-rates/usd-to-php-today",
   },
 ];
 
@@ -136,33 +137,31 @@ export default function RatesPage() {
         </div>
       </section>
 
-      {/* Choose a Rate Type */}
-      <section id="choose" className="scroll-mt-20 bg-surface-secondary py-16 lg:py-20">
+      {/* Featured rate guides */}
+      <section id="featured" className="scroll-mt-20 bg-surface-secondary py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
-            Choose a Rate Type
+            Featured rate guides
           </h2>
           <div className="grid gap-5 sm:grid-cols-2">
-            {rateTypeCards.map((card) => {
+            {featuredCards.map((card) => {
               const Icon = card.icon;
               return (
                 <div
                   key={card.title}
-                  className="flex h-full flex-col rounded-xl bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                  className="flex h-full flex-col rounded-xl bg-white p-8 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
                 >
-                  <h4 className="text-[20px] font-semibold leading-[26px] text-brand">
+                  <Icon
+                    className="size-12 shrink-0 text-brand"
+                    strokeWidth={1.25}
+                  />
+                  <h3 className="mt-4 text-[24px] font-semibold leading-[30px] text-brand">
                     {card.title}
-                  </h4>
-                  <div className="mt-2 flex items-start justify-between gap-4">
-                    <p className="flex-1 text-[16px] leading-[22px] text-gray-400">
-                      {card.description}
-                    </p>
-                    <Icon
-                      className="size-16 shrink-0 text-gray-400"
-                      strokeWidth={1.25}
-                    />
-                  </div>
-                  <div className="mt-auto pt-5">
+                  </h3>
+                  <p className="mt-3 flex-1 text-[16px] leading-[22px] text-gray-400">
+                    {card.description}
+                  </p>
+                  <div className="mt-auto pt-6">
                     <Link
                       href={card.href}
                       className="inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
@@ -171,6 +170,38 @@ export default function RatesPage() {
                     </Link>
                   </div>
                 </div>
+              );
+            })}
+          </div>
+
+          {/* Other rate trackers */}
+          <h2 className="mt-16 mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
+            Other rate trackers
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {otherTrackers.map((card) => {
+              const Icon = card.icon;
+              return (
+                <Link
+                  key={card.title}
+                  href={card.href}
+                  className="group flex items-start gap-4 rounded-xl bg-white p-6 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                >
+                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
+                    <Icon className="size-5" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[18px] font-semibold text-gray-500 group-hover:text-brand">
+                        {card.title}
+                      </span>
+                      <ArrowRight className="size-4 text-gray-300 transition-transform group-hover:translate-x-0.5" />
+                    </div>
+                    <p className="mt-1 text-[16px] leading-[22px] text-gray-400">
+                      {card.description}
+                    </p>
+                  </div>
+                </Link>
               );
             })}
           </div>

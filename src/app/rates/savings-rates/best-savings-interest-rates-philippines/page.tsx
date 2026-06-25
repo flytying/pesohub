@@ -10,7 +10,6 @@ import {
   Wallet,
   Clock,
   PiggyBank,
-  BookOpen,
   TrendingUp,
   Calculator,
   Target,
@@ -20,6 +19,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
+import { SavingsInterestCalculator } from "@/components/calculators/savings-interest-calculator";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   Table,
@@ -43,9 +43,9 @@ import {
 
 export const metadata = generatePageMetadata({
   title:
-    "Best Savings Accounts Philippines 2026: Compare High Interest Rates | PesoHub",
+    "Best Savings Interest Rates in the Philippines 2026 | PesoHub",
   description:
-    "Compare the best savings accounts in the Philippines for 2026. See which banks offer the highest interest rates, lowest maintaining balance, and best savings options for your money.",
+    "Compare the best savings account interest rates in the Philippines for 2026. See traditional banks, digital banks, high-yield savings options, and estimated earnings.",
   slug: "rates/savings-rates/best-savings-interest-rates-philippines",
   updatedAt: SAVINGS_RATES_UPDATED_AT,
 });
@@ -130,14 +130,19 @@ const chooseChecklist = [
 
 const relatedPages = [
   {
-    title: "Time Deposit Rates",
+    title: "Best Digital Bank Rates",
+    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
+    icon: Smartphone,
+  },
+  {
+    title: "Time Deposit Rates & Calculator",
     href: "/rates/savings-rates/time-deposit-rates-philippines",
     icon: Clock,
   },
   {
-    title: "Digital Banks Comparison",
-    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
-    icon: Smartphone,
+    title: "Time Deposit Calculator",
+    href: "/calculators/savings/time-deposit-calculator-philippines",
+    icon: Calculator,
   },
   {
     title: "Savings Goal Calculator",
@@ -145,26 +150,30 @@ const relatedPages = [
     icon: Target,
   },
   {
+    title: "Emergency Fund Calculator",
+    href: "/calculators/savings/emergency-fund-calculator-philippines",
+    icon: Wallet,
+  },
+  {
     title: "Rates Hub",
     href: "/rates",
     icon: TrendingUp,
-  },
-  {
-    title: "Guides Hub",
-    href: "/guides",
-    icon: BookOpen,
   },
 ];
 
 export default function BestSavingsRatesPage() {
   const topBanks = bankSavingsRates.slice(0, 3);
+  const calculatorAccounts = bankSavingsRates.map((bank) => ({
+    label: `${bank.bankName} — ${bank.accountType}`,
+    rate: bank.interestRate,
+  }));
 
   return (
     <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
-          title: "Best Savings Accounts Philippines 2026",
+          title: "Best Savings Interest Rates in the Philippines 2026",
           description:
             "Compare the best savings interest rates in the Philippines across digital and traditional banks.",
           updatedAt: SAVINGS_RATES_UPDATED_AT,
@@ -173,7 +182,7 @@ export default function BestSavingsRatesPage() {
       />
 
       <PageHero
-        title="Best Savings Accounts Philippines 2026"
+        title="Best Savings Interest Rates in the Philippines 2026"
         description="Compare savings account interest rates across Philippine banks for 2026. Find the highest interest savings accounts, check minimum balance requirements, and discover which bank offers the best savings rate for your needs — whether you prefer digital banks or traditional banks."
         badge={SAVINGS_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
@@ -215,7 +224,7 @@ export default function BestSavingsRatesPage() {
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             {topBanks.map((bank, index) => (
               <div
-                key={bank.bankName}
+                key={`${bank.bankName}-${bank.accountType}`}
                 className={`overflow-hidden rounded-xl p-5 ${
                   index === 0
                     ? "bg-brand text-white"
@@ -311,7 +320,7 @@ export default function BestSavingsRatesPage() {
               </TableHeader>
               <TableBody>
                 {bankSavingsRates.map((bank) => (
-                  <TableRow key={bank.bankName}>
+                  <TableRow key={`${bank.bankName}-${bank.accountType}`}>
                     <TableCell className="font-medium">
                       {bank.bankName}
                     </TableCell>
@@ -356,6 +365,21 @@ export default function BestSavingsRatesPage() {
             latest information directly with the bank before opening an account
             or moving funds.
           </p>
+        </section>
+
+        {/* Savings Interest Calculator */}
+        <section className="mt-16">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            How Much Interest Can You Earn?
+          </h2>
+          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            Pick an account, enter your deposit, and see the estimated monthly
+            and annual interest. Toggle the tax assumption to compare gross and
+            after-tax returns.
+          </p>
+          <div className="mt-6">
+            <SavingsInterestCalculator accounts={calculatorAccounts} />
+          </div>
         </section>
 
         {/* Promo Rates vs Standard Rates */}
