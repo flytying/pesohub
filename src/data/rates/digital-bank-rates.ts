@@ -1,12 +1,16 @@
 import type { FAQ } from "@/types/content";
 
-export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-06-15";
+export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-06-25";
 
 export interface DigitalBankRate {
   bankName: string;
   bestFor: string;
   baseRate: number;
   promoRate: number | null;
+  /** Short summary of the balance cap that limits the headline rate, e.g. "₱100,000" or "No cap". */
+  balanceCap: string;
+  /** Short summary of what you must do to earn the headline rate, e.g. "None" or "Monthly missions". */
+  requirement: string;
   cardAtmAccess: string;
   transfers: string;
   limitsConditions: string;
@@ -24,6 +28,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Highest-yield time deposit savings",
     baseRate: 8,
     promoRate: null,
+    balanceCap: "₱250,000 per account",
+    requirement: "Lock funds for a fixed term (6–24 months)",
     cardAtmAccess: "Managed via Tonik app",
     transfers: "Fund transfers available in-app",
     limitsConditions: "Tiered rates by term: 6% (6-month), 7% (9-month), 8% (12-month), 6% (18- and 24-month); minimum deposit PHP 5,000; maximum PHP 250,000 per account (up to 5 active TDs)",
@@ -35,6 +41,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "High-interest everyday savings account",
     baseRate: 6,
     promoRate: null,
+    balanceCap: "No cap",
+    requirement: "None",
     cardAtmAccess: "Mastercard debit card with 3D Secure (Mastercard SecureCode); card lock/block and limit management available in-app",
     transfers: "Fund transfers available in-app; zero-fee QRPH payments to 675,000+ merchants",
     limitsConditions: "Card limits manageable by user in-app",
@@ -46,6 +54,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Collaborative/group savings goals",
     baseRate: 4.5,
     promoRate: null,
+    balanceCap: "No cap",
+    requirement: "Save with a group of at least 3 members",
     cardAtmAccess: "Managed via Tonik app",
     transfers: "Fund transfers available in-app",
     limitsConditions: "Requires at least 3 members saving together to earn 4.5% p.a.",
@@ -57,6 +67,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Goal-based solo savings",
     baseRate: 4,
     promoRate: null,
+    balanceCap: "No cap",
+    requirement: "None",
     cardAtmAccess: "Managed via Tonik app",
     transfers: "Fund transfers available in-app",
     limitsConditions: "Individual savings stash; no minimum balance explicitly stated on page",
@@ -68,6 +80,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Everyday digital savings",
     baseRate: 3.25,
     promoRate: null,
+    balanceCap: "₱1M at 3.25%; 3.75% above ₱1M",
+    requirement: "None",
     cardAtmAccess: "No card; app-only",
     transfers: "App-based transfers, InstaPay, PESONet",
     limitsConditions: "3.25% p.a. for balances up to ₱1M; 3.75% p.a. for balances above ₱1M (effective January 15, 2026). No maintaining balance.",
@@ -79,6 +93,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Promo-driven savers",
     baseRate: 3,
     promoRate: 15,
+    balanceCap: "Promo rate capped at ₱100,000",
+    requirement: "Promo needs missions (deposits, bills, card spend)",
     cardAtmAccess: "Virtual and physical card available",
     transfers: "App-based transfers, InstaPay, PESONet",
     limitsConditions: "Base rate 3.0% p.a. (lowered from 3.5% effective April 1, 2026). Promo rate up to 15% requires missions (deposits, bills, card spending); capped at ₱100,000.",
@@ -90,6 +106,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Everyday spending",
     baseRate: 3,
     promoRate: null,
+    balanceCap: "No cap",
+    requirement: "None",
     cardAtmAccess: "Debit card + kiosk withdrawals",
     transfers: "App-based transfers, InstaPay",
     limitsConditions: "GoSave rate cut to 3% p.a. from 3.5% effective January 1, 2026. No maintaining balance.",
@@ -100,12 +118,53 @@ export const digitalBankRates: DigitalBankRate[] = [
     bankName: "CIMB",
     bestFor: "Transfer-heavy users",
     baseRate: 2.5,
-    promoRate: null,
+    promoRate: 7,
+    balanceCap: "Grow/Prime higher rates tiered by balance",
+    requirement: "Base rate has none; Grow/Prime need ADB growth",
     cardAtmAccess: "No card; app-only",
     transfers: "App + GCash integration, InstaPay",
     limitsConditions: "UpSave base rate 2.5% p.a. Higher rates on Grow (4% base + 3% conditional = up to 7%) and CIMB Prime with ADB growth requirement.",
     depositInsurance: "PDIC-insured up to ₱1,000,000",
-    notes: "GCash partner bank. UpSave base rate at 2.5% p.a.; Grow and Prime products offer higher conditional rates.",
+    notes: "GCash partner bank — GSave is powered by CIMB. UpSave base rate at 2.5% p.a.; Grow and Prime products offer higher conditional rates.",
+  },
+  {
+    bankName: "UNO Digital Bank",
+    bestFor: "Savers who want a simple, no-conditions rate",
+    baseRate: 3.5,
+    promoRate: null,
+    balanceCap: "No cap on the UNOReady savings rate",
+    requirement: "Higher tier needs ~₱5,000 average daily balance",
+    cardAtmAccess: "Virtual debit card; app-managed",
+    transfers: "App-based transfers, InstaPay, PESONet; can be linked to GCash GSave",
+    limitsConditions: "UNOReady savings up to 3.5% p.a. (daily interest crediting). Time deposits: up to 4.75% p.a. (UNOEarn) and up to 5.5% p.a. (UNOBoost) depending on tenure.",
+    depositInsurance: "PDIC-insured up to ₱1,000,000",
+    notes: "BSP-licensed digital bank. Savings rate up to 3.5% p.a. with no spending missions or promo mechanics. Verify the current tier on the UNO app before depositing.",
+  },
+  {
+    bankName: "OwnBank",
+    bestFor: "Savers comparing newer high-yield apps",
+    baseRate: 3.8,
+    promoRate: null,
+    balanceCap: "No cap stated",
+    requirement: "None; no minimum or maintaining balance",
+    cardAtmAccess: "No card; app-only",
+    transfers: "App-based transfers, InstaPay, PESONet",
+    limitsConditions: "\"Own It\" savings up to 3.8% p.a. with daily interest. Time deposits up to 5.2% p.a. (8% p.a. for the first 7 days, new users only).",
+    depositInsurance: "PDIC-insured up to ₱1,000,000",
+    notes: "Digital banking app that has adjusted rates several times; the savings rate has trended down through 2025–2026. Always confirm the current rate in-app before depositing.",
+  },
+  {
+    bankName: "NetBank",
+    bestFor: "No-frills daily-compounding savings",
+    baseRate: 3.25,
+    promoRate: null,
+    balanceCap: "No cap",
+    requirement: "₱69 end-of-day balance to earn interest",
+    cardAtmAccess: "No card; app-only",
+    transfers: "App-based transfers, InstaPay, PESONet",
+    limitsConditions: "PesoSAVERS savings at 3.25% p.a. with daily interest crediting and compounding. No minimum initial deposit or maintaining balance. Time deposits: ~4.5% p.a. (6-month) and ~5% p.a. (12-month).",
+    depositInsurance: "PDIC-insured up to ₱1,000,000",
+    notes: "Rate may adjust with NetBank's asset/liability requirements and market conditions. Confirm the current rate before opening an account.",
   },
 ];
 
@@ -118,7 +177,7 @@ export const digitalBankFaqs: FAQ[] = [
   {
     question: "Which digital bank in the Philippines has the highest interest rate?",
     answer:
-      "As of mid-2026, Maya offers the highest promotional savings rate (up to 15% p.a. with missions) among Philippine digital banks. For standard (non-promotional) rates, Tonik leads at 6% p.a. on its Tonik Account and 4.5% p.a. on Group Stash. MariBank (formerly SeaBank) offers 3.25% p.a., while GoTyme and Maya each offer a 3% p.a. base rate. Promotional rates are subject to conditions and may change, so compare both the base rate and promo rate when choosing a digital bank.",
+      "As of mid-2026, Maya offers the highest promotional savings rate (up to 15% p.a. with missions, capped at ₱100,000) among Philippine digital banks. For standard (non-promotional) rates, Tonik leads at 6% p.a. on its Tonik Account and 4.5% p.a. on Group Stash. OwnBank offers up to 3.8% p.a., UNO Digital Bank and MariBank (formerly SeaBank) up to 3.5% and 3.25% p.a., while GoTyme, NetBank, and Maya sit around 3%–3.25% p.a. base. Promotional and conditional rates change often, so compare the base rate, promo rate, balance cap, and any requirements before choosing a digital bank.",
   },
   {
     question: "What is a digital bank in the Philippines?",

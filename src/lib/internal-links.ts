@@ -44,6 +44,30 @@ export const ALL_PAGES: PageLink[] = [
     category: "rate",
   },
   {
+    slug: "/rates/savings-rates/best-digital-bank-rates-philippines",
+    title: "Best Digital Bank Rates",
+    description: "Compare digital bank interest rates, promo rates, balance caps, and requirements.",
+    category: "rate",
+  },
+  {
+    slug: "/calculators/savings/time-deposit-calculator-philippines",
+    title: "Time Deposit Calculator",
+    description: "Estimate time deposit gross interest, withholding tax, and net maturity value.",
+    category: "calculator",
+  },
+  {
+    slug: "/calculators/savings/savings-goal-calculator-philippines",
+    title: "Savings Goal Calculator",
+    description: "Work out how much to save each month to hit a savings goal.",
+    category: "calculator",
+  },
+  {
+    slug: "/calculators/savings/emergency-fund-calculator-philippines",
+    title: "Emergency Fund Calculator",
+    description: "Estimate how big your emergency fund should be and the gap to your target.",
+    category: "calculator",
+  },
+  {
     slug: "/guides/tax/how-withholding-tax-works-philippines",
     title: "How Withholding Tax Works",
     description: "Step-by-step guide to understanding Philippine income tax withholding.",
@@ -167,9 +191,15 @@ const LINK_MAP: Record<string, string[]> = {
     "/calculators/tax/withholding-tax-calculator-philippines",
   ],
   "/rates/savings-rates/best-savings-interest-rates-philippines": [
-    "/rates/exchange-rates/usd-to-php-today",
-    "/calculators/loans/home-loan-calculator-philippines",
-    "/calculators/loans/car-loan-calculator-philippines",
+    "/rates/savings-rates/best-digital-bank-rates-philippines",
+    "/rates/savings-rates/time-deposit-rates-philippines",
+    "/calculators/savings/savings-goal-calculator-philippines",
+    "/calculators/savings/emergency-fund-calculator-philippines",
+  ],
+  "/rates/savings-rates/best-digital-bank-rates-philippines": [
+    "/rates/savings-rates/best-savings-interest-rates-philippines",
+    "/rates/savings-rates/time-deposit-rates-philippines",
+    "/calculators/savings/savings-goal-calculator-philippines",
   ],
   "/guides/tax/how-withholding-tax-works-philippines": [
     "/calculators/tax/withholding-tax-calculator-philippines",
@@ -243,7 +273,7 @@ const LINK_MAP: Record<string, string[]> = {
   ],
   "/rates/savings-rates/time-deposit-rates-philippines": [
     "/rates/savings-rates/best-savings-interest-rates-philippines",
-    "/rates/exchange-rates/usd-to-php-today",
+    "/rates/savings-rates/best-digital-bank-rates-philippines",
     "/calculators/savings/time-deposit-calculator-philippines",
   ],
 };

@@ -20,6 +20,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
+import { TimeDepositCalculator } from "@/components/calculators/time-deposit-calculator";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   Table,
@@ -42,10 +43,9 @@ import {
 } from "@/data/rates/time-deposit-rates";
 
 export const metadata = generatePageMetadata({
-  title:
-    "Time Deposit Rates Philippines – Compare Terms, Minimum Deposit & Gross Rates | PesoHub",
+  title: "Time Deposit Calculator Philippines 2026 | Compare Bank Rates",
   description:
-    "Compare time deposit rates in the Philippines by term length, minimum deposit, gross rate, and tax note. Review fixed-term deposit options in one place with PesoHub.",
+    "Estimate time deposit maturity with the calculator, then compare time deposit rates in the Philippines by term, minimum deposit, and gross rate across banks.",
   slug: "rates/savings-rates/time-deposit-rates-philippines",
   updatedAt: TIME_DEPOSIT_RATES_UPDATED_AT,
 });
@@ -142,25 +142,41 @@ export default function TimeDepositRatesPage() {
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
-          title: "Time Deposit Rates Philippines",
+          title: "Time Deposit Calculator and Rates Philippines",
           description:
-            "Compare time deposit rates in the Philippines by term length, minimum deposit, gross rate, and tax note.",
+            "Estimate time deposit maturity and compare time deposit rates in the Philippines by term length, minimum deposit, and gross rate.",
           updatedAt: TIME_DEPOSIT_RATES_UPDATED_AT,
           slug: "rates/savings-rates/time-deposit-rates-philippines",
         })}
       />
 
       <PageHero
-        title="Time Deposit Rates Philippines"
-        description="Compare time deposit rates in the Philippines across different banks, terms, and minimum deposit requirements. Use this page to review gross advertised rates, check lock-in periods, compare minimum placement amounts, and understand what to look at before choosing a fixed-term deposit."
+        title="Time Deposit Calculator and Rates Philippines"
+        description="Estimate how much a time deposit will earn at maturity, then compare time deposit rates across Philippine banks by term, minimum deposit, and gross rate. Start with the calculator, then review lock-in periods and minimum placements before choosing a fixed-term deposit."
         badge={TIME_DEPOSIT_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
       />
 
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        {/* Time Deposit Calculator */}
+        <section className="scroll-mt-20">
+          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            Time Deposit Calculator
+          </h2>
+          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            Enter your placement amount, the bank&apos;s advertised rate, and the
+            term to estimate gross interest, the 20% withholding tax, and your
+            net maturity value. Then compare current bank rates in the table
+            below.
+          </p>
+          <div className="mt-6">
+            <TimeDepositCalculator />
+          </div>
+        </section>
+
         {/* Time Deposit Comparison Table */}
-        <section>
+        <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Time Deposit Comparison Table
           </h2>
