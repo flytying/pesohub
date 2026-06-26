@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Info, TriangleAlert, Lightbulb } from "lucide-react";
 import type { BlogSection } from "@/types/content";
 
@@ -113,6 +114,33 @@ function renderSection(section: BlogSection, index: number) {
         >
           {section.content}
         </blockquote>
+      );
+
+    case "cta":
+      return (
+        <div
+          key={index}
+          className="mt-6 rounded-lg border border-brand/30 bg-brand/5 p-6"
+        >
+          {section.content && (
+            <p className="text-[16px] leading-[22px] text-gray-500">
+              {section.content}
+            </p>
+          )}
+          {section.links && section.links.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+              {section.links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-[16px] font-semibold text-brand underline-offset-2 hover:underline"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
       );
 
     default:

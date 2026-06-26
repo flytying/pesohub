@@ -7,6 +7,11 @@
       "source": "/blog/best-digital-banks-philippines-2026",
       "destination": "/blog/best-digital-banks-philippines",
       "permanent": true
+    },
+    {
+      "source": "/blog/bir-withholding-tax-table-2026-explained",
+      "destination": "/government/bir/withholding-tax-table-philippines",
+      "permanent": true
     }
   ],
   "headers": [

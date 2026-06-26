@@ -21,7 +21,7 @@ import {
   generateBreadcrumbSchema,
 } from "@/lib/schema-markup";
 import { GOVERNMENT_DISCLAIMER } from "@/lib/constants";
-import { WithholdingTaxTabs } from "@/components/government/withholding-tax-tabs";
+import { WithholdingTaxTables } from "@/components/government/withholding-tax-tables";
 import {
   withholdingTaxTableMeta,
   withholdingTaxTableFaqs,
@@ -48,6 +48,15 @@ const whyDifferent = [
   "RR 11-2018 discusses both regular and supplementary compensation methods",
 ];
 
+const commonMistakes = [
+  "Using gross salary instead of taxable compensation — subtract SSS, PhilHealth, and Pag-IBIG first.",
+  "Reading the wrong payroll-frequency table (e.g. using the monthly table for semi-monthly pay).",
+  "Using the old 2018–2022 table instead of the current 2023-onwards schedule.",
+  "Forgetting that 13th month pay and de minimis benefits are tax-exempt within limits.",
+  "Assuming the table already nets out contributions — it applies to taxable compensation only.",
+  "Skipping year-end annualization, which can create a tax refund or extra tax due in December.",
+];
+
 const relatedPages = [
   {
     title: "Withholding Tax Calculator",
@@ -55,9 +64,14 @@ const relatedPages = [
     icon: Calculator,
   },
   {
-    title: "Withholding Tax Guide",
+    title: "How Withholding Tax Works",
     href: "/guides/tax/how-withholding-tax-works-philippines",
     icon: BookOpen,
+  },
+  {
+    title: "How to Compute Withholding Tax",
+    href: "/blog/how-to-compute-withholding-tax-philippines",
+    icon: FileText,
   },
   {
     title: "Take-Home Pay Calculator",
@@ -65,13 +79,8 @@ const relatedPages = [
     icon: BarChart3,
   },
   {
-    title: "Calculators Hub",
-    href: "/calculators",
-    icon: FileText,
-  },
-  {
-    title: "Government Hub",
-    href: "/government",
+    title: "SSS Contribution Calculator",
+    href: "/calculators/sss/sss-contribution-calculator-philippines",
     icon: Landmark,
   },
 ];
@@ -98,51 +107,61 @@ export default function WithholdingTaxTablePage() {
       />
 
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-      {/* TRAIN Law Income Tax Brackets Intro */}
+      {/* Overview + jump links */}
       <section>
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-          Philippine Income Tax Brackets Under TRAIN Law
-        </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-          The TRAIN Law (Republic Act 10963) restructured Philippine income tax
-          brackets effective January 2018, with further rate reductions taking
-          effect in January 2023. Under the current schedule, annual taxable
-          income up to ₱250,000 is exempt from withholding tax, while income
-          above that threshold is taxed progressively at rates from 15% to 35%.
-          The tables below show the exact BIR withholding tax brackets for every
-          payroll period.
-        </p>
-      </section>
-
-      {/* Withholding Tax Tables */}
-
-      <section className="mt-16">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           2026 BIR Withholding Tax Table
         </h2>
         <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-          View the current and previous withholding tax tables for
-          compensation income. The current table is effective January 1, 2023
-          onwards under the TRAIN Law (RA 10963). The previous table was in
-          effect from January 1, 2018 to December 31, 2022.
+          The TRAIN Law (Republic Act 10963) restructured Philippine income tax
+          brackets, with the current lower-rate schedule effective January 1,
+          2023. Under this schedule, annual taxable income up to ₱250,000 is
+          exempt from withholding tax, while income above that is taxed
+          progressively from 15% to 35%. The BIR publishes a separate table for
+          each payroll frequency so employers can withhold the right amount each
+          pay period.
         </p>
-        <div className="mt-4">
-          <WithholdingTaxTabs />
-        </div>
-        <p className="mt-3 text-[14px] text-gray-400">
-          Source: TRAIN Law (RA 10963), BIR Revenue Regulations No. 11-2018,
-          Annex E.
-        </p>
+        <nav aria-label="On this page" className="mt-6">
+          <p className="text-[14px] font-semibold text-gray-500">On this page</p>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {[
+              { label: "Monthly table", href: "#monthly-table" },
+              { label: "Semi-monthly table", href: "#semi-monthly-table" },
+              { label: "Weekly table", href: "#weekly-table" },
+              { label: "Daily table", href: "#daily-table" },
+              { label: "Annual table", href: "#annual-table" },
+              { label: "How to compute", href: "#how-to-compute" },
+              { label: "Calculator", href: "#calculator" },
+              { label: "FAQs", href: "#faqs" },
+            ].map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  className="inline-flex rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[14px] font-medium text-gray-500 transition-colors hover:border-brand hover:text-brand"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </section>
 
-      {/* Worked Example */}
-      <section className="mt-16">
+      {/* Static, crawlable per-frequency tables */}
+      <div className="mt-12">
+        <WithholdingTaxTables />
+      </div>
+
+      {/* How to Compute */}
+      <section id="how-to-compute" className="mt-16 scroll-mt-20">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-          How to Compute Withholding Tax: Worked Example
+          How to Compute Withholding Tax Using the BIR Table
         </h2>
         <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-          Here is a simple example using the current monthly withholding tax
-          table.
+          Subtract your SSS, PhilHealth, and Pag-IBIG employee shares (and any
+          non-taxable benefits) from gross pay to get taxable compensation, then
+          match it to the row for your payroll frequency. Here is an example
+          using the monthly table with ₱35,000 of taxable compensation.
         </p>
         <div className="mt-4 overflow-hidden rounded-xl border border-gray-200 bg-white">
           <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
@@ -177,67 +196,98 @@ export default function WithholdingTaxTablePage() {
           </div>
           <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
             <div className="flex justify-between text-[16px] leading-[22px]">
-              <span className="font-semibold text-gray-500">Est. Monthly Withholding</span>
+              <span className="font-semibold text-gray-500">Prescribed Monthly Withholding</span>
               <span className="font-mono tabular-nums font-bold text-brand">₱2,208.40</span>
             </div>
           </div>
         </div>
         <p className="mt-3 text-[14px] text-gray-400">
-          This is a simplified reference example. Actual payroll withholding
-          may differ if taxable compensation is adjusted for mandatory
-          deductions, allowances, supplementary compensation, or
-          payroll-specific computation rules. RR 11-2018 notes that
-          supplementary compensation and exceptional computations can affect
-          the result.
+          Actual payroll withholding may differ if taxable compensation is
+          adjusted for supplementary compensation, allowances, rounding, or
+          year-end annualization. RR 11-2018 notes that more detailed
+          computation methods may apply in some cases.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          {whyDifferent.map((item) => (
+            <span
+              key={item}
+              className="inline-flex items-start gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-[14px] text-gray-400"
+            >
+              <Info className="mt-0.5 size-4 shrink-0 text-gray-300" />
+              {item}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* Use the Calculator */}
+      <section id="calculator" className="mt-16 scroll-mt-20">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          Use the Withholding Tax Calculator
+        </h2>
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          Skip the manual lookup. The Withholding Tax Calculator lets you pick
+          your pay frequency (monthly, semi-monthly, weekly, or daily), deducts
+          your SSS, PhilHealth, and Pag-IBIG employee shares automatically (or
+          enter your own), handles taxable and tax-exempt allowances, and shows
+          your withholding tax and net pay for the period, the month, and the
+          year.
+        </p>
+        <div className="mt-6">
+          <Link
+            href="/calculators/tax/withholding-tax-calculator-philippines"
+            className="inline-flex items-center rounded-full bg-brand px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
+          >
+            Open the Withholding Tax Calculator
+          </Link>
+        </div>
+      </section>
+
+      {/* 2025 vs 2026 */}
+      <section className="mt-16">
+        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          Is the 2026 Withholding Tax Table Different From 2025?
+        </h2>
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          No. The 2026 withholding tax table is identical to 2025. The TRAIN
+          Law&apos;s lower second-phase rates took effect on January 1, 2023 and
+          have not changed since, so the 2023, 2024, 2025, and 2026 tables are
+          the same. If you searched for a &ldquo;new 2026 BIR tax table,&rdquo;
+          this is the schedule you are looking for — there is no separate 2026
+          rate change for compensation income.
+        </p>
+        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          The only thing to double-check is whether you are looking at the
+          current table (2023 onwards) rather than the older 2018–2022 table,
+          which used higher 20%–32% middle rates.
         </p>
       </section>
 
-      {/* Why Your Actual Payroll Withholding May Differ */}
+      {/* Common Mistakes */}
       <section className="mt-16">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-          Why Your Actual Payroll Withholding May Differ
+          Common Withholding Tax Mistakes
         </h2>
         <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-          The table is a strong reference, but actual payroll withholding can
-          differ because:
+          The most frequent errors when reading the BIR withholding tax table:
         </p>
         <ul className="mt-4 space-y-3">
-          {whyDifferent.map((item) => (
-            <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
-              <ArrowRight className="size-4 shrink-0 text-gray-300" />
+          {commonMistakes.map((item) => (
+            <li
+              key={item}
+              className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+            >
+              <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
               <span>{item}</span>
             </li>
           ))}
         </ul>
       </section>
-
     </div>
-
-      {/* Calculator CTA */}
-      <section className="bg-surface-tertiary py-20">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            Want a Faster Estimate?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
-            If you already know your salary and want a quick estimate, use
-            the Withholding Tax Calculator to see your monthly withholding
-            tax, annual tax, and tax-only take-home pay faster.
-          </p>
-          <div className="mt-6">
-            <Link
-              href="/calculators/tax/withholding-tax-calculator-philippines"
-              className="inline-flex items-center rounded-full bg-brand px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-            >
-              USE THE WITHHOLDING TAX CALCULATOR
-            </Link>
-          </div>
-        </div>
-      </section>
 
       <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
       {/* FAQ */}
-      <div className="mt-16">
+      <div id="faqs" className="mt-16 scroll-mt-20">
         <FaqSection faqs={withholdingTaxTableFaqs} />
       </div>
 
@@ -269,14 +319,17 @@ export default function WithholdingTaxTablePage() {
       </section>
 
       {/* Source Citation */}
-      <div className="mt-16">
+      <section className="mt-16">
+        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          Official BIR Source and Freshness
+        </h2>
         <SourceCitation
           source="Bureau of Internal Revenue (BIR) — TRAIN Law (RA 10963), RR 11-2018, Annex E"
           sourceUrl="https://www.bir.gov.ph/tax-information/tax-rates"
           updatedAt={WITHHOLDING_TAX_TABLE_UPDATED_AT}
           reviewCadence="Every 90 days"
         />
-      </div>
+      </section>
 
       {/* Disclaimer */}
       <div className="mt-4">

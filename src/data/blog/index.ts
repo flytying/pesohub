@@ -63,15 +63,6 @@ export const blogPosts: BlogPostEntry[] = [
     readTime: 9,
   },
   {
-    slug: "bir-withholding-tax-table-2026-explained",
-    title: "BIR Withholding Tax Table 2026: Monthly, Semi-Monthly, and Daily Rates Explained",
-    excerpt: "The 2026 BIR withholding tax tables in the Philippines follow the same TRAIN Law permanent schedule effective since January 2023, with employees earning ₱20,833 or less per month remaining fully exempt. This guide explains the monthly, semi-monthly, and daily rates, how to compute your actual tax step by step, and the common payroll mistakes that cost employers and employees money.",
-    category: "tax",
-    publishedAt: "2026-04-28",
-    updatedAt: "2026-04-28",
-    readTime: 10,
-  },
-  {
     slug: "how-to-compute-withholding-tax-philippines",
     title: "How to Compute Your Withholding Tax in the Philippines (Step-by-Step)",
     excerpt: "Learn how to compute your withholding tax on compensation in the Philippines step by step — from identifying your gross pay and subtracting SSS, PhilHealth, and Pag-IBIG contributions, to applying the TRAIN Law's graduated tax rates to find out exactly how much your employer should be deducting from your payslip each month.",

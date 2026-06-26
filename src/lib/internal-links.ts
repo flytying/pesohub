@@ -176,9 +176,9 @@ const LINK_MAP: Record<string, string[]> = {
     "/calculators/tax/withholding-tax-calculator-philippines",
   ],
   "/calculators/tax/withholding-tax-calculator-philippines": [
+    "/government/bir/withholding-tax-table-philippines",
     "/guides/tax/how-withholding-tax-works-philippines",
     "/calculators/retirement/sss-pension-calculator",
-    "/calculators/loans/personal-loan-calculator-philippines",
   ],
   "/calculators/retirement/sss-pension-calculator": [
     "/guides/sss/how-to-compute-sss-pension",

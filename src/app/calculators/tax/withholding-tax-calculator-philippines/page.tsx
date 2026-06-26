@@ -45,7 +45,7 @@ const whyDifferent = [
 
 const relatedPages = [
   {
-    title: "Withholding Tax Table 2026",
+    title: "BIR Withholding Tax Table 2026",
     href: "/government/bir/withholding-tax-table-philippines",
     icon: FileText,
   },
@@ -98,44 +98,57 @@ export default function WithholdingTaxCalculatorPage() {
 
         {/* Result support text */}
         <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-          This estimate is based on your gross monthly salary annualized over
-          12 months using the current Philippine income tax brackets.
+          This estimate deducts your SSS, PhilHealth, and Pag-IBIG employee
+          shares and tax-exempt allowances to get taxable compensation, then
+          applies the TRAIN Law table for your chosen pay frequency. For the
+          official brackets, see the{" "}
+          <Link
+            href="/government/bir/withholding-tax-table-philippines"
+            className="text-brand hover:underline"
+          >
+            BIR withholding tax table 2026
+          </Link>
+          .
         </p>
 
-        {/* Important: Simplified Estimate Warning */}
+        {/* Note: Estimate */}
         <div className="mt-6 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
           <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
           <div>
             <h3 className="text-[16px] font-semibold leading-[22px] text-gray-500">
-              Important: This Is a Simplified Estimate
+              How this estimate is computed
             </h3>
             <p className="mt-1 text-[16px] leading-[22px] text-gray-400">
-              This calculator uses gross monthly salary multiplied by 12 to
-              estimate annual taxable income. It does not yet subtract
-              mandatory contributions such as SSS, PhilHealth, and Pag-IBIG
-              before computing tax.
+              The calculator subtracts your SSS, PhilHealth, and Pag-IBIG
+              employee shares (estimated automatically or entered manually) and
+              any tax-exempt allowances, then applies the BIR table for your
+              pay frequency.
             </p>
             <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
-              Because of that, your actual payroll withholding may be lower
-              than this estimate.
+              Your actual payroll withholding may still differ due to employer
+              rounding, supplementary compensation, and payroll-specific rules.
             </p>
           </div>
         </div>
 
-        {/* Why Monthly Salary Is Converted to Annual Taxable Income */}
+        {/* Why Pay Frequency and Deductions Matter */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            Why Monthly Salary Is Converted to Annual Taxable Income
+            Why Pay Frequency and Deductions Matter
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-            Philippine income tax brackets are based on annual taxable income,
-            not just one month of pay. That is why this calculator first
-            annualizes your gross salary, then applies the correct bracket,
-            then converts the result back into a monthly estimate.
+            Philippine income tax brackets are based on annual taxable income.
+            Because payroll is processed monthly, semi-monthly, weekly, or
+            daily, the BIR publishes a withholding table for each frequency so
+            employers can deduct the right amount each pay period. This
+            calculator annualizes your taxable compensation, applies the
+            correct bracket, then splits the tax back across your pay frequency.
           </p>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-            This makes it easier to estimate monthly withholding using the
-            annual tax framework.
+            Taxable compensation is your gross pay plus taxable allowances,
+            minus your SSS, PhilHealth, and Pag-IBIG contributions and any
+            tax-exempt allowances — which is why deductions are entered before
+            the tax is computed.
           </p>
         </section>
 
@@ -251,49 +264,59 @@ export default function WithholdingTaxCalculatorPage() {
           <div className="mt-4 overflow-hidden rounded-xl border border-gray-200 bg-white">
             <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                ₱35,000 Monthly Gross Salary
+                ₱35,000 Monthly Pay (contributions estimated)
               </h3>
             </div>
             <div className="px-6 py-4">
               <dl className="space-y-2.5 text-[16px] leading-[22px]">
                 <div className="flex justify-between">
-                  <dt className="text-gray-400">Monthly gross salary</dt>
+                  <dt className="text-gray-400">Monthly gross pay</dt>
                   <dd className="font-mono tabular-nums text-gray-500">₱35,000</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-gray-400">Annualized income</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">₱420,000</dd>
+                  <dt className="text-gray-400">− SSS + PhilHealth + Pag-IBIG</dt>
+                  <dd className="font-mono tabular-nums text-gray-500">₱2,825</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-gray-400">Monthly taxable compensation</dt>
+                  <dd className="font-mono tabular-nums text-gray-500">₱32,175</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-gray-400">Annualized taxable income</dt>
+                  <dd className="font-mono tabular-nums text-gray-500">₱386,100</dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Matching bracket</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">₱400K – ₱800K</dd>
+                  <dd className="font-mono tabular-nums text-gray-500">₱250K – ₱400K</dd>
                 </div>
                 <div className="my-3 border-t border-dashed border-gray-200" />
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Estimated annual tax</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">₱26,500</dd>
+                  <dd className="font-mono tabular-nums text-gray-500">₱20,415</dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-gray-400">Effective tax rate</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">≈ 6.31%</dd>
+                  <dt className="text-gray-400">Effective rate (on taxable)</dt>
+                  <dd className="font-mono tabular-nums text-gray-500">≈ 5.29%</dd>
                 </div>
               </dl>
             </div>
             <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
               <div className="flex justify-between text-[16px] leading-[22px]">
                 <span className="font-semibold text-gray-500">Est. Monthly Withholding</span>
-                <span className="font-mono tabular-nums font-bold text-brand">₱2,208/mo</span>
+                <span className="font-mono tabular-nums font-bold text-brand">₱1,701/mo</span>
               </div>
             </div>
             <div className="border-t border-gray-100 px-6 py-3">
               <p className="text-[14px] text-gray-300">
-                ₱22,500 + 20% of excess over ₱400,000 = ₱26,500/yr ÷ 12
+                15% of excess over ₱250,000 = ₱20,415/yr ÷ 12. SSS share is
+                approximate and varies with the current SSS table.
               </p>
             </div>
           </div>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
             This example is for illustration only. Actual payroll withholding
-            may differ depending on deductions and employer payroll treatment.
+            may differ depending on your exact contributions and employer
+            payroll treatment.
           </p>
         </section>
 
@@ -316,26 +339,29 @@ export default function WithholdingTaxCalculatorPage() {
           </ul>
         </section>
 
-        {/* Tax-Only Take-Home Pay vs Full Net Pay */}
+        {/* Net Pay and Next Steps */}
         <section className="mt-16">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-            Tax-Only Take-Home Pay vs Full Net Pay
+            Net Pay and Next Steps
           </h2>
           <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-            This page estimates take-home pay after income tax only. It does
-            not fully calculate your final payroll net pay after all mandatory
-            deductions.
-          </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-            If you want a broader estimate of what may actually reach your
-            payslip or bank account, use the{" "}
+            The calculator shows your net pay for the pay period after
+            withholding tax and your SSS, PhilHealth, and Pag-IBIG
+            contributions. For a dedicated monthly take-home breakdown, use the{" "}
             <Link
               href="/calculators/tax/take-home-pay-calculator-philippines"
               className="text-brand hover:underline"
             >
               Take-Home Pay Calculator
-            </Link>{" "}
-            as your next step.
+            </Link>
+            , and to learn the rules behind the numbers, read{" "}
+            <Link
+              href="/guides/tax/how-withholding-tax-works-philippines"
+              className="text-brand hover:underline"
+            >
+              how withholding tax works
+            </Link>
+            .
           </p>
         </section>
 
