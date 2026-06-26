@@ -7,40 +7,40 @@ export const withholdingTaxData: CalculatorPageData = {
   metaTitle:
     "Withholding Tax Calculator Philippines: Compute Salary Tax | PesoHub",
   metaDescription:
-    "Estimate withholding tax on salary income in the Philippines and understand how tax brackets may affect your monthly deductions.",
+    "Compute withholding tax on salary in the Philippines by pay frequency (monthly, semi-monthly, weekly, daily), with SSS, PhilHealth, Pag-IBIG, and allowances.",
   h1: "Withholding Tax Calculator Philippines",
   intro:
-    "Estimate your monthly withholding tax, annual income tax, and tax-only take-home pay using the current income tax brackets in the Philippines. Use this calculator to get a fast estimate based on your gross monthly salary before checking payroll details or official tables.",
-  updatedAt: "2026-03-16",
+    "Compute your withholding tax on compensation in the Philippines by pay frequency — monthly, semi-monthly, weekly, or daily. The calculator deducts SSS, PhilHealth, and Pag-IBIG (estimated automatically or entered manually) and your allowances to find your taxable compensation, then applies the TRAIN Law tax table to estimate your per-period, monthly, and annual withholding tax.",
+  updatedAt: "2026-06-26",
   defaultInputs: {
     monthlySalary: 35_000,
   },
   formula: {
     name: "TRAIN Law Graduated Income Tax Table",
     description:
-      "This calculator estimates withholding tax by converting your gross monthly salary into annual taxable income, matching it to the correct income tax bracket under the TRAIN Law, and applying the bracket formula to compute your estimated annual and monthly tax.",
+      "This calculator deducts your SSS, PhilHealth, and Pag-IBIG employee shares (and any tax-exempt allowances) from your gross compensation to get taxable compensation, annualizes it, matches the correct TRAIN Law bracket, then splits the annual tax back across your pay frequency.",
     explanation:
-      "In short, your monthly tax estimate comes from annual tax logic converted back into a monthly view. Actual employer payroll systems may apply tax calculations differently depending on payroll treatment, compensation structure, and official updates.",
+      "Mandatory contributions and tax-exempt allowances are excluded before tax is computed, which mirrors how employer payroll systems determine taxable compensation. Actual payroll may still differ due to rounding, supplementary compensation, and employer-specific rules.",
   },
   exampleCalculation: {
     scenario:
-      "An employee earning ₱35,000 per month gross salary (₱420,000 annual taxable income).",
+      "An employee paid ₱35,000 monthly, with SSS, PhilHealth, and Pag-IBIG estimated automatically.",
     inputs: {
       monthlySalary: 35_000,
     },
     result: {
-      annualTaxableIncome: 420_000,
-      annualTax: 26_500,
-      monthlyTax: 2_208.33,
-      effectiveRate: 6.31,
-      monthlyTakeHome: 32_791.67,
-      annualTakeHome: 393_500,
+      annualTaxableIncome: 386_100,
+      annualTax: 20_415,
+      monthlyTax: 1_701.25,
+      effectiveRate: 5.29,
+      monthlyTakeHome: 30_473.75,
+      annualTakeHome: 365_685,
     },
   },
   tips: [
-    "This calculator uses gross monthly salary multiplied by 12 to estimate annual taxable income.",
-    "It does not yet subtract mandatory contributions such as SSS, PhilHealth, and Pag-IBIG before computing tax.",
-    "Because of that, your actual payroll withholding may be lower than this estimate.",
+    "Choose your pay frequency — the BIR uses a different withholding table for monthly, semi-monthly, weekly, and daily payroll.",
+    "SSS, PhilHealth, and Pag-IBIG employee shares are deducted before tax. Estimate them automatically or enter your own amounts.",
+    "Tax-exempt allowances and de minimis benefits are added to net pay but excluded from taxable compensation.",
   ],
   faqs: [
     {
@@ -65,7 +65,13 @@ export const withholdingTaxData: CalculatorPageData = {
       question:
         "Does this calculator subtract SSS, PhilHealth, and Pag-IBIG first?",
       answer:
-        "No. This version uses gross monthly salary multiplied by 12 and does not yet subtract mandatory contributions before estimating income tax. That is why actual payroll withholding may differ.",
+        "Yes. The calculator deducts your SSS, PhilHealth, and Pag-IBIG employee shares from gross compensation before applying the tax table — these are estimated automatically from your salary, or you can enter your own amounts. This matches how employers compute taxable compensation.",
+    },
+    {
+      question:
+        "Can I compute withholding tax for semi-monthly, weekly, or daily pay?",
+      answer:
+        "Yes. Select your pay frequency and the calculator applies the correct BIR period table, showing your withholding tax for that pay period as well as the monthly and annual equivalents.",
     },
     {
       question:

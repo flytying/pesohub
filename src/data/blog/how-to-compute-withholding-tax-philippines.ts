@@ -4,9 +4,9 @@ export const HOW_TO_COMPUTE_WITHHOLDING_TAX_PHILIPPINES_UPDATED_AT = "2026-05-04
 
 const post: BlogPostData = {
   "slug": "how-to-compute-withholding-tax-philippines",
-  "title": "How to Compute Your Withholding Tax in the Philippines (Step-by-Step)",
-  "metaTitle": "Withholding Tax on Compensation Calculator Philippines",
-  "metaDescription": "Learn how to compute your withholding tax on compensation in the Philippines using BIR tables and formulas. Step-by-step guide for employees and payroll staff.",
+  "title": "How to Compute Withholding Tax in the Philippines",
+  "metaTitle": "How to Compute Withholding Tax in the Philippines 2026 | PesoHub",
+  "metaDescription": "Learn how to compute withholding tax in the Philippines using the 2026 BIR tax table, taxable compensation, SSS, PhilHealth, Pag-IBIG, and sample salary computations.",
   "author": "PesoHub Team",
   "publishedAt": "2026-05-04",
   "updatedAt": "2026-05-04",
@@ -18,6 +18,14 @@ const post: BlogPostData = {
     {
       "type": "paragraph",
       "content": "Every payday, your employer quietly deducts a portion of your salary before it ever reaches your bank account. That deduction is your withholding tax on compensation — and understanding how it is computed can save you from year-end surprises, tax deficiencies, or simply the nagging feeling that you are being charged something you do not understand. This step-by-step guide breaks down exactly how Philippine employers compute your withholding tax, what the current rates are under the TRAIN Law, and how you can verify that your payslip is correct."
+    },
+    {
+      "type": "cta",
+      "content": "Prefer to skip the manual math? Look up the brackets or get an instant estimate:",
+      "links": [
+        { "label": "2026 BIR withholding tax table", "href": "/government/bir/withholding-tax-table-philippines" },
+        { "label": "withholding tax calculator Philippines", "href": "/calculators/tax/withholding-tax-calculator-philippines" }
+      ]
     },
     {
       "type": "heading",
@@ -290,6 +298,7 @@ const post: BlogPostData = {
     }
   ],
   "relatedSlugs": [
+    "government/bir/withholding-tax-table-philippines",
     "calculators/tax/withholding-tax-calculator-philippines",
     "guides/tax/how-withholding-tax-works-philippines"
   ],

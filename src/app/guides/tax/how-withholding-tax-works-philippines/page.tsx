@@ -113,6 +113,21 @@ export default function WithholdingTaxGuidePage() {
       />
 
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        {/* Pointer to the canonical table page */}
+        <div className="mb-8 flex items-center gap-3 rounded-xl border border-brand/30 bg-surface-tertiary p-5">
+          <Info className="size-5 shrink-0 text-brand" />
+          <p className="text-[16px] leading-[22px] text-gray-500">
+            Need the actual tax brackets? See the{" "}
+            <Link
+              href="/government/bir/withholding-tax-table-philippines"
+              className="font-semibold text-brand underline-offset-2 hover:underline"
+            >
+              2026 BIR withholding tax table
+            </Link>
+            .
+          </p>
+        </div>
+
         {/* Quick Answer */}
         <section>
           <div className="flex gap-3 rounded-xl border border-gray-200 bg-white p-6">

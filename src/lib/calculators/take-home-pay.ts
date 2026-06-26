@@ -106,7 +106,7 @@ export function calculateTakeHomePay(
 /**
  * Look up the SSS employee share for a given monthly salary.
  */
-function lookupSSSEmployeeShare(monthlySalary: number): number {
+export function lookupSSSEmployeeShare(monthlySalary: number): number {
   // Find the matching bracket by salary range
   for (const bracket of SSS_CONTRIBUTION_TABLE_2025) {
     if (
@@ -132,7 +132,7 @@ function lookupSSSEmployeeShare(monthlySalary: number): number {
  * Calculate the PhilHealth employee share.
  * Premium = 5% of salary (clamped to floor/ceiling), split 50/50.
  */
-function calculatePhilHealthEmployee(monthlySalary: number): number {
+export function calculatePhilHealthEmployee(monthlySalary: number): number {
   const clampedSalary = Math.min(
     Math.max(monthlySalary, PHILHEALTH_SALARY_FLOOR),
     PHILHEALTH_SALARY_CEILING,
@@ -144,7 +144,7 @@ function calculatePhilHealthEmployee(monthlySalary: number): number {
  * Calculate the Pag-IBIG employee share.
  * 1% if salary ≤ ₱1,500, else 2%. Capped at ₱10,000 MSC (max ₱200/month).
  */
-function calculatePagIBIGEmployee(monthlySalary: number): number {
+export function calculatePagIBIGEmployee(monthlySalary: number): number {
   const cappedSalary = Math.min(monthlySalary, PAGIBIG_MAX_MSC);
   const rate = monthlySalary <= 1_500 ? 0.01 : 0.02;
   return round(cappedSalary * rate);

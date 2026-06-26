@@ -69,17 +69,26 @@ export type BlogCategory =
   | "general";
 
 export interface BlogSection {
-  type: "heading" | "paragraph" | "list" | "ordered-list" | "callout" | "quote";
+  type:
+    | "heading"
+    | "paragraph"
+    | "list"
+    | "ordered-list"
+    | "callout"
+    | "quote"
+    | "cta";
   /** H2/H3 text (for type "heading") */
   heading?: string;
   /** Heading level, default 2 */
   level?: 2 | 3;
-  /** Body text (for paragraph, callout, quote) */
+  /** Body text (for paragraph, callout, quote, cta) */
   content?: string;
   /** List items (for list, ordered-list) */
   items?: string[];
   /** Callout variant */
   variant?: "info" | "warning" | "tip";
+  /** Internal links (for type "cta") rendered with exact anchor text */
+  links?: { label: string; href: string }[];
 }
 
 export interface BlogPostData {
