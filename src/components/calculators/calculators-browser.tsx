@@ -13,6 +13,8 @@ import {
   Gift,
   Clock,
   Target,
+  Percent,
+  PiggyBank,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -29,6 +31,8 @@ const ICONS: Record<string, LucideIcon> = {
   Gift,
   Clock,
   Target,
+  Percent,
+  PiggyBank,
 };
 
 type Accent = "borrow" | "salary" | "save";
