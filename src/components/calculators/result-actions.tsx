@@ -66,21 +66,21 @@ export function ResultActions({
       <div className="flex items-center gap-2 print:hidden">
         <button
           type="button"
-          onClick={handlePrint}
-          className="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-[14px] font-medium text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-500"
-          title="Print results"
+          onClick={() => setShowEmailModal(true)}
+          className="flex size-[38px] items-center justify-center rounded-[11px] border border-white/[.22] bg-white/[.12] text-white transition-colors hover:bg-white/[.22]"
+          aria-label="Email results"
+          title="Email results"
         >
-          <Printer className="size-3.5" />
-          Print
+          <Mail className="size-[18px]" />
         </button>
         <button
           type="button"
-          onClick={() => setShowEmailModal(true)}
-          className="inline-flex items-center gap-1.5 rounded-md bg-gray-100 px-3 py-1.5 text-[14px] font-medium text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-500"
-          title="Email results"
+          onClick={handlePrint}
+          className="flex size-[38px] items-center justify-center rounded-[11px] border border-white/[.22] bg-white/[.12] text-white transition-colors hover:bg-white/[.22]"
+          aria-label="Print results"
+          title="Print results"
         >
-          <Mail className="size-3.5" />
-          Email
+          <Printer className="size-[18px]" />
         </button>
       </div>
 

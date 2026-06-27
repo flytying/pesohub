@@ -8,9 +8,16 @@ import {
   BreakdownCard,
   BreakdownRow,
 } from "@/components/calculators/gradient-result";
+import { Info } from "lucide-react";
 import { calculateLoan } from "@/lib/calculators/loan";
 import { formatPeso } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
 
 interface CarLoanCalculatorProps {
   beforeYouStart?: { title?: string; description: string; items: string[] };
@@ -66,13 +73,27 @@ function Field({
   const thumb = "rs-" + id.replace(/[:]/g, "");
   return (
     <div>
-      <div className="mb-2 flex items-center justify-between">
-        <label htmlFor={id} className="text-[15px] font-semibold text-[#344054]">
-          {label}
-        </label>
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <span className="flex items-center gap-1.5">
+          <label htmlFor={id} className="text-[15px] font-semibold text-[#344054]">
+            {label}
+          </label>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger
+                type="button"
+                aria-label={`About ${label}`}
+                className="inline-flex text-[#C4CCDB] transition-colors hover:text-[#6B7488]"
+              >
+                <Info className="size-4" />
+              </TooltipTrigger>
+              <TooltipContent side="top">{help}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </span>
         {adornment}
       </div>
-      <div className="flex items-stretch gap-3">
+      <div className="flex items-center gap-[10px]">
         <div className="relative flex-1">
           {prefix && (
             <span className="pointer-events-none absolute left-[14px] top-1/2 -translate-y-1/2 font-bold text-[#5A6478]">
@@ -120,7 +141,6 @@ function Field({
         <span>{minLabel}</span>
         <span>{maxLabel}</span>
       </div>
-      <p className="mt-2 text-[13.5px] text-[#6B7488]">{help}</p>
     </div>
   );
 }
@@ -235,7 +255,7 @@ export function CarLoanCalculator(_: CarLoanCalculatorProps = {}) {
               maxLabel="84 mo"
               help={`Number of months to repay — currently ${termLabel}.`}
             >
-              <div className="flex shrink-0 items-center gap-1 rounded-[12px] bg-[#EEF1F7] p-1">
+              <div className="flex shrink-0 gap-1 self-center rounded-[11px] bg-[#EEF1F7] p-1">
                 {TERM_PRESETS.map((m) => {
                   const on = termMonths === m;
                   return (
@@ -244,7 +264,7 @@ export function CarLoanCalculator(_: CarLoanCalculatorProps = {}) {
                       type="button"
                       onClick={() => setTermMonths(m)}
                       className={cn(
-                        "rounded-[9px] px-3 text-[14px] font-semibold transition-colors",
+                        "rounded-[9px] px-3 py-[9px] text-[14px] font-semibold leading-none transition-colors",
                         on ? "bg-white text-brand shadow-[0_1px_3px_rgba(16,24,40,.12)]" : "text-[#6B7488]"
                       )}
                     >

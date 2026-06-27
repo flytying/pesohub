@@ -20,13 +20,13 @@ import {
   Info,
   type LucideIcon,
 } from "lucide-react";
+import { formatDate } from "@/lib/formatters";
 import { generatePageMetadata } from "@/lib/seo";
 import {
   generateBreadcrumbSchema,
   generateCalculatorSchema,
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
-import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { CarLoanCalculator } from "@/components/calculators/car-loan-calculator";
 import { carLoanData } from "@/data/calculators/car-loan";
@@ -123,13 +123,39 @@ export default function CarLoanCalculatorPage() {
         })}
       />
 
-      <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(20px,3vw,36px)]">
-        <PageHero
-          title={carLoanData.h1}
-          description={carLoanData.intro}
-          badge={carLoanData.updatedAt}
-          breadcrumbs={breadcrumbs}
-        />
+      <div className="mx-auto w-full max-w-[1280px] px-[clamp(18px,3vw,34px)] py-[clamp(18px,3vw,34px)]">
+        {/* Heading */}
+        <div className="mb-5">
+          <nav aria-label="Breadcrumb" className="mb-[10px]">
+            <ol className="flex flex-wrap items-center gap-[7px] text-[15px] font-semibold text-[#6B7488]">
+              {breadcrumbs.map((b, i) => {
+                const last = i === breadcrumbs.length - 1;
+                return (
+                  <li key={i} className="flex items-center gap-[7px]">
+                    {i > 0 && <span className="text-[#C4CCDB]">/</span>}
+                    {last || !b.href ? (
+                      <span className={last ? "text-[#5A6478]" : ""}>{b.label}</span>
+                    ) : (
+                      <Link href={b.href} className="font-bold text-brand">
+                        {b.label}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </nav>
+          <h1 className="font-display text-[clamp(26px,3.4vw,38px)] font-semibold leading-[1.1] tracking-[-.02em] text-[#0E1525]">
+            {carLoanData.h1}
+          </h1>
+          <p className="mt-[9px] max-w-[80ch] text-[16px] leading-[1.55] text-[#5A6478]">
+            {carLoanData.intro}
+          </p>
+          <div className="mt-[11px] flex items-center gap-[6px] text-[15px] font-semibold text-[#6B7488]">
+            <Clock className="size-[15px]" />
+            Updated {formatDate(carLoanData.updatedAt)}
+          </div>
+        </div>
 
         {/* Calculator + compare + amortization */}
         <div id="calculator" className="scroll-mt-20">
