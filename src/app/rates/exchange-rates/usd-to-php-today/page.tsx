@@ -234,7 +234,7 @@ export default function UsdToPhpPage() {
 
         {/* Historical Rates Table */}
 
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Historical USD to PHP Rates (Last 7 Business Days)
           </h2>
@@ -278,7 +278,7 @@ export default function UsdToPhpPage() {
         </section>
 
         {/* How to Read Exchange Rates */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How to Read Exchange Rates
           </h2>
@@ -308,7 +308,7 @@ export default function UsdToPhpPage() {
         </section>
 
         {/* Where to Get the Best Exchange Rate */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Where to Get the Best Exchange Rate
           </h2>
@@ -331,7 +331,7 @@ export default function UsdToPhpPage() {
         </div>
 
         {/* Related Pages */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related rates and guides
           </h2>

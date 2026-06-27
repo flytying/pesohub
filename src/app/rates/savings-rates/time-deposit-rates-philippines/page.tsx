@@ -176,7 +176,7 @@ export default function TimeDepositRatesPage() {
         </section>
 
         {/* Time Deposit Comparison Table */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Time Deposit Comparison Table
           </h2>
@@ -250,7 +250,7 @@ export default function TimeDepositRatesPage() {
 
         {/* Time Deposit Rates Are Usually Shown Before Tax */}
 
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Time Deposit Rates Are Usually Shown Before Tax
           </h2>
@@ -288,7 +288,7 @@ export default function TimeDepositRatesPage() {
         </section>
 
         {/* Why Term Length Matters */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Why Term Length Matters
           </h2>
@@ -312,7 +312,7 @@ export default function TimeDepositRatesPage() {
         </section>
 
         {/* Why Minimum Deposit Matters */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Why Minimum Deposit Matters
           </h2>
@@ -351,7 +351,7 @@ export default function TimeDepositRatesPage() {
         </section>
 
         {/* Why Notes Matter */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Why Notes Matter on a Time Deposit Page
           </h2>
@@ -380,7 +380,7 @@ export default function TimeDepositRatesPage() {
         </section>
 
         {/* Quick Picks by Deposit Need */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Quick Picks by Deposit Need
           </h2>
@@ -459,7 +459,7 @@ export default function TimeDepositRatesPage() {
         </div>
 
         {/* Related Pages */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related savings and rates pages
           </h2>

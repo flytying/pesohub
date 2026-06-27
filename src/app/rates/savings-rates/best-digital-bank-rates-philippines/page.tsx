@@ -224,7 +224,7 @@ export default function DigitalBankRatesPage() {
 
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Digital Bank Comparison Table */}
-        <section>
+        <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             High Yield Savings Accounts: Digital Bank Comparison
           </h2>
@@ -338,7 +338,7 @@ export default function DigitalBankRatesPage() {
 
         {/* Base Rate vs Promo Rate */}
 
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Base Rate vs Promo Rate
           </h2>
@@ -369,7 +369,7 @@ export default function DigitalBankRatesPage() {
         </section>
 
         {/* Why Access Features Matter */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Why Access Features Matter
           </h2>
@@ -393,7 +393,7 @@ export default function DigitalBankRatesPage() {
         </section>
 
         {/* Deposit Insurance and Trust Notes */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Deposit Insurance and Trust Notes
           </h2>
@@ -412,7 +412,7 @@ export default function DigitalBankRatesPage() {
         </section>
 
         {/* Best Digital Bank Options by Need */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Best Digital Bank in the Philippines by Need
           </h2>
@@ -444,7 +444,7 @@ export default function DigitalBankRatesPage() {
         </section>
 
         {/* Bank-specific rate sections */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Digital Bank Interest Rates 2026 (By Bank)
           </h2>
@@ -497,7 +497,7 @@ export default function DigitalBankRatesPage() {
         </div>
 
         {/* Related Pages */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related savings and rates pages
           </h2>

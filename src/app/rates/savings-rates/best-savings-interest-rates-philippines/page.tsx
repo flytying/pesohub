@@ -191,7 +191,7 @@ export default function BestSavingsRatesPage() {
 
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* What Is a Savings Rate? */}
-        <section>
+        <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What Is a Savings Rate?
           </h2>
@@ -282,7 +282,7 @@ export default function BestSavingsRatesPage() {
         </section>
 
         {/* Savings Account Comparison Table */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Savings Account Comparison Table
           </h2>
@@ -381,7 +381,7 @@ export default function BestSavingsRatesPage() {
         </section>
 
         {/* Promo Rates vs Standard Rates */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Promo Rates vs Standard Rates
           </h2>
@@ -433,7 +433,7 @@ export default function BestSavingsRatesPage() {
         </section>
 
         {/* Savings Interest Is Usually Shown Before Tax */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Savings Interest Is Usually Shown Before Tax
           </h2>
@@ -470,7 +470,7 @@ export default function BestSavingsRatesPage() {
         </section>
 
         {/* Digital Banks vs Traditional Banks */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Digital Banks vs Traditional Banks
           </h2>
@@ -521,7 +521,7 @@ export default function BestSavingsRatesPage() {
         </section>
 
         {/* How to Choose the Right Savings Account */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How to Choose the Right Savings Account
           </h2>
@@ -556,7 +556,7 @@ export default function BestSavingsRatesPage() {
         </section>
 
         {/* Savings Accounts with Low Maintaining Balance */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Savings Accounts with Low Maintaining Balance
           </h2>
@@ -577,7 +577,7 @@ export default function BestSavingsRatesPage() {
         </section>
 
         {/* Best Savings Account Options by Need */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Best Savings Account Options by Need
           </h2>
@@ -631,7 +631,7 @@ export default function BestSavingsRatesPage() {
         </div>
 
         {/* Related Pages */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related rates and guides
           </h2>
