@@ -10,6 +10,8 @@ import {
   BookOpen,
   Landmark,
   FileText,
+  Bookmark,
+  History,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -117,6 +119,28 @@ export function Sidebar({
               </Link>
             );
           })}
+        </nav>
+
+        {/* WORKSPACE group — placeholder features (not yet available) */}
+        <nav className="mt-2 flex flex-col gap-[3px] px-[14px] py-[6px]">
+          <span className="px-3 pb-[6px] pt-[10px] text-sm font-bold tracking-[.08em] text-[#6B7488]">
+            WORKSPACE
+          </span>
+          {[
+            { label: "Saved tools", icon: Bookmark },
+            { label: "Recent calculations", icon: History },
+          ].map(({ label, icon: Icon }) => (
+            <div
+              key={label}
+              className="flex items-center gap-3 rounded-[12px] px-3 py-[11px] text-sm font-semibold text-[#6B7488]"
+            >
+              <Icon className="size-[18px] shrink-0" strokeWidth={2} aria-hidden />
+              <span>{label}</span>
+              <span className="ml-auto rounded-[6px] bg-[#EAF0FF] px-[6px] py-[2px] text-[11px] font-bold tracking-[.06em] text-brand">
+                SOON
+              </span>
+            </div>
+          ))}
         </nav>
 
         {/* Pinned gradient promo card */}
