@@ -1,16 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  HelpCircle,
   Calculator,
   BookOpen,
-  DollarSign,
-  Percent,
-  Clock,
-  ShieldCheck,
+  TrendingUp,
   ArrowRight,
-  Info,
+  PhilippinePeso,
+  Wallet,
+  Clock,
+  Percent,
+  Shield,
+  FileText,
+  Fuel,
+  Wrench,
+  SquareParking,
+  CircleCheck,
+  HelpCircle,
   TriangleAlert,
+  Info,
+  type LucideIcon,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -33,66 +41,59 @@ export const metadata: Metadata = generatePageMetadata({
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Calculators", href: "/calculators" },
-  { label: "Car Loan Calculator" },
+  { label: "Loans", href: "/calculators" },
+  { label: "Car Loan" },
 ];
 
-const beforeYouStart = [
-  "Start with the car's total purchase price",
-  "Choose a down payment you can comfortably afford",
-  "Compare 36-, 48-, and 60-month loan terms",
-  "Test different interest rates if you are comparing lenders",
-  "Leave room in your budget for insurance, registration, fuel, and maintenance",
-];
-
-const paymentFactors = [
+const factors: { icon: LucideIcon; title: string; description: string }[] = [
   {
-    icon: DollarSign,
-    title: "Vehicle Price",
+    icon: PhilippinePeso,
+    title: "Vehicle price",
     description:
-      "A more expensive car increases the total amount you need to finance, which usually increases the monthly payment.",
+      "A more expensive car increases the amount you finance, which usually raises the monthly payment.",
   },
   {
-    icon: ShieldCheck,
-    title: "Down Payment",
+    icon: Wallet,
+    title: "Down payment",
     description:
-      "A larger down payment reduces the amount borrowed. This often lowers both your monthly payment and the total interest you pay over the life of the loan.",
+      "A larger down payment reduces the amount borrowed, lowering both your monthly payment and total interest.",
   },
   {
     icon: Clock,
-    title: "Loan Term",
+    title: "Loan term",
     description:
-      "A longer term spreads the cost over more months, which can lower the monthly payment. However, it may also increase the total interest paid overall.",
+      "A longer term spreads the cost over more months and lowers the monthly payment, but increases total interest.",
   },
   {
     icon: Percent,
-    title: "Interest Rate",
+    title: "Interest rate",
     description:
-      "Even a small difference in interest rate can change the total cost of borrowing. When comparing lenders, check both the monthly payment and the full loan cost.",
+      "Even a small difference in rate changes the total cost of borrowing. Compare both the monthly payment and full loan cost.",
   },
 ];
 
-const ownershipCosts = [
-  "comprehensive insurance",
-  "chattel mortgage fees",
-  "LTO registration and renewal costs",
-  "fuel",
-  "maintenance and repairs",
-  "parking and tolls",
+const ownershipCosts: { icon: LucideIcon; label: string }[] = [
+  { icon: Shield, label: "Comprehensive insurance" },
+  { icon: FileText, label: "Chattel mortgage fees" },
+  { icon: FileText, label: "LTO registration & renewal" },
+  { icon: Fuel, label: "Fuel" },
+  { icon: Wrench, label: "Maintenance & repairs" },
+  { icon: SquareParking, label: "Parking & toll fees" },
 ];
 
-const compareBeforeApplying = [
-  "estimated monthly payment",
-  "down payment required",
-  "total interest over the full term",
-  "total estimated loan cost",
-  "required insurance or add-on products",
-  "chattel mortgage and processing fees",
-  "early repayment terms",
-  "dealer financing versus bank financing",
+const compareList = [
+  "Estimated monthly payment",
+  "Down payment required",
+  "Total interest over the full term",
+  "Total estimated loan cost",
+  "Required insurance or add-on products",
+  "Chattel mortgage & processing fees",
+  "Early repayment terms",
+  "Dealer financing vs bank financing",
 ];
 
-const questionsToConsider = [
-  "Can I comfortably afford the estimated monthly payment along with fuel, insurance, maintenance, parking, and registration costs?",
+const questions = [
+  "Can I comfortably afford the monthly payment along with fuel, insurance, maintenance, parking, and registration costs?",
   "Would a larger down payment make the loan more manageable?",
   "Should I compare dealer financing and bank financing before deciding?",
   "Does a shorter term save more in total cost, even if the monthly payment is higher?",
@@ -100,32 +101,16 @@ const questionsToConsider = [
 ];
 
 const relatedContent = [
-  {
-    title: "Personal Loan Calculator",
-    href: "/calculators/loans/personal-loan-calculator-philippines",
-    icon: Calculator,
-  },
-  {
-    title: "Home Loan Calculator",
-    href: "/calculators/loans/home-loan-calculator-philippines",
-    icon: Calculator,
-  },
-  {
-    title: "Loan Guides",
-    href: "/guides",
-    icon: BookOpen,
-  },
-  {
-    title: "Interest Rate Guides",
-    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
-    icon: BookOpen,
-  },
-  {
-    title: "Financial Planning Guides",
-    href: "/guides",
-    icon: BookOpen,
-  },
+  { title: "Home Loan Calculator", href: "/calculators/loans/home-loan-calculator-philippines", icon: Calculator },
+  { title: "Personal Loan Calculator", href: "/calculators/loans/personal-loan-calculator-philippines", icon: Calculator },
+  { title: "Guides Hub", href: "/guides", icon: BookOpen },
+  { title: "Rates Hub", href: "/rates", icon: TrendingUp },
+  { title: "All Calculators", href: "/calculators", icon: Calculator },
 ];
+
+const CARD = "rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]";
+const H2 = "font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]";
+const LEAD = "mt-3 max-w-[78ch] text-[16px] leading-[1.6] text-[#5A6478]";
 
 export default function CarLoanCalculatorPage() {
   return (
@@ -138,176 +123,159 @@ export default function CarLoanCalculatorPage() {
         })}
       />
 
-      <PageHero
-        title={carLoanData.h1}
-        description={carLoanData.intro}
-        badge={carLoanData.updatedAt}
-        breadcrumbs={breadcrumbs}
-        variant="dark"
-      />
+      <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(20px,3vw,36px)]">
+        <PageHero
+          title={carLoanData.h1}
+          description={carLoanData.intro}
+          badge={carLoanData.updatedAt}
+          breadcrumbs={breadcrumbs}
+        />
 
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-        {/* Calculator */}
+        {/* Calculator + compare + amortization */}
         <div id="calculator" className="scroll-mt-20">
-          <CarLoanCalculator
-            beforeYouStart={{
-              description:
-                "If you are still deciding what car budget makes sense, start with a few simple assumptions. Use the full vehicle price, then test different down payments and loan terms to see how your monthly payment changes.",
-              items: beforeYouStart,
-            }}
-          />
+          <CarLoanCalculator />
         </div>
 
-        {/* How to Tell if the Monthly Payment Is Realistic */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            How to Tell if the Monthly Payment Is Realistic
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            A monthly car payment may look manageable at first, but it should
-            still fit comfortably within your overall monthly budget. Before
-            applying, check whether you can still cover your regular expenses,
-            savings, emergency fund, and other debt payments after adding the
-            estimated monthly amortization.
-          </p>
-          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
-            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
-              A lower monthly payment is not always the cheaper option overall. A
-              longer loan term can reduce the monthly amount, but it may also
-              increase the total interest paid over time. A bigger down payment
-              usually lowers both the monthly payment and the total borrowing cost.
+        <div className="mt-5 space-y-5">
+          {/* How to tell if realistic */}
+          <section className={CARD}>
+            <h2 className={H2}>How to tell if the monthly payment is realistic</h2>
+            <p className={LEAD}>
+              A monthly car payment may look manageable at first, but it should
+              still fit comfortably within your overall monthly budget. Before
+              applying, check whether you can still cover your regular expenses,
+              savings, emergency fund, and other debt payments after adding the
+              estimated monthly amortization.
+            </p>
+            <div className="mt-4 flex gap-3 rounded-[14px] border border-[#F0E2BE] bg-[#FFF8E8] p-5">
+              <TriangleAlert className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
+              <p className="text-[15px] leading-[1.6] text-[#7A6320]">
+                A lower monthly payment is not always the cheaper option overall.
+                A longer loan term can reduce the monthly amount, but it usually
+                increases the total interest paid over time. A bigger down payment
+                generally lowers both the monthly payment and the total borrowing
+                cost.
+              </p>
+            </div>
+          </section>
+
+          {/* What affects */}
+          <section className={CARD}>
+            <h2 className={H2}>What affects your monthly car loan payment</h2>
+            <p className={LEAD}>
+              Your estimated payment depends on four main factors. Understanding
+              how each one works helps you compare offers more clearly.
+            </p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {factors.map((f) => {
+                const Icon = f.icon;
+                return (
+                  <div key={f.title} className="rounded-[16px] border border-[#E7EBF3] bg-[#F7F9FD] p-5">
+                    <span className="flex size-11 items-center justify-center rounded-[12px] bg-[#EAF0FF] text-brand">
+                      <Icon className="size-5" />
+                    </span>
+                    <h3 className="mt-4 text-[17px] font-bold text-[#0E1525]">{f.title}</h3>
+                    <p className="mt-2 text-[15px] leading-[1.55] text-[#5A6478]">{f.description}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Not full cost */}
+          <section className={CARD}>
+            <h2 className={H2}>Your monthly payment is not the full cost of owning a car</h2>
+            <p className={LEAD}>
+              A car loan calculator estimates the financing side of the purchase,
+              but your real budget should include more than just the monthly
+              amortization. Also consider:
+            </p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {ownershipCosts.map((c) => {
+                const Icon = c.icon;
+                return (
+                  <div key={c.label} className="flex items-center gap-3 rounded-[12px] border border-[#E7EBF3] bg-[#F7F9FD] px-4 py-3 text-[15px] font-medium text-[#344054]">
+                    <Icon className="size-[18px] shrink-0 text-brand" />
+                    {c.label}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* What to compare */}
+          <section className={CARD}>
+            <h2 className={H2}>What to compare before choosing a car loan</h2>
+            <p className={LEAD}>
+              Don&apos;t compare lenders on the monthly payment alone. Two offers
+              may look similar at first, but the total cost can differ. Before
+              applying, compare:
+            </p>
+            <ul className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
+              {compareList.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-[15px] leading-[1.5] text-[#475069]">
+                  <CircleCheck className="mt-0.5 size-[18px] shrink-0 text-brand" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Questions */}
+          <section className={CARD}>
+            <h2 className={H2}>Questions to consider before applying</h2>
+            <ul className="mt-4 space-y-3">
+              {questions.map((q) => (
+                <li key={q} className="flex gap-3 text-[15.5px] leading-[1.6] text-[#475069]">
+                  <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
+                  {q}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* FAQ */}
+          <section className={CARD}>
+            <FaqSection faqs={carLoanData.faqs} />
+          </section>
+
+          {/* Notice */}
+          <div className="flex gap-3 rounded-[16px] border border-[#F0E2BE] bg-[#FFF8E8] p-5">
+            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
+            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
+              PesoHub provides free financial tools and information for educational
+              purposes only. It is not affiliated with any bank or government
+              agency. Rates and terms shown are estimates — always confirm the
+              final figures with your lender and consult a qualified professional
+              before making financial decisions.
             </p>
           </div>
-        </section>
 
-        {/* What Affects Your Monthly Car Loan Payment */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            What Affects Your Monthly Car Loan Payment
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Your estimated car loan payment depends on four main factors: the
-            vehicle price, the down payment, the loan term, and the interest
-            rate. Understanding how each one works can help you compare offers
-            more clearly.
-          </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
-            {paymentFactors.map((factor) => {
-              const Icon = factor.icon;
-              return (
-                <div key={factor.title} className="rounded-xl border border-gray-200 bg-white p-6">
-                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-6" />
-                  </div>
-                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
-                    {factor.title}
-                  </h3>
-                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
-                    {factor.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* Your Monthly Loan Payment Is Not the Full Cost */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Your Monthly Loan Payment Is Not the Full Cost of Owning a Car
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            A car loan calculator helps estimate the financing side of the
-            purchase, but your total car budget should include more than just the
-            monthly amortization. Also consider:
-          </p>
-          <ul className="mt-4 space-y-3">
-            {ownershipCosts.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                <ArrowRight className="size-4 shrink-0 text-gray-300" />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Use the calculator to estimate your loan payment, then add these
-            ownership costs before deciding what vehicle price range is truly
-            affordable.
-          </p>
-        </section>
-
-        {/* What to Compare Before Choosing a Car Loan */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            What to Compare Before Choosing a Car Loan
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Do not compare lenders based on monthly payment alone. Two offers may
-            look similar at first, but the total cost can be very different
-            depending on the term, interest rate, and fees. Before applying,
-            compare:
-          </p>
-          <ul className="mt-4 space-y-3">
-            {compareBeforeApplying.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                <ArrowRight className="size-4 shrink-0 text-gray-300" />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Use this calculator more than once so you can compare multiple offers
-            side by side before making a decision.
-          </p>
-        </section>
-
-        {/* Questions to Consider */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Questions to consider before applying
-          </h2>
-          <ul className="mt-6 space-y-4">
-            {questionsToConsider.map((question, i) => (
-              <li key={i} className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
-                {question}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* FAQ */}
-        <div className="mt-16">
-          <FaqSection faqs={carLoanData.faqs} />
+          {/* Related */}
+          <section>
+            <h2 className={`mb-4 ${H2}`}>Related calculators and guides</h2>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedContent.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    className="group flex items-center gap-3 rounded-[14px] border border-[#E7EBF3] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-colors hover:border-[#C3D0F2] hover:bg-[#FBFCFE]"
+                  >
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-[11px] bg-[#EAF0FF] text-brand">
+                      <Icon className="size-[18px]" />
+                    </span>
+                    <span className="flex-1 text-[15px] font-bold text-[#0E1525] group-hover:text-brand">
+                      {item.title}
+                    </span>
+                    <ArrowRight className="size-4 shrink-0 text-[#C4CCDB]" />
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
         </div>
-
-        {/* Related Calculators and Guides */}
-        <section className="mt-16">
-          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Related calculators and guides
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedContent.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
-                >
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-4" />
-                  </div>
-                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
-                    {item.title}
-                  </span>
-                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
-                </Link>
-              );
-            })}
-          </div>
-        </section>
       </div>
     </>
   );
