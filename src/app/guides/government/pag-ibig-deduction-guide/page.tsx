@@ -102,7 +102,7 @@ export default function PagIBIGDeductionGuidePage() {
 
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* What Does Pag-IBIG Deduction Usually Mean? */}
-        <section>
+        <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What Does Pag-IBIG Deduction Usually Mean?
           </h2>

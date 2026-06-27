@@ -96,7 +96,7 @@ export default function PagibigMp2SavingsGuidePage() {
 
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* What Is Pag-IBIG MP2 */}
-        <section>
+        <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What Is the Pag-IBIG MP2 Savings Program
           </h2>
@@ -117,7 +117,7 @@ export default function PagibigMp2SavingsGuidePage() {
 
         {/* MP2 at a Glance */}
 
-        <section className="mt-16">
+        <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             MP2 at a Glance
           </h2>
@@ -140,7 +140,7 @@ export default function PagibigMp2SavingsGuidePage() {
         </section>
 
         {/* How MP2 Salary Deduction by the Company Works */}
-        <section className="mt-16">
+        <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How MP2 Salary Deduction by the Company Works
           </h2>
@@ -191,7 +191,7 @@ export default function PagibigMp2SavingsGuidePage() {
         </section>
 
         {/* MP2 vs Regular Pag-IBIG */}
-        <section className="mt-16">
+        <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             MP2 vs Regular Pag-IBIG Contribution
           </h2>
@@ -279,7 +279,7 @@ export default function PagibigMp2SavingsGuidePage() {
 
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* How to Contribute Without an Employer */}
-        <section>
+        <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How to Contribute to Pag-IBIG MP2 Without an Employer
           </h2>
@@ -301,7 +301,7 @@ export default function PagibigMp2SavingsGuidePage() {
         </section>
 
         {/* MP2 Dividend History */}
-        <section className="mt-16">
+        <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             MP2 Dividend Rate History (2010–2025)
           </h2>
@@ -346,7 +346,7 @@ export default function PagibigMp2SavingsGuidePage() {
         </section>
 
         {/* MP2 Withdrawal and Maturity Rules */}
-        <section className="mt-16">
+        <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             MP2 Withdrawal and Maturity Rules
           </h2>
@@ -396,7 +396,7 @@ export default function PagibigMp2SavingsGuidePage() {
         </div>
 
         {/* Related Pages */}
-        <section className="mt-16">
+        <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related Pag-IBIG Pages
           </h2>

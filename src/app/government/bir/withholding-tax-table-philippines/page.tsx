@@ -108,7 +108,7 @@ export default function WithholdingTaxTablePage() {
 
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Overview + jump links */}
-      <section>
+      <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           2026 BIR Withholding Tax Table
         </h2>
@@ -153,7 +153,7 @@ export default function WithholdingTaxTablePage() {
       </div>
 
       {/* How to Compute */}
-      <section id="how-to-compute" className="mt-16 scroll-mt-20">
+      <section id="how-to-compute" className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           How to Compute Withholding Tax Using the BIR Table
         </h2>
@@ -221,7 +221,7 @@ export default function WithholdingTaxTablePage() {
       </section>
 
       {/* Use the Calculator */}
-      <section id="calculator" className="mt-16 scroll-mt-20">
+      <section id="calculator" className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Use the Withholding Tax Calculator
         </h2>
@@ -244,7 +244,7 @@ export default function WithholdingTaxTablePage() {
       </section>
 
       {/* 2025 vs 2026 */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Is the 2026 Withholding Tax Table Different From 2025?
         </h2>
@@ -264,7 +264,7 @@ export default function WithholdingTaxTablePage() {
       </section>
 
       {/* Common Mistakes */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Common Withholding Tax Mistakes
         </h2>
@@ -292,7 +292,7 @@ export default function WithholdingTaxTablePage() {
       </div>
 
       {/* Related Tax Pages and Payroll Tools */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
           Related tax pages and payroll tools
         </h2>
@@ -319,7 +319,7 @@ export default function WithholdingTaxTablePage() {
       </section>
 
       {/* Source Citation */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
           Official BIR Source and Freshness
         </h2>

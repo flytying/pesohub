@@ -88,7 +88,7 @@ export default function SSSPensionTablePage() {
 
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Pension Estimate Table */}
-      <section>
+      <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Estimated Monthly Pension by Salary Credit & Years
         </h2>
@@ -143,7 +143,7 @@ export default function SSSPensionTablePage() {
 
       {/* Three Pension Formulas */}
 
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           The Three SSS Pension Formulas
         </h2>
@@ -165,7 +165,7 @@ export default function SSSPensionTablePage() {
       </section>
 
       {/* Who It Applies To */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Who It Applies To
         </h2>
@@ -190,7 +190,7 @@ export default function SSSPensionTablePage() {
       </section>
 
       {/* Eligibility */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Eligibility Requirements
         </h2>
@@ -207,7 +207,7 @@ export default function SSSPensionTablePage() {
       </section>
 
       {/* Worked Example */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Worked Example
         </h2>
@@ -278,7 +278,7 @@ export default function SSSPensionTablePage() {
       </div>
 
       {/* Related Content */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
           Related calculators and guides
         </h2>

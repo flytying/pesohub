@@ -101,7 +101,7 @@ export default function PagibigHousingLoanGuidePage() {
 
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Who May Qualify */}
-      <section>
+      <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Who May Qualify for a Pag-IBIG Housing Loan
         </h2>
@@ -127,7 +127,7 @@ export default function PagibigHousingLoanGuidePage() {
 
       {/* What Affects How Much You May Borrow */}
 
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           What Affects How Much You May Borrow
         </h2>
@@ -184,7 +184,7 @@ export default function PagibigHousingLoanGuidePage() {
       </section>
 
       {/* How Rates and Repricing Affect Your Loan */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           How Rates and Repricing Affect Your Loan
         </h2>
@@ -249,7 +249,7 @@ export default function PagibigHousingLoanGuidePage() {
       </section>
 
       {/* What You Will Usually Need */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           What You Will Usually Need
         </h2>
@@ -269,7 +269,7 @@ export default function PagibigHousingLoanGuidePage() {
       </section>
 
       {/* What a Pag-IBIG Housing Loan May Help Finance */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           What a Pag-IBIG Housing Loan May Help Finance
         </h2>
@@ -291,7 +291,7 @@ export default function PagibigHousingLoanGuidePage() {
       </section>
 
       {/* Questions to Ask Before Applying */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Questions to Ask Before Applying
         </h2>
@@ -341,7 +341,7 @@ export default function PagibigHousingLoanGuidePage() {
       </div>
 
       {/* Related Pag-IBIG Pages */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
           Related Pag-IBIG pages
         </h2>

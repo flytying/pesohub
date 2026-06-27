@@ -113,7 +113,7 @@ export default function PagIBIGContributionTablePage() {
 
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Pag-IBIG (HDMF) Contribution Structure 2026 */}
-      <section>
+      <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Pag-IBIG (HDMF) Contribution Structure 2026
         </h2>
@@ -195,7 +195,7 @@ export default function PagIBIGContributionTablePage() {
 
       {/* Pag-IBIG Employee and Employer Share Table */}
 
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Pag-IBIG Employee and Employer Share Table
         </h2>
@@ -254,7 +254,7 @@ export default function PagIBIGContributionTablePage() {
       </section>
 
       {/* Who Pays the Pag-IBIG Contribution? */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Who Pays the Pag-IBIG Contribution?
         </h2>
@@ -323,7 +323,7 @@ export default function PagIBIGContributionTablePage() {
       </section>
 
       {/* How Salary Caps Affect the Deduction */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           How Salary Caps Affect the Deduction
         </h2>
@@ -375,7 +375,7 @@ export default function PagIBIGContributionTablePage() {
       </section>
 
       {/* How Much Is Pag-IBIG Contribution per Salary Level */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           How Much Is Pag-IBIG Contribution per Salary Level
         </h2>
@@ -426,7 +426,7 @@ export default function PagIBIGContributionTablePage() {
       </section>
 
       {/* Where Pag-IBIG Appears on Payroll */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Where Pag-IBIG Appears on Payroll
         </h2>
@@ -452,7 +452,7 @@ export default function PagIBIGContributionTablePage() {
       </section>
 
       {/* Why Your Actual Pag-IBIG Deduction May Differ */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Why Your Actual Pag-IBIG Deduction May Differ
         </h2>
@@ -504,7 +504,7 @@ export default function PagIBIGContributionTablePage() {
       </div>
 
       {/* Related Payroll and Pag-IBIG Pages */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
           Related payroll and Pag-IBIG pages
         </h2>
