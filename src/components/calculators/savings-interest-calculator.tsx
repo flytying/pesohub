@@ -1,45 +1,38 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CalculatorShell } from "@/components/calculators/calculator-shell";
 import { CalculatorInput } from "@/components/calculators/calculator-input";
-import { CalculatorResult } from "@/components/calculators/calculator-result";
-import { ResultPanel } from "@/components/calculators/result-panel";
+import { ResultActions } from "@/components/calculators/result-actions";
+import {
+  GradientResult,
+  SplitBar,
+  BreakdownCard,
+  BreakdownRow,
+} from "@/components/calculators/gradient-result";
 import {
   calculateForTerm,
   calculateTimeDeposit,
 } from "@/lib/calculators/time-deposit";
 import { formatPeso, formatPercent } from "@/lib/formatters";
-import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 
 export interface SavingsAccountOption {
-  /** Display label, e.g. "Maya — Personal Savings". */
   label: string;
-  /** Annual interest rate as a percentage (e.g. 3.25). */
   rate: number;
 }
 
 interface SavingsInterestCalculatorProps {
-  /** Accounts that seed the picker. The first option seeds the default rate. */
   accounts: SavingsAccountOption[];
-  /** Optional title shown in the calculator shell. */
   title?: string;
 }
 
 const CUSTOM_RATE = "__custom__";
 
-/**
- * Estimates how much interest a savings deposit can earn.
- *
- * Uses simple interest with an optional 20% final withholding tax on interest
- * income, consistent with the site's time deposit calculator. Savings accounts
- * compound in practice, so figures are estimates for comparison, not exact
- * earnings.
- */
+const selectClass =
+  "flex h-11 w-full rounded-[12px] border border-[#D6DEEC] bg-white px-3 text-[15px] text-[#0E1525] focus-visible:border-brand focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-brand/15";
+
 export function SavingsInterestCalculator({
   accounts,
-  title = "Savings Interest Calculator",
 }: SavingsInterestCalculatorProps) {
   const [depositAmount, setDepositAmount] = useState(50_000);
   const [selected, setSelected] = useState(accounts[0]?.label ?? CUSTOM_RATE);
@@ -53,7 +46,14 @@ export function SavingsInterestCalculator({
     if (match) setAnnualRate(match.rate);
   }
 
-  // Interest over the chosen holding period.
+  function reset() {
+    setDepositAmount(50_000);
+    setSelected(accounts[0]?.label ?? CUSTOM_RATE);
+    setAnnualRate(accounts[0]?.rate ?? 3);
+    setMonths(12);
+    setApplyTax(true);
+  }
+
   const period = useMemo(
     () =>
       calculateTimeDeposit({
@@ -62,99 +62,112 @@ export function SavingsInterestCalculator({
         term: months,
         termUnit: "months",
       }),
-    [depositAmount, annualRate, months],
+    [depositAmount, annualRate, months]
   );
-
-  // Interest over a full year (for the annual + monthly figures).
   const annual = useMemo(
     () => calculateForTerm(depositAmount, annualRate, 12),
-    [depositAmount, annualRate],
+    [depositAmount, annualRate]
   );
 
-  const periodInterest = applyTax
-    ? period.afterTaxInterest
-    : period.grossInterest;
+  const periodInterest = applyTax ? period.afterTaxInterest : period.grossInterest;
   const annualInterest = applyTax ? annual.afterTaxInterest : annual.grossInterest;
   const monthlyInterest = annualInterest / 12;
   const effectiveRate = applyTax ? annualRate * 0.8 : annualRate;
 
+  const totalBalance = depositAmount + periodInterest;
+  const depositPct = totalBalance > 0 ? (depositAmount / totalBalance) * 100 : 100;
+
+  const resultsSummary = [
+    `Deposit Amount: ${formatPeso(depositAmount)}`,
+    `Interest Rate: ${formatPercent(annualRate)} p.a.`,
+    `Holding Period: ${period.termUsed}`,
+    `Estimated Monthly Interest: ${formatPeso(monthlyInterest)}`,
+    `Estimated Annual Interest: ${formatPeso(annualInterest)}`,
+    `Effective Return: ${formatPercent(effectiveRate)} p.a.`,
+  ].join("\n");
+
   return (
-    <div className="space-y-6">
-      <CalculatorShell
-        title={title}
-        variant="split"
-        resultsSummary={[
-          `Deposit Amount: ${formatPeso(depositAmount)}`,
-          `Interest Rate: ${formatPercent(annualRate)} p.a.`,
-          `Holding Period: ${period.termUsed}`,
-          `Estimated Monthly Interest: ${formatPeso(monthlyInterest)}`,
-          `Estimated Annual Interest: ${formatPeso(annualInterest)}`,
-          `Effective Return: ${formatPercent(effectiveRate)} p.a.`,
-        ].join("\n")}
+    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      {/* LEFT: Gradient result */}
+      <GradientResult
+        actions={
+          <ResultActions
+            calculatorType="Savings Interest Calculator"
+            resultsSummary={resultsSummary}
+          />
+        }
+        eyebrow={`Estimated interest · ${period.termUsed}`}
+        figure={formatPeso(periodInterest)}
+        sub={
+          applyTax
+            ? "After 20% withholding tax on interest"
+            : "Before withholding tax"
+        }
       >
-        {/* LEFT: Result Panel */}
-        <ResultPanel className="flex flex-col justify-between">
-          <div className="text-center">
-            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">
-              Estimated Interest ({period.termUsed})
-            </p>
-            <p className="mt-2 animate-count-up text-[36px] font-semibold tabular-nums text-brand sm:text-[42px]">
-              {formatPeso(periodInterest)}
-            </p>
-            <p className="mt-2 text-sm text-gray-400">
-              {applyTax
-                ? "After 20% withholding tax on interest"
-                : "Before withholding tax"}
-            </p>
-          </div>
+        <SplitBar
+          leftLabel={`Deposit · ${Math.round(depositPct)}%`}
+          leftValue={formatPeso(depositAmount)}
+          leftPct={depositPct}
+          rightLabel={`Interest · ${Math.round(100 - depositPct)}%`}
+          rightValue={formatPeso(periodInterest)}
+          total={`Total balance · ${formatPeso(totalBalance)}`}
+        />
+        <BreakdownCard
+          note="Estimates use simple interest. Actual earnings vary — banks may compound daily and rates can change."
+        >
+          <BreakdownRow
+            label="Estimated monthly interest"
+            value={formatPeso(monthlyInterest)}
+          />
+          <BreakdownRow
+            label="Estimated annual interest"
+            value={formatPeso(annualInterest)}
+            tone="positive"
+          />
+          <BreakdownRow
+            label="Effective return"
+            value={`${formatPercent(effectiveRate)} p.a.`}
+            tone="total"
+            strong
+          />
+        </BreakdownCard>
+      </GradientResult>
 
-          <div className="my-6 space-y-1">
-            <CalculatorResult
-              label="Estimated Monthly Interest"
-              value={formatPeso(monthlyInterest)}
-            />
-            <CalculatorResult
-              label="Estimated Annual Interest"
-              value={formatPeso(annualInterest)}
-              highlight
-            />
-            <CalculatorResult
-              label={`Interest over ${period.termUsed}`}
-              value={formatPeso(periodInterest)}
-            />
-            <CalculatorResult
-              label="Effective Return"
-              value={`${formatPercent(effectiveRate)} p.a.`}
-            />
-          </div>
-
-          <p className="text-[14px] text-gray-400">
-            Estimates use simple interest. Actual earnings vary as banks may
-            compound daily and rates can change.
-          </p>
-        </ResultPanel>
-
-        {/* RIGHT: Inputs */}
-        <div className="space-y-6 p-8">
+      {/* RIGHT: Inputs */}
+      <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,28px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="font-display text-[18px] font-semibold text-[#0E1525]">
+            Account details
+          </h2>
+          <button
+            type="button"
+            onClick={reset}
+            className="text-[14px] font-bold text-brand transition-colors hover:text-brand-light"
+          >
+            Reset
+          </button>
+        </div>
+        <div className="space-y-6">
           <CalculatorInput
-            label="Deposit Amount"
+            label="Deposit amount"
             value={depositAmount}
             onChange={setDepositAmount}
             prefix="₱"
             min={1_000}
             max={5_000_000}
             step={1_000}
-            helpText="Enter the amount you plan to keep in the savings account."
-            tooltip="The balance you expect to maintain. Some promo rates only apply up to a balance cap."
+            helpText="The balance you expect to maintain."
+            tooltip="Some promo rates only apply up to a balance cap."
           />
-
           <div className="space-y-2">
-            <Label htmlFor="savings-account">Bank / Account</Label>
+            <Label htmlFor="savings-account" className="text-[15px] font-semibold text-[#344054]">
+              Bank / account
+            </Label>
             <select
               id="savings-account"
               value={selected}
               onChange={(e) => handleSelect(e.target.value)}
-              className="flex h-9 w-full rounded-lg border border-gray-200 bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-brand/20 focus-visible:outline-none"
+              className={selectClass}
             >
               {accounts.map((a) => (
                 <option key={a.label} value={a.label}>
@@ -163,13 +176,9 @@ export function SavingsInterestCalculator({
               ))}
               <option value={CUSTOM_RATE}>Custom rate</option>
             </select>
-            <p className="text-[14px] text-gray-400">
-              Pick an account to prefill its rate, or choose a custom rate.
-            </p>
           </div>
-
           <CalculatorInput
-            label="Annual Interest Rate"
+            label="Annual interest rate"
             value={annualRate}
             onChange={(v) => {
               setAnnualRate(v);
@@ -178,63 +187,35 @@ export function SavingsInterestCalculator({
             min={0.1}
             max={20}
             step={0.05}
-            helpText="Gross advertised rate. Adjust if your balance qualifies for a different tier."
-            tooltip="The yearly interest rate the account pays. Promo rates may require conditions or apply only up to a balance cap."
+            helpText="Gross advertised rate. Adjust for your balance tier."
+            tooltip="Promo rates may require conditions or apply only up to a balance cap."
           />
-
           <CalculatorInput
-            label="Holding Period (Months)"
+            label="Holding period (months)"
             value={months}
             onChange={setMonths}
             min={1}
             max={60}
             step={1}
             helpText="How long you plan to keep the money saved."
-            tooltip="Savings accounts stay accessible, but a longer horizon shows how interest adds up over time."
+            tooltip="A longer horizon shows how interest adds up over time."
           />
-
           <div className="space-y-2">
-            <Label htmlFor="apply-tax">Tax Assumption</Label>
+            <Label htmlFor="apply-tax" className="text-[15px] font-semibold text-[#344054]">
+              Tax assumption
+            </Label>
             <select
               id="apply-tax"
               value={applyTax ? "after" : "before"}
               onChange={(e) => setApplyTax(e.target.value === "after")}
-              className="flex h-9 w-full rounded-lg border border-gray-200 bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:border-brand focus-visible:ring-3 focus-visible:ring-brand/20 focus-visible:outline-none"
+              className={selectClass}
             >
               <option value="after">After 20% withholding tax</option>
               <option value="before">Before tax (gross)</option>
             </select>
-            <p className="text-[14px] text-gray-400">
-              Interest income from deposits is generally subject to a 20% final
-              withholding tax.
-            </p>
-          </div>
-
-          <Separator />
-
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between text-gray-400">
-              <span>Deposit Amount</span>
-              <span className="font-mono tabular-nums">
-                {formatPeso(depositAmount)}
-              </span>
-            </div>
-            <div className="flex justify-between text-gray-400">
-              <span>+ Estimated Interest ({period.termUsed})</span>
-              <span className="font-mono tabular-nums text-green-600">
-                +{formatPeso(periodInterest)}
-              </span>
-            </div>
-            <Separator />
-            <div className="flex justify-between font-medium text-gray-500">
-              <span>Estimated Balance</span>
-              <span className="font-mono tabular-nums">
-                {formatPeso(depositAmount + periodInterest)}
-              </span>
-            </div>
           </div>
         </div>
-      </CalculatorShell>
+      </div>
     </div>
   );
 }
