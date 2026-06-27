@@ -5,7 +5,7 @@ export const PHILHEALTH_UPDATED_AT = "2026-05-01";
 export const philhealthMeta = {
   title: "PhilHealth Contribution Table Philippines 2026",
   metaTitle:
-    "PhilHealth Contribution Table Philippines 2026 – Employee & Employer Share Guide | PesoHub",
+    "PhilHealth Contribution Table Philippines 2026 – Employee & Employer Share Guide",
   metaDescription:
     "View the current PhilHealth contribution table in the Philippines, including premium rate, salary floor, salary ceiling, employee share, employer share, and sample payroll cuts.",
   slug: "government/philhealth/philhealth-contribution-table-philippines",

@@ -4,7 +4,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { Calculator, TrendingUp, BookOpen, Info, TriangleAlert, ShieldCheck, Users, FileCheck, RefreshCw } from "lucide-react";
 
 export const metadata = generatePageMetadata({
-  title: `About ${SITE_NAME}`,
+  title: "About",
   description: `Learn about ${SITE_NAME}, a free Philippine finance utility website offering calculators, rate comparisons, and practical money guides for Filipinos.`,
   slug: "about",
 });

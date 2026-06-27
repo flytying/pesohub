@@ -32,7 +32,7 @@ import { generateBreadcrumbSchema } from "@/lib/schema-markup";
 
 export const metadata = generatePageMetadata({
   title:
-    "Financial Calculators Philippines: Loan, Salary, Tax & Savings | PesoHub",
+    "Financial Calculators Philippines: Loan, Salary, Tax & Savings",
   description:
     "Use free Philippine financial calculators for car loans, home loans, withholding tax, SSS contributions, take-home pay, and savings planning.",
   slug: "calculators",

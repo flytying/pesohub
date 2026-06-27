@@ -5,7 +5,7 @@ export const PAGIBIG_HOUSING_LOAN_UPDATED_AT = "2026-06-01";
 export const pagibigHousingLoanMeta = {
   title: "Pag-IBIG Housing Loan Guide Philippines",
   metaTitle:
-    "Pag-IBIG Housing Loan Guide Philippines – Eligibility, Loanable Amount & Requirements | PesoHub",
+    "Pag-IBIG Housing Loan Guide Philippines – Eligibility, Loanable Amount & Requirements",
   metaDescription:
     "Learn how a Pag-IBIG housing loan works in the Philippines, including eligibility, loanable amount, rates, repricing, and common requirements before applying.",
   slug: "government/pag-ibig/pag-ibig-housing-loan-guide",

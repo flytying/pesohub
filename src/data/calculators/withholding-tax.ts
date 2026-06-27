@@ -5,7 +5,7 @@ export const withholdingTaxData: CalculatorPageData = {
   category: "tax",
   title: "Withholding Tax Calculator Philippines",
   metaTitle:
-    "Withholding Tax Calculator Philippines: Compute Salary Tax | PesoHub",
+    "Withholding Tax Calculator Philippines: Compute Salary Tax",
   metaDescription:
     "Compute withholding tax on salary in the Philippines by pay frequency (monthly, semi-monthly, weekly, daily), with SSS, PhilHealth, Pag-IBIG, and allowances.",
   h1: "Withholding Tax Calculator Philippines",

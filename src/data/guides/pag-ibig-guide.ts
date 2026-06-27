@@ -5,7 +5,7 @@ export const PAGIBIG_GUIDE_UPDATED_AT = "2026-03-17";
 export const pagibigGuideMeta = {
   title: "Pag-IBIG Deduction Guide Philippines",
   metaTitle:
-    "Pag-IBIG Deduction Guide Philippines – Regular Contribution vs Housing Loan vs MP2 | PesoHub",
+    "Pag-IBIG Deduction Guide Philippines – Regular Contribution vs Housing Loan vs MP2",
   metaDescription:
     "Learn what Pag-IBIG deduction on payroll usually means in the Philippines, including the difference between regular contribution, housing loan payment, and MP2 savings.",
   slug: "guides/government/pag-ibig-deduction-guide",

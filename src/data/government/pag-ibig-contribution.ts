@@ -5,7 +5,7 @@ export const PAGIBIG_CONTRIBUTION_UPDATED_AT = "2026-06-15";
 export const pagibigContributionMeta = {
   title: "Pag-IBIG Contribution Table Philippines 2026",
   metaTitle:
-    "Pag-IBIG Contribution Table 2026: Employee & Employer Share (HDMF) | PesoHub",
+    "Pag-IBIG Contribution Table 2026: Employee & Employer Share (HDMF)",
   metaDescription:
     "Updated Pag-IBIG (HDMF) contribution table for 2026 showing employee share, employer share, and salary bracket caps. Includes sample payroll deductions and a take-home pay calculator.",
   slug: "government/pag-ibig/pag-ibig-contribution-table-philippines",

@@ -5,7 +5,7 @@ export const PAGIBIG_MP2_UPDATED_AT = "2026-04-02";
 export const pagibigMp2Meta = {
   title: "Pag-IBIG MP2 Savings Guide Philippines 2026",
   metaTitle:
-    "Pag-IBIG MP2 Guide 2026: Dividend Rate, Enrollment & Savings Calculator | PesoHub",
+    "Pag-IBIG MP2 Guide 2026: Dividend Rate, Enrollment & Savings Calculator",
   metaDescription:
     "Complete Pag-IBIG MP2 guide for 2026 — current dividend rates, how to enroll, salary deduction process, MP2 vs regular fund comparison, and dividend history since 2010.",
   slug: "government/pag-ibig/pag-ibig-mp2-savings-guide",

@@ -5,7 +5,7 @@ export const personalLoanData: CalculatorPageData = {
   category: "loans",
   title: "Personal Loan Calculator Philippines",
   metaTitle:
-    "Personal Loan Calculator Philippines 2026: Monthly Payment Estimator | PesoHub",
+    "Personal Loan Calculator Philippines 2026: Monthly Payment Estimator",
   metaDescription:
     "Free personal loan calculator for the Philippines — estimate your monthly payment, total interest, and repayment schedule. Compare loan amounts from ₱10,000 to ₱2,000,000.",
   h1: "Personal Loan Calculator Philippines",

@@ -5,7 +5,7 @@ export const homeLoanData: CalculatorPageData = {
   category: "loans",
   title: "Home Loan Calculator Philippines",
   metaTitle:
-    "Home Loan Calculator Philippines: Monthly Payment & Amortization | PesoHub",
+    "Home Loan Calculator Philippines: Monthly Payment & Amortization",
   metaDescription:
     "Estimate monthly home loan payments, total interest, and total repayment for Pag-IBIG or bank housing loans in the Philippines.",
   h1: "Home Loan Calculator Philippines",

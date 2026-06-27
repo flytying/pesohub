@@ -16,7 +16,7 @@ import { generateBreadcrumbSchema } from "@/lib/schema-markup";
 
 export const metadata = generatePageMetadata({
   title:
-    "Best Savings & Digital Bank Interest Rates Philippines | PesoHub",
+    "Best Savings & Digital Bank Interest Rates Philippines",
   description:
     "Compare the best savings interest rates and digital bank rates in the Philippines. Plus time deposit rates and USD to PHP exchange rates, updated regularly.",
   slug: "rates",

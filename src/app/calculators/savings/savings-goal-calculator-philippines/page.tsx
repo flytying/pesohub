@@ -24,7 +24,7 @@ import { SavingsGoalCalculator } from "@/components/calculators/savings-goal-cal
 
 export const metadata: Metadata = generatePageMetadata({
   title:
-    "Savings Goal Calculator Philippines: Monthly Savings Needed | PesoHub",
+    "Savings Goal Calculator Philippines: Monthly Savings Needed",
   description:
     "Calculate how much you need to save each month to reach your financial goal. Set a target amount and timeline, then compare different scenarios to find a plan that works.",
   slug: "calculators/savings/savings-goal-calculator-philippines",

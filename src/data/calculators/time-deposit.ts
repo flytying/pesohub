@@ -5,7 +5,7 @@ export const timeDepositData: CalculatorPageData = {
   category: "savings",
   title: "Time Deposit Calculator Philippines",
   metaTitle:
-    "Time Deposit Calculator Philippines – Estimate Interest, After-Tax Return & Maturity Amount | PesoHub",
+    "Time Deposit Calculator Philippines – Estimate Interest, After-Tax Return & Maturity Amount",
   metaDescription:
     "Estimate your time deposit return in the Philippines using deposit amount, interest rate, and term. Compare gross interest, after-tax interest, and maturity amount with PesoHub.",
   h1: "Time Deposit Calculator Philippines",

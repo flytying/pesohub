@@ -5,7 +5,7 @@ export const TAKE_HOME_PAY_GUIDE_UPDATED_AT = "2026-03-17";
 export const takeHomePayGuideMeta = {
   title: "Take-Home Pay Guide Philippines",
   metaTitle:
-    "Take-Home Pay Guide Philippines – Why Net Pay Is Lower Than Gross Salary | PesoHub",
+    "Take-Home Pay Guide Philippines – Why Net Pay Is Lower Than Gross Salary",
   metaDescription:
     "Learn why take-home pay is lower than gross salary in the Philippines. See how withholding tax, SSS, PhilHealth, and Pag-IBIG reduce net pay in plain language.",
   slug: "guides/tax/take-home-pay-guide-philippines",

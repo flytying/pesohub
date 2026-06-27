@@ -43,7 +43,7 @@ import {
 
 export const metadata = generatePageMetadata({
   title:
-    "Best Digital Bank Rates in the Philippines 2026 | PesoHub",
+    "Best Digital Bank Rates in the Philippines 2026",
   description:
     "Compare digital bank interest rates in the Philippines for 2026. See savings rates, promo rates, balance caps, requirements, and estimated earnings.",
   slug: "rates/savings-rates/best-digital-bank-rates-philippines",
