@@ -108,9 +108,9 @@ const relatedContent = [
   { title: "All Calculators", href: "/calculators", icon: Calculator },
 ];
 
-const CARD = "rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]";
-const H2 = "font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]";
-const LEAD = "mt-3 max-w-[78ch] text-[16px] leading-[1.6] text-[#5A6478]";
+const CARD = "rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,30px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]";
+const H2 = "font-display text-[22px] font-semibold tracking-[-0.02em] text-[#0E1525]";
+const LEAD = "mt-[10px] max-w-[80ch] text-[16px] leading-[1.65] text-[#475069]";
 
 export default function CarLoanCalculatorPage() {
   return (
@@ -136,7 +136,7 @@ export default function CarLoanCalculatorPage() {
           <CarLoanCalculator />
         </div>
 
-        <div className="mt-5 space-y-5">
+        <div className="mt-9 space-y-[14px]">
           {/* How to tell if realistic */}
           <section className={CARD}>
             <h2 className={H2}>How to tell if the monthly payment is realistic</h2>
@@ -170,7 +170,7 @@ export default function CarLoanCalculatorPage() {
               {factors.map((f) => {
                 const Icon = f.icon;
                 return (
-                  <div key={f.title} className="rounded-[16px] border border-[#E7EBF3] bg-[#F7F9FD] p-5">
+                  <div key={f.title} className="rounded-[15px] border border-[#E7EBF3] bg-white p-5">
                     <span className="flex size-11 items-center justify-center rounded-[12px] bg-[#EAF0FF] text-brand">
                       <Icon className="size-5" />
                     </span>
@@ -194,7 +194,7 @@ export default function CarLoanCalculatorPage() {
               {ownershipCosts.map((c) => {
                 const Icon = c.icon;
                 return (
-                  <div key={c.label} className="flex items-center gap-3 rounded-[12px] border border-[#E7EBF3] bg-[#F7F9FD] px-4 py-3 text-[15px] font-medium text-[#344054]">
+                  <div key={c.label} className="flex items-center gap-[10px] rounded-[12px] bg-[#F7F9FD] px-[15px] py-[13px] text-[15px] text-[#344054]">
                     <Icon className="size-[18px] shrink-0 text-brand" />
                     {c.label}
                   </div>
@@ -239,20 +239,8 @@ export default function CarLoanCalculatorPage() {
             <FaqSection faqs={carLoanData.faqs} />
           </section>
 
-          {/* Notice */}
-          <div className="flex gap-3 rounded-[16px] border border-[#F0E2BE] bg-[#FFF8E8] p-5">
-            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
-            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
-              PesoHub provides free financial tools and information for educational
-              purposes only. It is not affiliated with any bank or government
-              agency. Rates and terms shown are estimates — always confirm the
-              final figures with your lender and consult a qualified professional
-              before making financial decisions.
-            </p>
-          </div>
-
           {/* Related */}
-          <section>
+          <section className={CARD}>
             <h2 className={`mb-4 ${H2}`}>Related calculators and guides</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {relatedContent.map((item) => {
@@ -275,6 +263,18 @@ export default function CarLoanCalculatorPage() {
               })}
             </div>
           </section>
+
+          {/* Notice */}
+          <div className="flex gap-3 rounded-[15px] border border-[#F0E2BE] bg-[#FFF8E8] p-[18px]">
+            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
+            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
+              PesoHub provides free financial tools and information for educational
+              purposes only. It is not affiliated with any bank or government
+              agency. Rates and terms shown are estimates — always confirm the
+              final figures with your lender and consult a qualified professional
+              before making financial decisions.
+            </p>
+          </div>
         </div>
       </div>
     </>

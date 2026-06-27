@@ -184,12 +184,12 @@ export function CarLoanCalculator(_: CarLoanCalculatorProps = {}) {
   const visibleRows = showAll ? result.schedule : result.schedule.slice(0, 12);
 
   return (
-    <div className="space-y-5">
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+    <div className="space-y-[18px]">
+      <div className="grid items-stretch gap-[18px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         {/* LEFT: Inputs */}
-        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,28px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="font-display text-[18px] font-semibold text-[#0E1525]">Loan details</h2>
+        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(18px,2.5vw,26px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+          <div className="mb-[18px] flex items-center justify-between">
+            <h2 className="text-[16px] font-bold text-[#0E1525]">Loan details</h2>
             <button type="button" onClick={reset} className="text-[14px] font-bold text-brand transition-colors hover:text-brand-light">
               Reset
             </button>
@@ -303,7 +303,7 @@ export function CarLoanCalculator(_: CarLoanCalculatorProps = {}) {
       {/* Compare loan terms */}
       <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,28px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 className="font-display text-[18px] font-semibold text-[#0E1525]">Compare loan terms</h3>
+          <h3 className="font-display text-[20px] font-semibold text-[#0E1525]">Compare loan terms</h3>
           <span className="text-[13.5px] text-[#8A93A6]">Same price &amp; rate · tap to apply</span>
         </div>
         <p className="mt-1 text-[14.5px] text-[#6B7488]">
@@ -339,43 +339,41 @@ export function CarLoanCalculator(_: CarLoanCalculatorProps = {}) {
 
       {/* Amortization schedule */}
       {result.schedule.length > 0 && (
-        <div className="overflow-hidden rounded-[20px] border border-[#E7EBF3] bg-white shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-          <div className="p-[clamp(20px,2.5vw,28px)] pb-4">
-            <h3 className="font-display text-[18px] font-semibold text-[#0E1525]">Amortization schedule</h3>
-            <p className="mt-1 text-[14.5px] text-[#6B7488]">
-              How each fixed monthly payment splits between principal and interest as your balance falls.
-            </p>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-[14px]">
+        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(18px,2.4vw,26px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+          <h3 className="font-display text-[20px] font-semibold text-[#0E1525]">Amortization schedule</h3>
+          <p className="mb-4 mt-1 text-[15px] text-[#6B7488]">
+            How each fixed monthly payment splits between principal and interest as your balance falls.
+          </p>
+          <div className="overflow-x-auto rounded-[14px] border border-[#EEF1F7]">
+            <table className="w-full min-w-[520px] text-[14px] tabular-nums">
               <thead>
-                <tr className="border-y border-[#E7EBF3] bg-[#F7F9FD] text-[12px] font-bold uppercase tracking-[.04em] text-[#6B7488]">
-                  <th className="px-6 py-3 text-left">Month</th>
-                  <th className="px-6 py-3 text-right">Payment</th>
-                  <th className="px-6 py-3 text-right">Principal</th>
-                  <th className="px-6 py-3 text-right">Interest</th>
-                  <th className="px-6 py-3 text-right">Balance</th>
+                <tr className="bg-[#F5F7FC] text-[13px] font-bold tracking-[.04em] text-[#6B7488]">
+                  <th className="px-4 py-3 text-left">MONTH</th>
+                  <th className="px-4 py-3 text-right">PAYMENT</th>
+                  <th className="px-4 py-3 text-right">PRINCIPAL</th>
+                  <th className="px-4 py-3 text-right">INTEREST</th>
+                  <th className="px-4 py-3 text-right">BALANCE</th>
                 </tr>
               </thead>
-              <tbody className="font-mono tabular-nums text-[#5A6478]">
+              <tbody>
                 {visibleRows.map((row, i) => (
-                  <tr key={i} className={cn("border-b border-[#EEF1F7]", i % 2 ? "bg-[#FBFCFE]" : "")}>
-                    <td className="px-6 py-[14px] font-sans text-[#8A93A6]">{row.month}</td>
-                    <td className="px-6 py-[14px] text-right">{formatPeso(row.payment)}</td>
-                    <td className="px-6 py-[14px] text-right">{formatPeso(row.principal)}</td>
-                    <td className="px-6 py-[14px] text-right">{formatPeso(row.interest)}</td>
-                    <td className="px-6 py-[14px] text-right font-semibold text-[#0E1525]">{formatPeso(row.balance)}</td>
+                  <tr key={i} className={cn("border-t border-[#F1F4F9]", i % 2 ? "bg-[#FBFCFE]" : "bg-white")}>
+                    <td className="px-4 py-[11px] font-semibold text-[#344054]">{row.month}</td>
+                    <td className="px-4 py-[11px] text-right text-[#475069]">{formatPeso(row.payment)}</td>
+                    <td className="px-4 py-[11px] text-right text-[#475069]">{formatPeso(row.principal)}</td>
+                    <td className="px-4 py-[11px] text-right text-[#475069]">{formatPeso(row.interest)}</td>
+                    <td className="px-4 py-[11px] text-right font-semibold text-[#0E1525]">{formatPeso(row.balance)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           {result.schedule.length > 12 && (
-            <div className="flex justify-center p-5">
+            <div className="mt-4 flex justify-center">
               <button
                 type="button"
                 onClick={() => setShowAll((v) => !v)}
-                className="rounded-[11px] border border-[#E7EBF3] bg-white px-5 py-[10px] text-[14px] font-bold text-brand transition-colors hover:bg-[#FBFCFE]"
+                className="rounded-[11px] border border-[#D6DEEC] bg-white px-5 py-[11px] text-[15px] font-bold text-brand transition-colors hover:bg-[#FBFCFE]"
               >
                 {showAll ? "Show less" : `Show full schedule (${result.schedule.length} months)`}
               </button>
