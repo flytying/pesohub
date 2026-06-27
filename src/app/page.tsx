@@ -1,38 +1,38 @@
 import Link from "next/link";
-import Image from "next/image";
 import {
   Calculator,
   TrendingUp,
   BookOpen,
   Landmark,
   ArrowRight,
-  ChevronRight,
-  Target,
-  Wallet,
   PiggyBank,
-  ScrollText,
+  Percent,
+  Wallet,
+  Shield,
+  Smartphone,
   Globe,
   FileText,
   RefreshCw,
-  Info,
+  Clock,
+  Sparkles,
+  TriangleAlert,
+  type LucideIcon,
 } from "lucide-react";
-import { buttonVariants } from "@/lib/button-variants";
-import { CategoryCard } from "@/components/shared/category-card";
 import { FaqSection } from "@/components/shared/faq-section";
-import { DisclaimerBox } from "@/components/shared/disclaimer-box";
-import { UpdateBadge } from "@/components/shared/update-badge";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
+import { formatDate } from "@/lib/formatters";
 import {
   generateWebsiteSchema,
   generateOrganizationSchema,
 } from "@/lib/schema-markup";
 
-// Recently updated dates
+// Recently-updated dates (live data is source of truth)
 import { USD_PHP_UPDATED_AT } from "@/data/rates/exchange-rates";
 import { SAVINGS_RATES_UPDATED_AT } from "@/data/rates/savings-rates";
+import { TIME_DEPOSIT_RATES_UPDATED_AT } from "@/data/rates/time-deposit-rates";
 import { SSS_CONTRIBUTION_UPDATED_AT } from "@/data/government/sss-contribution";
+import { SSS_PENSION_TABLE_UPDATED_AT } from "@/data/government/sss-pension-table";
 import { WITHHOLDING_TAX_TABLE_UPDATED_AT } from "@/data/government/withholding-tax-table";
 import { PAGIBIG_HOUSING_LOAN_UPDATED_AT } from "@/data/government/pag-ibig-housing-loan";
 
@@ -50,114 +50,209 @@ export const metadata = generatePageMetadata({
 // Data
 // ---------------------------------------------------------------------------
 
-const goalCards = [
+const categories: {
+  name: string;
+  count: string;
+  href: string;
+  icon: LucideIcon;
+}[] = [
+  { name: "Calculators", count: "11 tools", href: "/calculators", icon: Calculator },
+  { name: "Rates", count: "4 trackers", href: "/rates", icon: TrendingUp },
+  { name: "Guides", count: "5 guides", href: "/guides", icon: BookOpen },
+  { name: "Government", count: "8 tables", href: "/government", icon: Landmark },
+];
+
+type BadgeKind = "CALCULATOR" | "REFERENCE" | "RATES";
+
+const BADGE: Record<BadgeKind, { bg: string; ink: string }> = {
+  CALCULATOR: { bg: "#EAF0FF", ink: "#1535C7" },
+  REFERENCE: { bg: "#FBF0DC", ink: "#B7791F" },
+  RATES: { bg: "#DEF5F0", ink: "#0E9A86" },
+};
+
+// chip background + icon ink + hover border/shadow per accent
+const ACCENT = {
+  borrow: { chip: "#E8EDFF", ink: "#2347D9", border: "#BCC9F4", shadow: "rgba(35,71,217,.34)" },
+  salary: { chip: "#DEF5F0", ink: "#0E9A86", border: "#A7E2D6", shadow: "rgba(14,154,134,.30)" },
+  save: { chip: "#EDE8FC", ink: "#6D4DE0", border: "#CFC3F4", shadow: "rgba(109,77,224,.30)" },
+  amber: { chip: "#FBF0DC", ink: "#B7791F", border: "#E8D2A3", shadow: "rgba(183,121,31,.30)" },
+} as const;
+
+const popularTools: {
+  title: string;
+  desc: string;
+  href: string;
+  badge: BadgeKind;
+  icon: LucideIcon;
+  accent: keyof typeof ACCENT;
+}[] = [
   {
-    title: "Estimate a loan",
-    description:
-      "Check possible payments, compare borrowing scenarios, and understand the numbers before applying.",
-    href: "/calculators",
-    icon: Wallet,
-  },
-  {
-    title: "Understand my salary deductions",
-    description:
-      "See how common deductions and take-home pay estimates work in a Philippine context.",
-    href: "/calculators/tax/take-home-pay-calculator-philippines",
-    icon: Target,
-  },
-  {
-    title: "Compare savings rates",
-    description:
-      "Browse rate tables and compare options more easily before deciding where to save.",
+    title: "Best Savings Interest Rates 2026",
+    desc: "Compare the highest-yield savings account rates in the Philippines, updated for 2026.",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
+    badge: "RATES",
+    icon: TrendingUp,
+    accent: "salary",
+  },
+  {
+    title: "Best Digital Bank Rates 2026",
+    desc: "See which digital banks pay the most on your savings, side by side with current rates.",
+    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
+    badge: "RATES",
+    icon: Smartphone,
+    accent: "save",
+  },
+  {
+    title: "BIR Withholding Tax Table 2026",
+    desc: "Check the current TRAIN Law brackets and see the tax computed on your salary.",
+    href: "/government/bir/withholding-tax-table-philippines",
+    badge: "REFERENCE",
+    icon: Percent,
+    accent: "borrow",
+  },
+  {
+    title: "SSS Pension Calculator",
+    desc: "Estimate your monthly SSS retirement pension from your salary credit and years of service.",
+    href: "/calculators/retirement/sss-pension-calculator",
+    badge: "CALCULATOR",
+    icon: PiggyBank,
+    accent: "borrow",
+  },
+  {
+    title: "Time Deposit Calculator",
+    desc: "Estimate your maturity value and after-tax interest on a Philippine time deposit in seconds.",
+    href: "/calculators/savings/time-deposit-calculator-philippines",
+    badge: "CALCULATOR",
+    icon: Landmark,
+    accent: "salary",
+  },
+  {
+    title: "SSS Contribution Table 2026",
+    desc: "Find the current SSS contribution amounts by monthly salary and member type.",
+    href: "/government/sss/sss-contribution-guide",
+    badge: "REFERENCE",
+    icon: Shield,
+    accent: "amber",
+  },
+  {
+    title: "Take-Home Pay Calculator",
+    desc: "See your net pay after SSS, PhilHealth, Pag-IBIG, and withholding tax.",
+    href: "/calculators/tax/take-home-pay-calculator-philippines",
+    badge: "CALCULATOR",
+    icon: Wallet,
+    accent: "save",
+  },
+];
+
+const savingsCards: {
+  title: string;
+  desc: string;
+  href: string;
+  cta: string;
+  icon: LucideIcon;
+}[] = [
+  {
+    title: "Best savings interest rates",
+    desc: "See the highest-yield savings account rates in the Philippines, updated for 2026.",
+    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
+    cta: "View rates",
+    icon: TrendingUp,
+  },
+  {
+    title: "Best digital bank rates",
+    desc: "Compare interest rates across digital banks like SeaBank, Maya, Tonik, GoTyme, and more.",
+    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
+    cta: "Compare banks",
+    icon: Smartphone,
+  },
+  {
+    title: "Time deposit vs savings account",
+    desc: "See whether a time deposit or a high-yield savings account grows your money faster.",
+    href: "/rates/savings-rates/time-deposit-rates-philippines",
+    cta: "Compare returns",
     icon: PiggyBank,
   },
-  {
-    title: "Official reference tables",
-    description:
-      "Find commonly used government-related tables and reference pages in one place.",
-    href: "/government",
-    icon: ScrollText,
-  },
 ];
 
-const popularPages = [
-  {
-    title: "Loan Calculators",
-    description:
-      "Estimate monthly payments for car, home, and personal loans.",
-    href: "/calculators",
-    category: "Calculators",
-  },
-  {
-    title: "Salary and Deduction Tools",
-    description:
-      "Estimate withholding tax, SSS contributions, and take-home pay.",
-    href: "/calculators/tax/take-home-pay-calculator-philippines",
-    category: "Calculators",
-  },
-  {
-    title: "Savings Rate Tables",
-    description:
-      "Compare interest rates from top Philippine banks for savings and time deposits.",
-    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
-    category: "Rates",
-  },
-  {
-    title: "Government Reference Pages",
-    description:
-      "SSS, BIR, Pag-IBIG, and BSP tables and guides in one place.",
-    href: "/government",
-    category: "Government",
-  },
+const DIGITAL_BANK_RATES_HREF =
+  "/rates/savings-rates/best-digital-bank-rates-philippines";
+
+const bankSearches: string[] = [
+  "SeaBank interest rate 2026",
+  "Tonik Solo Stash interest rate 2026",
+  "Maya savings interest rate 2026",
+  "GoTyme interest rate 2026",
+  "CIMB savings interest rate 2026",
+  "OwnBank interest rate 2026",
+  "NetBank interest rate 2026",
+  "GCash / GSave interest rate 2026",
 ];
 
-const recentlyUpdated = [
+const refTables: {
+  title: string;
+  href: string;
+  updated: string;
+  icon: LucideIcon;
+}[] = [
   {
-    title: "USD to PHP Exchange Rate",
-    href: "/rates/exchange-rates/usd-to-php-today",
-    updatedAt: USD_PHP_UPDATED_AT,
-  },
-  {
-    title: "Best Savings Interest Rates",
-    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
-    updatedAt: SAVINGS_RATES_UPDATED_AT,
+    title: "BIR Withholding Tax Table",
+    href: "/government/bir/withholding-tax-table-philippines",
+    updated: WITHHOLDING_TAX_TABLE_UPDATED_AT,
+    icon: Percent,
   },
   {
     title: "SSS Contribution Table",
     href: "/government/sss/sss-contribution-guide",
-    updatedAt: SSS_CONTRIBUTION_UPDATED_AT,
+    updated: SSS_CONTRIBUTION_UPDATED_AT,
+    icon: Shield,
   },
   {
-    title: "Withholding Tax Table",
-    href: "/government/bir/withholding-tax-table-philippines",
-    updatedAt: WITHHOLDING_TAX_TABLE_UPDATED_AT,
+    title: "SSS Pension Table",
+    href: "/government/sss/sss-pension-table",
+    updated: SSS_PENSION_TABLE_UPDATED_AT,
+    icon: PiggyBank,
   },
   {
     title: "Pag-IBIG Housing Loan Guide",
     href: "/government/pag-ibig/pag-ibig-housing-loan-guide",
-    updatedAt: PAGIBIG_HOUSING_LOAN_UPDATED_AT,
+    updated: PAGIBIG_HOUSING_LOAN_UPDATED_AT,
+    icon: Landmark,
+  },
+  {
+    title: "Best Savings Interest Rates",
+    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
+    updated: SAVINGS_RATES_UPDATED_AT,
+    icon: TrendingUp,
+  },
+  {
+    title: "Time Deposit Rates",
+    href: "/rates/savings-rates/time-deposit-rates-philippines",
+    updated: TIME_DEPOSIT_RATES_UPDATED_AT,
+    icon: Landmark,
+  },
+  {
+    title: "USD to PHP Exchange Rate",
+    href: "/rates/exchange-rates/usd-to-php-today",
+    updated: USD_PHP_UPDATED_AT,
+    icon: Globe,
   },
 ];
 
-const trustPoints = [
+const whyCards: { title: string; desc: string; icon: LucideIcon }[] = [
   {
-    icon: Globe,
     title: "Philippine financial focus",
-    description:
-      "The site is organized around common money questions and decisions relevant to users in the Philippines.",
+    desc: "Every tool and table is built around money questions and rules that actually apply in the Philippines.",
+    icon: Globe,
   },
   {
+    title: "Clear explanations",
+    desc: "Complex brackets, contributions, and bank terms are broken down into simple, follow-along steps.",
     icon: FileText,
-    title: "Simple explanations",
-    description:
-      "Complex terms and tables are presented in a simpler, easier-to-follow format.",
   },
   {
+    title: "Up-to-date 2026 data",
+    desc: "Rates, tax brackets, and contribution tables are reviewed and refreshed to reflect current figures.",
     icon: RefreshCw,
-    title: "Up-to-date and reliable data",
-    description:
-      "Tools and tables are regularly updated to reflect current rates, policies, and commonly used financial references in the Philippines.",
   },
 ];
 
@@ -190,267 +285,375 @@ const homeFaqs = [
 ];
 
 // ---------------------------------------------------------------------------
+// Section heading helper
+// ---------------------------------------------------------------------------
+
+function SectionHeading({
+  eyebrow,
+  title,
+  lead,
+}: {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+}) {
+  return (
+    <div className="mb-4">
+      <div className="mb-2 text-[13px] font-bold uppercase tracking-[.08em] text-brand">
+        {eyebrow}
+      </div>
+      <h2 className="font-display text-[clamp(22px,2.6vw,30px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+        {title}
+      </h2>
+      {lead && (
+        <p className="mt-[7px] max-w-[70ch] text-base leading-[1.5] text-[#6B7488]">
+          {lead}
+        </p>
+      )}
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
 
 export default function HomePage() {
   return (
-    <>
-      {/* JSON-LD */}
+    <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(20px,3vw,36px)]">
       <JsonLd data={generateWebsiteSchema()} />
       <JsonLd data={generateOrganizationSchema()} />
 
-      {/* Hero */}
-      <section className="bg-brand text-white">
-        <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-12 lg:px-8 lg:py-24">
-          {/* Left column — text */}
-          <div>
-            <h1 className="text-[48px] font-medium leading-[48px] tracking-tight">
-              Practical tools
-              <br />
-              for smarter
-              <br />
-              money decisions
+      {/* HERO */}
+      <section className="gradient-hero relative mb-[clamp(20px,3vw,30px)] overflow-hidden rounded-3xl p-[clamp(28px,3.6vw,46px)] text-white shadow-[0_30px_60px_-28px_rgba(21,53,199,.6)]">
+        <div
+          aria-hidden
+          className="absolute -right-10 -top-16 size-[360px] rounded-full bg-[radial-gradient(circle,rgba(43,229,223,.22),transparent_66%)]"
+        />
+        <div className="relative grid items-center gap-[clamp(26px,4vw,52px)] lg:grid-cols-[1.04fr_.96fr]">
+          {/* Text */}
+          <div className="text-center lg:text-left">
+            <div className="text-[13px] font-bold uppercase tracking-[.14em] text-[#B9C6FF]">
+              Free · Philippine-ready financial tools
+            </div>
+            <h1 className="mt-[14px] font-display text-[clamp(30px,4vw,50px)] font-semibold leading-[1.06] tracking-[-.02em]">
+              Smarter money decisions, made simple.
             </h1>
-            <p className="mt-6 max-w-md text-[20px] leading-[26px] text-surface-secondary">
-              Estimate loan payments, understand salary deductions, compare
-              savings rates, and check key Philippine reference tables in one
-              place.
+            <p className="mx-auto mt-[15px] max-w-[48ch] text-[clamp(16px,1.6vw,18px)] leading-[1.55] text-[#C9D4FF] lg:mx-0">
+              Compare high-yield savings and digital bank rates, check 2026 BIR
+              tax tables, and use free Philippine financial calculators.
             </p>
-
-            {/* CTA Buttons */}
-            <div className="mt-8 flex items-center gap-5">
+            <div className="mt-6 flex flex-wrap justify-center gap-3 lg:justify-start">
               <Link
-                href="/calculators"
-                className="inline-flex items-center gap-2 rounded-full bg-white py-2 pl-5 pr-2 text-sm font-semibold uppercase leading-none tracking-wide text-gray-500 transition-all hover:shadow-lg"
+                href="/rates/savings-rates/best-savings-interest-rates-philippines"
+                className="inline-flex items-center gap-[9px] rounded-[12px] bg-white px-6 py-[14px] text-[15px] font-bold text-brand-light"
               >
-                Calculators
-                <span className="flex size-7 items-center justify-center rounded-full bg-accent-cyan">
-                  <ChevronRight className="size-4 text-white" />
-                </span>
+                Compare savings rates
+                <ArrowRight className="size-4" />
               </Link>
               <Link
-                href="/rates"
-                className="inline-flex items-center gap-1 text-sm font-semibold text-accent-cyan transition-colors hover:text-white"
+                href="/government/bir/withholding-tax-table-philippines"
+                className="inline-flex items-center gap-[9px] rounded-[12px] border border-white/[.28] bg-white/10 px-[22px] py-[14px] text-[15px] font-bold text-white"
               >
-                View Rates
-                <ChevronRight className="size-4" />
+                View 2026 tax tables
               </Link>
             </div>
           </div>
 
-          {/* Right column — hero illustration */}
-          <div className="hidden lg:flex lg:justify-end">
-            <div className="relative overflow-hidden rounded-2xl bg-white/10 p-2">
-              <Image
-                src="/hero.png"
-                alt="Filipino financial empowerment"
-                width={520}
-                height={400}
-                className="rounded-xl object-cover"
-                priority
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Start Here */}
-      <section className="bg-surface-secondary py-16 lg:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
-            {/* Left — heading + description */}
-            <div>
-              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-                Start here
-              </h2>
-              <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
-                Choose the path that best matches what you want to do. Each
-                option helps you quickly find the right tools, calculators, or
-                reference information based on your goal.
-              </p>
+          {/* Visual — concentric rings + P mark + floating stat cards */}
+          <div className="relative hidden min-h-[clamp(290px,29vw,350px)] lg:block" aria-hidden>
+            <div className="absolute left-[52%] top-1/2 size-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(43,229,223,.28),transparent_64%)]" />
+            <div className="absolute left-[53%] top-1/2 size-[clamp(360px,42vw,460px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10" />
+            <div className="absolute left-[53%] top-1/2 size-[clamp(270px,32vw,350px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[.14]" />
+            <div className="absolute left-[53%] top-1/2 size-[clamp(190px,23vw,250px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[rgba(125,251,255,.22)]" />
+            <div className="absolute left-[53%] top-1/2 w-[clamp(118px,14vw,176px)] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_18px_42px_rgba(0,210,216,.5)]">
+              <svg viewBox="0 0 289 243" fill="none" xmlns="http://www.w3.org/2000/svg" className="block h-auto w-full">
+                <path d="M204.426 0.0776184C251.505 2.27267 289 41.0522 289 88.5715C289 137.5 249.248 177.165 200.211 177.165H133.615C118.948 177.165 105.458 185.192 98.4603 198.082L91.3475 211.184C80.7055 230.788 60.156 243 37.8121 243H0L39.8406 169.61C54.9168 141.838 84.0279 124.538 115.682 124.538H200.409C220.304 124.538 236.432 108.445 236.432 88.5938C236.432 68.7426 220.304 52.65 200.409 52.65H88.0056C84.161 52.6499 81.7132 48.5495 83.5443 45.1764L90.7971 31.8156C101.439 12.2121 121.988 6.11035e-05 144.332 0H204.468L204.426 0.0776184Z" fill="url(#phHeroP)" />
+                <defs>
+                  <linearGradient id="phHeroP" x1="289.648" y1="0" x2="61.8683" y2="243.501" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#7DFBFF" />
+                    <stop offset="1" stopColor="#00D2D8" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </div>
 
-            {/* Right — 2×2 card grid */}
-            <div className="grid gap-5 sm:grid-cols-2">
-              {goalCards.map((goal) => {
-                const Icon = goal.icon;
-                return (
-                  <Link key={goal.title} href={goal.href} className="group block">
-                    <Card className="h-full ring-0 bg-white p-6 shadow-none transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
-                      <CardHeader className="p-0">
-                        <div className="flex size-16 items-center justify-center rounded-full bg-accent-cyan text-white">
-                          <Icon className="size-7" />
-                        </div>
-                        <CardTitle className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
-                          {goal.title}
-                        </CardTitle>
-                        <CardDescription className="text-[16px] leading-[22px] text-gray-400">
-                          {goal.description}
-                        </CardDescription>
-                      </CardHeader>
-                    </Card>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Browse by Category */}
-      <section className="py-16 text-center lg:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <p className="text-[14px] font-bold uppercase tracking-[0.2em] text-brand">
-            Browse by category
-          </p>
-          <h2 className="mt-4 text-[24px] font-semibold leading-[30px] text-gray-500">
-            Explore tools, rate tables, guides, and reference pages by topic.
-          </h2>
-          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            <CategoryCard
-              title="Calculators"
-              description="Estimate payments, deductions, and contributions using Philippine-specific assumptions."
-              href="/calculators"
-              icon={Calculator}
-              count={7}
-            />
-            <CategoryCard
-              title="Rates"
-              description="Compare exchange rates, savings rates, and other financial benchmarks."
-              href="/rates"
-              icon={TrendingUp}
-              count={2}
-            />
-            <CategoryCard
-              title="Guides"
-              description="Understand common money topics in plain language."
-              href="/guides"
-              icon={BookOpen}
-              count={2}
-            />
-            <CategoryCard
-              title="Government"
-              description="Quick-reference tables and explainers for BIR, SSS, Pag-IBIG, and more."
-              href="/government"
-              icon={Landmark}
-              count={5}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Tools */}
-      <section className="bg-surface-tertiary py-16 lg:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-[14px] font-bold uppercase tracking-[0.2em] text-brand">
-              Popular tools
-            </p>
-            <h2 className="mt-4 text-[24px] font-semibold leading-[30px] text-gray-500">
-              The most-used tools and reference pages for everyday money
-              decisions.
-            </h2>
-          </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {popularPages.map((page) => (
-              <Link key={page.title} href={page.href} className="group block">
-                <div className="flex h-full flex-col rounded-xl bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
-                  <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                    {page.title}
-                  </h3>
-                  <p className="mt-2 flex-1 text-[16px] leading-[22px] text-gray-400">
-                    {page.description}
-                  </p>
-                  <div className="mt-4 flex size-10 items-center justify-center rounded-full bg-accent-cyan text-white transition-transform group-hover:translate-x-1">
-                    <ArrowRight className="size-5" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Recently Updated */}
-      <section className="py-16 lg:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
-            {/* Left — heading + description + disclaimer */}
-            <div>
-              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-                Recently updated
-              </h2>
-              <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
-                We review and update key pages regularly so information stays
-                easier to check and navigate.
-              </p>
-              <div className="mt-6 flex items-start gap-2 text-[14px] leading-[22px] text-gray-300">
-                <Info className="mt-0.5 size-5 flex-shrink-0 text-accent-orange" />
-                <span>
-                  Free tools and guides for educational use. Not affiliated
-                  with banks or government agencies.
+            {/* Floating card 1 — Time Deposit */}
+            <div className="absolute left-0 top-0 z-[2] w-[198px] rounded-[16px] bg-white p-[15px_17px] shadow-[0_20px_44px_-16px_rgba(8,16,40,.5)]">
+              <div className="mb-[10px] flex items-center gap-[9px]">
+                <span className="flex size-[30px] shrink-0 items-center justify-center rounded-[9px] bg-[#DEF5F0]">
+                  <PiggyBank className="size-[17px] text-[#0E9A86]" />
                 </span>
+                <span className="text-[11px] font-bold uppercase tracking-[.08em] text-[#6B7488]">
+                  Time deposit
+                </span>
+              </div>
+              <div className="font-display text-[25px] font-bold leading-none tracking-[-.02em] text-brand">
+                ₱112,400
+              </div>
+              <div className="mt-[6px] text-[12px] text-[#6B7488]">
+                Net maturity · 24-mo term
               </div>
             </div>
 
-            {/* Right — card grid */}
-            <div className="grid gap-5 sm:grid-cols-2">
-              {recentlyUpdated.map((item) => (
-                <Link key={item.href} href={item.href} className="group block">
-                  <div className="h-full rounded-xl border border-gray-100 bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]">
-                    <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                      {item.title}
-                    </h3>
-                    <div className="mt-3">
-                      <UpdateBadge date={item.updatedAt} />
-                    </div>
+            {/* Floating card 3 — Withholding tax */}
+            <div className="absolute bottom-[15%] left-[6%] z-[2] flex items-center gap-[11px] rounded-[14px] bg-[#F6CE4C] p-[12px_15px] shadow-[0_20px_44px_-16px_rgba(120,90,10,.45)]">
+              <span className="flex size-[38px] shrink-0 items-center justify-center rounded-[10px] bg-[#11233F]">
+                <Percent className="size-[19px] text-white" />
+              </span>
+              <div className="leading-[1.1]">
+                <div className="text-[11.5px] font-semibold text-[#7A6320]">
+                  Withholding tax
+                </div>
+                <div className="mt-[2px] font-display text-[19px] font-bold text-[#1A1304]">
+                  15% bracket
+                </div>
+              </div>
+            </div>
+
+            {/* Floating card 2 — High-yield */}
+            <div className="absolute bottom-0 right-0 z-[2] w-[200px] rounded-[16px] bg-[#A7E9C9] p-[14px_16px] shadow-[0_20px_44px_-16px_rgba(10,90,50,.45)]">
+              <div className="flex items-center justify-between gap-[10px]">
+                <div className="leading-none">
+                  <div className="font-display text-[21px] font-bold text-[#0B3A28]">
+                    High-yield
                   </div>
-                </Link>
-              ))}
+                  <div className="mt-[5px] text-[12px] text-[#1E6B4A]">
+                    savings &amp; deposits
+                  </div>
+                </div>
+                <span className="flex size-[40px] shrink-0 items-center justify-center rounded-[11px] bg-[#0E9A86]">
+                  <TrendingUp className="size-[19px] text-white" />
+                </span>
+              </div>
+              <div className="mt-[11px] inline-flex items-center rounded-full bg-white/60 px-3 py-1 text-[12px] font-bold text-[#0B3A28]">
+                Compare rates
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      {/* Why Use PesoHub */}
-      <section className="bg-surface-tertiary py-16 lg:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h3 className="text-center text-[24px] font-semibold leading-[30px] text-gray-500">
-            Why Use PesoHub?
-          </h3>
-          <div className="mt-10 grid divide-x divide-gray-200 sm:grid-cols-3">
-            {trustPoints.map((point) => {
-              const Icon = point.icon;
-              return (
-                <div key={point.title} className="flex flex-col items-center px-8 text-center">
-                  <div className="flex size-16 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-7" />
-                  </div>
-                  <h4 className="mt-5 text-[20px] font-semibold leading-[26px] text-gray-500">
-                    {point.title}
-                  </h4>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
-                    {point.description}
-                  </p>
-                </div>
-              );
-            })}
+      {/* CATEGORIES */}
+      <div className="mb-[clamp(28px,4vw,40px)] grid gap-[14px] sm:grid-cols-2 lg:grid-cols-4">
+        {categories.map((c) => {
+          const Icon = c.icon;
+          return (
+            <Link
+              key={c.name}
+              href={c.href}
+              className="group flex items-center gap-[13px] rounded-[16px] border border-[#E7EBF3] bg-white p-[16px_18px] shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-all duration-150 hover:-translate-y-[3px] hover:border-[#BCC9F4] hover:shadow-[0_14px_30px_-18px_rgba(21,53,199,.35)]"
+            >
+              <span className="flex size-[44px] shrink-0 items-center justify-center rounded-[12px] bg-[#EAF0FF]">
+                <Icon className="size-[22px] text-brand" />
+              </span>
+              <div className="leading-[1.2]">
+                <div className="text-base font-bold text-[#0E1525]">{c.name}</div>
+                <div className="mt-[3px] text-[13.5px] text-[#6B7488]">{c.count}</div>
+              </div>
+              <ArrowRight className="ml-auto size-4 text-[#C4CCDB]" />
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* POPULAR TOOLS */}
+      <SectionHeading
+        eyebrow="Popular tools"
+        title="The tools Filipinos reach for most"
+        lead="Jump straight to the calculators and reference tables people search for every day."
+      />
+      <div className="mb-[clamp(34px,5vw,52px)] grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {popularTools.map((t) => {
+          const Icon = t.icon;
+          const a = ACCENT[t.accent];
+          const b = BADGE[t.badge];
+          return (
+            <Link
+              key={t.title}
+              href={t.href}
+              className="group flex min-h-[212px] flex-col rounded-[18px] border border-[#E7EBF3] bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-all duration-150 hover:-translate-y-[3px]"
+              style={{ ["--accB" as string]: a.border, ["--accS" as string]: a.shadow }}
+            >
+              <div className="mb-4 flex items-center justify-between gap-[14px]">
+                <span
+                  className="flex size-[52px] shrink-0 items-center justify-center rounded-[14px]"
+                  style={{ background: a.chip }}
+                >
+                  <Icon className="size-6" style={{ color: a.ink }} />
+                </span>
+                <span
+                  className="rounded-[6px] px-[9px] py-1 text-[11px] font-bold uppercase tracking-[.06em]"
+                  style={{ background: b.bg, color: b.ink }}
+                >
+                  {t.badge}
+                </span>
+              </div>
+              <div className="mb-2 font-display text-[19px] font-semibold leading-[1.25] text-[#0E1525]">
+                {t.title}
+              </div>
+              <p className="mb-[18px] flex-1 text-[15px] leading-[1.55] text-[#5A6478]">
+                {t.desc}
+              </p>
+              <div className="inline-flex items-center gap-2 text-[15px] font-bold text-brand">
+                Open
+                <ArrowRight className="size-4" />
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* SAVINGS SPOTLIGHT */}
+      <section className="mb-[clamp(34px,5vw,52px)] rounded-[22px] border border-[#E7EBF3] bg-white p-[clamp(24px,3.4vw,38px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+        <div className="mb-[22px] flex flex-wrap items-end justify-between gap-[14px]">
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#DEF5F0] px-[11px] py-[5px] text-[13px] font-bold uppercase tracking-[.06em] text-[#0E9A86]">
+              <Sparkles className="size-[15px]" />
+              Savings &amp; digital bank rates
+            </div>
+            <h2 className="max-w-[30ch] font-display text-[clamp(22px,2.6vw,30px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+              Compare the best savings and digital bank rates in 2026
+            </h2>
+            <p className="mt-[9px] max-w-[64ch] text-base leading-[1.55] text-[#5A6478]">
+              Many PesoHub visitors are looking for where their savings can earn
+              more. Start with updated savings account rates, digital bank rates,
+              and time deposit comparisons.
+            </p>
           </div>
+          <Link
+            href="/rates"
+            className="inline-flex shrink-0 items-center gap-[9px] rounded-[12px] bg-brand px-[22px] py-[13px] text-[15px] font-bold text-white"
+          >
+            Compare all rates
+            <ArrowRight className="size-4" />
+          </Link>
+        </div>
+        <div className="grid gap-[14px] sm:grid-cols-2 lg:grid-cols-3">
+          {savingsCards.map((s) => {
+            const Icon = s.icon;
+            return (
+              <Link
+                key={s.title}
+                href={s.href}
+                className="flex flex-col rounded-[16px] border border-[#E7EBF3] bg-[#F7F9FD] p-5 transition-all duration-150 hover:-translate-y-[3px] hover:border-[#A7E2D6] hover:shadow-[0_14px_30px_-18px_rgba(14,154,134,.4)]"
+              >
+                <span className="mb-[14px] flex size-[42px] shrink-0 items-center justify-center rounded-[12px] bg-[#DEF5F0]">
+                  <Icon className="size-5 text-[#0E9A86]" />
+                </span>
+                <div className="mb-[6px] text-[16.5px] font-bold leading-[1.3] text-[#0E1525]">
+                  {s.title}
+                </div>
+                <p className="mb-[14px] flex-1 text-[14.5px] leading-[1.5] text-[#6B7488]">
+                  {s.desc}
+                </p>
+                <div className="inline-flex items-center gap-[7px] text-[14.5px] font-bold text-[#0E9A86]">
+                  {s.cta}
+                  <ArrowRight className="size-[15px]" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
-      {/* Disclaimer + FAQ */}
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        {/* Important Note / Disclaimer */}
-        <DisclaimerBox text="Figures, rates, and reference details may change over time and may vary by provider, product, or official source. Always confirm final details directly with the relevant institution or agency." />
-
-        {/* FAQ */}
-        <div className="pt-12">
-          <FaqSection faqs={homeFaqs} />
-        </div>
+      {/* DIGITAL BANK RATE SEARCHES */}
+      <SectionHeading
+        eyebrow="Digital bank rates"
+        title="Popular digital bank rate searches"
+        lead="The digital bank rates Filipinos look up most for 2026 — jump straight to each bank on our digital bank rates page."
+      />
+      <div className="mb-[clamp(34px,5vw,52px)] flex flex-wrap gap-[10px]">
+        {bankSearches.map((label) => (
+          <Link
+            key={label}
+            href={DIGITAL_BANK_RATES_HREF}
+            className="inline-flex items-center gap-2 rounded-full border border-[#E7EBF3] bg-white px-4 py-[10px] text-[14.5px] font-semibold text-[#344054] shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-colors hover:border-[#BCC9F4] hover:bg-[#FBFCFE] hover:text-brand"
+          >
+            <TrendingUp className="size-[15px] text-[#0E9A86]" />
+            {label}
+          </Link>
+        ))}
       </div>
-    </>
+
+      {/* REFERENCE TABLES */}
+      <SectionHeading
+        eyebrow="2026 reference tables"
+        title="Up-to-date tables, reviewed regularly"
+        lead="Key rates and government tables, with the date each one was last checked."
+      />
+      <div className="mb-[clamp(34px,5vw,52px)] grid gap-[14px] sm:grid-cols-2 lg:grid-cols-3">
+        {refTables.map((r) => {
+          const Icon = r.icon;
+          return (
+            <Link
+              key={r.title}
+              href={r.href}
+              className="flex flex-col rounded-[16px] border border-[#E7EBF3] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-all duration-150 hover:-translate-y-[3px] hover:border-[#BCC9F4] hover:shadow-[0_14px_30px_-18px_rgba(21,53,199,.32)]"
+            >
+              <div className="mb-[14px] flex items-center gap-3">
+                <span className="flex size-[40px] shrink-0 items-center justify-center rounded-[11px] bg-[#EAF0FF]">
+                  <Icon className="size-5 text-brand" />
+                </span>
+                <span className="text-base font-bold leading-[1.3] text-[#0E1525]">
+                  {r.title}
+                </span>
+              </div>
+              <div className="inline-flex items-center gap-[7px] self-start rounded-full bg-[#F1F5FB] px-[11px] py-[5px] text-[12.5px] font-semibold text-[#5A6478]">
+                <Clock className="size-[13px]" />
+                Updated {formatDate(r.updated)}
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* WHY PESOHUB */}
+      <section className="mb-[clamp(28px,4vw,40px)] rounded-[22px] border border-[#E2E8F6] bg-[linear-gradient(150deg,#EEF2FB,#F4F6FB)] p-[clamp(26px,3.6vw,40px)]">
+        <h2 className="mb-[6px] text-center font-display text-[clamp(22px,2.6vw,30px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+          Why people use PesoHub
+        </h2>
+        <p className="mx-auto mb-[26px] max-w-[60ch] text-center text-base leading-[1.55] text-[#5A6478]">
+          Built for everyday money questions in the Philippines — clear, current,
+          and free.
+        </p>
+        <div className="grid gap-[18px] lg:grid-cols-3">
+          {whyCards.map((w) => {
+            const Icon = w.icon;
+            return (
+              <div
+                key={w.title}
+                className="rounded-[16px] border border-[#E7EBF3] bg-white p-6 text-center"
+              >
+                <span className="mb-[14px] inline-flex size-[52px] items-center justify-center rounded-[14px] bg-[#EAF0FF]">
+                  <Icon className="size-6 text-brand" />
+                </span>
+                <div className="mb-[7px] text-[17px] font-bold text-[#0E1525]">
+                  {w.title}
+                </div>
+                <p className="text-[14.5px] leading-[1.6] text-[#6B7488]">
+                  {w.desc}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* DISCLAIMER */}
+      <div className="mb-[clamp(28px,4vw,40px)] flex items-start gap-3 rounded-[14px] border border-[#F0E2BE] bg-[#FFF8E8] p-[15px_18px]">
+        <TriangleAlert className="mt-[2px] size-[18px] shrink-0 text-[#C99A22]" />
+        <p className="text-[14px] leading-[1.6] text-[#7A6320]">
+          Figures, rates, and reference details may change over time and can vary
+          by provider, product, or official source. Always confirm final details
+          directly with the relevant bank or government agency.
+        </p>
+      </div>
+
+      {/* FAQ */}
+      <div className="mb-6 rounded-[22px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,34px)]">
+        <FaqSection faqs={homeFaqs} />
+      </div>
+    </div>
   );
 }
