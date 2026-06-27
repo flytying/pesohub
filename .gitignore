@@ -42,3 +42,6 @@ next-env.d.ts
 
 # generated reports
 .github/freshness-report.md
+
+# Claude Design handoff reference (not committed)
+.design-handoff/

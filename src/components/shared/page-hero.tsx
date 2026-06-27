@@ -61,7 +61,7 @@ export function PageHero({
 
     const textContent = (
       <>
-        <h1 className="text-[32px] font-medium leading-[48px] sm:text-[48px] sm:leading-[48px]">
+        <h1 className="font-display text-[32px] font-semibold leading-[1.1] tracking-[-0.02em] sm:text-[44px]">
           {title}
         </h1>
         <p className="mt-3 text-[16px] leading-[22px] text-surface-secondary sm:text-[20px] sm:leading-[26px]">
@@ -78,7 +78,8 @@ export function PageHero({
 
     if (image) {
       return (
-        <section className="bg-brand pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
+        <section className="gradient-hero relative overflow-hidden pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
+        <div className="hero-glow" aria-hidden />
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             {/* Breadcrumb spans the full container width, above the grid */}
             {breadcrumbNav}
@@ -101,7 +102,8 @@ export function PageHero({
     }
 
     return (
-      <section className="bg-brand pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
+      <section className="gradient-hero relative overflow-hidden pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
+        <div className="hero-glow" aria-hidden />
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           {breadcrumbNav}
           {textContent}
@@ -144,7 +146,7 @@ export function PageHero({
           </ol>
         </nav>
 
-        <h1 className="text-[32px] font-medium leading-[48px] sm:text-[48px] sm:leading-[48px]">
+        <h1 className="font-display text-[32px] font-semibold leading-[1.1] tracking-[-0.02em] sm:text-[44px]">
           {title}
         </h1>
         <p className="mt-3 text-[16px] leading-[22px] text-surface-secondary sm:text-[20px] sm:leading-[26px]">

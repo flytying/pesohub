@@ -7,8 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -38,36 +39,48 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-  /* Brand colors */
-  --color-brand: oklch(0.418 0.197 263);
-  --color-brand-light: oklch(0.485 0.175 264);
-  --color-brand-dark: oklch(0.319 0.150 263);
-  --color-accent-cyan: oklch(0.784 0.133 198);
-  --color-accent-orange: oklch(0.676 0.171 53);
+  /* PesoHub radius scale — friendly, rounded (design tokens/radii.css) */
+  --radius-sm: 8px;    /* rate chips, small tags */
+  --radius-md: 11px;   /* buttons, icon buttons */
+  --radius-lg: 12px;   /* inputs, nav items */
+  --radius-xl: 14px;   /* icon tiles, list rows */
+  --radius-2xl: 16px;  /* CTA cards, result inner cards */
+  --radius-3xl: 18px;  /* calculator cards */
+  --radius-4xl: 20px;  /* primary content cards, panels */
+  /* Brand colors — royal blue ramp (design tokens/colors.css) */
+  --color-brand: #1535C7;        /* PRIMARY brand blue */
+  --color-brand-light: #1A3AD6;  /* gradient start */
+  --color-brand-dark: #0E2496;   /* gradient end / navy */
+  --color-brand-600: #1430BE;
+  --color-brand-300: #7C8FF5;    /* light blue on dark */
 
-  /* Surface backgrounds */
-  --color-surface-secondary: oklch(0.953 0.023 283);
-  --color-surface-tertiary: oklch(0.975 0.012 281);
-  --color-surface-quaternary: oklch(0.994 0.003 265);
+  /* Accent ramp — cyan → teal → mint (reserved for positive/"earned") */
+  --color-accent-cyan: #2BE5DF;
+  --color-accent-teal: #19C9C2;
+  --color-accent-mint: #43E6A0;
+  --color-accent-orange: #B7791F; /* repurposed: caution/amber */
+
+  /* Surface backgrounds (cool, never pure) */
+  --color-surface-secondary: #EAF0FF; /* pale-blue highlight tint */
+  --color-surface-tertiary: #F7F9FD;  /* nested panels */
+  --color-surface-quaternary: #FBFCFE; /* zebra rows / hover bg */
 
   /* Pill backgrounds */
-  --color-pill-blue: oklch(0.957 0.024 200);
-  --color-pill-orange: oklch(0.966 0.023 65);
+  --color-pill-blue: #EAF0FF;
+  --color-pill-orange: #FFF8E8;
 
-  /* Gray scale */
-  --color-gray-500: oklch(0.317 0.048 269);
-  --color-gray-400: oklch(0.430 0.040 270);
-  --color-gray-300: oklch(0.561 0.037 270);
-  --color-gray-200: oklch(0.873 0.022 268);
-  --color-gray-100: oklch(0.931 0.018 269);
-  --color-gray-50: oklch(0.958 0.014 268);
+  /* Ink / gray scale (cool near-black → faint) */
+  --color-gray-500: #0E1525; /* primary text / headings */
+  --color-gray-400: #344054;
+  --color-gray-300: #5A6478; /* secondary text */
+  --color-gray-200: #E7EBF3; /* default border */
+  --color-gray-100: #EEF1F7; /* divider */
+  --color-gray-50: #FBFCFE;
+
+  /* Semantic (muted, paired with tints) */
+  --color-success: #0E9F6E;
+  --color-warning: #B7791F;
+  --color-danger: #C0392B;
 
   /* Enforce 16px minimum font size for readability */
   --text-xs: 1rem;
@@ -77,38 +90,38 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.317 0.048 269);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.317 0.048 269);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.317 0.048 269);
-  --primary: oklch(0.418 0.197 263);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.953 0.023 283);
-  --secondary-foreground: oklch(0.317 0.048 269);
-  --muted: oklch(0.958 0.014 268);
-  --muted-foreground: oklch(0.561 0.037 270);
-  --accent: oklch(0.784 0.133 198);
-  --accent-foreground: oklch(0.319 0.150 263);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.873 0.022 268);
-  --input: oklch(0.873 0.022 268);
-  --ring: oklch(0.418 0.197 263);
-  --chart-1: oklch(0.418 0.197 263);
-  --chart-2: oklch(0.784 0.133 198);
-  --chart-3: oklch(0.676 0.171 53);
-  --chart-4: oklch(0.485 0.175 264);
-  --chart-5: oklch(0.561 0.037 270);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.994 0.003 265);
-  --sidebar-foreground: oklch(0.317 0.048 269);
-  --sidebar-primary: oklch(0.418 0.197 263);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.953 0.023 283);
-  --sidebar-accent-foreground: oklch(0.317 0.048 269);
-  --sidebar-border: oklch(0.873 0.022 268);
-  --sidebar-ring: oklch(0.418 0.197 263);
+  --background: #F4F6FB;        /* page — cool cloud */
+  --foreground: #0E1525;        /* primary text */
+  --card: #FFFFFF;
+  --card-foreground: #0E1525;
+  --popover: #FFFFFF;
+  --popover-foreground: #0E1525;
+  --primary: #1535C7;
+  --primary-foreground: #FFFFFF;
+  --secondary: #EAF0FF;
+  --secondary-foreground: #1535C7;
+  --muted: #F7F9FD;
+  --muted-foreground: #5A6478;
+  --accent: #EAF0FF;
+  --accent-foreground: #1535C7;
+  --destructive: #C0392B;
+  --border: #E7EBF3;
+  --input: #D6DEEC;
+  --ring: #1535C7;
+  --chart-1: #1535C7;
+  --chart-2: #19C9C2;
+  --chart-3: #43E6A0;
+  --chart-4: #7C8FF5;
+  --chart-5: #6D4DE0;
+  --radius: 0.75rem; /* 12px base — inputs / nav items */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #0E1525;
+  --sidebar-primary: #1535C7;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EAF0FF;
+  --sidebar-accent-foreground: #1535C7;
+  --sidebar-border: #E7EBF3;
+  --sidebar-ring: #1535C7;
 }
 
 .dark {
@@ -145,6 +158,106 @@
   --sidebar-ring: oklch(0.60 0.175 263);
 }
 
+/* ============================================================
+   PesoHub design tokens (--ph-*) — raw values from the Claude
+   Design handoff (tokens/*.css). Use these in new app-shell /
+   result-panel code; the Tailwind aliases above map to the same
+   palette so existing components inherit the new look.
+   ============================================================ */
+:root {
+  /* Brand royal-blue ramp */
+  --ph-blue-700: #0E2496;
+  --ph-blue-650: #0F258F;
+  --ph-blue-600: #1430BE;
+  --ph-blue-550: #1535C7;
+  --ph-blue-500: #1A3AD6;
+  --ph-blue-300: #7C8FF5;
+  --ph-blue-tint: #EAF0FF;
+  --ph-blue-tint-2: #EEF2FB;
+
+  /* Accent cyan → teal → mint */
+  --ph-cyan-500: #2BE5DF;
+  --ph-teal-500: #19C9C2;
+  --ph-mint-500: #43E6A0;
+  --ph-mint-300: #6BEFC0;
+
+  /* Ink / text */
+  --ph-ink-900: #0E1525;
+  --ph-ink-700: #344054;
+  --ph-ink-600: #475069;
+  --ph-ink-500: #5A6478;
+  --ph-ink-400: #6B7488;
+  --ph-ink-300: #8A93A6;
+
+  /* Surfaces */
+  --ph-app-bg: #F4F6FB;
+  --ph-surface: #FFFFFF;
+  --ph-surface-2: #F7F9FD;
+  --ph-surface-3: #FBFCFE;
+
+  /* Borders */
+  --ph-border: #E7EBF3;
+  --ph-border-strong: #D6DEEC;
+  --ph-border-2: #E0E6F2;
+  --ph-divider: #EEF1F7;
+
+  /* Semantic */
+  --ph-success: #0E9F6E;  --ph-success-bg: #E3F6ED;  --ph-success-border: #BDE9CF;
+  --ph-warning: #B7791F;  --ph-warning-bg: #FFF8E8;  --ph-warning-border: #F6E2B0;
+  --ph-danger:  #C0392B;  --ph-danger-bg:  #FDF2F2;  --ph-danger-border:  #F3C9C9;
+
+  /* Tax / rate progression scale */
+  --ph-rate-0-ink:  #5B6678; --ph-rate-0-bg:  #EEF1F7;
+  --ph-rate-15-ink: #1E5FD0; --ph-rate-15-bg: #E4EDFB;
+  --ph-rate-20-ink: #3D49C4; --ph-rate-20-bg: #E7E9FB;
+  --ph-rate-25-ink: #6D4DE0; --ph-rate-25-bg: #EDE8FC;
+  --ph-rate-30-ink: #B7791F; --ph-rate-30-bg: #FBF0DC;
+  --ph-rate-35-ink: #C2484D; --ph-rate-35-bg: #FBE6E7;
+
+  /* Category accents */
+  --ph-cat-borrow: #2347D9;  --ph-cat-borrow-bg: #E8EDFF;
+  --ph-cat-salary: #0E9A86;  --ph-cat-salary-bg: #DEF5F0;
+  --ph-cat-save:   #6D4DE0;  --ph-cat-save-bg:   #EDE8FC;
+
+  /* Signature gradients */
+  --ph-grad-panel: linear-gradient(150deg, #1A3AD6 0%, #1430BE 55%, #0E2496 100%);
+  --ph-grad-card:  linear-gradient(135deg, #1535C7, #0F258F);
+  --ph-grad-avatar: linear-gradient(135deg, #1535C7, #19C9C2);
+  --ph-glow-cyan:  radial-gradient(circle, rgba(43,229,223,.45), transparent 70%);
+
+  /* Semantic aliases */
+  --ph-primary: var(--ph-blue-550);
+  --ph-primary-hover: var(--ph-blue-600);
+  --ph-primary-tint: var(--ph-blue-tint);
+  --ph-accent: var(--ph-teal-500);
+  --text-primary: var(--ph-ink-900);
+  --text-secondary: var(--ph-ink-500);
+  --text-muted: var(--ph-ink-400);
+  --text-faint: var(--ph-ink-300);
+  --text-on-brand: #FFFFFF;
+  --surface-page: var(--ph-app-bg);
+  --surface-card: var(--ph-surface);
+  --surface-sunken: var(--ph-surface-2);
+  --border-card: var(--ph-border);
+  --border-input: var(--ph-border-strong);
+
+  /* Shadows / elevation */
+  --shadow-card: 0 1px 2px rgba(16,24,40,.04);
+  --shadow-hover: 0 16px 34px -18px rgba(35,71,217,.34);
+  --shadow-panel: 0 24px 50px -22px rgba(21,53,199,.6);
+  --shadow-live: 0 8px 22px -10px rgba(25,201,194,.55);
+  --shadow-mark: 0 4px 12px rgba(21,53,199,.28);
+  --shadow-drawer: 0 24px 70px rgba(10,20,50,.25);
+  --shadow-tip: 0 8px 20px -6px rgba(0,0,0,.5);
+  --focus-ring: 0 0 0 3px rgba(21,53,199,.12);
+
+  /* Layout constants */
+  --ph-sidebar-w: 264px;
+  --ph-header-h: 65px;
+  --ph-content-max: 1240px;
+  --ph-content-max-narrow: 1080px;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -156,11 +269,16 @@
     @apply font-sans;
     scroll-behavior: smooth;
   }
+  /* Display headings — Space Grotesk, tight tracking (design tokens) */
+  h1, h2 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
 }
 
-/* Gradient utilities */
+/* Gradient utilities — signature navy panel + off-canvas cyan glow */
 @utility gradient-hero {
-  background-color: oklch(0.22 0.08 263);
+  background: var(--ph-grad-panel);
   position: relative;
   overflow: hidden;
 }
@@ -170,28 +288,28 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to right, oklch(1 0 0 / 6%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(1 0 0 / 6%) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
   background-size: 80px 80px;
   mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
   pointer-events: none;
 }
 
-/* Center glow for hero */
+/* Off-canvas cyan glow orb (top-right) — the signature panel motif */
 @utility hero-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 50% 60% at 50% 55%, oklch(0.35 0.14 263 / 60%) 0%, transparent 100%);
+  background: radial-gradient(circle 240px at 88% 12%, rgba(43,229,223,.45) 0%, transparent 70%);
   pointer-events: none;
 }
 
 @utility gradient-result {
-  background-color: oklch(0.25 0.10 263);
+  background: var(--ph-grad-panel);
 }
 
 @utility gradient-hero-light {
-  background-color: oklch(0.975 0.012 281);
+  background-color: var(--ph-surface-2);
 }
 
 /* Animation keyframes */

@@ -1,22 +1,31 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Public_Sans, Geist_Mono } from "next/font/google";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { Space_Grotesk, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { AppShell } from "@/components/layout/app-shell";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/config/site";
 import "./globals.css";
 
 const GA_ID = "G-FL2VDZNMCY";
 
-const publicSans = Public_Sans({
-  variable: "--font-sans",
+// Plus Jakarta Sans — UI/body workhorse (logo wordmark is the 800 weight)
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Space Grotesk — display headings + money figures
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
+});
+
+// JetBrains Mono — tabular financial data (tax tables, ranges)
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -62,13 +71,9 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${publicSans.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${jakarta.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
-        <div className="flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
