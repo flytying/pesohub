@@ -1,21 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  Banknote,
-  ShoppingBag,
-  Wallet,
-  Timer,
-  HelpCircle,
   Calculator,
   BookOpen,
-  DollarSign,
-  Percent,
-  Clock,
-  AlertTriangle,
   TrendingUp,
   ArrowRight,
-  Info,
+  PhilippinePeso,
+  Wallet,
+  Clock,
+  Percent,
+  Shield,
+  FileText,
+  Wrench,
+  SquareParking,
+  CircleCheck,
+  HelpCircle,
   TriangleAlert,
+  Info,
+  Car,
+  Home,
+  type LucideIcon,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -23,10 +27,10 @@ import {
   generateCalculatorSchema,
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
-import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { PersonalLoanCalculator } from "@/components/calculators/personal-loan-calculator";
 import { personalLoanData } from "@/data/calculators/personal-loan";
+import { formatDate } from "@/lib/formatters";
 
 export const metadata: Metadata = generatePageMetadata({
   title: personalLoanData.metaTitle,
@@ -38,469 +42,190 @@ export const metadata: Metadata = generatePageMetadata({
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Calculators", href: "/calculators" },
-  { label: "Personal Loan Calculator" },
+  { label: "Loans", href: "/calculators" },
+  { label: "Personal Loan" },
 ];
 
-const beforeYouBorrow = [
-  "Borrow only what you actually need",
-  "Compare shorter and longer repayment terms",
-  "Check whether the monthly payment fits your regular budget",
-  "Ask whether fees will be deducted from the amount you receive",
-  "Compare more than one lender type before deciding",
+const factors: { icon: LucideIcon; title: string; description: string }[] = [
+  { icon: PhilippinePeso, title: "Loan amount", description: "A larger loan amount increases both the monthly payment and the total amount you repay." },
+  { icon: Clock, title: "Repayment term", description: "A longer term spreads the cost over more months and lowers the monthly payment, but increases total interest." },
+  { icon: Percent, title: "Interest rate", description: "Even a small difference in rate changes the total cost of borrowing. Compare both the monthly payment and full repayment." },
 ];
 
-const scenarioCards = [
-  {
-    icon: Banknote,
-    title: "Small emergency loan",
-    description:
-      "A smaller personal loan may be useful for urgent but manageable expenses such as medical bills, repairs, or short-term cash needs. This type of scenario can help you check whether a shorter repayment term keeps the total borrowing cost lower.",
-  },
-  {
-    icon: ShoppingBag,
-    title: "Mid-size planned expense",
-    description:
-      "A mid-size personal loan may be used for tuition, appliances, travel, or other planned costs. This scenario is useful if you want to compare whether a slightly longer term makes the monthly payment easier without making the total repayment too expensive.",
-  },
-  {
-    icon: Wallet,
-    title: "Larger personal loan",
-    description:
-      "A larger personal loan can result in a much higher monthly payment and total interest cost. This type of scenario helps you test whether the loan amount is still realistic for your monthly budget before applying.",
-  },
-  {
-    icon: Timer,
-    title: "Shorter term vs longer term",
-    description:
-      "Use the same loan amount, then compare a shorter repayment term with a longer one. A longer term may reduce the monthly payment, but it often increases the total interest paid over time. This is one of the most useful comparisons to make before choosing between loan offers.",
-  },
+const ownershipCosts: { icon: LucideIcon; label: string }[] = [
+  { icon: FileText, label: "Processing or service fee" },
+  { icon: FileText, label: "Documentary stamp tax" },
+  { icon: Wallet, label: "Disbursement / release fee" },
+  { icon: Shield, label: "Insurance or add-on products" },
+  { icon: SquareParking, label: "Late payment penalties" },
+  { icon: Wrench, label: "Early settlement fees" },
 ];
 
-const paymentFactors = [
-  {
-    icon: DollarSign,
-    title: "Loan Amount",
-    description:
-      "A higher loan amount usually increases both the monthly payment and the total amount repaid.",
-  },
-  {
-    icon: Clock,
-    title: "Repayment Term",
-    description:
-      "A longer term spreads the cost over more months, which can reduce the monthly payment. However, it may also increase the total interest paid.",
-  },
-  {
-    icon: Percent,
-    title: "Interest Rate",
-    description:
-      "Even a small change in interest rate can affect both your monthly payment and your total repayment. When comparing lenders, check the full cost, not just the monthly amount.",
-  },
+const compareList = [
+  "Estimated monthly payment",
+  "Required documents & eligibility",
+  "Total interest over the full term",
+  "Total estimated loan cost",
+  "Required insurance or add-on products",
+  "Processing & service fees",
+  "Early repayment terms",
+  "Bank vs online lender financing",
 ];
 
-const compareBeforeApplying = [
-  "estimated monthly payment",
-  "total repayment over the full term",
-  "total interest cost",
-  "processing fees or service charges",
-  "whether fees are deducted upfront",
-  "repayment term flexibility",
-  "early repayment terms",
-  "bank, financing company, or online lender differences",
-];
-
-const questionsToAsk = [
-  "Do I really need this full amount?",
-  "Can I still afford the monthly payment if other expenses increase?",
-  "Is a shorter term possible without straining my budget?",
-  "Are there fees that change the real cost of borrowing?",
-  "Have I compared more than one lender or lender type?",
+const questions = [
+  "Can I comfortably afford the monthly payment along with my other monthly obligations?",
+  "Would a shorter term lower the total cost, even if the monthly payment is higher?",
+  "Should I compare bank, cooperative, and online-lender offers before deciding?",
+  "Does a shorter term save more in total cost, even if the monthly payment is higher?",
+  "Are there extra fees or required charges not included in this estimate?",
 ];
 
 const relatedContent = [
-  {
-    title: "Guides Hub",
-    href: "/guides",
-    icon: BookOpen,
-  },
-  {
-    title: "Rates Hub",
-    href: "/rates",
-    icon: TrendingUp,
-  },
-  {
-    title: "Car Loan Calculator",
-    href: "/calculators/loans/car-loan-calculator-philippines",
-    icon: Calculator,
-  },
-  {
-    title: "Home Loan Calculator",
-    href: "/calculators/loans/home-loan-calculator-philippines",
-    icon: Calculator,
-  },
-  {
-    title: "All Calculators",
-    href: "/calculators",
-    icon: Calculator,
-  },
+  { title: "Car Loan Calculator", href: "/calculators/loans/car-loan-calculator-philippines", icon: Car },
+  { title: "Home Loan Calculator", href: "/calculators/loans/home-loan-calculator-philippines", icon: Home },
+  { title: "Guides Hub", href: "/guides", icon: BookOpen },
+  { title: "Rates Hub", href: "/rates", icon: TrendingUp },
+  { title: "All Calculators", href: "/calculators", icon: Calculator },
 ];
+
+const CARD = "rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,30px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]";
+const H2 = "font-display text-[22px] font-semibold tracking-[-0.02em] text-[#0E1525]";
+const LEAD = "mt-[10px] max-w-[80ch] text-[16px] leading-[1.65] text-[#475069]";
 
 export default function PersonalLoanCalculatorPage() {
   return (
     <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
-      <JsonLd
-        data={generateCalculatorSchema({
-          title: personalLoanData.metaTitle,
-          description: personalLoanData.metaDescription,
-        })}
-      />
+      <JsonLd data={generateCalculatorSchema({ title: personalLoanData.metaTitle, description: personalLoanData.metaDescription })} />
 
-      <PageHero
-        title={personalLoanData.h1}
-        description={personalLoanData.intro}
-        badge={personalLoanData.updatedAt}
-        breadcrumbs={breadcrumbs}
-        variant="dark"
-      />
+      <div className="mx-auto w-full max-w-[1280px] px-[clamp(18px,3vw,34px)] py-[clamp(18px,3vw,34px)]">
+        {/* Heading */}
+        <div className="mb-5">
+          <nav aria-label="Breadcrumb" className="mb-[10px]">
+            <ol className="flex flex-wrap items-center gap-[7px] text-[15px] font-semibold text-[#6B7488]">
+              {breadcrumbs.map((b, i) => {
+                const last = i === breadcrumbs.length - 1;
+                return (
+                  <li key={i} className="flex items-center gap-[7px]">
+                    {i > 0 && <span className="text-[#C4CCDB]">/</span>}
+                    {last || !b.href ? (
+                      <span className={last ? "text-[#5A6478]" : ""}>{b.label}</span>
+                    ) : (
+                      <Link href={b.href} className="font-bold text-brand">{b.label}</Link>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </nav>
+          <h1 className="font-display text-[clamp(26px,3.4vw,38px)] font-semibold leading-[1.1] tracking-[-.02em] text-[#0E1525]">
+            {personalLoanData.h1}
+          </h1>
+          <p className="mt-[9px] max-w-[80ch] text-[16px] leading-[1.55] text-[#5A6478]">{personalLoanData.intro}</p>
+          <div className="mt-[11px] flex items-center gap-[6px] text-[15px] font-semibold text-[#6B7488]">
+            <Clock className="size-[15px]" />
+            Updated {formatDate(personalLoanData.updatedAt)}
+          </div>
+        </div>
 
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-        {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
-          <PersonalLoanCalculator
-            beforeYouStart={{
-              title: "Before You Borrow",
-              description:
-                "A personal loan can help cover planned expenses or urgent needs, but it should still fit comfortably within your monthly budget. Before applying, test different loan amounts and repayment terms so you can compare affordability, not just approval.",
-              items: beforeYouBorrow,
-            }}
-          />
+          <PersonalLoanCalculator />
         </div>
 
-        {/* How to Tell if the Monthly Payment Is Realistic */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            How to Tell if the Monthly Payment Is Realistic
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            A monthly personal loan payment may look manageable at first, but it
-            should still leave room for rent, food, bills, savings, and
-            emergency expenses. Before applying, check whether the payment still
-            feels comfortable even during tighter months.
-          </p>
-          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
-            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
-              A lower monthly payment is not always the lower-cost option overall.
-              A longer repayment term can reduce the monthly amount, but it may
-              also increase the total interest paid over time. A higher loan
-              amount increases both the monthly payment and the total repayment.
+        <div className="mt-9 space-y-[14px]">
+          <section className={CARD}>
+            <h2 className={H2}>How to tell if the monthly payment is realistic</h2>
+            <p className={LEAD}>
+              A monthly personal loan payment may look manageable at first, but it should still fit comfortably within your overall monthly budget. Before applying, check whether you can still cover your regular expenses, savings, emergency fund, and other debt payments after adding the estimated monthly amortization.
+            </p>
+            <div className="mt-4 flex gap-3 rounded-[14px] border border-[#F0E2BE] bg-[#FFF8E8] p-5">
+              <TriangleAlert className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
+              <p className="text-[15px] leading-[1.6] text-[#7A6320]">
+                A lower monthly payment is not always the cheaper option overall. A longer loan term can reduce the monthly amount, but it usually increases the total interest paid over time. Borrowing a smaller amount generally lowers both the monthly payment and the total borrowing cost.
+              </p>
+            </div>
+          </section>
+
+          <section className={CARD}>
+            <h2 className={H2}>What affects your monthly personal loan payment</h2>
+            <p className={LEAD}>Your estimated payment depends on three main factors. Understanding how each one works helps you compare offers more clearly.</p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {factors.map((f) => {
+                const Icon = f.icon;
+                return (
+                  <div key={f.title} className="rounded-[15px] border border-[#E7EBF3] bg-white p-5">
+                    <span className="flex size-11 items-center justify-center rounded-[12px] bg-[#EAF0FF] text-brand"><Icon className="size-5" /></span>
+                    <h3 className="mt-4 text-[17px] font-bold text-[#0E1525]">{f.title}</h3>
+                    <p className="mt-2 text-[15px] leading-[1.55] text-[#5A6478]">{f.description}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className={CARD}>
+            <h2 className={H2}>You may not receive the full loan amount in cash</h2>
+            <p className={LEAD}>Some lenders deduct charges before releasing your loan, so the amount that reaches your account can be less than the approved figure. Before applying, check for:</p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {ownershipCosts.map((c) => {
+                const Icon = c.icon;
+                return (
+                  <div key={c.label} className="flex items-center gap-[10px] rounded-[12px] bg-[#F7F9FD] px-[15px] py-[13px] text-[15px] text-[#344054]">
+                    <Icon className="size-[18px] shrink-0 text-brand" />{c.label}
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className={CARD}>
+            <h2 className={H2}>What to compare before choosing a personal loan</h2>
+            <p className={LEAD}>Don&apos;t compare lenders on the monthly payment alone. Two offers may look similar at first, but the total cost can differ. Before applying, compare:</p>
+            <ul className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
+              {compareList.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-[15px] leading-[1.5] text-[#475069]">
+                  <CircleCheck className="mt-0.5 size-[18px] shrink-0 text-brand" />{item}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className={CARD}>
+            <h2 className={H2}>Questions to consider before applying</h2>
+            <ul className="mt-4 space-y-3">
+              {questions.map((q) => (
+                <li key={q} className="flex gap-3 text-[15.5px] leading-[1.6] text-[#475069]">
+                  <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />{q}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className={CARD}><FaqSection faqs={personalLoanData.faqs} /></section>
+
+          <section className={CARD}>
+            <h2 className={`mb-4 ${H2}`}>Related calculators and guides</h2>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedContent.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link key={item.title} href={item.href} className="group flex items-center gap-3 rounded-[14px] border border-[#E7EBF3] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-colors hover:border-[#C3D0F2] hover:bg-[#FBFCFE]">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-[11px] bg-[#EAF0FF] text-brand"><Icon className="size-[18px]" /></span>
+                    <span className="flex-1 text-[15px] font-bold text-[#0E1525] group-hover:text-brand">{item.title}</span>
+                    <ArrowRight className="size-4 shrink-0 text-[#C4CCDB]" />
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+
+          <div className="flex gap-3 rounded-[15px] border border-[#F0E2BE] bg-[#FFF8E8] p-[18px]">
+            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
+            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
+              PesoHub provides free financial tools and information for educational purposes only. It is not affiliated with any bank or government agency. Rates and terms shown are estimates — always confirm the final figures with your lender and consult a qualified professional before making financial decisions.
             </p>
           </div>
-        </section>
-
-        {/* Worked Examples */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Personal Loan Comparison: Common Amounts and Terms
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            These three examples show how the loan amount, term, and interest
-            rate affect your monthly payment and total borrowing cost. Use them
-            as a quick reference, then run your own numbers in the calculator
-            above.
-          </p>
-
-          <div className="mt-6 grid gap-5 sm:grid-cols-3">
-            {/* Small */}
-            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
-              <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                  Small Emergency Loan
-                </h3>
-              </div>
-              <div className="px-6 py-4">
-                <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Loan Amount</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">₱30,000</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Term</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">12 months</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Rate</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">18%</dd>
-                  </div>
-                  <div className="my-3 border-t border-dashed border-gray-200" />
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Total Interest</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">₱3,005</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Total Repayment</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">₱33,005</dd>
-                  </div>
-                </dl>
-              </div>
-              <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="flex justify-between text-[16px] leading-[1.6]">
-                  <span className="font-semibold text-gray-500">Monthly Payment</span>
-                  <span className="font-mono tabular-nums font-bold text-brand">₱2,750</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Mid */}
-            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
-              <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                  Mid-Size Planned Expense
-                </h3>
-              </div>
-              <div className="px-6 py-4">
-                <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Loan Amount</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">₱100,000</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Term</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">24 months</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Rate</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">15%</dd>
-                  </div>
-                  <div className="my-3 border-t border-dashed border-gray-200" />
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Total Interest</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">₱16,368</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Total Repayment</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">₱116,368</dd>
-                  </div>
-                </dl>
-              </div>
-              <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="flex justify-between text-[16px] leading-[1.6]">
-                  <span className="font-semibold text-gray-500">Monthly Payment</span>
-                  <span className="font-mono tabular-nums font-bold text-brand">₱4,849</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Larger */}
-            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
-              <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                  Larger Personal Loan
-                </h3>
-              </div>
-              <div className="px-6 py-4">
-                <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Loan Amount</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">₱300,000</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Term</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">36 months</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Rate</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">12%</dd>
-                  </div>
-                  <div className="my-3 border-t border-dashed border-gray-200" />
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Total Interest</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">₱58,715</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt className="text-gray-400">Total Repayment</dt>
-                    <dd className="font-mono tabular-nums text-gray-500">₱358,715</dd>
-                  </div>
-                </dl>
-              </div>
-              <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="flex justify-between text-[16px] leading-[1.6]">
-                  <span className="font-semibold text-gray-500">Monthly Payment</span>
-                  <span className="font-mono tabular-nums font-bold text-brand">₱9,964</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
-            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
-              These are planning estimates only. Actual lender offers will vary
-              based on approval terms, fees, and repayment structure. Use the
-              calculator above to test your own numbers.
-            </p>
-          </div>
-        </section>
-
-        {/* What Affects Your Personal Loan Payment */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            How Interest Rate Affects Your Loan Monthly Payment
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Your estimated payment depends on three main factors: the loan
-            amount, the repayment term, and the interest rate. Understanding how
-            each one works can help you compare offers more clearly.
-          </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-3">
-            {paymentFactors.map((factor) => {
-              const Icon = factor.icon;
-              return (
-                <div key={factor.title} className="rounded-xl border border-gray-200 bg-white p-6">
-                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-6" />
-                  </div>
-                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
-                    {factor.title}
-                  </h3>
-                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
-                    {factor.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* What to Compare Before Choosing */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            What to Compare Before Choosing a Personal Loan
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Do not compare personal loans based on monthly payment alone. Two
-            offers may look similar at first, but the total borrowing cost,
-            fees, and repayment structure can be very different depending on the
-            lender type. Before applying, compare:
-          </p>
-          <ul className="mt-4 space-y-3">
-            {compareBeforeApplying.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                <ArrowRight className="size-4 shrink-0 text-gray-300" />
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Use this calculator more than once so you can compare multiple loan
-            options side by side before making a decision.
-          </p>
-        </section>
-
-        {/* Release Amount Warning */}
-        <section className="mt-16">
-          <div className="rounded-lg border border-gray-200 bg-white p-6">
-            <div className="flex gap-3">
-              <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-              <div>
-                <h2 className="text-[16px] font-semibold text-gray-500">
-                  You May Not Receive the Full Loan Amount in Cash
-                </h2>
-                <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
-                  Some lenders charge processing fees, service fees, insurance,
-                  or other deductions that may reduce the actual amount released
-                  to you. That means the approved loan amount and the cash you
-                  receive may not always be the same.
-                </p>
-                <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
-                  Before applying, ask the lender whether any fees will be
-                  deducted upfront or added to your repayment amount.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Questions to Ask */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Questions to Ask Before Applying for a Personal Loan
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Before choosing a personal loan, it helps to ask a few practical
-            questions:
-          </p>
-          <ul className="mt-6 space-y-4">
-            {questionsToAsk.map((question, i) => (
-              <li key={i} className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
-                {question}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* Sample Personal Loan Scenarios */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Sample Personal Loan Scenarios
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            These examples can help you compare common borrowing situations. Use
-            them as planning references, then adjust the numbers based on your
-            actual loan amount, term, and lender offer.
-          </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
-            {scenarioCards.map((scenario) => {
-              const Icon = scenario.icon;
-              return (
-                <div key={scenario.title} className="rounded-xl border border-gray-200 bg-white p-6">
-                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-6" />
-                  </div>
-                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
-                    {scenario.title}
-                  </h3>
-                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
-                    {scenario.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <div className="mt-16">
-          <FaqSection faqs={personalLoanData.faqs} />
         </div>
-
-        {/* Related Calculators and Guides */}
-        <section className="mt-16">
-          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Related calculators and guides
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedContent.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
-                >
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-4" />
-                  </div>
-                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
-                    {item.title}
-                  </span>
-                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
-                </Link>
-              );
-            })}
-          </div>
-        </section>
       </div>
     </>
   );
