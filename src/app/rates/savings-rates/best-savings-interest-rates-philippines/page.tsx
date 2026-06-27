@@ -222,64 +222,62 @@ export default function BestSavingsRatesPage() {
             the highest advertised yield.
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {topBanks.map((bank, index) => (
-              <div
-                key={`${bank.bankName}-${bank.accountType}`}
-                className={`overflow-hidden rounded-xl p-5 ${
-                  index === 0
-                    ? "bg-brand text-white"
-                    : "bg-white ring-1 ring-gray-200"
-                }`}
-              >
-                <div className="flex items-center justify-between">
+            {topBanks.map((bank, index) => {
+              const top = index === 0;
+              return (
+                <div
+                  key={`${bank.bankName}-${bank.accountType}`}
+                  className={`relative overflow-hidden rounded-[18px] p-5 ${
+                    top
+                      ? "text-white shadow-[0_24px_50px_-22px_rgba(21,53,199,.6)]"
+                      : "border border-[#E7EBF3] bg-white shadow-[0_1px_2px_rgba(16,24,40,.04)]"
+                  }`}
+                  style={top ? { background: "var(--ph-grad-panel)" } : undefined}
+                >
+                  {top && (
+                    <div
+                      aria-hidden
+                      className="absolute -right-8 -top-10 size-[160px] rounded-full"
+                      style={{ background: "var(--ph-glow-cyan)" }}
+                    />
+                  )}
+                  <div className="relative flex items-center justify-between">
+                    <p className={`text-[14px] font-bold ${top ? "text-white" : "text-[#0E1525]"}`}>
+                      {bank.bankName}
+                    </p>
+                    <span
+                      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[12px] font-bold ${
+                        top ? "bg-[#43E6A0]/20 text-[#6BEFC0]" : "bg-[#EEF1F7] text-[#5A6478]"
+                      }`}
+                    >
+                      {top && <Trophy className="size-3" />}#{index + 1}
+                    </span>
+                  </div>
                   <p
-                    className={`text-[14px] font-semibold ${index === 0 ? "text-white" : "text-gray-500"}`}
-                  >
-                    {bank.bankName}
-                  </p>
-                  <span
-                    className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[14px] font-medium ${
-                      index === 0
-                        ? "bg-white/15 text-white/80"
-                        : "bg-gray-50 text-gray-400"
+                    className={`relative mt-3 font-display text-[40px] font-bold tracking-[-.02em] tabular-nums ${
+                      top ? "text-white" : "text-[#0E1525]"
                     }`}
                   >
-                    {index === 0 && <Trophy className="size-3" />}
-                    #{index + 1}
-                  </span>
-                </div>
-                <p
-                  className={`mt-3 text-4xl font-bold tracking-tight ${
-                    index === 0 ? "text-white" : "text-gray-500"
-                  }`}
-                >
-                  {formatPercent(bank.interestRate)}
-                </p>
-                <p
-                  className={`text-[14px] ${index === 0 ? "text-white/70" : "text-gray-400"}`}
-                >
-                  per annum
-                </p>
-                <div
-                  className={`mt-3 border-t pt-3 ${index === 0 ? "border-white/15" : "border-gray-200"}`}
-                >
-                  <p
-                    className={`text-[14px] ${index === 0 ? "text-white/70" : "text-gray-400"}`}
-                  >
-                    {bank.accountType}
+                    {formatPercent(bank.interestRate)}
                   </p>
-                  <p
-                    className={`mt-1 text-[14px] ${index === 0 ? "text-white/70" : "text-gray-400"}`}
-                  >
-                    {bank.rateType === "Promo" ? "Promo rate" : "Standard rate"}
-                    {" · "}
-                    {bank.minimumBalance === 0
-                      ? "No min. balance"
-                      : `Min. ${formatPeso(bank.minimumBalance, 0)}`}
+                  <p className={`relative text-[14px] ${top ? "text-[#C9D4FF]" : "text-[#6B7488]"}`}>
+                    per annum
                   </p>
+                  <div className={`relative mt-3 border-t pt-3 ${top ? "border-white/15" : "border-[#E7EBF3]"}`}>
+                    <p className={`text-[14px] font-bold ${top ? "text-white" : "text-[#0E1525]"}`}>
+                      {bank.accountType}
+                    </p>
+                    <p className={`mt-1 text-[14px] ${top ? "text-[#C9D4FF]" : "text-[#6B7488]"}`}>
+                      {bank.rateType === "Promo" ? "Promo rate" : "Standard rate"}
+                      {" · "}
+                      {bank.minimumBalance === 0
+                        ? "No min. balance"
+                        : `Min. ${formatPeso(bank.minimumBalance, 0)}`}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 

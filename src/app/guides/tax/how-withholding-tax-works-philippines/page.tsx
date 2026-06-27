@@ -130,13 +130,15 @@ export default function WithholdingTaxGuidePage() {
 
         {/* Quick Answer */}
         <section>
-          <div className="flex gap-3 rounded-xl border border-gray-200 bg-white p-6">
-            <Landmark className="mt-0.5 size-5 shrink-0 text-brand" />
+          <div className="flex gap-4 rounded-[16px] border border-[#D7E0FB] bg-[#EAF0FF] p-6">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-white">
+              <Landmark className="size-5 text-brand" />
+            </span>
             <div>
-              <p className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                Quick Answer
+              <p className="text-[13px] font-bold uppercase tracking-[.08em] text-brand">
+                Quick answer
               </p>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#475069]">
                 {withholdingTaxMeta.directAnswer}
               </p>
             </div>
