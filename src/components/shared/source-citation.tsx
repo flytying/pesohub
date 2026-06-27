@@ -89,7 +89,7 @@ export function SourceCitation({
 
   return (
     <div className={cn("", className)}>
-      <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+      <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
         Source & Freshness
       </h2>
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -102,7 +102,7 @@ export function SourceCitation({
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[14px] text-gray-300">{item.label}</p>
-                <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+                <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
                   {item.value}
                 </p>
               </div>

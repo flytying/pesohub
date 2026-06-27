@@ -25,7 +25,7 @@ export function CalculatorResult({
     >
       <span
         className={cn(
-          "text-[16px] leading-[22px] text-gray-400",
+          "text-[16px] leading-[1.6] text-[#5A6478]",
           highlight && "font-semibold uppercase tracking-wide text-gray-500"
         )}
       >

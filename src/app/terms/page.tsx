@@ -11,17 +11,17 @@ export const metadata = generatePageMetadata({
 export default function TermsPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="text-[32px] font-medium leading-[48px] text-gray-500">Terms of Use</h1>
-      <p className="mt-2 text-[16px] leading-[22px] text-gray-400">Last updated: March 14, 2026</p>
+      <h1 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">Terms of Use</h1>
+      <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">Last updated: March 14, 2026</p>
 
-      <div className="mt-6 space-y-6 text-[16px] leading-[22px] text-gray-400">
+      <div className="mt-6 space-y-6 text-[16px] leading-[1.6] text-[#5A6478]">
         <p>
           By accessing and using {SITE_NAME} ({SITE_URL}), you agree to be bound
           by these Terms of Use. If you do not agree with any part of these terms,
           please do not use the website.
         </p>
 
-        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Use of Content</h2>
+        <h2 className="font-display text-[clamp(22px,2.6vw,30px)] font-semibold tracking-[-0.02em] text-[#0E1525] mt-16">Use of Content</h2>
         <p>
           The content on {SITE_NAME}, including calculators, rate tables, guides,
           and other materials, is provided for general informational and educational
@@ -29,7 +29,7 @@ export default function TermsPage() {
           advice.
         </p>
 
-        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Calculator Accuracy</h2>
+        <h2 className="font-display text-[clamp(22px,2.6vw,30px)] font-semibold tracking-[-0.02em] text-[#0E1525] mt-16">Calculator Accuracy</h2>
         <p>
           Our calculators use standard financial formulas and are designed to
           provide reasonable estimates. However, actual amounts may differ based
@@ -37,7 +37,7 @@ export default function TermsPage() {
           tools. Always verify results with the relevant financial institution.
         </p>
 
-        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Rate Information</h2>
+        <h2 className="font-display text-[clamp(22px,2.6vw,30px)] font-semibold tracking-[-0.02em] text-[#0E1525] mt-16">Rate Information</h2>
         <p>
           Exchange rates, interest rates, and other financial data displayed on
           this website are gathered from publicly available sources and may not
@@ -46,21 +46,21 @@ export default function TermsPage() {
           financial decisions.
         </p>
 
-        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">No Affiliation</h2>
+        <h2 className="font-display text-[clamp(22px,2.6vw,30px)] font-semibold tracking-[-0.02em] text-[#0E1525] mt-16">No Affiliation</h2>
         <p>
           {SITE_NAME} is an independent website. We are not affiliated with,
           endorsed by, or officially connected to any bank, government agency,
           or financial institution mentioned on this website.
         </p>
 
-        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Limitation of Liability</h2>
+        <h2 className="font-display text-[clamp(22px,2.6vw,30px)] font-semibold tracking-[-0.02em] text-[#0E1525] mt-16">Limitation of Liability</h2>
         <p>
           {SITE_NAME} and its operators shall not be liable for any damages
           arising from the use of this website or reliance on any information
           provided. Use all tools and content at your own risk.
         </p>
 
-        <h2 className="text-[24px] font-semibold leading-[30px] text-gray-500 mt-16">Changes</h2>
+        <h2 className="font-display text-[clamp(22px,2.6vw,30px)] font-semibold tracking-[-0.02em] text-[#0E1525] mt-16">Changes</h2>
         <p>
           We reserve the right to modify these Terms of Use at any time. Continued
           use of the website after changes constitutes acceptance of the updated

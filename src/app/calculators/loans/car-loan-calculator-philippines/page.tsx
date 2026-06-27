@@ -160,10 +160,10 @@ export default function CarLoanCalculatorPage() {
 
         {/* How to Tell if the Monthly Payment Is Realistic */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How to Tell if the Monthly Payment Is Realistic
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             A monthly car payment may look manageable at first, but it should
             still fit comfortably within your overall monthly budget. Before
             applying, check whether you can still cover your regular expenses,
@@ -172,7 +172,7 @@ export default function CarLoanCalculatorPage() {
           </p>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               A lower monthly payment is not always the cheaper option overall. A
               longer loan term can reduce the monthly amount, but it may also
               increase the total interest paid over time. A bigger down payment
@@ -183,10 +183,10 @@ export default function CarLoanCalculatorPage() {
 
         {/* What Affects Your Monthly Car Loan Payment */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Affects Your Monthly Car Loan Payment
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your estimated car loan payment depends on four main factors: the
             vehicle price, the down payment, the loan term, and the interest
             rate. Understanding how each one works can help you compare offers
@@ -203,7 +203,7 @@ export default function CarLoanCalculatorPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {factor.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {factor.description}
                   </p>
                 </div>
@@ -214,23 +214,23 @@ export default function CarLoanCalculatorPage() {
 
         {/* Your Monthly Loan Payment Is Not the Full Cost */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Your Monthly Loan Payment Is Not the Full Cost of Owning a Car
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             A car loan calculator helps estimate the financing side of the
             purchase, but your total car budget should include more than just the
             monthly amortization. Also consider:
           </p>
           <ul className="mt-4 space-y-3">
             {ownershipCosts.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Use the calculator to estimate your loan payment, then add these
             ownership costs before deciding what vehicle price range is truly
             affordable.
@@ -239,10 +239,10 @@ export default function CarLoanCalculatorPage() {
 
         {/* What to Compare Before Choosing a Car Loan */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What to Compare Before Choosing a Car Loan
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Do not compare lenders based on monthly payment alone. Two offers may
             look similar at first, but the total cost can be very different
             depending on the term, interest rate, and fees. Before applying,
@@ -250,13 +250,13 @@ export default function CarLoanCalculatorPage() {
           </p>
           <ul className="mt-4 space-y-3">
             {compareBeforeApplying.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Use this calculator more than once so you can compare multiple offers
             side by side before making a decision.
           </p>
@@ -264,12 +264,12 @@ export default function CarLoanCalculatorPage() {
 
         {/* Questions to Consider */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Questions to consider before applying
           </h2>
           <ul className="mt-6 space-y-4">
             {questionsToConsider.map((question, i) => (
-              <li key={i} className="flex gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={i} className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
                 {question}
               </li>
@@ -284,7 +284,7 @@ export default function CarLoanCalculatorPage() {
 
         {/* Related Calculators and Guides */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related calculators and guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -155,17 +155,17 @@ export default function EmergencyFundCalculatorPage() {
 
         {/* What Is an Emergency Fund */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Is an Emergency Fund?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             An emergency fund is money set aside specifically for unexpected
             events that affect your ability to pay for essential needs. This
             includes sudden job loss, medical emergencies, major home or
             appliance repairs, or any situation where your regular income is
             disrupted.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Unlike regular savings, an emergency fund is not meant for planned
             purchases. It acts as a financial buffer that keeps you from relying
             on credit cards, personal loans, or borrowing from family during a
@@ -175,10 +175,10 @@ export default function EmergencyFundCalculatorPage() {
 
         {/* How Much Do You Need */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How Much Emergency Fund Do You Need?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The right amount depends on your personal situation. A common
             guideline is to save three to six months of essential living
             expenses. Here is how to decide where you fall on that range:
@@ -188,7 +188,7 @@ export default function EmergencyFundCalculatorPage() {
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                 3 months may be enough if...
               </h3>
-              <ul className="mt-3 space-y-2 text-[16px] leading-[22px] text-gray-400">
+              <ul className="mt-3 space-y-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 <li className="flex gap-2">
                   <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                   You have a stable, salaried job with separation pay
@@ -211,7 +211,7 @@ export default function EmergencyFundCalculatorPage() {
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                 6 months or more if...
               </h3>
-              <ul className="mt-3 space-y-2 text-[16px] leading-[22px] text-gray-400">
+              <ul className="mt-3 space-y-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 <li className="flex gap-2">
                   <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                   You are self-employed, freelance, or on a contract
@@ -235,10 +235,10 @@ export default function EmergencyFundCalculatorPage() {
 
         {/* Where to Keep */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Where to Keep Your Emergency Fund
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your emergency fund should be easy to access and not at risk of
             losing value. Avoid stocks, mutual funds, or long-term investments
             for this purpose. Here are the most common options in the
@@ -258,7 +258,7 @@ export default function EmergencyFundCalculatorPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {option.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {option.description}
                   </p>
                 </div>
@@ -267,7 +267,7 @@ export default function EmergencyFundCalculatorPage() {
           </div>
           <div className="mt-6 flex gap-3 rounded-lg border border-gray-200 bg-white p-6">
             <Info className="mt-0.5 size-5 shrink-0 text-gray-300" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               Compare current savings rates on our{" "}
               <Link
                 href="/rates/savings-rates/best-savings-interest-rates-philippines"
@@ -282,10 +282,10 @@ export default function EmergencyFundCalculatorPage() {
 
         {/* Worked Example */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Example: Computing Your Emergency Fund
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Suppose your monthly essential expenses look like this:
           </p>
           <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
@@ -311,7 +311,7 @@ export default function EmergencyFundCalculatorPage() {
                 <span className="font-mono tabular-nums">₱25,000</span>
               </div>
             </div>
-            <div className="mt-4 space-y-1 text-[16px] leading-[22px] text-gray-400">
+            <div className="mt-4 space-y-1 text-[16px] leading-[1.6] text-[#5A6478]">
               <p>
                 <strong className="text-gray-500">3-month target:</strong>{" "}
                 ₱25,000 x 3 = ₱75,000
@@ -321,7 +321,7 @@ export default function EmergencyFundCalculatorPage() {
                 ₱25,000 x 6 = ₱150,000
               </p>
             </div>
-            <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
               If you save ₱10,000 per month toward your emergency fund, you
               would reach the 3-month target in about 8 months and the 6-month
               target in about 15 months.
@@ -331,14 +331,14 @@ export default function EmergencyFundCalculatorPage() {
 
         {/* Questions to consider */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Questions to Consider
           </h2>
           <ul className="mt-6 space-y-4">
             {questionsToConsider.map((question, i) => (
               <li
                 key={i}
-                className="flex gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
                 {question}
@@ -350,7 +350,7 @@ export default function EmergencyFundCalculatorPage() {
         {/* Disclaimer */}
         <div className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
           <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-          <p className="text-[16px] leading-[22px] text-gray-400">
+          <p className="text-[16px] leading-[1.6] text-[#5A6478]">
             This calculator provides estimates for planning purposes only. The
             right emergency fund amount depends on your personal circumstances,
             risk tolerance, and financial obligations. Consider consulting a
@@ -365,7 +365,7 @@ export default function EmergencyFundCalculatorPage() {
 
         {/* Related Calculators and Guides */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related Calculators and Guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

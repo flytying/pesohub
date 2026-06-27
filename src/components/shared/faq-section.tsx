@@ -26,7 +26,7 @@ export function FaqSection({ faqs }: FaqSectionProps) {
 
   return (
     <section>
-      <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
+      <h2 className="mb-8 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
         Frequently Asked Questions
       </h2>
       <Accordion className="space-y-3">
@@ -40,7 +40,7 @@ export function FaqSection({ faqs }: FaqSectionProps) {
               {faq.question}
             </AccordionTrigger>
             <AccordionContent>
-              <p className="px-5 text-[16px] leading-[22px] text-gray-400">
+              <p className="px-5 text-[16px] leading-[1.6] text-[#5A6478]">
                 {faq.answer}
               </p>
             </AccordionContent>

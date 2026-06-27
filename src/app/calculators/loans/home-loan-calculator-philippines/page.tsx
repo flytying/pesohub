@@ -216,10 +216,10 @@ export default function HomeLoanCalculatorPage() {
 
         {/* How to Tell if the Monthly Payment Is Realistic */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How to Tell if the Monthly Payment Is Realistic
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             A monthly home loan payment may look affordable at first, but it
             should still fit comfortably within your overall monthly budget.
             Before applying, check whether you can still cover regular expenses,
@@ -228,7 +228,7 @@ export default function HomeLoanCalculatorPage() {
           </p>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               A lower monthly payment is not always the lower-cost option overall.
               A longer loan term can reduce the monthly amount, but it may also
               increase the total interest paid over time. A bigger down payment
@@ -239,10 +239,10 @@ export default function HomeLoanCalculatorPage() {
 
         {/* Worked Examples */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Side-by-Side: Pag-IBIG vs Bank Financing
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             These two worked examples show how the same type of decision —
             financing a home — can produce very different numbers depending on
             the interest rate, loan term, and property price. Use them to
@@ -258,7 +258,7 @@ export default function HomeLoanCalculatorPage() {
                 </h3>
               </div>
               <div className="px-6 py-4">
-                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                   <div className="flex justify-between">
                     <dt className="text-gray-400">Property Price</dt>
                     <dd className="font-mono tabular-nums text-gray-500">₱2,500,000</dd>
@@ -292,7 +292,7 @@ export default function HomeLoanCalculatorPage() {
                 </dl>
               </div>
               <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="flex justify-between text-[16px] leading-[22px]">
+                <div className="flex justify-between text-[16px] leading-[1.6]">
                   <span className="font-semibold text-gray-500">Est. Monthly Payment</span>
                   <span className="font-mono tabular-nums font-bold text-brand">₱11,199</span>
                 </div>
@@ -312,7 +312,7 @@ export default function HomeLoanCalculatorPage() {
                 </h3>
               </div>
               <div className="px-6 py-4">
-                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                   <div className="flex justify-between">
                     <dt className="text-gray-400">Property Price</dt>
                     <dd className="font-mono tabular-nums text-gray-500">₱3,500,000</dd>
@@ -346,7 +346,7 @@ export default function HomeLoanCalculatorPage() {
                 </dl>
               </div>
               <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="flex justify-between text-[16px] leading-[22px]">
+                <div className="flex justify-between text-[16px] leading-[1.6]">
                   <span className="font-semibold text-gray-500">Est. Monthly Payment</span>
                   <span className="font-mono tabular-nums font-bold text-brand">₱21,708</span>
                 </div>
@@ -361,7 +361,7 @@ export default function HomeLoanCalculatorPage() {
 
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               These are planning estimates only. Actual Pag-IBIG and bank offers
               will vary based on lender terms, borrower profile, fees, and
               approved conditions. Use the calculator above to test your own
@@ -372,10 +372,10 @@ export default function HomeLoanCalculatorPage() {
 
         {/* What Affects Your Monthly Home Loan Payment */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Affects Your Monthly Home Loan Payment
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your estimated monthly home loan payment depends on four main
             factors: the property price, the down payment, the loan term, and
             the interest rate. Understanding how each one works can help you
@@ -392,7 +392,7 @@ export default function HomeLoanCalculatorPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {factor.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {factor.description}
                   </p>
                 </div>
@@ -403,23 +403,23 @@ export default function HomeLoanCalculatorPage() {
 
         {/* Your Loan Payment Is Not Your Full Housing Budget */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Your Loan Payment Is Not Your Full Housing Budget
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             A home loan calculator helps estimate the financing side of the
             purchase, but your total housing budget should include more than just
             the monthly amortization. Also consider:
           </p>
           <ul className="mt-4 space-y-3">
             {housingBudgetItems.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Use the calculator to estimate the loan payment, then add these
             costs before deciding what property price range is truly affordable.
           </p>
@@ -427,10 +427,10 @@ export default function HomeLoanCalculatorPage() {
 
         {/* What to Compare Before Choosing a Home Loan */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What to Compare Before Choosing a Home Loan
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Do not compare financing options based on monthly payment alone. Two
             offers may look similar at first, but the total borrowing cost can
             vary depending on the term, interest rate, fees, and financing
@@ -438,13 +438,13 @@ export default function HomeLoanCalculatorPage() {
           </p>
           <ul className="mt-4 space-y-3">
             {compareBeforeApplying.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Use this calculator more than once so you can compare multiple
             options side by side before making a decision.
           </p>
@@ -452,12 +452,12 @@ export default function HomeLoanCalculatorPage() {
 
         {/* Questions to Consider */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Questions to consider before applying
           </h2>
           <ul className="mt-6 space-y-4">
             {questionsToConsider.map((question, i) => (
-              <li key={i} className="flex gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={i} className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
                 {question}
               </li>
@@ -467,10 +467,10 @@ export default function HomeLoanCalculatorPage() {
 
         {/* Sample Home Financing Scenarios */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Sample Home Financing Scenarios
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             These examples can help you compare common home financing paths in
             the Philippines. Use them as a starting point, then adjust the
             numbers based on your target property, down payment, and preferred
@@ -487,7 +487,7 @@ export default function HomeLoanCalculatorPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {scenario.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {scenario.description}
                   </p>
                 </div>
@@ -498,10 +498,10 @@ export default function HomeLoanCalculatorPage() {
 
         {/* Example Affordability Ranges */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Example Affordability Ranges
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             These example ranges can help you think about what different property
             budgets may feel like in practice. Use them as planning references,
             not lender quotes.
@@ -517,7 +517,7 @@ export default function HomeLoanCalculatorPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {range.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {range.description}
                   </p>
                 </div>
@@ -533,7 +533,7 @@ export default function HomeLoanCalculatorPage() {
 
         {/* Related Calculators and Guides */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related calculators and guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

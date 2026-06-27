@@ -164,23 +164,23 @@ export default function TakeHomePayCalculatorPage() {
         </div>
 
         {/* Result support text */}
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           This estimate shows standard monthly deductions based on the
           assumptions currently used by the calculator.
         </p>
 
         {/* How Gross Salary Turns Into Take-Home Pay */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How to Compute Net Pay From Gross Salary
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your take-home pay is your salary after common deductions are
             subtracted. This breakdown helps show where the difference between
             gross pay and net pay comes from.
           </p>
           <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
-            <div className="space-y-2 text-[16px] leading-[22px]">
+            <div className="space-y-2 text-[16px] leading-[1.6]">
               {grossToNetBreakdown.map((item, i) => (
                 <div
                   key={item}
@@ -203,7 +203,7 @@ export default function TakeHomePayCalculatorPage() {
               ))}
             </div>
           </div>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             This is the core paycheck breakdown most employees want to
             understand at a glance.
           </p>
@@ -211,10 +211,10 @@ export default function TakeHomePayCalculatorPage() {
 
         {/* Why Your Gross Pay Is Different From Your Net Pay */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Gross Pay vs Net Pay: Understanding Salary Deductions
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Gross pay is your salary before deductions. Net pay, or take-home
             pay, is what remains after common mandatory deductions are taken
             out. Even if your gross salary stays the same, your estimated
@@ -223,7 +223,7 @@ export default function TakeHomePayCalculatorPage() {
           </p>
           <ul className="mt-4 space-y-3">
             {whyGrossDifferent.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -233,22 +233,22 @@ export default function TakeHomePayCalculatorPage() {
 
         {/* What This Calculator Includes and Does Not Include */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What This Calculator Includes and Does Not Include
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             This estimate is designed to show the most common payroll
             deductions used in a standard salary scenario. It does not
             replace your employer&apos;s actual payroll system or full payslip.
           </p>
           <div className="mt-4 grid gap-6 sm:grid-cols-2">
             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6">
-              <h3 className="text-[16px] font-semibold leading-[22px] text-emerald-800">
+              <h3 className="text-[16px] font-semibold leading-[1.6] text-emerald-800">
                 Includes
               </h3>
               <ul className="mt-4 space-y-3">
                 {toolIncludes.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-emerald-700">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-emerald-700">
                     <Check className="size-4 shrink-0 text-emerald-500" />
                     {item}
                   </li>
@@ -256,12 +256,12 @@ export default function TakeHomePayCalculatorPage() {
               </ul>
             </div>
             <div className="rounded-xl border border-red-200 bg-red-50 p-6">
-              <h3 className="text-[16px] font-semibold leading-[22px] text-red-800">
+              <h3 className="text-[16px] font-semibold leading-[1.6] text-red-800">
                 Does not include
               </h3>
               <ul className="mt-4 space-y-3">
                 {toolDoesNotInclude.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-red-700">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-red-700">
                     <X className="size-4 shrink-0 text-red-400" />
                     {item}
                   </li>
@@ -271,7 +271,7 @@ export default function TakeHomePayCalculatorPage() {
           </div>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               Because of these exclusions, your actual payslip may differ from
               the estimate.
             </p>
@@ -280,16 +280,16 @@ export default function TakeHomePayCalculatorPage() {
 
         {/* Why Your Actual Payslip May Be Different */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Your Actual Payslip May Be Different
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your actual payslip may differ from this estimate for several
             reasons.
           </p>
           <ul className="mt-4 space-y-3">
             {whyPayslipDifferent.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -299,10 +299,10 @@ export default function TakeHomePayCalculatorPage() {
 
         {/* Want to Check One Deduction at a Time? */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Individual Payroll Deduction Calculators
           </h2>
-          <p className="mb-6 text-[16px] leading-[22px] text-gray-400">
+          <p className="mb-6 text-[16px] leading-[1.6] text-[#5A6478]">
             If you want to understand one payroll deduction more closely, use
             the matching calculator or reference page below.
           </p>
@@ -335,7 +335,7 @@ export default function TakeHomePayCalculatorPage() {
 
         {/* Related Payroll Tools and Guides */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related Payroll Tools and Guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

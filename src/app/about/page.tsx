@@ -46,16 +46,16 @@ export default function AboutPage() {
         {/* Our Mission */}
         <section>
           <div>
-            <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
               Our Mission
             </h2>
-            <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
               We believe financial information should be clear, accessible, and
               practical. Too many finance websites are cluttered with ads, buried
               in long articles, or hard to use on mobile. {SITE_NAME} puts the
               calculator, table, or answer first — then provides the explanation.
             </p>
-            <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
               Every tool and page is designed to help you move faster — whether you
               are comparing savings rates before opening an account, estimating your
               take-home pay, or verifying SSS contribution amounts from a payslip.
@@ -70,7 +70,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
             <div>
-              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+              <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
                 What We Offer
               </h2>
               <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
@@ -92,7 +92,7 @@ export default function AboutPage() {
                     <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                    <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                       {item.description}
                     </p>
                   </div>
@@ -106,10 +106,10 @@ export default function AboutPage() {
       {/* How We Build and Verify Content */}
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         <section>
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How We Build and Verify Content
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Every page on {SITE_NAME} follows a consistent editorial process
             designed to keep financial information accurate and up to date.
             Because this site covers topics that directly affect people&apos;s
@@ -124,7 +124,7 @@ export default function AboutPage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Official Sources Only
               </h3>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 All government data — SSS contribution tables, PhilHealth
                 premiums, Pag-IBIG rates, BIR tax brackets — is sourced
                 directly from official agency publications, circulars, and
@@ -139,7 +139,7 @@ export default function AboutPage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Regular Review Cadence
               </h3>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 Exchange rates update daily. Bank savings rates are reviewed
                 every two weeks. Government contribution tables and tax
                 brackets are checked monthly. Every page shows its last
@@ -153,7 +153,7 @@ export default function AboutPage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Calculator Formulas Cross-Checked
               </h3>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 Calculator logic uses standard financial formulas (amortization,
                 compound interest, TRAIN law brackets) and is tested against
                 known outputs. Each calculator page explains the formula used
@@ -167,7 +167,7 @@ export default function AboutPage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Clear Disclaimers
               </h3>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 Every reference page and calculator includes a disclaimer
                 making clear that results are estimates for informational
                 purposes. We label what is an official figure versus a
@@ -181,7 +181,7 @@ export default function AboutPage() {
       {/* Who This Site Is For */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Who This Site Is For
           </h2>
           <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
@@ -224,7 +224,7 @@ export default function AboutPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {item.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {item.description}
                   </p>
                 </div>
@@ -237,12 +237,12 @@ export default function AboutPage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Disclaimer */}
         <section>
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Important Disclaimer
           </h2>
           <div className="mt-6 flex gap-3 rounded-xl border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               {SITE_NAME} is an independent website and is not affiliated with any
               bank, government agency, or financial institution. The information
               provided is for educational and informational purposes only. It should

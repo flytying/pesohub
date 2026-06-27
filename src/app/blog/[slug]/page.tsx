@@ -132,7 +132,7 @@ export default async function BlogPostPage({
             <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-brand">
               Quick Answer
             </p>
-            <p className="mt-2 text-[16px] leading-[22px] text-gray-500">
+            <p className="mt-2 text-[16px] leading-[1.6] text-gray-500">
               {post.directAnswer}
             </p>
           </div>
@@ -145,7 +145,7 @@ export default async function BlogPostPage({
         {post.disclaimer && (
           <div className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               This article is for educational and informational purposes only.
               It should not be considered professional financial advice. Rates,
               rules, and product details may change. Always verify with the
@@ -165,7 +165,7 @@ export default async function BlogPostPage({
         {/* Related Content */}
         {post.relatedSlugs.length > 0 && (
           <section className="mt-16">
-            <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+            <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
               Related Pages
             </h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

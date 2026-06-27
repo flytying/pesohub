@@ -15,7 +15,7 @@ export function DisclaimerBox({
   return (
     <div
       className={cn(
-        "flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6 text-[16px] leading-[22px] text-amber-900",
+        "flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6 text-[16px] leading-[1.6] text-amber-900",
         className
       )}
     >

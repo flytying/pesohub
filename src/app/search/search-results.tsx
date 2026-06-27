@@ -58,7 +58,7 @@ export function SearchResults() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for calculators, rates, guides..."
-          className="h-12 w-full rounded-xl border border-gray-200 bg-white pl-11 pr-4 text-[16px] leading-[22px] text-gray-500 outline-none transition-colors placeholder:text-gray-300 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
+          className="h-12 w-full rounded-xl border border-gray-200 bg-white pl-11 pr-4 text-[16px] leading-[1.6] text-gray-500 outline-none transition-colors placeholder:text-gray-300 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
           autoFocus
         />
       </form>
@@ -77,7 +77,7 @@ export function SearchResults() {
               <p className="mb-3 text-[16px] font-semibold text-gray-500">
                 Try different keywords
               </p>
-              <p className="text-[16px] leading-[22px] text-gray-400">
+              <p className="text-[16px] leading-[1.6] text-[#5A6478]">
                 Search for topics like &ldquo;car loan&rdquo;, &ldquo;SSS pension&rdquo;,
                 &ldquo;exchange rate&rdquo;, or &ldquo;withholding tax&rdquo;.
               </p>

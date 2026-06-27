@@ -97,7 +97,7 @@ export default function WithholdingTaxCalculatorPage() {
         </div>
 
         {/* Result support text */}
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           This estimate deducts your SSS, PhilHealth, and Pag-IBIG employee
           shares and tax-exempt allowances to get taxable compensation, then
           applies the TRAIN Law table for your chosen pay frequency. For the
@@ -115,16 +115,16 @@ export default function WithholdingTaxCalculatorPage() {
         <div className="mt-6 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
           <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
           <div>
-            <h3 className="text-[16px] font-semibold leading-[22px] text-gray-500">
+            <h3 className="text-[16px] font-semibold leading-[1.6] text-gray-500">
               How this estimate is computed
             </h3>
-            <p className="mt-1 text-[16px] leading-[22px] text-gray-400">
+            <p className="mt-1 text-[16px] leading-[1.6] text-[#5A6478]">
               The calculator subtracts your SSS, PhilHealth, and Pag-IBIG
               employee shares (estimated automatically or entered manually) and
               any tax-exempt allowances, then applies the BIR table for your
               pay frequency.
             </p>
-            <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
               Your actual payroll withholding may still differ due to employer
               rounding, supplementary compensation, and payroll-specific rules.
             </p>
@@ -133,10 +133,10 @@ export default function WithholdingTaxCalculatorPage() {
 
         {/* Why Pay Frequency and Deductions Matter */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Pay Frequency and Deductions Matter
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Philippine income tax brackets are based on annual taxable income.
             Because payroll is processed monthly, semi-monthly, weekly, or
             daily, the BIR publishes a withholding table for each frequency so
@@ -144,7 +144,7 @@ export default function WithholdingTaxCalculatorPage() {
             calculator annualizes your taxable compensation, applies the
             correct bracket, then splits the tax back across your pay frequency.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Taxable compensation is your gross pay plus taxable allowances,
             minus your SSS, PhilHealth, and Pag-IBIG contributions and any
             tax-exempt allowances — which is why deductions are entered before
@@ -154,13 +154,13 @@ export default function WithholdingTaxCalculatorPage() {
 
         {/* Current Income Tax Brackets */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Current Income Tax Brackets in the Philippines
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             These are the annual income tax brackets used for the estimate.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Annual taxable income up to ₱250,000 is generally exempt from
             income tax under the current structure.
           </p>
@@ -247,17 +247,17 @@ export default function WithholdingTaxCalculatorPage() {
               </tbody>
             </table>
           </div>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Source: TRAIN Law (RA 10963), effective January 1, 2023.
           </p>
         </section>
 
         {/* Worked Example */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Example: How Withholding Tax Is Estimated From Monthly Salary
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Here is a simple example to show how the estimate works in
             practice.
           </p>
@@ -268,7 +268,7 @@ export default function WithholdingTaxCalculatorPage() {
               </h3>
             </div>
             <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Monthly gross pay</dt>
                   <dd className="font-mono tabular-nums text-gray-500">₱35,000</dd>
@@ -301,7 +301,7 @@ export default function WithholdingTaxCalculatorPage() {
               </dl>
             </div>
             <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-              <div className="flex justify-between text-[16px] leading-[22px]">
+              <div className="flex justify-between text-[16px] leading-[1.6]">
                 <span className="font-semibold text-gray-500">Est. Monthly Withholding</span>
                 <span className="font-mono tabular-nums font-bold text-brand">₱1,701/mo</span>
               </div>
@@ -313,7 +313,7 @@ export default function WithholdingTaxCalculatorPage() {
               </p>
             </div>
           </div>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             This example is for illustration only. Actual payroll withholding
             may differ depending on your exact contributions and employer
             payroll treatment.
@@ -322,16 +322,16 @@ export default function WithholdingTaxCalculatorPage() {
 
         {/* Why Your Actual Payroll Withholding May Be Different */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Your Actual Payroll Withholding May Be Different
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your actual withholding tax in payroll may differ from this
             estimate for several reasons.
           </p>
           <ul className="mt-4 space-y-3">
             {whyDifferent.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -341,10 +341,10 @@ export default function WithholdingTaxCalculatorPage() {
 
         {/* Net Pay and Next Steps */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Net Pay and Next Steps
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The calculator shows your net pay for the pay period after
             withholding tax and your SSS, PhilHealth, and Pag-IBIG
             contributions. For a dedicated monthly take-home breakdown, use the{" "}
@@ -372,7 +372,7 @@ export default function WithholdingTaxCalculatorPage() {
 
         {/* Related Tax Pages and Tools */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related Tax Pages and Tools
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -144,10 +144,10 @@ export default function TimeDepositCalculatorPage() {
 
         {/* Gross Interest vs After-Tax Interest */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Gross Interest vs After-Tax Interest
           </h2>
-          <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
             A time deposit may advertise a gross interest rate, but the amount
             you actually receive at maturity may be lower after applicable tax
             treatment is considered. This is why it helps to compare both gross
@@ -155,7 +155,7 @@ export default function TimeDepositCalculatorPage() {
           </p>
           <div className="mt-4 flex gap-3 rounded-lg border border-gray-200 bg-white p-6">
             <Info className="size-5 shrink-0 mt-0.5 text-gray-300" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               Use gross return for headline comparison, but use after-tax
               return when deciding how much your money may actually grow.
             </p>
@@ -164,15 +164,15 @@ export default function TimeDepositCalculatorPage() {
 
         {/* What Your Maturity Amount Means */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Your Maturity Amount Means
           </h2>
-          <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
             Your maturity amount is the estimated total value of your deposit at
             the end of the selected term. It includes your original principal
             plus the interest earned over the deposit period.
           </p>
-          <ul className="mt-4 text-[16px] leading-[22px] text-gray-400 space-y-2">
+          <ul className="mt-4 text-[16px] leading-[1.6] text-[#5A6478] space-y-2">
             {maturityMeaning.map((item) => (
               <li key={item} className="flex items-start gap-2">
                 <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
@@ -184,21 +184,21 @@ export default function TimeDepositCalculatorPage() {
 
         {/* What This Calculator Includes and Does Not Include */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What This Calculator Includes and Does Not Include
           </h2>
-          <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
             This page is designed for a simple time deposit estimate and does
             not replace bank-specific product terms.
           </p>
           <div className="mt-4 grid gap-6 sm:grid-cols-2">
             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6">
-              <h3 className="text-[16px] font-semibold leading-[22px] text-emerald-800">
+              <h3 className="text-[16px] font-semibold leading-[1.6] text-emerald-800">
                 Includes
               </h3>
               <ul className="mt-4 space-y-3">
                 {toolIncludes.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-emerald-700">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-emerald-700">
                     <Check className="size-4 shrink-0 text-emerald-500" />
                     {item}
                   </li>
@@ -206,12 +206,12 @@ export default function TimeDepositCalculatorPage() {
               </ul>
             </div>
             <div className="rounded-xl border border-red-200 bg-red-50 p-6">
-              <h3 className="text-[16px] font-semibold leading-[22px] text-red-800">
+              <h3 className="text-[16px] font-semibold leading-[1.6] text-red-800">
                 Does not include
               </h3>
               <ul className="mt-4 space-y-3">
                 {toolDoesNotInclude.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-red-700">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-red-700">
                     <X className="size-4 shrink-0 text-red-400" />
                     {item}
                   </li>
@@ -221,7 +221,7 @@ export default function TimeDepositCalculatorPage() {
           </div>
           <div className="mt-4 flex gap-3 rounded-lg border border-gray-200 bg-white p-6">
             <Info className="size-5 shrink-0 mt-0.5 text-gray-300" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               Actual bank products may use different terms, rates, or early
               withdrawal rules. This estimate is for planning purposes only.
             </p>
@@ -230,14 +230,14 @@ export default function TimeDepositCalculatorPage() {
 
         {/* Why Your Actual Time Deposit Return May Be Different */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Your Actual Time Deposit Return May Be Different
           </h2>
-          <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
             Your actual return may differ from this estimate for several
             reasons.
           </p>
-          <ul className="mt-3 text-[16px] leading-[22px] text-gray-400 space-y-2">
+          <ul className="mt-3 text-[16px] leading-[1.6] text-[#5A6478] space-y-2">
             {whyDifferent.map((item) => (
               <li key={item} className="flex items-start gap-2">
                 <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
@@ -249,10 +249,10 @@ export default function TimeDepositCalculatorPage() {
 
         {/* Time Deposit vs Savings Account */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Time Deposit vs Savings Account
           </h2>
-          <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
             A time deposit is usually better for money you can leave untouched
             for a fixed period. A savings account is usually better if you want
             easier access to your funds. The right choice depends on whether you
@@ -263,7 +263,7 @@ export default function TimeDepositCalculatorPage() {
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                 Time Deposit
               </h3>
-              <ul className="mt-3 text-[16px] leading-[22px] text-gray-400 space-y-2">
+              <ul className="mt-3 text-[16px] leading-[1.6] text-[#5A6478] space-y-2">
                 {tdVsSavings.timeDeposit.map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
@@ -276,7 +276,7 @@ export default function TimeDepositCalculatorPage() {
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                 Savings Account
               </h3>
-              <ul className="mt-3 text-[16px] leading-[22px] text-gray-400 space-y-2">
+              <ul className="mt-3 text-[16px] leading-[1.6] text-[#5A6478] space-y-2">
                 {tdVsSavings.savingsAccount.map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
@@ -295,7 +295,7 @@ export default function TimeDepositCalculatorPage() {
 
         {/* Related Savings and Rates Pages */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related Savings and Rates Pages
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

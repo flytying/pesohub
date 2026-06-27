@@ -124,17 +124,17 @@ export default function ThirteenthMonthPayCalculatorPage() {
         </div>
 
         {/* Result support text */}
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           This estimate follows the standard rule that 13th month pay is based
           on 1/12 of the basic salary earned within the calendar year.
         </p>
 
         {/* Full-Year vs Prorated 13th Month Pay */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Full-Year vs Prorated 13th Month Pay
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             If you worked the full calendar year, the estimate is usually based
             on your total basic salary earned during the year divided by 12. If
             you did not work the full year, the amount is usually prorated based
@@ -143,10 +143,10 @@ export default function ThirteenthMonthPayCalculatorPage() {
           </p>
           <div className="mt-4 grid gap-5 sm:grid-cols-2">
             <div className="rounded-xl border border-gray-200 bg-white p-6">
-              <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+              <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
                 Full-Year Estimate
               </p>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 For employees who worked the full calendar year. Usually equals
                 one month&apos;s basic salary.
               </p>
@@ -155,10 +155,10 @@ export default function ThirteenthMonthPayCalculatorPage() {
               </p>
             </div>
             <div className="rounded-xl border border-gray-200 bg-white p-6">
-              <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+              <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
                 Prorated Estimate
               </p>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 For employees who started later, resigned earlier, or had
                 incomplete service during the year.
               </p>
@@ -167,7 +167,7 @@ export default function ThirteenthMonthPayCalculatorPage() {
               </p>
             </div>
           </div>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Both scenarios still use basic salary as the base. This is why the
             months worked matter when estimating 13th month pay.
           </p>
@@ -175,27 +175,27 @@ export default function ThirteenthMonthPayCalculatorPage() {
 
         {/* How 13th Month Pay Is Computed */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How 13th Month Pay Is Computed
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The standard idea is simple: add the employee&apos;s basic salary
             earned within the calendar year, then divide by 12. For a fixed
             monthly basic salary, this often becomes monthly basic salary
             multiplied by months worked, then divided by 12.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             PD 851 and its implementing rule define 13th month pay as
             one-twelfth of the basic salary earned during the calendar year.
           </p>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
             <div>
-              <p className="text-[16px] font-semibold leading-[22px] text-gray-500">Formula</p>
+              <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">Formula</p>
               <p className="mt-2 font-mono text-sm text-brand">
                 13th Month Pay = Total Basic Salary Earned During the Year / 12
               </p>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 If monthly basic salary stayed the same, the estimate is usually
                 straightforward.
               </p>
@@ -205,10 +205,10 @@ export default function ThirteenthMonthPayCalculatorPage() {
 
         {/* What Is Included and Excluded */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Is Included and Excluded in the Computation
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The most important rule to understand is that 13th month pay is
             based on basic salary, not all forms of pay. Philippine rulings on
             PD 851 consistently treat basic salary as the computation base.
@@ -216,12 +216,12 @@ export default function ThirteenthMonthPayCalculatorPage() {
 
           <div className="mt-4 grid gap-6 sm:grid-cols-2">
             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6">
-              <h3 className="text-[16px] font-semibold leading-[22px] text-emerald-800">
+              <h3 className="text-[16px] font-semibold leading-[1.6] text-emerald-800">
                 Usually Included
               </h3>
               <ul className="mt-4 space-y-3">
                 {usuallyIncluded.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-emerald-700">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-emerald-700">
                     <Check className="size-4 shrink-0 text-emerald-500" />
                     {item}
                   </li>
@@ -229,12 +229,12 @@ export default function ThirteenthMonthPayCalculatorPage() {
               </ul>
             </div>
             <div className="rounded-xl border border-red-200 bg-red-50 p-6">
-              <h3 className="text-[16px] font-semibold leading-[22px] text-red-800">
+              <h3 className="text-[16px] font-semibold leading-[1.6] text-red-800">
                 Usually Excluded
               </h3>
               <ul className="mt-4 space-y-3">
                 {usuallyExcluded.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-red-700">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-red-700">
                     <X className="size-4 shrink-0 text-red-400" />
                     {item}
                   </li>
@@ -242,7 +242,7 @@ export default function ThirteenthMonthPayCalculatorPage() {
               </ul>
             </div>
           </div>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             If you are unsure whether a pay item counts, check your company
             payroll policy or labor guidance before relying on the estimate.
           </p>
@@ -250,10 +250,10 @@ export default function ThirteenthMonthPayCalculatorPage() {
 
         {/* Sample 13th Month Pay Computations */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Sample 13th Month Pay Computations
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             These examples help show how the estimate works for common
             scenarios.
           </p>
@@ -261,7 +261,7 @@ export default function ThirteenthMonthPayCalculatorPage() {
             {/* Full-Year Example */}
             <div className="rounded-xl border border-gray-200 bg-white p-6">
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">Full-Year Example</h3>
-              <dl className="mt-3 space-y-2 text-[16px] leading-[22px]">
+              <dl className="mt-3 space-y-2 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Monthly Basic Salary</dt>
                   <dd className="font-medium text-gray-500">₱24,000</dd>
@@ -285,7 +285,7 @@ export default function ThirteenthMonthPayCalculatorPage() {
             {/* Prorated Example */}
             <div className="rounded-xl border border-gray-200 bg-white p-6">
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">Prorated Example</h3>
-              <dl className="mt-3 space-y-2 text-[16px] leading-[22px]">
+              <dl className="mt-3 space-y-2 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Monthly Basic Salary</dt>
                   <dd className="font-medium text-gray-500">₱24,000</dd>
@@ -309,12 +309,12 @@ export default function ThirteenthMonthPayCalculatorPage() {
             {/* Changing Salary Note */}
             <div className="rounded-xl border border-gray-200 bg-white p-6">
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">Changing Salary</h3>
-              <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 If your salary changed during the year, the safer approach is
                 to total the actual basic salary earned during each covered
                 month, then divide the annual total by 12.
               </p>
-              <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 This calculator uses a fixed monthly salary for simplicity.
               </p>
             </div>
@@ -323,21 +323,21 @@ export default function ThirteenthMonthPayCalculatorPage() {
 
         {/* What This Calculator Includes and Does Not Include */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What This Calculator Includes and Does Not Include
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             This page is designed for a simple 13th month pay estimate and does
             not replace payroll review.
           </p>
           <div className="mt-4 grid gap-6 sm:grid-cols-2">
             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6">
-              <h3 className="text-[16px] font-semibold leading-[22px] text-emerald-800">
+              <h3 className="text-[16px] font-semibold leading-[1.6] text-emerald-800">
                 Includes
               </h3>
               <ul className="mt-4 space-y-3">
                 {toolIncludes.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-emerald-700">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-emerald-700">
                     <Check className="size-4 shrink-0 text-emerald-500" />
                     {item}
                   </li>
@@ -345,12 +345,12 @@ export default function ThirteenthMonthPayCalculatorPage() {
               </ul>
             </div>
             <div className="rounded-xl border border-red-200 bg-red-50 p-6">
-              <h3 className="text-[16px] font-semibold leading-[22px] text-red-800">
+              <h3 className="text-[16px] font-semibold leading-[1.6] text-red-800">
                 Does not include
               </h3>
               <ul className="mt-4 space-y-3">
                 {toolDoesNotInclude.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-red-700">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-red-700">
                     <X className="size-4 shrink-0 text-red-400" />
                     {item}
                   </li>
@@ -360,7 +360,7 @@ export default function ThirteenthMonthPayCalculatorPage() {
           </div>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               This estimate focuses on basic salary and may not reflect every
               payroll-specific classification. Always check your company payroll
               policy for final amounts.
@@ -370,16 +370,16 @@ export default function ThirteenthMonthPayCalculatorPage() {
 
         {/* Why Your Actual 13th Month Pay May Be Different */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Your Actual 13th Month Pay May Be Different
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your actual 13th month pay may differ from a simple estimate for
             several reasons.
           </p>
           <ul className="mt-4 space-y-3">
             {whyDifferent.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -394,7 +394,7 @@ export default function ThirteenthMonthPayCalculatorPage() {
 
         {/* Related Payroll Pages and Guides */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related payroll pages and guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

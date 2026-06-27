@@ -58,10 +58,10 @@ export function CalculatorShell({
                 </DialogTrigger>
                 <DialogPopup>
                   <DialogTitle>{beforeYouStart.title || "Before You Start"}</DialogTitle>
-                  <DialogDescription className="mt-3 text-[16px] leading-[22px] text-gray-400">
+                  <DialogDescription className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
                     {beforeYouStart.description}
                   </DialogDescription>
-                  <ul className="mt-4 space-y-2.5 text-[16px] leading-[22px] text-gray-400">
+                  <ul className="mt-4 space-y-2.5 text-[16px] leading-[1.6] text-[#5A6478]">
                     {beforeYouStart.items.map((item) => (
                       <li key={item} className="flex gap-2">
                         <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />

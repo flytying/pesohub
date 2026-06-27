@@ -138,17 +138,17 @@ export default function SssPensionGuidePage() {
         {/* 1. What Is the SSS Retirement Pension? */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             1. What Is the SSS Retirement Pension?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The SSS (Social Security System) retirement pension is a monthly
             cash benefit paid to qualified members who have reached retirement
             age and have made enough contributions. It is designed to provide
             a basic income replacement during retirement and is paid for the
             rest of the member&apos;s life.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The pension amount depends on three factors: your{" "}
             <strong>average monthly salary credit (AMSC)</strong>, your{" "}
             <strong>total number of credited years of service (CYS)</strong>,
@@ -159,15 +159,15 @@ export default function SssPensionGuidePage() {
 
         {/* 2. Eligibility Requirements */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             2. Eligibility Requirements
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             To qualify for the SSS retirement pension, you must meet:
           </p>
           <ul className="mt-4 space-y-3">
             {eligibilityRequirements.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -177,10 +177,10 @@ export default function SssPensionGuidePage() {
 
         {/* 3. The Three SSS Pension Formulas */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             3. The Three SSS Pension Formulas
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The SSS computes your pension using all three formulas below and
             gives you <strong>whichever is highest</strong>:
           </p>
@@ -190,22 +190,22 @@ export default function SssPensionGuidePage() {
                 <span className="inline-block rounded-full bg-gray-50 px-3 py-1 text-[14px] font-medium text-gray-500">
                   {formula.label}
                 </span>
-                <p className="mt-3 font-mono text-[16px] leading-[22px] text-gray-500">
+                <p className="mt-3 font-mono text-[16px] leading-[1.6] text-gray-500">
                   {formula.formula}
                 </p>
-                <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                   {formula.description}
                 </p>
               </div>
             ))}
           </div>
           <div className="mt-6">
-            <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+            <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
               Key terms:
             </p>
             <ul className="mt-3 space-y-3">
               {keyTerms.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                   <ArrowRight className="size-4 shrink-0 text-gray-300" />
                   {item}
                 </li>
@@ -216,10 +216,10 @@ export default function SssPensionGuidePage() {
 
         {/* 4. SSS Contribution Table Reference */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             4. SSS Contribution Table Reference
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your monthly salary credit (MSC) is determined by the SSS
             contribution schedule. The MSC is not your actual salary but the
             nearest bracket amount used to compute your contribution and
@@ -278,18 +278,18 @@ export default function SssPensionGuidePage() {
 
         {/* 5. How to Check Your SSS Contributions */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             5. How to Check Your SSS Contributions
           </h2>
           <ul className="mt-6 space-y-3">
             {checkSteps.map((item, i) => (
-              <li key={i} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={i} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             You can also download the SSS Mobile App (available on iOS and
             Android) to check your records on the go.
           </p>
@@ -297,13 +297,13 @@ export default function SssPensionGuidePage() {
 
         {/* Worked Example */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Worked Example: MSC of PHP 20,000 with 25 Years of Contributions
           </h2>
           <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
             {/* Header */}
             <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-              <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+              <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
                 A member has an AMSC of PHP 20,000 and 25 credited years of
                 service (CYS).
               </p>
@@ -311,7 +311,7 @@ export default function SssPensionGuidePage() {
 
             {/* Formula 1 */}
             <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Formula 1</dt>
                   <dd className="font-mono tabular-nums text-gray-500">PHP 300 + (20% x AMSC) + (2% x AMSC x CYS over 10)</dd>
@@ -339,7 +339,7 @@ export default function SssPensionGuidePage() {
 
             {/* Formula 2 */}
             <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Formula 2</dt>
                   <dd className="font-mono tabular-nums text-gray-500">40% x AMSC</dd>
@@ -359,7 +359,7 @@ export default function SssPensionGuidePage() {
 
             {/* Formula 3 */}
             <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Formula 3</dt>
                   <dd className="font-mono tabular-nums text-gray-500">Minimum pension (CYS &ge; 10)</dd>
@@ -373,7 +373,7 @@ export default function SssPensionGuidePage() {
 
             {/* Result total */}
             <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-              <div className="flex justify-between text-[16px] leading-[22px]">
+              <div className="flex justify-between text-[16px] leading-[1.6]">
                 <span className="font-semibold text-gray-500">Monthly Pension (highest of 3 formulas)</span>
                 <span className="font-mono tabular-nums font-bold text-brand">{formatPeso(10300, 0)}</span>
               </div>
@@ -392,12 +392,12 @@ export default function SssPensionGuidePage() {
 
         {/* Common Mistakes to Avoid */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Common Mistakes to Avoid
           </h2>
           <ul className="mt-6 space-y-4">
             {commonMistakes.map((item, i) => (
-              <li key={i} className="flex gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={i} className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
                 {item}
               </li>
@@ -410,10 +410,10 @@ export default function SssPensionGuidePage() {
       {/* Calculator CTA */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Want to Estimate Your SSS Retirement Pension?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
             Use the SSS Pension Calculator to estimate your retirement
             pension based on your salary credit and years of contribution.
           </p>
@@ -450,7 +450,7 @@ export default function SssPensionGuidePage() {
 
         {/* Related Calculators and Guides */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related calculators and guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
