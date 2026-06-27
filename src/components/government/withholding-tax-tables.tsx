@@ -94,7 +94,7 @@ function TaxTable({ brackets }: { brackets: TaxBracketRow[] }) {
  */
 export function WithholdingTaxTables() {
   return (
-    <div className="space-y-16">
+    <div className="space-y-6">
       {SECTIONS.map((section) => {
         const period = payrollPeriodTables.find((p) => p.id === section.id);
         if (!period) return null;
@@ -102,7 +102,7 @@ export function WithholdingTaxTables() {
           <section
             key={section.id}
             id={section.anchor}
-            className="scroll-mt-20"
+            className="scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]"
           >
             <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
               {section.heading}

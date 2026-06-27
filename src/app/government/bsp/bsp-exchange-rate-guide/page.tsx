@@ -71,7 +71,7 @@ export default function BSPExchangeRateGuidePage() {
 
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Key Facts */}
-      <section>
+      <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           BSP Reference Rate at a Glance
         </h2>
@@ -89,7 +89,7 @@ export default function BSPExchangeRateGuidePage() {
 
       {/* What is the PDS */}
 
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           What Is the Philippine Dealing System (PDS)?
         </h2>
@@ -114,7 +114,7 @@ export default function BSPExchangeRateGuidePage() {
       </section>
 
       {/* Bank Spreads Explained */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Why Bank Rates Differ from the BSP Rate
         </h2>
@@ -150,7 +150,7 @@ export default function BSPExchangeRateGuidePage() {
       </section>
 
       {/* How to Use the BSP Rate */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           How to Use the BSP Reference Rate
         </h2>
@@ -179,7 +179,7 @@ export default function BSPExchangeRateGuidePage() {
       </section>
 
       {/* Worked Example */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Worked Example
         </h2>
@@ -207,7 +207,7 @@ export default function BSPExchangeRateGuidePage() {
       </div>
 
       {/* Related Content */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
           Related pages
         </h2>

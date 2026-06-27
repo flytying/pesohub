@@ -103,7 +103,7 @@ export default function SSSContributionGuidePage() {
 
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* SSS Contribution Table Reference */}
-      <section>
+      <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           SSS Contribution Table Reference
         </h2>
@@ -125,7 +125,7 @@ export default function SSSContributionGuidePage() {
 
       {/* How to Read the Employee and Employer Shares */}
 
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           How to Read the Employee and Employer Shares
         </h2>
@@ -173,7 +173,7 @@ export default function SSSContributionGuidePage() {
       </section>
 
       {/* What Is Monthly Salary Credit? */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           What Is Monthly Salary Credit?
         </h2>
@@ -191,7 +191,7 @@ export default function SSSContributionGuidePage() {
       </section>
 
       {/* How Member Type Affects the Table */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           How Member Type Affects the Table
         </h2>
@@ -216,7 +216,7 @@ export default function SSSContributionGuidePage() {
       </section>
 
       {/* Sample SSS Payroll Cuts */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Sample SSS Payroll Cuts
         </h2>
@@ -287,7 +287,7 @@ export default function SSSContributionGuidePage() {
       </section>
 
       {/* Why Your Actual SSS Contribution May Differ */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Why Your Actual SSS Contribution May Differ
         </h2>
@@ -307,7 +307,7 @@ export default function SSSContributionGuidePage() {
       </section>
 
       {/* Current Schedule Used on This Page */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Current Schedule Used on This Page
         </h2>
@@ -378,7 +378,7 @@ export default function SSSContributionGuidePage() {
       </div>
 
       {/* Related Payroll Tools and Guides */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
           Related payroll tools and guides
         </h2>

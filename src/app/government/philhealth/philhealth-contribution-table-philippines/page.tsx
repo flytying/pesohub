@@ -95,7 +95,7 @@ export default function PhilHealthContributionTablePage() {
 
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Current PhilHealth Contribution Structure */}
-      <section>
+      <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Current PhilHealth Contribution Structure
         </h2>
@@ -173,7 +173,7 @@ export default function PhilHealthContributionTablePage() {
 
       {/* PhilHealth Contribution Table Reference */}
 
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           PhilHealth Contribution Table Reference
         </h2>
@@ -234,7 +234,7 @@ export default function PhilHealthContributionTablePage() {
       </section>
 
       {/* How Salary Floor and Ceiling Affect PhilHealth Contribution */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           How Salary Floor and Ceiling Affect PhilHealth Contribution
         </h2>
@@ -287,7 +287,7 @@ export default function PhilHealthContributionTablePage() {
       </section>
 
       {/* Sample PhilHealth Payroll Cuts */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Sample PhilHealth Payroll Cuts
         </h2>
@@ -344,7 +344,7 @@ export default function PhilHealthContributionTablePage() {
       </section>
 
       {/* Employee Share vs Employer Share */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Employee Share vs Employer Share
         </h2>
@@ -392,7 +392,7 @@ export default function PhilHealthContributionTablePage() {
       </section>
 
       {/* Why Your Actual PhilHealth Deduction May Differ */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
           Why Your Actual PhilHealth Deduction May Differ
         </h2>
@@ -436,7 +436,7 @@ export default function PhilHealthContributionTablePage() {
       </div>
 
       {/* Related Payroll Tools and Guides */}
-      <section className="mt-16">
+      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
         <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
           Related payroll tools and guides
         </h2>
