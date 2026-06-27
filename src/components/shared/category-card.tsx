@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
+import { IconTile } from "@/components/shared/icon-tile";
 
 interface CategoryCardProps {
   title: string;
@@ -19,7 +20,12 @@ export function CategoryCard({
   return (
     <Link href={href} className="group block h-full text-center">
       <div className="flex h-full flex-col items-center">
-        <Icon className="size-16 text-gray-400" strokeWidth={1.2} />
+        <IconTile
+          icon={Icon}
+          tone="brand"
+          size={64}
+          className="rounded-2xl transition-transform duration-150 group-hover:-translate-y-[3px]"
+        />
         <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
           {title}
         </h3>

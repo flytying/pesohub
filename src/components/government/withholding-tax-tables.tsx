@@ -70,13 +70,13 @@ function TaxTable({ brackets }: { brackets: TaxBracketRow[] }) {
         <TableBody>
           {brackets.map((row, i) => (
             <TableRow key={i}>
-              <TableCell className="text-[14px] text-gray-400">
+              <TableCell className="font-mono text-[14px] tabular-nums text-gray-400">
                 {row.range}
               </TableCell>
-              <TableCell className="text-[14px] text-gray-400">
+              <TableCell className="font-mono text-[14px] tabular-nums text-gray-400">
                 {row.taxDue}
               </TableCell>
-              <TableCell className="text-center text-[14px] text-gray-400">
+              <TableCell className="text-center font-mono text-[14px] tabular-nums text-gray-400">
                 {row.rate}%
               </TableCell>
             </TableRow>

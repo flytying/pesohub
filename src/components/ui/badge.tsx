@@ -19,6 +19,14 @@ const badgeVariants = cva(
         ghost:
           "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
         link: "text-primary underline-offset-4 hover:underline",
+        // PesoHub status tones — bold, uppercase, wide-tracked, tinted
+        live: "bg-[#E3F6ED] text-success font-bold uppercase tracking-[.05em]",
+        success: "bg-[#E3F6ED] text-success font-bold uppercase tracking-[.05em]",
+        soon: "bg-secondary text-brand font-bold uppercase tracking-[.05em]",
+        brand: "bg-secondary text-brand font-bold uppercase tracking-[.05em]",
+        current: "bg-secondary text-brand font-bold uppercase tracking-[.05em]",
+        warning:
+          "bg-[#FFF8E8] text-warning font-bold uppercase tracking-[.05em]",
       },
     },
     defaultVariants: {
