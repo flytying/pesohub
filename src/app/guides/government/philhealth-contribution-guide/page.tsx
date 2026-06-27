@@ -156,7 +156,7 @@ export default function PhilHealthContributionGuidePage() {
 
         {/* Who Pays the PhilHealth Contribution? */}
 
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Who Pays the PhilHealth Contribution?
           </h2>
@@ -195,7 +195,7 @@ export default function PhilHealthContributionGuidePage() {
         </section>
 
         {/* How PhilHealth Usually Appears on a Payslip */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How PhilHealth Usually Appears on a Payslip
           </h2>
@@ -216,7 +216,7 @@ export default function PhilHealthContributionGuidePage() {
         </section>
 
         {/* Why PhilHealth Deduction Can Change */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Why PhilHealth Deduction Can Change
           </h2>
@@ -237,7 +237,7 @@ export default function PhilHealthContributionGuidePage() {
         </section>
 
         {/* Where to Verify Your PhilHealth Deduction */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Where to Verify Your PhilHealth Deduction
           </h2>
@@ -257,7 +257,7 @@ export default function PhilHealthContributionGuidePage() {
         </section>
 
         {/* What This Guide Helps You Check */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What This Guide Helps You Check
           </h2>
@@ -330,7 +330,7 @@ export default function PhilHealthContributionGuidePage() {
         </div>
 
         {/* Related Payroll Pages */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related Payroll Pages
           </h2>

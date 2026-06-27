@@ -130,13 +130,15 @@ export default function WithholdingTaxGuidePage() {
 
         {/* Quick Answer */}
         <section>
-          <div className="flex gap-3 rounded-xl border border-gray-200 bg-white p-6">
-            <Landmark className="mt-0.5 size-5 shrink-0 text-brand" />
+          <div className="flex gap-4 rounded-[16px] border border-[#D7E0FB] bg-[#EAF0FF] p-6">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-white">
+              <Landmark className="size-5 text-brand" />
+            </span>
             <div>
-              <p className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                Quick Answer
+              <p className="text-[13px] font-bold uppercase tracking-[.08em] text-brand">
+                Quick answer
               </p>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#475069]">
                 {withholdingTaxMeta.directAnswer}
               </p>
             </div>
@@ -145,7 +147,7 @@ export default function WithholdingTaxGuidePage() {
 
         {/* 1. What Is Withholding Tax? */}
 
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             1. What Is Withholding Tax?
           </h2>
@@ -164,7 +166,7 @@ export default function WithholdingTaxGuidePage() {
         </section>
 
         {/* 2. Who Pays Withholding Tax? */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             2. Who Pays Withholding Tax?
           </h2>
@@ -188,7 +190,7 @@ export default function WithholdingTaxGuidePage() {
         </section>
 
         {/* 3. TRAIN Law Tax Brackets */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             3. TRAIN Law Tax Brackets (2023 Onwards)
           </h2>
@@ -236,7 +238,7 @@ export default function WithholdingTaxGuidePage() {
         </section>
 
         {/* 4. How to Compute Your Withholding Tax */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             4. How to Compute Your Withholding Tax
           </h2>
@@ -263,7 +265,7 @@ export default function WithholdingTaxGuidePage() {
         </section>
 
         {/* 5. How Employers Withhold Tax */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             5. How Employers Withhold Tax
           </h2>
@@ -283,7 +285,7 @@ export default function WithholdingTaxGuidePage() {
         </section>
 
         {/* Worked Example */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Worked Example: PHP 35,000 Monthly Salary
           </h2>
@@ -409,7 +411,7 @@ export default function WithholdingTaxGuidePage() {
         </section>
 
         {/* Common Mistakes to Avoid */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Common Mistakes to Avoid
           </h2>
@@ -466,7 +468,7 @@ export default function WithholdingTaxGuidePage() {
         </div>
 
         {/* Related Calculators and Guides */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related calculators and guides
           </h2>

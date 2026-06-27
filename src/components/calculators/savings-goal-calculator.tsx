@@ -1,44 +1,47 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { CalculatorShell } from "@/components/calculators/calculator-shell";
 import { CalculatorInput } from "@/components/calculators/calculator-input";
-import { CalculatorResult } from "@/components/calculators/calculator-result";
-import { ResultPanel } from "@/components/calculators/result-panel";
+import { ResultActions } from "@/components/calculators/result-actions";
+import {
+  GradientResult,
+  BreakdownCard,
+  BreakdownRow,
+} from "@/components/calculators/gradient-result";
 import { formatPeso, formatPercent } from "@/lib/formatters";
-import { Separator } from "@/components/ui/separator";
 
 function calculateMonthlySavings(
   targetAmount: number,
   startingBalance: number,
   months: number,
-  annualRate: number,
+  annualRate: number
 ) {
   const remaining = targetAmount - startingBalance;
-  if (remaining <= 0) return { monthly: 0, totalContributions: 0, interestEarned: 0 };
-  if (months <= 0) return { monthly: remaining, totalContributions: remaining, interestEarned: 0 };
+  if (remaining <= 0)
+    return { monthly: 0, totalContributions: 0, interestEarned: 0 };
+  if (months <= 0)
+    return { monthly: remaining, totalContributions: remaining, interestEarned: 0 };
 
   const monthlyRate = annualRate / 100 / 12;
-
   if (monthlyRate === 0) {
     const monthly = remaining / months;
     return { monthly, totalContributions: monthly * months, interestEarned: 0 };
   }
 
-  // Future value of starting balance
   const fvStarting = startingBalance * Math.pow(1 + monthlyRate, months);
   const amountNeeded = targetAmount - fvStarting;
-
   if (amountNeeded <= 0) {
-    return { monthly: 0, totalContributions: 0, interestEarned: fvStarting - startingBalance };
+    return {
+      monthly: 0,
+      totalContributions: 0,
+      interestEarned: fvStarting - startingBalance,
+    };
   }
 
-  // PMT formula: how much per month to reach amountNeeded
   const monthly =
     amountNeeded * (monthlyRate / (Math.pow(1 + monthlyRate, months) - 1));
   const totalContributions = monthly * months;
   const interestEarned = targetAmount - startingBalance - totalContributions;
-
   return {
     monthly: Math.max(monthly, 0),
     totalContributions: Math.max(totalContributions, 0),
@@ -54,302 +57,180 @@ const TIMELINE_PRESETS = [
   { label: "5 years", months: 60 },
 ];
 
+const DEFAULTS = { targetAmount: 100_000, months: 12, startingBalance: 0, annualRate: 3.0 };
+
 export function SavingsGoalCalculator() {
-  const [targetAmount, setTargetAmount] = useState(100_000);
-  const [months, setMonths] = useState(12);
-  const [startingBalance, setStartingBalance] = useState(0);
-  const [annualRate, setAnnualRate] = useState(3.0);
+  const [targetAmount, setTargetAmount] = useState(DEFAULTS.targetAmount);
+  const [months, setMonths] = useState(DEFAULTS.months);
+  const [startingBalance, setStartingBalance] = useState(DEFAULTS.startingBalance);
+  const [annualRate, setAnnualRate] = useState(DEFAULTS.annualRate);
 
-  const result = useMemo(() => {
-    return calculateMonthlySavings(targetAmount, startingBalance, months, annualRate);
-  }, [targetAmount, startingBalance, months, annualRate]);
+  const reset = () => {
+    setTargetAmount(DEFAULTS.targetAmount);
+    setMonths(DEFAULTS.months);
+    setStartingBalance(DEFAULTS.startingBalance);
+    setAnnualRate(DEFAULTS.annualRate);
+  };
 
-  const progressPercent =
-    targetAmount > 0
-      ? Math.min((startingBalance / targetAmount) * 100, 100)
-      : 0;
+  const result = useMemo(
+    () => calculateMonthlySavings(targetAmount, startingBalance, months, annualRate),
+    [targetAmount, startingBalance, months, annualRate]
+  );
 
-  const presetComparisons = useMemo(() => {
-    return TIMELINE_PRESETS.map((p) => ({
-      ...p,
-      ...calculateMonthlySavings(targetAmount, startingBalance, p.months, annualRate),
-    }));
-  }, [targetAmount, startingBalance, annualRate]);
+  const presetComparisons = useMemo(
+    () =>
+      TIMELINE_PRESETS.map((p) => ({
+        ...p,
+        ...calculateMonthlySavings(targetAmount, startingBalance, p.months, annualRate),
+      })),
+    [targetAmount, startingBalance, annualRate]
+  );
+
+  const resultsSummary = [
+    `Savings Goal: ${formatPeso(targetAmount)}`,
+    `Timeline: ${months} months`,
+    `Starting Balance: ${formatPeso(startingBalance)}`,
+    `Interest Rate: ${formatPercent(annualRate)}`,
+    `Monthly Savings Needed: ${formatPeso(result.monthly)}`,
+    `Total Contributions: ${formatPeso(result.totalContributions)}`,
+    `Estimated Interest Earned: ${formatPeso(result.interestEarned)}`,
+  ].join("\n");
 
   return (
     <div className="space-y-6">
-      <CalculatorShell
-        title="Savings Goal Calculator"
-        variant="split"
-        resultsSummary={[
-          `Savings Goal: ${formatPeso(targetAmount)}`,
-          `Timeline: ${months} months`,
-          `Starting Balance: ${formatPeso(startingBalance)}`,
-          `Interest Rate: ${formatPercent(annualRate)}`,
-          `Monthly Savings Needed: ${formatPeso(result.monthly)}`,
-          `Total Contributions: ${formatPeso(result.totalContributions)}`,
-          `Estimated Interest Earned: ${formatPeso(result.interestEarned)}`,
-        ].join("\n")}
-        beforeYouStart={{
-          description:
-            "This calculator estimates how much you need to save each month to reach a target amount. Use it to plan for any financial goal.",
-          items: [
-            "Set a specific peso amount as your goal",
-            "Choose a realistic timeline based on your budget",
-            "Include any savings you already have toward this goal",
-            "Add an interest rate if you plan to keep savings in a high-yield account",
-            "Compare different timelines to find a monthly amount you can commit to",
-          ],
-        }}
-      >
-        {/* LEFT: Result Panel */}
-        <ResultPanel className="flex flex-col">
-          <div className="text-center">
-            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">
-              Monthly Savings Needed
-            </p>
-            <p className="mt-2 text-[36px] font-semibold tabular-nums text-brand sm:text-[42px] animate-count-up">
-              {formatPeso(result.monthly)}
-            </p>
-            <p className="mt-2 text-sm text-gray-400">
-              per month for {months} months
-            </p>
+      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        {/* LEFT: Inputs */}
+        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,28px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="font-display text-[18px] font-semibold text-[#0E1525]">
+              Goal details
+            </h2>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-[14px] font-bold text-brand transition-colors hover:text-brand-light"
+            >
+              Reset
+            </button>
           </div>
-
-          {/* Circle chart breakdown */}
-          <div className="my-6 flex justify-center">
-            <SavingsDonut
-              startingBalance={startingBalance}
-              contributions={result.totalContributions}
-              interest={result.interestEarned}
-              target={targetAmount}
+          <div className="space-y-6">
+            <CalculatorInput
+              label="Savings goal"
+              value={targetAmount}
+              onChange={setTargetAmount}
+              prefix="₱"
+              min={1_000}
+              max={50_000_000}
+              step={5_000}
+              helpText="The total amount you want to save."
+              tooltip="Your target amount — a down payment, travel fund, tuition, or any goal."
             />
-          </div>
-
-          <div className="space-y-1">
-            <CalculatorResult
-              label="Monthly Savings Needed"
-              value={formatPeso(result.monthly)}
-              highlight
+            <CalculatorInput
+              label="Timeline (months)"
+              value={months}
+              onChange={(v) => setMonths(Math.round(v))}
+              min={1}
+              max={120}
+              step={1}
+              helpText="How many months to reach your goal."
+              tooltip="A longer timeline means smaller monthly amounts."
             />
-            <CalculatorResult
-              label="Total Contributions"
-              value={formatPeso(result.totalContributions)}
+            <CalculatorInput
+              label="Starting balance"
+              value={startingBalance}
+              onChange={setStartingBalance}
+              prefix="₱"
+              min={0}
+              max={50_000_000}
+              step={1_000}
+              helpText="Amount you have saved toward this goal already."
+              tooltip="Existing savings reduce the monthly amount you need."
             />
-            <CalculatorResult
-              label="Interest Earned"
-              value={formatPeso(result.interestEarned)}
+            <CalculatorInput
+              label="Annual interest rate (optional)"
+              value={annualRate}
+              onChange={setAnnualRate}
+              min={0}
+              max={20}
+              step={0.1}
+              helpText="Expected annual rate if kept in a savings account."
+              tooltip="Set to 0 if unsure."
             />
-            <CalculatorResult
-              label="Goal Amount"
-              value={formatPeso(targetAmount)}
-            />
-          </div>
-        </ResultPanel>
-
-        {/* RIGHT: Inputs */}
-        <div className="space-y-6 p-8">
-          <CalculatorInput
-            label="Savings Goal"
-            value={targetAmount}
-            onChange={setTargetAmount}
-            prefix="₱"
-            min={1_000}
-            max={50_000_000}
-            step={5_000}
-            helpText="The total amount you want to save."
-            tooltip="Enter your target savings amount. This could be for a down payment, travel fund, tuition, or any financial goal."
-          />
-
-          <CalculatorInput
-            label="Timeline (Months)"
-            value={months}
-            onChange={(v) => setMonths(Math.round(v))}
-            min={1}
-            max={120}
-            step={1}
-            helpText="How many months to reach your goal."
-            tooltip="The number of months you plan to save. A longer timeline means smaller monthly amounts but more time before you reach your goal."
-          />
-
-          <CalculatorInput
-            label="Starting Balance"
-            value={startingBalance}
-            onChange={setStartingBalance}
-            prefix="₱"
-            min={0}
-            max={50_000_000}
-            step={1_000}
-            helpText="Amount you have saved toward this goal already."
-            tooltip="If you already have some savings set aside for this goal, enter that amount here. It reduces the monthly amount you need to save."
-          />
-
-          <Separator />
-
-          <CalculatorInput
-            label="Annual Interest Rate (Optional)"
-            value={annualRate}
-            onChange={setAnnualRate}
-            min={0}
-            max={20}
-            step={0.1}
-            helpText="Expected annual rate if keeping savings in a bank account."
-            tooltip="If you plan to keep your savings in a high-interest savings account or time deposit, enter the annual rate. Set to 0 if unsure."
-          />
-
-          <Separator />
-
-          {/* Savings Breakdown */}
-          <div>
-            <h3 className="mb-3 text-[16px] font-semibold text-gray-500">
-              Savings Breakdown
-            </h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between text-gray-400">
-                <span>Starting Balance</span>
-                <span className="font-mono tabular-nums">
-                  {formatPeso(startingBalance)}
-                </span>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <span>+ Monthly Contributions</span>
-                <span className="font-mono tabular-nums text-green-600">
-                  +{formatPeso(result.totalContributions)}
-                </span>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <span>+ Interest Earned</span>
-                <span className="font-mono tabular-nums text-green-600">
-                  +{formatPeso(result.interestEarned)}
-                </span>
-              </div>
-              <Separator />
-              <div className="flex justify-between font-medium text-gray-500">
-                <span>Goal Amount</span>
-                <span className="font-mono tabular-nums">
-                  {formatPeso(targetAmount)}
-                </span>
-              </div>
-            </div>
           </div>
         </div>
-      </CalculatorShell>
+
+        {/* RIGHT: Gradient result */}
+        <GradientResult
+          label="Monthly savings needed"
+          actions={
+            <ResultActions
+              calculatorType="Savings Goal Calculator"
+              resultsSummary={resultsSummary}
+            />
+          }
+          eyebrow="Per month"
+          figure={formatPeso(result.monthly)}
+          sub={`for ${months} months`}
+        >
+          <BreakdownCard title="Savings breakdown">
+            <BreakdownRow
+              label="Starting balance"
+              value={formatPeso(startingBalance)}
+            />
+            <BreakdownRow
+              label="+ Monthly contributions"
+              value={`+${formatPeso(result.totalContributions)}`}
+              tone="positive"
+            />
+            <BreakdownRow
+              label="+ Interest earned"
+              value={`+${formatPeso(result.interestEarned)}`}
+              tone="positive"
+            />
+            <BreakdownRow
+              label="Goal amount"
+              value={formatPeso(targetAmount)}
+              tone="total"
+              strong
+            />
+          </BreakdownCard>
+        </GradientResult>
+      </div>
 
       {/* Timeline comparison */}
-      <div className="rounded-xl border border-gray-200 bg-white p-6">
-        <h3 className="text-[16px] font-semibold text-gray-500">
-          Compare Timelines
+      <div className="rounded-[18px] border border-[#E7EBF3] bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+        <h3 className="font-display text-[18px] font-semibold text-[#0E1525]">
+          Compare timelines
         </h3>
-        <p className="mt-1 text-[14px] text-gray-400">
+        <p className="mt-1 text-[14px] text-[#6B7488]">
           See how the monthly amount changes depending on how long you save.
         </p>
         <div className="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {presetComparisons.map((comp) => (
-            <div
-              key={comp.months}
-              className={`rounded-lg border p-4 ${
-                comp.months === months
-                  ? "border-brand bg-brand/5"
-                  : "border-gray-200"
-              }`}
-            >
-              <p className="text-[14px] font-medium text-gray-400">
-                {comp.label}
-              </p>
-              <p className="mt-1 text-lg font-semibold tabular-nums text-gray-500">
-                {formatPeso(comp.monthly)}
-              </p>
-              <p className="text-[14px] text-gray-400">per month</p>
-              {comp.interestEarned > 0 && (
-                <p className="mt-2 text-[14px] tabular-nums text-green-600">
-                  +{formatPeso(comp.interestEarned)} interest
+          {presetComparisons.map((comp) => {
+            const active = comp.months === months;
+            return (
+              <div
+                key={comp.months}
+                className={`rounded-[14px] border p-4 ${
+                  active ? "border-brand bg-[#EAF0FF]" : "border-[#E7EBF3]"
+                }`}
+              >
+                <p className="text-[14px] font-semibold text-[#5A6478]">
+                  {comp.label}
                 </p>
-              )}
-            </div>
-          ))}
+                <p className="mt-1 font-display text-lg font-bold tabular-nums text-[#0E1525]">
+                  {formatPeso(comp.monthly)}
+                </p>
+                <p className="text-[13px] text-[#6B7488]">per month</p>
+                {comp.interestEarned > 0 && (
+                  <p className="mt-2 text-[13px] tabular-nums text-[#0E9F6E]">
+                    +{formatPeso(comp.interestEarned)} interest
+                  </p>
+                )}
+              </div>
+            );
+          })}
         </div>
-      </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Savings breakdown donut (SVG circle chart)
-// ---------------------------------------------------------------------------
-
-function SavingsDonut({
-  startingBalance,
-  contributions,
-  interest,
-  target,
-}: {
-  startingBalance: number;
-  contributions: number;
-  interest: number;
-  target: number;
-}) {
-  if (target <= 0) return null;
-
-  const segments = [
-    { label: "Starting Balance", value: startingBalance, color: "#6366f1" },
-    { label: "Contributions", value: contributions, color: "#093CB5" },
-    { label: "Interest", value: interest, color: "#00D2D8" },
-  ].filter((s) => s.value > 0);
-
-  const total = segments.reduce((s, e) => s + e.value, 0);
-  if (total === 0) return null;
-
-  const size = 160;
-  const strokeWidth = 28;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
-
-  let offset = 0;
-
-  return (
-    <div className="flex flex-col items-center gap-3">
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-        {segments.map((seg) => {
-          const pct = seg.value / total;
-          const dashLength = pct * circumference;
-          const dashOffset = -offset * circumference;
-          offset += pct;
-          return (
-            <circle
-              key={seg.label}
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              fill="none"
-              stroke={seg.color}
-              strokeWidth={strokeWidth}
-              strokeDasharray={`${dashLength} ${circumference - dashLength}`}
-              strokeDashoffset={dashOffset}
-              transform={`rotate(-90 ${size / 2} ${size / 2})`}
-              className="transition-all duration-500"
-            />
-          );
-        })}
-        <text
-          x="50%"
-          y="50%"
-          textAnchor="middle"
-          dominantBaseline="central"
-          className="fill-gray-500 text-[14px] font-semibold"
-        >
-          {formatPeso(total, 0)}
-        </text>
-      </svg>
-      <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
-        {segments.map((seg) => (
-          <div key={seg.label} className="flex items-center gap-1.5 text-[12px] text-gray-400">
-            <span
-              className="inline-block size-2.5 rounded-full"
-              style={{ backgroundColor: seg.color }}
-            />
-            {seg.label}
-          </div>
-        ))}
       </div>
     </div>
   );

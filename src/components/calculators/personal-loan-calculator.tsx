@@ -1,16 +1,15 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { CalculatorShell } from "@/components/calculators/calculator-shell";
 import { CalculatorInput } from "@/components/calculators/calculator-input";
-import { CalculatorResult } from "@/components/calculators/calculator-result";
 import { AmortizationTable } from "@/components/calculators/amortization-table";
-import { ResultPanel } from "@/components/calculators/result-panel";
-import dynamic from "next/dynamic";
-const LoanDonutChart = dynamic(
-  () => import("@/components/calculators/loan-donut-chart").then((m) => m.LoanDonutChart),
-  { ssr: false }
-);
+import { ResultActions } from "@/components/calculators/result-actions";
+import {
+  GradientResult,
+  SplitBar,
+  BreakdownCard,
+  BreakdownRow,
+} from "@/components/calculators/gradient-result";
 import { calculateLoan } from "@/lib/calculators/loan";
 import { formatPeso } from "@/lib/formatters";
 
@@ -22,27 +21,28 @@ interface PersonalLoanCalculatorProps {
   };
 }
 
-export function PersonalLoanCalculator({ beforeYouStart }: PersonalLoanCalculatorProps = {}) {
-  const [loanAmount, setLoanAmount] = useState(100_000);
-  const [termMonths, setTermMonths] = useState(36);
-  const [interestRate, setInterestRate] = useState(12);
+const DEFAULTS = { loanAmount: 100_000, termMonths: 36, interestRate: 12 };
+
+export function PersonalLoanCalculator(_: PersonalLoanCalculatorProps = {}) {
+  const [loanAmount, setLoanAmount] = useState(DEFAULTS.loanAmount);
+  const [termMonths, setTermMonths] = useState(DEFAULTS.termMonths);
+  const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
+
+  const reset = () => {
+    setLoanAmount(DEFAULTS.loanAmount);
+    setTermMonths(DEFAULTS.termMonths);
+    setInterestRate(DEFAULTS.interestRate);
+  };
 
   const result = useMemo(() => {
     if (loanAmount <= 0) {
-      return {
-        monthlyPayment: 0,
-        totalInterest: 0,
-        totalCost: 0,
-        schedule: [],
-      };
+      return { monthlyPayment: 0, totalInterest: 0, totalCost: 0, schedule: [] };
     }
-
     const loan = calculateLoan({
       principal: loanAmount,
       annualInterestRate: interestRate,
       termMonths,
     });
-
     return {
       monthlyPayment: loan.monthlyPayment,
       totalInterest: loan.totalInterest,
@@ -51,95 +51,115 @@ export function PersonalLoanCalculator({ beforeYouStart }: PersonalLoanCalculato
     };
   }, [loanAmount, termMonths, interestRate]);
 
+  const total = loanAmount + result.totalInterest;
+  const principalPct = total > 0 ? (loanAmount / total) * 100 : 100;
+
+  const resultsSummary = [
+    `Loan Amount: ${formatPeso(loanAmount)}`,
+    `Interest Rate: ${interestRate}% p.a.`,
+    `Term: ${termMonths} months`,
+    `Monthly Payment: ${formatPeso(result.monthlyPayment)}`,
+    `Total Interest: ${formatPeso(result.totalInterest)}`,
+    `Total Repayment: ${formatPeso(result.totalCost)}`,
+  ].join("\n");
+
   return (
     <div className="space-y-6">
-      <CalculatorShell
-        title="Personal Loan Calculator"
-        variant="split"
-        beforeYouStart={beforeYouStart}
-        resultsSummary={[
-          `Loan Amount: ${formatPeso(loanAmount)}`,
-          `Interest Rate: ${interestRate}% p.a.`,
-          `Term: ${termMonths} months`,
-          `Monthly Payment: ${formatPeso(result.monthlyPayment)}`,
-          `Total Interest: ${formatPeso(result.totalInterest)}`,
-          `Total Repayment: ${formatPeso(result.totalCost)}`,
-        ].join("\n")}
-      >
-        {/* LEFT: Result Panel */}
-        <ResultPanel className="flex flex-col justify-between">
-          <div className="text-center">
-            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">Estimated Monthly Payment</p>
-            <p className="mt-2 text-[36px] font-semibold tabular-nums text-brand sm:text-[42px] animate-count-up">
-              {formatPeso(result.monthlyPayment)}
-            </p>
+      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,28px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="font-display text-[18px] font-semibold text-[#0E1525]">
+              Loan details
+            </h2>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-[14px] font-bold text-brand transition-colors hover:text-brand-light"
+            >
+              Reset
+            </button>
           </div>
+          <div className="space-y-6">
+            <CalculatorInput
+              label="Loan amount"
+              value={loanAmount}
+              onChange={setLoanAmount}
+              prefix="₱"
+              min={10_000}
+              max={3_000_000}
+              step={5_000}
+              helpText="The amount you want to borrow."
+              tooltip="The total amount you plan to borrow, excluding fees and charges."
+            />
+            <CalculatorInput
+              label="Repayment term (months)"
+              value={termMonths}
+              onChange={setTermMonths}
+              min={3}
+              max={60}
+              step={1}
+              helpText="Number of months to repay."
+              tooltip="A longer term lowers monthly payments but increases total interest."
+            />
+            <CalculatorInput
+              label="Annual interest rate (%)"
+              value={interestRate}
+              onChange={setInterestRate}
+              min={1}
+              max={60}
+              step={0.1}
+              helpText="The estimated annual interest rate offered by the lender."
+              tooltip="The yearly interest rate charged by the lender."
+            />
+          </div>
+        </div>
 
+        <GradientResult
+          label="Estimated monthly payment"
+          actions={
+            <ResultActions
+              calculatorType="Personal Loan Calculator"
+              resultsSummary={resultsSummary}
+            />
+          }
+          eyebrow="Per month"
+          figure={formatPeso(result.monthlyPayment)}
+          sub={`over ${termMonths} months`}
+        >
           {loanAmount > 0 && (
-            <LoanDonutChart
-              principal={loanAmount}
-              interest={result.totalInterest}
+            <SplitBar
+              leftLabel={`Principal · ${Math.round(principalPct)}%`}
+              leftValue={formatPeso(loanAmount)}
+              leftPct={principalPct}
+              rightLabel={`Interest · ${Math.round(100 - principalPct)}%`}
+              rightValue={formatPeso(result.totalInterest)}
+              total={`Total of payments · ${formatPeso(total)}`}
             />
           )}
-
-          <div className="mt-6 space-y-1">
-            <CalculatorResult
-              label="Loan Amount"
-              value={formatPeso(loanAmount)}
+          <BreakdownCard
+            title="Cost breakdown"
+            note="Based on standard monthly amortization (declining-balance interest)."
+          >
+            <BreakdownRow label="Loan amount" value={formatPeso(loanAmount)} />
+            <BreakdownRow
+              label="+ Total interest"
+              value={`+${formatPeso(result.totalInterest)}`}
+              tone="positive"
             />
-            <CalculatorResult
-              label="Total Interest"
-              value={formatPeso(result.totalInterest)}
-            />
-            <CalculatorResult
-              label="Total Repayment"
+            <BreakdownRow
+              label="Total repayment"
               value={formatPeso(result.totalCost)}
-              highlight
+              tone="total"
+              strong
             />
-          </div>
-        </ResultPanel>
+          </BreakdownCard>
+        </GradientResult>
+      </div>
 
-        {/* RIGHT: Inputs Panel */}
-        <div className="space-y-6 p-8">
-          <CalculatorInput
-            label="Loan Amount"
-            value={loanAmount}
-            onChange={setLoanAmount}
-            prefix="₱"
-            min={10_000}
-            max={3_000_000}
-            step={5_000}
-            helpText="Enter the amount you want to borrow."
-            tooltip="The total amount you plan to borrow from the lender, excluding fees and charges."
-          />
-          <CalculatorInput
-            label="Repayment Term (months)"
-            value={termMonths}
-            onChange={setTermMonths}
-            min={3}
-            max={60}
-            step={1}
-            helpText="Choose the number of months for repayment."
-            tooltip="How long you have to repay the loan. A longer term lowers monthly payments but increases total interest paid."
-          />
-          <CalculatorInput
-            label="Annual Interest Rate (%)"
-            value={interestRate}
-            onChange={setInterestRate}
-            min={0}
-            max={150}
-            step={0.1}
-            helpText="Enter the estimated annual interest rate offered by the lender."
-            tooltip="The yearly interest rate charged by the lender. Rates vary by lender, loan amount, and your credit profile."
-          />
-        </div>
-      </CalculatorShell>
-
-      {/* Amortization Table */}
       {result.schedule.length > 0 && (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
-          <h3 className="px-6 pt-6 pb-4 text-[16px] font-semibold text-gray-500">
-            Amortization Schedule
+        <div className="overflow-hidden rounded-[18px] border border-[#E7EBF3] bg-white shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+          <h3 className="px-6 pb-4 pt-6 font-display text-[18px] font-semibold text-[#0E1525]">
+            Amortization schedule
           </h3>
           <AmortizationTable schedule={result.schedule} />
         </div>

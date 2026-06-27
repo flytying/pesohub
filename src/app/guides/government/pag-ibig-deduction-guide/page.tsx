@@ -131,7 +131,7 @@ export default function PagIBIGDeductionGuidePage() {
 
         {/* Regular Pag-IBIG Deduction vs Housing Loan vs MP2 */}
 
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Regular Pag-IBIG Deduction vs Housing Loan vs MP2
           </h2>
@@ -172,7 +172,7 @@ export default function PagIBIGDeductionGuidePage() {
         </section>
 
         {/* Where Pag-IBIG Appears on Payroll */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Where Pag-IBIG Appears on Payroll
           </h2>
@@ -194,7 +194,7 @@ export default function PagIBIGDeductionGuidePage() {
         </section>
 
         {/* How to Tell Which Pag-IBIG Amount You Are Seeing */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             How to Tell Which Pag-IBIG Amount You Are Seeing
           </h2>
@@ -218,7 +218,7 @@ export default function PagIBIGDeductionGuidePage() {
         </section>
 
         {/* Why a Pag-IBIG-Related Amount May Be Different */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Why a Pag-IBIG-Related Amount May Be Different From the Regular
             Deduction
@@ -240,7 +240,7 @@ export default function PagIBIGDeductionGuidePage() {
         </section>
 
         {/* What This Guide Helps You Understand */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What This Guide Helps You Understand
           </h2>
@@ -328,7 +328,7 @@ export default function PagIBIGDeductionGuidePage() {
         </div>
 
         {/* Related Pag-IBIG Pages */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related Pag-IBIG Pages
           </h2>

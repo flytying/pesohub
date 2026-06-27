@@ -120,13 +120,15 @@ export default function SssPensionGuidePage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Quick Answer */}
         <section>
-          <div className="flex gap-3 rounded-xl border border-gray-200 bg-white p-6">
-            <PiggyBank className="mt-0.5 size-5 shrink-0 text-brand" />
+          <div className="flex gap-4 rounded-[16px] border border-[#D7E0FB] bg-[#EAF0FF] p-6">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-white">
+              <PiggyBank className="size-5 text-brand" />
+            </span>
             <div>
-              <p className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                Quick Answer
+              <p className="text-[13px] font-bold uppercase tracking-[.08em] text-brand">
+                Quick answer
               </p>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#475069]">
                 {sssPensionMeta.directAnswer}
               </p>
             </div>
@@ -135,7 +137,7 @@ export default function SssPensionGuidePage() {
 
         {/* 1. What Is the SSS Retirement Pension? */}
 
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             1. What Is the SSS Retirement Pension?
           </h2>
@@ -156,7 +158,7 @@ export default function SssPensionGuidePage() {
         </section>
 
         {/* 2. Eligibility Requirements */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             2. Eligibility Requirements
           </h2>
@@ -174,7 +176,7 @@ export default function SssPensionGuidePage() {
         </section>
 
         {/* 3. The Three SSS Pension Formulas */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             3. The Three SSS Pension Formulas
           </h2>
@@ -213,7 +215,7 @@ export default function SssPensionGuidePage() {
         </section>
 
         {/* 4. SSS Contribution Table Reference */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             4. SSS Contribution Table Reference
           </h2>
@@ -275,7 +277,7 @@ export default function SssPensionGuidePage() {
         </section>
 
         {/* 5. How to Check Your SSS Contributions */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             5. How to Check Your SSS Contributions
           </h2>
@@ -294,7 +296,7 @@ export default function SssPensionGuidePage() {
         </section>
 
         {/* Worked Example */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Worked Example: MSC of PHP 20,000 with 25 Years of Contributions
           </h2>
@@ -389,7 +391,7 @@ export default function SssPensionGuidePage() {
         </section>
 
         {/* Common Mistakes to Avoid */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Common Mistakes to Avoid
           </h2>
@@ -447,7 +449,7 @@ export default function SssPensionGuidePage() {
         </div>
 
         {/* Related Calculators and Guides */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related calculators and guides
           </h2>
