@@ -1,7 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, Clock } from "lucide-react";
-import { UpdateBadge } from "@/components/shared/update-badge";
+import { Clock } from "lucide-react";
 import { formatDate } from "@/lib/formatters";
 
 interface PageHeroProps {
@@ -11,43 +9,45 @@ interface PageHeroProps {
   /** Label prefix for the badge date (default: "Updated") */
   badgeLabel?: string;
   breadcrumbs: { label: string; href?: string }[];
-  /** "default" = light inline header, "dark" = full-width brand-blue hero */
+  /** Retained for API compatibility — detail headers are light in the new design. */
   variant?: "default" | "dark";
-  /** Optional hero image — displayed in the right column of the dark hero */
+  /** Retained for API compatibility — no longer rendered. */
   image?: { src: string; alt: string };
 }
 
+/**
+ * PageHero — the light detail-page header from the design: a breadcrumb
+ * trail, a Space Grotesk display H1, a lead paragraph, and an optional
+ * "Updated <date>" stamp. Sits at the top of the 1240px content column.
+ */
 export function PageHero({
   title,
   description,
   badge,
   badgeLabel = "Updated",
   breadcrumbs,
-  variant = "default",
-  image,
 }: PageHeroProps) {
-  if (variant === "dark") {
-    const breadcrumbNav = (
-      <nav aria-label="Breadcrumb" className="mb-6">
-        <ol className="flex flex-wrap items-center gap-1.5 text-[14px]">
+  return (
+    <div className="mx-auto max-w-6xl px-4 pb-2 pt-8 sm:px-6 lg:px-8">
+      {/* Breadcrumb */}
+      <nav aria-label="Breadcrumb" className="mb-[14px]">
+        <ol className="flex flex-wrap items-center gap-2 text-[14px]">
           {breadcrumbs.map((item, index) => {
             const isLast = index === breadcrumbs.length - 1;
             return (
-              <li key={index} className="flex items-center gap-1.5">
-                {index > 0 && (
-                  <ChevronRight className="size-3.5 text-surface-secondary" aria-hidden="true" />
-                )}
+              <li key={index} className="flex items-center gap-2">
+                {index > 0 && <span className="text-[#C4CCDB]">/</span>}
                 {isLast || !item.href ? (
                   <span
                     aria-current={isLast ? "page" : undefined}
-                    className="text-surface-secondary"
+                    className="text-[#5A6478]"
                   >
                     {item.label}
                   </span>
                 ) : (
                   <Link
                     href={item.href}
-                    className="text-accent-cyan transition-colors hover:text-white"
+                    className="font-bold text-brand transition-colors hover:text-brand-light"
                   >
                     {item.label}
                   </Link>
@@ -57,107 +57,19 @@ export function PageHero({
           })}
         </ol>
       </nav>
-    );
 
-    const textContent = (
-      <>
-        <h1 className="font-display text-[32px] font-semibold leading-[1.1] tracking-[-0.02em] sm:text-[44px]">
-          {title}
-        </h1>
-        <p className="mt-3 text-[16px] leading-[22px] text-surface-secondary sm:text-[20px] sm:leading-[26px]">
-          {description}
-        </p>
-        {badge && (
-          <p className="mt-4 flex items-center gap-1.5 text-[14px] text-white/70">
-            <Clock className="size-3.5" />
-            {badgeLabel} {formatDate(badge)}
-          </p>
-        )}
-      </>
-    );
-
-    if (image) {
-      return (
-        <section className="gradient-hero relative overflow-hidden pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
-        <div className="hero-glow" aria-hidden />
-          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            {/* Breadcrumb spans the full container width, above the grid */}
-            {breadcrumbNav}
-            <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-12">
-              <div>{textContent}</div>
-              <div className="hidden overflow-hidden rounded-xl lg:block">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={400}
-                  height={280}
-                  className="size-auto max-h-[280px] rounded-xl object-cover"
-                  unoptimized
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    return (
-      <section className="gradient-hero relative overflow-hidden pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
-        <div className="hero-glow" aria-hidden />
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          {breadcrumbNav}
-          {textContent}
+      <h1 className="font-display text-[clamp(28px,3.4vw,40px)] font-semibold leading-[1.1] tracking-[-.02em] text-[#0E1525]">
+        {title}
+      </h1>
+      <p className="mt-[10px] max-w-[72ch] text-[17px] leading-[1.55] text-[#5A6478]">
+        {description}
+      </p>
+      {badge && (
+        <div className="mt-[14px] inline-flex items-center gap-2 text-[14px] text-[#6B7488]">
+          <Clock className="size-[15px]" />
+          {badgeLabel} {formatDate(badge)}
         </div>
-      </section>
-    );
-  }
-
-  return (
-    <section className="bg-brand pb-14 pt-10 text-white sm:pb-16 sm:pt-12">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb — simple inline text */}
-        <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="flex flex-wrap items-center gap-1.5 text-[14px]">
-            {breadcrumbs.map((item, index) => {
-              const isLast = index === breadcrumbs.length - 1;
-              return (
-                <li key={index} className="flex items-center gap-1.5">
-                  {index > 0 && (
-                    <ChevronRight className="size-3.5 text-surface-secondary" aria-hidden="true" />
-                  )}
-                  {isLast || !item.href ? (
-                    <span
-                      aria-current={isLast ? "page" : undefined}
-                      className="text-surface-secondary"
-                    >
-                      {item.label}
-                    </span>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className="text-accent-cyan transition-colors hover:text-white"
-                    >
-                      {item.label}
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-        </nav>
-
-        <h1 className="font-display text-[32px] font-semibold leading-[1.1] tracking-[-0.02em] sm:text-[44px]">
-          {title}
-        </h1>
-        <p className="mt-3 text-[16px] leading-[22px] text-surface-secondary sm:text-[20px] sm:leading-[26px]">
-          {description}
-        </p>
-        {badge && (
-          <div className="mt-4">
-            <UpdateBadge date={badge} />
-          </div>
-        )}
-      </div>
-    </section>
+      )}
+    </div>
   );
 }
