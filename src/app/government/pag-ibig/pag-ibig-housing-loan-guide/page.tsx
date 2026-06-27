@@ -102,10 +102,10 @@ export default function PagibigHousingLoanGuidePage() {
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Who May Qualify */}
       <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Who May Qualify for a Pag-IBIG Housing Loan
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           A Pag-IBIG housing loan is generally intended for qualified members
           who meet the program&apos;s contribution, age, and repayment-related
           conditions. This section helps you answer the question: &ldquo;Am I
@@ -113,7 +113,7 @@ export default function PagibigHousingLoanGuidePage() {
         </p>
         <ul className="mt-4 space-y-3">
           {eligibilityItems.map((item) => (
-            <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+            <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
               <ArrowRight className="size-4 shrink-0 text-gray-300" />
               <span>{item}</span>
             </li>
@@ -128,10 +128,10 @@ export default function PagibigHousingLoanGuidePage() {
       {/* What Affects How Much You May Borrow */}
 
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           What Affects How Much You May Borrow
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           The amount you may be able to borrow is not based on one factor alone.
           It usually depends on a combination of repayment capacity,
           property-related valuation rules, contribution record, and the loan
@@ -139,7 +139,7 @@ export default function PagibigHousingLoanGuidePage() {
         </p>
         <ul className="mt-6 space-y-3">
           {loanableAmountFactors.map((item) => (
-            <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+            <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
               <ArrowRight className="size-4 shrink-0 text-gray-300" />
               <span>{item}</span>
             </li>
@@ -185,21 +185,21 @@ export default function PagibigHousingLoanGuidePage() {
 
       {/* How Rates and Repricing Affect Your Loan */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           How Rates and Repricing Affect Your Loan
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           One of the most important parts of any housing loan is understanding
           how the interest rate affects the monthly payment. A lower rate or a
           longer fixed period can change affordability, while repricing terms may
           affect what happens later in the loan.
         </p>
-        <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
           This is why it helps to compare:
         </p>
         <ul className="mt-4 space-y-3">
           {rateComparisonPoints.map((item) => (
-            <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+            <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
               <ArrowRight className="size-4 shrink-0 text-gray-300" />
               <span>{item}</span>
             </li>
@@ -250,17 +250,17 @@ export default function PagibigHousingLoanGuidePage() {
 
       {/* What You Will Usually Need */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           What You Will Usually Need
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           You will usually need some combination of the following. The exact
           document set may vary depending on your employment type, property
           type, and application scenario.
         </p>
         <ul className="mt-4 space-y-3">
           {documentChecklist.map((item) => (
-            <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+            <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
               <ArrowRight className="size-4 shrink-0 text-gray-300" />
               <span>{item}</span>
             </li>
@@ -270,10 +270,10 @@ export default function PagibigHousingLoanGuidePage() {
 
       {/* What a Pag-IBIG Housing Loan May Help Finance */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           What a Pag-IBIG Housing Loan May Help Finance
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           A Pag-IBIG housing loan guide is more useful when it explains not just
           the loan itself, but also the kinds of housing goals it may support.
         </p>
@@ -281,7 +281,7 @@ export default function PagibigHousingLoanGuidePage() {
           {housingPurposes.map((item) => (
             <div
               key={item}
-              className="flex items-center gap-2 rounded-xl border border-gray-200 p-4 text-[16px] leading-[22px]"
+              className="flex items-center gap-2 rounded-xl border border-gray-200 p-4 text-[16px] leading-[1.6]"
             >
               <Home className="size-4 shrink-0 text-brand" />
               <span className="text-gray-400">{item}</span>
@@ -292,17 +292,17 @@ export default function PagibigHousingLoanGuidePage() {
 
       {/* Questions to Ask Before Applying */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Questions to Ask Before Applying
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Before moving forward, it helps to ask a few practical questions.
           These can help you decide whether to estimate first, prepare documents
           next, or compare more than one financing path.
         </p>
         <ul className="mt-6 space-y-4">
           {questionsBeforeApplying.map((item) => (
-            <li key={item} className="flex gap-3 text-[16px] leading-[22px] text-gray-400">
+            <li key={item} className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
               <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
               {item}
             </li>
@@ -315,10 +315,10 @@ export default function PagibigHousingLoanGuidePage() {
       {/* Calculator CTA */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Want to Estimate Your Monthly Payment First?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
             If you already know the property price, down payment, and target
             term, use the Home Loan Calculator to estimate your monthly
             payment before applying.
@@ -342,7 +342,7 @@ export default function PagibigHousingLoanGuidePage() {
 
       {/* Related Pag-IBIG Pages */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Related Pag-IBIG pages
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">

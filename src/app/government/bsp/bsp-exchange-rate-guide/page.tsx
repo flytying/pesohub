@@ -72,13 +72,13 @@ export default function BSPExchangeRateGuidePage() {
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Key Facts */}
       <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           BSP Reference Rate at a Glance
         </h2>
         <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
           <dl className="space-y-2">
             {keyFacts.map((fact) => (
-              <div key={fact.label} className="flex gap-2 text-[16px] leading-[22px]">
+              <div key={fact.label} className="flex gap-2 text-[16px] leading-[1.6]">
                 <dt className="font-medium shrink-0 w-36 text-gray-500">{fact.label}:</dt>
                 <dd className="text-gray-400">{fact.value}</dd>
               </div>
@@ -90,10 +90,10 @@ export default function BSPExchangeRateGuidePage() {
       {/* What is the PDS */}
 
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           What Is the Philippine Dealing System (PDS)?
         </h2>
-        <div className="mt-4 space-y-3 text-[16px] leading-[22px] text-gray-400">
+        <div className="mt-4 space-y-3 text-[16px] leading-[1.6] text-[#5A6478]">
           <p>
             The Philippine Dealing System is an electronic trading platform where
             banks and authorized dealer institutions trade foreign currencies with
@@ -115,10 +115,10 @@ export default function BSPExchangeRateGuidePage() {
 
       {/* Bank Spreads Explained */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Why Bank Rates Differ from the BSP Rate
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Banks, money changers, and remittance services add a spread (markup) to
           the BSP reference rate. Here is a typical comparison:
         </p>
@@ -151,10 +151,10 @@ export default function BSPExchangeRateGuidePage() {
 
       {/* How to Use the BSP Rate */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           How to Use the BSP Reference Rate
         </h2>
-        <div className="mt-4 space-y-3 text-[16px] leading-[22px] text-gray-400">
+        <div className="mt-4 space-y-3 text-[16px] leading-[1.6] text-[#5A6478]">
           <p>
             The BSP reference rate is a benchmark — use it to evaluate whether the
             rate offered by your bank or money changer is reasonable. A smaller
@@ -180,11 +180,11 @@ export default function BSPExchangeRateGuidePage() {
 
       {/* Worked Example */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Worked Example
         </h2>
         <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
-          <div className="space-y-3 text-[16px] leading-[22px]">
+          <div className="space-y-3 text-[16px] leading-[1.6]">
             <p className="text-gray-500"><strong>Scenario:</strong> You need to send $500 USD to a family member in the Philippines.</p>
             <ol className="list-decimal space-y-2 pl-5 text-gray-400">
               <li>Today&apos;s BSP reference rate: PHP 56.20 per USD</li>
@@ -208,7 +208,7 @@ export default function BSPExchangeRateGuidePage() {
 
       {/* Related Content */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Related pages
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

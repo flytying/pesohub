@@ -114,10 +114,10 @@ export default function PagIBIGContributionTablePage() {
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Pag-IBIG (HDMF) Contribution Structure 2026 */}
       <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Pag-IBIG (HDMF) Contribution Structure 2026
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           This section shows the contribution assumptions currently used by
           this page. Because payroll reference pages are year-sensitive, the
           contribution basis, cap, and employee-employer split should be
@@ -196,10 +196,10 @@ export default function PagIBIGContributionTablePage() {
       {/* Pag-IBIG Employee and Employer Share Table */}
 
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Pag-IBIG Employee and Employer Share Table
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Check the employee share first if you want to match what usually
           appears on a payslip.
         </p>
@@ -255,37 +255,37 @@ export default function PagIBIGContributionTablePage() {
 
       {/* Who Pays the Pag-IBIG Contribution? */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Who Pays the Pag-IBIG Contribution?
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           For payroll users, one of the most important questions is whether the
           Pag-IBIG amount on the payslip is only the employee share or the full
           contribution. Here is how it works:
         </p>
         <ul className="mt-4 space-y-3">
-          <li className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+          <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
             <ArrowRight className="size-4 shrink-0 text-gray-300" />
             <span>
               <strong className="text-gray-500">Employee share</strong> is the
               part usually deducted from salary
             </span>
           </li>
-          <li className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+          <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
             <ArrowRight className="size-4 shrink-0 text-gray-300" />
             <span>
               <strong className="text-gray-500">Employer share</strong> is the
               part paid separately by the employer
             </span>
           </li>
-          <li className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+          <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
             <ArrowRight className="size-4 shrink-0 text-gray-300" />
             <span>
               <strong className="text-gray-500">Total contribution</strong> is
               the sum of both sides
             </span>
           </li>
-          <li className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+          <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
             <ArrowRight className="size-4 shrink-0 text-gray-300" />
             <span>
               The payslip often shows only the employee-side deduction
@@ -324,10 +324,10 @@ export default function PagIBIGContributionTablePage() {
 
       {/* How Salary Caps Affect the Deduction */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           How Salary Caps Affect the Deduction
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Pag-IBIG payroll deductions are easier to understand when the salary
           cap is explained clearly. The contribution is computed on monthly
           salary up to a maximum of {formatPeso(PAGIBIG_MAX_MSC)}. Once salary
@@ -376,10 +376,10 @@ export default function PagIBIGContributionTablePage() {
 
       {/* How Much Is Pag-IBIG Contribution per Salary Level */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           How Much Is Pag-IBIG Contribution per Salary Level
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           These examples help connect the reference table to actual payslip
           expectations.
         </p>
@@ -389,7 +389,7 @@ export default function PagIBIGContributionTablePage() {
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                 {example.label}
               </h3>
-              <dl className="mt-4 space-y-2 text-[16px] leading-[22px]">
+              <dl className="mt-4 space-y-2 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Monthly Salary</dt>
                   <dd className="font-medium text-gray-500">
@@ -427,10 +427,10 @@ export default function PagIBIGContributionTablePage() {
 
       {/* Where Pag-IBIG Appears on Payroll */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Where Pag-IBIG Appears on Payroll
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Pag-IBIG is usually one of the standard government deductions shown on
           a payslip together with SSS, PhilHealth, and withholding tax. The
           employee share is typically listed as a separate line item in the
@@ -438,7 +438,7 @@ export default function PagIBIGContributionTablePage() {
           the full payroll deduction picture helps when comparing it against
           other deductions.
         </p>
-        <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
           If you want to see Pag-IBIG together with other common deductions,
           use the{" "}
           <Link
@@ -453,10 +453,10 @@ export default function PagIBIGContributionTablePage() {
 
       {/* Why Your Actual Pag-IBIG Deduction May Differ */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Why Your Actual Pag-IBIG Deduction May Differ
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Actual payroll deductions may differ from a simplified reference page
           because payroll systems may apply updated contribution settings,
           compensation treatment, timing differences, or company-specific
@@ -465,7 +465,7 @@ export default function PagIBIGContributionTablePage() {
         </p>
         <ul className="mt-4 space-y-3">
           {whyDifferItems.map((item) => (
-            <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+            <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
               <ArrowRight className="size-4 shrink-0 text-gray-300" />
               <span>{item}</span>
             </li>
@@ -478,10 +478,10 @@ export default function PagIBIGContributionTablePage() {
       {/* Calculator CTA */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Want a Full Payroll Estimate?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
             If you want to see how Pag-IBIG combines with SSS, PhilHealth,
             and withholding tax to produce your net pay, use the Take-Home
             Pay Calculator for a fuller deduction estimate.
@@ -505,7 +505,7 @@ export default function PagIBIGContributionTablePage() {
 
       {/* Related Payroll and Pag-IBIG Pages */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Related payroll and Pag-IBIG pages
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

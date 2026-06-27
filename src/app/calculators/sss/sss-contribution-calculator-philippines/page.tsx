@@ -149,7 +149,7 @@ export default function SSSContributionCalculatorPage() {
         </div>
 
         {/* Result support text */}
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           This estimate is based on the member type and contribution schedule
           assumptions currently used by the calculator.
         </p>
@@ -158,10 +158,10 @@ export default function SSSContributionCalculatorPage() {
         <div className="mt-6 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
           <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
           <div>
-            <h3 className="text-[16px] font-semibold leading-[22px] text-gray-500">
+            <h3 className="text-[16px] font-semibold leading-[1.6] text-gray-500">
               Important
             </h3>
-            <p className="mt-1 text-[16px] leading-[22px] text-gray-400">
+            <p className="mt-1 text-[16px] leading-[1.6] text-[#5A6478]">
               If the official SSS schedule changes, the final contribution may
               differ from this estimate. Always verify against the latest
               official SSS contribution table.
@@ -171,16 +171,16 @@ export default function SSSContributionCalculatorPage() {
 
         {/* What Is Monthly Salary Credit? */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Is SSS Monthly Salary Credit?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Monthly Salary Credit, or MSC, is the salary band used by SSS to
             determine the contribution amount. Your actual salary is mapped to
             a contribution bracket, and the contribution is computed using the
             MSC assigned to that bracket.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             You do not need to compute MSC manually, but understanding it
             helps explain why contributions change in steps instead of changing
             by small amounts every time salary changes.
@@ -189,21 +189,21 @@ export default function SSSContributionCalculatorPage() {
 
         {/* What This Calculator Includes and Does Not Include */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What This Calculator Includes and Does Not Include
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             This page estimates SSS contribution only. It does not calculate
             your full net pay, total deductions, or income tax.
           </p>
           <div className="mt-4 grid gap-6 sm:grid-cols-2">
             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6">
-              <h3 className="text-[16px] font-semibold leading-[22px] text-emerald-800">
+              <h3 className="text-[16px] font-semibold leading-[1.6] text-emerald-800">
                 Includes
               </h3>
               <ul className="mt-4 space-y-3">
                 {toolIncludes.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-emerald-700">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-emerald-700">
                     <Check className="size-4 shrink-0 text-emerald-500" />
                     {item}
                   </li>
@@ -211,12 +211,12 @@ export default function SSSContributionCalculatorPage() {
               </ul>
             </div>
             <div className="rounded-xl border border-red-200 bg-red-50 p-6">
-              <h3 className="text-[16px] font-semibold leading-[22px] text-red-800">
+              <h3 className="text-[16px] font-semibold leading-[1.6] text-red-800">
                 Does not include
               </h3>
               <ul className="mt-4 space-y-3">
                 {toolDoesNotInclude.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-red-700">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-red-700">
                     <X className="size-4 shrink-0 text-red-400" />
                     {item}
                   </li>
@@ -226,7 +226,7 @@ export default function SSSContributionCalculatorPage() {
           </div>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               If you want a broader estimate of payroll deductions, use the{" "}
               <Link
                 href="/calculators/tax/take-home-pay-calculator-philippines"
@@ -241,16 +241,16 @@ export default function SSSContributionCalculatorPage() {
 
         {/* Why Your Actual SSS Contribution May Be Different */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Your Actual SSS Contribution May Be Different
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your actual contribution may differ from this estimate for several
             reasons.
           </p>
           <ul className="mt-4 space-y-3">
             {whyDifferent.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -260,10 +260,10 @@ export default function SSSContributionCalculatorPage() {
 
         {/* How Member Type Affects the Estimate */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             SSS Contribution by Member Type: Employee, Self-Employed, OFW
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             SSS contribution schedules are not interpreted the same way for
             every member classification. That is why choosing the correct
             member type matters before relying on the result.
@@ -279,7 +279,7 @@ export default function SSSContributionCalculatorPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {type.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {type.description}
                   </p>
                 </div>
@@ -295,7 +295,7 @@ export default function SSSContributionCalculatorPage() {
 
         {/* Related Tools and Reference Pages */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related tools and reference pages
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

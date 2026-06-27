@@ -85,7 +85,7 @@ export function CalculatorInput({
   return (
     <div className="space-y-2">
       <div className="flex items-center gap-1.5">
-        <Label htmlFor={id} className="text-[16px] font-semibold leading-[22px] text-gray-500">{label}</Label>
+        <Label htmlFor={id} className="text-[16px] font-semibold leading-[1.6] text-gray-500">{label}</Label>
         {tooltip && (
           <TooltipProvider>
             <Tooltip>

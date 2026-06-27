@@ -6,8 +6,8 @@ export default function NotFound() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-24 text-center">
       <h1 className="text-6xl font-bold text-gray-400">404</h1>
-      <h2 className="mt-4 text-[32px] font-medium leading-[48px] text-gray-500">Page Not Found</h2>
-      <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+      <h2 className="mt-4 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">Page Not Found</h2>
+      <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
         The page you are looking for does not exist or has been moved.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-4">

@@ -97,17 +97,17 @@ export default function PagibigMp2SavingsGuidePage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* What Is Pag-IBIG MP2 */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Is the Pag-IBIG MP2 Savings Program
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Pag-IBIG MP2 (Modified Pag-IBIG II) is a voluntary savings program
             administered by the Home Development Mutual Fund (HDMF), also known
             as Pag-IBIG Fund. It is designed to help members grow their savings
             with higher dividends compared to typical bank savings accounts,
             while keeping earnings tax-exempt.
           </p>
-          <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
             Unlike the mandatory Pag-IBIG contribution (which is automatically
             deducted from payroll), MP2 is entirely optional. You decide whether
             to join, how much to save, and whether to contribute through your
@@ -118,7 +118,7 @@ export default function PagibigMp2SavingsGuidePage() {
         {/* MP2 at a Glance */}
 
         <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             MP2 at a Glance
           </h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -141,10 +141,10 @@ export default function PagibigMp2SavingsGuidePage() {
 
         {/* How MP2 Salary Deduction by the Company Works */}
         <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How MP2 Salary Deduction by the Company Works
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             If you are employed, one of the easiest ways to contribute to MP2 is
             through your employer&apos;s payroll system. Here is how the salary
             deduction process works in practice:
@@ -153,7 +153,7 @@ export default function PagibigMp2SavingsGuidePage() {
             {mp2SalaryDeductionSteps.map((step) => (
               <li
                 key={step}
-                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                 <span>{step}</span>
@@ -192,10 +192,10 @@ export default function PagibigMp2SavingsGuidePage() {
 
         {/* MP2 vs Regular Pag-IBIG */}
         <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             MP2 vs Regular Pag-IBIG Contribution
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Understanding how MP2 differs from the regular Pag-IBIG contribution
             helps you decide whether it fits your savings plan. Here is a
             side-by-side comparison.
@@ -244,7 +244,7 @@ export default function PagibigMp2SavingsGuidePage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
             <div>
-              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+              <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
                 How to Enroll in Pag-IBIG MP2 Through Your Employer
               </h2>
               <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
@@ -280,10 +280,10 @@ export default function PagibigMp2SavingsGuidePage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* How to Contribute Without an Employer */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How to Contribute to Pag-IBIG MP2 Without an Employer
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             If you are self-employed, a freelancer, or an OFW, you can
             contribute to MP2 directly through any of the following channels:
           </p>
@@ -291,7 +291,7 @@ export default function PagibigMp2SavingsGuidePage() {
             {mp2OtcOptions.map((option) => (
               <li
                 key={option}
-                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                 <span>{option}</span>
@@ -302,10 +302,10 @@ export default function PagibigMp2SavingsGuidePage() {
 
         {/* MP2 Dividend History */}
         <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             MP2 Dividend Rate History (2010–2025)
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             MP2 dividends are computed annually based on the fund&apos;s
             performance. Here are the dividend rates from recent years:
           </p>
@@ -347,10 +347,10 @@ export default function PagibigMp2SavingsGuidePage() {
 
         {/* MP2 Withdrawal and Maturity Rules */}
         <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             MP2 Withdrawal and Maturity Rules
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Understanding when and how you can access your MP2 savings is
             important before committing to the 5-year lock-in period.
           </p>
@@ -358,7 +358,7 @@ export default function PagibigMp2SavingsGuidePage() {
             {mp2WithdrawalRules.map((rule) => (
               <li
                 key={rule}
-                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                 <span>{rule}</span>
@@ -371,10 +371,10 @@ export default function PagibigMp2SavingsGuidePage() {
       {/* Calculator CTA */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Want to See Your Full Payroll Deductions?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
             Use the Take-Home Pay Calculator to see how MP2, regular Pag-IBIG,
             SSS, PhilHealth, and withholding tax affect your net pay.
           </p>
@@ -397,7 +397,7 @@ export default function PagibigMp2SavingsGuidePage() {
 
         {/* Related Pages */}
         <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related Pag-IBIG Pages
           </h2>
           <div className="grid gap-4 sm:grid-cols-2">

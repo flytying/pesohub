@@ -103,10 +103,10 @@ export default function PagIBIGDeductionGuidePage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* What Does Pag-IBIG Deduction Usually Mean? */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Does Pag-IBIG Deduction Usually Mean?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             In many payroll situations, a Pag-IBIG deduction refers to the
             regular Pag-IBIG contribution deducted from salary. But some users
             also confuse this with Pag-IBIG housing loan payments or MP2 savings,
@@ -115,12 +115,12 @@ export default function PagIBIGDeductionGuidePage() {
 
           {/* In simple terms */}
           <div className="mt-6 rounded-xl border border-gray-200 bg-white p-6">
-            <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+            <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
               In simple terms:
             </p>
             <ul className="mt-3 space-y-3">
               {simpleTerms.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400">
+                <li key={item} className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                   <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                   {item}
                 </li>
@@ -132,10 +132,10 @@ export default function PagIBIGDeductionGuidePage() {
         {/* Regular Pag-IBIG Deduction vs Housing Loan vs MP2 */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Regular Pag-IBIG Deduction vs Housing Loan vs MP2
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             This is the most important distinction. These are all Pag-IBIG-related,
             but they are not the same thing. If you see a Pag-IBIG-related amount
             on payroll, the first step is to identify which of these it actually
@@ -163,7 +163,7 @@ export default function PagIBIGDeductionGuidePage() {
                 <h3 className="mt-3 text-[20px] font-semibold leading-[26px] text-gray-500">
                   {type.title}
                 </h3>
-                <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                   {type.description}
                 </p>
               </div>
@@ -173,10 +173,10 @@ export default function PagIBIGDeductionGuidePage() {
 
         {/* Where Pag-IBIG Appears on Payroll */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Where Pag-IBIG Appears on Payroll
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The regular Pag-IBIG contribution usually appears as one of the
             standard government deductions on a payslip, together with SSS,
             PhilHealth, and withholding tax. Housing loan payments and other
@@ -185,7 +185,7 @@ export default function PagIBIGDeductionGuidePage() {
           </p>
           <ul className="mt-4 space-y-3">
             {payslipPatterns.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -195,21 +195,21 @@ export default function PagIBIGDeductionGuidePage() {
 
         {/* How to Tell Which Pag-IBIG Amount You Are Seeing */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How to Tell Which Pag-IBIG Amount You Are Seeing
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             If you are not sure what a Pag-IBIG deduction refers to, compare the
             amount against the regular contribution reference first. If the amount
             is different from the expected regular contribution, it may be
             connected to a housing loan payment or another separate arrangement.
           </p>
-          <p className="mt-4 text-[16px] font-semibold leading-[22px] text-gray-500">
+          <p className="mt-4 text-[16px] font-semibold leading-[1.6] text-gray-500">
             A practical way to check:
           </p>
           <ul className="mt-4 space-y-3">
             {howToCheck.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <CheckCircle className="size-4 shrink-0 text-brand" />
                 {item}
               </li>
@@ -219,11 +219,11 @@ export default function PagIBIGDeductionGuidePage() {
 
         {/* Why a Pag-IBIG-Related Amount May Be Different */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why a Pag-IBIG-Related Amount May Be Different From the Regular
             Deduction
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Not every Pag-IBIG-related payroll amount is the standard employee
             contribution. The amount may look different because the deduction is
             tied to a housing loan, a salary-based remittance setup, or another
@@ -231,7 +231,7 @@ export default function PagIBIGDeductionGuidePage() {
           </p>
           <ul className="mt-4 space-y-3">
             {whyAmountDiffers.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -241,15 +241,15 @@ export default function PagIBIGDeductionGuidePage() {
 
         {/* What This Guide Helps You Understand */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What This Guide Helps You Understand
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Use this page if you want to:
           </p>
           <ul className="mt-4 space-y-3">
             {whatThisHelps.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <CheckCircle className="size-4 shrink-0 text-brand" />
                 {item}
               </li>
@@ -262,7 +262,7 @@ export default function PagIBIGDeductionGuidePage() {
       {/* Next Steps */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-center text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What to Do Next
           </h2>
           <div className="mt-10 grid divide-y divide-gray-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
@@ -273,7 +273,7 @@ export default function PagIBIGDeductionGuidePage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Contribution Reference
               </h3>
-              <p className="mt-2 flex-1 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 flex-1 text-[16px] leading-[1.6] text-[#5A6478]">
                 Verify the standard employee and employer contribution structure.
               </p>
               <Link
@@ -290,7 +290,7 @@ export default function PagIBIGDeductionGuidePage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Housing Loan Guide
               </h3>
-              <p className="mt-2 flex-1 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 flex-1 text-[16px] leading-[1.6] text-[#5A6478]">
                 If the Pag-IBIG amount is connected to a housing loan, start here.
               </p>
               <Link
@@ -307,7 +307,7 @@ export default function PagIBIGDeductionGuidePage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Full Payroll Estimate
               </h3>
-              <p className="mt-2 flex-1 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 flex-1 text-[16px] leading-[1.6] text-[#5A6478]">
                 See Pag-IBIG alongside SSS, PhilHealth, and withholding tax in one estimate.
               </p>
               <Link
@@ -329,10 +329,10 @@ export default function PagIBIGDeductionGuidePage() {
 
         {/* Related Pag-IBIG Pages */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related Pag-IBIG Pages
           </h2>
-          <p className="mb-6 text-[16px] leading-[22px] text-gray-400">
+          <p className="mb-6 text-[16px] leading-[1.6] text-[#5A6478]">
             After reading this guide, you may also want to review these related
             pages.
           </p>

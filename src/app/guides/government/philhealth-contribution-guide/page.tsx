@@ -124,10 +124,10 @@ export default function PhilHealthContributionGuidePage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* What Is PhilHealth Deduction on Payroll? */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Is PhilHealth Deduction on Payroll?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             PhilHealth deduction is the employee-side share of the monthly
             PhilHealth premium that may be taken from salary through payroll. For
             employed members, the total premium is commonly split between employee
@@ -139,12 +139,12 @@ export default function PhilHealthContributionGuidePage() {
           <div className="mt-6 flex gap-3 rounded-xl border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
             <div>
-              <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+              <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
                 In simple terms:
               </p>
               <ul className="mt-3 space-y-3">
                 {simpleTerms.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                     <CheckCircle className="size-4 shrink-0 text-brand" />
                     {item}
                   </li>
@@ -157,10 +157,10 @@ export default function PhilHealthContributionGuidePage() {
         {/* Who Pays the PhilHealth Contribution? */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Who Pays the PhilHealth Contribution?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             One of the most common points of confusion is whether the deduction on
             the payslip is the full PhilHealth contribution or only the employee
             portion. This is why the amount on your payslip may be lower than the
@@ -196,10 +196,10 @@ export default function PhilHealthContributionGuidePage() {
 
         {/* How PhilHealth Usually Appears on a Payslip */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How PhilHealth Usually Appears on a Payslip
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             PhilHealth is usually one of the standard government payroll
             deductions shown together with SSS, Pag-IBIG, and withholding tax. It
             may appear as a separate line item on a payslip, and the amount shown
@@ -207,7 +207,7 @@ export default function PhilHealthContributionGuidePage() {
           </p>
           <ul className="mt-4 space-y-3">
             {payslipPatterns.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -217,10 +217,10 @@ export default function PhilHealthContributionGuidePage() {
 
         {/* Why PhilHealth Deduction Can Change */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why PhilHealth Deduction Can Change
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             PhilHealth deduction may change when salary changes, when the
             contribution basis changes, or when official premium schedules are
             updated. This is why payroll users often need both a simple guide and a
@@ -228,7 +228,7 @@ export default function PhilHealthContributionGuidePage() {
           </p>
           <ul className="mt-4 space-y-3">
             {whyDeductionChanges.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -238,17 +238,17 @@ export default function PhilHealthContributionGuidePage() {
 
         {/* Where to Verify Your PhilHealth Deduction */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Where to Verify Your PhilHealth Deduction
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             If you want to confirm whether your PhilHealth deduction looks
             correct, the best next step is to compare it against the current
             PhilHealth contribution table or your employer&apos;s payroll basis.
           </p>
           <ul className="mt-4 space-y-3">
             {verifyNextSteps.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <CheckCircle className="size-4 shrink-0 text-brand" />
                 {item}
               </li>
@@ -258,15 +258,15 @@ export default function PhilHealthContributionGuidePage() {
 
         {/* What This Guide Helps You Check */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What This Guide Helps You Check
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Use this page if you want to:
           </p>
           <ul className="mt-4 space-y-3">
             {whatThisHelps.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <CheckCircle className="size-4 shrink-0 text-brand" />
                 {item}
               </li>
@@ -279,7 +279,7 @@ export default function PhilHealthContributionGuidePage() {
       {/* What to Do Next */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-center text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What to Do Next
           </h2>
           <div className="mt-10 grid divide-y divide-gray-200 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
@@ -290,7 +290,7 @@ export default function PhilHealthContributionGuidePage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Contribution Reference
               </h3>
-              <p className="mt-2 flex-1 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 flex-1 text-[16px] leading-[1.6] text-[#5A6478]">
                 See the contribution structure itself, including employee share,
                 employer share, and salary basis.
               </p>
@@ -308,7 +308,7 @@ export default function PhilHealthContributionGuidePage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Full Payroll Estimate
               </h3>
-              <p className="mt-2 flex-1 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 flex-1 text-[16px] leading-[1.6] text-[#5A6478]">
                 See PhilHealth alongside SSS, Pag-IBIG, and withholding tax in
                 one salary estimate.
               </p>
@@ -331,10 +331,10 @@ export default function PhilHealthContributionGuidePage() {
 
         {/* Related Payroll Pages */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related Payroll Pages
           </h2>
-          <p className="mb-6 text-[16px] leading-[22px] text-gray-400">
+          <p className="mb-6 text-[16px] leading-[1.6] text-[#5A6478]">
             After reading this guide, you may also want to review these related
             pages.
           </p>

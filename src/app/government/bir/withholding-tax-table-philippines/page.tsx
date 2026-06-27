@@ -109,10 +109,10 @@ export default function WithholdingTaxTablePage() {
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Overview + jump links */}
       <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           2026 BIR Withholding Tax Table
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           The TRAIN Law (Republic Act 10963) restructured Philippine income tax
           brackets, with the current lower-rate schedule effective January 1,
           2023. Under this schedule, annual taxable income up to ₱250,000 is
@@ -154,10 +154,10 @@ export default function WithholdingTaxTablePage() {
 
       {/* How to Compute */}
       <section id="how-to-compute" className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           How to Compute Withholding Tax Using the BIR Table
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Subtract your SSS, PhilHealth, and Pag-IBIG employee shares (and any
           non-taxable benefits) from gross pay to get taxable compensation, then
           match it to the row for your payroll frequency. Here is an example
@@ -170,7 +170,7 @@ export default function WithholdingTaxTablePage() {
             </h3>
           </div>
           <div className="px-6 py-4">
-            <dl className="space-y-2.5 text-[16px] leading-[22px]">
+            <dl className="space-y-2.5 text-[16px] leading-[1.6]">
               <div className="flex justify-between">
                 <dt className="text-gray-400">Monthly taxable compensation</dt>
                 <dd className="font-mono tabular-nums text-gray-500">₱35,000</dd>
@@ -195,7 +195,7 @@ export default function WithholdingTaxTablePage() {
             </dl>
           </div>
           <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-            <div className="flex justify-between text-[16px] leading-[22px]">
+            <div className="flex justify-between text-[16px] leading-[1.6]">
               <span className="font-semibold text-gray-500">Prescribed Monthly Withholding</span>
               <span className="font-mono tabular-nums font-bold text-brand">₱2,208.40</span>
             </div>
@@ -222,10 +222,10 @@ export default function WithholdingTaxTablePage() {
 
       {/* Use the Calculator */}
       <section id="calculator" className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Use the Withholding Tax Calculator
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Skip the manual lookup. The Withholding Tax Calculator lets you pick
           your pay frequency (monthly, semi-monthly, weekly, or daily), deducts
           your SSS, PhilHealth, and Pag-IBIG employee shares automatically (or
@@ -245,10 +245,10 @@ export default function WithholdingTaxTablePage() {
 
       {/* 2025 vs 2026 */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Is the 2026 Withholding Tax Table Different From 2025?
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           No. The 2026 withholding tax table is identical to 2025. The TRAIN
           Law&apos;s lower second-phase rates took effect on January 1, 2023 and
           have not changed since, so the 2023, 2024, 2025, and 2026 tables are
@@ -256,7 +256,7 @@ export default function WithholdingTaxTablePage() {
           this is the schedule you are looking for — there is no separate 2026
           rate change for compensation income.
         </p>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           The only thing to double-check is whether you are looking at the
           current table (2023 onwards) rather than the older 2018–2022 table,
           which used higher 20%–32% middle rates.
@@ -265,17 +265,17 @@ export default function WithholdingTaxTablePage() {
 
       {/* Common Mistakes */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Common Withholding Tax Mistakes
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           The most frequent errors when reading the BIR withholding tax table:
         </p>
         <ul className="mt-4 space-y-3">
           {commonMistakes.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+              className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
             >
               <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
               <span>{item}</span>
@@ -293,7 +293,7 @@ export default function WithholdingTaxTablePage() {
 
       {/* Related Tax Pages and Payroll Tools */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Related tax pages and payroll tools
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -320,7 +320,7 @@ export default function WithholdingTaxTablePage() {
 
       {/* Source Citation */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Official BIR Source and Freshness
         </h2>
         <SourceCitation

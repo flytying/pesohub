@@ -89,10 +89,10 @@ export default function SSSPensionTablePage() {
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Pension Estimate Table */}
       <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Estimated Monthly Pension by Salary Credit & Years
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           This table shows estimated monthly pension amounts based on your Average
           Monthly Salary Credit (AMSC) and total Credited Years of Service (CYS).
           The highest of the three SSS pension formulas is used.
@@ -144,10 +144,10 @@ export default function SSSPensionTablePage() {
       {/* Three Pension Formulas */}
 
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           The Three SSS Pension Formulas
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           SSS computes your pension using all three formulas and gives you the
           highest amount.
         </p>
@@ -158,7 +158,7 @@ export default function SSSPensionTablePage() {
                 {formula.label}
               </h3>
               <p className="mt-2 font-mono text-[16px] font-medium text-gray-500">{formula.formula}</p>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">{formula.description}</p>
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">{formula.description}</p>
             </div>
           ))}
         </div>
@@ -166,24 +166,24 @@ export default function SSSPensionTablePage() {
 
       {/* Who It Applies To */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Who It Applies To
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           The SSS retirement pension applies to all SSS members who have reached
           retirement age (60 for optional, 65 for mandatory) and have made at least
           120 monthly contributions (10 years).
         </p>
-        <p className="mt-3 text-[16px] leading-[22px] text-gray-400">This includes:</p>
+        <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">This includes:</p>
         <ul className="mt-4 space-y-3">
           {memberTypes.map((member) => (
-            <li key={member.title} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+            <li key={member.title} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
               <ArrowRight className="size-4 shrink-0 text-gray-300" />
               <span><strong className="text-gray-500">{member.title}</strong> — {member.description}</span>
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Members who do not meet the minimum 120 contributions will receive a
           lump-sum benefit instead of a monthly pension.
         </p>
@@ -191,13 +191,13 @@ export default function SSSPensionTablePage() {
 
       {/* Eligibility */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Eligibility Requirements
         </h2>
         <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
           <ul className="space-y-3">
             {eligibilityRequirements.map((req) => (
-              <li key={req} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={req} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {req}
               </li>
@@ -208,19 +208,19 @@ export default function SSSPensionTablePage() {
 
       {/* Worked Example */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Worked Example
         </h2>
         <div className="mt-4 overflow-hidden rounded-xl border border-gray-200 bg-white">
           {/* Scenario header */}
           <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-            <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+            <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
               Average MSC of ₱20,000 with 25 years of contributions
             </p>
           </div>
           {/* Formula line items */}
           <div className="px-6 py-4">
-            <dl className="space-y-2.5 text-[16px] leading-[22px]">
+            <dl className="space-y-2.5 text-[16px] leading-[1.6]">
               <div className="flex justify-between">
                 <dt className="text-gray-400">Formula 1</dt>
                 <dd className="font-mono tabular-nums text-gray-500">₱10,300/mo</dd>
@@ -237,7 +237,7 @@ export default function SSSPensionTablePage() {
           </div>
           {/* Result */}
           <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-            <div className="flex justify-between text-[16px] leading-[22px]">
+            <div className="flex justify-between text-[16px] leading-[1.6]">
               <span className="font-semibold text-gray-500">Monthly Pension</span>
               <span className="font-mono tabular-nums font-bold text-brand">₱10,300</span>
             </div>
@@ -256,10 +256,10 @@ export default function SSSPensionTablePage() {
     {/* Calculator CTA */}
     <section className="bg-surface-tertiary py-20">
       <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Want to Estimate Your SSS Pension?
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Enter your salary credit and years of contribution to get a
           personalized pension estimate.
         </p>
@@ -279,7 +279,7 @@ export default function SSSPensionTablePage() {
 
       {/* Related Content */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Related calculators and guides
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

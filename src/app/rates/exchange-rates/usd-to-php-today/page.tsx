@@ -235,7 +235,7 @@ export default function UsdToPhpPage() {
         {/* Historical Rates Table */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Historical USD to PHP Rates (Last 7 Business Days)
           </h2>
           <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
@@ -279,17 +279,17 @@ export default function UsdToPhpPage() {
 
         {/* How to Read Exchange Rates */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How to Read Exchange Rates
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The BSP reference rate tells you how many Philippine Pesos one US
             Dollar is worth. When the number goes <strong>up</strong> (e.g.,
             from 56.00 to 57.00), the peso has <strong>weakened</strong>
             &mdash;you need more pesos to buy one dollar. When it goes{" "}
             <strong>down</strong>, the peso has <strong>strengthened</strong>.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             For <strong>OFW remittances</strong>, a higher rate is generally
             better because your dollars convert to more pesos. For{" "}
             <strong>importers or travelers going abroad</strong>, a lower rate
@@ -297,7 +297,7 @@ export default function UsdToPhpPage() {
           </p>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               Keep in mind that banks and money changers apply a{" "}
               <strong>spread</strong> (markup) on top of the BSP rate. The
               &ldquo;buying rate&rdquo; is what they pay you when you sell
@@ -309,14 +309,14 @@ export default function UsdToPhpPage() {
 
         {/* Where to Get the Best Exchange Rate */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Where to Get the Best Exchange Rate
           </h2>
           <ul className="mt-6 space-y-3">
             {bestRateTips.map((tip, i) => (
               <li
                 key={i}
-                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                 <span>{tip.text}</span>
@@ -332,7 +332,7 @@ export default function UsdToPhpPage() {
 
         {/* Related Pages */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related rates and guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

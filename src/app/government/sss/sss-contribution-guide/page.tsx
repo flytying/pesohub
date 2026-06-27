@@ -104,10 +104,10 @@ export default function SSSContributionGuidePage() {
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* SSS Contribution Table Reference */}
       <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           SSS Contribution Table Reference
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Select your member type to see the contribution table that applies to
           you. For employed and kasambahay members, the contribution is split
           between the member and the employer. For self-employed, voluntary, OFW,
@@ -126,10 +126,10 @@ export default function SSSContributionGuidePage() {
       {/* How to Read the Employee and Employer Shares */}
 
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           How to Read the Employee and Employer Shares
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           For employed members, the SSS table separates the employee share and
           employer share. The employee portion is what usually appears as the
           payroll deduction, while the employer contributes its own share on top
@@ -174,17 +174,17 @@ export default function SSSContributionGuidePage() {
 
       {/* What Is Monthly Salary Credit? */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           What Is Monthly Salary Credit?
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Monthly Salary Credit, or MSC, is the salary band SSS uses to
           determine contribution amounts and some benefit computations. The
           official SSS site explains that monthly contributions are based on
           member compensation and that MSC is the compensation base used in
           contribution and benefit calculations.
         </p>
-        <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
           This is why contributions move by bracket instead of changing by very
           small peso amounts every time salary changes.
         </p>
@@ -192,10 +192,10 @@ export default function SSSContributionGuidePage() {
 
       {/* How Member Type Affects the Table */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           How Member Type Affects the Table
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Different member classifications may not use the same contribution
           breakdown. Employees typically have both employer and employee shares.
           Voluntary, self-employed, OFW, and non-working spouse views should be
@@ -207,7 +207,7 @@ export default function SSSContributionGuidePage() {
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                 {card.type}
               </h3>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 {card.description}
               </p>
             </div>
@@ -217,10 +217,10 @@ export default function SSSContributionGuidePage() {
 
       {/* Sample SSS Payroll Cuts */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Sample SSS Payroll Cuts
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           These examples help show how the SSS contribution may look in a
           payroll context for employed members.
         </p>
@@ -235,7 +235,7 @@ export default function SSSContributionGuidePage() {
               </div>
               {/* Line items */}
               <div className="px-6 py-4">
-                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                   <div className="flex justify-between">
                     <dt className="text-gray-400">Monthly Salary</dt>
                     <dd className="font-mono tabular-nums text-gray-500">
@@ -251,7 +251,7 @@ export default function SSSContributionGuidePage() {
                 </dl>
                 {/* Dashed divider */}
                 <div className="my-3 border-t border-dashed border-gray-200" />
-                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                   <div className="flex justify-between">
                     <dt className="text-gray-400">Employee Share</dt>
                     <dd className="font-mono tabular-nums font-semibold text-brand">
@@ -268,7 +268,7 @@ export default function SSSContributionGuidePage() {
               </div>
               {/* Total */}
               <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="flex justify-between text-[16px] leading-[22px]">
+                <div className="flex justify-between text-[16px] leading-[1.6]">
                   <span className="font-semibold text-gray-500">Total Contribution</span>
                   <span className="font-mono tabular-nums font-bold text-gray-500">
                     {formatPeso(example.totalContribution)}
@@ -288,17 +288,17 @@ export default function SSSContributionGuidePage() {
 
       {/* Why Your Actual SSS Contribution May Differ */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Why Your Actual SSS Contribution May Differ
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Actual contributions may differ from this reference table for several
           reasons. That is why this page should always show the effective period
           of the table prominently.
         </p>
         <ul className="mt-4 space-y-3">
           {whyDifferent.map((item) => (
-            <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+            <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
               <ArrowRight className="size-4 shrink-0 text-gray-300" />
               <span>{item}</span>
             </li>
@@ -308,10 +308,10 @@ export default function SSSContributionGuidePage() {
 
       {/* Current Schedule Used on This Page */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Current Schedule Used on This Page
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           As of the latest official SSS publication currently available, the
           contribution table is Effective January 2025. SSS also states that the
           contribution rate increased to 15%, with the minimum MSC at ₱5,000 and
@@ -352,10 +352,10 @@ export default function SSSContributionGuidePage() {
       {/* Calculator CTA */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Want a Faster Estimate?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
             If you already know your salary and member type, use the SSS
             Contribution Calculator to get a quicker estimate without scanning
             the full table.
@@ -379,7 +379,7 @@ export default function SSSContributionGuidePage() {
 
       {/* Related Payroll Tools and Guides */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Related payroll tools and guides
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

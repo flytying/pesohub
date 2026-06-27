@@ -50,10 +50,10 @@ export default function ContactPage() {
       {/* Hero header */}
       <section className="bg-brand py-10 text-white sm:py-12">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h1 className="text-[32px] font-medium leading-[48px] sm:text-[48px] sm:leading-[48px]">
+          <h1 className="font-display text-[clamp(28px,3.4vw,40px)] font-semibold leading-[1.1] tracking-[-0.02em]">
             Contact Us
           </h1>
-          <p className="mt-3 text-[16px] leading-[22px] text-surface-secondary sm:text-[20px] sm:leading-[26px]">
+          <p className="mt-3 text-[16px] leading-[1.6] text-surface-secondary sm:text-[20px] sm:leading-[26px]">
             Have a question, suggestion, or found an error? We&apos;d love to
             hear from you. Fill out the form and we&apos;ll get back to you as
             soon as possible.
@@ -71,7 +71,7 @@ export default function ContactPage() {
               <h2 className="text-[14px] font-semibold uppercase tracking-wider text-gray-400">
                 Response Time
               </h2>
-              <p className="mt-1 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-1 text-[16px] leading-[1.6] text-[#5A6478]">
                 We typically respond within 1–2 business days.
               </p>
             </div>
@@ -79,7 +79,7 @@ export default function ContactPage() {
               <h2 className="text-[14px] font-semibold uppercase tracking-wider text-gray-400">
                 Important Note
               </h2>
-              <p className="mt-1 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-1 text-[16px] leading-[1.6] text-[#5A6478]">
                 {SITE_NAME} provides free financial tools for educational
                 purposes. We cannot provide personalized financial advice. For
                 specific financial questions, please consult a qualified
@@ -99,7 +99,7 @@ export default function ContactPage() {
               <h2 className="mt-5 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Message Sent
               </h2>
-              <p className="mt-2 max-w-sm text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 max-w-sm text-[16px] leading-[1.6] text-[#5A6478]">
                 Thank you for reaching out. We&apos;ll review your message and
                 get back to you shortly.
               </p>

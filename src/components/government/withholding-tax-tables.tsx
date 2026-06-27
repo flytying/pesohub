@@ -104,10 +104,10 @@ export function WithholdingTaxTables() {
             id={section.anchor}
             className="scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]"
           >
-            <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+            <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
               {section.heading}
             </h2>
-            <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
               {section.intro}
             </p>
             <TaxTable brackets={period.current} />

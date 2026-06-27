@@ -14,7 +14,7 @@ export function RelatedPages({ currentSlug }: RelatedPagesProps) {
 
   return (
     <section className="pt-16 pb-8">
-      <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+      <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
         Related Tools &amp; Guides
       </h2>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -161,10 +161,10 @@ export default function TimeDepositRatesPage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Time Deposit Calculator */}
         <section className="scroll-mt-20">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Time Deposit Calculator
           </h2>
-          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Enter your placement amount, the bank&apos;s advertised rate, and the
             term to estimate gross interest, the 20% withholding tax, and your
             net maturity value. Then compare current bank rates in the table
@@ -177,16 +177,16 @@ export default function TimeDepositRatesPage() {
 
         {/* Time Deposit Comparison Table */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Time Deposit Comparison Table
           </h2>
-          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Compare time deposit products using the factors that matter most in
             real use, not just the highest advertised rate.
           </p>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               Use this table to compare time deposit products by tenor, rate, and
               minimum placement. Check the notes column carefully because banks
               may revise rates or remove certain terms over time.
@@ -251,10 +251,10 @@ export default function TimeDepositRatesPage() {
         {/* Time Deposit Rates Are Usually Shown Before Tax */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Time Deposit Rates Are Usually Shown Before Tax
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Banks often show time deposit rates as gross annual rates. But
             interest income from bank deposits is generally subject to final
             withholding tax, which means your actual earnings may be lower than
@@ -289,10 +289,10 @@ export default function TimeDepositRatesPage() {
 
         {/* Why Term Length Matters */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Term Length Matters
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             A longer time deposit term may offer a different rate from a shorter
             one, but it also means your funds are locked in longer. The best
             option depends on whether you value flexibility or are willing to
@@ -302,7 +302,7 @@ export default function TimeDepositRatesPage() {
             {termLengthPoints.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                 <span>{item}</span>
@@ -313,10 +313,10 @@ export default function TimeDepositRatesPage() {
 
         {/* Why Minimum Deposit Matters */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Minimum Deposit Matters
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Some time deposit products are accessible with smaller starting
             amounts, while others require a much larger placement. This is one
             of the biggest practical filters users apply when comparing rates, so
@@ -330,7 +330,7 @@ export default function TimeDepositRatesPage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Lower minimum deposit
               </h3>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 May be more useful if you are testing a product for the first
                 time or starting with a smaller amount.
               </p>
@@ -342,7 +342,7 @@ export default function TimeDepositRatesPage() {
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                 Higher minimum deposit
               </h3>
-              <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                 May be acceptable if the product fits a larger parked-cash
                 strategy or if you already have the funds available.
               </p>
@@ -352,10 +352,10 @@ export default function TimeDepositRatesPage() {
 
         {/* Why Notes Matter */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Notes Matter on a Time Deposit Page
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Time deposit products can change over time. A product may revise
             rates, remove certain tenors, or apply different rates based on
             customer segment. CIMB Bank PH, for example, announced revised
@@ -370,7 +370,7 @@ export default function TimeDepositRatesPage() {
             {notesChecklist.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                 <span>{item}</span>
@@ -381,10 +381,10 @@ export default function TimeDepositRatesPage() {
 
         {/* Quick Picks by Deposit Need */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Quick Picks by Deposit Need
           </h2>
-          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Start with the kind of time deposit setup you want, not just the
             highest published number.
           </p>
@@ -402,7 +402,7 @@ export default function TimeDepositRatesPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {card.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {card.description}
                   </p>
                 </div>
@@ -416,10 +416,10 @@ export default function TimeDepositRatesPage() {
       {/* Calculator CTA */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Want to Estimate Your Return?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
             After comparing rates, use the Time Deposit Calculator to
             estimate gross interest, after-tax interest, and maturity amount
             for a specific deposit scenario.
@@ -460,7 +460,7 @@ export default function TimeDepositRatesPage() {
 
         {/* Related Pages */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related savings and rates pages
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

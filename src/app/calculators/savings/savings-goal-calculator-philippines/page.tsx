@@ -165,16 +165,16 @@ export default function SavingsGoalCalculatorPage() {
 
         {/* How It Works */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How Savings Goal Calculation Works
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The calculator divides the remaining amount you need to save by the
             number of months in your timeline. If you include an annual interest
             rate, it factors in the compound interest your savings will earn each
             month, which reduces the monthly contribution needed.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The formula accounts for your starting balance growing with
             interest, plus regular monthly deposits that also earn interest over
             time. The result is the minimum monthly savings needed to reach your
@@ -184,10 +184,10 @@ export default function SavingsGoalCalculatorPage() {
 
         {/* Common Savings Goals */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Common Savings Goals in the Philippines
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Having a specific target amount makes saving easier to plan and
             track. Here are some of the most common savings goals among
             Filipinos:
@@ -206,7 +206,7 @@ export default function SavingsGoalCalculatorPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {goal.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {goal.description}
                   </p>
                   <p className="mt-3 text-[14px] font-medium text-brand">
@@ -220,11 +220,11 @@ export default function SavingsGoalCalculatorPage() {
 
         {/* Worked Example */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Example: Saving for a ₱100,000 Goal
           </h2>
           <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               Suppose you want to save ₱100,000 in 12 months. You already have
               ₱20,000 set aside, and you plan to keep the savings in a digital
               bank account earning 3% per year.
@@ -255,7 +255,7 @@ export default function SavingsGoalCalculatorPage() {
                 <span className="font-mono tabular-nums">~₱6,530</span>
               </div>
             </div>
-            <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+            <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
               Without interest, you would need about ₱6,667 per month. The
               interest earned reduces the monthly amount slightly. Over 12
               months, the difference may be modest, but over longer timelines the
@@ -266,14 +266,14 @@ export default function SavingsGoalCalculatorPage() {
 
         {/* Tips for Reaching Your Goal */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Tips for Reaching Your Savings Goal
           </h2>
           <ul className="mt-6 space-y-4">
             {savingsTips.map((tip, i) => (
               <li
                 key={i}
-                className="flex gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <ArrowRight className="mt-0.5 size-4 shrink-0 text-brand" />
                 {tip}
@@ -282,7 +282,7 @@ export default function SavingsGoalCalculatorPage() {
           </ul>
           <div className="mt-6 flex gap-3 rounded-lg border border-gray-200 bg-white p-6">
             <Info className="mt-0.5 size-5 shrink-0 text-gray-300" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               Compare current rates on our{" "}
               <Link
                 href="/rates/savings-rates/best-savings-interest-rates-philippines"
@@ -297,14 +297,14 @@ export default function SavingsGoalCalculatorPage() {
 
         {/* Questions to consider */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Questions to Consider
           </h2>
           <ul className="mt-6 space-y-4">
             {questionsToConsider.map((question, i) => (
               <li
                 key={i}
-                className="flex gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
                 {question}
@@ -316,7 +316,7 @@ export default function SavingsGoalCalculatorPage() {
         {/* Disclaimer */}
         <div className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
           <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-          <p className="text-[16px] leading-[22px] text-gray-400">
+          <p className="text-[16px] leading-[1.6] text-[#5A6478]">
             This calculator provides estimates for planning purposes only.
             Actual interest earned may vary depending on the bank, account type,
             and rate changes over time. Consider consulting a qualified financial
@@ -331,7 +331,7 @@ export default function SavingsGoalCalculatorPage() {
 
         {/* Related Calculators and Guides */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related Calculators and Guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

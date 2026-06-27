@@ -225,16 +225,16 @@ export default function DigitalBankRatesPage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Digital Bank Comparison Table */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             High Yield Savings Accounts: Digital Bank Comparison
           </h2>
-          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Compare digital banks side by side using the features that matter
             most in real use, not just the highest rate on a promo banner.
           </p>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               This table separates regular rates from promo-driven rates and
               makes access features easy to scan. Start with your use case
               first, then compare base rate, promo rate, access features, and
@@ -294,7 +294,7 @@ export default function DigitalBankRatesPage() {
             conditions directly with the bank before opening an account or
             moving funds.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Want to see how much you can earn?{" "}
             <Link
               href="#digital-bank-calculator"
@@ -320,10 +320,10 @@ export default function DigitalBankRatesPage() {
 
         {/* Digital Bank Interest Calculator */}
         <section id="digital-bank-calculator" className="mt-16 scroll-mt-20">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Digital Bank Interest Calculator
           </h2>
-          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Pick a digital bank, enter your balance, and estimate the monthly
             and annual interest. Promo rates often apply only up to a balance
             cap, so compare the base rate too.
@@ -339,10 +339,10 @@ export default function DigitalBankRatesPage() {
         {/* Base Rate vs Promo Rate */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Base Rate vs Promo Rate
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             One of the biggest reasons digital bank comparisons can be misleading
             is that some banks highlight promotional rates while others emphasize
             a simpler regular rate. A fair comparison should separate these two
@@ -352,7 +352,7 @@ export default function DigitalBankRatesPage() {
             {baseRatePoints.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                 <span>{item}</span>
@@ -361,7 +361,7 @@ export default function DigitalBankRatesPage() {
           </ul>
           <div className="mt-6 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               This is why the comparison table shows both base rate and promo
               rate instead of combining them into one number.
             </p>
@@ -370,10 +370,10 @@ export default function DigitalBankRatesPage() {
 
         {/* Why Access Features Matter */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Access Features Matter
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             A digital bank can look attractive on rate alone, but access matters
             just as much for daily use. Some users care more about cash access,
             debit cards, and transfers than about squeezing out the highest
@@ -383,7 +383,7 @@ export default function DigitalBankRatesPage() {
             {accessPoints.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
                 <span>{item}</span>
@@ -394,17 +394,17 @@ export default function DigitalBankRatesPage() {
 
         {/* Deposit Insurance and Trust Notes */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Deposit Insurance and Trust Notes
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             For deposit products, trust and protection matter. PDIC increased
             the maximum deposit insurance coverage to ₱1,000,000 per depositor,
             per bank effective March 15, 2025, and that should be clearly
             reflected in the comparison notes for any deposit-focused digital
             bank page.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             This does not replace product due diligence, but it is one of the
             clearest trust signals users look for when comparing where to keep
             money.
@@ -413,10 +413,10 @@ export default function DigitalBankRatesPage() {
 
         {/* Best Digital Bank Options by Need */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Best Digital Bank in the Philippines by Need
           </h2>
-          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Start with how you plan to use the account, not just the headline
             rate.
           </p>
@@ -434,7 +434,7 @@ export default function DigitalBankRatesPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {card.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {card.description}
                   </p>
                 </div>
@@ -445,10 +445,10 @@ export default function DigitalBankRatesPage() {
 
         {/* Bank-specific rate sections */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Digital Bank Interest Rates 2026 (By Bank)
           </h2>
-          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             The exact rate, conditions, and balance caps for the digital banks
             people search for most. Rates are gross (before the 20% withholding
             tax) and last checked {DIGITAL_BANK_RATES_UPDATED_AT}.
@@ -462,7 +462,7 @@ export default function DigitalBankRatesPage() {
                 <p className="mt-1 text-[18px] font-semibold text-brand">
                   {section.rate}
                 </p>
-                <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                   {section.body}
                 </p>
               </div>
@@ -498,7 +498,7 @@ export default function DigitalBankRatesPage() {
 
         {/* Related Pages */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related savings and rates pages
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

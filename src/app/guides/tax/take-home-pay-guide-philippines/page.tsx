@@ -105,10 +105,10 @@ export default function TakeHomePayGuidePage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Why Is Take-Home Pay Lower Than Gross Salary? */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Is Take-Home Pay Lower Than Gross Salary?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Gross salary is your pay before deductions. Take-home pay, or net pay,
             is what remains after common payroll deductions such as withholding
             tax, SSS, PhilHealth, and Pag-IBIG are subtracted. That is why the
@@ -120,12 +120,12 @@ export default function TakeHomePayGuidePage() {
           <div className="mt-6 flex gap-3 rounded-xl border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
             <div>
-              <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+              <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
                 In simple terms:
               </p>
               <ul className="mt-3 space-y-3">
                 {simpleTerms.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                     <CheckCircle className="size-4 shrink-0 text-brand" />
                     {item}
                   </li>
@@ -138,10 +138,10 @@ export default function TakeHomePayGuidePage() {
         {/* Sample Gross-to-Net Salary Breakdown */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Sample Gross-to-Net Salary Breakdown
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The easiest way to understand take-home pay is to compare a sample
             gross salary with the deductions taken from it. This before-and-after
             format helps show that take-home pay is not a different kind of salary
@@ -159,7 +159,7 @@ export default function TakeHomePayGuidePage() {
                       : ""
                   }`}
                 >
-                  <div className="flex items-center gap-2 text-[16px] leading-[22px]">
+                  <div className="flex items-center gap-2 text-[16px] leading-[1.6]">
                     {row.isDeduction && (
                       <Minus className="size-3.5 text-gray-400" />
                     )}
@@ -198,10 +198,10 @@ export default function TakeHomePayGuidePage() {
 
         {/* What Deductions Reduce Take-Home Pay? */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Deductions Reduce Take-Home Pay?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The most common payroll deductions in the Philippines usually include
             the following. Together, these deductions reduce gross salary into
             take-home pay.
@@ -212,7 +212,7 @@ export default function TakeHomePayGuidePage() {
                 <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                   {item.description}
                 </p>
               </div>
@@ -222,17 +222,17 @@ export default function TakeHomePayGuidePage() {
 
         {/* Gross Pay Is Not Always the Same as Taxable Pay */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Gross Pay Is Not Always the Same as Taxable Pay
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             One reason payroll can feel confusing is that gross salary is not
             always the same as the amount used to compute tax. Some deductions and
             payroll treatments affect taxable compensation differently, which is
             one reason tax estimates and actual payslips do not always match
             perfectly.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             This is why payroll explanations often need both a{" "}
             <Link
               href="/guides/tax/how-withholding-tax-works-philippines"
@@ -253,21 +253,21 @@ export default function TakeHomePayGuidePage() {
 
         {/* Why Your Actual Payslip May Be Different */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Why Your Actual Payslip May Be Different
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Even if two employees have the same gross salary, their actual
             take-home pay may differ depending on payroll treatment and added
             deductions. This is why a simple guide or calculator should be treated
             as a planning tool, not a replacement for your actual payslip.
           </p>
-          <p className="mt-4 text-[16px] font-semibold leading-[22px] text-gray-500">
+          <p className="mt-4 text-[16px] font-semibold leading-[1.6] text-gray-500">
             Common reasons include:
           </p>
           <ul className="mt-4 space-y-3">
             {whyPayslipDiffers.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -277,15 +277,15 @@ export default function TakeHomePayGuidePage() {
 
         {/* What This Guide Helps You Check */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What This Guide Helps You Check
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Use this page if you want to:
           </p>
           <ul className="mt-4 space-y-3">
             {whatThisHelps.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <CheckCircle className="size-4 shrink-0 text-brand" />
                 {item}
               </li>
@@ -298,10 +298,10 @@ export default function TakeHomePayGuidePage() {
       {/* Calculator CTA */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Want to Estimate Your Take-Home Pay Directly?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
             If you already know your monthly gross salary and want to estimate
             your net pay, use the Take-Home Pay Calculator to see a deduction
             breakdown faster.
@@ -325,10 +325,10 @@ export default function TakeHomePayGuidePage() {
 
         {/* Related Payroll Guides and Tools */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related Payroll Guides and Tools
           </h2>
-          <p className="mb-6 text-[16px] leading-[22px] text-gray-400">
+          <p className="mb-6 text-[16px] leading-[1.6] text-[#5A6478]">
             After reading this guide, you may also want to review these related
             pages.
           </p>

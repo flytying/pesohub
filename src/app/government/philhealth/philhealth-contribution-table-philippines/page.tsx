@@ -96,10 +96,10 @@ export default function PhilHealthContributionTablePage() {
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       {/* Current PhilHealth Contribution Structure */}
       <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Current PhilHealth Contribution Structure
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           PhilHealth&apos;s published employer contribution table shows the
           premium schedule for direct contributors under Circular No. 2019-0009.
           The table shows a 5.0% premium rate for 2025, applied to monthly basic
@@ -174,10 +174,10 @@ export default function PhilHealthContributionTablePage() {
       {/* PhilHealth Contribution Table Reference */}
 
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           PhilHealth Contribution Table Reference
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           For employed members, the total PhilHealth premium is commonly split
           equally between employee and employer. If salary is below the floor,
           the premium is based on the floor. If salary is above the ceiling, the
@@ -235,10 +235,10 @@ export default function PhilHealthContributionTablePage() {
 
       {/* How Salary Floor and Ceiling Affect PhilHealth Contribution */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           How Salary Floor and Ceiling Affect PhilHealth Contribution
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           PhilHealth contribution does not increase without limit. If salary is
           below the salary floor, the contribution is computed using the minimum
           salary floor of {formatPeso(PHILHEALTH_SALARY_FLOOR)}. If salary is
@@ -288,10 +288,10 @@ export default function PhilHealthContributionTablePage() {
 
       {/* Sample PhilHealth Payroll Cuts */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Sample PhilHealth Payroll Cuts
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           These examples help show how the PhilHealth deduction may look in a
           payroll context.
         </p>
@@ -301,7 +301,7 @@ export default function PhilHealthContributionTablePage() {
               <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
                 {example.label}
               </h3>
-              <dl className="mt-4 space-y-2 text-[16px] leading-[22px]">
+              <dl className="mt-4 space-y-2 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Monthly Salary</dt>
                   <dd className="font-medium text-gray-500">
@@ -345,16 +345,16 @@ export default function PhilHealthContributionTablePage() {
 
       {/* Employee Share vs Employer Share */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Employee Share vs Employer Share
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           For employed members, the total monthly premium is typically shared
           equally between employer and employee. That means the employee-side
           payroll deduction is usually half of the total premium, while the
           employer pays the other half.
         </p>
-        <p className="mt-3 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
           This is one of the most important things to understand because many
           users only see the employee-side deduction on their payslip and do not
           realize the total premium is larger.
@@ -371,7 +371,7 @@ export default function PhilHealthContributionTablePage() {
             <p className="mt-1 text-[14px] text-gray-400">
               Deducted from your payslip
             </p>
-            <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
               {formatPeso(250)} – {formatPeso(2_500)} per month
             </p>
           </div>
@@ -384,7 +384,7 @@ export default function PhilHealthContributionTablePage() {
             <p className="mt-1 text-[14px] text-gray-400">
               Paid by your employer
             </p>
-            <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+            <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
               {formatPeso(250)} – {formatPeso(2_500)} per month
             </p>
           </div>
@@ -393,10 +393,10 @@ export default function PhilHealthContributionTablePage() {
 
       {/* Why Your Actual PhilHealth Deduction May Differ */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Why Your Actual PhilHealth Deduction May Differ
         </h2>
-        <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
           Your actual payroll deduction may differ from a simple reference table
           because payroll systems may apply specific timing, salary treatment,
           rounding, or updated implementation guidance. This page should be used
@@ -410,10 +410,10 @@ export default function PhilHealthContributionTablePage() {
       {/* Calculator CTA */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Want a Full Payroll Estimate?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[22px] text-gray-400">
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
             If you want to see how PhilHealth combines with SSS, Pag-IBIG, and
             withholding tax to produce your net pay, use the Take-Home Pay
             Calculator for a fuller deduction estimate.
@@ -437,7 +437,7 @@ export default function PhilHealthContributionTablePage() {
 
       {/* Related Payroll Tools and Guides */}
       <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+        <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Related payroll tools and guides
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -178,10 +178,10 @@ export default function PersonalLoanCalculatorPage() {
 
         {/* How to Tell if the Monthly Payment Is Realistic */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How to Tell if the Monthly Payment Is Realistic
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             A monthly personal loan payment may look manageable at first, but it
             should still leave room for rent, food, bills, savings, and
             emergency expenses. Before applying, check whether the payment still
@@ -189,7 +189,7 @@ export default function PersonalLoanCalculatorPage() {
           </p>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               A lower monthly payment is not always the lower-cost option overall.
               A longer repayment term can reduce the monthly amount, but it may
               also increase the total interest paid over time. A higher loan
@@ -200,10 +200,10 @@ export default function PersonalLoanCalculatorPage() {
 
         {/* Worked Examples */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Personal Loan Comparison: Common Amounts and Terms
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             These three examples show how the loan amount, term, and interest
             rate affect your monthly payment and total borrowing cost. Use them
             as a quick reference, then run your own numbers in the calculator
@@ -219,7 +219,7 @@ export default function PersonalLoanCalculatorPage() {
                 </h3>
               </div>
               <div className="px-6 py-4">
-                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                   <div className="flex justify-between">
                     <dt className="text-gray-400">Loan Amount</dt>
                     <dd className="font-mono tabular-nums text-gray-500">₱30,000</dd>
@@ -244,7 +244,7 @@ export default function PersonalLoanCalculatorPage() {
                 </dl>
               </div>
               <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="flex justify-between text-[16px] leading-[22px]">
+                <div className="flex justify-between text-[16px] leading-[1.6]">
                   <span className="font-semibold text-gray-500">Monthly Payment</span>
                   <span className="font-mono tabular-nums font-bold text-brand">₱2,750</span>
                 </div>
@@ -259,7 +259,7 @@ export default function PersonalLoanCalculatorPage() {
                 </h3>
               </div>
               <div className="px-6 py-4">
-                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                   <div className="flex justify-between">
                     <dt className="text-gray-400">Loan Amount</dt>
                     <dd className="font-mono tabular-nums text-gray-500">₱100,000</dd>
@@ -284,7 +284,7 @@ export default function PersonalLoanCalculatorPage() {
                 </dl>
               </div>
               <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="flex justify-between text-[16px] leading-[22px]">
+                <div className="flex justify-between text-[16px] leading-[1.6]">
                   <span className="font-semibold text-gray-500">Monthly Payment</span>
                   <span className="font-mono tabular-nums font-bold text-brand">₱4,849</span>
                 </div>
@@ -299,7 +299,7 @@ export default function PersonalLoanCalculatorPage() {
                 </h3>
               </div>
               <div className="px-6 py-4">
-                <dl className="space-y-2.5 text-[16px] leading-[22px]">
+                <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                   <div className="flex justify-between">
                     <dt className="text-gray-400">Loan Amount</dt>
                     <dd className="font-mono tabular-nums text-gray-500">₱300,000</dd>
@@ -324,7 +324,7 @@ export default function PersonalLoanCalculatorPage() {
                 </dl>
               </div>
               <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="flex justify-between text-[16px] leading-[22px]">
+                <div className="flex justify-between text-[16px] leading-[1.6]">
                   <span className="font-semibold text-gray-500">Monthly Payment</span>
                   <span className="font-mono tabular-nums font-bold text-brand">₱9,964</span>
                 </div>
@@ -334,7 +334,7 @@ export default function PersonalLoanCalculatorPage() {
 
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               These are planning estimates only. Actual lender offers will vary
               based on approval terms, fees, and repayment structure. Use the
               calculator above to test your own numbers.
@@ -344,10 +344,10 @@ export default function PersonalLoanCalculatorPage() {
 
         {/* What Affects Your Personal Loan Payment */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How Interest Rate Affects Your Loan Monthly Payment
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your estimated payment depends on three main factors: the loan
             amount, the repayment term, and the interest rate. Understanding how
             each one works can help you compare offers more clearly.
@@ -363,7 +363,7 @@ export default function PersonalLoanCalculatorPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {factor.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {factor.description}
                   </p>
                 </div>
@@ -374,10 +374,10 @@ export default function PersonalLoanCalculatorPage() {
 
         {/* What to Compare Before Choosing */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What to Compare Before Choosing a Personal Loan
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Do not compare personal loans based on monthly payment alone. Two
             offers may look similar at first, but the total borrowing cost,
             fees, and repayment structure can be very different depending on the
@@ -385,13 +385,13 @@ export default function PersonalLoanCalculatorPage() {
           </p>
           <ul className="mt-4 space-y-3">
             {compareBeforeApplying.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Use this calculator more than once so you can compare multiple loan
             options side by side before making a decision.
           </p>
@@ -406,13 +406,13 @@ export default function PersonalLoanCalculatorPage() {
                 <h2 className="text-[16px] font-semibold text-gray-500">
                   You May Not Receive the Full Loan Amount in Cash
                 </h2>
-                <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                   Some lenders charge processing fees, service fees, insurance,
                   or other deductions that may reduce the actual amount released
                   to you. That means the approved loan amount and the cash you
                   receive may not always be the same.
                 </p>
-                <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                   Before applying, ask the lender whether any fees will be
                   deducted upfront or added to your repayment amount.
                 </p>
@@ -423,16 +423,16 @@ export default function PersonalLoanCalculatorPage() {
 
         {/* Questions to Ask */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Questions to Ask Before Applying for a Personal Loan
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Before choosing a personal loan, it helps to ask a few practical
             questions:
           </p>
           <ul className="mt-6 space-y-4">
             {questionsToAsk.map((question, i) => (
-              <li key={i} className="flex gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={i} className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
                 {question}
               </li>
@@ -442,10 +442,10 @@ export default function PersonalLoanCalculatorPage() {
 
         {/* Sample Personal Loan Scenarios */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Sample Personal Loan Scenarios
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             These examples can help you compare common borrowing situations. Use
             them as planning references, then adjust the numbers based on your
             actual loan amount, term, and lender offer.
@@ -461,7 +461,7 @@ export default function PersonalLoanCalculatorPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {scenario.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {scenario.description}
                   </p>
                 </div>
@@ -477,7 +477,7 @@ export default function PersonalLoanCalculatorPage() {
 
         {/* Related Calculators and Guides */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related calculators and guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

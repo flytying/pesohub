@@ -89,36 +89,36 @@ export default function SSSPensionCalculatorPage() {
 
         {/* Formula Explanation */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How Is Your SSS Pension Calculated?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             {sssPensionData.formula.explanation}
           </p>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
             <div>
-              <p className="mb-2 text-[16px] font-semibold leading-[22px] text-gray-500">
+              <p className="mb-2 text-[16px] font-semibold leading-[1.6] text-gray-500">
                 The Three SSS Pension Formulas:
               </p>
               <ul className="space-y-3">
-                <li className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                   <ArrowRight className="size-4 shrink-0 text-gray-300" />
                   <span><strong className="text-gray-500">Formula A:</strong> ₱300 +
                   20% of average MSC + 2% of average MSC for each CYS over 10</span>
                 </li>
-                <li className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                   <ArrowRight className="size-4 shrink-0 text-gray-300" />
                   <span><strong className="text-gray-500">Formula B:</strong> 40% of
                   average Monthly Salary Credit</span>
                 </li>
-                <li className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+                <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                   <ArrowRight className="size-4 shrink-0 text-gray-300" />
                   <span><strong className="text-gray-500">Minimum Pension:</strong>{" "}
                   ₱2,000 for 10-19 CYS, or ₱4,000 for 20+ CYS</span>
                 </li>
               </ul>
-              <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+              <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
                 SSS automatically selects whichever formula produces the highest
                 pension amount for you.
               </p>
@@ -128,10 +128,10 @@ export default function SSSPensionCalculatorPage() {
 
         {/* Worked Example */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Example Calculation
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             {sssPensionData.exampleCalculation.scenario}
           </p>
           <div className="mt-4 overflow-hidden rounded-xl border border-gray-200 bg-white">
@@ -141,7 +141,7 @@ export default function SSSPensionCalculatorPage() {
               </h3>
             </div>
             <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Monthly Salary Credit</dt>
                   <dd className="font-mono tabular-nums text-gray-500">₱20,000</dd>
@@ -166,7 +166,7 @@ export default function SSSPensionCalculatorPage() {
               </dl>
             </div>
             <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-              <div className="flex justify-between text-[16px] leading-[22px]">
+              <div className="flex justify-between text-[16px] leading-[1.6]">
                 <span className="font-semibold text-gray-500">Highest Pension (Formula A)</span>
                 <span className="font-mono tabular-nums font-bold text-brand">₱10,300/mo</span>
               </div>
@@ -181,12 +181,12 @@ export default function SSSPensionCalculatorPage() {
 
         {/* Tips */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Tips for Maximizing Your SSS Pension
           </h2>
           <ul className="mt-4 space-y-3">
             {sssPensionData.tips.map((tip, i) => (
-              <li key={i} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={i} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {tip}
               </li>
@@ -201,7 +201,7 @@ export default function SSSPensionCalculatorPage() {
 
         {/* Related Tools and Reference Pages */}
         <section className="mt-16">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related tools and reference pages
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

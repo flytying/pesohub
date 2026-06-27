@@ -192,10 +192,10 @@ export default function BestSavingsRatesPage() {
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* What Is a Savings Rate? */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What Is a Savings Rate?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             A savings rate is the annual interest a bank pays you for keeping
             money in a savings account. In the Philippines, savings rates are
             expressed as a percentage per annum (p.a.) — for example, a 5% p.a.
@@ -204,7 +204,7 @@ export default function BestSavingsRatesPage() {
             0.10%–0.25% p.a., while digital banks may offer 3%–6% p.a. or
             higher through promotional rates.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The table below compares savings interest rates from both
             traditional and digital banks in the Philippines so you can find the
             best savings account for your situation.
@@ -214,7 +214,7 @@ export default function BestSavingsRatesPage() {
         {/* Top 3 Banks Summary */}
 
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Highest Interest Rate Savings Accounts in the Philippines
           </h2>
           <p className="mt-2 text-[14px] text-gray-400">
@@ -283,16 +283,16 @@ export default function BestSavingsRatesPage() {
 
         {/* Savings Account Comparison Table */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Savings Account Comparison Table
           </h2>
-          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Compare savings account options using the factors that matter most in
             real use, not just the highest advertised yield.
           </p>
           <div className="mt-4 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               Use this table to compare both the advertised return and the
               practical tradeoffs of each account. A higher rate may come with
               promo conditions, limited duration, or account requirements.
@@ -367,10 +367,10 @@ export default function BestSavingsRatesPage() {
 
         {/* Savings Interest Calculator */}
         <section className="mt-16">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How Much Interest Can You Earn?
           </h2>
-          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Pick an account, enter your deposit, and see the estimated monthly
             and annual interest. Toggle the tax assumption to compare gross and
             after-tax returns.
@@ -382,16 +382,16 @@ export default function BestSavingsRatesPage() {
 
         {/* Promo Rates vs Standard Rates */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Promo Rates vs Standard Rates
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Some banks advertise high promotional yields that may depend on
             spending activity, time-limited offers, balance tiers, or other
             conditions. Others offer lower but simpler rates that are easier to
             understand and maintain.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             If you want a simpler savings setup, do not compare headline rates
             alone. Check whether the rate is promotional, conditional, or more
             stable over time.
@@ -405,7 +405,7 @@ export default function BestSavingsRatesPage() {
                 {promoUseful.map((item) => (
                   <li
                     key={item}
-                    className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                    className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
                   >
                     <Star className="mt-0.5 size-4 shrink-0 text-amber-500" />
                     <span>{item}</span>
@@ -421,7 +421,7 @@ export default function BestSavingsRatesPage() {
                 {standardBetter.map((item) => (
                   <li
                     key={item}
-                    className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                    className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
                   >
                     <CheckCircle className="mt-0.5 size-4 shrink-0 text-green-600" />
                     <span>{item}</span>
@@ -434,10 +434,10 @@ export default function BestSavingsRatesPage() {
 
         {/* Savings Interest Is Usually Shown Before Tax */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Savings Interest Is Usually Shown Before Tax
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Savings interest rates are often shown as gross rates. In the
             Philippines, interest income from deposit accounts is generally
             subject to withholding tax, which means your effective return may be
@@ -471,10 +471,10 @@ export default function BestSavingsRatesPage() {
 
         {/* Digital Banks vs Traditional Banks */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Digital Banks vs Traditional Banks
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Digital banks may offer higher advertised savings rates, app-first
             convenience, and lower minimum balance requirements. Traditional
             banks may offer broader branch access, more familiar service models,
@@ -489,7 +489,7 @@ export default function BestSavingsRatesPage() {
                 {digitalBankPros.map((item) => (
                   <li
                     key={item}
-                    className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                    className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
                   >
                     <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
                     <span>{item}</span>
@@ -505,7 +505,7 @@ export default function BestSavingsRatesPage() {
                 {traditionalBankPros.map((item) => (
                   <li
                     key={item}
-                    className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                    className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
                   >
                     <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
                     <span>{item}</span>
@@ -514,7 +514,7 @@ export default function BestSavingsRatesPage() {
               </ul>
             </div>
           </div>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The better option depends on how you plan to use the account, not
             just which one advertises the highest rate.
           </p>
@@ -522,10 +522,10 @@ export default function BestSavingsRatesPage() {
 
         {/* How to Choose the Right Savings Account */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             How to Choose the Right Savings Account
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The right account depends on how you plan to use the money. A strong
             savings rate matters, but it should be considered together with
             access, requirements, and account purpose.
@@ -537,7 +537,7 @@ export default function BestSavingsRatesPage() {
             {chooseChecklist.map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 text-[16px] leading-[22px] text-gray-400"
+                className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
               >
                 <CheckCircle className="mt-0.5 size-4 shrink-0 text-brand" />
                 <span>{item}</span>
@@ -546,7 +546,7 @@ export default function BestSavingsRatesPage() {
           </ul>
           <div className="mt-6 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
             <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[22px] text-gray-400">
+            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
               If the money is for emergencies or everyday use, easy access may
               matter more than the highest possible yield. If the funds are
               parked for a short period, a stronger promotional rate may be worth
@@ -557,10 +557,10 @@ export default function BestSavingsRatesPage() {
 
         {/* Savings Accounts with Low Maintaining Balance */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Savings Accounts with Low Maintaining Balance
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Many digital banks in the Philippines now offer savings accounts
             with zero maintaining balance, making them accessible even for
             first-time savers. If you are looking for the cheapest savings
@@ -568,7 +568,7 @@ export default function BestSavingsRatesPage() {
             GoTyme, and SeaBank all allow you to start with no minimum deposit
             and no maintaining balance requirement.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Traditional banks like BDO, BPI, and Metrobank typically require a
             maintaining balance of ₱2,000–₱10,000, with fees charged if your
             balance falls below. Check the comparison table above for the exact
@@ -578,10 +578,10 @@ export default function BestSavingsRatesPage() {
 
         {/* Best Savings Account Options by Need */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Best Savings Account Options by Need
           </h2>
-          <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Start with the type of savings experience you want, not just the
             highest percentage.
           </p>
@@ -599,7 +599,7 @@ export default function BestSavingsRatesPage() {
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
                     {card.title}
                   </h3>
-                  <p className="mt-2 text-[16px] leading-[22px] text-gray-400">
+                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
                     {card.description}
                   </p>
                 </div>
@@ -632,7 +632,7 @@ export default function BestSavingsRatesPage() {
 
         {/* Related Pages */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related rates and guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

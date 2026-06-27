@@ -116,7 +116,7 @@ export default function WithholdingTaxGuidePage() {
         {/* Pointer to the canonical table page */}
         <div className="mb-8 flex items-center gap-3 rounded-xl border border-brand/30 bg-surface-tertiary p-5">
           <Info className="size-5 shrink-0 text-brand" />
-          <p className="text-[16px] leading-[22px] text-gray-500">
+          <p className="text-[16px] leading-[1.6] text-gray-500">
             Need the actual tax brackets? See the{" "}
             <Link
               href="/government/bir/withholding-tax-table-philippines"
@@ -148,17 +148,17 @@ export default function WithholdingTaxGuidePage() {
         {/* 1. What Is Withholding Tax? */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             1. What Is Withholding Tax?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Withholding tax is the Philippine government&apos;s method of
             collecting income tax at the source. Instead of paying your entire
             annual tax bill in one lump sum, your employer deducts a portion
             of your salary every payday and sends it directly to the Bureau of
             Internal Revenue (BIR).
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Think of it as a &ldquo;pay-as-you-earn&rdquo; system. By the end
             of the year, most of your income tax obligation has already been
             collected through these regular deductions.
@@ -167,22 +167,22 @@ export default function WithholdingTaxGuidePage() {
 
         {/* 2. Who Pays Withholding Tax? */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             2. Who Pays Withholding Tax?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Most employees in the Philippines are subject to withholding tax.
             However, these groups are <strong>exempt</strong>:
           </p>
           <ul className="mt-4 space-y-3">
             {exemptGroups.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Self-employed individuals and freelancers also pay income tax but
             through a different mechanism (quarterly filings via BIR Form
             1701Q).
@@ -191,10 +191,10 @@ export default function WithholdingTaxGuidePage() {
 
         {/* 3. TRAIN Law Tax Brackets */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             3. TRAIN Law Tax Brackets (2023 Onwards)
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The Tax Reform for Acceleration and Inclusion (TRAIN) Law, or
             Republic Act No. 10963, revised the Philippine income tax brackets.
             The table below shows the graduated rates effective January 1, 2023:
@@ -239,24 +239,24 @@ export default function WithholdingTaxGuidePage() {
 
         {/* 4. How to Compute Your Withholding Tax */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             4. How to Compute Your Withholding Tax
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The basic formula is:
           </p>
           <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
-            <p className="font-mono text-[16px] leading-[22px] text-gray-400">
+            <p className="font-mono text-[16px] leading-[1.6] text-[#5A6478]">
               Annual Tax = Base Tax + (Tax Rate x (Taxable Income - Lower
               Bracket Limit))
             </p>
           </div>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Follow these steps:
           </p>
           <ul className="mt-4 space-y-3">
             {computeSteps.map((item, i) => (
-              <li key={i} className="flex items-center gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={i} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <ArrowRight className="size-4 shrink-0 text-gray-300" />
                 {item}
               </li>
@@ -266,16 +266,16 @@ export default function WithholdingTaxGuidePage() {
 
         {/* 5. How Employers Withhold Tax */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             5. How Employers Withhold Tax
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Employers use the BIR&apos;s Revised Withholding Tax Table to
             determine how much to deduct from each payroll. The amount depends
             on the employee&apos;s pay frequency (monthly, semi-monthly,
             weekly, or daily) and their taxable compensation for that period.
           </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             At year-end (usually in December), the employer performs an{" "}
             <strong>annualization</strong>: they compute the actual annual tax
             based on total compensation, compare it to the total amount
@@ -286,13 +286,13 @@ export default function WithholdingTaxGuidePage() {
 
         {/* Worked Example */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Worked Example: PHP 35,000 Monthly Salary
           </h2>
           <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
             {/* Header */}
             <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-              <p className="text-[16px] font-semibold leading-[22px] text-gray-500">
+              <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
                 An employee earns PHP 35,000/month in basic salary with no other
                 taxable benefits.
               </p>
@@ -300,7 +300,7 @@ export default function WithholdingTaxGuidePage() {
 
             {/* Step 1 */}
             <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Step 1: Annual Gross Compensation</dt>
                   <dd className="font-mono tabular-nums text-gray-500">PHP 35,000 x 12</dd>
@@ -316,7 +316,7 @@ export default function WithholdingTaxGuidePage() {
 
             {/* Step 2 */}
             <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Step 2: Subtract Mandatory Contributions</dt>
                   <dd className="font-mono tabular-nums text-gray-500" />
@@ -348,7 +348,7 @@ export default function WithholdingTaxGuidePage() {
 
             {/* Step 3 */}
             <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Step 3: Identify Tax Bracket</dt>
                   <dd className="font-mono tabular-nums text-gray-500">Over PHP 250,000 but not over PHP 400,000</dd>
@@ -360,7 +360,7 @@ export default function WithholdingTaxGuidePage() {
 
             {/* Step 4 */}
             <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Step 4: Apply the Formula</dt>
                   <dd className="font-mono tabular-nums text-gray-500" />
@@ -384,7 +384,7 @@ export default function WithholdingTaxGuidePage() {
 
             {/* Step 5 */}
             <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[22px]">
+              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Step 5: Monthly Withholding Tax</dt>
                   <dd className="font-mono tabular-nums text-gray-500">PHP 20,887.50 / 12</dd>
@@ -394,7 +394,7 @@ export default function WithholdingTaxGuidePage() {
 
             {/* Result total */}
             <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-              <div className="flex justify-between text-[16px] leading-[22px]">
+              <div className="flex justify-between text-[16px] leading-[1.6]">
                 <span className="font-semibold text-gray-500">Monthly Withholding Tax</span>
                 <span className="font-mono tabular-nums font-bold text-brand">{formatPeso(1740.63)}</span>
               </div>
@@ -412,12 +412,12 @@ export default function WithholdingTaxGuidePage() {
 
         {/* Common Mistakes to Avoid */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Common Mistakes to Avoid
           </h2>
           <ul className="mt-6 space-y-4">
             {commonMistakes.map((item, i) => (
-              <li key={i} className="flex gap-3 text-[16px] leading-[22px] text-gray-400">
+              <li key={i} className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
                 <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
                 {item}
               </li>
@@ -430,10 +430,10 @@ export default function WithholdingTaxGuidePage() {
       {/* Calculator CTA */}
       <section className="bg-surface-tertiary py-20">
         <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Want to Compute Your Exact Withholding Tax?
           </h2>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Use the Withholding Tax Calculator to compute your exact withholding
             tax based on your salary and deductions. You can also try the
             Take-Home Pay Calculator to see a full deduction breakdown.
@@ -469,7 +469,7 @@ export default function WithholdingTaxGuidePage() {
 
         {/* Related Calculators and Guides */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
+          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related calculators and guides
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
