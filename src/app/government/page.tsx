@@ -1,12 +1,16 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
   TrendingUp,
   Calculator,
   BookOpen,
+  Shield,
+  Percent,
+  Globe,
+  Home,
+  HeartPulse,
+  type LucideIcon,
 } from "lucide-react";
-import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
@@ -139,111 +143,117 @@ const relatedSections = [
   },
 ];
 
+const CATEGORY: Record<
+  string,
+  { icon: LucideIcon; chip: string; ink: string; border: string; shadow: string }
+> = {
+  SSS: { icon: Shield, chip: "#EAF0FF", ink: "#1535C7", border: "#BCC9F4", shadow: "rgba(35,71,217,.32)" },
+  BIR: { icon: Percent, chip: "#FBF0DC", ink: "#B7791F", border: "#E8D2A3", shadow: "rgba(183,121,31,.30)" },
+  BSP: { icon: Globe, chip: "#DEF5F0", ink: "#0E9A86", border: "#A7E2D6", shadow: "rgba(14,154,134,.30)" },
+  "Pag-IBIG": { icon: Home, chip: "#EDE8FC", ink: "#6D4DE0", border: "#CFC3F4", shadow: "rgba(109,77,224,.30)" },
+  PhilHealth: { icon: HeartPulse, chip: "#FBE6E7", ink: "#C2484D", border: "#EFC4C6", shadow: "rgba(194,72,77,.30)" },
+};
+
 export default function GovernmentPage() {
   return (
-    <>
+    <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(20px,3vw,36px)]">
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
 
-      {/* Hero */}
-      <PageHero
-        title="Philippine Government Finance Reference"
-        description="Look up SSS contributions, withholding tax brackets, Pag-IBIG schedules, PhilHealth premiums, and BSP exchange rate references — all in one place, without navigating multiple government portals."
-        breadcrumbs={breadcrumbs}
-        variant="dark"
-      />
-
-      {/* Intro */}
-      <section className="py-16 lg:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <p className="text-[16px] leading-[22px] text-gray-400">
-            Government contribution tables and tax brackets directly affect how much reaches your bank account each payday. SSS, PhilHealth, and Pag-IBIG deductions follow specific schedules tied to your salary range, and withholding tax uses brackets that changed under the TRAIN law. These tables also determine your future benefits — pension amounts, housing loan limits, and health coverage.
-          </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-            The reference pages below present official government data in a clearer format than the original agency publications, with explanations of how each table works and what the numbers mean for your payslip. Every page cites its official source and shows when the data was last verified.
-          </p>
+      {/* Heading */}
+      <div className="mb-6">
+        <div className="mb-[10px] text-[15px] font-bold uppercase tracking-[.06em] text-brand">
+          Government
         </div>
-      </section>
-
-      {/* All Government Reference Pages */}
-      <section id="all-pages" className="scroll-mt-20 bg-surface-tertiary py-20 lg:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
-            <div>
-              <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-                SSS, BIR, Pag-IBIG & PhilHealth
-              </h2>
-              <p className="mt-4 text-[20px] leading-[26px] text-gray-400">
-                Contribution tables, tax brackets, and official references — organized so you can verify numbers without digging through government websites.
-              </p>
-            </div>
-            <div className="grid gap-5 sm:grid-cols-2">
-              {governmentPages.map((page) => (
-                <div
-                  key={page.title}
-                  className="flex h-full flex-col rounded-xl bg-white p-6 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
-                >
-                  <h4 className="text-[20px] font-semibold leading-[26px] text-brand">
-                    {page.title}
-                  </h4>
-                  <div className="mt-2 flex items-start justify-between gap-4">
-                    <p className="flex-1 text-[16px] leading-[22px] text-gray-400">
-                      {page.description}
-                    </p>
-                    <Image
-                      src={page.logo}
-                      alt={`${page.category} logo`}
-                      width={40}
-                      height={40}
-                      className="size-10 shrink-0 object-contain opacity-60"
-                      unoptimized
-                    />
-                  </div>
-                  <div className="mt-auto pt-5">
-                    <Link
-                      href={page.href}
-                      className="inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-                    >
-                      View reference
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Disclaimer + FAQ + Related */}
-      <div className="mx-auto max-w-6xl px-4 pt-16 pb-20 sm:px-6 lg:px-8">
-        <FaqSection faqs={faqs} />
-
-        {/* Related Sections */}
-        <section className="mt-16">
-          <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
-            Related Sections
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {relatedSections.map((section) => {
-              const Icon = section.icon;
-              return (
-                <Link
-                  key={section.title}
-                  href={section.href}
-                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
-                >
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-4" />
-                  </div>
-                  <span className="text-[16px] font-semibold text-gray-500 group-hover:text-brand">
-                    {section.title}
-                  </span>
-                  <ArrowRight className="ml-auto size-4 text-gray-300 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              );
-            })}
-          </div>
-        </section>
+        <h1 className="font-display text-[clamp(28px,3.4vw,40px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+          Philippine Government Finance Reference
+        </h1>
+        <p className="mt-[10px] max-w-[72ch] text-[17px] leading-[1.55] text-[#5A6478]">
+          Look up SSS contributions, withholding tax brackets, Pag-IBIG
+          schedules, PhilHealth premiums, and BSP exchange rate references — all
+          in one place, without navigating multiple government portals.
+        </p>
       </div>
-    </>
+
+      {/* All reference pages */}
+      <div className="mb-[18px]">
+        <h2 className="font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+          SSS, BIR, Pag-IBIG &amp; PhilHealth
+        </h2>
+        <p className="mt-[5px] max-w-[62ch] text-[15px] leading-[1.5] text-[#6B7488]">
+          Contribution tables, tax brackets, and official references — organized
+          so you can verify numbers without digging through government websites.
+        </p>
+      </div>
+      <div className="mb-[38px] grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {governmentPages.map((page) => {
+          const c = CATEGORY[page.category] ?? CATEGORY.SSS;
+          const Icon = c.icon;
+          return (
+            <Link
+              key={page.title}
+              href={page.href}
+              className="group flex flex-col rounded-[18px] border border-[#E7EBF3] bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-all duration-150 hover:-translate-y-[3px]"
+              onMouseEnter={undefined}
+            >
+              <div className="mb-4 flex items-start justify-between gap-4">
+                <div>
+                  <span className="font-display text-[19px] font-semibold leading-[1.25] text-[#0E1525]">
+                    {page.title}
+                  </span>
+                  <p className="mt-2 text-[15px] leading-[1.55] text-[#5A6478]">
+                    {page.description}
+                  </p>
+                </div>
+                <span
+                  className="flex size-[48px] shrink-0 items-center justify-center rounded-[14px]"
+                  style={{ background: c.chip }}
+                >
+                  <Icon className="size-[22px]" style={{ color: c.ink }} />
+                </span>
+              </div>
+              <div
+                className="mt-auto inline-flex items-center gap-2 text-[15px] font-bold"
+                style={{ color: c.ink }}
+              >
+                View reference
+                <ArrowRight className="size-4" />
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* FAQ */}
+      <div className="mb-[38px] rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,34px)]">
+        <FaqSection faqs={faqs} />
+      </div>
+
+      {/* Related sections */}
+      <section>
+        <h2 className="mb-4 font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+          Related sections
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {relatedSections.map((section) => {
+            const Icon = section.icon;
+            return (
+              <Link
+                key={section.title}
+                href={section.href}
+                className="group flex items-center gap-3 rounded-[14px] border border-[#E7EBF3] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-colors hover:border-[#C3D0F2] hover:bg-[#FBFCFE]"
+              >
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-[11px] bg-[#EAF0FF] text-brand">
+                  <Icon className="size-[18px]" />
+                </span>
+                <span className="text-[15px] font-bold text-[#0E1525] group-hover:text-brand">
+                  {section.title}
+                </span>
+                <ArrowRight className="ml-auto size-4 text-[#C4CCDB] transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+    </div>
   );
 }

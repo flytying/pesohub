@@ -8,7 +8,6 @@ import {
   Calculator,
   BookOpen,
 } from "lucide-react";
-import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
@@ -114,131 +113,118 @@ const relatedPages = [
 
 export default function RatesPage() {
   return (
-    <>
+    <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(20px,3vw,36px)]">
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
 
-      {/* Hero */}
-      <PageHero
-        title="Rates in the Philippines"
-        description="See how the peso is moving against the dollar, compare savings interest rates across banks, and find the best time deposit or digital bank rates — updated regularly so you can make informed decisions faster."
-        breadcrumbs={breadcrumbs}
-        variant="dark"
-      />
-
-      {/* Intro */}
-      <section className="py-16 lg:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <p className="text-[16px] leading-[22px] text-gray-400">
-            Interest rates on Philippine savings accounts vary dramatically — the gap between the lowest and highest rates can be more than 10x. A traditional bank might offer 0.25% per year while a digital bank offers 3% or more on the same deposit. For savers, this difference compounds over time and directly affects how fast your money grows.
-          </p>
-          <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-            The rate pages below gather current rates from Philippine banks and the BSP so you can compare options side by side. Whether you are choosing where to park an emergency fund, comparing time deposit terms, or tracking the peso-dollar exchange rate, these pages help you find the numbers without visiting each bank individually.
-          </p>
+      {/* Heading */}
+      <div className="mb-6">
+        <div className="mb-[10px] text-[15px] font-bold uppercase tracking-[.06em] text-brand">
+          Rates
         </div>
-      </section>
+        <h1 className="font-display text-[clamp(28px,3.4vw,40px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+          Rates in the Philippines
+        </h1>
+        <p className="mt-[10px] max-w-[72ch] text-[17px] leading-[1.55] text-[#5A6478]">
+          See how the peso is moving against the dollar, compare savings interest
+          rates across banks, and find the best time deposit or digital bank
+          rates — updated regularly so you can decide faster.
+        </p>
+      </div>
 
       {/* Featured rate guides */}
-      <section id="featured" className="scroll-mt-20 bg-surface-secondary py-16 lg:py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
-            Featured rate guides
-          </h2>
-          <div className="grid gap-5 sm:grid-cols-2">
-            {featuredCards.map((card) => {
-              const Icon = card.icon;
-              return (
-                <div
-                  key={card.title}
-                  className="flex h-full flex-col rounded-xl bg-white p-8 transition-shadow duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
-                >
-                  <Icon
-                    className="size-12 shrink-0 text-brand"
-                    strokeWidth={1.25}
-                  />
-                  <h3 className="mt-4 text-[24px] font-semibold leading-[30px] text-brand">
-                    {card.title}
-                  </h3>
-                  <p className="mt-3 flex-1 text-[16px] leading-[22px] text-gray-400">
-                    {card.description}
-                  </p>
-                  <div className="mt-auto pt-6">
-                    <Link
-                      href={card.href}
-                      className="inline-flex items-center rounded-full bg-brand px-5 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-                    >
-                      {card.cta}
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      <h2 className="mb-[18px] font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+        Featured rate guides
+      </h2>
+      <div className="mb-[38px] grid gap-4 sm:grid-cols-2">
+        {featuredCards.map((card) => {
+          const Icon = card.icon;
+          return (
+            <Link
+              key={card.title}
+              href={card.href}
+              className="group flex flex-col rounded-[18px] border border-[#E7EBF3] bg-white p-7 shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-all duration-150 hover:-translate-y-[3px] hover:border-[#C3D0F2] hover:shadow-[0_8px_24px_-12px_rgba(21,53,199,.28)]"
+            >
+              <span className="mb-4 flex size-[52px] shrink-0 items-center justify-center rounded-[14px] bg-[#EAF0FF]">
+                <Icon className="size-6 text-brand" />
+              </span>
+              <h3 className="font-display text-[22px] font-semibold leading-[1.25] text-[#0E1525]">
+                {card.title}
+              </h3>
+              <p className="mt-3 flex-1 text-[15px] leading-[1.55] text-[#5A6478]">
+                {card.description}
+              </p>
+              <div className="mt-5 inline-flex items-center gap-2 text-[15px] font-bold text-brand">
+                {card.cta}
+                <ArrowRight className="size-4" />
+              </div>
+            </Link>
+          );
+        })}
+      </div>
 
-          {/* Other rate trackers */}
-          <h2 className="mt-16 mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
-            Other rate trackers
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {otherTrackers.map((card) => {
-              const Icon = card.icon;
-              return (
-                <Link
-                  key={card.title}
-                  href={card.href}
-                  className="group flex items-start gap-4 rounded-xl bg-white p-6 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
-                >
-                  <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-5" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[18px] font-semibold text-gray-500 group-hover:text-brand">
-                        {card.title}
-                      </span>
-                      <ArrowRight className="size-4 text-gray-300 transition-transform group-hover:translate-x-0.5" />
-                    </div>
-                    <p className="mt-1 text-[16px] leading-[22px] text-gray-400">
-                      {card.description}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
+      {/* Other rate trackers */}
+      <h2 className="mb-[18px] font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+        Other rate trackers
+      </h2>
+      <div className="mb-[38px] grid gap-[14px] sm:grid-cols-2">
+        {otherTrackers.map((card) => {
+          const Icon = card.icon;
+          return (
+            <Link
+              key={card.title}
+              href={card.href}
+              className="group flex items-start gap-4 rounded-[16px] border border-[#E7EBF3] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-colors hover:border-[#C3D0F2] hover:bg-[#FBFCFE]"
+            >
+              <span className="flex size-[44px] shrink-0 items-center justify-center rounded-[12px] bg-[#EAF0FF]">
+                <Icon className="size-[22px] text-brand" />
+              </span>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-base font-bold text-[#0E1525] group-hover:text-brand">
+                    {card.title}
+                  </span>
+                  <ArrowRight className="size-4 text-[#C4CCDB] transition-transform group-hover:translate-x-0.5" />
+                </div>
+                <p className="mt-1 text-[14.5px] leading-[1.5] text-[#6B7488]">
+                  {card.description}
+                </p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* FAQ */}
+      <div className="mb-[38px] rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,34px)]">
+        <FaqSection faqs={faqs} />
+      </div>
+
+      {/* Related */}
+      <section>
+        <h2 className="mb-4 font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+          Related pages
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {relatedPages.map((page) => {
+            const Icon = page.icon;
+            return (
+              <Link
+                key={page.title}
+                href={page.href}
+                className="group flex items-center gap-3 rounded-[14px] border border-[#E7EBF3] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-colors hover:border-[#C3D0F2] hover:bg-[#FBFCFE]"
+              >
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-[11px] bg-[#EAF0FF] text-brand">
+                  <Icon className="size-[18px]" />
+                </span>
+                <span className="text-[15px] font-bold text-[#0E1525] group-hover:text-brand">
+                  {page.title}
+                </span>
+                <ArrowRight className="ml-auto size-4 text-[#C4CCDB] transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            );
+          })}
         </div>
       </section>
-
-      {/* Disclaimer, FAQ, Related */}
-      <div className="mx-auto max-w-6xl px-4 pt-16 pb-20 sm:px-6 lg:px-8">
-        <FaqSection faqs={faqs} />
-
-        {/* Related Pages */}
-        <section className="mt-16">
-          <h2 className="mb-8 text-[32px] font-medium leading-[48px] text-gray-500">
-            Related Pages
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedPages.map((page) => {
-              const Icon = page.icon;
-              return (
-                <Link
-                  key={page.title}
-                  href={page.href}
-                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
-                >
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-4" />
-                  </div>
-                  <span className="text-[16px] font-semibold text-gray-500 group-hover:text-brand">
-                    {page.title}
-                  </span>
-                  <ArrowRight className="ml-auto size-4 text-gray-300 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              );
-            })}
-          </div>
-        </section>
-      </div>
-    </>
+    </div>
   );
 }
