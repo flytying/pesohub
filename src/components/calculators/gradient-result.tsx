@@ -51,7 +51,7 @@ export function GradientResult({
             {eyebrow}
           </div>
         )}
-        <div className="mt-1 font-display text-[clamp(34px,5vw,50px)] font-bold leading-[1.02] tracking-[-.02em] tabular-nums">
+        <div className="mt-2 font-display text-[clamp(40px,6vw,54px)] font-bold leading-none tracking-[-.02em] tabular-nums">
           {figure}
         </div>
         {sub && <div className="mt-2 text-[15px] text-[#C9D4FF]">{sub}</div>}
@@ -83,8 +83,8 @@ export function SplitBar({
 }) {
   const pct = Math.max(2, Math.min(98, leftPct));
   return (
-    <div className="flex flex-col gap-[10px]">
-      <div className="flex items-center justify-between text-[13.5px]">
+    <div className="rounded-[16px] border border-white/[.14] bg-white/[.06] p-[16px_18px]">
+      <div className="mb-[11px] flex items-center justify-between text-[13px]">
         <span className="flex items-center gap-[7px] font-semibold text-[#C9D4FF]">
           <span className="size-[9px] shrink-0 rounded-full bg-[#6E8BEF]" />
           {leftLabel}
@@ -101,12 +101,14 @@ export function SplitBar({
         />
         <div className="flex-1 rounded-[7px] bg-[linear-gradient(90deg,#2BD4E0,#43E6A0)]" />
       </div>
-      <div className="flex items-center justify-between text-[15px] font-bold tabular-nums">
+      <div className="mt-3 flex items-center justify-between font-display text-[18px] font-bold tabular-nums">
         <span>{leftValue}</span>
         <span className="text-[#6BEFC0]">{rightValue}</span>
       </div>
       {total && (
-        <div className="text-center text-[13.5px] text-[#B9C6FF]">{total}</div>
+        <div className="mt-3 border-t border-white/[.12] pt-3 text-center text-[13px] text-[#9FB1F5]">
+          {total}
+        </div>
       )}
     </div>
   );
@@ -157,23 +159,23 @@ export function BreakdownRow({
   return (
     <div
       className={cn(
-        "flex items-center justify-between gap-4 border-b border-[#EEF1F7] py-[10px] last:border-0",
-        strong && "border-0 pt-3 text-[17px]"
+        "flex items-center justify-between gap-4 border-b border-[#F0F3F8] py-[11px] last:border-0",
+        strong && "border-0 pb-[2px] pt-[14px]"
       )}
     >
       <span
         className={cn(
           "text-[15px] text-[#5A6478]",
-          strong && "text-[16px] font-bold text-[#0E1525]"
+          strong && "font-bold text-[#0E1525]"
         )}
       >
         {label}
       </span>
       <span
         className={cn(
-          "font-mono text-[15px] font-semibold tabular-nums",
+          "font-display text-[16px] font-bold tabular-nums",
           TONE[tone],
-          strong && "text-[17px] font-bold"
+          strong && "text-[18px]"
         )}
       >
         {value}
