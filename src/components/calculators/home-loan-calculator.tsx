@@ -1,16 +1,15 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { CalculatorShell } from "@/components/calculators/calculator-shell";
 import { CalculatorInput } from "@/components/calculators/calculator-input";
-import { CalculatorResult } from "@/components/calculators/calculator-result";
 import { AmortizationTable } from "@/components/calculators/amortization-table";
-import { ResultPanel } from "@/components/calculators/result-panel";
-import dynamic from "next/dynamic";
-const LoanDonutChart = dynamic(
-  () => import("@/components/calculators/loan-donut-chart").then((m) => m.LoanDonutChart),
-  { ssr: false }
-);
+import { ResultActions } from "@/components/calculators/result-actions";
+import {
+  GradientResult,
+  SplitBar,
+  BreakdownCard,
+  BreakdownRow,
+} from "@/components/calculators/gradient-result";
 import { calculateLoan } from "@/lib/calculators/loan";
 import { formatPeso } from "@/lib/formatters";
 
@@ -22,11 +21,27 @@ interface HomeLoanCalculatorProps {
   };
 }
 
-export function HomeLoanCalculator({ beforeYouStart }: HomeLoanCalculatorProps = {}) {
-  const [propertyPrice, setPropertyPrice] = useState(3_500_000);
-  const [downPaymentPercent, setDownPaymentPercent] = useState(20);
-  const [termYears, setTermYears] = useState(20);
-  const [interestRate, setInterestRate] = useState(7);
+const DEFAULTS = {
+  propertyPrice: 3_500_000,
+  downPaymentPercent: 20,
+  termYears: 20,
+  interestRate: 7,
+};
+
+export function HomeLoanCalculator(_: HomeLoanCalculatorProps = {}) {
+  const [propertyPrice, setPropertyPrice] = useState(DEFAULTS.propertyPrice);
+  const [downPaymentPercent, setDownPaymentPercent] = useState(
+    DEFAULTS.downPaymentPercent
+  );
+  const [termYears, setTermYears] = useState(DEFAULTS.termYears);
+  const [interestRate, setInterestRate] = useState(DEFAULTS.interestRate);
+
+  const reset = () => {
+    setPropertyPrice(DEFAULTS.propertyPrice);
+    setDownPaymentPercent(DEFAULTS.downPaymentPercent);
+    setTermYears(DEFAULTS.termYears);
+    setInterestRate(DEFAULTS.interestRate);
+  };
 
   const result = useMemo(() => {
     const downPaymentAmount = propertyPrice * (downPaymentPercent / 100);
@@ -60,111 +75,134 @@ export function HomeLoanCalculator({ beforeYouStart }: HomeLoanCalculatorProps =
     };
   }, [propertyPrice, downPaymentPercent, termYears, interestRate]);
 
+  const totalOfPayments = result.loanAmount + result.totalInterest;
+  const principalPct =
+    totalOfPayments > 0 ? (result.loanAmount / totalOfPayments) * 100 : 100;
+
+  const resultsSummary = [
+    `Property Price: ${formatPeso(propertyPrice)}`,
+    `Down Payment (${downPaymentPercent}%): ${formatPeso(result.downPaymentAmount)}`,
+    `Loan Amount: ${formatPeso(result.loanAmount)}`,
+    `Interest Rate: ${interestRate}% p.a.`,
+    `Term: ${termYears} years`,
+    `Monthly Payment: ${formatPeso(result.monthlyPayment)}`,
+    `Total Interest: ${formatPeso(result.totalInterest)}`,
+    `Total Cost: ${formatPeso(result.totalCost)}`,
+  ].join("\n");
+
   return (
     <div className="space-y-6">
-      <CalculatorShell
-        title="Home Loan Calculator"
-        variant="split"
-        beforeYouStart={beforeYouStart}
-        resultsSummary={[
-          `Property Price: ${formatPeso(propertyPrice)}`,
-          `Down Payment (${downPaymentPercent}%): ${formatPeso(result.downPaymentAmount)}`,
-          `Loan Amount: ${formatPeso(result.loanAmount)}`,
-          `Interest Rate: ${interestRate}% p.a.`,
-          `Term: ${termYears} years`,
-          `Monthly Payment: ${formatPeso(result.monthlyPayment)}`,
-          `Total Interest: ${formatPeso(result.totalInterest)}`,
-          `Total Cost: ${formatPeso(result.totalCost)}`,
-        ].join("\n")}
-      >
-        {/* LEFT: Result Panel */}
-        <ResultPanel className="flex flex-col justify-between">
-          <div className="text-center">
-            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-gray-300">Estimated Monthly Payment</p>
-            <p className="mt-2 text-[36px] font-semibold tabular-nums text-brand sm:text-[42px] animate-count-up">
-              {formatPeso(result.monthlyPayment)}
-            </p>
+      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,28px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="font-display text-[18px] font-semibold text-[#0E1525]">
+              Loan details
+            </h2>
+            <button
+              type="button"
+              onClick={reset}
+              className="text-[14px] font-bold text-brand transition-colors hover:text-brand-light"
+            >
+              Reset
+            </button>
           </div>
+          <div className="space-y-6">
+            <CalculatorInput
+              label="Property price"
+              value={propertyPrice}
+              onChange={setPropertyPrice}
+              prefix="₱"
+              min={500_000}
+              max={50_000_000}
+              step={100_000}
+              helpText="Total price of the home, condo, or property."
+              tooltip="The total selling price of the property including VAT, if applicable."
+            />
+            <CalculatorInput
+              label="Down payment (%)"
+              value={downPaymentPercent}
+              onChange={setDownPaymentPercent}
+              min={0}
+              max={90}
+              step={1}
+              helpText="Amount you pay upfront — a bigger down payment lowers the loan."
+              tooltip="A higher down payment reduces the loan amount and monthly payments."
+            />
+            <CalculatorInput
+              label="Loan term (years)"
+              value={termYears}
+              onChange={setTermYears}
+              min={5}
+              max={30}
+              step={1}
+              helpText="Number of years to repay."
+              tooltip="Home loans typically range from 5 to 30 years."
+            />
+            <CalculatorInput
+              label="Annual interest rate (%)"
+              value={interestRate}
+              onChange={setInterestRate}
+              min={1}
+              max={20}
+              step={0.1}
+              helpText="The estimated annual interest rate offered by the lender."
+              tooltip="Some lenders offer a fixed rate for the first few years, then a variable rate."
+            />
+          </div>
+        </div>
 
+        <GradientResult
+          label="Estimated monthly payment"
+          actions={
+            <ResultActions
+              calculatorType="Home Loan Calculator"
+              resultsSummary={resultsSummary}
+            />
+          }
+          eyebrow="Per month"
+          figure={formatPeso(result.monthlyPayment)}
+          sub={`over ${termYears} years`}
+        >
           {result.loanAmount > 0 && (
-            <LoanDonutChart
-              principal={result.loanAmount}
-              interest={result.totalInterest}
+            <SplitBar
+              leftLabel={`Principal · ${Math.round(principalPct)}%`}
+              leftValue={formatPeso(result.loanAmount)}
+              leftPct={principalPct}
+              rightLabel={`Interest · ${Math.round(100 - principalPct)}%`}
+              rightValue={formatPeso(result.totalInterest)}
+              total={`Total of payments · ${formatPeso(totalOfPayments)}`}
             />
           )}
-
-          <div className="mt-6 space-y-1">
-            <CalculatorResult
-              label="Down Payment"
-              value={formatPeso(result.downPaymentAmount)}
+          <BreakdownCard
+            title="Cost breakdown"
+            note="Based on standard monthly amortization (declining-balance interest). Total cost includes your down payment."
+          >
+            <BreakdownRow label="Property price" value={formatPeso(propertyPrice)} />
+            <BreakdownRow
+              label={`– Down payment (${downPaymentPercent}%)`}
+              value={`−${formatPeso(result.downPaymentAmount)}`}
+              tone="negative"
             />
-            <CalculatorResult
-              label="Loan Amount"
-              value={formatPeso(result.loanAmount)}
+            <BreakdownRow label="Loan amount" value={formatPeso(result.loanAmount)} />
+            <BreakdownRow
+              label="+ Total interest"
+              value={`+${formatPeso(result.totalInterest)}`}
+              tone="positive"
             />
-            <CalculatorResult
-              label="Total Interest"
-              value={formatPeso(result.totalInterest)}
-            />
-            <CalculatorResult
-              label="Total Cost"
+            <BreakdownRow
+              label="Total cost (incl. down payment)"
               value={formatPeso(result.totalCost)}
-              highlight
+              tone="total"
+              strong
             />
-          </div>
-        </ResultPanel>
+          </BreakdownCard>
+        </GradientResult>
+      </div>
 
-        {/* RIGHT: Inputs Panel */}
-        <div className="space-y-6 p-8">
-          <CalculatorInput
-            label="Property Price"
-            value={propertyPrice}
-            onChange={setPropertyPrice}
-            prefix="₱"
-            min={500_000}
-            max={50_000_000}
-            step={100_000}
-            helpText="Enter the total price of the home, condo, or property."
-            tooltip="The total selling price of the property including VAT, if applicable."
-          />
-          <CalculatorInput
-            label="Down Payment (%)"
-            value={downPaymentPercent}
-            onChange={setDownPaymentPercent}
-            min={0}
-            max={90}
-            step={1}
-            helpText="Enter the amount you plan to pay upfront."
-            tooltip="The percentage of the property price you pay upfront. A higher down payment reduces the loan amount and monthly payments."
-          />
-          <CalculatorInput
-            label="Loan Term (years)"
-            value={termYears}
-            onChange={setTermYears}
-            min={5}
-            max={30}
-            step={1}
-            helpText="Choose the number of years for repayment."
-            tooltip="The number of years to repay the loan. Home loans typically range from 5 to 30 years."
-          />
-          <CalculatorInput
-            label="Annual Interest Rate (%)"
-            value={interestRate}
-            onChange={setInterestRate}
-            min={0}
-            max={150}
-            step={0.1}
-            helpText="Enter the estimated annual interest rate offered by the lender."
-            tooltip="The yearly interest rate from the bank. Some lenders offer a fixed rate for the first few years, then a variable rate after."
-          />
-        </div>
-      </CalculatorShell>
-
-      {/* Amortization Table */}
       {result.schedule.length > 0 && (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
-          <h3 className="px-6 pt-6 pb-4 text-[16px] font-semibold text-gray-500">
-            Amortization Schedule
+        <div className="overflow-hidden rounded-[18px] border border-[#E7EBF3] bg-white shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+          <h3 className="px-6 pb-4 pt-6 font-display text-[18px] font-semibold text-[#0E1525]">
+            Amortization schedule
           </h3>
           <AmortizationTable schedule={result.schedule} />
         </div>
