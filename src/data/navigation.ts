@@ -15,6 +15,7 @@ export const mainNavItems: NavItem[] = [
       { label: "Withholding Tax Calculator", href: "/calculators/tax/withholding-tax-calculator-philippines" },
       { label: "SSS Contribution Calculator", href: "/calculators/sss/sss-contribution-calculator-philippines" },
       { label: "SSS Pension Calculator", href: "/calculators/retirement/sss-pension-calculator" },
+      { label: "SSS Loan Calculator", href: "/calculators/sss/sss-loan-calculator-philippines" },
       { label: "Take-Home Pay Calculator", href: "/calculators/tax/take-home-pay-calculator-philippines" },
       { label: "Emergency Fund Calculator", href: "/calculators/savings/emergency-fund-calculator-philippines" },
       { label: "Time Deposit Calculator", href: "/calculators/savings/time-deposit-calculator-philippines" },

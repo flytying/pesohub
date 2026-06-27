@@ -60,21 +60,33 @@ const groups: CalcGroup[] = [
     accent: "salary",
     items: [
       {
+        name: "Take-Home Pay Calculator",
+        desc: "Estimate your net salary after SSS, PhilHealth, Pag-IBIG, and withholding tax.",
+        href: "/calculators/tax/take-home-pay-calculator-philippines",
+        icon: "Wallet",
+      },
+      {
         name: "Withholding Tax Calculator",
-        desc: "Estimate withholding tax based on salary and pay frequency using the current TRAIN Law brackets.",
+        desc: "Estimate your monthly withholding tax and tax-only take-home using the current PH income tax brackets.",
         href: "/calculators/tax/withholding-tax-calculator-philippines",
-        icon: "Calculator",
+        icon: "Percent",
       },
       {
         name: "SSS Contribution Calculator",
-        desc: "Estimate SSS contributions from monthly compensation and see how they change across income ranges.",
+        desc: "Estimate SSS contributions based on salary and see how levels change across income ranges.",
         href: "/calculators/sss/sss-contribution-calculator-philippines",
         icon: "Shield",
       },
       {
-        name: "Take-Home Pay Calculator",
-        desc: "Estimate net pay after common deductions so you can see what may actually reach your payslip.",
-        href: "/calculators/tax/take-home-pay-calculator-philippines",
+        name: "SSS Pension Calculator",
+        desc: "Estimate your monthly SSS retirement pension based on credited years and average salary.",
+        href: "/calculators/retirement/sss-pension-calculator",
+        icon: "PiggyBank",
+      },
+      {
+        name: "SSS Loan Calculator",
+        desc: "Estimate monthly amortization and total cost of an SSS salary or calamity loan.",
+        href: "/calculators/sss/sss-loan-calculator-philippines",
         icon: "HandCoins",
       },
       {
