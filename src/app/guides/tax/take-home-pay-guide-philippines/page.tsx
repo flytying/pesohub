@@ -137,7 +137,7 @@ export default function TakeHomePayGuidePage() {
 
         {/* Sample Gross-to-Net Salary Breakdown */}
 
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Sample Gross-to-Net Salary Breakdown
           </h2>
@@ -197,7 +197,7 @@ export default function TakeHomePayGuidePage() {
         </section>
 
         {/* What Deductions Reduce Take-Home Pay? */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What Deductions Reduce Take-Home Pay?
           </h2>
@@ -221,7 +221,7 @@ export default function TakeHomePayGuidePage() {
         </section>
 
         {/* Gross Pay Is Not Always the Same as Taxable Pay */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Gross Pay Is Not Always the Same as Taxable Pay
           </h2>
@@ -252,7 +252,7 @@ export default function TakeHomePayGuidePage() {
         </section>
 
         {/* Why Your Actual Payslip May Be Different */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             Why Your Actual Payslip May Be Different
           </h2>
@@ -276,7 +276,7 @@ export default function TakeHomePayGuidePage() {
         </section>
 
         {/* What This Guide Helps You Check */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
             What This Guide Helps You Check
           </h2>
@@ -324,7 +324,7 @@ export default function TakeHomePayGuidePage() {
         </div>
 
         {/* Related Payroll Guides and Tools */}
-        <section className="mt-16">
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="mb-6 text-[32px] font-medium leading-[48px] text-gray-500">
             Related Payroll Guides and Tools
           </h2>
