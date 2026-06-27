@@ -5,7 +5,7 @@ export const PHILHEALTH_GUIDE_UPDATED_AT = "2026-03-17";
 export const philhealthGuideMeta = {
   title: "PhilHealth Contribution Guide Philippines",
   metaTitle:
-    "PhilHealth Contribution Guide Philippines – What the Deduction Means on Payroll | PesoHub",
+    "PhilHealth Contribution Guide Philippines – What the Deduction Means on Payroll",
   metaDescription:
     "Learn what the PhilHealth deduction on your payslip means, who pays it, how it appears on payroll, and where to verify the contribution amount in the Philippines.",
   slug: "guides/government/philhealth-contribution-guide",

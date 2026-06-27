@@ -15,7 +15,9 @@ export function generatePageMetadata(options: PageSEOOptions): Metadata {
   const url = slug ? `${SITE_URL}/${slug}` : SITE_URL;
 
   return {
-    title: `${title} | ${SITE_NAME}`,
+    // SITE_NAME is appended by the root layout's title.template ("%s"),
+    // so the title is returned bare here to avoid duplicating the brand suffix.
+    title,
     description,
     alternates: { canonical: url },
     openGraph: {

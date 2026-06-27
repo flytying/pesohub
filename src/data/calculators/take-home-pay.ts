@@ -5,7 +5,7 @@ export const takeHomePayData: CalculatorPageData = {
   category: "tax",
   title: "Take-Home Pay Calculator Philippines",
   metaTitle:
-    "Take-Home Pay Calculator Philippines 2026: Net Salary After Tax | PesoHub",
+    "Take-Home Pay Calculator Philippines 2026: Net Salary After Tax",
   metaDescription:
     "Free take-home pay calculator for the Philippines \u2014 compute your net salary after withholding tax, SSS, PhilHealth, and Pag-IBIG deductions. Updated for 2026 TRAIN Law rates.",
   h1: "Take-Home Pay Calculator Philippines",

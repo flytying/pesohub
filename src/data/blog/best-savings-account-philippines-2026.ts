@@ -6,7 +6,7 @@ const post: BlogPostData = {
   slug: "best-savings-account-philippines-2026",
   title: "How to Choose the Best Savings Account in the Philippines (2026)",
   metaTitle:
-    "How to Choose the Best Savings Account in the Philippines (2026) | PesoHub",
+    "How to Choose the Best Savings Account in the Philippines (2026)",
   metaDescription:
     "Compare savings accounts from Philippine banks based on interest rates, fees, access, and deposit insurance. Find the right account for your needs in 2026.",
   author: "PesoHub Team",

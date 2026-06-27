@@ -5,7 +5,7 @@ export const SSS_CONTRIBUTION_UPDATED_AT = "2026-05-01";
 export const sssContributionMeta = {
   title: "SSS Contribution Table Philippines 2026",
   metaTitle:
-    "SSS Contribution Table Philippines 2026 – Employee, Employer & MSC Reference | PesoHub",
+    "SSS Contribution Table Philippines 2026 – Employee, Employer & MSC Reference",
   metaDescription:
     "View the latest SSS contribution table used in the Philippines, including employee share, employer share, MSC, and member-type shortcuts. Check the current schedule and compare contribution amounts more easily.",
   slug: "government/sss/sss-contribution-guide",

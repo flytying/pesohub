@@ -18,7 +18,7 @@ import { generatePageMetadata } from "@/lib/seo";
 import { generateBreadcrumbSchema } from "@/lib/schema-markup";
 
 export const metadata = generatePageMetadata({
-  title: "Salary Deductions, Tax & SSS Guides Philippines | PesoHub",
+  title: "Salary Deductions, Tax & SSS Guides Philippines",
   description:
     "Learn how withholding tax, SSS, PhilHealth, Pag-IBIG, and take-home pay work with simple Philippine finance guides written in plain language.",
   slug: "guides",

@@ -43,7 +43,7 @@ import {
 
 export const metadata = generatePageMetadata({
   title:
-    "Best Savings Interest Rates in the Philippines 2026 | PesoHub",
+    "Best Savings Interest Rates in the Philippines 2026",
   description:
     "Compare the best savings account interest rates in the Philippines for 2026. See traditional banks, digital banks, high-yield savings options, and estimated earnings.",
   slug: "rates/savings-rates/best-savings-interest-rates-philippines",

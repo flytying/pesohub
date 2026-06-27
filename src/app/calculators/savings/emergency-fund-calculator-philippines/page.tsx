@@ -24,7 +24,7 @@ import { EmergencyFundCalculator } from "@/components/calculators/emergency-fund
 
 export const metadata: Metadata = generatePageMetadata({
   title:
-    "Emergency Fund Calculator Philippines: How Much Do You Need? | PesoHub",
+    "Emergency Fund Calculator Philippines: How Much Do You Need?",
   description:
     "Calculate your emergency fund target based on your actual monthly expenses. Find out how many months of coverage you need and where to keep your emergency savings in the Philippines.",
   slug: "calculators/savings/emergency-fund-calculator-philippines",

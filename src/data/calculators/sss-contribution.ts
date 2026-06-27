@@ -5,7 +5,7 @@ export const sssContributionCalcData: CalculatorPageData = {
   category: "sss",
   title: "SSS Contribution Calculator Philippines",
   metaTitle:
-    "SSS Contribution Calculator 2026: Compute Your Monthly Deduction | PesoHub",
+    "SSS Contribution Calculator 2026: Compute Your Monthly Deduction",
   metaDescription:
     "Free SSS contribution calculator for 2026 — compute your monthly SSS salary deduction based on the latest contribution table. Works for employees, self-employed, voluntary, and OFW members.",
   h1: "SSS Contribution Calculator Philippines",

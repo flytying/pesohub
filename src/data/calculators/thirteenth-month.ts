@@ -5,7 +5,7 @@ export const thirteenthMonthData: CalculatorPageData = {
   category: "salary",
   title: "13th Month Pay Calculator Philippines",
   metaTitle:
-    "13th Month Pay Calculator Philippines – Full-Year & Prorated Estimate | PesoHub",
+    "13th Month Pay Calculator Philippines – Full-Year & Prorated Estimate",
   metaDescription:
     "Estimate your 13th month pay in the Philippines using your monthly basic salary and months worked. Supports full-year and prorated scenarios with included vs excluded pay guidance.",
   h1: "13th Month Pay Calculator Philippines",

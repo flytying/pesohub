@@ -14,7 +14,7 @@ import { generateBreadcrumbSchema } from "@/lib/schema-markup";
 
 export const metadata = generatePageMetadata({
   title:
-    "SSS, BIR, Pag-IBIG, PhilHealth & BSP Reference Tables | PesoHub",
+    "SSS, BIR, Pag-IBIG, PhilHealth & BSP Reference Tables",
   description:
     "Check Philippine government finance references including SSS contribution tables, withholding tax tables, Pag-IBIG deductions, PhilHealth rates, and BSP exchange guides.",
   slug: "government",

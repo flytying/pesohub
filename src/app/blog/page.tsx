@@ -15,7 +15,7 @@ import { blogPosts } from "@/data/blog";
 import { BlogCard } from "@/components/blog/blog-card";
 
 export const metadata = generatePageMetadata({
-  title: "Philippine Finance Blog: Savings, Tax, Loans & More | PesoHub",
+  title: "Philippine Finance Blog: Savings, Tax, Loans & More",
   description:
     "Read practical articles about savings accounts, withholding tax, loans, and personal finance in the Philippines — written to help you make smarter money decisions.",
   slug: "blog",

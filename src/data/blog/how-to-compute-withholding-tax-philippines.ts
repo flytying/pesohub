@@ -5,7 +5,7 @@ export const HOW_TO_COMPUTE_WITHHOLDING_TAX_PHILIPPINES_UPDATED_AT = "2026-05-04
 const post: BlogPostData = {
   "slug": "how-to-compute-withholding-tax-philippines",
   "title": "How to Compute Withholding Tax in the Philippines",
-  "metaTitle": "How to Compute Withholding Tax in the Philippines 2026 | PesoHub",
+  "metaTitle": "How to Compute Withholding Tax in the Philippines 2026",
   "metaDescription": "Learn how to compute withholding tax in the Philippines using the 2026 BIR tax table, taxable compensation, SSS, PhilHealth, Pag-IBIG, and sample salary computations.",
   "author": "PesoHub Team",
   "publishedAt": "2026-05-04",
