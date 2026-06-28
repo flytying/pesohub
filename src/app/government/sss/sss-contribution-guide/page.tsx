@@ -262,9 +262,17 @@ export default function SSSContributionGuidePage() {
                   key={ex.label}
                   className="flex flex-col overflow-hidden rounded-[18px] border border-[#EDF1F8] bg-[#F7F9FD] shadow-[0_1px_2px_rgba(16,24,40,.04)]"
                 >
-                  <div className="border-b border-[#EEF1F7] px-[18px] pb-[15px] pt-[18px]">
-                    <div className="font-display text-[15px] font-semibold leading-[1.25] text-[#0E1525]">
-                      {ex.label}
+                  <div className="flex items-start gap-3 border-b border-[#EEF1F7] px-[18px] pb-[15px] pt-[18px]">
+                    <span className="flex size-[42px] shrink-0 items-center justify-center rounded-[12px] bg-[#EAF0FF]">
+                      <BarChart3 className="size-5 text-brand" />
+                    </span>
+                    <div>
+                      <div className="text-[11px] font-bold tracking-[.07em] text-brand">
+                        {ex.tier}
+                      </div>
+                      <div className="mt-[3px] font-display text-[15px] font-semibold leading-[1.25] text-[#0E1525]">
+                        {ex.label}
+                      </div>
                     </div>
                   </div>
                   <div className="px-[18px] pb-2 pt-[14px]">
