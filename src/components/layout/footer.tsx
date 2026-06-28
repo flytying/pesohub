@@ -9,10 +9,17 @@ const COLUMNS: { title: string; items: { label: string; href: string }[] }[] = [
   { title: "PesoHub", items: footerNavItems.company },
 ];
 
-export function Footer() {
+export function Footer({
+  maxWidthClassName = "max-w-[1240px]",
+}: {
+  /** Constrain the footer's inner width to match the page content. */
+  maxWidthClassName?: string;
+}) {
   return (
     <footer className="mt-12 print:hidden">
-      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)]">
+      <div
+        className={`mx-auto ${maxWidthClassName} px-[clamp(20px,3vw,36px)]`}
+      >
         <div className="flex flex-wrap items-start justify-between gap-x-12 gap-y-10 border-t border-gray-200 py-12">
           {/* Brand block */}
           <div className="max-w-[460px] flex-[1_1_300px]">

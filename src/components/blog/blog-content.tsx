@@ -5,9 +5,9 @@ import type { BlogSection } from "@/types/content";
 const calloutConfig = {
   info: {
     icon: Info,
-    border: "border-gray-200",
-    bg: "bg-white",
-    iconColor: "text-gray-300",
+    border: "border-[#D3DEFA]",
+    bg: "bg-[#EAF0FF]",
+    iconColor: "text-brand",
   },
   warning: {
     icon: TriangleAlert,
@@ -72,16 +72,15 @@ function renderSection(section: BlogSection, index: number) {
 
     case "ordered-list":
       return (
-        <ol key={index} className="mt-4 space-y-2">
+        <ol key={index} className="mt-5 flex flex-col gap-[14px]">
           {section.items?.map((item, i) => (
-            <li
-              key={i}
-              className="flex gap-3 text-[16px] leading-[1.6] text-[#344054]"
-            >
-              <span className="shrink-0 font-semibold text-brand">
-                {i + 1}.
+            <li key={i} className="flex gap-[14px]">
+              <span className="flex size-[30px] shrink-0 items-center justify-center rounded-full bg-[#EAF0FF] font-display text-[15px] font-bold text-brand">
+                {i + 1}
               </span>
-              {item}
+              <span className="pt-[3px] text-[16px] leading-[1.65] text-[#344054]">
+                {item}
+              </span>
             </li>
           ))}
         </ol>
@@ -94,12 +93,12 @@ function renderSection(section: BlogSection, index: number) {
       return (
         <div
           key={index}
-          className={`mt-6 flex gap-3 rounded-lg border ${config.border} ${config.bg} p-6`}
+          className={`mt-6 flex items-start gap-[14px] rounded-[16px] border ${config.border} ${config.bg} p-5`}
         >
-          <Icon
-            className={`mt-0.5 size-5 shrink-0 ${config.iconColor}`}
-          />
-          <p className="text-[16px] leading-[1.6] text-[#344054]">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-white shadow-[0_1px_2px_rgba(16,24,40,.05)]">
+            <Icon className={`size-5 ${config.iconColor}`} />
+          </span>
+          <p className="self-center text-[15.5px] leading-[1.6] text-[#344054]">
             {section.content}
           </p>
         </div>

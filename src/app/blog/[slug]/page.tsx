@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, TriangleAlert, Clock } from "lucide-react";
+import { ArrowRight, TriangleAlert, Clock, Info } from "lucide-react";
 import { notFound } from "next/navigation";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -136,8 +136,15 @@ export default async function BlogPostPage({
           </ol>
         </nav>
 
+        <h1 className="font-display text-[clamp(30px,4vw,44px)] font-semibold leading-[1.12] tracking-[-.02em] text-[#0E1525]">
+          {post.title}
+        </h1>
+        <p className="mt-[14px] max-w-[74ch] text-[18px] leading-[1.6] text-[#475069]">
+          {post.excerpt}
+        </p>
+
         {/* Meta row: category pill · read time · updated date */}
-        <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+        <div className="mt-[18px] flex flex-wrap items-center gap-x-4 gap-y-2">
           <span
             className="rounded-[8px] px-[10px] py-[5px] text-[11px] font-bold uppercase tracking-[.06em]"
             style={{
@@ -156,13 +163,6 @@ export default async function BlogPostPage({
             Updated {formatDate(post.updatedAt)}
           </span>
         </div>
-
-        <h1 className="font-display text-[clamp(30px,4vw,44px)] font-semibold leading-[1.12] tracking-[-.02em] text-[#0E1525]">
-          {post.title}
-        </h1>
-        <p className="mt-[14px] max-w-[74ch] text-[18px] leading-[1.6] text-[#475069]">
-          {post.excerpt}
-        </p>
       </div>
 
       {/* Hero image */}
@@ -186,13 +186,18 @@ export default async function BlogPostPage({
         <div className="rounded-[22px] border border-[#E7EBF3] bg-white p-[clamp(22px,4vw,44px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
           {/* Direct Answer Box */}
           {post.directAnswer && (
-            <div className="rounded-xl border border-brand/20 bg-brand/5 p-6">
-              <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-brand">
-                Quick Answer
-              </p>
-              <p className="mt-2 text-[16px] leading-[1.6] text-[#344054]">
-                {post.directAnswer}
-              </p>
+            <div className="flex items-start gap-[14px] rounded-[16px] border border-[#D3DEFA] bg-[#EAF0FF] p-5">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-white shadow-[0_1px_2px_rgba(16,24,40,.05)]">
+                <Info className="size-5 text-brand" />
+              </span>
+              <div>
+                <p className="text-[12px] font-bold uppercase tracking-[0.06em] text-brand">
+                  Quick Answer
+                </p>
+                <p className="mt-[5px] text-[15.5px] leading-[1.6] text-[#344054]">
+                  {post.directAnswer}
+                </p>
+              </div>
             </div>
           )}
 
@@ -227,7 +232,15 @@ export default async function BlogPostPage({
             <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
               Related Pages
             </h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div
+              className={`grid gap-4 ${
+                post.relatedSlugs.length >= 3
+                  ? "sm:grid-cols-2 lg:grid-cols-3"
+                  : post.relatedSlugs.length === 2
+                    ? "sm:grid-cols-2"
+                    : "grid-cols-1"
+              }`}
+            >
               {post.relatedSlugs.map((relSlug) => (
                 <Link
                   key={relSlug}
