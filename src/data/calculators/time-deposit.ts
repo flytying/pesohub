@@ -3,15 +3,15 @@ import type { CalculatorPageData } from "@/types/content";
 export const timeDepositData: CalculatorPageData = {
   slug: "calculators/savings/time-deposit-calculator-philippines",
   category: "savings",
-  title: "Time Deposit Calculator Philippines",
+  title: "Time Deposit Calculator Philippines 2026",
   metaTitle:
-    "Time Deposit Calculator Philippines – Estimate Interest, After-Tax Return & Maturity Amount",
+    "Time Deposit Calculator Philippines 2026 | Interest, Tax & Maturity",
   metaDescription:
-    "Estimate your time deposit return in the Philippines using deposit amount, interest rate, and term. Compare gross interest, after-tax interest, and maturity amount with PesoHub.",
-  h1: "Time Deposit Calculator Philippines",
+    "Estimate your Philippine time deposit maturity amount, gross interest, 20% withholding tax, and after-tax return based on deposit amount, rate, and term.",
+  h1: "Time Deposit Calculator Philippines 2026",
   intro:
-    "Estimate your time deposit earnings in the Philippines based on your deposit amount, interest rate, and term. Compare gross interest, estimated after-tax interest, and maturity amount so you can evaluate whether a time deposit fits your savings plan.",
-  updatedAt: "2026-03-16",
+    "Use this time deposit calculator to estimate your gross interest, 20% withholding tax, after-tax interest, and maturity amount based on your deposit amount, annual interest rate, and term.",
+  updatedAt: "2026-06-28",
   defaultInputs: {
     depositAmount: 100_000,
     annualRate: 5.5,
@@ -46,34 +46,54 @@ export const timeDepositData: CalculatorPageData = {
   ],
   faqs: [
     {
-      question: "What does this time deposit calculator estimate?",
+      question: "How do I compute time deposit interest in the Philippines?",
       answer:
-        "This calculator estimates your gross interest, after-tax interest, and maturity amount based on the deposit amount, interest rate, and term you enter.",
+        "For a simple estimate, gross interest = deposit amount × annual interest rate × term in years. Then subtract the 20% final withholding tax from the interest (not the principal) to get your after-tax interest, and add that to your deposit for the maturity amount. For example, ₱100,000 at 5.5% for 12 months earns ₱5,500 gross interest, ₱1,100 tax, ₱4,400 after-tax interest, and a ₱104,400 maturity amount.",
     },
     {
-      question: "What is the maturity amount?",
+      question: "What is the tax on time deposit interest in the Philippines?",
       answer:
-        "The maturity amount is the estimated total value of your time deposit at the end of the selected term, including your original deposit and estimated interest.",
+        "Interest from peso bank deposits is generally subject to a 20% final withholding tax. The bank withholds it automatically and remits it to the BIR, so the interest credited to you is already net of tax. Under CMEPA, a uniform 20% rate applies to deposits from July 1, 2025.",
     },
     {
-      question: "Why should I compare gross and after-tax return?",
+      question: "Is the 20% tax deducted from the principal or the interest?",
       answer:
-        "Gross return shows the headline earnings, but after-tax return gives a better estimate of what you may actually receive. Comparing both helps you evaluate the real value of the deposit.",
+        "Only from the interest. Your principal (the amount you deposited) is never taxed — the 20% final withholding tax applies to the interest income your deposit earns.",
     },
     {
-      question: "Is this the same as an official bank quote?",
+      question: "What is the maturity amount of a time deposit?",
       answer:
-        "No. This calculator provides a planning estimate only. Actual bank products may have different rules, rates, penalties, or conditions.",
+        "The maturity amount is the total value of your time deposit at the end of the term: your original deposit plus the interest it earned, after tax. It is the amount you can withdraw or roll over when the deposit matures.",
     },
     {
-      question: "What happens if I withdraw before maturity?",
+      question: "Is time deposit interest computed monthly or annually?",
       answer:
-        "Actual early withdrawal treatment depends on the bank's terms. Some products may reduce or forfeit part of the expected return if the deposit is withdrawn before the full term.",
+        "The advertised rate is an annual (per-year) rate, but the interest you earn is based on how long your money is locked in. Most Philippine time deposits use simple interest credited at maturity. Some products credit interest monthly or compound it — confirm the crediting rule with your bank. This calculator defaults to simple interest and offers optional compounding estimates.",
     },
     {
-      question: "Should I use a time deposit or a savings account?",
+      question: "Is a time deposit better than a savings account?",
       answer:
-        "A time deposit is usually better if you can leave money untouched for a fixed term. A savings account is usually better if you need easier access to your funds.",
+        "It depends on your need. A time deposit usually pays a higher rate but locks your money for a fixed term, so it suits funds you will not touch. A savings account pays less but lets you withdraw anytime, so it suits emergency funds and money you may need soon.",
+    },
+    {
+      question: "What happens if I withdraw my time deposit early?",
+      answer:
+        "Early withdrawal is usually allowed but penalised. Banks typically pay a lower rate (or forfeit part of the interest) when you break a time deposit before maturity. Check your bank's pre-termination terms before placing the deposit.",
+    },
+    {
+      question: "Are time deposits covered by PDIC?",
+      answer:
+        "Yes. Time deposits at PDIC-member banks are insured. PDIC deposit insurance currently covers up to ₱1 million per depositor, per bank (effective March 15, 2025). Keep your total deposits per bank within that limit if protection is important to you.",
+    },
+    {
+      question: "How much will ₱100,000 earn in a time deposit?",
+      answer:
+        "At 5.5% for 12 months using simple interest, ₱100,000 earns ₱5,500 gross interest, less ₱1,100 (20% tax), for ₱4,400 after-tax interest and a ₱104,400 maturity amount. The exact figure depends on the rate, term, and tax — use the calculator above to try your own numbers.",
+    },
+    {
+      question: "Is this time deposit calculator an official bank quote?",
+      answer:
+        "No. This is a planning estimate only. Actual returns depend on the bank's exact rate, compounding and crediting rules, promotional conditions, and early withdrawal penalties. Always confirm the final figures with your bank.",
     },
   ],
   relatedPages: [

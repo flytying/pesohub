@@ -1,8 +1,15 @@
 // ---------------------------------------------------------------------------
 // Philippine Time Deposit Calculator
-// Estimates gross interest, after-tax interest, and maturity amount.
+// Estimates gross interest, withholding tax, after-tax interest, maturity
+// amount, and the effective after-tax annual return.
 // Pure TypeScript computation library.
 // ---------------------------------------------------------------------------
+
+/** Unit the term is expressed in. */
+export type TermUnit = "days" | "months" | "years";
+
+/** Interest crediting method. "simple" is the default for PH time deposits. */
+export type InterestMethod = "simple" | "monthly" | "quarterly" | "annual";
 
 /**
  * Input parameters for the time deposit calculation.
@@ -15,7 +22,11 @@ export interface TimeDepositInput {
   /** Term length (in the unit specified by termUnit). */
   term: number;
   /** Unit of the term. */
-  termUnit: "months" | "years";
+  termUnit: TermUnit;
+  /** Final withholding tax rate on interest as a fraction (default 0.20 = 20%). */
+  taxRate?: number;
+  /** Interest crediting method (default "simple"). */
+  method?: InterestMethod;
 }
 
 /**
@@ -26,7 +37,7 @@ export interface TimeDepositResult {
   principal: number;
   /** Estimated gross interest earned over the full term. */
   grossInterest: number;
-  /** Estimated withholding tax on interest (20%). */
+  /** Estimated withholding tax on interest. */
   taxOnInterest: number;
   /** Estimated after-tax interest (gross − tax). */
   afterTaxInterest: number;
@@ -34,17 +45,33 @@ export interface TimeDepositResult {
   grossMaturityAmount: number;
   /** Estimated net maturity value (principal + after-tax interest). */
   netMaturityValue: number;
+  /** Effective after-tax annual return as a percentage (annualised). */
+  effectiveAfterTaxReturn: number;
   /** Term used in the calculation, formatted as a string. */
   termUsed: string;
   /** Term in months (for comparison purposes). */
   termInMonths: number;
+  /** Tax rate applied, as a fraction. */
+  taxRate: number;
+  /** Interest method used. */
+  method: InterestMethod;
 }
 
 // ---------------------------------------------------------------------------
-// Philippine withholding tax on interest income: 20%
+// Philippine final withholding tax on interest income: 20%
 // ---------------------------------------------------------------------------
 
-const INTEREST_WITHHOLDING_TAX_RATE = 0.2;
+export const INTEREST_WITHHOLDING_TAX_RATE = 0.2;
+
+const DAYS_PER_YEAR = 365;
+
+/** Compounding periods per year for each method. */
+const PERIODS_PER_YEAR: Record<InterestMethod, number> = {
+  simple: 0, // sentinel — simple interest, handled separately
+  monthly: 12,
+  quarterly: 4,
+  annual: 1,
+};
 
 // ---------------------------------------------------------------------------
 // Main computation
@@ -53,8 +80,11 @@ const INTEREST_WITHHOLDING_TAX_RATE = 0.2;
 /**
  * Calculate estimated time deposit return.
  *
- * Uses simple interest: Interest = Principal × Rate × Time
- * Philippine time deposits typically use simple interest (not compounded).
+ * Simple interest:   Interest = Principal × Rate × Years
+ * Compound interest: Interest = Principal × ((1 + Rate/n)^(n × Years) − 1)
+ *
+ * The withholding tax is applied once to the total gross interest. Real banks
+ * withhold per crediting in compounded products, so this is a planning estimate.
  *
  * This function is pure -- it has no side effects.
  */
@@ -62,25 +92,38 @@ export function calculateTimeDeposit(
   input: TimeDepositInput,
 ): TimeDepositResult {
   const { depositAmount, annualRate, term, termUnit } = input;
+  const taxRate = input.taxRate ?? INTEREST_WITHHOLDING_TAX_RATE;
+  const method = input.method ?? "simple";
 
-  // Convert term to years for interest calculation
-  const termInYears = termUnit === "years" ? term : term / 12;
-  const termInMonths = termUnit === "years" ? term * 12 : term;
-
-  // Simple interest calculation
+  const termInYears = toYears(term, termUnit);
+  const termInMonths = Math.round(termInYears * 12);
   const rate = annualRate / 100;
-  const grossInterest = round(depositAmount * rate * termInYears);
 
-  // 20% withholding tax on interest
-  const taxOnInterest = round(grossInterest * INTEREST_WITHHOLDING_TAX_RATE);
+  // Gross interest: simple or compound depending on method.
+  let grossInterest: number;
+  if (method === "simple") {
+    grossInterest = depositAmount * rate * termInYears;
+  } else {
+    const n = PERIODS_PER_YEAR[method];
+    grossInterest =
+      depositAmount * (Math.pow(1 + rate / n, n * termInYears) - 1);
+  }
+  grossInterest = round(grossInterest);
+
+  const taxOnInterest = round(grossInterest * taxRate);
   const afterTaxInterest = round(grossInterest - taxOnInterest);
 
-  // Maturity amounts
   const grossMaturityAmount = round(depositAmount + grossInterest);
   const netMaturityValue = round(depositAmount + afterTaxInterest);
 
-  // Format term label
-  const termUsed = formatTermLabel(term, termUnit);
+  // Effective after-tax annual return (annualised CAGR of the net outcome).
+  const effectiveAfterTaxReturn =
+    termInYears > 0 && depositAmount > 0
+      ? round(
+          (Math.pow(netMaturityValue / depositAmount, 1 / termInYears) - 1) *
+            100,
+        )
+      : 0;
 
   return {
     principal: depositAmount,
@@ -89,25 +132,32 @@ export function calculateTimeDeposit(
     afterTaxInterest,
     grossMaturityAmount,
     netMaturityValue,
-    termUsed,
+    effectiveAfterTaxReturn,
+    termUsed: formatTermLabel(term, termUnit),
     termInMonths,
+    taxRate,
+    method,
   };
 }
 
 /**
  * Calculate time deposit result for a specific term in months.
- * Convenience wrapper for term comparison.
+ * Convenience wrapper for term comparison; carries the chosen tax + method.
  */
 export function calculateForTerm(
   depositAmount: number,
   annualRate: number,
   months: number,
+  taxRate: number = INTEREST_WITHHOLDING_TAX_RATE,
+  method: InterestMethod = "simple",
 ): TimeDepositResult {
   return calculateTimeDeposit({
     depositAmount,
     annualRate,
     term: months,
     termUnit: "months",
+    taxRate,
+    method,
   });
 }
 
@@ -115,11 +165,15 @@ export function calculateForTerm(
 // Internal helpers
 // ---------------------------------------------------------------------------
 
-function formatTermLabel(term: number, unit: "months" | "years"): string {
-  if (unit === "years") {
-    return term === 1 ? "1 Year" : `${term} Years`;
-  }
-  return term === 1 ? "1 Month" : `${term} Months`;
+function toYears(term: number, unit: TermUnit): number {
+  if (unit === "years") return term;
+  if (unit === "days") return term / DAYS_PER_YEAR;
+  return term / 12;
+}
+
+function formatTermLabel(term: number, unit: TermUnit): string {
+  const noun = unit === "years" ? "Year" : unit === "days" ? "Day" : "Month";
+  return term === 1 ? `1 ${noun}` : `${term} ${noun}s`;
 }
 
 /**
