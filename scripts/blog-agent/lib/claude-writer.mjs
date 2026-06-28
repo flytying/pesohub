@@ -127,7 +127,7 @@ const ARTICLE_TOOL = {
           properties: {
             type: {
               type: "string",
-              enum: ["heading", "paragraph", "list", "ordered-list", "callout", "quote"],
+              enum: ["heading", "paragraph", "list", "ordered-list", "callout", "quote", "table"],
             },
             heading: { type: "string", description: "Required for type=heading" },
             level: { type: "integer", description: "Heading level (2 or 3); required for type=heading" },
@@ -141,6 +141,18 @@ const ARTICLE_TOOL = {
               type: "string",
               enum: ["info", "warning", "tip"],
               description: "Required for type=callout",
+            },
+            columns: {
+              type: "array",
+              items: { type: "string" },
+              description:
+                "Required for type=table. Column headers. Use exactly 3 columns [Bank, Rate, Conditions] for a bank/rate ranking (the Rate cell renders as a colored pill); use 4+ columns for a side-by-side comparison.",
+            },
+            rows: {
+              type: "array",
+              items: { type: "array", items: { type: "string" } },
+              description:
+                "Required for type=table. Each row is an array of cell strings in column order. First cell is the row label (bank or factor). Keep cells short; separate multiple conditions with ' · '.",
             },
           },
           required: ["type"],
@@ -240,6 +252,7 @@ Requirements:
 - At least 5 FAQs
 - At least 1500 words of content across all paragraphs
 - Include at least 1 callout (tip or info)
+- When comparing banks, rates, or products across consistent attributes, use a "table" section instead of a long list: a 3-column [Bank, Rate, Conditions] ranking, or a 4+ column side-by-side comparison
 - Write original content — do not copy from research sources
 - Philippine-specific examples, institutions, and peso amounts
 
