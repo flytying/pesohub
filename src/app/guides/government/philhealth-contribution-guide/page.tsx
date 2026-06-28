@@ -118,10 +118,12 @@ export default function PhilHealthContributionGuidePage() {
         description={philhealthGuideMeta.directAnswer}
         badge={PHILHEALTH_GUIDE_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+
+        containerClassName="max-w-[1240px] px-[clamp(20px,3vw,36px)]"
         variant="dark"
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20 pt-[clamp(20px,3vw,32px)]">
         {/* What Is PhilHealth Deduction on Payroll? */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
@@ -276,7 +278,7 @@ export default function PhilHealthContributionGuidePage() {
 
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20">
         {/* What to Do Next */}
         <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-center text-[clamp(22px,2.6vw,28px)] font-semibold tracking-[-0.02em] text-[#0E1525]">

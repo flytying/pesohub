@@ -114,10 +114,12 @@ export default function SssPensionGuidePage() {
         description="A step-by-step guide to understanding how your SSS retirement pension is calculated. Learn the three pension formulas, eligibility requirements, and see a worked example."
         badge={SSS_PENSION_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+
+        containerClassName="max-w-[1240px] px-[clamp(20px,3vw,36px)]"
         variant="dark"
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20 pt-[clamp(20px,3vw,32px)]">
         {/* Quick Answer */}
         <section>
           <div className="flex gap-4 rounded-[16px] border border-[#D7E0FB] bg-[#EAF0FF] p-6">
@@ -405,7 +407,7 @@ export default function SssPensionGuidePage() {
 
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20">
         {/* Calculator CTA */}
         <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(28px,4vw,40px)] text-center">
           <h2 className="text-[clamp(22px,2.6vw,28px)] font-semibold tracking-[-0.02em] text-[#0E1525]">

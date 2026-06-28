@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  HelpCircle,
-  Calculator,
-  BookOpen,
-  BarChart3,
-  Shield,
-  Wallet,
-  PiggyBank,
   ArrowRight,
   Info,
-  TriangleAlert,
+  Check,
+  PiggyBank,
+  Wallet,
+  Shield,
+  Target,
+  Clock,
+  TrendingUp,
+  BookOpen,
+  HelpCircle,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -18,13 +19,15 @@ import {
   generateCalculatorSchema,
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
-import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { EmergencyFundCalculator } from "@/components/calculators/emergency-fund-calculator";
 
+const TITLE = "Emergency Fund Calculator Philippines";
+const INTRO =
+  "Calculate how much you need to set aside for emergencies based on your actual monthly expenses. Adjust each expense category and target months to find an emergency fund goal that fits your situation.";
+
 export const metadata: Metadata = generatePageMetadata({
-  title:
-    "Emergency Fund Calculator Philippines: How Much Do You Need?",
+  title: "Emergency Fund Calculator Philippines: How Much Do You Need?",
   description:
     "Calculate your emergency fund target based on your actual monthly expenses. Find out how many months of coverage you need and where to keep your emergency savings in the Philippines.",
   slug: "calculators/savings/emergency-fund-calculator-philippines",
@@ -36,28 +39,52 @@ const breadcrumbs = [
   { label: "Emergency Fund Calculator" },
 ];
 
+const CARD =
+  "rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,30px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]";
+const H2 = "font-display text-[22px] font-semibold tracking-[-0.02em] text-[#0E1525]";
+const LEAD = "mt-[10px] max-w-[80ch] text-[16px] leading-[1.65] text-[#475069]";
+
+const threeMonth = [
+  "You have a stable, salaried job with separation pay",
+  "You have no dependents",
+  "You have low or no debt obligations",
+  "You could find new work relatively quickly",
+];
+
+const sixMonth = [
+  "You are self-employed, freelance, or on contract",
+  "You support dependents (children, parents, siblings)",
+  "You have significant monthly debt payments",
+  "Your industry has longer job-search timelines",
+];
+
 const whereToKeep = [
   {
     icon: PiggyBank,
-    title: "High-Interest Savings Account",
-    description:
-      "Digital banks in the Philippines currently offer some of the highest savings rates. Your money stays accessible and earns interest daily. This is the most common choice for emergency funds.",
+    title: "High-interest savings account",
+    desc: "Digital banks in the Philippines currently offer some of the highest savings rates. Your money stays accessible and earns interest daily — the most common choice for emergency funds.",
   },
   {
     icon: Wallet,
-    title: "Regular Savings Account",
-    description:
-      "A traditional bank savings account offers lower interest but may feel more familiar. Choose a bank with a branch near you if you prefer in-person transactions.",
+    title: "Regular savings account",
+    desc: "A traditional bank savings account offers lower interest but may feel more familiar. Choose a bank with a branch near you if you prefer in-person transactions.",
   },
   {
     icon: Shield,
-    title: "Short-Term Time Deposit",
-    description:
-      "A 30-day or 90-day time deposit can earn slightly higher interest, but your money is locked during that period. Consider this only for the portion of your emergency fund you are less likely to need right away.",
+    title: "Short-term time deposit",
+    desc: "A 30-day or 90-day time deposit can earn slightly higher interest, but your money is locked for that period. Use only for the portion you are less likely to need right away.",
   },
 ];
 
-const questionsToConsider = [
+const exampleRows = [
+  { label: "Rent", val: "₱10,000", total: false },
+  { label: "Food & groceries", val: "₱8,000", total: false },
+  { label: "Utilities", val: "₱4,000", total: false },
+  { label: "Transportation", val: "₱3,000", total: false },
+  { label: "Total monthly expenses", val: "₱25,000", total: true },
+];
+
+const questions = [
   "How stable is my income? Freelancers and contractual workers may need 6 months or more.",
   "Do I have dependents who rely on my income for daily expenses?",
   "Do I have existing debt payments that cannot be paused if I lose my income?",
@@ -89,36 +116,35 @@ const faqs = [
   {
     question: "How long does it take to build an emergency fund?",
     answer:
-      "The time depends on how much you can set aside each month. If your target is ₱150,000 and you save ₱10,000 per month, it would take about 15 months. The key is consistency. Even small, regular contributions add up over time. Use the calculator to see how different savings amounts affect your timeline.",
+      "The time depends on how much you can set aside each month. If your target is ₱150,000 and you save ₱10,000 per month, it would take about 15 months. The key is consistency. Even small, regular contributions add up over time.",
   },
   {
-    question:
-      "Is an emergency fund different from a savings goal?",
+    question: "Is an emergency fund different from a savings goal?",
     answer:
-      "Yes. An emergency fund is specifically for unexpected events like job loss, medical emergencies, or urgent home repairs. It should be kept liquid and accessible at all times. A savings goal is for planned expenses like a vacation, gadget, or down payment. You can use our Savings Goal Calculator for planned targets.",
+      "Yes. An emergency fund is specifically for unexpected events like job loss, medical emergencies, or urgent home repairs. It should be kept liquid and accessible at all times. A savings goal is for planned expenses like a vacation, gadget, or down payment.",
   },
 ];
 
-const relatedContent = [
+const relatedPages = [
   {
     title: "Best Savings Interest Rates",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
-    icon: BarChart3,
+    icon: PiggyBank,
   },
   {
     title: "Best Digital Bank Rates",
     href: "/rates/savings-rates/best-digital-bank-rates-philippines",
-    icon: BarChart3,
+    icon: TrendingUp,
   },
   {
     title: "Savings Goal Calculator",
     href: "/calculators/savings/savings-goal-calculator-philippines",
-    icon: Calculator,
+    icon: Target,
   },
   {
     title: "Time Deposit Calculator",
     href: "/calculators/savings/time-deposit-calculator-philippines",
-    icon: Calculator,
+    icon: Clock,
   },
   {
     title: "Guides Hub",
@@ -133,262 +159,219 @@ export default function EmergencyFundCalculatorPage() {
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateCalculatorSchema({
-          title:
-            "Emergency Fund Calculator Philippines",
+          title: TITLE,
           description:
             "Calculate your emergency fund target based on your actual monthly expenses in the Philippines.",
         })}
       />
 
-      <PageHero
-        title="Emergency Fund Calculator Philippines"
-        description="Calculate how much you need to set aside for emergencies based on your actual monthly expenses. Adjust each expense category and target months to find an emergency fund goal that fits your situation."
-        breadcrumbs={breadcrumbs}
-        variant="dark"
-      />
+      <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(18px,3vw,34px)]">
+        {/* Heading */}
+        <div className="mb-5">
+          <nav aria-label="Breadcrumb" className="mb-[10px]">
+            <ol className="flex flex-wrap items-center gap-[7px] text-[15px] font-semibold text-[#6B7488]">
+              {breadcrumbs.map((b, i) => {
+                const last = i === breadcrumbs.length - 1;
+                return (
+                  <li key={i} className="flex items-center gap-[7px]">
+                    {i > 0 && <span className="text-[#C4CCDB]">/</span>}
+                    {last || !b.href ? (
+                      <span className={last ? "text-[#5A6478]" : ""}>{b.label}</span>
+                    ) : (
+                      <Link href={b.href} className="font-bold text-brand">
+                        {b.label}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
+            </ol>
+          </nav>
+          <h1 className="font-display text-[clamp(26px,3.4vw,38px)] font-semibold leading-[1.1] tracking-[-.02em] text-[#0E1525]">
+            {TITLE}
+          </h1>
+          <p className="mt-[9px] max-w-[80ch] text-[16px] leading-[1.55] text-[#5A6478]">{INTRO}</p>
+        </div>
 
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Calculator */}
         <div id="calculator" className="scroll-mt-20">
           <EmergencyFundCalculator />
         </div>
 
-        {/* What Is an Emergency Fund */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            What Is an Emergency Fund?
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            An emergency fund is money set aside specifically for unexpected
-            events that affect your ability to pay for essential needs. This
-            includes sudden job loss, medical emergencies, major home or
-            appliance repairs, or any situation where your regular income is
-            disrupted.
-          </p>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Unlike regular savings, an emergency fund is not meant for planned
-            purchases. It acts as a financial buffer that keeps you from relying
-            on credit cards, personal loans, or borrowing from family during a
-            crisis.
-          </p>
-        </section>
+        <div className="mt-9 space-y-[14px]">
+          {/* What is an emergency fund */}
+          <section className={CARD}>
+            <h2 className={H2}>What is an emergency fund?</h2>
+            <p className={LEAD}>
+              An emergency fund is money set aside specifically for unexpected events that affect
+              your ability to pay for essential needs. This includes sudden job loss, medical
+              emergencies, major home or appliance repairs, or any situation where your regular
+              income is disrupted.
+            </p>
+            <p className={LEAD}>
+              Unlike regular savings, an emergency fund is not meant for planned purchases. It acts
+              as a financial buffer that keeps you from relying on credit cards, personal loans, or
+              borrowing from family during a crisis.
+            </p>
+          </section>
 
-        {/* How Much Do You Need */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            How Much Emergency Fund Do You Need?
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            The right amount depends on your personal situation. A common
-            guideline is to save three to six months of essential living
-            expenses. Here is how to decide where you fall on that range:
-          </p>
-          <div className="mt-6 grid gap-5 sm:grid-cols-2">
-            <div className="rounded-xl border border-gray-200 bg-white p-6">
-              <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                3 months may be enough if...
-              </h3>
-              <ul className="mt-3 space-y-2 text-[16px] leading-[1.6] text-[#5A6478]">
-                <li className="flex gap-2">
-                  <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
-                  You have a stable, salaried job with separation pay
-                </li>
-                <li className="flex gap-2">
-                  <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
-                  You have no dependents
-                </li>
-                <li className="flex gap-2">
-                  <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
-                  You have low or no debt obligations
-                </li>
-                <li className="flex gap-2">
-                  <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
-                  You could find new work relatively quickly
-                </li>
-              </ul>
+          {/* How much do you need */}
+          <section className={CARD}>
+            <h2 className={H2}>How much emergency fund do you need?</h2>
+            <p className={LEAD}>
+              A common guideline is three to six months of essential living expenses. Here is how to
+              decide where you fall on that range.
+            </p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-[16px] border border-[#E7EBF3] bg-white p-[22px]">
+                <h3 className="mb-[14px] font-display text-[18px] font-semibold text-[#0E1525]">
+                  3 months may be enough if…
+                </h3>
+                <ul className="space-y-3">
+                  {threeMonth.map((p) => (
+                    <li key={p} className="flex items-start gap-2.5 text-[15px] leading-[1.5] text-[#344054]">
+                      <Check className="mt-0.5 size-[18px] shrink-0 text-[#0E9F6E]" />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-[16px] border border-[#E7EBF3] bg-white p-[22px]">
+                <h3 className="mb-[14px] font-display text-[18px] font-semibold text-[#0E1525]">
+                  6 months or more if…
+                </h3>
+                <ul className="space-y-3">
+                  {sixMonth.map((p) => (
+                    <li key={p} className="flex items-start gap-2.5 text-[15px] leading-[1.5] text-[#344054]">
+                      <Check className="mt-0.5 size-[18px] shrink-0 text-[#0E9F6E]" />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="rounded-xl border border-gray-200 bg-white p-6">
-              <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                6 months or more if...
-              </h3>
-              <ul className="mt-3 space-y-2 text-[16px] leading-[1.6] text-[#5A6478]">
-                <li className="flex gap-2">
-                  <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
-                  You are self-employed, freelance, or on a contract
-                </li>
-                <li className="flex gap-2">
-                  <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
-                  You support dependents (children, parents, siblings)
-                </li>
-                <li className="flex gap-2">
-                  <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
-                  You have significant monthly debt payments
-                </li>
-                <li className="flex gap-2">
-                  <ArrowRight className="mt-0.5 size-4 shrink-0 text-gray-300" />
-                  Your industry has longer job search timelines
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Where to Keep */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Where to Keep Your Emergency Fund
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Your emergency fund should be easy to access and not at risk of
-            losing value. Avoid stocks, mutual funds, or long-term investments
-            for this purpose. Here are the most common options in the
-            Philippines:
-          </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-3">
-            {whereToKeep.map((option) => {
-              const Icon = option.icon;
-              return (
-                <div
-                  key={option.title}
-                  className="rounded-xl border border-gray-200 bg-white p-6"
-                >
-                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-6" />
+          {/* Where to keep */}
+          <section className={CARD}>
+            <h2 className={H2}>Where to keep your emergency fund</h2>
+            <p className={LEAD}>
+              Your emergency fund should be easy to access and not at risk of losing value. Here are
+              the most common options.
+            </p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {whereToKeep.map((w) => {
+                const Icon = w.icon;
+                return (
+                  <div key={w.title} className="rounded-[16px] border border-[#E7EBF3] bg-white p-[22px]">
+                    <span className="flex size-11 items-center justify-center rounded-[12px] bg-[#EAF0FF] text-brand">
+                      <Icon className="size-[22px]" />
+                    </span>
+                    <h3 className="mt-[14px] font-display text-[18px] font-semibold text-[#0E1525]">{w.title}</h3>
+                    <p className="mt-2 text-[14.5px] leading-[1.55] text-[#5A6478]">{w.desc}</p>
                   </div>
-                  <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
-                    {option.title}
-                  </h3>
-                  <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
-                    {option.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-          <div className="mt-6 flex gap-3 rounded-lg border border-gray-200 bg-white p-6">
-            <Info className="mt-0.5 size-5 shrink-0 text-gray-300" />
-            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
-              Compare current savings rates on our{" "}
-              <Link
-                href="/rates/savings-rates/best-savings-interest-rates-philippines"
-                className="text-brand hover:underline"
-              >
-                Best Savings Interest Rates
-              </Link>{" "}
-              page to find the best place for your emergency fund.
-            </p>
-          </div>
-        </section>
-
-        {/* Worked Example */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Example: Computing Your Emergency Fund
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Suppose your monthly essential expenses look like this:
-          </p>
-          <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between text-gray-400">
-                <span>Rent</span>
-                <span className="font-mono tabular-nums">₱10,000</span>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <span>Food & Groceries</span>
-                <span className="font-mono tabular-nums">₱8,000</span>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <span>Utilities</span>
-                <span className="font-mono tabular-nums">₱4,000</span>
-              </div>
-              <div className="flex justify-between text-gray-400">
-                <span>Transportation</span>
-                <span className="font-mono tabular-nums">₱3,000</span>
-              </div>
-              <div className="mt-2 flex justify-between border-t border-gray-100 pt-2 font-medium text-gray-500">
-                <span>Total Monthly Expenses</span>
-                <span className="font-mono tabular-nums">₱25,000</span>
-              </div>
+                );
+              })}
             </div>
-            <div className="mt-4 space-y-1 text-[16px] leading-[1.6] text-[#5A6478]">
-              <p>
-                <strong className="text-gray-500">3-month target:</strong>{" "}
-                ₱25,000 x 3 = ₱75,000
-              </p>
-              <p>
-                <strong className="text-gray-500">6-month target:</strong>{" "}
-                ₱25,000 x 6 = ₱150,000
-              </p>
-            </div>
-            <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-              If you save ₱10,000 per month toward your emergency fund, you
-              would reach the 3-month target in about 8 months and the 6-month
-              target in about 15 months.
-            </p>
-          </div>
-        </section>
-
-        {/* Questions to consider */}
-        <section className="mt-16">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Questions to Consider
-          </h2>
-          <ul className="mt-6 space-y-4">
-            {questionsToConsider.map((question, i) => (
-              <li
-                key={i}
-                className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
-              >
-                <HelpCircle className="mt-0.5 size-5 shrink-0 text-brand" />
-                {question}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* Disclaimer */}
-        <div className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
-          <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-          <p className="text-[16px] leading-[1.6] text-[#5A6478]">
-            This calculator provides estimates for planning purposes only. The
-            right emergency fund amount depends on your personal circumstances,
-            risk tolerance, and financial obligations. Consider consulting a
-            qualified financial advisor for personalized guidance.
-          </p>
-        </div>
-
-        {/* FAQ */}
-        <div className="mt-16">
-          <FaqSection faqs={faqs} />
-        </div>
-
-        {/* Related Calculators and Guides */}
-        <section className="mt-16">
-          <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Related Calculators and Guides
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {relatedContent.map((item) => {
-              const Icon = item.icon;
-              return (
+            <div className="mt-4 flex items-start gap-[11px] rounded-[13px] border border-[#C9D6F7] bg-[#EAF0FF] p-[14px_16px]">
+              <Info className="mt-0.5 size-[18px] shrink-0 text-brand" />
+              <span className="text-[15px] leading-[1.55] text-[#26408B]">
+                Compare current savings rates on the{" "}
                 <Link
-                  key={item.title}
-                  href={item.href}
-                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                  href="/rates/savings-rates/best-savings-interest-rates-philippines"
+                  className="font-bold text-brand hover:underline"
                 >
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-4" />
-                  </div>
-                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
-                    {item.title}
+                  Best Savings Interest Rates
+                </Link>{" "}
+                page to find the best place for your emergency fund.
+              </span>
+            </div>
+          </section>
+
+          {/* Example */}
+          <section className={CARD}>
+            <h2 className={H2}>Example: computing your emergency fund</h2>
+            <p className="mt-[10px] text-[15px] text-[#5A6478]">
+              Suppose your monthly essential expenses look like this:
+            </p>
+            <div className="mt-4 overflow-hidden rounded-[14px] border border-[#E7EBF3]">
+              {exampleRows.map((e, i) => (
+                <div
+                  key={e.label}
+                  className={`flex items-center justify-between px-[18px] py-[13px] ${
+                    i < exampleRows.length - 1 ? "border-b border-[#EEF1F7]" : ""
+                  } ${e.total ? "bg-[#F1ECFB]" : ""}`}
+                >
+                  <span className={`text-[15px] ${e.total ? "font-bold text-[#0E1525]" : "text-[#475069]"}`}>
+                    {e.label}
                   </span>
-                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
-                </Link>
-              );
-            })}
+                  <span className={`font-display text-[15px] font-bold tabular-nums ${e.total ? "text-[#6D4DE0]" : "text-[#0E1525]"}`}>
+                    {e.val}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-4 text-[15px] leading-[1.6] text-[#475069]">
+              <strong className="text-[#0E1525]">3-month target:</strong> ₱25,000 × 3 = ₱75,000
+              <br />
+              <strong className="text-[#0E1525]">6-month target:</strong> ₱25,000 × 6 = ₱150,000
+            </p>
+          </section>
+
+          {/* Questions */}
+          <section className={CARD}>
+            <h2 className={H2}>Questions to consider</h2>
+            <ul className="mt-4 space-y-3">
+              {questions.map((q) => (
+                <li key={q} className="flex items-start gap-3 text-[16px] leading-[1.55] text-[#344054]">
+                  <HelpCircle className="mt-0.5 size-[18px] shrink-0 text-brand" />
+                  {q}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Disclaimer */}
+          <div className="flex gap-3 rounded-[14px] border border-[#F0E2BE] bg-[#FFF8E8] p-5">
+            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
+            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
+              This calculator provides estimates for planning purposes only. The right emergency
+              fund amount depends on your personal circumstances, risk tolerance, and financial
+              obligations. Consider consulting a qualified financial advisor for personalized
+              guidance.
+            </p>
           </div>
-        </section>
+
+          {/* FAQ */}
+          <section className="pt-7">
+            <FaqSection faqs={faqs} />
+          </section>
+
+          {/* Related */}
+          <section className="pt-7">
+            <h2 className={`mb-4 ${H2}`}>Related calculators and guides</h2>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedPages.map((page) => {
+                const Icon = page.icon;
+                return (
+                  <Link
+                    key={page.title}
+                    href={page.href}
+                    className="group flex items-center gap-3 rounded-[14px] border border-[#E7EBF3] bg-white p-4 shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-colors hover:border-[#C3D0F2] hover:bg-[#FBFCFE]"
+                  >
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-[11px] bg-[#EAF0FF] text-brand">
+                      <Icon className="size-[18px]" />
+                    </span>
+                    <span className="flex-1 text-[15px] font-bold text-[#0E1525] group-hover:text-brand">
+                      {page.title}
+                    </span>
+                    <ArrowRight className="size-4 shrink-0 text-[#C4CCDB]" />
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        </div>
       </div>
     </>
   );

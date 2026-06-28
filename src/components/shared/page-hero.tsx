@@ -13,6 +13,11 @@ interface PageHeroProps {
   variant?: "default" | "dark";
   /** Retained for API compatibility — no longer rendered. */
   image?: { src: string; alt: string };
+  /**
+   * Container width/padding classes. Override to align the hero with a page's
+   * content column (e.g. the 1240px guide pages). Defaults to the legacy width.
+   */
+  containerClassName?: string;
 }
 
 /**
@@ -26,9 +31,10 @@ export function PageHero({
   badge,
   badgeLabel = "Updated",
   breadcrumbs,
+  containerClassName = "max-w-6xl px-4 sm:px-6 lg:px-8",
 }: PageHeroProps) {
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-2 pt-8 sm:px-6 lg:px-8">
+    <div className={`mx-auto pb-2 pt-8 ${containerClassName}`}>
       {/* Breadcrumb */}
       <nav aria-label="Breadcrumb" className="mb-[14px]">
         <ol className="flex flex-wrap items-center gap-2 text-[14px]">

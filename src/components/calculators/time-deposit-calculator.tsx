@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { CalculatorInput } from "@/components/calculators/calculator-input";
 import { ResultActions } from "@/components/calculators/result-actions";
+import { MoneyField, GreenSlider } from "@/components/calculators/green-fields";
 import {
   GradientResult,
-  SplitBar,
+  MixBar,
+  ProgressLine,
   BreakdownCard,
   BreakdownRow,
 } from "@/components/calculators/gradient-result";
@@ -13,35 +14,30 @@ import {
   calculateTimeDeposit,
   calculateForTerm,
 } from "@/lib/calculators/time-deposit";
-import { formatPeso, formatPercent } from "@/lib/formatters";
-import { Label } from "@/components/ui/label";
+import { formatPeso, formatNumber } from "@/lib/formatters";
+import { cn } from "@/lib/utils";
 
-const COMPARISON_TERMS = [3, 6, 12, 24];
+const COMPARISON_TERMS = [3, 6, 12, 24, 36];
 const DEFAULTS = { depositAmount: 100_000, annualRate: 5.5, term: 12 };
 
 export function TimeDepositCalculator() {
   const [depositAmount, setDepositAmount] = useState(DEFAULTS.depositAmount);
   const [annualRate, setAnnualRate] = useState(DEFAULTS.annualRate);
   const [term, setTerm] = useState(DEFAULTS.term);
-  const [termUnit, setTermUnit] = useState<"months" | "years">("months");
 
   const reset = () => {
     setDepositAmount(DEFAULTS.depositAmount);
     setAnnualRate(DEFAULTS.annualRate);
     setTerm(DEFAULTS.term);
-    setTermUnit("months");
   };
 
   const result = useMemo(
-    () => calculateTimeDeposit({ depositAmount, annualRate, term, termUnit }),
-    [depositAmount, annualRate, term, termUnit]
+    () => calculateTimeDeposit({ depositAmount, annualRate, term, termUnit: "months" }),
+    [depositAmount, annualRate, term]
   );
 
   const comparisons = useMemo(
-    () =>
-      COMPARISON_TERMS.map((months) =>
-        calculateForTerm(depositAmount, annualRate, months)
-      ),
+    () => COMPARISON_TERMS.map((m) => calculateForTerm(depositAmount, annualRate, m)),
     [depositAmount, annualRate]
   );
 
@@ -50,156 +46,153 @@ export function TimeDepositCalculator() {
 
   const resultsSummary = [
     `Deposit Amount: ${formatPeso(depositAmount)}`,
-    `Annual Interest Rate: ${formatPercent(annualRate)}`,
+    `Annual Interest Rate: ${annualRate.toFixed(2)}%`,
     `Term: ${result.termUsed}`,
     `Estimated Gross Interest: ${formatPeso(result.grossInterest)}`,
+    `Tax on Interest (20%): ${formatPeso(result.taxOnInterest)}`,
     `Estimated After-Tax Interest: ${formatPeso(result.afterTaxInterest)}`,
     `Estimated Net Maturity Value: ${formatPeso(result.netMaturityValue)}`,
-    `Tax on Interest (20%): ${formatPeso(result.taxOnInterest)}`,
   ].join("\n");
 
   return (
-    <div className="space-y-6">
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        {/* LEFT: Inputs */}
-        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,28px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+    <div className="grid items-stretch gap-[18px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      {/* LEFT: Inputs */}
+      <div className="flex flex-col">
+        <div className="h-full rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(18px,2.5vw,26px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
           <div className="mb-5 flex items-center justify-between">
-            <h2 className="font-display text-[18px] font-semibold text-[#0E1525]">
-              Deposit details
-            </h2>
+            <h2 className="text-[16px] font-bold text-[#0E1525]">Deposit details</h2>
             <button
               type="button"
               onClick={reset}
-              className="text-[14px] font-bold text-brand transition-colors hover:text-brand-light"
+              className="text-[14px] font-semibold text-brand transition-opacity hover:opacity-80"
             >
               Reset
             </button>
           </div>
-          <div className="space-y-6">
-            <CalculatorInput
+
+          <div className="space-y-5">
+            <MoneyField
+              accent="blue"
               label="Deposit amount"
+              tip="The lump sum you lock in for a fixed period. Most banks require a minimum placement."
               value={depositAmount}
               onChange={setDepositAmount}
-              prefix="₱"
               min={1_000}
-              max={10_000_000}
+              max={5_000_000}
               step={10_000}
-              helpText="The amount you plan to place in the time deposit."
-              tooltip="The lump sum you lock in for a fixed period. Most banks require a minimum placement."
             />
-            <CalculatorInput
+            <GreenSlider
+              accent="blue"
               label="Annual interest rate"
+              tip="The gross annual rate offered by the bank. Rates vary by term length and deposit amount."
               value={annualRate}
+              display={`${annualRate.toFixed(2)}%`}
+              min={0.25}
+              max={12}
+              step={0.25}
               onChange={setAnnualRate}
-              min={0.1}
-              max={20}
-              step={0.1}
-              helpText="The estimated annual rate offered by the bank."
-              tooltip="Rates may vary by term length and deposit amount."
             />
-            <CalculatorInput
+            <GreenSlider
+              accent="blue"
               label="Term"
+              tip="How long your money is locked in. Longer terms may offer higher rates but less access to your funds."
               value={term}
-              onChange={setTerm}
+              display={`${term} month${term !== 1 ? "s" : ""}`}
               min={1}
-              max={termUnit === "years" ? 10 : 120}
+              max={60}
               step={1}
-              helpText="The deposit duration."
-              tooltip="Longer terms may offer higher rates but less access to your funds."
+              onChange={(v) => setTerm(Math.round(v))}
             />
-            <div className="space-y-2">
-              <Label htmlFor="term-unit" className="text-[15px] font-semibold text-[#344054]">
-                Term unit
-              </Label>
-              <select
-                id="term-unit"
-                value={termUnit}
-                onChange={(e) => setTermUnit(e.target.value as "months" | "years")}
-                className="flex h-11 w-full rounded-[12px] border border-[#D6DEEC] bg-white px-3 text-[15px] text-[#0E1525] focus-visible:border-brand focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-brand/15"
-              >
-                <option value="months">Months</option>
-                <option value="years">Years</option>
-              </select>
-            </div>
           </div>
         </div>
-
-        {/* RIGHT: Gradient result */}
-        <GradientResult
-          label="Estimated maturity amount"
-          actions={
-            <ResultActions
-              calculatorType="Time Deposit Calculator"
-              resultsSummary={resultsSummary}
-            />
-          }
-          eyebrow="Net maturity"
-          figure={formatPeso(result.netMaturityValue)}
-          sub={`After 20% withholding tax on interest · ${result.termUsed}`}
-        >
-          <SplitBar
-            leftLabel={`Deposit · ${Math.round(depositPct)}%`}
-            leftValue={formatPeso(depositAmount)}
-            leftPct={depositPct}
-            rightLabel={`Interest · ${Math.round(100 - depositPct)}%`}
-            rightValue={formatPeso(result.afterTaxInterest)}
-            total={`Total balance · ${formatPeso(totalBalance)}`}
-          />
-          <BreakdownCard
-            title="Deposit breakdown"
-            note="Based on simple interest with 20% withholding tax on interest income."
-          >
-            <BreakdownRow label="Deposit amount" value={formatPeso(depositAmount)} />
-            <BreakdownRow
-              label="+ Estimated gross interest"
-              value={`+${formatPeso(result.grossInterest)}`}
-              tone="positive"
-            />
-            <BreakdownRow
-              label="− Tax on interest (20%)"
-              value={`−${formatPeso(result.taxOnInterest)}`}
-              tone="negative"
-            />
-            <BreakdownRow
-              label="Estimated net maturity value"
-              value={formatPeso(result.netMaturityValue)}
-              tone="total"
-              strong
-            />
-          </BreakdownCard>
-        </GradientResult>
       </div>
 
-      {/* Term comparison */}
-      <div className="rounded-[18px] border border-[#E7EBF3] bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-        <h3 className="font-display text-[18px] font-semibold text-[#0E1525]">
-          Compare different terms
-        </h3>
-        <p className="mt-1 text-[14px] text-[#6B7488]">
-          Check whether a longer deposit term gives a return that feels worth the
-          lock-in period.
+      {/* RIGHT: Purple result */}
+      <GradientResult
+        accent="purple"
+        label="Time deposit maturity"
+        actions={
+          <ResultActions
+            calculatorType="Time Deposit Calculator"
+            resultsSummary={resultsSummary}
+          />
+        }
+        eyebrow="Net maturity"
+        figure={formatPeso(result.netMaturityValue)}
+        sub={`after 20% tax on interest · ${result.termUsed}`}
+      >
+        <MixBar
+          accent="purple"
+          title="Where your money sits"
+          segments={[
+            { label: "Deposit", value: depositAmount, color: "#B9A9F2" },
+            { label: "After-tax interest", value: result.afterTaxInterest, color: "#5CD2EE" },
+          ]}
+          footer={
+            <ProgressLine
+              accent="purple"
+              label="Your deposit"
+              valueLabel={`${Math.round(depositPct)}% of maturity`}
+              pct={depositPct}
+            />
+          }
+        />
+        <BreakdownCard
+          title="Deposit breakdown"
+          note="Based on simple interest with 20% withholding tax on interest income."
+        >
+          <BreakdownRow label="Deposit amount" value={formatPeso(depositAmount)} />
+          <BreakdownRow
+            label="+ Gross interest"
+            value={`+${formatPeso(result.grossInterest)}`}
+            tone="positive"
+          />
+          <BreakdownRow
+            label="− Tax on interest (20%)"
+            value={`−${formatPeso(result.taxOnInterest)}`}
+            tone="negative"
+          />
+          <BreakdownRow
+            label="Net maturity value"
+            value={formatPeso(result.netMaturityValue)}
+            tone="total"
+            strong
+          />
+        </BreakdownCard>
+      </GradientResult>
+
+      {/* Compare terms */}
+      <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)] lg:col-span-2">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h3 className="font-display text-[20px] font-semibold text-[#0E1525]">Compare terms</h3>
+          <span className="text-[15px] text-[#6B7488]">Same amount &amp; rate · tap to apply</span>
+        </div>
+        <p className="mb-[18px] mt-[7px] text-[15px] text-[#6B7488]">
+          Check whether a longer lock-in gives a return worth the wait, on a{" "}
+          ₱{formatNumber(depositAmount)} deposit at {annualRate.toFixed(2)}%.
         </p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {comparisons.map((comp) => {
-            const active = comp.termInMonths === result.termInMonths;
+            const on = comp.termInMonths === result.termInMonths;
             return (
-              <div
+              <button
                 key={comp.termInMonths}
-                className={`rounded-[14px] border p-4 ${
-                  active ? "border-brand bg-[#EAF0FF]" : "border-[#E7EBF3]"
-                }`}
+                type="button"
+                onClick={() => setTerm(comp.termInMonths)}
+                className={cn(
+                  "rounded-[15px] border-[1.5px] p-4 text-left transition-colors",
+                  on ? "border-brand bg-[#EAF0FF]" : "border-[#E7EBF3] hover:border-[#BCC9F4]"
+                )}
               >
-                <p className="text-[14px] font-semibold text-[#5A6478]">
-                  {comp.termUsed}
-                </p>
-                <p className="mt-1 font-display text-lg font-bold tabular-nums text-[#0E1525]">
-                  {formatPeso(comp.afterTaxInterest)}
-                </p>
-                <p className="text-[13px] text-[#6B7488]">after-tax interest</p>
-                <p className="mt-2 text-[13px] tabular-nums text-[#6B7488]">
-                  Maturity: {formatPeso(comp.netMaturityValue)}
-                </p>
-              </div>
+                <div className="text-[15px] font-bold text-[#5A6478]">{comp.termUsed}</div>
+                <div className="mb-[2px] mt-[7px] font-display text-[22px] font-bold tabular-nums text-[#0E1525]">
+                  ₱{formatNumber(comp.netMaturityValue)}
+                </div>
+                <div className="text-[15px] text-[#6B7488]">at maturity</div>
+                <div className="mt-[9px] text-[14px] font-semibold text-[#0E9F6E]">
+                  +₱{formatNumber(comp.afterTaxInterest)} interest
+                </div>
+              </button>
             );
           })}
         </div>

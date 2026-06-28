@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
  * a cyan glow orb, white text, an optional header (label + actions), a big
  * centered money figure, then any children (split bar, breakdown card).
  */
-export type ResultAccent = "blue" | "green";
+export type ResultAccent = "blue" | "green" | "purple";
 
 const ACCENT: Record<
   ResultAccent,
@@ -33,6 +33,39 @@ const ACCENT: Record<
     label: "text-[#DDF4ED]",
     eyebrow: "text-[#9FE6D6]",
     sub: "text-[#DDF4ED]",
+  },
+  purple: {
+    panel: "var(--ph-grad-panel-purple)",
+    glow: "var(--ph-glow-green)",
+    shadow: "shadow-[0_24px_50px_-22px_rgba(109,77,224,.55)]",
+    label: "text-[#E6ECFF]",
+    eyebrow: "text-[#C9C0F2]",
+    sub: "text-[#CFC8F2]",
+  },
+};
+
+/** Sub-colors for MixBar/ProgressLine inside each accent's panel. */
+const BAR_ACCENT: Record<
+  ResultAccent,
+  { title: string; legend: string; value: string; bar: string }
+> = {
+  blue: {
+    title: "text-[#B9C6FF]",
+    legend: "text-[#C9D4FF]",
+    value: "text-[#9FE6D6]",
+    bar: "bg-[linear-gradient(90deg,#2FD3B5,#5BE8C0)]",
+  },
+  green: {
+    title: "text-[#9FE6D6]",
+    legend: "text-[#DDF4ED]",
+    value: "text-[#9FE6D6]",
+    bar: "bg-[linear-gradient(90deg,#2FD3B5,#5BE8C0)]",
+  },
+  purple: {
+    title: "text-[#C9C0F2]",
+    legend: "text-[#CFC8F2]",
+    value: "text-[#88DCF2]",
+    bar: "bg-[linear-gradient(90deg,#46C7EE,#63DDF0)]",
   },
 };
 
@@ -106,16 +139,19 @@ export function MixBar({
   title,
   segments,
   footer,
+  accent = "green",
 }: {
   title?: string;
   segments: { label: string; value: number; color: string }[];
   footer?: React.ReactNode;
+  accent?: ResultAccent;
 }) {
+  const a = BAR_ACCENT[accent];
   const shown = segments.filter((s) => s.value > 0);
   return (
     <div className="rounded-[16px] border border-white/[.16] bg-white/[.07] p-[16px_18px]">
       {title && (
-        <div className="mb-[10px] text-[12px] font-bold uppercase tracking-[.08em] text-[#9FE6D6]">
+        <div className={cn("mb-[10px] text-[12px] font-bold uppercase tracking-[.08em]", a.title)}>
           {title}
         </div>
       )}
@@ -130,7 +166,7 @@ export function MixBar({
       </div>
       <div className="mt-3 flex flex-wrap gap-x-[14px] gap-y-2">
         {shown.map((s) => (
-          <span key={s.label} className="flex items-center gap-[6px] text-[12.5px] text-[#DDF4ED]">
+          <span key={s.label} className={cn("flex items-center gap-[6px] text-[12.5px]", a.legend)}>
             <span
               className="size-[9px] shrink-0 rounded-[3px]"
               style={{ background: s.color }}
@@ -154,23 +190,23 @@ export function ProgressLine({
   label,
   valueLabel,
   pct,
+  accent = "green",
 }: {
   label: string;
   valueLabel: string;
   pct: number;
+  accent?: ResultAccent;
 }) {
+  const a = BAR_ACCENT[accent];
   const w = Math.max(0, Math.min(100, pct));
   return (
     <>
       <div className="mb-[7px] flex items-center justify-between">
-        <span className="text-[13px] font-semibold text-[#DDF4ED]">{label}</span>
-        <span className="font-display text-[13px] font-bold text-[#9FE6D6]">{valueLabel}</span>
+        <span className={cn("text-[13px] font-semibold", a.legend)}>{label}</span>
+        <span className={cn("font-display text-[13px] font-bold", a.value)}>{valueLabel}</span>
       </div>
       <div className="h-[8px] overflow-hidden rounded-[6px] bg-white/[.16]">
-        <div
-          className="h-full rounded-[6px] bg-[linear-gradient(90deg,#2FD3B5,#5BE8C0)]"
-          style={{ width: `${w}%` }}
-        />
+        <div className={cn("h-full rounded-[6px]", a.bar)} style={{ width: `${w}%` }} />
       </div>
     </>
   );
