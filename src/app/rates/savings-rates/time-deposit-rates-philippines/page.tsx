@@ -459,7 +459,7 @@ export default function TimeDepositRatesPage() {
         </div>
 
         {/* Related Pages */}
-        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
+        <section className="mt-6">
           <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related savings and rates pages
           </h2>

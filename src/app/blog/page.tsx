@@ -148,7 +148,7 @@ export default function BlogPage() {
       )}
 
       {/* FAQ */}
-      <div className="mb-[38px] rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,34px)]">
+      <div className="mb-[38px]">
         <FaqSection faqs={faqs} />
       </div>
 

@@ -378,7 +378,7 @@ export default function SSSContributionGuidePage() {
       </div>
 
       {/* Related Payroll Tools and Guides */}
-      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
+      <section className="mt-6 scroll-mt-20">
         <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           Related payroll tools and guides
         </h2>
