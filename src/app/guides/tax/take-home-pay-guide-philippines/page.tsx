@@ -325,7 +325,9 @@ export default function TakeHomePayGuidePage() {
             After reading this guide, you may also want to review these related
             pages.
           </p>
-          <div className="grid gap-[14px] sm:grid-cols-2">
+          <div
+            className={`grid gap-[14px] ${relatedPages.length >= 3 ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2"}`}
+          >
             {relatedPages.map((page) => {
               const Icon = page.icon;
               return (
