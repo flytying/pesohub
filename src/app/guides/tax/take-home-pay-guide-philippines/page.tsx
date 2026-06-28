@@ -303,7 +303,7 @@ export default function TakeHomePayGuidePage() {
 
       </div>
 
-      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20">
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)]">
         {/* Calculator CTA */}
         <GuideCtaCard
           title="Want to Estimate Your Take-Home Pay Directly?"

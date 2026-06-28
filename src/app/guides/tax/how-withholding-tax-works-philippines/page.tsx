@@ -513,7 +513,7 @@ export default function WithholdingTaxGuidePage() {
 
       </div>
 
-      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20">
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)]">
         {/* Calculator CTA */}
         <GuideCtaCard
           title="Want to Compute Your Exact Withholding Tax?"

@@ -261,7 +261,7 @@ export default function PagIBIGDeductionGuidePage() {
 
       </div>
 
-      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20">
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)]">
         {/* What to Do Next */}
         <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-center text-[clamp(22px,2.6vw,28px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
