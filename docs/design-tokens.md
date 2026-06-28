@@ -97,3 +97,21 @@ bg-pill-blue, bg-pill-orange
 text-gray-500, text-gray-400, text-gray-300
 bg-gray-200, bg-gray-200/20, bg-gray-100, bg-gray-50
 ```
+
+---
+
+## Result-panel gradients
+
+Coloured calculator result heroes (`GradientResult`) use these `--ph-*` tokens.
+Accent is keyed to the calculator category — see
+[design-calculators.md](design-calculators.md).
+
+```
+--ph-grad-panel:        linear-gradient(150deg,#1A3AD6,#1430BE,#0E2496)   /* loans (blue) */
+--ph-grad-panel-green:  linear-gradient(150deg,#0FA88F,#0B8270,#075C50)   /* salary / SSS */
+--ph-grad-panel-purple: linear-gradient(150deg,#6D4DE0,#5836CC,#3C2496)   /* saving / planning */
+--ph-glow-cyan:  radial-gradient(circle,rgba(43,229,223,.45),transparent 70%)  /* blue panel orb */
+--ph-glow-green: radial-gradient(circle,rgba(43,229,223,.28),transparent 68%)  /* green + purple orb */
+```
+
+Slider accents: green `#0B8270` (salary/SSS), blue `#1535C7` (loans, saving/planning).

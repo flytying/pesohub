@@ -8,6 +8,7 @@ Comprehensive design reference split into focused documents:
 | [design-components.md](design-components.md)  | Cards, badges, buttons, lists, tables, FAQ, icons  |
 | [design-layouts.md](design-layouts.md)        | Header, footer, section layouts, backgrounds       |
 | [design-pages.md](design-pages.md)            | Calculator detail pages, hub pages, page templates |
+| [design-calculators.md](design-calculators.md) | Calculator result heroes, accent-by-category, field components, page recipe |
 
 ## Quick Reference
 

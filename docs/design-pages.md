@@ -6,34 +6,41 @@ Templates for building specific page types.
 
 ## Calculator Detail Pages
 
+> Full calculator styling — result heroes, accent-by-category, field
+> components, and the section recipe — lives in
+> [design-calculators.md](design-calculators.md). Summary below.
+
 ### Container
 
-```
-mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14
-```
+Matches the global footer width so edges align (see design-layouts.md):
 
-### Content Section Pattern
-
-```jsx
-<section className="mt-16">
-  <h2 className="text-[32px] font-medium leading-[48px] text-gray-500">
-    Section Title
-  </h2>
-  <p className="mt-4 text-[16px] leading-[22px] text-gray-400">
-    Body paragraph text.
-  </p>
-</section>
+```
+mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(18px,3vw,34px)]
 ```
 
-- Spacing between sections: `mt-16`
+### Per-page constants
+
+```js
+const CARD = "rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,30px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]";
+const H2   = "font-display text-[22px] font-semibold tracking-[-0.02em] text-[#0E1525]";
+const LEAD = "mt-[10px] max-w-[80ch] text-[16px] leading-[1.65] text-[#475069]";
+```
 
 ### Section Order
 
-1. Page Hero (`bg-brand`)
-2. Calculator component
-3. Content sections (tips, factors, comparisons, questions)
-4. FAQ accordion (wrapped in `<div className="mt-16">`)
-5. Related links section
+1. **Inline header** — breadcrumb + `h1` + intro + `Clock` "Updated …" (no dark hero).
+2. **Calculator** — `<div id="calculator" className="scroll-mt-20">`. Input card + result hero (accent by category) + optional compare row.
+3. **Content** — `<div className="mt-9 space-y-[14px]">` of `CARD` sections + a yellow disclaimer.
+4. **FAQ** — bare `FaqSection`, no card, in `<section className="pt-7">`.
+5. **Related** — bare link-card grid, no card, in `<section className="pt-7">`.
+
+The result hero accent (blue / green / purple) is keyed to the calculator
+category — see [design-calculators.md](design-calculators.md).
+
+### FAQ + Related
+
+Never wrapped in a card. In the tight `space-y-[14px]` stack add `pt-7` to both
+wrappers for breathing room (padding, not margin — `space-y` outranks `mt-*`).
 
 ### Complete Example (Related Links)
 
