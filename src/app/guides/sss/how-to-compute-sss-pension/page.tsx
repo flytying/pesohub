@@ -97,17 +97,26 @@ const mscRows = [
   { range: "₱29,750 and above", msc: "₱30,000", ee: "₱1,350", er: "₱2,850" },
 ];
 
-const exampleRows: { label: string; val: string; kind: "fhead" | "sub" | "res" }[] = [
-  { label: "Formula 1", val: "₱300 + (20% × AMSC) + (2% × AMSC × CYS over 10)", kind: "fhead" },
-  { label: "Base amount", val: "₱300", kind: "sub" },
-  { label: "20% × AMSC", val: "20% × ₱20,000 = ₱4,000", kind: "sub" },
-  { label: "2% × AMSC × CYS over 10", val: "2% × ₱20,000 × 15 = ₱6,000", kind: "sub" },
-  { label: "Formula 1 result", val: "₱10,300/month", kind: "res" },
-  { label: "Formula 2", val: "40% × AMSC", kind: "fhead" },
-  { label: "Computation", val: "40% × ₱20,000", kind: "sub" },
-  { label: "Formula 2 result", val: "₱8,000/month", kind: "res" },
-  { label: "Formula 3", val: "Minimum pension (CYS ≥ 10)", kind: "fhead" },
-  { label: "Formula 3 result", val: "₱2,000/month", kind: "res" },
+const exampleSteps = [
+  {
+    n: "1",
+    title: "Formula 1 — rewards long tenure",
+    formula:
+      "base ₱300\n+ 20% × ₱20,000 = ₱4,000\n+ 2% × ₱20,000 × 15 = ₱6,000",
+    result: "₱10,300/month",
+  },
+  {
+    n: "2",
+    title: "Formula 2 — 40% of AMSC",
+    formula: "40% × ₱20,000",
+    result: "₱8,000/month",
+  },
+  {
+    n: "3",
+    title: "Formula 3 — minimum pension",
+    formula: "minimum pension (CYS ≥ 10)",
+    result: "₱2,000/month",
+  },
 ];
 
 export default function SssPensionGuidePage() {
@@ -306,59 +315,71 @@ export default function SssPensionGuidePage() {
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Worked example: MSC of ₱20,000 with 25 years of contributions
           </h2>
-          <div className="mt-6 overflow-hidden rounded-[15px] border border-[#E0E6F2] bg-[#F7F9FD]">
-            {/* Header */}
-            <div className="border-b border-[#E0E6F2] bg-[#F4F8FF] px-5 py-[15px] text-[14.5px] leading-[1.5] text-[#2A3550]">
-              A member has an AMSC of ₱20,000 and 25 credited years of service
-              (CYS).
-            </div>
+          {/* Scenario */}
+          <div className="mt-6 flex flex-wrap items-start gap-[13px] rounded-[14px] border border-[#DFE9FB] bg-[#F4F8FF] px-[18px] py-[15px]">
+            <span className="rounded-[7px] bg-[#E3ECFF] px-[9px] py-[5px] text-[10.5px] font-bold uppercase leading-none tracking-[.1em] text-brand">
+              Scenario
+            </span>
+            <span className="text-[15px] leading-[1.55] text-[#2A3550]">
+              A member has an <strong className="text-[#0E1525]">AMSC of ₱20,000</strong>{" "}
+              and <strong className="text-[#0E1525]">25 credited years of service</strong> (CYS).
+            </span>
+          </div>
 
-            <div className="overflow-x-auto">
-              <div className="min-w-[480px]">
-                {exampleRows.map((row, i) => {
-                  const isHead = row.kind === "fhead";
-                  const isRes = row.kind === "res";
-                  return (
-                    <div
-                      key={i}
-                      className={`flex items-center justify-between gap-4 ${
-                        isHead ? "px-5 pb-[9px] pt-[13px]" : "px-5 py-[9px]"
-                      } ${row.kind === "sub" ? "pl-[34px]" : ""} ${
-                        isRes ? "border-t border-dashed border-[#E6EBF4]" : ""
-                      }`}
-                    >
-                      <span
-                        className={`text-[14px] ${
-                          isHead
-                            ? "font-bold text-[#0E1525]"
-                            : isRes
-                              ? "font-bold text-brand"
-                              : "text-[#5A6478]"
-                        }`}
-                      >
-                        {row.label}
-                      </span>
-                      <span
-                        className={`text-right font-mono text-[13px] ${
-                          isRes ? "font-semibold text-brand" : "text-[#475069]"
-                        }`}
-                      >
-                        {row.val}
-                      </span>
-                    </div>
-                  );
-                })}
+          {/* Timeline */}
+          <div className="mt-6">
+            {exampleSteps.map((step, i) => (
+              <div key={step.n} className="flex gap-4">
+                <div className="flex flex-col items-center">
+                  <div className="flex size-[30px] items-center justify-center rounded-full bg-[#EAF0FF] text-[13.5px] font-bold text-brand">
+                    {step.n}
+                  </div>
+                  {i < exampleSteps.length - 1 && (
+                    <div className="my-2 w-[2px] flex-1 bg-[#E5EBF7]" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1 pb-6">
+                  <div className="mb-[11px] mt-[5px] text-[15.5px] font-semibold text-[#0E1525]">
+                    {step.title}
+                  </div>
+                  <div className="max-w-[440px] whitespace-pre-line rounded-[10px] border border-[#E8EDF7] bg-[#F4F6FB] px-[14px] py-[11px] font-mono text-[13px] leading-[1.8] text-[#475069]">
+                    {step.formula}
+                  </div>
+                  <div className="mt-3 inline-flex flex-wrap items-center gap-[9px] font-mono text-[13px]">
+                    <span className="text-[#5A6478]">{step.n === "3" ? "minimum" : `formula ${step.n}`}</span>
+                    <span className="text-[#AAB3C6]">=</span>
+                    <span className="rounded-[9px] border border-[#D6E1FB] bg-[#EAF0FF] px-3 py-2 font-semibold text-brand">
+                      {step.result}
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
+          </div>
 
-            {/* Result total */}
-            <div className="flex items-center justify-between gap-4 bg-[#1430BE] px-5 py-4">
-              <span className="text-[15px] font-semibold text-white">
-                Monthly pension (highest of 3 formulas)
-              </span>
-              <span className="text-[20px] font-bold text-white">
+          {/* Result block */}
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-[18px] rounded-[16px] bg-[#1430BE] px-[26px] py-[22px]">
+            <div>
+              <p className="text-[11.5px] font-semibold uppercase tracking-[.09em] text-[#B9C7FF]">
+                Est. monthly pension
+              </p>
+              <p className="mt-1.5 text-[36px] font-bold leading-none tracking-[-0.02em] text-white">
                 {formatPeso(10300, 0)}
-              </span>
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-[10px]">
+              <div className="rounded-[11px] bg-white/[.12] px-[14px] py-[10px]">
+                <p className="text-[11px] text-[#B9C7FF]">Highest formula</p>
+                <p className="mt-0.5 font-mono text-[14px] font-semibold text-white">
+                  Formula 1
+                </p>
+              </div>
+              <div className="rounded-[11px] bg-white/[.12] px-[14px] py-[10px]">
+                <p className="text-[11px] text-[#B9C7FF]">Credited years</p>
+                <p className="mt-0.5 font-mono text-[14px] font-semibold text-white">
+                  25 CYS
+                </p>
+              </div>
             </div>
           </div>
           <p className="mt-4 text-[14px] leading-[1.6] text-[#8A93A6]">
