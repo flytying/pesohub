@@ -47,6 +47,17 @@ const CARD =
 const H2 =
   "font-display text-[clamp(20px,2.2vw,24px)] font-semibold tracking-[-.02em] text-[#0E1525]";
 
+const jumpLinks = [
+  { label: "Monthly table", href: "#monthly-table" },
+  { label: "Semi-monthly table", href: "#semi-monthly-table" },
+  { label: "Weekly table", href: "#weekly-table" },
+  { label: "Daily table", href: "#daily-table" },
+  { label: "Annual table", href: "#annual-table" },
+  { label: "How to compute", href: "#how-to-compute" },
+  { label: "Calculator", href: "#calculator" },
+  { label: "FAQs", href: "#faqs" },
+];
+
 const commonMistakes = [
   "Using gross salary instead of taxable compensation — subtract SSS, PhilHealth, and Pag-IBIG first.",
   "Reading the wrong payroll-frequency table (e.g. using the monthly table for semi-monthly pay).",
@@ -106,21 +117,49 @@ export default function WithholdingTaxTablePage() {
       />
 
       <div className={`${WRAP} space-y-5 pt-6`}>
-        {/* Withholding tax table (tabbed: current + previous per frequency) */}
-        <section className={CARD}>
-          <h2 className={H2}>2026 BIR withholding tax table</h2>
-          <p className="mt-[10px] mb-[18px] text-[16px] leading-[1.7] text-[#475069]">
+        {/* Jump links */}
+        <nav
+          aria-label="On this page"
+          className="rounded-[16px] border border-[#E7EBF3] bg-white p-[clamp(16px,2.4vw,22px)]"
+        >
+          <p className="mb-3 text-[12px] font-bold uppercase tracking-[.05em] text-[#8A93A6]">
+            On this page
+          </p>
+          <ul className="flex flex-wrap gap-2">
+            {jumpLinks.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  className="inline-flex rounded-[9px] border border-[#E7EBF3] bg-[#FBFCFE] px-[13px] py-[8px] text-[14px] font-semibold text-[#344054] transition-colors hover:border-[#C3D0F2] hover:text-brand"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Overview */}
+        <section id="tax-table" className={`${CARD} scroll-mt-24`}>
+          <h2 className={H2}>2026 BIR Withholding Tax Table</h2>
+          <p className="mt-[10px] text-[16px] leading-[1.7] text-[#475069]">
             View the current and previous withholding tax tables for compensation
             income. The current table is effective January 1, 2023 onwards under
-            the TRAIN Law (RA 10963). The previous table was in effect from
-            January 1, 2018 to December 31, 2022.
+            the TRAIN Law (RA 10963); the previous table was in effect from
+            January 1, 2018 to December 31, 2022. Each payroll frequency —
+            monthly, semi-monthly, weekly, daily, and the annual income tax
+            brackets — is listed in full below.
           </p>
-          <WithholdingTaxTables />
         </section>
 
+        {/* Per-frequency tables (crawlable: each its own H2 + anchor) */}
+        <WithholdingTaxTables />
+
         {/* Worked example */}
-        <section className={CARD}>
-          <h2 className={H2}>How to compute withholding tax: worked example</h2>
+        <section id="how-to-compute" className={`${CARD} scroll-mt-24`}>
+          <h2 className={H2}>
+            How to Compute Withholding Tax Using the BIR Table
+          </h2>
           <p className="mt-[10px] mb-4 text-[16px] leading-[1.7] text-[#475069]">
             Here is a simple example using the current monthly withholding tax
             table.
@@ -176,8 +215,25 @@ export default function WithholdingTaxTablePage() {
           </ul>
         </section>
 
+        {/* Calculator */}
+        <section id="calculator" className={`${CARD} scroll-mt-24`}>
+          <h2 className={H2}>Use the Withholding Tax Calculator</h2>
+          <p className="mt-[10px] mb-[18px] text-[16px] leading-[1.7] text-[#475069]">
+            Skip the manual lookup. The Withholding Tax Calculator deducts your
+            SSS, PhilHealth, and Pag-IBIG shares (automatically or with your own
+            figures), handles taxable and tax-exempt allowances, and shows your
+            withholding tax and net pay for the period, the month, and the year.
+          </p>
+          <GovCtaBanner
+            title="Want to compute your exact withholding tax?"
+            description="Enter your gross pay and pay frequency — the calculator nets out mandatory contributions and applies the matching BIR table for you."
+            href="/calculators/tax/withholding-tax-calculator-philippines"
+            ctaLabel="Use the withholding tax calculator"
+          />
+        </section>
+
         {/* 2025 vs 2026 */}
-        <section className={CARD}>
+        <section id="different-2025" className={`${CARD} scroll-mt-24`}>
           <h2 className={H2}>
             Is the 2026 Withholding Tax Table Different From 2025?
           </h2>
@@ -197,7 +253,7 @@ export default function WithholdingTaxTablePage() {
         </section>
 
         {/* Common mistakes */}
-        <section className={CARD}>
+        <section id="mistakes" className={`${CARD} scroll-mt-24`}>
           <h2 className={H2}>Common Withholding Tax Mistakes</h2>
           <p className="mt-[10px] mb-4 text-[16px] leading-[1.7] text-[#475069]">
             The most frequent errors when reading the BIR withholding tax table:
@@ -215,19 +271,11 @@ export default function WithholdingTaxTablePage() {
         </section>
       </div>
 
-      {/* CTA */}
-      <div className={`${WRAP} pt-[clamp(28px,4vw,40px)]`}>
-        <GovCtaBanner
-          title="Want to compute your exact withholding tax?"
-          description="Skip the manual lookup. The Withholding Tax Calculator deducts your SSS, PhilHealth, and Pag-IBIG shares, handles allowances, and shows your withholding tax and net pay for the period, the month, and the year."
-          href="/calculators/tax/withholding-tax-calculator-philippines"
-          ctaLabel="Use the withholding tax calculator"
-        />
-      </div>
-
       <div className={`${WRAP} pb-20 pt-[clamp(34px,5vw,48px)]`}>
         {/* FAQ */}
-        <FaqSection faqs={withholdingTaxTableFaqs} />
+        <div id="faqs" className="scroll-mt-24">
+          <FaqSection faqs={withholdingTaxTableFaqs} />
+        </div>
 
         {/* Related */}
         <section className="mt-[clamp(34px,5vw,48px)]">
@@ -257,17 +305,20 @@ export default function WithholdingTaxTablePage() {
         </section>
 
         {/* Source & disclaimer */}
-        <div className="mt-[clamp(34px,5vw,48px)]">
+        <section id="source" className="mt-[clamp(34px,5vw,48px)] scroll-mt-24">
+          <h2 className="mb-6 font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+            Official BIR Source and Freshness
+          </h2>
           <SourceCitation
             source="Bureau of Internal Revenue (BIR) — TRAIN Law (RA 10963), RR 11-2018, Annex E"
             sourceUrl="https://www.bir.gov.ph/tax-information/tax-rates"
             updatedAt={WITHHOLDING_TAX_TABLE_UPDATED_AT}
             reviewCadence="Every 90 days"
           />
-        </div>
-        <div className="mt-4">
-          <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
-        </div>
+          <div className="mt-4">
+            <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
+          </div>
+        </section>
       </div>
     </>
   );
