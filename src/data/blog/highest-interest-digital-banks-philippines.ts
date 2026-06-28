@@ -209,16 +209,17 @@ const post: BlogPostData = {
       "content": "Here is a quick reference summary of all eight digital banks covered in this article. For a full live rates table with current promotions and updated figures, visit /rates/savings-rates/best-savings-interest-rates-philippines."
     },
     {
-      "type": "ordered-list",
-      "items": [
-        "Tonik Bank — Top Rate: 6.00% p.a. | Conditional: No | Balance Cap: None | PDIC Coverage: ₱500,000 | Best For: Highest flat, unconditional savings rate",
-        "Maya Bank — Top Rate: 15% p.a. | Conditional: Yes (spending missions) | Balance Cap: Capped portion only | PDIC Coverage: ₱500,000 | Best For: Active Maya spenders who hit monthly missions",
-        "GoTyme Bank — Top Rate: 4–5% p.a. | Conditional: No | Balance Cap: None | PDIC Coverage: ₱500,000 | Best For: Simple unconditional rate with mall kiosk onboarding",
-        "CIMB Bank PH — Top Rate: 5% p.a. | Conditional: Promotional | Balance Cap: Varies | PDIC Coverage: ₱500,000 | Best For: GCash users wanting high yield without a separate app",
-        "UNO Digital Bank — Top Rate: 3.50% p.a. | Conditional: No | Balance Cap: None | PDIC Coverage: ₱1,000,000 | Best For: Depositors prioritizing maximum PDIC protection",
-        "MariBank — Top Rate: 3.75% p.a. | Conditional: Tiered (above ₱1M) | Balance Cap: Upper tier requires ₱1M+ | PDIC Coverage: ₱500,000 | Best For: Higher-balance savers above ₱1,000,000",
-        "Salmon Bank — Top Rate: 8% p.a. | Conditional: Time deposit lock-in | Balance Cap: None stated | PDIC Coverage: ₱500,000 | Best For: Savers who can lock funds for maximum fixed-term yield",
-        "PondoKo — Top Rate: 5% p.a. | Conditional: SEME account type | Balance Cap: None stated | PDIC Coverage: ₱500,000 | Best For: Micro-entrepreneurs and self-employed individuals"
+      "type": "table",
+      "columns": ["Bank", "Top Rate", "Conditions & best for"],
+      "rows": [
+        ["Tonik Bank", "6.00%", "No conditions · No balance cap · PDIC ₱500k · Highest flat, unconditional rate"],
+        ["Maya Bank", "Up to 15%", "Conditional (spending missions) · Capped portion only · PDIC ₱500k · Active Maya spenders"],
+        ["GoTyme Bank", "4–5%", "No conditions · No balance cap · PDIC ₱500k · Simple rate with mall-kiosk onboarding"],
+        ["CIMB Bank PH", "5%", "Promotional · Cap varies · PDIC ₱500k · GCash users wanting high yield"],
+        ["UNO Digital Bank", "3.50%", "No conditions · No balance cap · PDIC ₱1M · Maximum PDIC protection"],
+        ["MariBank", "3.75%", "Tiered above ₱1M · Upper tier needs ₱1M+ · PDIC ₱500k · Higher-balance savers"],
+        ["Salmon Bank", "8%", "Time-deposit lock-in · No cap stated · PDIC ₱500k · Maximum fixed-term yield"],
+        ["PondoKo", "5%", "SEME account type · No cap stated · PDIC ₱500k · Micro-entrepreneurs & self-employed"]
       ]
     },
     {
