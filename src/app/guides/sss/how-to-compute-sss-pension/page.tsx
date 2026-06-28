@@ -372,22 +372,20 @@ export default function SssPensionGuidePage() {
             </div>
 
             {/* Result total */}
-            <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-              <div className="flex justify-between text-[16px] leading-[1.6]">
-                <span className="font-semibold text-gray-500">Monthly Pension (highest of 3 formulas)</span>
-                <span className="font-mono tabular-nums font-bold text-brand">{formatPeso(10300, 0)}</span>
-              </div>
-            </div>
-
-            {/* Note */}
-            <div className="border-t border-gray-100 px-6 py-3">
-              <p className="text-[14px] text-gray-300">
-                Members who retire at age 60 receive a 1.5% additional pension
-                for every year of CYS beyond 10 years. Actual amounts may vary
-                based on your specific SSS contribution history.
-              </p>
+            <div className="flex items-center justify-between gap-4 bg-[#1430BE] px-6 py-4">
+              <span className="text-[15px] font-semibold text-white">
+                Monthly pension (highest of 3 formulas)
+              </span>
+              <span className="text-[20px] font-bold text-white">
+                {formatPeso(10300, 0)}
+              </span>
             </div>
           </div>
+          <p className="mt-4 text-[14px] leading-[1.6] text-gray-300">
+            Members who retire at age 60 receive a 1.5% additional pension for
+            every year of CYS beyond 10 years. Actual amounts may vary based on
+            your specific SSS contribution history.
+          </p>
         </section>
 
         {/* Common Mistakes to Avoid */}
@@ -407,28 +405,23 @@ export default function SssPensionGuidePage() {
 
       </div>
 
-      {/* Calculator CTA */}
-      <section className="bg-surface-tertiary py-20">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
+      <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
+        {/* Calculator CTA */}
+        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(28px,4vw,40px)] text-center">
+          <h2 className="text-[clamp(22px,2.6vw,28px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Want to Estimate Your SSS Retirement Pension?
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
-            Use the SSS Pension Calculator to estimate your retirement
-            pension based on your salary credit and years of contribution.
+          <p className="mx-auto mt-[10px] max-w-[58ch] text-[16px] leading-[1.6] text-[#5A6478]">
+            Use the SSS Pension Calculator to estimate your retirement pension
+            based on your salary credit and years of contribution.
           </p>
-          <div className="mt-6">
-            <Link
-              href="/calculators/retirement/sss-pension-calculator"
-              className="inline-flex items-center rounded-full bg-brand px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-            >
-              USE THE SSS PENSION CALCULATOR
-            </Link>
-          </div>
+          <Link
+            href="/calculators/retirement/sss-pension-calculator"
+            className="mt-[22px] inline-flex items-center rounded-full bg-brand px-[26px] py-[14px] text-[13px] font-bold uppercase tracking-[.04em] text-white transition-colors hover:bg-brand-dark"
+          >
+            Use the SSS Pension Calculator
+          </Link>
         </div>
-      </section>
-
-      <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
         {/* FAQ */}
         <div className="mt-16">
           <FaqSection faqs={sssPensionFaqs} />

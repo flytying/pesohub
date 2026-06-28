@@ -166,7 +166,7 @@ export default function GuidesPage() {
       </div>
 
       {/* Intro */}
-      <div className="mb-[34px] space-y-4 text-[15.5px] leading-[1.7] text-[#5A6478]">
+      <div className="mb-[34px] space-y-4 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(24px,3vw,40px)] text-[15.5px] leading-[1.7] text-[#5A6478] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
         <p>
           Most Filipino workers encounter SSS, PhilHealth, Pag-IBIG, and
           withholding tax deductions on every payslip — but few understand how

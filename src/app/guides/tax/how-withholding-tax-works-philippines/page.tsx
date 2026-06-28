@@ -11,6 +11,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
+import { GuideCtaCard } from "@/components/guides/guide-cta-card";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   Table,
@@ -392,22 +393,37 @@ export default function WithholdingTaxGuidePage() {
               </dl>
             </div>
 
-            {/* Result total */}
-            <div className="border-t border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-              <div className="flex justify-between text-[16px] leading-[1.6]">
-                <span className="font-semibold text-gray-500">Monthly Withholding Tax</span>
-                <span className="font-mono tabular-nums font-bold text-brand">{formatPeso(1740.63)}</span>
-              </div>
-            </div>
+          </div>
 
-            {/* Note */}
-            <div className="border-t border-gray-100 px-6 py-3">
-              <p className="text-[14px] text-gray-300">
-                Actual withholding may vary slightly due to employer annualization
-                adjustments and rounding differences per pay period.
+          {/* Result block */}
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-[18px] rounded-[16px] bg-[#1430BE] px-[26px] py-[22px]">
+            <div>
+              <p className="text-[11.5px] font-semibold uppercase tracking-[.09em] text-[#B9C7FF]">
+                Est. monthly withholding tax
+              </p>
+              <p className="mt-1.5 text-[36px] font-bold leading-none tracking-[-0.02em] text-white">
+                {formatPeso(1740.63)}
               </p>
             </div>
+            <div className="flex flex-wrap gap-[10px]">
+              <div className="rounded-[11px] bg-white/[.12] px-[14px] py-[10px]">
+                <p className="text-[11px] text-[#B9C7FF]">Annual tax</p>
+                <p className="mt-0.5 font-mono text-[14px] font-semibold text-white">
+                  {formatPeso(20887.5)}
+                </p>
+              </div>
+              <div className="rounded-[11px] bg-white/[.12] px-[14px] py-[10px]">
+                <p className="text-[11px] text-[#B9C7FF]">Effective rate</p>
+                <p className="mt-0.5 font-mono text-[14px] font-semibold text-white">
+                  ≈ 5.0%
+                </p>
+              </div>
+            </div>
           </div>
+          <p className="mt-4 text-[13px] leading-[1.6] text-gray-300">
+            Actual withholding may vary slightly due to employer annualization
+            adjustments and rounding differences per pay period.
+          </p>
         </section>
 
         {/* Common Mistakes to Avoid */}
@@ -427,27 +443,14 @@ export default function WithholdingTaxGuidePage() {
 
       </div>
 
-      {/* Calculator CTA */}
-      <section className="bg-surface-tertiary py-20">
-        <div className="mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Want to Compute Your Exact Withholding Tax?
-          </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-            Use the Withholding Tax Calculator to compute your exact withholding
-            tax based on your salary and deductions. You can also try the
-            Take-Home Pay Calculator to see a full deduction breakdown.
-          </p>
-          <Link
-            href="/calculators/tax/withholding-tax-calculator-philippines"
-            className="mt-6 inline-block rounded-full bg-brand px-8 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-          >
-            Use the Withholding Tax Calculator
-          </Link>
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
+        {/* Calculator CTA */}
+        <GuideCtaCard
+          title="Want to Compute Your Exact Withholding Tax?"
+          description="Use the Withholding Tax Calculator to compute your exact withholding tax based on your salary and deductions. You can also try the Take-Home Pay Calculator to see a full deduction breakdown."
+          href="/calculators/tax/withholding-tax-calculator-philippines"
+          ctaLabel="Use the Withholding Tax Calculator"
+        />
         {/* FAQ */}
         <div className="mt-16">
           <FaqSection faqs={withholdingTaxFaqs} />

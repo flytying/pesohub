@@ -15,6 +15,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
+import { GuideCtaCard } from "@/components/guides/guide-cta-card";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -295,29 +296,14 @@ export default function TakeHomePayGuidePage() {
 
       </div>
 
-      {/* Calculator CTA */}
-      <section className="bg-surface-tertiary py-20">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Want to Estimate Your Take-Home Pay Directly?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
-            If you already know your monthly gross salary and want to estimate
-            your net pay, use the Take-Home Pay Calculator to see a deduction
-            breakdown faster.
-          </p>
-          <div className="mt-6">
-            <Link
-              href="/calculators/tax/take-home-pay-calculator-philippines"
-              className="inline-flex items-center rounded-full bg-brand px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-            >
-              USE THE TAKE-HOME PAY CALCULATOR
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
+        {/* Calculator CTA */}
+        <GuideCtaCard
+          title="Want to Estimate Your Take-Home Pay Directly?"
+          description="If you already know your monthly gross salary and want to estimate your net pay, use the Take-Home Pay Calculator to see a deduction breakdown faster."
+          href="/calculators/tax/take-home-pay-calculator-philippines"
+          ctaLabel="Use the Take-Home Pay Calculator"
+        />
         {/* FAQ */}
         <div className="mt-16">
           <FaqSection faqs={takeHomePayGuideFaqs} />
