@@ -104,45 +104,63 @@ function renderSection(section: BlogSection, index: number) {
     case "table": {
       const columns = section.columns ?? [];
       const rows = section.rows ?? [];
-      const cols =
-        "grid-cols-[1.1fr_0.7fr] sm:grid-cols-[1.1fr_0.7fr_1.4fr]";
+      const n = columns.length || rows[0]?.length || 0;
+      // 3-column tables are bank rankings: bank · rate · conditions, with a
+      // toned rate pill and a wider conditions column. Anything else is a
+      // generic comparison grid with equal columns.
+      const ranking = n === 3;
+      const template = ranking
+        ? "minmax(116px,1.1fr) minmax(92px,0.7fr) minmax(220px,1.5fr)"
+        : `minmax(140px,1.1fr) repeat(${Math.max(n - 1, 1)}, minmax(150px,1fr))`;
+      const minWidth = ranking ? 560 : Math.max(n, 1) * 170;
       return (
         <div
           key={index}
-          className="mt-6 overflow-hidden rounded-[14px] border border-[#E0E6F2]"
+          className="mt-6 overflow-x-auto rounded-[14px] border border-[#E0E6F2]"
         >
-          {/* Header */}
-          <div
-            className={`grid ${cols} gap-3 border-b border-[#E0E6F2] bg-[#EEF2FB] px-[18px] py-[13px] text-[11px] font-bold uppercase tracking-[.05em] text-[#56607A]`}
-          >
-            {columns.map((c, i) => (
-              <span
-                key={i}
-                className={i >= 2 ? "hidden sm:block" : undefined}
+          <div style={{ minWidth }}>
+            {/* Header */}
+            <div
+              className="grid gap-3 border-b border-[#E0E6F2] bg-[#EEF2FB] px-[18px] py-[13px] text-[11px] font-bold uppercase tracking-[.05em] text-[#56607A]"
+              style={{ gridTemplateColumns: template }}
+            >
+              {columns.map((c, i) => (
+                <span key={i}>{c}</span>
+              ))}
+            </div>
+            {/* Rows */}
+            {rows.map((row, ri) => (
+              <div
+                key={ri}
+                className={`grid items-center gap-3 px-[18px] py-[14px] ${
+                  ri < rows.length - 1 ? "border-b border-[#EEF1F7]" : ""
+                } ${ri % 2 === 1 ? "bg-[#FAFBFE]" : ""}`}
+                style={{ gridTemplateColumns: template }}
               >
-                {c}
-              </span>
+                {row.map((cell, ci) =>
+                  ci === 0 ? (
+                    <span
+                      key={ci}
+                      className="font-display text-[14px] font-semibold text-[#0E1525]"
+                    >
+                      {cell}
+                    </span>
+                  ) : ranking && ci === 1 ? (
+                    <span key={ci}>
+                      <span className={ratePillClass(cell)}>{cell}</span>
+                    </span>
+                  ) : (
+                    <span
+                      key={ci}
+                      className="text-[14px] leading-[1.5] text-[#5A6478]"
+                    >
+                      {cell}
+                    </span>
+                  ),
+                )}
+              </div>
             ))}
           </div>
-          {/* Rows */}
-          {rows.map((row, ri) => (
-            <div
-              key={ri}
-              className={`grid ${cols} items-center gap-3 px-[18px] py-[14px] ${
-                ri < rows.length - 1 ? "border-b border-[#EEF1F7]" : ""
-              } ${ri % 2 === 1 ? "bg-[#FAFBFE]" : ""}`}
-            >
-              <span className="font-display text-[14px] font-semibold text-[#0E1525]">
-                {row[0]}
-              </span>
-              <span>
-                <span className={ratePillClass(row[1] ?? "")}>{row[1]}</span>
-              </span>
-              <span className="hidden text-[14px] leading-[1.5] text-[#5A6478] sm:block">
-                {row[2]}
-              </span>
-            </div>
-          ))}
         </div>
       );
     }
