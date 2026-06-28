@@ -1,8 +1,6 @@
-"use client";
-
-import { useState } from "react";
 import {
   payrollPeriodTables,
+  type PayrollPeriodTable,
   type TaxBracketRow,
 } from "@/data/government/withholding-tax-table";
 
@@ -21,9 +19,21 @@ const CURRENT_SUB =
 const PREVIOUS_SUB =
   "January 1, 2018 – December 31, 2022 (TRAIN Law Phase 1)";
 
+const CARD =
+  "rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)] scroll-mt-24";
+const H2 =
+  "font-display text-[clamp(20px,2.2vw,24px)] font-semibold tracking-[-.02em] text-[#0E1525]";
+
 const HEAD =
   "px-[18px] py-[13px] text-[12px] font-bold uppercase tracking-[.05em] text-[#475069]";
 const GRID = "grid grid-cols-[1.4fr_1.6fr_.6fr]";
+
+// Display order: most-searched payroll frequency first, annual last.
+const DISPLAY_ORDER = ["monthly", "semi-monthly", "weekly", "daily", "annual"];
+
+const SECTIONS = DISPLAY_ORDER.map(
+  (id) => payrollPeriodTables.find((t) => t.id === id) as PayrollPeriodTable,
+).filter(Boolean);
 
 function RateBadge({ rate }: { rate: number }) {
   const sc = RATE_SCALE[rate] ?? { text: "#0E1525", bg: "#EEF1F7" };
@@ -118,53 +128,55 @@ function Badge({ tone }: { tone: "current" | "previous" }) {
   );
 }
 
+function headingFor(t: PayrollPeriodTable): string {
+  return t.id === "annual"
+    ? "Annual Income Tax Brackets 2026"
+    : `${t.label} Withholding Tax Table 2026 Philippines`;
+}
+
+function introFor(t: PayrollPeriodTable): string {
+  if (t.id === "annual")
+    return "The annual graduated income tax brackets used to annualize and true-up withholding for the full year.";
+  return `Withholding tax brackets for employees paid on a ${t.label.toLowerCase()} basis. Match your ${t.label.toLowerCase()} taxable compensation to the matching row.`;
+}
+
+/**
+ * Renders every payroll frequency as its own crawlable <section> with a unique
+ * H2 and anchor id. No tabs — all five tables are present in the static HTML so
+ * search engines index the monthly, semi-monthly, weekly, daily, and annual
+ * brackets individually.
+ */
 export function WithholdingTaxTables() {
-  const [active, setActive] = useState(payrollPeriodTables[3].id); // Monthly
-  const p =
-    payrollPeriodTables.find((x) => x.id === active) ?? payrollPeriodTables[3];
-
   return (
-    <div>
-      {/* Pay-frequency tabs */}
-      <div className="mb-5 flex flex-wrap gap-1 rounded-[13px] border border-[#E7EBF3] bg-white p-[5px]">
-        {payrollPeriodTables.map((x) => {
-          const on = x.id === active;
-          return (
-            <button
-              key={x.id}
-              type="button"
-              onClick={() => setActive(x.id)}
-              className={`min-w-[90px] flex-1 rounded-[9px] px-3 py-[10px] text-center text-[14px] font-bold transition-colors ${
-                on
-                  ? "bg-brand text-white shadow-[0_1px_3px_rgba(21,53,199,.3)]"
-                  : "text-[#475069] hover:text-[#0E1525]"
-              }`}
-            >
-              {x.label}
-            </button>
-          );
-        })}
-      </div>
+    <>
+      {SECTIONS.map((t) => (
+        <section key={t.id} id={`${t.id}-table`} className={CARD}>
+          <h2 className={H2}>{headingFor(t)}</h2>
+          <p className="mt-[10px] mb-[18px] text-[16px] leading-[1.7] text-[#475069]">
+            {introFor(t)}
+          </p>
 
-      {/* Current table */}
-      <div className="mb-2 flex flex-wrap items-center gap-[10px]">
-        <span className="font-display text-[16px] font-semibold text-[#0E1525]">
-          {p.label} withholding tax table
-        </span>
-        <Badge tone="current" />
-      </div>
-      <p className="mb-3 text-[14px] text-[#6B7488]">{CURRENT_SUB}</p>
-      <Table rows={p.current} />
+          {/* Current table */}
+          <div className="mb-2 flex flex-wrap items-center gap-[10px]">
+            <span className="font-display text-[16px] font-semibold text-[#0E1525]">
+              {t.label} withholding tax table
+            </span>
+            <Badge tone="current" />
+          </div>
+          <p className="mb-3 text-[14px] text-[#6B7488]">{CURRENT_SUB}</p>
+          <Table rows={t.current} />
 
-      {/* Previous table */}
-      <div className="mb-2 mt-7 flex flex-wrap items-center gap-[10px]">
-        <span className="font-display text-[16px] font-semibold text-[#0E1525]">
-          Previous {p.label.toLowerCase()} withholding tax table
-        </span>
-        <Badge tone="previous" />
-      </div>
-      <p className="mb-3 text-[14px] text-[#6B7488]">{PREVIOUS_SUB}</p>
-      <Table rows={p.old} />
-    </div>
+          {/* Previous table */}
+          <div className="mb-2 mt-7 flex flex-wrap items-center gap-[10px]">
+            <span className="font-display text-[16px] font-semibold text-[#0E1525]">
+              Previous {t.label.toLowerCase()} withholding tax table
+            </span>
+            <Badge tone="previous" />
+          </div>
+          <p className="mb-3 text-[14px] text-[#6B7488]">{PREVIOUS_SUB}</p>
+          <Table rows={t.old} />
+        </section>
+      ))}
+    </>
   );
 }
