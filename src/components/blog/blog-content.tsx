@@ -30,7 +30,7 @@ function renderSection(section: BlogSection, index: number) {
         return (
           <h3
             key={index}
-            className="mt-10 text-[20px] font-semibold leading-[26px] text-gray-500"
+            className="mt-10 text-[20px] font-semibold leading-[26px] text-[#0E1525]"
           >
             {section.heading}
           </h3>
@@ -49,7 +49,7 @@ function renderSection(section: BlogSection, index: number) {
       return (
         <p
           key={index}
-          className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]"
+          className="mt-4 text-[16px] leading-[1.6] text-[#344054]"
         >
           {section.content}
         </p>
@@ -61,7 +61,7 @@ function renderSection(section: BlogSection, index: number) {
           {section.items?.map((item, i) => (
             <li
               key={i}
-              className="flex gap-2 text-[16px] leading-[1.6] text-[#5A6478]"
+              className="flex gap-2 text-[16px] leading-[1.6] text-[#344054]"
             >
               <span className="mt-2 size-1.5 shrink-0 rounded-full bg-gray-300" />
               {item}
@@ -76,7 +76,7 @@ function renderSection(section: BlogSection, index: number) {
           {section.items?.map((item, i) => (
             <li
               key={i}
-              className="flex gap-3 text-[16px] leading-[1.6] text-[#5A6478]"
+              className="flex gap-3 text-[16px] leading-[1.6] text-[#344054]"
             >
               <span className="shrink-0 font-semibold text-brand">
                 {i + 1}.
@@ -99,7 +99,7 @@ function renderSection(section: BlogSection, index: number) {
           <Icon
             className={`mt-0.5 size-5 shrink-0 ${config.iconColor}`}
           />
-          <p className="text-[16px] leading-[1.6] text-[#5A6478]">
+          <p className="text-[16px] leading-[1.6] text-[#344054]">
             {section.content}
           </p>
         </div>
@@ -110,7 +110,7 @@ function renderSection(section: BlogSection, index: number) {
       return (
         <blockquote
           key={index}
-          className="mt-6 border-l-4 border-brand/30 pl-6 text-[16px] italic leading-[1.6] text-gray-400"
+          className="mt-6 border-l-4 border-brand/30 pl-6 text-[16px] italic leading-[1.6] text-[#475069]"
         >
           {section.content}
         </blockquote>
@@ -123,7 +123,7 @@ function renderSection(section: BlogSection, index: number) {
           className="mt-6 rounded-lg border border-brand/30 bg-brand/5 p-6"
         >
           {section.content && (
-            <p className="text-[16px] leading-[1.6] text-gray-500">
+            <p className="text-[16px] leading-[1.6] text-[#344054]">
               {section.content}
             </p>
           )}
