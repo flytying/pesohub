@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SSS_PENSION_TABLE_UPDATED_AT = "2026-05-01";
+export const SSS_PENSION_TABLE_UPDATED_AT = "2026-06-28";
 
 export const sssPensionTableMeta = {
   title: "SSS Pension Table Philippines",
@@ -14,7 +14,10 @@ export const sssPensionTableMeta = {
 
 /**
  * Pre-computed pension estimates for representative MSC values at different contribution years.
- * Computed using the three SSS pension formulas; the highest value wins.
+ * Each value is the governing (highest) result of the three SSS pension formulas in
+ * src/lib/calculators/sss-pension-formula.ts, BEFORE the ₱1,000 across-the-board increase
+ * and the 13th-month pension, which are added on top. MSC range reflects the 2025 schedule
+ * (₱5,000 minimum to ₱35,000 maximum).
  */
 export interface PensionEstimate {
   monthlySalaryCredit: number;
@@ -26,14 +29,15 @@ export interface PensionEstimate {
 }
 
 export const pensionEstimates: PensionEstimate[] = [
-  { monthlySalaryCredit: 4_000, pensionAt10Years: 2_000, pensionAt15Years: 2_000, pensionAt20Years: 2_400, pensionAt25Years: 3_000, pensionAt30Years: 3_600 },
-  { monthlySalaryCredit: 6_000, pensionAt10Years: 2_400, pensionAt15Years: 2_700, pensionAt20Years: 3_600, pensionAt25Years: 4_500, pensionAt30Years: 5_400 },
-  { monthlySalaryCredit: 8_000, pensionAt10Years: 2_400, pensionAt15Years: 3_200, pensionAt20Years: 4_400, pensionAt25Years: 5_600, pensionAt30Years: 6_800 },
-  { monthlySalaryCredit: 10_000, pensionAt10Years: 2_300, pensionAt15Years: 3_300, pensionAt20Years: 5_300, pensionAt25Years: 7_300, pensionAt30Years: 9_300 },
-  { monthlySalaryCredit: 15_000, pensionAt10Years: 3_300, pensionAt15Years: 4_800, pensionAt20Years: 7_800, pensionAt25Years: 10_800, pensionAt30Years: 13_800 },
-  { monthlySalaryCredit: 20_000, pensionAt10Years: 4_300, pensionAt15Years: 6_300, pensionAt20Years: 10_300, pensionAt25Years: 14_300, pensionAt30Years: 18_300 },
-  { monthlySalaryCredit: 25_000, pensionAt10Years: 5_300, pensionAt15Years: 7_800, pensionAt20Years: 12_800, pensionAt25Years: 17_800, pensionAt30Years: 22_800 },
-  { monthlySalaryCredit: 30_000, pensionAt10Years: 6_300, pensionAt15Years: 9_300, pensionAt20Years: 15_300, pensionAt25Years: 21_300, pensionAt30Years: 27_300 },
+  { monthlySalaryCredit: 5_000, pensionAt10Years: 2_000, pensionAt15Years: 2_000, pensionAt20Years: 2_400, pensionAt25Years: 2_800, pensionAt30Years: 3_300 },
+  { monthlySalaryCredit: 6_000, pensionAt10Years: 2_400, pensionAt15Years: 2_400, pensionAt20Years: 2_700, pensionAt25Years: 3_300, pensionAt30Years: 3_900 },
+  { monthlySalaryCredit: 8_000, pensionAt10Years: 3_200, pensionAt15Years: 3_200, pensionAt20Years: 3_500, pensionAt25Years: 4_300, pensionAt30Years: 5_100 },
+  { monthlySalaryCredit: 10_000, pensionAt10Years: 4_000, pensionAt15Years: 4_000, pensionAt20Years: 4_300, pensionAt25Years: 5_300, pensionAt30Years: 6_300 },
+  { monthlySalaryCredit: 15_000, pensionAt10Years: 6_000, pensionAt15Years: 6_000, pensionAt20Years: 6_300, pensionAt25Years: 7_800, pensionAt30Years: 9_300 },
+  { monthlySalaryCredit: 20_000, pensionAt10Years: 8_000, pensionAt15Years: 8_000, pensionAt20Years: 8_300, pensionAt25Years: 10_300, pensionAt30Years: 12_300 },
+  { monthlySalaryCredit: 25_000, pensionAt10Years: 10_000, pensionAt15Years: 10_000, pensionAt20Years: 10_300, pensionAt25Years: 12_800, pensionAt30Years: 15_300 },
+  { monthlySalaryCredit: 30_000, pensionAt10Years: 12_000, pensionAt15Years: 12_000, pensionAt20Years: 12_300, pensionAt25Years: 15_300, pensionAt30Years: 18_300 },
+  { monthlySalaryCredit: 35_000, pensionAt10Years: 14_000, pensionAt15Years: 14_000, pensionAt20Years: 14_300, pensionAt25Years: 17_800, pensionAt30Years: 21_300 },
 ];
 
 export const eligibilityRequirements = [
@@ -47,12 +51,12 @@ export const sssPensionTableFaqs: FAQ[] = [
   {
     question: "How is the SSS pension amount determined?",
     answer:
-      "SSS computes your pension using three formulas and gives you the highest amount: (1) ₱300 + 20% of AMSC + 2% of AMSC for each CYS over 10, (2) 40% of AMSC, and (3) the minimum pension of ₱2,420 (for at least 10 CYS) or ₱1,452 (for fewer than 10 CYS).",
+      "SSS computes your pension using three formulas and gives you the highest amount: (1) ₱300 + 20% of AMSC + 2% of AMSC for each CYS over 10, (2) 40% of AMSC, and (3) the statutory minimum pension of ₱1,200 (for 10 to 19 CYS) or ₱2,400 (for 20 or more CYS). A ₱1,000 across-the-board increase and a 13th-month pension are added on top.",
   },
   {
     question: "What is the maximum SSS monthly pension?",
     answer:
-      "There is no hard cap on the SSS pension, but it is limited by the maximum Monthly Salary Credit (₱30,000 in 2026) and your total years of contribution. With the maximum MSC and 30 years of contributions, the estimated pension is about ₱27,300 per month.",
+      "There is no hard cap on the SSS pension, but it is limited by the maximum Monthly Salary Credit (₱35,000 since the 2025 increase) and your total years of contribution. With the maximum ₱35,000 MSC and 30 years of contributions, the estimated pension is about ₱22,300 per month — ₱21,300 from the governing formula plus the ₱1,000 across-the-board increase.",
   },
   {
     question: "Can I receive SSS pension and still work?",

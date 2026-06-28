@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SSS_PENSION_UPDATED_AT = "2026-06-12";
+export const SSS_PENSION_UPDATED_AT = "2026-06-28";
 
 export const sssPensionMeta = {
   title: "How to Compute Your SSS Pension",
@@ -9,7 +9,7 @@ export const sssPensionMeta = {
     "Learn how SSS pension is computed in the Philippines. Understand the three pension formulas, eligibility requirements, and see a worked example with a ₱20,000 monthly salary credit.",
   slug: "guides/sss/how-to-compute-sss-pension",
   directAnswer:
-    "Your SSS monthly pension is the highest amount from three formulas: (1) ₱300 + 20% of average monthly salary credit (AMSC) + 2% of AMSC for each credited year of service (CYS) over 10 years, (2) 40% of AMSC, or (3) ₱2,420 (minimum pension if you have at least 10 CYS, reflecting the SSS Pension Reform Program increases in September 2025 and June 2026). You need at least 120 monthly contributions to qualify for a retirement pension.",
+    "Your SSS monthly pension is the highest amount from three formulas: (1) ₱300 + 20% of average monthly salary credit (AMSC) + 2% of AMSC for each credited year of service (CYS) over 10 years, (2) 40% of AMSC, or (3) the statutory minimum pension of ₱1,200 for 10–19 CYS or ₱2,400 for 20 or more CYS. A ₱1,000 across-the-board increase and a 13th-month pension are added on top. You need at least 120 monthly contributions to qualify for a retirement pension.",
 };
 
 /**
@@ -36,9 +36,9 @@ export const pensionFormulas: PensionFormula[] = [
   },
   {
     label: "Formula 3 (Minimum Pension)",
-    formula: "₱2,420 (if CYS >= 10 years) or ₱1,452 (if CYS < 10 years)",
+    formula: "₱1,200 (10–19 CYS) or ₱2,400 (20+ CYS)",
     description:
-      "The guaranteed minimum pension floor. If Formulas 1 and 2 produce an amount below this floor, the minimum pension applies. The SSS Pension Reform Program applied two 10% increases to existing minimum pensions (first tranche September 2025, second tranche June 2026): the ₱2,000 floor for members with at least 10 credited years of service rose to ₱2,420, and the ₱1,200 floor for members with fewer than 10 CYS rose to ₱1,452.",
+      "The guaranteed statutory minimum pension floor under the Social Security Act of 2018 (RA 11199). If Formulas 1 and 2 both produce a lower amount, the minimum applies: ₱1,200 per month for members with 10 to 19 credited years of service, and ₱2,400 for members with 20 or more. The ₱1,000 across-the-board increase is added on top of whichever formula governs. (This statutory floor is separate from the 2025–2027 Pension Reform Program, which raises the pensions of members who are already retired — see below.)",
   },
 ];
 
@@ -47,7 +47,7 @@ export const sssPensionFaqs: FAQ[] = [
     question:
       "How many years do I need to contribute to SSS to get a pension?",
     answer:
-      "You need at least 120 monthly contributions (equivalent to 10 years of credited service) to qualify for the SSS retirement pension. These contributions do not need to be consecutive. Members who qualify receive at least ₱2,420 per month as of June 2026, after two 10% increases under the SSS Pension Reform Program (September 2025 and June 2026). You can check your total number of contributions through the My.SSS online portal.",
+      "You need at least 120 monthly contributions (equivalent to 10 years of credited service) to qualify for the SSS retirement pension. These contributions do not need to be consecutive. The guaranteed minimum pension is ₱1,200 per month for members with 10 to 19 credited years and ₱2,400 for those with 20 or more, plus the ₱1,000 across-the-board increase. You can check your total number of contributions through the My.SSS online portal.",
   },
   {
     question:
@@ -70,5 +70,10 @@ export const sssPensionFaqs: FAQ[] = [
       "How do I check my SSS contributions and estimated pension?",
     answer:
       "Log in to the My.SSS portal at www.sss.gov.ph using your SSS number and password. Under the 'Inquiry' section, you can view your contribution history, total credited years, and salary credit details. The SSS also has a mobile app that lets you check your records. For pension estimates, you can use our SSS Pension Calculator.",
+  },
+  {
+    question: "Is there an SSS pension increase in 2025 and 2026?",
+    answer:
+      "Yes. Under the SSS Pension Reform Program, retirement and disability pensioners receive a 10% increase each year for three years — the first tranche in September 2025, the second in 2026 (rolled out early, in June 2026), and the third in September 2027 — for roughly a 33% cumulative rise. Survivor pensioners get 5% per year. This program raises the pensions of members who are already retired; it is applied on top of the pension you are receiving and is separate from the formula used to compute a new retiree's pension.",
   },
 ];

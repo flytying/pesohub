@@ -249,6 +249,60 @@ export default function SSSPensionCalculatorPage() {
             </p>
           </section>
 
+          {/* MSC meaning */}
+          <section className={CARD}>
+            <h2 className={H2}>What is the Monthly Salary Credit (MSC)?</h2>
+            <p className={LEAD}>
+              The Monthly Salary Credit is the salary bracket SSS assigns to your contributions —
+              not your exact salary. Since the 2025 increase it runs from ₱5,000 to ₱35,000 in
+              ₱500 steps. Your contributions and your future pension are both based on the MSC, so
+              the average of your salary credits (your AMSC) is what drives every pension formula.
+            </p>
+            <p className={LEAD}>
+              Because the pension is based on contributions through your AMSC rather than your final
+              salary, contributing at a higher salary credit — and for more years — builds a bigger
+              pension. See how the MSC maps to contributions in the{" "}
+              <Link
+                href="/government/sss/sss-contribution-guide"
+                className="font-bold text-brand hover:underline"
+              >
+                SSS contribution guide
+              </Link>
+              .
+            </p>
+          </section>
+
+          {/* Voluntary members & pension after 10 years */}
+          <section className={CARD}>
+            <h2 className={H2}>Voluntary members and your pension after 10 years</h2>
+            <p className={LEAD}>
+              Voluntary members, self-employed members, and OFWs earn the SSS pension the same way
+              employees do — the same three formulas apply, based on your average salary credit and
+              credited years of service. You need at least 120 monthly contributions (10 credited
+              years) to receive a lifetime monthly pension instead of a one-time lump sum.
+            </p>
+            <p className={LEAD}>
+              At exactly 10 years the flat 40%-of-AMSC formula usually governs: a ₱20,000 AMSC gives
+              about ₱8,000, plus the ₱1,000 across-the-board increase for roughly ₱9,000 per month.
+              A lower salary credit may instead be lifted to the ₱1,200 statutory minimum. Each year
+              of service beyond 10 then adds 2% of your AMSC under the first formula. Walk through
+              the full computation in our{" "}
+              <Link
+                href="/guides/sss/how-to-compute-sss-pension"
+                className="font-bold text-brand hover:underline"
+              >
+                guide to computing your SSS pension
+              </Link>
+              .
+            </p>
+            <p className={LEAD}>
+              Already retired? The 2025–2027 SSS Pension Reform Program adds a separate 10% increase
+              each September (2025, 2026, and 2027) to existing retirement pensions — about 33%
+              cumulatively. It applies on top of the pension you already receive and does not change
+              the formula used to compute a new retiree&apos;s pension.
+            </p>
+          </section>
+
           {/* Good to know */}
           <section className={CARD}>
             <h2 className={H2}>Good to know</h2>
