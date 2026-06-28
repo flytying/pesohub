@@ -13,14 +13,6 @@ import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
 import { GuideCtaCard } from "@/components/guides/guide-cta-card";
 import { JsonLd } from "@/components/seo/json-ld";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-} from "@/components/ui/table";
 import { generatePageMetadata } from "@/lib/seo";
 import {
   generateArticleSchema,
@@ -92,6 +84,15 @@ const relatedContent = [
   },
 ];
 
+const rateBadge: Record<number, string> = {
+  0: "bg-[#EEF1F7] text-[#5B6678]",
+  15: "bg-[#E4EDFB] text-[#1E5FD0]",
+  20: "bg-[#E7E9FB] text-[#3D49C4]",
+  25: "bg-[#EDE8FC] text-[#6D4DE0]",
+  30: "bg-[#FBF0DC] text-[#B7791F]",
+  35: "bg-[#FBE6E7] text-[#C2484D]",
+};
+
 export default function WithholdingTaxGuidePage() {
   return (
     <>
@@ -110,41 +111,43 @@ export default function WithholdingTaxGuidePage() {
         description="A practical, plain-language guide to understanding Philippine withholding tax under the TRAIN Law. Learn the tax brackets, computation formula, and how to verify your payslip."
         badge={WITHHOLDING_TAX_UPDATED_AT}
         breadcrumbs={breadcrumbs}
+        containerClassName="max-w-[1240px] px-[clamp(20px,3vw,36px)]"
         variant="dark"
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-        {/* Pointer to the canonical table page */}
-        <div className="mb-8 flex items-center gap-3 rounded-xl border border-brand/30 bg-surface-tertiary p-5">
-          <Info className="size-5 shrink-0 text-brand" />
-          <p className="text-[16px] leading-[1.6] text-gray-500">
-            Need the actual tax brackets? See the{" "}
-            <Link
-              href="/government/bir/withholding-tax-table-philippines"
-              className="font-semibold text-brand underline-offset-2 hover:underline"
-            >
-              2026 BIR withholding tax table
-            </Link>
-            .
-          </p>
-        </div>
-
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20 pt-[clamp(20px,3vw,32px)]">
         {/* Quick Answer */}
         <section>
-          <div className="flex gap-4 rounded-[16px] border border-[#D7E0FB] bg-[#EAF0FF] p-6">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-white">
+          <div className="flex gap-[13px] rounded-[16px] border border-[#D3DEFA] bg-[#EAF0FF] p-5">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-[11px] bg-white shadow-[0_1px_2px_rgba(16,24,40,.05)]">
               <Landmark className="size-5 text-brand" />
             </span>
             <div>
-              <p className="text-[13px] font-bold uppercase tracking-[.08em] text-brand">
+              <p className="text-[13px] font-bold uppercase tracking-[.06em] text-brand">
                 Quick answer
               </p>
-              <p className="mt-2 text-[16px] leading-[1.6] text-[#475069]">
+              <p className="mt-1.5 text-[16px] leading-[1.6] text-[#344054]">
                 {withholdingTaxMeta.directAnswer}
               </p>
             </div>
           </div>
         </section>
+
+        {/* Pointer to the canonical table page */}
+        <Link
+          href="/government/bir/withholding-tax-table-philippines"
+          className="group mt-4 flex items-center gap-3 rounded-[14px] border border-[#E7EBF3] bg-white px-5 py-4 transition-colors hover:border-[#BCC9F4]"
+        >
+          <Info className="size-5 shrink-0 text-brand" />
+          <p className="flex-1 text-[15px] leading-[1.5] text-[#5A6478]">
+            Need the actual tax brackets? See the{" "}
+            <span className="font-semibold text-brand">
+              2026 BIR withholding tax table
+            </span>
+            .
+          </p>
+          <ArrowRight className="size-4 shrink-0 text-[#C4CCDB] transition-transform group-hover:translate-x-0.5" />
+        </Link>
 
         {/* 1. What Is Withholding Tax? */}
 
@@ -200,41 +203,52 @@ export default function WithholdingTaxGuidePage() {
             Republic Act No. 10963, revised the Philippine income tax brackets.
             The table below shows the graduated rates effective January 1, 2023:
           </p>
-          <div className="mt-6 overflow-hidden rounded-xl border border-gray-200">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Taxable Income (Over)</TableHead>
-                  <TableHead>But Not Over</TableHead>
-                  <TableHead className="text-right">Base Tax</TableHead>
-                  <TableHead className="text-right">Rate</TableHead>
-                  <TableHead className="text-right">Of Excess Over</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {trainLawBrackets.map((bracket, index) => (
-                  <TableRow key={index}>
-                    <TableCell>PHP {bracket.overBut}</TableCell>
-                    <TableCell>
-                      {bracket.notOver === "No limit"
-                        ? "No limit"
-                        : `PHP ${bracket.notOver}`}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {formatPeso(bracket.baseTax, 0)}
-                    </TableCell>
-                    <TableCell className="text-right font-medium">
+          <div className="mt-6 overflow-x-auto rounded-[14px] border border-[#E0E6F2]">
+            <div className="min-w-[560px]">
+              <div className="grid grid-cols-[1.2fr_1fr_0.85fr_0.55fr_1fr] gap-[10px] border-b border-[#E0E6F2] bg-[#EEF2FB] px-5 py-[13px] text-[11px] font-bold uppercase tracking-[.04em] text-[#56607A]">
+                <span>Taxable income (over)</span>
+                <span>But not over</span>
+                <span className="text-right">Base tax</span>
+                <span className="text-right">Rate</span>
+                <span className="text-right">Of excess over</span>
+              </div>
+              {trainLawBrackets.map((bracket, index) => (
+                <div
+                  key={index}
+                  className={`grid grid-cols-[1.2fr_1fr_0.85fr_0.55fr_1fr] items-center gap-[10px] px-5 py-[13px] ${
+                    index < trainLawBrackets.length - 1
+                      ? "border-b border-[#EEF1F7]"
+                      : ""
+                  } ${index % 2 === 1 ? "bg-[#FBFCFE]" : ""}`}
+                >
+                  <span className="font-mono text-[12.5px] font-medium text-[#0E1525]">
+                    ₱{bracket.overBut}
+                  </span>
+                  <span className="font-mono text-[12.5px] text-[#475069]">
+                    {bracket.notOver === "No limit"
+                      ? "No limit"
+                      : `₱${bracket.notOver}`}
+                  </span>
+                  <span className="text-right font-mono text-[12.5px] font-semibold text-[#0E1525]">
+                    {formatPeso(bracket.baseTax, 0)}
+                  </span>
+                  <span className="text-right">
+                    <span
+                      className={`inline-flex items-center rounded-[7px] px-[9px] py-[3px] text-[12px] font-bold ${
+                        rateBadge[bracket.rate] ?? "bg-[#EEF1F7] text-[#0E1525]"
+                      }`}
+                    >
                       {bracket.rate}%
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {bracket.ofExcessOver === 0
-                        ? "-"
-                        : formatPeso(bracket.ofExcessOver, 0)}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                    </span>
+                  </span>
+                  <span className="text-right font-mono text-[12.5px] text-[#475069]">
+                    {bracket.ofExcessOver === 0
+                      ? "—"
+                      : formatPeso(bracket.ofExcessOver, 0)}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -243,23 +257,27 @@ export default function WithholdingTaxGuidePage() {
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             4. How to Compute Your Withholding Tax
           </h2>
-          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
+          <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
             The basic formula is:
           </p>
-          <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
-            <p className="font-mono text-[16px] leading-[1.6] text-[#5A6478]">
-              Annual Tax = Base Tax + (Tax Rate x (Taxable Income - Lower
-              Bracket Limit))
+          <div className="mt-4 overflow-x-auto rounded-[12px] border border-[#E4E9F4] bg-[#F5F7FC] px-[18px] py-4">
+            <p className="font-mono text-[13.5px] leading-[1.5] text-[#1A2540]">
+              Annual Tax = Base Tax + (Tax Rate × (Taxable Income − Lower Bracket
+              Limit))
             </p>
           </div>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Follow these steps:
           </p>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-4 space-y-[13px]">
             {computeSteps.map((item, i) => (
-              <li key={i} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                <ArrowRight className="size-4 shrink-0 text-gray-300" />
-                {item}
+              <li key={i} className="flex items-start gap-[13px]">
+                <span className="flex size-[26px] shrink-0 items-center justify-center rounded-[8px] bg-[#EAF0FF] text-[14px] font-bold text-brand">
+                  {i + 1}
+                </span>
+                <span className="text-[16px] leading-[1.625] text-[#344054]">
+                  {item}
+                </span>
               </li>
             ))}
           </ul>
@@ -290,109 +308,161 @@ export default function WithholdingTaxGuidePage() {
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Worked Example: PHP 35,000 Monthly Salary
           </h2>
-          <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
-            {/* Header */}
-            <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-              <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
-                An employee earns PHP 35,000/month in basic salary with no other
-                taxable benefits.
-              </p>
-            </div>
+          {/* Scenario */}
+          <div className="mt-6 flex flex-wrap items-start gap-[13px] rounded-[14px] border border-[#DFE9FB] bg-[#F4F8FF] px-[18px] py-[15px]">
+            <span className="rounded-[7px] bg-[#E3ECFF] px-[9px] py-[5px] text-[10.5px] font-bold uppercase leading-none tracking-[.1em] text-brand">
+              Scenario
+            </span>
+            <span className="text-[15px] leading-[1.55] text-[#2A3550]">
+              An employee earns <strong className="text-[#0E1525]">₱35,000/month</strong>{" "}
+              in basic salary with no other taxable benefits.
+            </span>
+          </div>
 
+          {/* Timeline */}
+          <div className="mt-6">
             {/* Step 1 */}
-            <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Step 1: Annual Gross Compensation</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">PHP 35,000 x 12</dd>
+            <div className="flex gap-4">
+              <div className="flex flex-col items-center">
+                <div className="flex size-[30px] items-center justify-center rounded-full bg-[#EAF0FF] text-[13.5px] font-bold text-brand">
+                  1
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-400" />
-                  <dd className="font-mono tabular-nums font-semibold text-gray-500">= PHP 420,000</dd>
+                <div className="my-2 w-[2px] flex-1 bg-[#E5EBF7]" />
+              </div>
+              <div className="min-w-0 flex-1 pb-6">
+                <div className="mb-[11px] mt-[5px] text-[15.5px] font-semibold text-[#0E1525]">
+                  Annual gross compensation
                 </div>
-              </dl>
+                <div className="inline-flex flex-wrap items-center gap-[9px] font-mono text-[13px]">
+                  <span className="rounded-[9px] border border-[#E8EDF7] bg-[#F4F6FB] px-3 py-2 text-[#5A6478]">
+                    ₱35,000 × 12
+                  </span>
+                  <span className="text-[#AAB3C6]">=</span>
+                  <span className="rounded-[9px] border border-[#D6E1FB] bg-[#EAF0FF] px-3 py-2 font-semibold text-brand">
+                    ₱420,000
+                  </span>
+                </div>
+              </div>
             </div>
-
-            <div className="mx-6 border-t border-dashed border-gray-200" />
 
             {/* Step 2 */}
-            <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Step 2: Subtract Mandatory Contributions</dt>
-                  <dd className="font-mono tabular-nums text-gray-500" />
+            <div className="flex gap-4">
+              <div className="flex flex-col items-center">
+                <div className="flex size-[30px] items-center justify-center rounded-full bg-[#EAF0FF] text-[13.5px] font-bold text-brand">
+                  2
                 </div>
-                <div className="flex justify-between">
-                  <dt className="pl-4 text-gray-400">SSS</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">PHP 1,750 x 12 = PHP 21,000</dd>
+                <div className="my-2 w-[2px] flex-1 bg-[#E5EBF7]" />
+              </div>
+              <div className="min-w-0 flex-1 pb-6">
+                <div className="mb-[11px] mt-[5px] text-[15.5px] font-semibold text-[#0E1525]">
+                  Subtract mandatory contributions
                 </div>
-                <div className="flex justify-between">
-                  <dt className="pl-4 text-gray-400">PhilHealth</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">PHP 612.50 x 12 = PHP 7,350</dd>
+                <div className="max-w-[420px] overflow-hidden rounded-[12px] border border-[#ECEFF6]">
+                  {[
+                    ["SSS", "₱1,750 × 12 = ₱21,000"],
+                    ["PhilHealth", "₱612.50 × 12 = ₱7,350"],
+                    ["Pag-IBIG", "₱200 × 12 = ₱2,400"],
+                  ].map(([label, val]) => (
+                    <div
+                      key={label}
+                      className="flex items-center justify-between gap-3 border-b border-[#F0F2F8] px-[14px] py-[10px]"
+                    >
+                      <span className="text-[13.5px] text-[#5A6478]">{label}</span>
+                      <span className="font-mono text-[12.5px] text-[#475069]">
+                        {val}
+                      </span>
+                    </div>
+                  ))}
+                  <div className="flex items-center justify-between gap-3 bg-[#FAFBFE] px-[14px] py-[11px]">
+                    <span className="text-[13.5px] font-semibold text-[#344054]">
+                      Total deductions
+                    </span>
+                    <span className="font-mono text-[12.5px] font-semibold text-[#0E1525]">
+                      − ₱30,750
+                    </span>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="pl-4 text-gray-400">Pag-IBIG</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">PHP 200 x 12 = PHP 2,400</dd>
+                <div className="mt-3 inline-flex flex-wrap items-center gap-[9px] font-mono text-[13px]">
+                  <span className="rounded-[9px] border border-[#E8EDF7] bg-[#F4F6FB] px-3 py-2 text-[#5A6478]">
+                    ₱420,000 − ₱30,750
+                  </span>
+                  <span className="text-[#AAB3C6]">=</span>
+                  <span className="rounded-[9px] border border-[#D6E1FB] bg-[#EAF0FF] px-3 py-2 font-semibold text-brand">
+                    ₱389,250 taxable
+                  </span>
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Total deductions</dt>
-                  <dd className="font-mono tabular-nums font-semibold text-gray-500">PHP 30,750</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Taxable income</dt>
-                  <dd className="font-mono tabular-nums font-semibold text-gray-500">PHP 420,000 - PHP 30,750 = PHP 389,250</dd>
-                </div>
-              </dl>
+              </div>
             </div>
-
-            <div className="mx-6 border-t border-dashed border-gray-200" />
 
             {/* Step 3 */}
-            <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Step 3: Identify Tax Bracket</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">Over PHP 250,000 but not over PHP 400,000</dd>
+            <div className="flex gap-4">
+              <div className="flex flex-col items-center">
+                <div className="flex size-[30px] items-center justify-center rounded-full bg-[#EAF0FF] text-[13.5px] font-bold text-brand">
+                  3
                 </div>
-              </dl>
+                <div className="my-2 w-[2px] flex-1 bg-[#E5EBF7]" />
+              </div>
+              <div className="min-w-0 flex-1 pb-6">
+                <div className="mb-[11px] mt-[5px] text-[15.5px] font-semibold text-[#0E1525]">
+                  Identify the tax bracket
+                </div>
+                <div className="inline-flex flex-wrap items-center gap-[9px] rounded-[9px] border border-[#E8EDF7] bg-[#F4F6FB] px-3 py-2 font-mono text-[13px] text-[#475069]">
+                  Over ₱250,000 — not over ₱400,000
+                  <span className="rounded-[6px] bg-[#EAF0FF] px-[7px] py-0.5 font-semibold text-brand">
+                    15% bracket
+                  </span>
+                </div>
+              </div>
             </div>
-
-            <div className="mx-6 border-t border-dashed border-gray-200" />
 
             {/* Step 4 */}
-            <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Step 4: Apply the Formula</dt>
-                  <dd className="font-mono tabular-nums text-gray-500" />
+            <div className="flex gap-4">
+              <div className="flex flex-col items-center">
+                <div className="flex size-[30px] items-center justify-center rounded-full bg-[#EAF0FF] text-[13.5px] font-bold text-brand">
+                  4
                 </div>
-                <div className="flex justify-between">
-                  <dt className="pl-4 text-gray-400">Base tax + rate x excess</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">PHP 0 + 15% x (PHP 389,250 - PHP 250,000)</dd>
+                <div className="my-2 w-[2px] flex-1 bg-[#E5EBF7]" />
+              </div>
+              <div className="min-w-0 flex-1 pb-6">
+                <div className="mb-[11px] mt-[5px] text-[15.5px] font-semibold text-[#0E1525]">
+                  Apply the formula
                 </div>
-                <div className="flex justify-between">
-                  <dt className="pl-4 text-gray-400" />
-                  <dd className="font-mono tabular-nums text-gray-500">= 15% x PHP 139,250</dd>
+                <div className="max-w-[420px] rounded-[10px] border border-[#E8EDF7] bg-[#F4F6FB] px-[14px] py-[11px] font-mono text-[13px] leading-[1.9] text-[#475069]">
+                  base ₱0 + 15% × (₱389,250 − ₱250,000)
+                  <br />= 15% × ₱139,250
                 </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Annual tax</dt>
-                  <dd className="font-mono tabular-nums font-semibold text-gray-500">= PHP 20,887.50</dd>
+                <div className="mt-3 inline-flex flex-wrap items-center gap-[9px] font-mono text-[13px]">
+                  <span className="text-[#5A6478]">annual tax</span>
+                  <span className="text-[#AAB3C6]">=</span>
+                  <span className="rounded-[9px] border border-[#D6E1FB] bg-[#EAF0FF] px-3 py-2 font-semibold text-brand">
+                    ₱20,887.50
+                  </span>
                 </div>
-              </dl>
+              </div>
             </div>
-
-            <div className="mx-6 border-t border-dashed border-gray-200" />
 
             {/* Step 5 */}
-            <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Step 5: Monthly Withholding Tax</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">PHP 20,887.50 / 12</dd>
+            <div className="flex gap-4">
+              <div className="flex flex-col items-center">
+                <div className="flex size-[30px] items-center justify-center rounded-full bg-[#EAF0FF] text-[13.5px] font-bold text-brand">
+                  5
                 </div>
-              </dl>
+              </div>
+              <div className="min-w-0 flex-1 pb-1.5">
+                <div className="mb-[11px] mt-[5px] text-[15.5px] font-semibold text-[#0E1525]">
+                  Divide into monthly withholding
+                </div>
+                <div className="inline-flex flex-wrap items-center gap-[9px] font-mono text-[13px]">
+                  <span className="rounded-[9px] border border-[#E8EDF7] bg-[#F4F6FB] px-3 py-2 text-[#5A6478]">
+                    ₱20,887.50 ÷ 12
+                  </span>
+                  <span className="text-[#AAB3C6]">=</span>
+                  <span className="rounded-[9px] border border-[#D6E1FB] bg-[#EAF0FF] px-3 py-2 font-semibold text-brand">
+                    ₱1,740.63
+                  </span>
+                </div>
+              </div>
             </div>
-
           </div>
 
           {/* Result block */}
@@ -443,7 +513,7 @@ export default function WithholdingTaxGuidePage() {
 
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20">
         {/* Calculator CTA */}
         <GuideCtaCard
           title="Want to Compute Your Exact Withholding Tax?"
