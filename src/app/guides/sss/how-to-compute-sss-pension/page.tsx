@@ -12,14 +12,6 @@ import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
 import { JsonLd } from "@/components/seo/json-ld";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-} from "@/components/ui/table";
 import { generatePageMetadata } from "@/lib/seo";
 import {
   generateArticleSchema,
@@ -96,6 +88,14 @@ const relatedContent = [
   },
 ];
 
+const mscRows = [
+  { range: "₱4,000 – ₱4,249.99", msc: "₱4,000", ee: "₱180", er: "₱380" },
+  { range: "₱9,750 – ₱10,249.99", msc: "₱10,000", ee: "₱450", er: "₱950" },
+  { range: "₱14,750 – ₱15,249.99", msc: "₱15,000", ee: "₱675", er: "₱1,425" },
+  { range: "₱19,750 – ₱20,249.99", msc: "₱20,000", ee: "₱900", er: "₱1,900" },
+  { range: "₱29,750 and above", msc: "₱30,000", ee: "₱1,350", er: "₱2,850" },
+];
+
 export default function SssPensionGuidePage() {
   return (
     <>
@@ -137,11 +137,11 @@ export default function SssPensionGuidePage() {
           </div>
         </section>
 
-        {/* 1. What Is the SSS Retirement Pension? */}
+        {/* 1. What is the SSS retirement pension? */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            1. What Is the SSS Retirement Pension?
+            1. What is the SSS retirement pension?
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The SSS (Social Security System) retirement pension is a monthly
@@ -159,28 +159,28 @@ export default function SssPensionGuidePage() {
           </p>
         </section>
 
-        {/* 2. Eligibility Requirements */}
+        {/* 2. Eligibility requirements */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            2. Eligibility Requirements
+            2. Eligibility requirements
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             To qualify for the SSS retirement pension, you must meet:
           </p>
           <ul className="mt-4 space-y-3">
             {eligibilityRequirements.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+              <li key={item} className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#344054]">
+                <ArrowRight className="mt-1 size-4 shrink-0 text-brand" />
                 {item}
               </li>
             ))}
           </ul>
         </section>
 
-        {/* 3. The Three SSS Pension Formulas */}
+        {/* 3. The three SSS pension formulas */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            3. The Three SSS Pension Formulas
+            3. The three SSS pension formulas
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The SSS computes your pension using all three formulas below and
@@ -188,14 +188,17 @@ export default function SssPensionGuidePage() {
           </p>
           <div className="mt-8 space-y-4">
             {pensionFormulas.map((formula) => (
-              <div key={formula.label} className="rounded-xl border border-gray-200 bg-white p-6">
-                <span className="inline-block rounded-full bg-gray-50 px-3 py-1 text-[14px] font-medium text-gray-500">
+              <div
+                key={formula.label}
+                className="rounded-[16px] border border-[#EDF1F8] bg-[#F7F9FD] p-5"
+              >
+                <span className="inline-block rounded-[7px] bg-[#EAF0FF] px-[11px] py-1 text-[11px] font-bold tracking-[.05em] text-brand">
                   {formula.label}
                 </span>
-                <p className="mt-3 font-mono text-[16px] leading-[1.6] text-gray-500">
+                <p className="mt-3 overflow-x-auto rounded-[10px] border border-[#E4E9F4] bg-[#F5F7FC] px-[14px] py-3 font-mono text-[14px] leading-[1.5] text-[#1A2540]">
                   {formula.formula}
                 </p>
-                <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
+                <p className="mt-3 text-[15px] leading-[1.6] text-[#5A6478]">
                   {formula.description}
                 </p>
               </div>
@@ -216,10 +219,10 @@ export default function SssPensionGuidePage() {
           </div>
         </section>
 
-        {/* 4. SSS Contribution Table Reference */}
+        {/* 4. SSS contribution table reference */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            4. SSS Contribution Table Reference
+            4. SSS contribution table reference
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Your monthly salary credit (MSC) is determined by the SSS
@@ -227,49 +230,36 @@ export default function SssPensionGuidePage() {
             nearest bracket amount used to compute your contribution and
             benefits. Here are some representative MSC brackets:
           </p>
-          <div className="mt-6 overflow-hidden rounded-xl border border-gray-200">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Monthly Salary Range</TableHead>
-                  <TableHead className="text-right">MSC</TableHead>
-                  <TableHead className="text-right">Employee Share</TableHead>
-                  <TableHead className="text-right">Employer Share</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>PHP 4,000 - PHP 4,249.99</TableCell>
-                  <TableCell className="text-right">{formatPeso(4000, 0)}</TableCell>
-                  <TableCell className="text-right">{formatPeso(180, 0)}</TableCell>
-                  <TableCell className="text-right">{formatPeso(380, 0)}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>PHP 9,750 - PHP 10,249.99</TableCell>
-                  <TableCell className="text-right">{formatPeso(10000, 0)}</TableCell>
-                  <TableCell className="text-right">{formatPeso(450, 0)}</TableCell>
-                  <TableCell className="text-right">{formatPeso(950, 0)}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>PHP 14,750 - PHP 15,249.99</TableCell>
-                  <TableCell className="text-right">{formatPeso(15000, 0)}</TableCell>
-                  <TableCell className="text-right">{formatPeso(675, 0)}</TableCell>
-                  <TableCell className="text-right">{formatPeso(1425, 0)}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>PHP 19,750 - PHP 20,249.99</TableCell>
-                  <TableCell className="text-right">{formatPeso(20000, 0)}</TableCell>
-                  <TableCell className="text-right">{formatPeso(900, 0)}</TableCell>
-                  <TableCell className="text-right">{formatPeso(1900, 0)}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>PHP 29,750 and above</TableCell>
-                  <TableCell className="text-right">{formatPeso(30000, 0)}</TableCell>
-                  <TableCell className="text-right">{formatPeso(1350, 0)}</TableCell>
-                  <TableCell className="text-right">{formatPeso(2850, 0)}</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
+          <div className="mt-6 overflow-x-auto rounded-[14px] border border-[#E0E6F2]">
+            <div className="min-w-[540px]">
+              <div className="grid grid-cols-[1.4fr_0.8fr_0.9fr_0.9fr] gap-[10px] border-b border-[#E0E6F2] bg-[#EEF2FB] px-5 py-[13px] text-[11px] font-bold uppercase tracking-[.04em] text-[#56607A]">
+                <span>Monthly salary range</span>
+                <span className="text-right">MSC</span>
+                <span className="text-right">Employee share</span>
+                <span className="text-right">Employer share</span>
+              </div>
+              {mscRows.map((row, i) => (
+                <div
+                  key={row.range}
+                  className={`grid grid-cols-[1.4fr_0.8fr_0.9fr_0.9fr] items-center gap-[10px] px-5 py-[13px] ${
+                    i < mscRows.length - 1 ? "border-b border-[#EEF1F7]" : ""
+                  } ${i % 2 === 1 ? "bg-[#FBFCFE]" : ""}`}
+                >
+                  <span className="font-mono text-[13px] text-[#0E1525]">
+                    {row.range}
+                  </span>
+                  <span className="text-right font-mono text-[13px] font-semibold text-[#0E1525]">
+                    {row.msc}
+                  </span>
+                  <span className="text-right font-mono text-[13px] text-[#475069]">
+                    {row.ee}
+                  </span>
+                  <span className="text-right font-mono text-[13px] text-[#475069]">
+                    {row.er}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
           <p className="mt-3 text-[14px] text-gray-400">
             This is a simplified excerpt. The full SSS contribution table has
@@ -278,15 +268,15 @@ export default function SssPensionGuidePage() {
           </p>
         </section>
 
-        {/* 5. How to Check Your SSS Contributions */}
+        {/* 5. How to check your SSS contributions */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            5. How to Check Your SSS Contributions
+            5. How to check your SSS contributions
           </h2>
           <ul className="mt-6 space-y-3">
             {checkSteps.map((item, i) => (
-              <li key={i} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+              <li key={i} className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#344054]">
+                <ArrowRight className="mt-1 size-4 shrink-0 text-brand" />
                 {item}
               </li>
             ))}
@@ -300,7 +290,7 @@ export default function SssPensionGuidePage() {
         {/* Worked Example */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Worked Example: MSC of PHP 20,000 with 25 Years of Contributions
+            Worked example: MSC of ₱20,000 with 25 years of contributions
           </h2>
           <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
             {/* Header */}
@@ -390,10 +380,10 @@ export default function SssPensionGuidePage() {
           </p>
         </section>
 
-        {/* Common Mistakes to Avoid */}
+        {/* Common mistakes to avoid */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Common Mistakes to Avoid
+            Common mistakes to avoid
           </h2>
           <ul className="mt-6 space-y-4">
             {commonMistakes.map((item, i) => (
@@ -448,22 +438,22 @@ export default function SssPensionGuidePage() {
           <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related calculators and guides
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-[14px] sm:grid-cols-2">
             {relatedContent.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.title}
                   href={item.href}
-                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                  className="group flex items-center gap-[14px] rounded-[14px] border border-[#E7EBF3] bg-white px-[18px] py-[15px] transition-colors hover:border-[#C3D0F2] hover:bg-[#FBFCFE]"
                 >
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-4" />
-                  </div>
-                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                  <span className="flex size-[38px] shrink-0 items-center justify-center rounded-[11px] bg-[#EAF0FF] text-brand">
+                    <Icon className="size-[18px]" />
+                  </span>
+                  <span className="flex-1 text-[15.5px] font-bold leading-[1.3] text-[#0E1525]">
                     {item.title}
                   </span>
-                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                  <ArrowRight className="size-4 shrink-0 text-[#C4CCDB] transition-transform group-hover:translate-x-0.5" />
                 </Link>
               );
             })}
