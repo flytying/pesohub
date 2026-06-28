@@ -12,6 +12,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import { generateBreadcrumbSchema } from "@/lib/schema-markup";
 import { blogPosts } from "@/data/blog";
+import { loadPostImage } from "@/data/blog/post-modules";
 import { BlogCard } from "@/components/blog/blog-card";
 
 export const metadata = generatePageMetadata({
@@ -64,7 +65,9 @@ const sortedPosts = [...blogPosts].sort(
 
 const [featured, ...restPosts] = sortedPosts;
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const featuredImage = featured ? await loadPostImage(featured.slug) : null;
+
   return (
     <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(20px,3vw,36px)]">
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
@@ -102,12 +105,24 @@ export default function BlogPage() {
               href={`/blog/${featured.slug}`}
               className="group mb-[38px] grid overflow-hidden rounded-[20px] border border-[#E7EBF3] bg-white shadow-[0_1px_2px_rgba(16,24,40,.04)] transition-all duration-150 hover:border-[#C3D0F2] hover:shadow-[0_18px_40px_-22px_rgba(21,53,199,.4)] lg:grid-cols-2"
             >
-              <div className="relative flex min-h-[220px] items-end overflow-hidden bg-[var(--ph-grad-panel)] p-6">
-                <div
-                  aria-hidden
-                  className="absolute -right-8 -top-10 size-[180px] rounded-full bg-[radial-gradient(circle,rgba(43,229,223,.4),transparent_70%)]"
-                />
-                <span className="relative rounded-[6px] bg-white/15 px-[9px] py-1 text-[11px] font-bold uppercase tracking-[.08em] text-white">
+              <div className="relative min-h-[220px] overflow-hidden">
+                {featuredImage ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={featuredImage.src}
+                    alt={featuredImage.alt}
+                    className="absolute inset-0 size-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <div aria-hidden className="gradient-hero size-full" />
+                    <div
+                      aria-hidden
+                      className="absolute -right-8 -top-10 size-[180px] rounded-full bg-[radial-gradient(circle,rgba(43,229,223,.4),transparent_70%)]"
+                    />
+                  </>
+                )}
+                <span className="absolute left-[18px] top-[18px] rounded-[6px] bg-white px-[10px] py-1 text-[11px] font-bold uppercase tracking-[.08em] text-brand shadow-[0_2px_8px_rgba(16,24,40,.12)]">
                   Featured
                 </span>
               </div>
@@ -148,7 +163,7 @@ export default function BlogPage() {
       )}
 
       {/* FAQ */}
-      <div className="mb-[38px] rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,34px)]">
+      <div className="mb-[38px]">
         <FaqSection faqs={faqs} />
       </div>
 

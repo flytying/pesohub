@@ -11,43 +11,10 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { BlogContent } from "@/components/blog/blog-content";
 import { blogPosts } from "@/data/blog";
-import type { BlogPostData } from "@/types/content";
+import { postModules } from "@/data/blog/post-modules";
 
 // Ensure fully static generation
 export const dynamicParams = false;
-
-// ---------------------------------------------------------------------------
-// Post data loader – maps slugs to dynamic imports
-// ---------------------------------------------------------------------------
-
-const postModules: Record<string, () => Promise<{ default: BlogPostData }>> = {
-  // Each blog data file should export its BlogPostData as the default export.
-  // New entries are added here by the blog agent or manually.
-  "best-savings-account-philippines-2026": () =>
-    import("@/data/blog/best-savings-account-philippines-2026"),
-  "high-interest-savings-account-philippines": () =>
-    import("@/data/blog/high-interest-savings-account-philippines"),
-  "what-is-a-savings-rate-philippines": () =>
-    import("@/data/blog/what-is-a-savings-rate-philippines"),
-  "time-deposit-vs-savings-account-philippines": () =>
-    import("@/data/blog/time-deposit-vs-savings-account-philippines"),
-  "how-to-compute-withholding-tax-philippines": () =>
-    import("@/data/blog/how-to-compute-withholding-tax-philippines"),
-  "car-loan-calculator-guide-philippines": () =>
-    import("@/data/blog/car-loan-calculator-guide-philippines"),
-  "home-loan-vs-pagibig-housing-loan-philippines": () =>
-    import("@/data/blog/home-loan-vs-pagibig-housing-loan-philippines"),
-  "pagibig-mp2-salary-deduction-guide": () =>
-    import("@/data/blog/pagibig-mp2-salary-deduction-guide"),
-  "best-digital-banks-philippines": () =>
-    import("@/data/blog/best-digital-banks-philippines"),
-  "digital-bank-interest-rates-philippines": () =>
-    import("@/data/blog/digital-bank-interest-rates-philippines"),
-  "high-yield-savings-account-philippines": () =>
-    import("@/data/blog/high-yield-savings-account-philippines"),
-  "highest-interest-digital-banks-philippines": () =>
-    import("@/data/blog/highest-interest-digital-banks-philippines"),
-};
 
 // ---------------------------------------------------------------------------
 // Static params for static export
@@ -125,35 +92,54 @@ export default async function BlogPostPage({
         image={post.image}
       />
 
-      <article className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-        {/* Direct Answer Box */}
-        {post.directAnswer && (
-          <div className="rounded-xl border border-brand/20 bg-brand/5 p-6">
-            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-brand">
-              Quick Answer
-            </p>
-            <p className="mt-2 text-[16px] leading-[1.6] text-gray-500">
-              {post.directAnswer}
-            </p>
-          </div>
-        )}
+      {/* Hero image */}
+      <div className="mx-auto max-w-6xl px-4 pt-4 sm:px-6 lg:px-8">
+        <div className="relative h-[clamp(200px,34vw,320px)] overflow-hidden rounded-[18px]">
+          {post.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={post.image.src}
+              alt={post.image.alt}
+              className="size-full object-cover"
+            />
+          ) : (
+            <div aria-hidden className="gradient-hero size-full" />
+          )}
+        </div>
+      </div>
 
-        {/* Article Content */}
-        <BlogContent sections={post.sections} />
+      <article className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+        {/* Article card */}
+        <div className="rounded-[22px] border border-[#E7EBF3] bg-white p-[clamp(22px,4vw,44px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+          {/* Direct Answer Box */}
+          {post.directAnswer && (
+            <div className="rounded-xl border border-brand/20 bg-brand/5 p-6">
+              <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-brand">
+                Quick Answer
+              </p>
+              <p className="mt-2 text-[16px] leading-[1.6] text-gray-500">
+                {post.directAnswer}
+              </p>
+            </div>
+          )}
 
-        {/* Disclaimer */}
-        {post.disclaimer && (
-          <div className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
-            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
-              This article is for educational and informational purposes only.
-              It should not be considered professional financial advice. Rates,
-              rules, and product details may change. Always verify with the
-              relevant institution and consult a qualified financial advisor
-              before making important financial decisions.
-            </p>
-          </div>
-        )}
+          {/* Article Content */}
+          <BlogContent sections={post.sections} />
+
+          {/* Disclaimer */}
+          {post.disclaimer && (
+            <div className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+              <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+              <p className="text-[16px] leading-[1.6] text-[#5A6478]">
+                This article is for educational and informational purposes only.
+                It should not be considered professional financial advice.
+                Rates, rules, and product details may change. Always verify with
+                the relevant institution and consult a qualified financial
+                advisor before making important financial decisions.
+              </p>
+            </div>
+          )}
+        </div>
 
         {/* FAQ */}
         {post.faqs.length > 0 && (
