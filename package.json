@@ -41,6 +41,7 @@
     "braintrust": "^3.18.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "google-auth-library": "^10.7.0",
     "pdf-parse": "^2.4.5",
     "tailwindcss": "^4",
     "typescript": "^5"
