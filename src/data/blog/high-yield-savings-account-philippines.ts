@@ -51,16 +51,17 @@ const post: BlogPostData = {
       "content": "Below is a snapshot of the top-performing savings products in the Philippines as of 2026. Rates are subject to change — always verify with the bank directly before opening an account. For a live, regularly updated comparison, see our full rate table at /rates/savings-rates/best-savings-interest-rates-philippines."
     },
     {
-      "type": "ordered-list",
-      "items": [
-        "Tonik Bank – Tonik Account (Everyday Savings): Up to 6% p.a. base; Time Deposit 6–7–8% p.a. tier; Stash (group savings) 4% p.a. | No minimum balance | PDIC insured | Visa debit card available",
-        "Maya Bank – Maya Savings: Up to 6% p.a. (promo tier, transaction conditions apply); 2.5% p.a. base rate | No minimum balance | PDIC insured | Mastercard debit + QRPH payments",
-        "GoTyme Bank – GoTyme Savings: Flat 5% p.a., no conditions | No minimum balance | PDIC insured | Visa debit card + nationwide kiosk network",
-        "SeaBank – SeaBank Savings: 4–5% p.a., daily interest crediting, no balance caps | No minimum balance | PDIC insured | Visa debit card",
-        "CIMB Bank PH – UpSave: Up to 5% p.a. (promo conditions apply) | No minimum balance | PDIC insured | GCash integration",
-        "Salmon – Savings Account: Emerging player with competitive introductory rates; standout feature is integrated Buy Now Pay Later (BNPL) and credit-building tools alongside savings | PDIC insured",
-        "UnionDigital Bank – Savings: 3% p.a. standard; 3.5% p.a. for balances above ₱5 million; Time Deposits 2.5–3.15% p.a. depending on tenor | PDIC insured | UnionBank ecosystem integration",
-        "Traditional Banks (BDO, BPI, Metrobank, Security Bank) – Regular Savings: 0.10–0.50% p.a. | Minimum balance requirements vary | PDIC insured | Full branch and ATM network"
+      "type": "table",
+      "columns": ["Bank", "Rate (p.a.)", "Conditions"],
+      "rows": [
+        ["Tonik Bank", "Up to 6%", "No minimum balance · PDIC insured · Time Deposit 6–8% tier · Visa debit card"],
+        ["Maya Bank", "Up to 6%", "Promo tier conditions apply (2.5% base) · No minimum balance · PDIC insured · Mastercard debit + QRPH"],
+        ["GoTyme Bank", "5% flat", "No conditions · No minimum balance · PDIC insured · Visa debit + nationwide kiosks"],
+        ["SeaBank", "4–5%", "Daily interest, no balance caps · No minimum balance · PDIC insured · Visa debit card"],
+        ["CIMB Bank PH", "Up to 5%", "Promo conditions apply · No minimum balance · PDIC insured · GCash integration"],
+        ["Salmon", "Intro rates", "Competitive introductory rates · BNPL + credit-building tools alongside savings · PDIC insured"],
+        ["UnionDigital Bank", "3–3.5%", "3.5% for balances above ₱5M · Time Deposits 2.5–3.15% · PDIC insured · UnionBank ecosystem"],
+        ["Traditional Banks", "0.10–0.50%", "BDO, BPI, Metrobank, Security Bank · Minimum balance varies · PDIC insured · Full branch + ATM network"]
       ]
     },
     {

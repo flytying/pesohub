@@ -7,21 +7,35 @@ const calloutConfig = {
     icon: Info,
     border: "border-[#D3DEFA]",
     bg: "bg-[#EAF0FF]",
+    tile: "bg-[#D3DEFA]",
     iconColor: "text-brand",
   },
   warning: {
     icon: TriangleAlert,
     border: "border-amber-300",
     bg: "bg-amber-50",
-    iconColor: "text-amber-500",
+    tile: "bg-amber-100",
+    iconColor: "text-amber-600",
   },
   tip: {
     icon: Lightbulb,
     border: "border-brand/30",
     bg: "bg-brand/5",
+    tile: "bg-brand/15",
     iconColor: "text-brand",
   },
 };
+
+// Tone a rate pill green/indigo/amber by the leading percentage in the cell.
+function ratePillClass(rate: string): string {
+  const base =
+    "inline-flex rounded-[8px] px-[11px] py-1 font-display text-[13px] font-bold";
+  const n = parseFloat(rate.replace(/[^0-9.]/g, ""));
+  if (!Number.isFinite(n)) return `${base} bg-[#E7E9FB] text-[#3D49C4]`;
+  if (n >= 4) return `${base} bg-[#E3F6ED] text-[#0B7E6E]`;
+  if (n >= 1) return `${base} bg-[#E7E9FB] text-[#3D49C4]`;
+  return `${base} bg-[#FBF0DC] text-[#9A6A12]`;
+}
 
 function renderSection(section: BlogSection, index: number) {
   switch (section.type) {
@@ -79,12 +93,59 @@ function renderSection(section: BlogSection, index: number) {
                 {i + 1}
               </span>
               <span className="pt-[3px] text-[16px] leading-[1.65] text-[#344054]">
-                {item}
+                {/* Drop a redundant "Step N —" prefix; the badge already numbers it. */}
+                {item.replace(/^Step\s+\d+\s*[—–-]\s*/, "")}
               </span>
             </li>
           ))}
         </ol>
       );
+
+    case "table": {
+      const columns = section.columns ?? [];
+      const rows = section.rows ?? [];
+      const cols =
+        "grid-cols-[1.1fr_0.7fr] sm:grid-cols-[1.1fr_0.7fr_1.4fr]";
+      return (
+        <div
+          key={index}
+          className="mt-6 overflow-hidden rounded-[14px] border border-[#E0E6F2]"
+        >
+          {/* Header */}
+          <div
+            className={`grid ${cols} gap-3 border-b border-[#E0E6F2] bg-[#EEF2FB] px-[18px] py-[13px] text-[11px] font-bold uppercase tracking-[.05em] text-[#56607A]`}
+          >
+            {columns.map((c, i) => (
+              <span
+                key={i}
+                className={i >= 2 ? "hidden sm:block" : undefined}
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+          {/* Rows */}
+          {rows.map((row, ri) => (
+            <div
+              key={ri}
+              className={`grid ${cols} items-center gap-3 px-[18px] py-[14px] ${
+                ri < rows.length - 1 ? "border-b border-[#EEF1F7]" : ""
+              } ${ri % 2 === 1 ? "bg-[#FAFBFE]" : ""}`}
+            >
+              <span className="font-display text-[14px] font-semibold text-[#0E1525]">
+                {row[0]}
+              </span>
+              <span>
+                <span className={ratePillClass(row[1] ?? "")}>{row[1]}</span>
+              </span>
+              <span className="hidden text-[14px] leading-[1.5] text-[#5A6478] sm:block">
+                {row[2]}
+              </span>
+            </div>
+          ))}
+        </div>
+      );
+    }
 
     case "callout": {
       const variant = section.variant || "info";
@@ -95,7 +156,9 @@ function renderSection(section: BlogSection, index: number) {
           key={index}
           className={`mt-6 flex items-start gap-[14px] rounded-[16px] border ${config.border} ${config.bg} p-5`}
         >
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-white shadow-[0_1px_2px_rgba(16,24,40,.05)]">
+          <span
+            className={`flex size-10 shrink-0 items-center justify-center rounded-[12px] ${config.tile}`}
+          >
             <Icon className={`size-5 ${config.iconColor}`} />
           </span>
           <p className="self-center text-[15.5px] leading-[1.6] text-[#344054]">
@@ -152,9 +215,18 @@ interface BlogContentProps {
 }
 
 export function BlogContent({ sections }: BlogContentProps) {
+  // The page renders a standardized disclaimer below the article, so drop any
+  // in-content "Disclaimer:" callout to avoid showing two near-identical boxes.
+  const visible = sections.filter(
+    (s) =>
+      !(
+        s.type === "callout" &&
+        /^\s*disclaimer\b/i.test(s.content ?? "")
+      ),
+  );
   return (
     <>
-      {sections.map((section, i) => (
+      {visible.map((section, i) => (
         <span key={i} className="contents">
           {renderSection(section, i)}
         </span>
