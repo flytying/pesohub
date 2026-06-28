@@ -220,9 +220,10 @@ export default function DigitalBankRatesPage() {
         badge={DIGITAL_BANK_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
+        containerClassName="w-full max-w-[1240px] px-[clamp(20px,3vw,36px)]"
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(18px,3vw,34px)]">
         {/* Digital Bank Comparison Table */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">

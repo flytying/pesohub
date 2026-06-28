@@ -156,9 +156,10 @@ export default function TimeDepositRatesPage() {
         badge={TIME_DEPOSIT_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
+        containerClassName="w-full max-w-[1240px] px-[clamp(20px,3vw,36px)]"
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(18px,3vw,34px)]">
         {/* Time Deposit Calculator */}
         <section className="scroll-mt-20">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
