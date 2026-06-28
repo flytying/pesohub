@@ -125,12 +125,12 @@ export default function WithholdingTaxTablePage() {
           <p className="mb-3 text-[12px] font-bold uppercase tracking-[.05em] text-[#8A93A6]">
             On this page
           </p>
-          <ul className="flex flex-wrap gap-2">
+          <ul className="grid grid-cols-2 gap-2 sm:grid-cols-4">
             {jumpLinks.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="inline-flex rounded-[9px] border border-[#E7EBF3] bg-[#FBFCFE] px-[13px] py-[8px] text-[14px] font-semibold text-[#344054] transition-colors hover:border-[#C3D0F2] hover:text-brand"
+                  className="flex w-full items-center justify-center rounded-[10px] bg-[#EDEEFF] px-[13px] py-[10px] text-center text-[14px] font-semibold text-brand transition-colors hover:bg-[#E0E3FF]"
                 >
                   {l.label}
                 </a>
@@ -218,19 +218,21 @@ export default function WithholdingTaxTablePage() {
         {/* Calculator */}
         <section id="calculator" className={`${CARD} scroll-mt-24`}>
           <h2 className={H2}>Use the Withholding Tax Calculator</h2>
-          <p className="mt-[10px] mb-[18px] text-[16px] leading-[1.7] text-[#475069]">
+          <p className="mt-[10px] text-[16px] leading-[1.7] text-[#475069]">
             Skip the manual lookup. The Withholding Tax Calculator deducts your
             SSS, PhilHealth, and Pag-IBIG shares (automatically or with your own
             figures), handles taxable and tax-exempt allowances, and shows your
             withholding tax and net pay for the period, the month, and the year.
           </p>
-          <GovCtaBanner
-            title="Want to compute your exact withholding tax?"
-            description="Enter your gross pay and pay frequency — the calculator nets out mandatory contributions and applies the matching BIR table for you."
-            href="/calculators/tax/withholding-tax-calculator-philippines"
-            ctaLabel="Use the withholding tax calculator"
-          />
         </section>
+
+        {/* CTA banner — standalone, never nested in a card */}
+        <GovCtaBanner
+          title="Want to compute your exact withholding tax?"
+          description="Enter your gross pay and pay frequency — the calculator nets out mandatory contributions and applies the matching BIR table for you."
+          href="/calculators/tax/withholding-tax-calculator-philippines"
+          ctaLabel="Use the withholding tax calculator"
+        />
 
         {/* 2025 vs 2026 */}
         <section id="different-2025" className={`${CARD} scroll-mt-24`}>
@@ -282,7 +284,13 @@ export default function WithholdingTaxTablePage() {
           <h2 className="mb-6 font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-.02em] text-[#0E1525]">
             Related tax pages and payroll tools
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div
+            className={`grid gap-4 ${
+              relatedPages.length >= 3
+                ? "sm:grid-cols-2 lg:grid-cols-3"
+                : "sm:grid-cols-2"
+            }`}
+          >
             {relatedPages.map((page) => {
               const Icon = page.icon;
               return (
