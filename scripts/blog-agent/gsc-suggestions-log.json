@@ -1,0 +1,59 @@
+[
+  {
+    "week": "2026-06-22",
+    "slug": "best-digital-bank-rates-philippines",
+    "title": "Highest-Yield Savings Accounts in the Philippines for 2026 (Up to 8% p.a.)",
+    "type": "optimize-existing",
+    "sourceQuery": "high yield savings account 2026 philippines",
+    "opportunity": {
+      "impressions": 2014,
+      "clicks": 0,
+      "position": 7.2,
+      "ctr": 0,
+      "deltaPct": -73,
+      "opportunity": "striking-distance",
+      "topPagePath": "/rates/savings-rates/best-digital-bank-rates-philippines/"
+    },
+    "judgeScore": 0.93,
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-06-22",
+    "slug": "best-savings-account-philippines-2026",
+    "title": "Best Savings Accounts in the Philippines for 2026: Digital Banks, Traditional Banks & Government Options Compared",
+    "type": "optimize-existing",
+    "sourceQuery": "best savings accounts philippines 2026",
+    "opportunity": {
+      "impressions": 989,
+      "clicks": 2,
+      "position": 8.5,
+      "ctr": 0.002,
+      "deltaPct": -84,
+      "opportunity": "striking-distance",
+      "topPagePath": "/blog/best-savings-account-philippines-2026/"
+    },
+    "judgeScore": 0.85,
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-06-22",
+    "slug": "highest-interest-digital-bank-philippines-2026",
+    "title": "Highest Interest Digital Banks in the Philippines for 2026: Maya, GoTyme, SeaBank, Tonik & More Ranked",
+    "type": "new-post",
+    "sourceQuery": "high interest digital bank philippines 2026",
+    "opportunity": {
+      "impressions": 210,
+      "clicks": 1,
+      "position": 8.2,
+      "ctr": 0.0048,
+      "deltaPct": -1,
+      "opportunity": "striking-distance",
+      "topPagePath": "/rates/savings-rates/best-digital-bank-rates-philippines/"
+    },
+    "judgeScore": 0.78,
+    "resolved": false,
+    "accepted": null
+  }
+]
