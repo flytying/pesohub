@@ -193,12 +193,14 @@ const LINK_MAP: Record<string, string[]> = {
   "/rates/savings-rates/best-savings-interest-rates-philippines": [
     "/rates/savings-rates/best-digital-bank-rates-philippines",
     "/rates/savings-rates/time-deposit-rates-philippines",
+    "/calculators/savings/time-deposit-calculator-philippines",
     "/calculators/savings/savings-goal-calculator-philippines",
     "/calculators/savings/emergency-fund-calculator-philippines",
   ],
   "/rates/savings-rates/best-digital-bank-rates-philippines": [
     "/rates/savings-rates/best-savings-interest-rates-philippines",
     "/rates/savings-rates/time-deposit-rates-philippines",
+    "/calculators/savings/time-deposit-calculator-philippines",
     "/calculators/savings/savings-goal-calculator-philippines",
   ],
   "/guides/tax/how-withholding-tax-works-philippines": [
