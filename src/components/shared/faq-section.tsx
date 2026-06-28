@@ -34,13 +34,13 @@ export function FaqSection({ faqs }: FaqSectionProps) {
           <AccordionItem
             key={index}
             value={`faq-${index}`}
-            className="overflow-hidden rounded-lg border border-gray-200 bg-white not-last:border-b not-last:border-b-gray-200"
+            className="overflow-hidden rounded-[14px] border border-[#E7EBF3] bg-white not-last:border-b not-last:border-b-[#E7EBF3]"
           >
-            <AccordionTrigger className="px-5 py-4 text-[20px] font-semibold leading-[26px] text-gray-500 hover:no-underline">
+            <AccordionTrigger className="px-[18px] py-4 text-[16px] font-semibold leading-[1.4] text-[#0E1525] hover:no-underline">
               {faq.question}
             </AccordionTrigger>
             <AccordionContent>
-              <p className="px-5 text-[16px] leading-[1.6] text-[#5A6478]">
+              <p className="px-[18px] pb-[18px] text-[16px] leading-[1.6] text-[#475069]">
                 {faq.answer}
               </p>
             </AccordionContent>
