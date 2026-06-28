@@ -21,11 +21,11 @@ export const sssPensionData: CalculatorPageData = {
     description:
       "SSS uses three formulas and awards the highest pension amount.",
     explanation:
-      "Your SSS pension is the highest of three formulas: (a) ₱300 + 20% of average Monthly Salary Credit (MSC) + 2% of average MSC for each credited year of service (CYS) over 10; (b) 40% of average MSC; (c) Minimum pension of ₱2,000 for 10-19 CYS or ₱4,000 for 20+ CYS. The Monthly Salary Credit is not your actual salary but the salary bracket assigned by SSS based on your compensation range. For most members with 20+ years and a moderate-to-high MSC, Formula (a) produces the highest pension.",
+      "Your SSS pension is the highest of three formulas: (a) ₱300 + 20% of average Monthly Salary Credit (MSC) + 2% of average MSC for each credited year of service (CYS) over 10; (b) 40% of average MSC; (c) the statutory minimum of ₱1,200 for 10–19 CYS or ₱2,400 for 20+ CYS. A ₱1,000 across-the-board increase is then added on top of whichever formula wins. The Monthly Salary Credit is the bracket assigned by SSS (₱5,000 to ₱35,000), not your exact salary. For most members with 20+ years and a moderate-to-high MSC, Formula (a) produces the highest pension.",
   },
   exampleCalculation: {
     scenario:
-      "An SSS member with a Monthly Salary Credit of PHP 20,000 and 25 years of contribution.",
+      "An SSS member with an average Monthly Salary Credit of ₱20,000 and 25 years of contribution.",
     inputs: {
       monthlySalaryCredit: 20_000,
       yearsOfContribution: 25,
@@ -33,47 +33,48 @@ export const sssPensionData: CalculatorPageData = {
     result: {
       formulaA: 10_300,
       formulaB: 8_000,
-      minimumPension: 4_000,
-      monthlyPension: 10_300,
-      monthlyContribution: 2_850,
-      totalContributions: 855_000,
+      minimumPension: 2_400,
+      acrossTheBoardIncrease: 1_000,
+      monthlyPension: 11_300,
     },
   },
   tips: [
-    "Maximize your Monthly Salary Credit by reporting your actual income to SSS. A higher MSC means higher contributions but also a significantly higher pension.",
-    "Aim for at least 20 years of contributions to qualify for the higher minimum pension of ₱4,000/month and to maximize Formula (a) which grows with each credited year over 10.",
-    "Voluntary members and OFWs can choose their MSC bracket. If you can afford it, selecting a higher bracket (up to ₱30,000) will result in a larger retirement pension.",
-    "Continue contributing even after reaching 10 years of service. Each additional year adds 2% of your average MSC to your pension under Formula (a), which can significantly increase your monthly benefit.",
+    "The SSS always pays the highest of the three formulas, so you never need to pick one yourself.",
+    "Each extra year of service beyond 10 adds 2% of your salary credit under the first formula.",
+    "Delaying retirement and continuing to contribute can raise both your years of service and your average salary credit.",
+    "The minimum monthly pension is ₱1,200 for 10 to under 20 years of service and ₱2,400 for 20 years or more, before the ₱1,000 increase.",
+    "Dependent children may qualify for an additional dependent’s pension, which this estimate does not include.",
   ],
   faqs: [
     {
-      question: "How many years do I need to contribute to SSS to get a pension?",
+      question: "How is the SSS pension calculated in the Philippines?",
       answer:
-        "You need at least 120 monthly contributions (10 years) to qualify for the SSS retirement pension. The pension amount increases with more years of contribution. Members with fewer than 120 contributions will receive a lump-sum benefit instead of a monthly pension upon retirement.",
+        "The SSS uses three formulas and pays the highest result. They are based on your average monthly salary credit and your credited years of service, and a ₱1,000 across-the-board increase is added on top.",
     },
     {
-      question:
-        "What is the maximum SSS pension I can receive?",
+      question: "How many years do I need to qualify for an SSS pension?",
       answer:
-        "The maximum SSS pension depends on your Monthly Salary Credit and years of contribution. With the maximum MSC of ₱30,000 and 35 years of contribution (the practical maximum), Formula (a) yields approximately ₱21,300 per month. There is no hard cap, but the formula naturally limits the pension based on MSC and CYS. Pensioners also receive a 13th month pension each December.",
+        "You need at least 120 monthly contributions, which is about 10 credited years of service, to receive a lifetime monthly pension. With fewer contributions you receive a one-time lump-sum benefit instead.",
     },
     {
-      question:
-        "At what age can I claim my SSS retirement pension?",
+      question: "What is the average monthly salary credit (AMSC)?",
       answer:
-        "You can claim your SSS retirement pension at age 60 (optional retirement) if you have separated from employment or ceased self-employment, or at age 65 (mandatory/technical retirement) whether or not you are still working. You must have at least 120 monthly contributions to qualify for the monthly pension.",
+        "It is the average of the salary credits used for your contributions over your membership. A higher AMSC produces a higher pension because it feeds directly into all three formulas.",
     },
     {
-      question:
-        "What is the Monthly Salary Credit (MSC) in SSS?",
+      question: "What is the minimum SSS pension?",
       answer:
-        "The Monthly Salary Credit is the compensation bracket assigned by SSS based on your actual monthly earnings. It ranges from ₱4,000 to ₱30,000 (as of 2025). Your SSS contribution and benefits, including your pension, are computed based on your MSC, not your actual salary. For example, if your monthly salary is ₱20,500, your MSC would be ₱20,500 (falling in the ₱20,250-₱20,749 bracket).",
+        "Before the ₱1,000 increase, the minimum is ₱1,200 per month for 10 to under 20 credited years and ₱2,400 for 20 or more years. The ₱1,000 increase is then added on top.",
     },
     {
-      question:
-        "Do SSS pensioners receive a 13th month pension?",
+      question: "Do SSS pensioners get a 13th-month pension?",
       answer:
-        "Yes, SSS retirement pensioners receive a 13th month pension every December, equivalent to one month of their regular monthly pension. This was mandated by RA 8282 (Social Security Act of 1997). Pensioners may also receive additional benefits if the SSS Board approves a pension increase.",
+        "Yes. Retirement pensioners receive a 13th-month pension every December equal to one monthly pension, in addition to their twelve monthly payments.",
+    },
+    {
+      question: "Can I increase my future SSS pension?",
+      answer:
+        "Yes. Contributing at a higher salary credit and accumulating more credited years both raise the formula results. The compare row above shows how more years of service lift the estimate.",
     },
   ],
   relatedPages: [

@@ -24,66 +24,54 @@ export const sssContributionCalcData: CalculatorPageData = {
   },
   exampleCalculation: {
     scenario:
-      "An employed member earning ₱25,000 per month with standard employee-employer sharing.",
+      "An employed member earning ₱25,000 per month under the 15% contribution rate.",
     inputs: {
       monthlySalary: 25_000,
     },
     result: {
       monthlySalaryCredit: 25_000,
-      totalContribution: 3_562.5,
+      totalContribution: 3_780,
       employeeShare: 1_250,
-      employerShare: 2_312.5,
+      employerShare: 2_530,
     },
   },
   tips: [
-    "Choose the correct member type before relying on the result.",
-    "This calculator estimates SSS contribution only and does not calculate full net pay.",
-    "If SSS updates the official schedule, the final contribution may differ from this estimate.",
+    "Your MSC is set by an income bracket in ₱500 steps, so two slightly different salaries can land on the same salary credit.",
+    "Paying a higher salary credit raises both your contribution and your future SSS pension and benefit amounts.",
+    "Self-employed, voluntary, and OFW members can choose to pay at a higher salary credit to build larger benefits.",
+    "Contributions also count toward sickness, maternity, disability, and salary-loan eligibility — not just retirement.",
+    "Keep your contributions continuous where possible, since the number of paid months affects benefit qualification.",
   ],
   faqs: [
     {
-      question:
-        "What does this SSS contribution calculator estimate?",
+      question: "How much is the SSS contribution in the Philippines?",
       answer:
-        "This calculator estimates your SSS contribution based on your monthly compensation and selected member type. It may also show employee share, employer share, total contribution, and Monthly Salary Credit depending on the classification used.",
+        "The total SSS contribution is currently 15% of your monthly salary credit (MSC). For an employee, the employer pays 10% and the employee pays 5%. Self-employed, voluntary, and OFW members pay the full 15%.",
     },
     {
-      question: "Is this the same as take-home pay?",
+      question: "What is the monthly salary credit (MSC)?",
       answer:
-        "No. This calculator estimates SSS contribution only. It does not calculate full net pay after withholding tax, PhilHealth, Pag-IBIG, and other payroll deductions.",
+        "The MSC is a bracketed figure based on your income, ranging from ₱5,000 to ₱35,000. Your contribution is computed on the MSC, not directly on your exact salary.",
     },
     {
-      question: "Why does member type matter?",
+      question: "What is WISP in my SSS contribution?",
       answer:
-        "Member type matters because contribution treatment may differ for employees, self-employed members, voluntary members, non-working spouses, and OFWs. The estimate depends on the classification selected.",
+        "WISP is the mandatory provident fund. When your salary credit is above ₱20,000, the contribution on that excess goes to a separate retirement savings account on top of your regular SSS contribution.",
     },
     {
-      question: "What is Monthly Salary Credit?",
+      question: "How much is deducted from my salary if I am employed?",
       answer:
-        "Monthly Salary Credit is the salary band used by SSS to determine the contribution amount. It helps convert actual salary or compensation into the bracket used for contribution computation.",
+        "Only the 5% employee share is deducted from your pay. Your employer adds the 10% employer share and the small Employees’ Compensation premium and remits the total to SSS.",
     },
     {
-      question:
-        "Why is my actual contribution different from this estimate?",
+      question: "Do self-employed and voluntary members pay more?",
       answer:
-        "Actual contribution may differ because of official schedule updates, payroll treatment, classification differences, or other compensation details not fully reflected in a simplified estimate.",
+        "They pay the full 15% themselves because there is no employer to share the cost. They can also choose a higher salary credit to increase their future benefits.",
     },
     {
-      question: "Where should I verify the final amount?",
+      question: "Does a higher contribution mean a bigger pension?",
       answer:
-        "Use the SSS Contribution Table or official SSS references to verify the final amount, especially if you need the exact contribution under the latest schedule.",
-    },
-    {
-      question:
-        "How do I compute my SSS contribution based on salary?",
-      answer:
-        "Find your Monthly Salary Credit (MSC) bracket in the SSS contribution table — this is the salary range your gross pay falls into. The employee share is a fixed percentage of the MSC (currently 4.5%), and the employer pays an additional 9.5%. For example, if your monthly salary is ₱25,000, your MSC is ₱25,000, making your employee share ₱1,125 and the employer share ₱2,375.",
-    },
-    {
-      question:
-        "How much SSS contribution should I pay if I am self-employed?",
-      answer:
-        "Self-employed members pay the full SSS contribution (both employee and employer shares) based on their declared monthly earnings. The total rate is 14% of your chosen Monthly Salary Credit. You can select any MSC bracket from ₱4,000 up to the maximum. Higher contributions mean higher benefits for loans, sickness, and retirement.",
+        "Yes. A higher salary credit increases your average monthly salary credit over time, which is a key input in the SSS pension formula. Try the SSS Pension calculator to see the effect.",
     },
   ],
   relatedPages: [

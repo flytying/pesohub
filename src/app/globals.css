@@ -221,9 +221,11 @@
 
   /* Signature gradients */
   --ph-grad-panel: linear-gradient(150deg, #1A3AD6 0%, #1430BE 55%, #0E2496 100%);
+  --ph-grad-panel-green: linear-gradient(150deg, #0FA88F 0%, #0B8270 55%, #075C50 100%);
   --ph-grad-card:  linear-gradient(135deg, #1535C7, #0F258F);
   --ph-grad-avatar: linear-gradient(135deg, #1535C7, #19C9C2);
   --ph-glow-cyan:  radial-gradient(circle, rgba(43,229,223,.45), transparent 70%);
+  --ph-glow-green: radial-gradient(circle, rgba(43,229,223,.28), transparent 68%);
 
   /* Semantic aliases */
   --ph-primary: var(--ph-blue-550);

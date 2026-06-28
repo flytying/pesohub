@@ -1,5 +1,15 @@
 import type { CalculatorPageData } from "@/types/content";
 
+/** TRAIN Law annual income tax brackets (RA 10963, effective Jan 1 2023). */
+export const TRAIN_BRACKETS = [
+  { range: "₱0 – ₱250,000", rate: "0%", due: "₱0", lo: 0, hi: 250_000 },
+  { range: "₱250,001 – ₱400,000", rate: "15%", due: "15% of excess over ₱250,000", lo: 250_000, hi: 400_000 },
+  { range: "₱400,001 – ₱800,000", rate: "20%", due: "₱22,500 + 20% of excess over ₱400,000", lo: 400_000, hi: 800_000 },
+  { range: "₱800,001 – ₱2,000,000", rate: "25%", due: "₱102,500 + 25% of excess over ₱800,000", lo: 800_000, hi: 2_000_000 },
+  { range: "₱2,000,001 – ₱8,000,000", rate: "30%", due: "₱402,500 + 30% of excess over ₱2,000,000", lo: 2_000_000, hi: 8_000_000 },
+  { range: "Over ₱8,000,000", rate: "35%", due: "₱2,202,500 + 35% of excess over ₱8,000,000", lo: 8_000_000, hi: Infinity },
+] as const;
+
 export const withholdingTaxData: CalculatorPageData = {
   slug: "calculators/tax/withholding-tax-calculator-philippines",
   category: "tax",

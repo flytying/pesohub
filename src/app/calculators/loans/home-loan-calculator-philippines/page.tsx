@@ -99,7 +99,7 @@ export default function HomeLoanCalculatorPage() {
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd data={generateCalculatorSchema({ title: homeLoanData.metaTitle, description: homeLoanData.metaDescription })} />
 
-      <div className="mx-auto w-full max-w-[1280px] px-[clamp(18px,3vw,34px)] py-[clamp(18px,3vw,34px)]">
+      <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(18px,3vw,34px)]">
         {/* Heading */}
         <div className="mb-5">
           <nav aria-label="Breadcrumb" className="mb-[10px]">
@@ -202,9 +202,9 @@ export default function HomeLoanCalculatorPage() {
             </ul>
           </section>
 
-          <section><FaqSection faqs={homeLoanData.faqs} /></section>
+          <section className="pt-7"><FaqSection faqs={homeLoanData.faqs} /></section>
 
-          <section>
+          <section className="pt-7">
             <h2 className={`mb-4 ${H2}`}>Related calculators and guides</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {relatedContent.map((item) => {

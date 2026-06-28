@@ -651,7 +651,7 @@ export default function HomePage() {
       </div>
 
       {/* FAQ */}
-      <div className="mb-6 rounded-[22px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,34px)]">
+      <div className="mb-6">
         <FaqSection faqs={homeFaqs} />
       </div>
     </div>
