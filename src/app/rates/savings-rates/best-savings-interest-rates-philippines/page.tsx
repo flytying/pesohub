@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   ArrowRight,
+  ArrowDown,
   Trophy,
   CheckCircle,
   Info,
@@ -187,9 +188,10 @@ export default function BestSavingsRatesPage() {
         badge={SAVINGS_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
+        containerClassName="w-full max-w-[1240px] px-[clamp(20px,3vw,36px)]"
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(18px,3vw,34px)]">
         {/* What Is a Savings Rate? */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
@@ -447,19 +449,30 @@ export default function BestSavingsRatesPage() {
             {taxExamples.map((ex) => (
               <div
                 key={ex.gross}
-                className="rounded-xl border border-gray-200 bg-white p-4 text-center"
+                className="overflow-hidden rounded-2xl border border-[#E7EBF3] bg-white shadow-[0_1px_2px_rgba(16,24,40,.04)]"
               >
-                <p className="text-2xl font-bold text-gray-500">
-                  {formatPercent(ex.gross)}
-                </p>
-                <p className="text-[14px] text-gray-400">gross rate</p>
-                <div className="my-2 border-t border-gray-200" />
-                <p className="text-lg font-semibold text-brand">
-                  ≈ {formatPercent(ex.net)}
-                </p>
-                <p className="text-[14px] text-gray-400">
-                  after 20% withholding tax
-                </p>
+                <div className="px-5 pt-5 text-center">
+                  <p className="font-display text-[34px] font-bold leading-none tracking-[-.02em] tabular-nums text-[#0E1525]">
+                    {formatPercent(ex.gross)}
+                  </p>
+                  <p className="mt-1.5 text-[12px] font-semibold uppercase tracking-[.12em] text-[#8A93A6]">
+                    gross rate
+                  </p>
+                </div>
+                <div className="my-3 flex justify-center">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-[12px] font-bold text-amber-700">
+                    <ArrowDown className="size-3" />
+                    20% tax
+                  </span>
+                </div>
+                <div className="bg-[#EEF1FF] px-5 py-4 text-center">
+                  <p className="font-display text-[26px] font-bold leading-none tracking-[-.02em] tabular-nums text-brand">
+                    ≈ {formatPercent(ex.net)}
+                  </p>
+                  <p className="mt-1.5 text-[13px] text-[#6B7488]">
+                    after withholding tax
+                  </p>
+                </div>
               </div>
             ))}
           </div>
