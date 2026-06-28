@@ -271,7 +271,7 @@ export default function WithholdingTaxTablePage() {
         </section>
       </div>
 
-      <div className={`${WRAP} pb-20 pt-[clamp(34px,5vw,48px)]`}>
+      <div className={`${WRAP} pb-10 pt-[clamp(34px,5vw,48px)]`}>
         {/* FAQ */}
         <div id="faqs" className="scroll-mt-24">
           <FaqSection faqs={withholdingTaxTableFaqs} />
@@ -306,9 +306,6 @@ export default function WithholdingTaxTablePage() {
 
         {/* Source & disclaimer */}
         <section id="source" className="mt-[clamp(34px,5vw,48px)] scroll-mt-24">
-          <h2 className="mb-6 font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-.02em] text-[#0E1525]">
-            Official BIR Source and Freshness
-          </h2>
           <SourceCitation
             source="Bureau of Internal Revenue (BIR) — TRAIN Law (RA 10963), RR 11-2018, Annex E"
             sourceUrl="https://www.bir.gov.ph/tax-information/tax-rates"
