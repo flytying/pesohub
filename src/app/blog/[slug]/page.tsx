@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, TriangleAlert } from "lucide-react";
+import { ArrowRight, TriangleAlert, Clock, Info } from "lucide-react";
 import { notFound } from "next/navigation";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -7,46 +7,36 @@ import {
   generateArticleSchema,
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
-import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { BlogContent } from "@/components/blog/blog-content";
+import { formatDate } from "@/lib/formatters";
 import { blogPosts } from "@/data/blog";
-import type { BlogPostData } from "@/types/content";
+import { postModules } from "@/data/blog/post-modules";
 
 // Ensure fully static generation
 export const dynamicParams = false;
 
-// ---------------------------------------------------------------------------
-// Post data loader – maps slugs to dynamic imports
-// ---------------------------------------------------------------------------
+// Category pill styling — mirrors the blog hub cards.
+const CATEGORY_LABELS: Record<string, string> = {
+  savings: "Savings",
+  investing: "Investing",
+  tax: "Tax",
+  government: "Government",
+  banking: "Banking",
+  budgeting: "Budgeting",
+  insurance: "Insurance",
+  general: "General",
+};
 
-const postModules: Record<string, () => Promise<{ default: BlogPostData }>> = {
-  // Each blog data file should export its BlogPostData as the default export.
-  // New entries are added here by the blog agent or manually.
-  "best-savings-account-philippines-2026": () =>
-    import("@/data/blog/best-savings-account-philippines-2026"),
-  "high-interest-savings-account-philippines": () =>
-    import("@/data/blog/high-interest-savings-account-philippines"),
-  "what-is-a-savings-rate-philippines": () =>
-    import("@/data/blog/what-is-a-savings-rate-philippines"),
-  "time-deposit-vs-savings-account-philippines": () =>
-    import("@/data/blog/time-deposit-vs-savings-account-philippines"),
-  "how-to-compute-withholding-tax-philippines": () =>
-    import("@/data/blog/how-to-compute-withholding-tax-philippines"),
-  "car-loan-calculator-guide-philippines": () =>
-    import("@/data/blog/car-loan-calculator-guide-philippines"),
-  "home-loan-vs-pagibig-housing-loan-philippines": () =>
-    import("@/data/blog/home-loan-vs-pagibig-housing-loan-philippines"),
-  "pagibig-mp2-salary-deduction-guide": () =>
-    import("@/data/blog/pagibig-mp2-salary-deduction-guide"),
-  "best-digital-banks-philippines": () =>
-    import("@/data/blog/best-digital-banks-philippines"),
-  "digital-bank-interest-rates-philippines": () =>
-    import("@/data/blog/digital-bank-interest-rates-philippines"),
-  "high-yield-savings-account-philippines": () =>
-    import("@/data/blog/high-yield-savings-account-philippines"),
-  "highest-interest-digital-banks-philippines": () =>
-    import("@/data/blog/highest-interest-digital-banks-philippines"),
+const CATEGORY_TONE: Record<string, { bg: string; ink: string }> = {
+  savings: { bg: "#DEF5F0", ink: "#0B7E6E" },
+  investing: { bg: "#EDE8FC", ink: "#6D4DE0" },
+  tax: { bg: "#FBF0DC", ink: "#B7791F" },
+  government: { bg: "#EAF0FF", ink: "#1535C7" },
+  banking: { bg: "#EAF0FF", ink: "#1535C7" },
+  budgeting: { bg: "#DEF5F0", ink: "#0B7E6E" },
+  insurance: { bg: "#FBE6E7", ink: "#C2484D" },
+  general: { bg: "#EEF1F7", ink: "#5A6478" },
 };
 
 // ---------------------------------------------------------------------------
@@ -115,45 +105,119 @@ export default async function BlogPostPage({
         })}
       />
 
-      <PageHero
-        title={post.title}
-        description={post.excerpt}
-        badge={post.publishedAt}
-        badgeLabel="Posted"
-        breadcrumbs={breadcrumbs}
-        variant="dark"
-        image={post.image}
-      />
+      {/* Header */}
+      <div className="mx-auto max-w-[920px] px-4 pb-2 pt-8 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="mb-4">
+          <ol className="flex flex-wrap items-center gap-2 text-[14px]">
+            {breadcrumbs.map((item, index) => {
+              const isLast = index === breadcrumbs.length - 1;
+              return (
+                <li key={index} className="flex items-center gap-2">
+                  {index > 0 && <span className="text-[#C4CCDB]">/</span>}
+                  {isLast || !item.href ? (
+                    <span
+                      aria-current={isLast ? "page" : undefined}
+                      className="text-[#5A6478]"
+                    >
+                      {item.label}
+                    </span>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="font-bold text-brand transition-colors hover:text-brand-light"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
 
-      <article className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-        {/* Direct Answer Box */}
-        {post.directAnswer && (
-          <div className="rounded-xl border border-brand/20 bg-brand/5 p-6">
-            <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-brand">
-              Quick Answer
-            </p>
-            <p className="mt-2 text-[16px] leading-[1.6] text-gray-500">
-              {post.directAnswer}
-            </p>
-          </div>
-        )}
+        <h1 className="font-display text-[clamp(30px,4vw,44px)] font-semibold leading-[1.12] tracking-[-.02em] text-[#0E1525]">
+          {post.title}
+        </h1>
+        <p className="mt-[14px] max-w-[74ch] text-[18px] leading-[1.6] text-[#475069]">
+          {post.excerpt}
+        </p>
 
-        {/* Article Content */}
-        <BlogContent sections={post.sections} />
+        {/* Meta row: category pill · read time · updated date */}
+        <div className="mt-[18px] flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span
+            className="rounded-[8px] px-[10px] py-[5px] text-[11px] font-bold uppercase tracking-[.06em]"
+            style={{
+              background: (CATEGORY_TONE[post.category] ?? CATEGORY_TONE.general)
+                .bg,
+              color: (CATEGORY_TONE[post.category] ?? CATEGORY_TONE.general).ink,
+            }}
+          >
+            {CATEGORY_LABELS[post.category] ?? post.category}
+          </span>
+          <span className="flex items-center gap-[5px] text-[13.5px] font-semibold text-[#6B7488]">
+            <Clock className="size-[15px]" />
+            {post.readTime} min read
+          </span>
+          <span className="text-[13.5px] font-semibold text-[#8A93A6]">
+            Updated {formatDate(post.updatedAt)}
+          </span>
+        </div>
+      </div>
 
-        {/* Disclaimer */}
-        {post.disclaimer && (
-          <div className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
-            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <p className="text-[16px] leading-[1.6] text-[#5A6478]">
-              This article is for educational and informational purposes only.
-              It should not be considered professional financial advice. Rates,
-              rules, and product details may change. Always verify with the
-              relevant institution and consult a qualified financial advisor
-              before making important financial decisions.
-            </p>
-          </div>
-        )}
+      {/* Hero image */}
+      <div className="mx-auto max-w-[920px] px-4 pt-4 sm:px-6 lg:px-8">
+        <div className="relative h-[clamp(200px,34vw,320px)] overflow-hidden rounded-[18px]">
+          {post.image ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={post.image.src}
+              alt={post.image.alt}
+              className="size-full object-cover"
+            />
+          ) : (
+            <div aria-hidden className="gradient-hero size-full" />
+          )}
+        </div>
+      </div>
+
+      <article className="mx-auto max-w-[920px] px-4 py-10 sm:px-6 lg:px-8">
+        {/* Article card */}
+        <div className="rounded-[22px] border border-[#E7EBF3] bg-white p-[clamp(22px,4vw,44px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+          {/* Direct Answer Box */}
+          {post.directAnswer && (
+            <div className="flex items-start gap-[14px] rounded-[16px] border border-[#D3DEFA] bg-[#EAF0FF] p-5">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-[#D3DEFA]">
+                <Info className="size-5 text-brand" />
+              </span>
+              <div>
+                <p className="text-[12px] font-bold uppercase tracking-[0.06em] text-brand">
+                  Quick Answer
+                </p>
+                <p className="mt-[5px] text-[15.5px] leading-[1.6] text-[#344054]">
+                  {post.directAnswer}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Article Content */}
+          <BlogContent sections={post.sections} />
+
+          {/* Disclaimer */}
+          {post.disclaimer && (
+            <div className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+              <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+              <p className="text-[16px] leading-[1.6] text-[#475069]">
+                This article is for educational and informational purposes only.
+                It should not be considered professional financial advice.
+                Rates, rules, and product details may change. Always verify with
+                the relevant institution and consult a qualified financial
+                advisor before making important financial decisions.
+              </p>
+            </div>
+          )}
+        </div>
 
         {/* FAQ */}
         {post.faqs.length > 0 && (
@@ -168,14 +232,22 @@ export default async function BlogPostPage({
             <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
               Related Pages
             </h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div
+              className={`grid gap-4 ${
+                post.relatedSlugs.length >= 3
+                  ? "sm:grid-cols-2 lg:grid-cols-3"
+                  : post.relatedSlugs.length === 2
+                    ? "sm:grid-cols-2"
+                    : "grid-cols-1"
+              }`}
+            >
               {post.relatedSlugs.map((relSlug) => (
                 <Link
                   key={relSlug}
                   href={`/${relSlug}`}
                   className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
                 >
-                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                  <span className="flex-1 text-[16px] font-semibold text-[#0E1525] group-hover:text-brand">
                     {relSlug
                       .split("/")
                       .pop()

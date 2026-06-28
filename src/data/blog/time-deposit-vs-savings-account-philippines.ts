@@ -110,16 +110,19 @@ const post: BlogPostData = {
       "content": "Before deciding where to put your money, it helps to see the two products compared directly across the dimensions that matter most to Filipino savers."
     },
     {
-      "type": "list",
-      "items": [
-        "Interest rate — Traditional savings: 0.10%–1.00% p.a. | Time deposit: 2.0%–6.0% p.a. | Digital bank savings: 3.5%–6.0% p.a.",
-        "Liquidity — Savings account: withdraw anytime without penalty | Time deposit: funds locked until maturity; early withdrawal usually forfeits all or part of interest | Digital bank savings: withdraw anytime",
-        "Minimum placement — Savings: ₱0–₱5,000 maintaining balance | Time deposit: ₱5,000–₱50,000 typical minimum | Digital bank savings: often ₱0 minimum",
-        "PDIC coverage — All three: up to ₱500,000 per depositor per BSP-licensed bank",
-        "Tax treatment — All peso deposits: 20% final withholding tax on interest income",
-        "Rollover — Savings: not applicable | Time deposit: auto-rollover at prevailing rate at maturity (check your TD agreement) | Digital bank savings: not applicable",
-        "Best use case — Savings: emergency fund, day-to-day buffer | Time deposit: surplus funds you will not need for 1–12 months | Digital bank savings: emergency fund or medium-term savings that needs to stay liquid"
+      "type": "table",
+      "columns": ["Factor", "Traditional savings", "Time deposit", "Digital bank savings"],
+      "rows": [
+        ["Interest rate", "0.10%–1.00% p.a.", "2.0%–6.0% p.a.", "3.5%–6.0% p.a."],
+        ["Liquidity", "Withdraw anytime, no penalty", "Locked until maturity; early withdrawal usually forfeits interest", "Withdraw anytime"],
+        ["Minimum placement", "₱0–₱5,000 maintaining balance", "₱5,000–₱50,000 typical minimum", "Often ₱0 minimum"],
+        ["Rollover", "Not applicable", "Auto-rollover at the prevailing rate at maturity (check your TD agreement)", "Not applicable"],
+        ["Best use case", "Emergency fund, day-to-day buffer", "Surplus funds you will not need for 1–12 months", "Emergency fund or medium-term savings that stays liquid"]
       ]
+    },
+    {
+      "type": "paragraph",
+      "content": "All three are PDIC-insured up to ₱500,000 per depositor per BSP-licensed bank, and interest on peso deposits is subject to the 20% final withholding tax on interest income."
     },
     {
       "type": "paragraph",
