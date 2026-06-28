@@ -2,10 +2,10 @@ import Link from "next/link";
 import {
   ArrowRight,
   Calculator,
-  Shield,
+  Wallet,
+  Coins,
   HelpCircle,
   Landmark,
-  TrendingUp,
   House,
   Home,
   Building,
@@ -77,17 +77,17 @@ const relatedPages = [
   {
     title: "Pag-IBIG Contribution Table",
     href: "/government/pag-ibig/pag-ibig-contribution-table-philippines",
-    icon: Shield,
+    icon: Home,
   },
   {
     title: "Take-Home Pay Calculator",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
-    icon: Calculator,
+    icon: Wallet,
   },
   {
     title: "Pag-IBIG MP2 Savings Guide",
     href: "/government/pag-ibig/pag-ibig-mp2-savings-guide",
-    icon: TrendingUp,
+    icon: Coins,
   },
   {
     title: "Government Hub",
@@ -195,7 +195,7 @@ export default function PagibigHousingLoanGuidePage() {
                       <td className="px-[18px] py-[13px] text-[14.5px] text-[#0E1525]">
                         {limit.contributionYears}
                       </td>
-                      <td className="px-[18px] py-[13px] text-right font-mono text-[14.5px] font-semibold tabular-nums text-brand">
+                      <td className="px-[18px] py-[13px] text-right font-mono text-[14.5px] font-semibold tabular-nums text-[#0E1525]">
                         {limit.maxLoanAmount}
                       </td>
                     </tr>

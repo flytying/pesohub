@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Calculator, ArrowRight } from "lucide-react";
+import { Calculator, ArrowRight, Shield, Landmark } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
@@ -90,6 +90,21 @@ const relatedContent = [
     href: "/calculators/retirement/sss-pension-calculator",
     icon: Calculator,
   },
+  {
+    title: "SSS Contribution Table",
+    href: "/government/sss/sss-contribution-guide",
+    icon: Shield,
+  },
+  {
+    title: "SSS Contribution Calculator",
+    href: "/calculators/sss/sss-contribution-calculator-philippines",
+    icon: Calculator,
+  },
+  {
+    title: "Government Hub",
+    href: "/government",
+    icon: Landmark,
+  },
 ];
 
 const ROW_GRID = "grid grid-cols-[1.3fr_1fr_1fr_1fr_1fr_1fr]";
@@ -163,9 +178,7 @@ export default function SSSPensionTablePage() {
                     {cells.map((value, j) => (
                       <div
                         key={j}
-                        className={`px-4 py-[13px] text-right font-mono tabular-nums text-[14px] ${
-                          j === cells.length - 1 ? "text-brand" : "text-[#475069]"
-                        }`}
+                        className="px-4 py-[13px] text-right font-mono tabular-nums text-[14px] text-[#475069]"
                       >
                         {formatPeso(value)}
                       </div>
