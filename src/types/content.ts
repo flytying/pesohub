@@ -76,7 +76,8 @@ export interface BlogSection {
     | "ordered-list"
     | "callout"
     | "quote"
-    | "cta";
+    | "cta"
+    | "table";
   /** H2/H3 text (for type "heading") */
   heading?: string;
   /** Heading level, default 2 */
@@ -89,6 +90,10 @@ export interface BlogSection {
   variant?: "info" | "warning" | "tip";
   /** Internal links (for type "cta") rendered with exact anchor text */
   links?: { label: string; href: string }[];
+  /** Column headers (for type "table") */
+  columns?: string[];
+  /** Row cells (for type "table"); [bank, rate, conditions] per row */
+  rows?: string[][];
 }
 
 export interface BlogPostData {

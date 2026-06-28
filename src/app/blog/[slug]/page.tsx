@@ -187,7 +187,7 @@ export default async function BlogPostPage({
           {/* Direct Answer Box */}
           {post.directAnswer && (
             <div className="flex items-start gap-[14px] rounded-[16px] border border-[#D3DEFA] bg-[#EAF0FF] p-5">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-white shadow-[0_1px_2px_rgba(16,24,40,.05)]">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-[#D3DEFA]">
                 <Info className="size-5 text-brand" />
               </span>
               <div>
