@@ -90,19 +90,21 @@ export function SourceCitation({
   return (
     <div className={cn("", className)}>
       <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-        Source & Freshness
+        Source &amp; freshness
       </h2>
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-[14px] sm:grid-cols-2 lg:grid-cols-3">
         {items.map((item) => {
           const Icon = item.icon;
           const content = (
             <>
-              <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                <Icon className="size-4" />
+              <div className="flex size-[42px] shrink-0 items-center justify-center rounded-[12px] bg-[#EAF0FF] text-brand">
+                <Icon className="size-5" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-[14px] text-gray-300">{item.label}</p>
-                <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
+                <p className="text-[13px] font-bold uppercase tracking-[.06em] text-[#6B7488]">
+                  {item.label}
+                </p>
+                <p className="mt-[3px] text-[15px] font-bold leading-[1.35] text-[#0E1525]">
                   {item.value}
                 </p>
               </div>

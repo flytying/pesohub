@@ -9,7 +9,7 @@ export const withholdingTaxMeta = {
     "Learn how Philippine withholding tax works under the TRAIN Law. Understand the tax brackets, computation formula, and how your employer deducts tax from your salary.",
   slug: "guides/tax/how-withholding-tax-works-philippines",
   directAnswer:
-    "Withholding tax is the amount your employer deducts from your salary each payday and remits to the BIR on your behalf. Under the TRAIN Law, the first PHP 250,000 of annual taxable income is tax-free. Income above that is taxed at graduated rates from 15% to 35%.",
+    "Withholding tax is the amount your employer deducts from your salary each payday and remits to the BIR on your behalf. Under the TRAIN Law, the first ₱250,000 of annual taxable income is tax-free. Income above that is taxed at graduated rates from 15% to 35%.",
 };
 
 /**
@@ -73,7 +73,7 @@ export const withholdingTaxFaqs: FAQ[] = [
     question:
       "Who is exempt from withholding tax in the Philippines?",
     answer:
-      "Employees earning PHP 250,000 or less per year (roughly PHP 20,833 per month) are exempt from income tax under the TRAIN Law. Minimum wage earners are also exempt regardless of the amount, as long as they receive only the statutory minimum wage and mandatory benefits.",
+      "Employees earning ₱250,000 or less per year (roughly ₱20,833 per month) are exempt from income tax under the TRAIN Law. Minimum wage earners are also exempt regardless of the amount, as long as they receive only the statutory minimum wage and mandatory benefits.",
   },
   {
     question:

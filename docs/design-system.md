@@ -9,6 +9,7 @@ Comprehensive design reference split into focused documents:
 | [design-layouts.md](design-layouts.md)        | Header, footer, section layouts, backgrounds       |
 | [design-pages.md](design-pages.md)            | Calculator detail pages, hub pages, page templates |
 | [design-calculators.md](design-calculators.md) | Calculator result heroes, accent-by-category, field components, page recipe |
+| [design-blog.md](design-blog.md)              | Blog hub + post pages: cards, meta badges, content sections, tables |
 
 ## Quick Reference
 
