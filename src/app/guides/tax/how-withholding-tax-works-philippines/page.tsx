@@ -491,7 +491,7 @@ export default function WithholdingTaxGuidePage() {
               </div>
             </div>
           </div>
-          <p className="mt-4 text-[13px] leading-[1.6] text-gray-300">
+          <p className="mt-4 text-[13px] leading-[1.6] text-[#8A93A6]">
             Actual withholding may vary slightly due to employer annualization
             adjustments and rounding differences per pay period.
           </p>

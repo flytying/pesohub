@@ -187,7 +187,7 @@ export default function TakeHomePayGuidePage() {
               </div>
             ))}
           </div>
-          <p className="mt-3 text-[14px] text-gray-400">
+          <p className="mt-3 text-[14px] text-[#8A93A6]">
             Based on a sample ₱35,000 monthly salary. Actual amounts depend on
             payroll handling and current contribution schedules.
           </p>
@@ -270,7 +270,7 @@ export default function TakeHomePayGuidePage() {
             deductions. This is why a simple guide or calculator should be treated
             as a planning tool, not a replacement for your actual payslip.
           </p>
-          <p className="mt-4 text-[16px] font-semibold leading-[1.6] text-gray-500">
+          <p className="mt-4 text-[14px] font-bold text-[#0E1525]">
             Common reasons include:
           </p>
           <ul className="mt-4 space-y-3">

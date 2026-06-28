@@ -206,7 +206,7 @@ export default function PagIBIGDeductionGuidePage() {
             is different from the expected regular contribution, it may be
             connected to a housing loan payment or another separate arrangement.
           </p>
-          <p className="mt-4 text-[16px] font-semibold leading-[1.6] text-gray-500">
+          <p className="mt-4 text-[14px] font-bold text-[#0E1525]">
             A practical way to check:
           </p>
           <ul className="mt-4 space-y-3">

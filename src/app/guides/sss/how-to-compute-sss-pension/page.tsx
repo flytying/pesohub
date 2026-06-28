@@ -96,6 +96,19 @@ const mscRows = [
   { range: "₱29,750 and above", msc: "₱30,000", ee: "₱1,350", er: "₱2,850" },
 ];
 
+const exampleRows: { label: string; val: string; kind: "fhead" | "sub" | "res" }[] = [
+  { label: "Formula 1", val: "₱300 + (20% × AMSC) + (2% × AMSC × CYS over 10)", kind: "fhead" },
+  { label: "Base amount", val: "₱300", kind: "sub" },
+  { label: "20% × AMSC", val: "20% × ₱20,000 = ₱4,000", kind: "sub" },
+  { label: "2% × AMSC × CYS over 10", val: "2% × ₱20,000 × 15 = ₱6,000", kind: "sub" },
+  { label: "Formula 1 result", val: "₱10,300/month", kind: "res" },
+  { label: "Formula 2", val: "40% × AMSC", kind: "fhead" },
+  { label: "Computation", val: "40% × ₱20,000", kind: "sub" },
+  { label: "Formula 2 result", val: "₱8,000/month", kind: "res" },
+  { label: "Formula 3", val: "Minimum pension (CYS ≥ 10)", kind: "fhead" },
+  { label: "Formula 3 result", val: "₱2,000/month", kind: "res" },
+];
+
 export default function SssPensionGuidePage() {
   return (
     <>
@@ -122,15 +135,15 @@ export default function SssPensionGuidePage() {
       <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20 pt-[clamp(20px,3vw,32px)]">
         {/* Quick Answer */}
         <section>
-          <div className="flex gap-4 rounded-[16px] border border-[#D7E0FB] bg-[#EAF0FF] p-6">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-white">
+          <div className="flex gap-[13px] rounded-[16px] border border-[#D3DEFA] bg-[#EAF0FF] p-5">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-[11px] bg-white shadow-[0_1px_2px_rgba(16,24,40,.05)]">
               <PiggyBank className="size-5 text-brand" />
             </span>
             <div>
-              <p className="text-[13px] font-bold uppercase tracking-[.08em] text-brand">
+              <p className="text-[13px] font-bold uppercase tracking-[.06em] text-brand">
                 Quick answer
               </p>
-              <p className="mt-2 text-[16px] leading-[1.6] text-[#475069]">
+              <p className="mt-1.5 text-[16px] leading-[1.6] text-[#344054]">
                 {sssPensionMeta.directAnswer}
               </p>
             </div>
@@ -205,13 +218,13 @@ export default function SssPensionGuidePage() {
             ))}
           </div>
           <div className="mt-6">
-            <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
+            <p className="text-[14px] font-bold text-[#0E1525]">
               Key terms:
             </p>
             <ul className="mt-3 space-y-3">
               {keyTerms.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                <li key={item} className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#344054]">
+                  <ArrowRight className="mt-1 size-4 shrink-0 text-brand" />
                   {item}
                 </li>
               ))}
@@ -261,7 +274,7 @@ export default function SssPensionGuidePage() {
               ))}
             </div>
           </div>
-          <p className="mt-3 text-[14px] text-gray-400">
+          <p className="mt-3 text-[14px] text-[#8A93A6]">
             This is a simplified excerpt. The full SSS contribution table has
             more brackets. Contribution amounts are based on the 2023 SSS
             schedule and may be updated.
@@ -292,79 +305,53 @@ export default function SssPensionGuidePage() {
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Worked example: MSC of ₱20,000 with 25 years of contributions
           </h2>
-          <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
+          <div className="mt-6 overflow-hidden rounded-[15px] border border-[#E0E6F2] bg-[#F7F9FD]">
             {/* Header */}
-            <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
-              <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
-                A member has an AMSC of ₱20,000 and 25 credited years of
-                service (CYS).
-              </p>
+            <div className="border-b border-[#E0E6F2] bg-[#F4F8FF] px-5 py-[15px] text-[14.5px] leading-[1.5] text-[#2A3550]">
+              A member has an AMSC of ₱20,000 and 25 credited years of service
+              (CYS).
             </div>
 
-            {/* Formula 1 */}
-            <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Formula 1</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">₱300 + (20% x AMSC) + (2% x AMSC x CYS over 10)</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="pl-4 text-gray-400">Base amount</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">₱300</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="pl-4 text-gray-400">20% x AMSC</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">20% x ₱20,000 = ₱4,000</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="pl-4 text-gray-400">2% x AMSC x CYS over 10</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">2% x ₱20,000 x 15 = ₱6,000</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Formula 1 result</dt>
-                  <dd className="font-mono tabular-nums font-semibold text-brand">₱10,300/month</dd>
-                </div>
-              </dl>
-            </div>
-
-            <div className="mx-6 border-t border-dashed border-gray-200" />
-
-            {/* Formula 2 */}
-            <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Formula 2</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">40% x AMSC</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="pl-4 text-gray-400">Computation</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">40% x ₱20,000</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Formula 2 result</dt>
-                  <dd className="font-mono tabular-nums font-semibold text-gray-500">₱8,000/month</dd>
-                </div>
-              </dl>
-            </div>
-
-            <div className="mx-6 border-t border-dashed border-gray-200" />
-
-            {/* Formula 3 */}
-            <div className="px-6 py-4">
-              <dl className="space-y-2.5 text-[16px] leading-[1.6]">
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Formula 3</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">Minimum pension (CYS &ge; 10)</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Formula 3 result</dt>
-                  <dd className="font-mono tabular-nums font-semibold text-gray-500">₱2,000/month</dd>
-                </div>
-              </dl>
+            <div className="overflow-x-auto">
+              <div className="min-w-[480px]">
+                {exampleRows.map((row, i) => {
+                  const isHead = row.kind === "fhead";
+                  const isRes = row.kind === "res";
+                  return (
+                    <div
+                      key={i}
+                      className={`flex items-center justify-between gap-4 ${
+                        isHead ? "px-5 pb-[9px] pt-[13px]" : "px-5 py-[9px]"
+                      } ${row.kind === "sub" ? "pl-[34px]" : ""} ${
+                        isRes ? "border-t border-dashed border-[#E6EBF4]" : ""
+                      }`}
+                    >
+                      <span
+                        className={`text-[14px] ${
+                          isHead
+                            ? "font-bold text-[#0E1525]"
+                            : isRes
+                              ? "font-bold text-brand"
+                              : "text-[#5A6478]"
+                        }`}
+                      >
+                        {row.label}
+                      </span>
+                      <span
+                        className={`text-right font-mono text-[13px] ${
+                          isRes ? "font-semibold text-brand" : "text-[#475069]"
+                        }`}
+                      >
+                        {row.val}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Result total */}
-            <div className="flex items-center justify-between gap-4 bg-[#1430BE] px-6 py-4">
+            <div className="flex items-center justify-between gap-4 bg-[#1430BE] px-5 py-4">
               <span className="text-[15px] font-semibold text-white">
                 Monthly pension (highest of 3 formulas)
               </span>
@@ -373,7 +360,7 @@ export default function SssPensionGuidePage() {
               </span>
             </div>
           </div>
-          <p className="mt-4 text-[14px] leading-[1.6] text-gray-300">
+          <p className="mt-4 text-[14px] leading-[1.6] text-[#8A93A6]">
             Members who retire at age 60 receive a 1.5% additional pension for
             every year of CYS beyond 10 years. Actual amounts may vary based on
             your specific SSS contribution history.
