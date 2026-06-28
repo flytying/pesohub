@@ -325,7 +325,7 @@ export default function TimeDepositRatesPage() {
           </p>
           <div className="mt-8 grid gap-5 sm:grid-cols-2">
             <div className="rounded-xl border border-gray-200 bg-white p-6">
-              <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+              <div className="flex size-14 items-center justify-center rounded-full bg-[#EDEEFF] text-brand">
                 <ArrowDown className="size-6" />
               </div>
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
@@ -337,7 +337,7 @@ export default function TimeDepositRatesPage() {
               </p>
             </div>
             <div className="rounded-xl border border-gray-200 bg-white p-6">
-              <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+              <div className="flex size-14 items-center justify-center rounded-full bg-[#EDEEFF] text-brand">
                 <ArrowUp className="size-6" />
               </div>
               <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
@@ -397,7 +397,7 @@ export default function TimeDepositRatesPage() {
                   key={card.title}
                   className="rounded-xl border border-gray-200 bg-white p-6"
                 >
-                  <div className="flex size-14 items-center justify-center rounded-full bg-gray-50 text-brand">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-[#EDEEFF] text-brand">
                     <Icon className="size-6" />
                   </div>
                   <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
@@ -412,33 +412,38 @@ export default function TimeDepositRatesPage() {
           </div>
         </section>
 
-      </div>
-
-      {/* Calculator CTA */}
-      <section className="bg-surface-tertiary py-20">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Want to Estimate Your Return?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
-            After comparing rates, use the Time Deposit Calculator to
-            estimate gross interest, after-tax interest, and maturity amount
-            for a specific deposit scenario.
-          </p>
-          <div className="mt-6">
-            <Link
-              href="/calculators/savings/time-deposit-calculator-philippines"
-              className="inline-flex items-center rounded-full bg-brand px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-            >
-              USE THE TIME DEPOSIT CALCULATOR
-            </Link>
+        {/* Calculator CTA */}
+        <section className="mt-6">
+          <div
+            className="relative overflow-hidden rounded-[20px] p-[clamp(28px,4vw,44px)] text-center text-white shadow-[0_24px_50px_-22px_rgba(21,53,199,.6)]"
+            style={{ background: "var(--ph-grad-panel)" }}
+          >
+            <div
+              aria-hidden
+              className="absolute -right-10 -top-12 size-[220px] rounded-full"
+              style={{ background: "var(--ph-glow-cyan)" }}
+            />
+            <h2 className="relative font-display text-[clamp(22px,2.4vw,28px)] font-semibold tracking-[-0.02em] text-white">
+              Want to Estimate Your Return?
+            </h2>
+            <p className="relative mx-auto mt-3 max-w-2xl text-[16px] leading-[1.6] text-[#C9D4FF]">
+              After comparing rates, use the Time Deposit Calculator to estimate
+              gross interest, after-tax interest, and maturity amount for a
+              specific deposit scenario.
+            </p>
+            <div className="relative mt-6">
+              <Link
+                href="/calculators/savings/time-deposit-calculator-philippines"
+                className="inline-flex items-center rounded-full bg-white px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-brand transition-colors hover:bg-[#EDEEFF]"
+              >
+                USE THE TIME DEPOSIT CALCULATOR
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
         {/* Editorial note */}
-        <section className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
+        <section className="mt-6 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
           <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
           <div>
             <h3 className="text-[16px] font-semibold text-gray-500">

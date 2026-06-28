@@ -22,8 +22,7 @@ import {
 
 const ENABLED = Boolean(process.env.BRAINTRUST_API_KEY);
 const PROJECT_NAME = "pesohub-blog-agent";
-const BLOG_DATASET = "blog-posts";
-const OPPORTUNITY_DATASET = "gsc-opportunities";
+const DATASET_NAME = "blog-posts";
 
 if (ENABLED) {
   initLogger({
@@ -32,23 +31,18 @@ if (ENABLED) {
   });
 }
 
-// Lazy dataset handles, keyed by name — only created on first use and when
-// Braintrust is enabled. Each name maps to one Braintrust dataset in the
-// project (blog-posts, gsc-opportunities, …).
-const _datasets = new Map();
-function dataset(name) {
+// Lazy dataset handle — only created when first used and Braintrust is enabled.
+let _dataset = null;
+function dataset() {
   if (!ENABLED) return null;
-  if (!_datasets.has(name)) {
-    _datasets.set(
-      name,
-      initDataset({
-        project: PROJECT_NAME,
-        dataset: name,
-        apiKey: process.env.BRAINTRUST_API_KEY,
-      })
-    );
+  if (!_dataset) {
+    _dataset = initDataset({
+      project: PROJECT_NAME,
+      dataset: DATASET_NAME,
+      apiKey: process.env.BRAINTRUST_API_KEY,
+    });
   }
-  return _datasets.get(name);
+  return _dataset;
 }
 
 /**
@@ -58,20 +52,7 @@ function dataset(name) {
  * @param {{id: string, input: object, expected: object, metadata: object}} record
  */
 export function upsertDatasetRecord(record) {
-  const ds = dataset(BLOG_DATASET);
-  if (ds) ds.insert(record);
-}
-
-/**
- * Upsert one record into the "gsc-opportunities" dataset — the eval set for the
- * weekly GSC opportunity finder. Keyed by `record.id` (week+slug), so a
- * `--feedback` pass that adds the human accept/reject `expected` overwrites the
- * original suggestion row rather than duplicating. No-op when disabled.
- *
- * @param {{id: string, input: object, output?: object, expected?: object, metadata?: object}} record
- */
-export function upsertOpportunityRecord(record) {
-  const ds = dataset(OPPORTUNITY_DATASET);
+  const ds = dataset();
   if (ds) ds.insert(record);
 }
 
@@ -110,7 +91,7 @@ export function logSpan(span, payload) {
  */
 export async function flushBraintrust() {
   if (ENABLED) await btFlush();
-  for (const ds of _datasets.values()) await ds.flush();
+  if (_dataset) await _dataset.flush();
 }
 
 export const BRAINTRUST_ENABLED = ENABLED;
