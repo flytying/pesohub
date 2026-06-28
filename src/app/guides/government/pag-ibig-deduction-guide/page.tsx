@@ -145,18 +145,18 @@ export default function PagIBIGDeductionGuidePage() {
             {deductionTypes.map((type) => (
               <div
                 key={type.title}
-                className={`rounded-xl border p-6 ${
+                className={`rounded-[16px] border-[1.5px] p-6 ${
                   type.tag === "Payroll deduction"
-                    ? "border-brand/20 bg-brand/5"
-                    : "border-gray-200 bg-white"
+                    ? "border-brand bg-[#EAF0FF]"
+                    : "border-[#E7EBF3] bg-white"
                 }`}
               >
-                <span className={`inline-block rounded-full px-2.5 py-0.5 text-[14px] font-medium ${
+                <span className={`inline-block rounded-[7px] px-2.5 py-1 text-[11px] font-bold tracking-[.04em] ${
                   type.tag === "Payroll deduction"
-                    ? "bg-brand/10 text-brand"
+                    ? "bg-[#EAF0FF] text-brand"
                     : type.tag === "Loan payment"
-                      ? "bg-amber-100 text-amber-800"
-                      : "bg-gray-50 text-gray-500"
+                      ? "bg-[#FBF0DC] text-[#B7791F]"
+                      : "bg-[#DEF5F0] text-[#0E9A86]"
                 }`}>
                   {type.tag}
                 </span>
@@ -259,69 +259,60 @@ export default function PagIBIGDeductionGuidePage() {
 
       </div>
 
-      {/* Next Steps */}
-      <section className="bg-surface-tertiary py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
+      <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
+        {/* What to Do Next */}
+        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
+          <h2 className="text-center text-[clamp(22px,2.6vw,28px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What to Do Next
           </h2>
-          <div className="mt-10 grid divide-y divide-gray-200 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-            <div className="flex h-full flex-col items-center px-8 py-6 text-center sm:py-0">
-              <div className="flex size-16 items-center justify-center rounded-full bg-gray-50 text-brand">
-                <Shield className="size-6" />
-              </div>
-              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
-                Contribution Reference
-              </h3>
-              <p className="mt-2 flex-1 text-[16px] leading-[1.6] text-[#5A6478]">
-                Verify the standard employee and employer contribution structure.
-              </p>
-              <Link
-                href="/government/pag-ibig/pag-ibig-contribution-table-philippines"
-                className="mt-6 inline-block rounded-full bg-brand px-6 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-              >
-                View Table
-              </Link>
-            </div>
-            <div className="flex h-full flex-col items-center px-8 py-6 text-center sm:py-0">
-              <div className="flex size-16 items-center justify-center rounded-full bg-gray-50 text-brand">
-                <Home className="size-6" />
-              </div>
-              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
-                Housing Loan Guide
-              </h3>
-              <p className="mt-2 flex-1 text-[16px] leading-[1.6] text-[#5A6478]">
-                If the Pag-IBIG amount is connected to a housing loan, start here.
-              </p>
-              <Link
-                href="/government/pag-ibig/pag-ibig-housing-loan-guide"
-                className="mt-6 inline-block rounded-full bg-brand px-6 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-              >
-                Read Guide
-              </Link>
-            </div>
-            <div className="flex h-full flex-col items-center px-8 py-6 text-center sm:py-0">
-              <div className="flex size-16 items-center justify-center rounded-full bg-gray-50 text-brand">
-                <Calculator className="size-6" />
-              </div>
-              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
-                Full Payroll Estimate
-              </h3>
-              <p className="mt-2 flex-1 text-[16px] leading-[1.6] text-[#5A6478]">
-                See Pag-IBIG alongside SSS, PhilHealth, and withholding tax in one estimate.
-              </p>
-              <Link
-                href="/calculators/tax/take-home-pay-calculator-philippines"
-                className="mt-6 inline-block rounded-full bg-brand px-6 py-2.5 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-              >
-                Use Calculator
-              </Link>
-            </div>
+          <div className="mt-7 grid gap-6 sm:grid-cols-3 sm:divide-x sm:divide-[#DDE4F5]">
+            {[
+              {
+                icon: Shield,
+                title: "Contribution Reference",
+                desc: "Verify the standard employee and employer contribution structure.",
+                href: "/government/pag-ibig/pag-ibig-contribution-table-philippines",
+                cta: "View Table",
+              },
+              {
+                icon: Home,
+                title: "Housing Loan Guide",
+                desc: "If the Pag-IBIG amount is connected to a housing loan, start here.",
+                href: "/government/pag-ibig/pag-ibig-housing-loan-guide",
+                cta: "Read Guide",
+              },
+              {
+                icon: Calculator,
+                title: "Full Payroll Estimate",
+                desc: "See Pag-IBIG alongside SSS, PhilHealth, and withholding tax in one estimate.",
+                href: "/calculators/tax/take-home-pay-calculator-philippines",
+                cta: "Use Calculator",
+              },
+            ].map((card) => {
+              const Icon = card.icon;
+              return (
+                <div key={card.title} className="px-2 text-center sm:px-6">
+                  <span className="mx-auto mb-3.5 flex size-[46px] items-center justify-center rounded-[13px] bg-[#EAF0FF] text-brand">
+                    <Icon className="size-[22px]" />
+                  </span>
+                  <h3 className="text-[17px] font-semibold text-[#0E1525]">
+                    {card.title}
+                  </h3>
+                  <p className="mx-auto mb-4 mt-1.5 text-[14.5px] leading-[1.55] text-[#5A6478]">
+                    {card.desc}
+                  </p>
+                  <Link
+                    href={card.href}
+                    className="inline-flex items-center gap-2 rounded-full bg-brand px-[22px] py-[11px] text-[12.5px] font-bold uppercase tracking-[.04em] text-white transition-colors hover:bg-brand-dark"
+                  >
+                    {card.cta}
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
-      </section>
 
-      <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
         {/* FAQ */}
         <div className="mt-16">
           <FaqSection faqs={pagibigGuideFaqs} />

@@ -172,13 +172,13 @@ export default function PhilHealthContributionGuidePage() {
             {contributionSplit.map((item) => (
               <div
                 key={item.label}
-                className={`rounded-xl border p-6 text-center ${
+                className={`rounded-[16px] border-[1.5px] p-6 text-center ${
                   item.highlight
-                    ? "border-brand/20 bg-brand/5"
-                    : "border-gray-200 bg-white"
+                    ? "border-brand bg-[#EAF0FF]"
+                    : "border-[#EDF1F8] bg-[#F7F9FD]"
                 }`}
               >
-                <p className={`text-[14px] font-medium uppercase tracking-wide ${
+                <p className={`text-[11.5px] font-bold uppercase tracking-[.07em] ${
                   item.highlight ? "text-brand" : "text-gray-400"
                 }`}>
                   {item.label}
@@ -276,54 +276,52 @@ export default function PhilHealthContributionGuidePage() {
 
       </div>
 
-      {/* What to Do Next */}
-      <section className="bg-surface-tertiary py-20">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-center text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
+      <div className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
+        {/* What to Do Next */}
+        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
+          <h2 className="text-center text-[clamp(22px,2.6vw,28px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What to Do Next
           </h2>
-          <div className="mt-10 grid divide-y divide-gray-200 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-            <div className="flex flex-col items-center px-8 py-6 text-center">
-              <div className="flex size-16 items-center justify-center rounded-full bg-gray-50 text-brand">
-                <Heart className="size-6" />
-              </div>
-              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+          <div className="mt-7 grid gap-6 sm:grid-cols-2 sm:divide-x sm:divide-[#DDE4F5]">
+            <div className="px-2 text-center sm:px-8">
+              <span className="mx-auto mb-3.5 flex size-[46px] items-center justify-center rounded-[13px] bg-[#EAF0FF] text-brand">
+                <Heart className="size-[22px]" />
+              </span>
+              <h3 className="text-[17px] font-semibold text-[#0E1525]">
                 Contribution Reference
               </h3>
-              <p className="mt-2 flex-1 text-[16px] leading-[1.6] text-[#5A6478]">
+              <p className="mx-auto mb-4 mt-1.5 text-[14.5px] leading-[1.55] text-[#5A6478]">
                 See the contribution structure itself, including employee share,
                 employer share, and salary basis.
               </p>
               <Link
                 href="/government/philhealth/philhealth-contribution-table-philippines"
-                className="mt-6 inline-block rounded-full bg-brand px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
+                className="inline-flex items-center gap-2 rounded-full bg-brand px-[22px] py-[11px] text-[12.5px] font-bold uppercase tracking-[.04em] text-white transition-colors hover:bg-brand-dark"
               >
                 View Table
               </Link>
             </div>
-            <div className="flex flex-col items-center px-8 py-6 text-center">
-              <div className="flex size-16 items-center justify-center rounded-full bg-gray-50 text-brand">
-                <Calculator className="size-6" />
-              </div>
-              <h3 className="mt-4 text-[20px] font-semibold leading-[26px] text-gray-500">
+            <div className="px-2 text-center sm:px-8">
+              <span className="mx-auto mb-3.5 flex size-[46px] items-center justify-center rounded-[13px] bg-[#EAF0FF] text-brand">
+                <Calculator className="size-[22px]" />
+              </span>
+              <h3 className="text-[17px] font-semibold text-[#0E1525]">
                 Full Payroll Estimate
               </h3>
-              <p className="mt-2 flex-1 text-[16px] leading-[1.6] text-[#5A6478]">
+              <p className="mx-auto mb-4 mt-1.5 text-[14.5px] leading-[1.55] text-[#5A6478]">
                 See PhilHealth alongside SSS, Pag-IBIG, and withholding tax in
                 one salary estimate.
               </p>
               <Link
                 href="/calculators/tax/take-home-pay-calculator-philippines"
-                className="mt-6 inline-block rounded-full bg-brand px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
+                className="inline-flex items-center gap-2 rounded-full bg-brand px-[22px] py-[11px] text-[12.5px] font-bold uppercase tracking-[.04em] text-white transition-colors hover:bg-brand-dark"
               >
                 Use Calculator
               </Link>
             </div>
           </div>
         </div>
-      </section>
 
-      <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
         {/* FAQ */}
         <div className="mt-16">
           <FaqSection faqs={philhealthGuideFaqs} />
