@@ -13,6 +13,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
+import { GuideCtaCard } from "@/components/guides/guide-cta-card";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -261,58 +262,13 @@ export default function PagIBIGDeductionGuidePage() {
       </div>
 
       <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)]">
-        {/* What to do next */}
-        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-          <h2 className="text-center text-[clamp(22px,2.6vw,28px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            What to do next
-          </h2>
-          <div className="mt-7 grid gap-6 sm:grid-cols-3 sm:divide-x sm:divide-[#DDE4F5]">
-            {[
-              {
-                icon: Shield,
-                title: "Contribution Reference",
-                desc: "Verify the standard employee and employer contribution structure.",
-                href: "/government/pag-ibig/pag-ibig-contribution-table-philippines",
-                cta: "View Table",
-              },
-              {
-                icon: Home,
-                title: "Housing Loan Guide",
-                desc: "If the Pag-IBIG amount is connected to a housing loan, start here.",
-                href: "/government/pag-ibig/pag-ibig-housing-loan-guide",
-                cta: "Read Guide",
-              },
-              {
-                icon: Calculator,
-                title: "Full Payroll Estimate",
-                desc: "See Pag-IBIG alongside SSS, PhilHealth, and withholding tax in one estimate.",
-                href: "/calculators/tax/take-home-pay-calculator-philippines",
-                cta: "Use Calculator",
-              },
-            ].map((card) => {
-              const Icon = card.icon;
-              return (
-                <div key={card.title} className="px-2 text-center sm:px-6">
-                  <span className="mx-auto mb-3.5 flex size-[46px] items-center justify-center rounded-[13px] bg-[#EAF0FF] text-brand">
-                    <Icon className="size-[22px]" />
-                  </span>
-                  <h3 className="text-[17px] font-semibold text-[#0E1525]">
-                    {card.title}
-                  </h3>
-                  <p className="mx-auto mb-4 mt-1.5 text-[14.5px] leading-[1.55] text-[#5A6478]">
-                    {card.desc}
-                  </p>
-                  <Link
-                    href={card.href}
-                    className="inline-flex items-center gap-2 rounded-full bg-brand px-[22px] py-[11px] text-[12.5px] font-bold uppercase tracking-[.04em] text-white transition-colors hover:bg-brand-dark"
-                  >
-                    {card.cta}
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        {/* Calculator CTA */}
+        <GuideCtaCard
+          title="Want to See Pag-IBIG in Your Full Take-Home Pay?"
+          description="Use the Take-Home Pay Calculator to see Pag-IBIG alongside SSS, PhilHealth, and withholding tax in one salary estimate."
+          href="/calculators/tax/take-home-pay-calculator-philippines"
+          ctaLabel="Use the Take-Home Pay Calculator"
+        />
 
         {/* FAQ */}
         <div className="mt-16">

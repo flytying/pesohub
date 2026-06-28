@@ -11,6 +11,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
+import { GuideCtaCard } from "@/components/guides/guide-cta-card";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -386,21 +387,12 @@ export default function SssPensionGuidePage() {
 
       <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)]">
         {/* Calculator CTA */}
-        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(28px,4vw,40px)] text-center">
-          <h2 className="text-[clamp(22px,2.6vw,28px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Want to Estimate Your SSS Retirement Pension?
-          </h2>
-          <p className="mx-auto mt-[10px] max-w-[58ch] text-[16px] leading-[1.6] text-[#5A6478]">
-            Use the SSS Pension Calculator to estimate your retirement pension
-            based on your salary credit and years of contribution.
-          </p>
-          <Link
-            href="/calculators/retirement/sss-pension-calculator"
-            className="mt-[22px] inline-flex items-center rounded-full bg-brand px-[26px] py-[14px] text-[13px] font-bold uppercase tracking-[.04em] text-white transition-colors hover:bg-brand-dark"
-          >
-            Use the SSS Pension Calculator
-          </Link>
-        </div>
+        <GuideCtaCard
+          title="Want to Estimate Your SSS Retirement Pension?"
+          description="Use the SSS Pension Calculator to estimate your retirement pension based on your salary credit and years of contribution."
+          href="/calculators/retirement/sss-pension-calculator"
+          ctaLabel="Use the SSS Pension Calculator"
+        />
         {/* FAQ */}
         <div className="mt-16">
           <FaqSection faqs={sssPensionFaqs} />
