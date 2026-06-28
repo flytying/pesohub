@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, TriangleAlert, Clock, Info } from "lucide-react";
+import { ArrowRight, TriangleAlert, Info } from "lucide-react";
 import { notFound } from "next/navigation";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -143,8 +143,8 @@ export default async function BlogPostPage({
           {post.excerpt}
         </p>
 
-        {/* Meta row: category pill · read time · updated date */}
-        <div className="mt-[18px] flex flex-wrap items-center gap-x-4 gap-y-2">
+        {/* Meta row: category · read time · updated — all badge style */}
+        <div className="mt-[18px] flex flex-wrap items-center gap-2">
           <span
             className="rounded-[8px] px-[10px] py-[5px] text-[11px] font-bold uppercase tracking-[.06em]"
             style={{
@@ -155,11 +155,10 @@ export default async function BlogPostPage({
           >
             {CATEGORY_LABELS[post.category] ?? post.category}
           </span>
-          <span className="flex items-center gap-[5px] text-[13.5px] font-semibold text-[#6B7488]">
-            <Clock className="size-[15px]" />
+          <span className="rounded-[8px] bg-[#EEF1F7] px-[10px] py-[5px] text-[11px] font-bold uppercase tracking-[.06em] text-[#5A6478]">
             {post.readTime} min read
           </span>
-          <span className="text-[13.5px] font-semibold text-[#8A93A6]">
+          <span className="rounded-[8px] bg-[#EEF1F7] px-[10px] py-[5px] text-[11px] font-bold uppercase tracking-[.06em] text-[#5A6478]">
             Updated {formatDate(post.updatedAt)}
           </span>
         </div>
@@ -182,42 +181,41 @@ export default async function BlogPostPage({
       </div>
 
       <article className="mx-auto max-w-[920px] px-4 py-10 sm:px-6 lg:px-8">
-        {/* Article card */}
-        <div className="rounded-[22px] border border-[#E7EBF3] bg-white p-[clamp(22px,4vw,44px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-          {/* Direct Answer Box */}
-          {post.directAnswer && (
-            <div className="flex items-start gap-[14px] rounded-[16px] border border-[#D3DEFA] bg-[#EAF0FF] p-5">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-[#D3DEFA]">
-                <Info className="size-5 text-brand" />
-              </span>
-              <div>
-                <p className="text-[12px] font-bold uppercase tracking-[0.06em] text-brand">
-                  Quick Answer
-                </p>
-                <p className="mt-[5px] text-[15.5px] leading-[1.6] text-[#344054]">
-                  {post.directAnswer}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Article Content */}
-          <BlogContent sections={post.sections} />
-
-          {/* Disclaimer */}
-          {post.disclaimer && (
-            <div className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
-              <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-              <p className="text-[16px] leading-[1.6] text-[#475069]">
-                This article is for educational and informational purposes only.
-                It should not be considered professional financial advice.
-                Rates, rules, and product details may change. Always verify with
-                the relevant institution and consult a qualified financial
-                advisor before making important financial decisions.
+        {/* Quick Answer — its own card */}
+        {post.directAnswer && (
+          <div className="flex items-start gap-[14px] rounded-[20px] border border-[#D3DEFA] bg-[#EAF0FF] p-[clamp(20px,2.5vw,30px)]">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-[12px] bg-[#D3DEFA]">
+              <Info className="size-5 text-brand" />
+            </span>
+            <div>
+              <p className="text-[12px] font-bold uppercase tracking-[0.06em] text-brand">
+                Quick Answer
+              </p>
+              <p className="mt-[5px] text-[15.5px] leading-[1.6] text-[#344054]">
+                {post.directAnswer}
               </p>
             </div>
-          )}
+          </div>
+        )}
+
+        {/* Article content — one card per heading section */}
+        <div className="mt-[14px]">
+          <BlogContent sections={post.sections} />
         </div>
+
+        {/* Disclaimer */}
+        {post.disclaimer && (
+          <div className="mt-[14px] flex gap-3 rounded-[20px] border border-amber-300 bg-amber-50 p-[clamp(20px,2.5vw,30px)]">
+            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
+            <p className="text-[16px] leading-[1.6] text-[#475069]">
+              This article is for educational and informational purposes only.
+              It should not be considered professional financial advice. Rates,
+              rules, and product details may change. Always verify with the
+              relevant institution and consult a qualified financial advisor
+              before making important financial decisions.
+            </p>
+          </div>
+        )}
 
         {/* FAQ */}
         {post.faqs.length > 0 && (
