@@ -7,14 +7,17 @@ import {
   Heart,
   Landmark,
   TrendingUp,
-  Info,
+  Wallet,
+  Percent,
+  PiggyBank,
+  type LucideIcon,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
+import { GovCtaBanner } from "@/components/government/cta-banner";
 import { JsonLd } from "@/components/seo/json-ld";
-import { buttonVariants } from "@/lib/button-variants";
 import { generatePageMetadata } from "@/lib/seo";
 import {
   generateArticleSchema,
@@ -29,6 +32,7 @@ import {
   pagibigContributionFaqs,
   PAGIBIG_CONTRIBUTION_UPDATED_AT,
   PAGIBIG_MAX_MSC,
+  PAGIBIG_LOW_SALARY_THRESHOLD,
 } from "@/data/government/pag-ibig-contribution";
 
 export const metadata = generatePageMetadata({
@@ -44,18 +48,77 @@ const breadcrumbs = [
   { label: "Pag-IBIG Contribution Table" },
 ];
 
-const whyDifferItems = [
-  "Payroll systems may apply updated contribution settings not yet reflected in a simplified reference",
-  "Compensation treatment may differ depending on how salary components are classified",
-  "Timing differences between payroll cut-off and actual contribution remittance",
-  "Company-specific payroll handling or rounding rules",
-  "Updated Pag-IBIG circulars or contribution guidelines released after the schedule shown here",
+const WRAP = "mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)]";
+const CARD =
+  "rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]";
+const H2 =
+  "font-display text-[clamp(20px,2.2vw,24px)] font-semibold tracking-[-.02em] text-[#0E1525]";
+
+const TAKE_HOME_HREF =
+  "/calculators/tax/take-home-pay-calculator-philippines";
+
+const structureCards: {
+  label: string;
+  value: string;
+  sub: string;
+  icon: LucideIcon;
+}[] = [
+  {
+    label: "EMPLOYEE SHARE",
+    value: "1% – 2%",
+    sub: `1% if salary ≤ ${formatPeso(PAGIBIG_LOW_SALARY_THRESHOLD)}, else 2%`,
+    icon: Percent,
+  },
+  {
+    label: "EMPLOYER SHARE",
+    value: "2%",
+    sub: "Paid on top, regardless of salary",
+    icon: Landmark,
+  },
+  {
+    label: "MAXIMUM MSC",
+    value: formatPeso(PAGIBIG_MAX_MSC),
+    sub: "Cap on monthly compensation",
+    icon: Wallet,
+  },
+  {
+    label: "MAX EMPLOYEE SHARE",
+    value: formatPeso(200),
+    sub: "Per month once salary hits the cap",
+    icon: PiggyBank,
+  },
+];
+
+const capCards: {
+  label: string;
+  value: string;
+  sub: string;
+  tone: "amber" | "blue";
+}[] = [
+  {
+    label: `BELOW ${formatPeso(PAGIBIG_LOW_SALARY_THRESHOLD)}`,
+    value: "Employee 1%",
+    sub: "Lower rate on actual salary",
+    tone: "amber",
+  },
+  {
+    label: `${formatPeso(PAGIBIG_LOW_SALARY_THRESHOLD)} – ${formatPeso(PAGIBIG_MAX_MSC)}`,
+    value: "Employee 2%",
+    sub: "Standard rate on actual salary",
+    tone: "blue",
+  },
+  {
+    label: `ABOVE ${formatPeso(PAGIBIG_MAX_MSC)}`,
+    value: `Capped at ${formatPeso(200)}`,
+    sub: "Contribution stops increasing",
+    tone: "amber",
+  },
 ];
 
 const relatedPages = [
   {
     title: "Take-Home Pay Calculator",
-    href: "/calculators/tax/take-home-pay-calculator-philippines",
+    href: TAKE_HOME_HREF,
     icon: Calculator,
   },
   {
@@ -109,442 +172,358 @@ export default function PagIBIGContributionTablePage() {
         badge={PAGIBIG_CONTRIBUTION_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
+        containerClassName={WRAP}
       />
 
-    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-      {/* Pag-IBIG (HDMF) Contribution Structure 2026 */}
-      <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-          Pag-IBIG (HDMF) Contribution Structure 2026
-        </h2>
-        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-          This section shows the contribution assumptions currently used by
-          this page. Because payroll reference pages are year-sensitive, the
-          contribution basis, cap, and employee-employer split should be
-          verified against the latest official Pag-IBIG guidance.
-        </p>
-
-        {/* Summary cards */}
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <p className="text-[14px] font-medium uppercase tracking-wide text-gray-400">
-              Employee Share Used
-            </p>
-            <p className="mt-1 text-2xl font-bold text-brand">
-              1% – 2%
-            </p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              1% if salary ≤ ₱1,500, else 2%
-            </p>
-          </div>
-          <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <p className="text-[14px] font-medium uppercase tracking-wide text-gray-400">
-              Employer Share Used
-            </p>
-            <p className="mt-1 text-2xl font-bold text-brand">2%</p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              Regardless of salary level
-            </p>
-          </div>
-          <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <p className="text-[14px] font-medium uppercase tracking-wide text-gray-400">
-              Salary Cap Used
-            </p>
-            <p className="mt-1 text-2xl font-bold text-brand">
-              {formatPeso(PAGIBIG_MAX_MSC)}
-            </p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              Maximum Monthly Salary Credit
-            </p>
-          </div>
-          <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <p className="text-[14px] font-medium uppercase tracking-wide text-gray-400">
-              Total Monthly Contribution
-            </p>
-            <p className="mt-1 text-lg font-bold text-gray-500">
-              Up to {formatPeso(200)}
-            </p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              ₱100 employee + ₱100 employer (max)
-            </p>
-          </div>
-          <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <p className="text-[14px] font-medium uppercase tracking-wide text-gray-400">
-              Effective Period
-            </p>
-            <p className="mt-1 text-lg font-bold text-gray-500">
-              Current Schedule
-            </p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              Based on Pag-IBIG Fund guidelines
-            </p>
-          </div>
-          <div className="rounded-xl border border-gray-200 bg-white p-6">
-            <p className="text-[14px] font-medium uppercase tracking-wide text-gray-400">
-              Source Note
-            </p>
-            <p className="mt-1 text-lg font-bold text-gray-500">
-              Pag-IBIG Fund
-            </p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              Official contribution guidelines
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Pag-IBIG Employee and Employer Share Table */}
-
-      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-          Pag-IBIG Employee and Employer Share Table
-        </h2>
-        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-          Check the employee share first if you want to match what usually
-          appears on a payslip.
-        </p>
-        <div className="mt-4 overflow-x-auto rounded-xl border border-gray-200">
-          <table className="w-full text-[16px]">
-            <thead>
-              <tr className="border-b border-gray-200 bg-gray-200/20">
-                <th className="px-4 py-3 text-left font-medium text-gray-500">
-                  Monthly Compensation
-                </th>
-                <th className="px-4 py-3 text-right font-medium text-gray-500">
-                  Employee Share
-                </th>
-                <th className="px-4 py-3 text-right font-medium text-gray-500">
-                  Employer Share
-                </th>
-                <th className="px-4 py-3 text-right font-medium text-gray-500">
-                  Total Contribution
-                </th>
-                <th className="hidden px-4 py-3 text-left font-medium text-gray-500 sm:table-cell">
-                  Payroll Note
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {pagibigContributionTable.map((row) => (
-                <tr key={row.compensationRange}>
-                  <td className="px-4 py-2.5 text-gray-400">
-                    {row.compensationRange}
-                  </td>
-                  <td className="px-4 py-2.5 text-right font-medium text-brand">
-                    {row.employeeShare}
-                  </td>
-                  <td className="px-4 py-2.5 text-right text-gray-400">
-                    {row.employerShare}
-                  </td>
-                  <td className="px-4 py-2.5 text-right font-medium text-gray-500">
-                    {row.totalContribution}
-                  </td>
-                  <td className="hidden px-4 py-2.5 text-[14px] text-gray-400 sm:table-cell">
-                    {row.payrollNote}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-3 text-[14px] text-gray-400">
-          Always verify the latest official Pag-IBIG contribution schedule if
-          you need the exact current payroll basis.
-        </p>
-      </section>
-
-      {/* Who Pays the Pag-IBIG Contribution? */}
-      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-          Who Pays the Pag-IBIG Contribution?
-        </h2>
-        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-          For payroll users, one of the most important questions is whether the
-          Pag-IBIG amount on the payslip is only the employee share or the full
-          contribution. Here is how it works:
-        </p>
-        <ul className="mt-4 space-y-3">
-          <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-            <ArrowRight className="size-4 shrink-0 text-gray-300" />
-            <span>
-              <strong className="text-gray-500">Employee share</strong> is the
-              part usually deducted from salary
-            </span>
-          </li>
-          <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-            <ArrowRight className="size-4 shrink-0 text-gray-300" />
-            <span>
-              <strong className="text-gray-500">Employer share</strong> is the
-              part paid separately by the employer
-            </span>
-          </li>
-          <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-            <ArrowRight className="size-4 shrink-0 text-gray-300" />
-            <span>
-              <strong className="text-gray-500">Total contribution</strong> is
-              the sum of both sides
-            </span>
-          </li>
-          <li className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-            <ArrowRight className="size-4 shrink-0 text-gray-300" />
-            <span>
-              The payslip often shows only the employee-side deduction
-            </span>
-          </li>
-        </ul>
-
-        {/* Visual split */}
-        <div className="mt-6 grid gap-5 sm:grid-cols-2">
-          <div className="rounded-xl border border-gray-200 bg-white p-6 text-center">
-            <Shield className="mx-auto size-8 text-brand" />
-            <p className="mt-2 text-[16px] font-semibold text-gray-500">
-              Employee Share
-            </p>
-            <p className="mt-1 text-2xl font-bold text-brand">
-              Up to {formatPeso(100)}
-            </p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              Deducted from your payslip
-            </p>
-          </div>
-          <div className="rounded-xl border border-gray-200 bg-white p-6 text-center">
-            <Landmark className="mx-auto size-8 text-gray-300" />
-            <p className="mt-2 text-[16px] font-semibold text-gray-500">
-              Employer Share
-            </p>
-            <p className="mt-1 text-2xl font-bold text-gray-500">
-              Up to {formatPeso(100)}
-            </p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              Paid by your employer
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* How Salary Caps Affect the Deduction */}
-      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-          How Salary Caps Affect the Deduction
-        </h2>
-        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-          Pag-IBIG payroll deductions are easier to understand when the salary
-          cap is explained clearly. The contribution is computed on monthly
-          salary up to a maximum of {formatPeso(PAGIBIG_MAX_MSC)}. Once salary
-          exceeds this cap, the contribution does not increase further — it
-          stays at {formatPeso(100)} for the employee share and{" "}
-          {formatPeso(100)} for the employer share.
-        </p>
-
-        {/* Visual cap diagram */}
-        <div className="mt-6 grid gap-5 sm:grid-cols-3">
-          <div className="rounded-xl border border-gray-200 bg-white p-6 text-center">
-            <p className="text-[14px] font-medium uppercase tracking-wide text-gray-400">
-              Below ₱1,500
-            </p>
-            <p className="mt-1 text-lg font-bold text-gray-500">
-              Employee 1%
-            </p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              Lower rate applies
-            </p>
-          </div>
-          <div className="rounded-xl border border-gray-200 bg-white p-6 text-center">
-            <p className="text-[14px] font-medium uppercase tracking-wide text-brand">
-              ₱1,500 – ₱5,000
-            </p>
-            <p className="mt-1 text-lg font-bold text-brand">
-              Employee 2%
-            </p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              Standard rate, actual salary
-            </p>
-          </div>
-          <div className="rounded-xl border border-amber-500/30 bg-amber-50/50 p-6 text-center">
-            <p className="text-[14px] font-medium uppercase tracking-wide text-amber-700">
-              Above ₱5,000
-            </p>
-            <p className="mt-1 text-lg font-bold text-amber-700">
-              Capped at {formatPeso(100)}
-            </p>
-            <p className="mt-1 text-[14px] text-gray-400">
-              Contribution stops increasing
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* How Much Is Pag-IBIG Contribution per Salary Level */}
-      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-          How Much Is Pag-IBIG Contribution per Salary Level
-        </h2>
-        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-          These examples help connect the reference table to actual payslip
-          expectations.
-        </p>
-        <div className="mt-6 grid gap-5 sm:grid-cols-3">
-          {pagibigPayrollExamples.map((example, i) => (
-            <div key={i} className="rounded-xl border border-gray-200 bg-white p-6">
-              <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                {example.label}
-              </h3>
-              <dl className="mt-4 space-y-2 text-[16px] leading-[1.6]">
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Monthly Salary</dt>
-                  <dd className="font-medium text-gray-500">
-                    {formatPeso(example.salary)}
-                  </dd>
-                </div>
-                <div className="flex justify-between border-t border-gray-200 pt-2">
-                  <dt className="text-gray-400">Employee Share</dt>
-                  <dd className="font-semibold text-brand">
-                    {formatPeso(example.employeeShare)}
-                  </dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-gray-400">Employer Share</dt>
-                  <dd className="font-medium text-gray-500">
-                    {formatPeso(example.employerShare)}
-                  </dd>
-                </div>
-                <div className="flex justify-between border-t border-gray-200 pt-2">
-                  <dt className="text-gray-400">
-                    Total Contribution
-                  </dt>
-                  <dd className="font-medium text-gray-500">
-                    {formatPeso(example.totalContribution)}
-                  </dd>
-                </div>
-              </dl>
-              <p className="mt-3 text-[14px] text-gray-400">
-                {example.payslipNote}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Where Pag-IBIG Appears on Payroll */}
-      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-          Where Pag-IBIG Appears on Payroll
-        </h2>
-        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-          Pag-IBIG is usually one of the standard government deductions shown on
-          a payslip together with SSS, PhilHealth, and withholding tax. The
-          employee share is typically listed as a separate line item in the
-          deductions section. Understanding that Pag-IBIG is only one part of
-          the full payroll deduction picture helps when comparing it against
-          other deductions.
-        </p>
-        <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
-          If you want to see Pag-IBIG together with other common deductions,
-          use the{" "}
-          <Link
-            href="/calculators/tax/take-home-pay-calculator-philippines"
-            className="text-brand hover:underline"
-          >
-            Take-Home Pay Calculator
-          </Link>{" "}
-          next.
-        </p>
-      </section>
-
-      {/* Why Your Actual Pag-IBIG Deduction May Differ */}
-      <section className="mt-6 scroll-mt-20 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
-        <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-          Why Your Actual Pag-IBIG Deduction May Differ
-        </h2>
-        <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
-          Actual payroll deductions may differ from a simplified reference page
-          because payroll systems may apply updated contribution settings,
-          compensation treatment, timing differences, or company-specific
-          payroll handling. This page should be used as a practical reference,
-          not a replacement for official payroll computation.
-        </p>
-        <ul className="mt-4 space-y-3">
-          {whyDifferItems.map((item) => (
-            <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-              <ArrowRight className="size-4 shrink-0 text-gray-300" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-    </div>
-
-      {/* Calculator CTA */}
-      <section className="bg-surface-tertiary py-20">
-        <div className="mx-auto max-w-6xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Want a Full Payroll Estimate?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-[1.6] text-[#5A6478]">
-            If you want to see how Pag-IBIG combines with SSS, PhilHealth,
-            and withholding tax to produce your net pay, use the Take-Home
-            Pay Calculator for a fuller deduction estimate.
+      <div className={`${WRAP} space-y-5 pt-6`}>
+        {/* Current contribution structure */}
+        <section className={CARD}>
+          <h2 className={H2}>Current Pag-IBIG contribution structure</h2>
+          <p className="mt-[10px] text-[16px] leading-[1.7] text-[#475069]">
+            Pag-IBIG (HDMF) contributions are based on a member&rsquo;s monthly
+            compensation under HDMF Circular No. 460. The employee share is 1%
+            for salaries at or below {formatPeso(PAGIBIG_LOW_SALARY_THRESHOLD)}{" "}
+            and 2% above it, while the employer pays a 2% share on top —
+            computed only up to the maximum monthly salary of{" "}
+            {formatPeso(PAGIBIG_MAX_MSC)}.
           </p>
-          <div className="mt-6">
-            <Link
-              href="/calculators/tax/take-home-pay-calculator-philippines"
-              className="inline-flex items-center rounded-full bg-brand px-6 py-3 text-[14px] font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-dark"
-            >
-              USE THE TAKE-HOME PAY CALCULATOR
-            </Link>
+          <div className="mt-[14px] grid grid-cols-2 gap-[14px] lg:grid-cols-4">
+            {structureCards.map((c) => {
+              const Icon = c.icon;
+              return (
+                <div
+                  key={c.label}
+                  className="rounded-[15px] border border-[#EDF1F8] bg-[#F7F9FD] p-[18px]"
+                >
+                  <span className="flex size-[38px] items-center justify-center rounded-[11px] bg-[#EAF0FF]">
+                    <Icon className="size-[19px] text-brand" />
+                  </span>
+                  <div className="mt-[13px] text-[11.5px] font-bold tracking-[.06em] text-[#6B7488]">
+                    {c.label}
+                  </div>
+                  <div className="mt-[7px] font-display text-[22px] font-semibold text-brand">
+                    {c.value}
+                  </div>
+                  <div className="mt-[5px] text-[13px] leading-[1.45] text-[#8A93A6]">
+                    {c.sub}
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div className="mx-auto max-w-6xl px-4 pt-0 pb-20 sm:px-6 lg:px-8">
-      {/* FAQ */}
-      <div className="mt-16">
-        <FaqSection faqs={pagibigContributionFaqs} />
+        {/* Contribution table reference */}
+        <section className={CARD}>
+          <h2 className={H2}>Pag-IBIG contribution table reference</h2>
+          <p className="mt-[10px] mb-[16px] text-[16px] leading-[1.7] text-[#475069]">
+            Check the employee share first if you want to match what usually
+            appears on a payslip. The employer pays its share separately, and
+            the total contribution is the sum of both sides.
+          </p>
+          <div className="rounded-[16px] border border-[#E7EBF3] overflow-hidden bg-white shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[680px] border-collapse">
+                <thead>
+                  <tr className="bg-[#F4F7FE] border-b border-[#E7EBF3]">
+                    <th className="px-[18px] py-[13px] text-left text-[12px] font-bold tracking-[.05em] uppercase text-[#475069]">
+                      Monthly Compensation
+                    </th>
+                    <th className="px-[18px] py-[13px] text-right text-[12px] font-bold tracking-[.05em] uppercase text-[#475069]">
+                      Employee Share
+                    </th>
+                    <th className="px-[18px] py-[13px] text-right text-[12px] font-bold tracking-[.05em] uppercase text-[#475069]">
+                      Employer Share
+                    </th>
+                    <th className="px-[18px] py-[13px] text-right text-[12px] font-bold tracking-[.05em] uppercase text-[#475069]">
+                      Total Contribution
+                    </th>
+                    <th className="hidden px-[18px] py-[13px] text-left text-[12px] font-bold tracking-[.05em] uppercase text-[#475069] sm:table-cell">
+                      Payroll Note
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pagibigContributionTable.map((row, i) => (
+                    <tr
+                      key={row.compensationRange}
+                      className={`border-b border-[#F0F3F8] ${
+                        i % 2 === 1 ? "bg-[#FAFBFE]" : ""
+                      }`}
+                    >
+                      <td className="px-[18px] py-[12px] text-[14px] text-[#344054]">
+                        {row.compensationRange}
+                      </td>
+                      <td className="px-[18px] py-[12px] text-right font-mono text-[14px] tabular-nums font-semibold text-brand">
+                        {row.employeeShare}
+                      </td>
+                      <td className="px-[18px] py-[12px] text-right font-mono text-[14px] tabular-nums text-[#5A6478]">
+                        {row.employerShare}
+                      </td>
+                      <td className="px-[18px] py-[12px] text-right font-mono text-[14px] tabular-nums text-[#0E1525]">
+                        {row.totalContribution}
+                      </td>
+                      <td className="hidden px-[18px] py-[12px] text-[13.5px] text-[#8A93A6] sm:table-cell">
+                        {row.payrollNote}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p className="mt-3 text-[13.5px] leading-[1.6] text-[#8A93A6]">
+            Always verify the latest official Pag-IBIG contribution schedule if
+            you need the exact current payroll basis.
+          </p>
+        </section>
+
+        {/* Threshold & cap explanation */}
+        <section className={CARD}>
+          <h2 className={H2}>
+            How the salary threshold and cap affect your contribution
+          </h2>
+          <p className="mt-[10px] text-[16px] leading-[1.7] text-[#475069]">
+            Pag-IBIG payroll deductions are easier to understand once two limits
+            are clear. Salaries at or below{" "}
+            {formatPeso(PAGIBIG_LOW_SALARY_THRESHOLD)} use the lower 1% employee
+            rate, while salaries above it use 2%. The contribution is then
+            computed only up to a maximum monthly salary of{" "}
+            {formatPeso(PAGIBIG_MAX_MSC)}.
+          </p>
+          <p className="mt-[14px] text-[16px] leading-[1.7] text-[#475069]">
+            Once salary exceeds {formatPeso(PAGIBIG_MAX_MSC)}, the contribution
+            stops increasing — it stays at {formatPeso(200)} for the employee
+            share and {formatPeso(200)} for the employer share, for a combined{" "}
+            {formatPeso(400)} per month.
+          </p>
+          <div className="mt-[16px] grid gap-[14px] sm:grid-cols-3">
+            {capCards.map((c) => {
+              const amber = c.tone === "amber";
+              return (
+                <div
+                  key={c.label}
+                  className={`rounded-[16px] border-[1.5px] p-5 text-center ${
+                    amber
+                      ? "border-[#F6E2B0] bg-[#FFF8E8]"
+                      : "border-[#C9D6F7] bg-[#EAF0FF]"
+                  }`}
+                >
+                  <div
+                    className={`text-[11.5px] font-bold tracking-[.06em] ${
+                      amber ? "text-[#B4811C]" : "text-brand"
+                    }`}
+                  >
+                    {c.label}
+                  </div>
+                  <div
+                    className={`mt-[7px] mb-[5px] font-display text-[18px] font-semibold ${
+                      amber ? "text-[#B4811C]" : "text-brand"
+                    }`}
+                  >
+                    {c.value}
+                  </div>
+                  <div className="text-[13.5px] leading-[1.45] text-[#6B7488]">
+                    {c.sub}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Sample payroll cuts */}
+        <section className={CARD}>
+          <h2 className={H2}>Sample Pag-IBIG payroll cuts</h2>
+          <p className="mt-[10px] mb-4 text-[16px] leading-[1.7] text-[#475069]">
+            These examples connect the reference table to actual payslip
+            expectations across different salary levels.
+          </p>
+          <div className="grid gap-[14px] sm:grid-cols-3">
+            {pagibigPayrollExamples.map((ex) => {
+              const eePct = Math.round(
+                (ex.employeeShare / ex.totalContribution) * 100
+              );
+              const erPct = 100 - eePct;
+              return (
+                <div
+                  key={ex.label}
+                  className="flex flex-col overflow-hidden rounded-[18px] border border-[#EDF1F8] bg-[#F7F9FD] shadow-[0_1px_2px_rgba(16,24,40,.04)]"
+                >
+                  <div className="border-b border-[#EEF1F7] px-[18px] pb-[15px] pt-[18px]">
+                    <div className="font-display text-[15px] font-semibold leading-[1.25] text-[#0E1525]">
+                      {ex.label}
+                    </div>
+                  </div>
+                  <div className="px-[18px] pb-2 pt-[14px]">
+                    <Row label="Monthly Salary" value={formatPeso(ex.salary)} />
+                    <Row
+                      label="Employee Share"
+                      value={formatPeso(ex.employeeShare)}
+                      strong
+                    />
+                    <Row
+                      label="Employer Share"
+                      value={formatPeso(ex.employerShare)}
+                      muted
+                      last
+                    />
+                  </div>
+                  <div className="mt-auto border-t border-[#E3E9F7] bg-[#EEF2FB] px-[18px] pb-[18px] pt-[15px]">
+                    <div className="mb-3 flex items-baseline justify-between">
+                      <span className="text-[13px] font-bold text-[#475069]">
+                        Total contribution
+                      </span>
+                      <span className="font-display text-[21px] font-bold text-brand">
+                        {formatPeso(ex.totalContribution)}
+                      </span>
+                    </div>
+                    <div className="flex h-2 gap-[2px] overflow-hidden rounded-[6px] bg-[#E3E8F2]">
+                      <div
+                        className="rounded-[6px] bg-[#1535C7]"
+                        style={{ width: `${eePct}%` }}
+                      />
+                      <div
+                        className="rounded-[6px] bg-[#9DB2F0]"
+                        style={{ width: `${erPct}%` }}
+                      />
+                    </div>
+                    <div className="mt-[9px] flex justify-between text-[11.5px] text-[#6B7488]">
+                      <span className="flex items-center gap-[6px]">
+                        <span className="size-2 rounded-[2px] bg-[#1535C7]" />
+                        Employee {eePct}%
+                      </span>
+                      <span className="flex items-center gap-[6px]">
+                        <span className="size-2 rounded-[2px] bg-[#9DB2F0]" />
+                        Employer {erPct}%
+                      </span>
+                    </div>
+                    <div className="mt-3 text-[12px] leading-[1.5] text-[#8A93A6]">
+                      {ex.payslipNote}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Where it appears on payroll */}
+        <section className={CARD}>
+          <h2 className={H2}>Where Pag-IBIG appears on payroll</h2>
+          <p className="mt-[10px] text-[16px] leading-[1.7] text-[#475069]">
+            Pag-IBIG is usually one of the standard government deductions shown
+            on a payslip together with SSS, PhilHealth, and withholding tax. The
+            employee share is typically listed as a separate line item in the
+            deductions section, so it helps to remember that Pag-IBIG is only
+            one part of the full payroll deduction picture.
+          </p>
+          <p className="mt-[14px] text-[16px] leading-[1.7] text-[#475069]">
+            If you want to see Pag-IBIG together with other common deductions,
+            use the{" "}
+            <Link href={TAKE_HOME_HREF} className="text-brand hover:underline">
+              Take-Home Pay Calculator
+            </Link>{" "}
+            next.
+          </p>
+        </section>
       </div>
 
-      {/* Related Payroll and Pag-IBIG Pages */}
-      <section className="mt-6 scroll-mt-20">
-        <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-          Related payroll and Pag-IBIG pages
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {relatedPages.map((page) => {
-            const Icon = page.icon;
-            return (
-              <Link
-                key={page.title}
-                href={page.href}
-                className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
-              >
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                  <Icon className="size-4" />
-                </div>
-                <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
-                  {page.title}
-                </span>
-                <ArrowRight className="size-4 shrink-0 text-gray-300" />
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Source Citation */}
-      <div className="mt-16">
-        <SourceCitation
-          source="Pag-IBIG Fund — Circular No. 274 (as amended), Pag-IBIG Contribution Guidelines"
-          sourceUrl="https://www.pagibigfund.gov.ph/"
-          updatedAt={PAGIBIG_CONTRIBUTION_UPDATED_AT}
-          reviewCadence="Every 90 days"
+      {/* CTA */}
+      <div className={`${WRAP} pt-[clamp(28px,4vw,40px)]`}>
+        <GovCtaBanner
+          title="Want a full payroll estimate?"
+          description="If you want to see how Pag-IBIG combines with SSS, PhilHealth, and withholding tax to produce your net pay, use the Take-Home Pay Calculator for a fuller deduction estimate."
+          href={TAKE_HOME_HREF}
+          ctaLabel="Use the take-home pay calculator"
         />
       </div>
 
-      {/* Disclaimer */}
-      <div className="mt-4">
-        <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
+      <div className={`${WRAP} pb-20 pt-[clamp(34px,5vw,48px)]`}>
+        {/* FAQ */}
+        <FaqSection faqs={pagibigContributionFaqs} />
+
+        {/* Related */}
+        <section className="mt-[clamp(34px,5vw,48px)]">
+          <h2 className="mb-6 font-display text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-.02em] text-[#0E1525]">
+            Related payroll and Pag-IBIG pages
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {relatedPages.map((page) => {
+              const Icon = page.icon;
+              return (
+                <Link
+                  key={page.title}
+                  href={page.href}
+                  className="group flex items-center gap-[14px] rounded-[14px] border border-[#E7EBF3] bg-white px-[18px] py-[15px] transition-colors hover:border-[#C3D0F2] hover:bg-[#FBFCFE]"
+                >
+                  <span className="flex size-[38px] shrink-0 items-center justify-center rounded-[11px] bg-[#EAF0FF]">
+                    <Icon className="size-[18px] text-brand" />
+                  </span>
+                  <span className="flex-1 text-[15.5px] font-bold leading-[1.3] text-[#0E1525]">
+                    {page.title}
+                  </span>
+                  <ArrowRight className="size-4 shrink-0 text-[#C4CCDB] transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Source & disclaimer */}
+        <div className="mt-[clamp(34px,5vw,48px)]">
+          <SourceCitation
+            source="Pag-IBIG Fund — Circular No. 274 (as amended), Pag-IBIG Contribution Guidelines"
+            sourceUrl="https://www.pagibigfund.gov.ph/"
+            updatedAt={PAGIBIG_CONTRIBUTION_UPDATED_AT}
+            reviewCadence="Every 90 days"
+          />
+        </div>
+        <div className="mt-4">
+          <DisclaimerBox text={GOVERNMENT_DISCLAIMER} />
+        </div>
       </div>
-    </div>
     </>
+  );
+}
+
+function Row({
+  label,
+  value,
+  strong,
+  muted,
+  last,
+}: {
+  label: string;
+  value: string;
+  strong?: boolean;
+  muted?: boolean;
+  last?: boolean;
+}) {
+  return (
+    <div
+      className={`flex items-center justify-between py-[9px] ${
+        last ? "" : "border-b border-[#F0F3F8]"
+      }`}
+    >
+      <span
+        className={`text-[14px] ${
+          strong ? "font-semibold text-[#475069]" : "text-[#6B7488]"
+        }`}
+      >
+        {label}
+      </span>
+      <span
+        className={`font-mono text-[14px] tabular-nums ${
+          strong
+            ? "font-bold text-brand"
+            : muted
+              ? "text-[#5A6478]"
+              : "text-[#0E1525]"
+        }`}
+      >
+        {value}
+      </span>
+    </div>
   );
 }
