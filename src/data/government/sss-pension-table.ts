@@ -9,7 +9,7 @@ export const sssPensionTableMeta = {
     "See estimated SSS monthly pension amounts by salary credit and years of contribution. Understand the three pension formulas and minimum pension guarantees.",
   slug: "government/sss/sss-pension-table",
   directAnswer:
-    "Your SSS monthly pension depends on your Average Monthly Salary Credit (AMSC) and total Credited Years of Service (CYS). The pension is the highest of three formulas. For example, with a PHP 20,000 AMSC and 25 years of contributions, your estimated pension is about PHP 10,300 per month.",
+    "Your SSS monthly pension depends on your Average Monthly Salary Credit (AMSC) and total Credited Years of Service (CYS). The pension is the highest of three formulas. For example, with a ₱20,000 AMSC and 25 years of contributions, your estimated pension is about ₱10,300 per month.",
 };
 
 /**
@@ -47,12 +47,12 @@ export const sssPensionTableFaqs: FAQ[] = [
   {
     question: "How is the SSS pension amount determined?",
     answer:
-      "SSS computes your pension using three formulas and gives you the highest amount: (1) PHP 300 + 20% of AMSC + 2% of AMSC for each CYS over 10, (2) 40% of AMSC, and (3) the minimum pension of PHP 2,000 (for 10-20 CYS) or PHP 4,000 (for 20+ CYS).",
+      "SSS computes your pension using three formulas and gives you the highest amount: (1) ₱300 + 20% of AMSC + 2% of AMSC for each CYS over 10, (2) 40% of AMSC, and (3) the minimum pension of ₱2,420 (for at least 10 CYS) or ₱1,452 (for fewer than 10 CYS).",
   },
   {
     question: "What is the maximum SSS monthly pension?",
     answer:
-      "There is no hard cap on the SSS pension, but it is limited by the maximum Monthly Salary Credit (PHP 30,000 in 2026) and your total years of contribution. With the maximum MSC and 30 years of contributions, the estimated pension is about PHP 27,300 per month.",
+      "There is no hard cap on the SSS pension, but it is limited by the maximum Monthly Salary Credit (₱30,000 in 2026) and your total years of contribution. With the maximum MSC and 30 years of contributions, the estimated pension is about ₱27,300 per month.",
   },
   {
     question: "Can I receive SSS pension and still work?",

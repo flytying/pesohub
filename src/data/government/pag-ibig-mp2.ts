@@ -172,7 +172,7 @@ export interface Mp2DividendYear {
 export const mp2DividendHistory: Mp2DividendYear[] = [
   { year: 2024, dividendRate: "5.61%" },
   { year: 2023, dividendRate: "7.05%" },
-  { year: 2022, dividendRate: "6.63%" },
+  { year: 2022, dividendRate: "6.53%" },
   { year: 2021, dividendRate: "6.00%" },
   { year: 2020, dividendRate: "6.12%" },
   { year: 2019, dividendRate: "7.23%", note: "Highest rate in recent years" },

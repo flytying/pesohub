@@ -14,6 +14,7 @@ export const sssContributionMeta = {
 };
 
 export interface SSSPayrollExample {
+  tier: string;
   label: string;
   salary: number;
   msc: number;
@@ -23,33 +24,39 @@ export interface SSSPayrollExample {
   note: string;
 }
 
+// Employed members: 15% total (5% employee + 10% employer) on the MSC, plus
+// the employer-paid Employees' Compensation (EC: ₱10 up to MSC ₱14,500, ₱30
+// above). Salaries at/above the ₱35,000 ceiling are computed on the ₱35,000 MSC.
 export const sssPayrollExamples: SSSPayrollExample[] = [
   {
-    label: "Salary Near the Minimum MSC",
+    tier: "MINIMUM MSC",
+    label: "Salary near the minimum MSC",
     salary: 5_000,
     msc: 5_000,
     employeeShare: 250,
-    employerShare: 462.5,
-    totalContribution: 712.5,
-    note: "Near the lowest MSC bracket. Employee share is relatively small.",
+    employerShare: 510,
+    totalContribution: 760,
+    note: "Floor MSC of ₱5,000.00. Employee share is deducted from salary.",
   },
   {
-    label: "Salary in the Middle Range",
+    tier: "MID RANGE",
+    label: "Salary in the middle range",
     salary: 15_000,
     msc: 15_000,
     employeeShare: 750,
-    employerShare: 1_387.5,
-    totalContribution: 2_137.5,
-    note: "Mid-range bracket. Both employee and employer shares increase proportionally.",
+    employerShare: 1_530,
+    totalContribution: 2_280,
+    note: "MSC matches actual salary, so both shares scale with pay.",
   },
   {
-    label: "Salary Near or Above the Maximum MSC",
-    salary: 35_000,
-    msc: 30_000,
-    employeeShare: 1_500,
-    employerShare: 2_775,
-    totalContribution: 4_275,
-    note: "At or above the maximum MSC. Contribution does not increase further beyond the ceiling.",
+    tier: "MAXIMUM MSC",
+    label: "Salary near or above the maximum MSC",
+    salary: 40_000,
+    msc: 35_000,
+    employeeShare: 1_750,
+    employerShare: 3_530,
+    totalContribution: 5_280,
+    note: "At or above the maximum MSC, the contribution does not increase further beyond the ceiling.",
   },
 ];
 

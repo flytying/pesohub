@@ -140,31 +140,31 @@ export const philhealthFaqs: FAQ[] = [
     question:
       "What is the PhilHealth contribution rate used in the current table?",
     answer:
-      "PhilHealth's employer contribution table PDF shows a 5.0% premium rate for 2025, based on monthly basic salary within the published floor and ceiling.",
+      "The table applies a 5.0% premium rate on monthly basic salary, the rate published under PhilHealth Circular No. 2019-0009, subject to a salary floor of ₱10,000 and a ceiling of ₱100,000.",
   },
   {
     question: "How is PhilHealth contribution computed?",
     answer:
-      "PhilHealth contribution is computed from monthly basic salary using the published premium rate, subject to the income floor and income ceiling in the official schedule.",
+      "The total monthly premium is 5% of your monthly basic salary, within the floor and ceiling. For employed members this premium is split equally, so the employee share shown on a payslip is half of the total premium.",
   },
   {
     question: "Is the contribution split between employee and employer?",
     answer:
-      "For employed members, the premium is typically split equally between employee and employer.",
+      "Yes. For employed members the premium is shared 50/50. The employee share is deducted from salary, and the employer pays an equal share on top.",
   },
   {
     question: "What happens if salary is below the minimum salary base?",
     answer:
-      "If salary is below the floor, the contribution is computed based on the floor shown in the schedule.",
+      "If salary is below the ₱10,000 floor, the premium is computed on the floor, giving a total premium of ₱500.00 and an employee share of ₱250.00.",
   },
   {
     question: "What happens if salary is above the ceiling?",
     answer:
-      "If salary is above the salary ceiling, the contribution is computed based on the ceiling, not the full salary amount.",
+      "If salary is above the ₱100,000 ceiling, the premium is computed on the ceiling, giving a total premium of ₱5,000.00 and an employee share of ₱2,500.00. It does not increase further.",
   },
   {
     question: "Is this page the same as an official PhilHealth advisory?",
     answer:
-      "No. This page should work as a plain-language reference based on PhilHealth's published table and circular, not as a replacement for official PhilHealth issuances.",
+      "No. This page restates the published schedule for easier reading. For payroll-exact figures, always check the latest official PhilHealth advisory or your employer's payroll system.",
   },
 ];

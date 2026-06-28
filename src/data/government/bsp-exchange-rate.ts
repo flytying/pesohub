@@ -13,11 +13,11 @@ export const bspExchangeRateMeta = {
 };
 
 export const keyFacts = [
-  { label: "Official Name", value: "BSP Reference Exchange Rate Bulletin" },
-  { label: "Based On", value: "Philippine Dealing System (PDS) weighted average" },
-  { label: "Published", value: "Every business day (Mon-Fri, excluding holidays)" },
-  { label: "Currency Pairs", value: "Primarily USD/PHP; also EUR, JPY, GBP, and others" },
-  { label: "Used For", value: "Official benchmark for government, banking, and commercial transactions" },
+  { label: "Official name", value: "BSP Reference Exchange Rate Bulletin" },
+  { label: "Based on", value: "Philippine Dealing System (PDS) weighted average" },
+  { label: "Published", value: "Every business day (Mon–Fri, excluding holidays)" },
+  { label: "Currency pairs", value: "Primarily USD/PHP; also EUR, JPY, GBP, and others" },
+  { label: "Used for", value: "Official benchmark for government, banking, and commercial transactions" },
 ];
 
 export const bankSpreadExamples = [

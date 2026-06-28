@@ -109,44 +109,42 @@ export const pagibigContributionFaqs: FAQ[] = [
   {
     question: "What is the Pag-IBIG contribution table used for?",
     answer:
-      "This page helps users understand the regular Pag-IBIG savings deduction used in payroll and how the employee and employer portions usually work.",
+      "It shows the employee and employer share of the monthly Pag-IBIG (HDMF) contribution at different salary levels, so you can check what your payslip deduction should roughly be and how the contribution is capped.",
   },
   {
     question: "Does the employer also pay a share?",
     answer:
-      "Yes. The employer pays a separate share on top of the employee share. The employee share is deducted from the salary, while the employer pays its portion separately. The payslip usually shows only the employee-side deduction.",
+      "Yes. The employer pays a 2% share on top of the employee share. On a payslip you usually only see the employee-side deduction, not the employer portion.",
   },
   {
     question:
       "Why does my Pag-IBIG deduction stop increasing after a certain salary level?",
     answer:
-      "Because Pag-IBIG contributions are subject to a salary cap (currently ₱10,000 Monthly Salary Credit under HDMF Circular No. 460, effective February 2024). Once salary exceeds the cap, the contribution stays at ₱200 employee share and ₱200 employer share.",
+      "Because the contribution is computed on monthly salary up to a maximum of ₱10,000. Above that cap, the employee share stays at ₱200.00 and does not keep rising with salary.",
   },
   {
     question: "Is this the same as a housing loan payment?",
     answer:
-      "No. This page focuses on regular Pag-IBIG savings contributions, not housing loan amortization or other loan payments. For housing loan information, see the Pag-IBIG Housing Loan Guide.",
+      "No. This is the mandatory savings contribution to the Pag-IBIG Fund. A housing loan amortization is a separate payment. See the Pag-IBIG Housing Loan Guide for that.",
   },
   {
     question: "Why is my actual deduction different from this reference?",
     answer:
-      "Actual deductions may differ because of updated schedules, payroll handling, or compensation treatment used by the employer. This page should be used as a practical reference, not a replacement for official payroll computation.",
+      "Payroll systems may use updated settings, classify compensation differently, apply specific rounding, or follow company rules. Treat this page as a practical reference, not an exact payslip.",
   },
   {
     question: "Where should I go after checking this page?",
     answer:
-      "Use the Take-Home Pay Calculator if you want to see Pag-IBIG together with tax, SSS, and PhilHealth. You can also visit the Pag-IBIG Housing Loan Guide or the Government Hub for related reference pages.",
+      "To see Pag-IBIG together with SSS, PhilHealth, and withholding tax in one net-pay figure, use the Take-Home Pay Calculator. To explore savings, see the MP2 Savings Guide.",
   },
   {
-    question:
-      "How much is the Pag-IBIG contribution for employees in 2026?",
+    question: "How much is the Pag-IBIG contribution for employees in 2026?",
     answer:
-      "For employees earning over ₱1,500 per month, the Pag-IBIG contribution is 2% of the monthly basic salary (employee share) plus 2% from the employer, for a combined 4%. The maximum monthly salary used for computation is capped at ₱10,000 for mandatory contributions, making the maximum employee share ₱200 per month.",
+      "For most employees the mandatory employee share is 2% of monthly salary, capped at ₱200.00 once salary reaches the ₱10,000 maximum. Members earning ₱1,500 or below contribute 1%.",
   },
   {
-    question:
-      "What does HDMF mean and is it the same as Pag-IBIG?",
+    question: "What does HDMF mean and is it the same as Pag-IBIG?",
     answer:
-      "HDMF stands for Home Development Mutual Fund, which is the official name of the Pag-IBIG Fund. They are the same government agency — Pag-IBIG is the popular name while HDMF is used in legal and payroll documents. Your payslip may show either 'Pag-IBIG' or 'HDMF' for the same deduction.",
+      "HDMF stands for the Home Development Mutual Fund, which is the official name of Pag-IBIG. The two terms refer to the same fund and contribution.",
   },
 ];
