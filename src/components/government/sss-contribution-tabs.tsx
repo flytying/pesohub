@@ -38,7 +38,7 @@ function ContributionTable({
   employerLabel: string;
 }) {
   return (
-    <div className="overflow-x-auto rounded-lg border border-gray-200">
+    <div className="max-h-[560px] overflow-auto rounded-lg border border-gray-200">
       <Table>
         <TableHeader>
           <TableRow>

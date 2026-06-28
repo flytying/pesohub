@@ -211,10 +211,7 @@ export default function GovernmentPage() {
                   <Icon className="size-[22px]" style={{ color: c.ink }} />
                 </span>
               </div>
-              <div
-                className="mt-auto inline-flex items-center gap-2 text-[15px] font-bold"
-                style={{ color: c.ink }}
-              >
+              <div className="mt-auto inline-flex items-center gap-2 text-[15px] font-bold text-brand">
                 View reference
                 <ArrowRight className="size-4" />
               </div>
