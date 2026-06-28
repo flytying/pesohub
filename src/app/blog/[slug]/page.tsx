@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, TriangleAlert } from "lucide-react";
+import { ArrowRight, TriangleAlert, Clock } from "lucide-react";
 import { notFound } from "next/navigation";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -7,14 +7,37 @@ import {
   generateArticleSchema,
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
-import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { BlogContent } from "@/components/blog/blog-content";
+import { formatDate } from "@/lib/formatters";
 import { blogPosts } from "@/data/blog";
 import { postModules } from "@/data/blog/post-modules";
 
 // Ensure fully static generation
 export const dynamicParams = false;
+
+// Category pill styling — mirrors the blog hub cards.
+const CATEGORY_LABELS: Record<string, string> = {
+  savings: "Savings",
+  investing: "Investing",
+  tax: "Tax",
+  government: "Government",
+  banking: "Banking",
+  budgeting: "Budgeting",
+  insurance: "Insurance",
+  general: "General",
+};
+
+const CATEGORY_TONE: Record<string, { bg: string; ink: string }> = {
+  savings: { bg: "#DEF5F0", ink: "#0B7E6E" },
+  investing: { bg: "#EDE8FC", ink: "#6D4DE0" },
+  tax: { bg: "#FBF0DC", ink: "#B7791F" },
+  government: { bg: "#EAF0FF", ink: "#1535C7" },
+  banking: { bg: "#EAF0FF", ink: "#1535C7" },
+  budgeting: { bg: "#DEF5F0", ink: "#0B7E6E" },
+  insurance: { bg: "#FBE6E7", ink: "#C2484D" },
+  general: { bg: "#EEF1F7", ink: "#5A6478" },
+};
 
 // ---------------------------------------------------------------------------
 // Static params for static export
@@ -82,18 +105,68 @@ export default async function BlogPostPage({
         })}
       />
 
-      <PageHero
-        title={post.title}
-        description={post.excerpt}
-        badge={post.publishedAt}
-        badgeLabel="Posted"
-        breadcrumbs={breadcrumbs}
-        variant="dark"
-        image={post.image}
-      />
+      {/* Header */}
+      <div className="mx-auto max-w-[920px] px-4 pb-2 pt-8 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="mb-4">
+          <ol className="flex flex-wrap items-center gap-2 text-[14px]">
+            {breadcrumbs.map((item, index) => {
+              const isLast = index === breadcrumbs.length - 1;
+              return (
+                <li key={index} className="flex items-center gap-2">
+                  {index > 0 && <span className="text-[#C4CCDB]">/</span>}
+                  {isLast || !item.href ? (
+                    <span
+                      aria-current={isLast ? "page" : undefined}
+                      className="text-[#5A6478]"
+                    >
+                      {item.label}
+                    </span>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="font-bold text-brand transition-colors hover:text-brand-light"
+                    >
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </nav>
+
+        {/* Meta row: category pill · read time · updated date */}
+        <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span
+            className="rounded-[8px] px-[10px] py-[5px] text-[11px] font-bold uppercase tracking-[.06em]"
+            style={{
+              background: (CATEGORY_TONE[post.category] ?? CATEGORY_TONE.general)
+                .bg,
+              color: (CATEGORY_TONE[post.category] ?? CATEGORY_TONE.general).ink,
+            }}
+          >
+            {CATEGORY_LABELS[post.category] ?? post.category}
+          </span>
+          <span className="flex items-center gap-[5px] text-[13.5px] font-semibold text-[#6B7488]">
+            <Clock className="size-[15px]" />
+            {post.readTime} min read
+          </span>
+          <span className="text-[13.5px] font-semibold text-[#8A93A6]">
+            Updated {formatDate(post.updatedAt)}
+          </span>
+        </div>
+
+        <h1 className="font-display text-[clamp(30px,4vw,44px)] font-semibold leading-[1.12] tracking-[-.02em] text-[#0E1525]">
+          {post.title}
+        </h1>
+        <p className="mt-[14px] max-w-[74ch] text-[18px] leading-[1.6] text-[#475069]">
+          {post.excerpt}
+        </p>
+      </div>
 
       {/* Hero image */}
-      <div className="mx-auto max-w-6xl px-4 pt-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[920px] px-4 pt-4 sm:px-6 lg:px-8">
         <div className="relative h-[clamp(200px,34vw,320px)] overflow-hidden rounded-[18px]">
           {post.image ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -108,7 +181,7 @@ export default async function BlogPostPage({
         </div>
       </div>
 
-      <article className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+      <article className="mx-auto max-w-[920px] px-4 py-10 sm:px-6 lg:px-8">
         {/* Article card */}
         <div className="rounded-[22px] border border-[#E7EBF3] bg-white p-[clamp(22px,4vw,44px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
           {/* Direct Answer Box */}
@@ -117,7 +190,7 @@ export default async function BlogPostPage({
               <p className="text-[14px] font-bold uppercase tracking-[0.1em] text-brand">
                 Quick Answer
               </p>
-              <p className="mt-2 text-[16px] leading-[1.6] text-gray-500">
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#344054]">
                 {post.directAnswer}
               </p>
             </div>
@@ -130,7 +203,7 @@ export default async function BlogPostPage({
           {post.disclaimer && (
             <div className="mt-16 flex gap-3 rounded-lg border border-amber-300 bg-amber-50 p-6">
               <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-              <p className="text-[16px] leading-[1.6] text-[#5A6478]">
+              <p className="text-[16px] leading-[1.6] text-[#475069]">
                 This article is for educational and informational purposes only.
                 It should not be considered professional financial advice.
                 Rates, rules, and product details may change. Always verify with
@@ -161,7 +234,7 @@ export default async function BlogPostPage({
                   href={`/${relSlug}`}
                   className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
                 >
-                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                  <span className="flex-1 text-[16px] font-semibold text-[#0E1525] group-hover:text-brand">
                     {relSlug
                       .split("/")
                       .pop()
