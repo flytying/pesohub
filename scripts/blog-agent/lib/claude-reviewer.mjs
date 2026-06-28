@@ -50,6 +50,7 @@ export async function reviewArticle(postData, keyword, research) {
     .map((s) => {
       if (s.content) return s.content.split(/\s+/).length;
       if (s.items) return s.items.join(" ").split(/\s+/).length;
+      if (s.rows) return s.rows.flat().join(" ").split(/\s+/).length;
       if (s.heading) return s.heading.split(/\s+/).length;
       return 0;
     })
@@ -83,6 +84,8 @@ ${postData.sections.map((s) => {
   if (s.type === "paragraph") return s.content;
   if (s.type === "list" || s.type === "ordered-list") return s.items?.join("\n- ");
   if (s.type === "callout") return `[${s.variant}] ${s.content}`;
+  if (s.type === "table")
+    return [s.columns?.join(" | "), ...(s.rows ?? []).map((r) => r.join(" | "))].join("\n");
   return "";
 }).join("\n")}
 
