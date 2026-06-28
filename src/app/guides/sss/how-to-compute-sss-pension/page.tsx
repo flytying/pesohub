@@ -438,7 +438,9 @@ export default function SssPensionGuidePage() {
           <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related calculators and guides
           </h2>
-          <div className="grid gap-[14px] sm:grid-cols-2">
+          <div
+            className={`grid gap-[14px] ${relatedContent.length >= 3 ? "sm:grid-cols-2 lg:grid-cols-3" : "sm:grid-cols-2"}`}
+          >
             {relatedContent.map((item) => {
               const Icon = item.icon;
               return (
