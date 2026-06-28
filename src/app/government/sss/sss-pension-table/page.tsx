@@ -57,9 +57,9 @@ const pensionFormulaCards = [
   },
   {
     title: "Formula 3 (Minimum Pension)",
-    formula: "PHP 2,420 (if CYS ≥ 10 years) or PHP 1,452 (if CYS < 10 years)",
+    formula: "₱1,200 (10–19 CYS) or ₱2,400 (20+ CYS)",
     description:
-      "The guaranteed minimum pension floor. If Formulas 1 and 2 produce an amount below this floor, the minimum pension applies. The SSS Pension Reform Program applied two 10% increases to existing pensions: the ₱2,000 floor for members with at least 10 credited years of service rose to ₱2,420, and the ₱1,200 floor for members with fewer than 10 CYS rose to ₱1,452.",
+      "The guaranteed statutory minimum pension floor under the Social Security Act of 2018 (RA 11199). If Formulas 1 and 2 both produce a lower amount, the minimum applies: ₱1,200 per month for 10 to 19 credited years of service and ₱2,400 for 20 or more. The ₱1,000 across-the-board increase is added on top. This statutory floor is separate from the 2025–2027 Pension Reform Program, which raises the pensions of members who are already retired.",
   },
 ];
 
@@ -81,7 +81,7 @@ const appliesList = [
 const exampleRows = [
   { label: "Formula 1", value: "₱10,300/mo" },
   { label: "Formula 2", value: "₱8,000/mo" },
-  { label: "Formula 3 (minimum)", value: "₱2,420/mo" },
+  { label: "Formula 3 (minimum)", value: "₱2,400/mo" },
 ];
 
 const relatedContent = [
