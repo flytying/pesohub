@@ -3,6 +3,7 @@ import {
   Landmark,
   Calculator,
   ArrowRight,
+  CheckCircle,
   Info,
   HelpCircle,
   BookOpen,
@@ -42,7 +43,7 @@ const breadcrumbs = [
 
 const exemptGroups = [
   "Minimum wage earners — those receiving only the statutory minimum wage for their region are exempt from income tax regardless of the amount.",
-  "Employees earning PHP 250,000 or less per year — under the TRAIN Law, the first PHP 250,000 of annual taxable income is tax-free.",
+  "Employees earning ₱250,000 or less per year — under the TRAIN Law, the first ₱250,000 of annual taxable income is tax-free.",
 ];
 
 const computeSteps = [
@@ -55,8 +56,8 @@ const computeSteps = [
 
 const commonMistakes = [
   "Forgetting to subtract mandatory contributions. Your taxable income is your gross pay minus SSS, PhilHealth, and Pag-IBIG. Using gross pay directly will overestimate your tax.",
-  "Confusing the tax rate with the effective tax rate. If you fall in the 15% bracket, it does not mean 15% of your entire income goes to tax. Only the amount exceeding PHP 250,000 is taxed at 15%.",
-  "Not accounting for 13th-month pay and bonuses. Under the TRAIN Law, the first PHP 90,000 of 13th-month pay and other benefits is tax-exempt. Any excess is added to your taxable income.",
+  "Confusing the tax rate with the effective tax rate. If you fall in the 15% bracket, it does not mean 15% of your entire income goes to tax. Only the amount exceeding ₱250,000 is taxed at 15%.",
+  "Not accounting for 13th-month pay and bonuses. Under the TRAIN Law, the first ₱90,000 of 13th-month pay and other benefits is tax-exempt. Any excess is added to your taxable income.",
   "Not filing BIR Form 2316. Even if your employer handles withholding, make sure you receive your Certificate of Compensation Payment/Tax Withheld (BIR Form 2316) every year for your records.",
   "Assuming minimum wage = automatic tax exemption. You are only exempt if your pay is exactly the statutory minimum wage. If you receive any amount above minimum wage (such as night differential or overtime beyond legal limits), the excess may be taxable.",
 ];
@@ -149,11 +150,11 @@ export default function WithholdingTaxGuidePage() {
           <ArrowRight className="size-4 shrink-0 text-[#C4CCDB] transition-transform group-hover:translate-x-0.5" />
         </Link>
 
-        {/* 1. What Is Withholding Tax? */}
+        {/* 1. What is withholding tax? */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            1. What Is Withholding Tax?
+            1. What is withholding tax?
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Withholding tax is the Philippine government&apos;s method of
@@ -169,10 +170,10 @@ export default function WithholdingTaxGuidePage() {
           </p>
         </section>
 
-        {/* 2. Who Pays Withholding Tax? */}
+        {/* 2. Who pays withholding tax? */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            2. Who Pays Withholding Tax?
+            2. Who pays withholding tax?
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Most employees in the Philippines are subject to withholding tax.
@@ -180,8 +181,8 @@ export default function WithholdingTaxGuidePage() {
           </p>
           <ul className="mt-4 space-y-3">
             {exemptGroups.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+              <li key={item} className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#344054]">
+                <CheckCircle className="mt-1 size-4 shrink-0 text-[#0E9F6E]" />
                 {item}
               </li>
             ))}
@@ -196,7 +197,7 @@ export default function WithholdingTaxGuidePage() {
         {/* 3. TRAIN Law Tax Brackets */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            3. TRAIN Law Tax Brackets (2023 Onwards)
+            3. TRAIN Law tax brackets (2023 onwards)
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The Tax Reform for Acceleration and Inclusion (TRAIN) Law, or
@@ -252,10 +253,10 @@ export default function WithholdingTaxGuidePage() {
           </div>
         </section>
 
-        {/* 4. How to Compute Your Withholding Tax */}
+        {/* 4. How to compute your withholding tax */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            4. How to Compute Your Withholding Tax
+            4. How to compute your withholding tax
           </h2>
           <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
             The basic formula is:
@@ -283,10 +284,10 @@ export default function WithholdingTaxGuidePage() {
           </ul>
         </section>
 
-        {/* 5. How Employers Withhold Tax */}
+        {/* 5. How employers withhold tax */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            5. How Employers Withhold Tax
+            5. How employers withhold tax
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Employers use the BIR&apos;s Revised Withholding Tax Table to
@@ -306,7 +307,7 @@ export default function WithholdingTaxGuidePage() {
         {/* Worked Example */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Worked Example: PHP 35,000 Monthly Salary
+            Worked example: ₱35,000 monthly salary
           </h2>
           {/* Scenario */}
           <div className="mt-6 flex flex-wrap items-start gap-[13px] rounded-[14px] border border-[#DFE9FB] bg-[#F4F8FF] px-[18px] py-[15px]">
@@ -496,10 +497,10 @@ export default function WithholdingTaxGuidePage() {
           </p>
         </section>
 
-        {/* Common Mistakes to Avoid */}
+        {/* Common mistakes to avoid */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Common Mistakes to Avoid
+            Common mistakes to avoid
           </h2>
           <ul className="mt-6 space-y-4">
             {commonMistakes.map((item, i) => (
@@ -516,7 +517,7 @@ export default function WithholdingTaxGuidePage() {
       <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)]">
         {/* Calculator CTA */}
         <GuideCtaCard
-          title="Want to Compute Your Exact Withholding Tax?"
+          title="Want to compute your exact withholding tax?"
           description="Use the Withholding Tax Calculator to compute your exact withholding tax based on your salary and deductions. You can also try the Take-Home Pay Calculator to see a full deduction breakdown."
           href="/calculators/tax/withholding-tax-calculator-philippines"
           ctaLabel="Use the Withholding Tax Calculator"
@@ -545,22 +546,22 @@ export default function WithholdingTaxGuidePage() {
           <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             Related calculators and guides
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-[14px] sm:grid-cols-2">
             {relatedContent.map((item) => {
               const Icon = item.icon;
               return (
                 <Link
                   key={item.title}
                   href={item.href}
-                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                  className="group flex items-center gap-[14px] rounded-[14px] border border-[#E7EBF3] bg-white px-[18px] py-[15px] transition-colors hover:border-[#C3D0F2] hover:bg-[#FBFCFE]"
                 >
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-4" />
-                  </div>
-                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                  <span className="flex size-[38px] shrink-0 items-center justify-center rounded-[11px] bg-[#EAF0FF] text-brand">
+                    <Icon className="size-[18px]" />
+                  </span>
+                  <span className="flex-1 text-[15.5px] font-bold leading-[1.3] text-[#0E1525]">
                     {item.title}
                   </span>
-                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                  <ArrowRight className="size-4 shrink-0 text-[#C4CCDB] transition-transform group-hover:translate-x-0.5" />
                 </Link>
               );
             })}

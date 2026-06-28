@@ -59,7 +59,7 @@ const checkSteps = [
 
 const commonMistakes = [
   "Not checking for gaps in contributions. Even one missing month reduces your credited years. If you change jobs, make sure the new employer starts contributing immediately. Voluntary members should pay on time every month.",
-  "Confusing monthly salary credit with actual salary. Your MSC is capped at a maximum amount (currently PHP 30,000). Even if you earn more, your contributions and pension are based on the capped MSC.",
+  "Confusing monthly salary credit with actual salary. Your MSC is capped at a maximum amount (currently ₱30,000). Even if you earn more, your contributions and pension are based on the capped MSC.",
   "Assuming you automatically qualify for a pension. You need at least 120 monthly contributions. If you fall short, you only receive a lump sum, which is significantly less than a lifetime monthly pension.",
   "Not factoring in the 13th-month pension. SSS pensioners receive a 13th-month pension (paid in December) in addition to the regular monthly amount. When planning for retirement income, include this extra month.",
   "Forgetting to update your SSS records after life changes. Marriages, new dependents, and change of beneficiaries should be updated at the SSS to ensure your benefits go to the right people.",
@@ -296,7 +296,7 @@ export default function SssPensionGuidePage() {
             {/* Header */}
             <div className="border-b border-dashed border-gray-200 bg-gray-50 px-6 py-4">
               <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
-                A member has an AMSC of PHP 20,000 and 25 credited years of
+                A member has an AMSC of ₱20,000 and 25 credited years of
                 service (CYS).
               </p>
             </div>
@@ -306,23 +306,23 @@ export default function SssPensionGuidePage() {
               <dl className="space-y-2.5 text-[16px] leading-[1.6]">
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Formula 1</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">PHP 300 + (20% x AMSC) + (2% x AMSC x CYS over 10)</dd>
+                  <dd className="font-mono tabular-nums text-gray-500">₱300 + (20% x AMSC) + (2% x AMSC x CYS over 10)</dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="pl-4 text-gray-400">Base amount</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">PHP 300</dd>
+                  <dd className="font-mono tabular-nums text-gray-500">₱300</dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="pl-4 text-gray-400">20% x AMSC</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">20% x PHP 20,000 = PHP 4,000</dd>
+                  <dd className="font-mono tabular-nums text-gray-500">20% x ₱20,000 = ₱4,000</dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="pl-4 text-gray-400">2% x AMSC x CYS over 10</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">2% x PHP 20,000 x 15 = PHP 6,000</dd>
+                  <dd className="font-mono tabular-nums text-gray-500">2% x ₱20,000 x 15 = ₱6,000</dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Formula 1 result</dt>
-                  <dd className="font-mono tabular-nums font-semibold text-brand">PHP 10,300/month</dd>
+                  <dd className="font-mono tabular-nums font-semibold text-brand">₱10,300/month</dd>
                 </div>
               </dl>
             </div>
@@ -338,11 +338,11 @@ export default function SssPensionGuidePage() {
                 </div>
                 <div className="flex justify-between">
                   <dt className="pl-4 text-gray-400">Computation</dt>
-                  <dd className="font-mono tabular-nums text-gray-500">40% x PHP 20,000</dd>
+                  <dd className="font-mono tabular-nums text-gray-500">40% x ₱20,000</dd>
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Formula 2 result</dt>
-                  <dd className="font-mono tabular-nums font-semibold text-gray-500">PHP 8,000/month</dd>
+                  <dd className="font-mono tabular-nums font-semibold text-gray-500">₱8,000/month</dd>
                 </div>
               </dl>
             </div>
@@ -358,7 +358,7 @@ export default function SssPensionGuidePage() {
                 </div>
                 <div className="flex justify-between">
                   <dt className="text-gray-400">Formula 3 result</dt>
-                  <dd className="font-mono tabular-nums font-semibold text-gray-500">PHP 2,000/month</dd>
+                  <dd className="font-mono tabular-nums font-semibold text-gray-500">₱2,000/month</dd>
                 </div>
               </dl>
             </div>
