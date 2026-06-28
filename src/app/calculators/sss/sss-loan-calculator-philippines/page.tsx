@@ -176,7 +176,7 @@ export default function SSSLoanCalculatorPage() {
         </section>
 
         {/* FAQ */}
-        <div className="mt-12 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,34px)]">
+        <div className="mt-12">
           <FaqSection faqs={sssLoanData.faqs} />
         </div>
 

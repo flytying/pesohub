@@ -259,7 +259,7 @@ export default function GuidesPage() {
       </div>
 
       {/* FAQ */}
-      <div className="mb-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,34px)]">
+      <div className="mb-6">
         <FaqSection faqs={faqs} />
       </div>
     </div>

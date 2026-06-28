@@ -261,12 +261,12 @@ export default function CarLoanCalculatorPage() {
           </section>
 
           {/* FAQ */}
-          <section className={CARD}>
+          <section>
             <FaqSection faqs={carLoanData.faqs} />
           </section>
 
           {/* Related */}
-          <section className={CARD}>
+          <section>
             <h2 className={`mb-4 ${H2}`}>Related calculators and guides</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {relatedContent.map((item) => {

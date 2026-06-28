@@ -202,9 +202,9 @@ export default function HomeLoanCalculatorPage() {
             </ul>
           </section>
 
-          <section className={CARD}><FaqSection faqs={homeLoanData.faqs} /></section>
+          <section><FaqSection faqs={homeLoanData.faqs} /></section>
 
-          <section className={CARD}>
+          <section>
             <h2 className={`mb-4 ${H2}`}>Related calculators and guides</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {relatedContent.map((item) => {
