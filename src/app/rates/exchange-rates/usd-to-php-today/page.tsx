@@ -145,9 +145,10 @@ export default function UsdToPhpPage() {
         badge={USD_PHP_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
+        containerClassName="w-full max-w-[1240px] px-[clamp(20px,3vw,36px)]"
       />
 
-      <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(18px,3vw,34px)]">
         {/* Current Rate Summary */}
         <section>
           <div className="overflow-hidden rounded-xl border border-gray-200 bg-white p-6 sm:p-8">
