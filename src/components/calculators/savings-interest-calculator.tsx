@@ -87,9 +87,10 @@ export function SavingsInterestCalculator({
   ].join("\n");
 
   return (
-    <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+    <div className="grid items-stretch gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
       {/* LEFT: Gradient result */}
       <GradientResult
+        className="h-full"
         actions={
           <ResultActions
             calculatorType="Savings Interest Calculator"
@@ -134,7 +135,7 @@ export function SavingsInterestCalculator({
       </GradientResult>
 
       {/* RIGHT: Inputs */}
-      <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,28px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+      <div className="h-full rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,28px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
         <div className="mb-5 flex items-center justify-between">
           <h2 className="font-display text-[18px] font-semibold text-[#0E1525]">
             Account details
