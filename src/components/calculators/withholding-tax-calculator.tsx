@@ -1,248 +1,450 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { CalculatorInput } from "@/components/calculators/calculator-input";
+import { useState, useMemo, useId } from "react";
+import { Info, ChevronDown } from "lucide-react";
 import { ResultActions } from "@/components/calculators/result-actions";
 import {
   GradientResult,
+  MixBar,
+  ProgressLine,
   BreakdownCard,
-  BreakdownRow,
 } from "@/components/calculators/gradient-result";
 import {
   calculateWithholdingTaxDetailed,
+  PERIODS_PER_YEAR,
   PAY_FREQUENCY_LABELS,
   type PayFrequency,
 } from "@/lib/calculators/withholding-tax-detailed";
-import { formatPeso, formatPercent } from "@/lib/formatters";
-import { Label } from "@/components/ui/label";
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-} from "@/components/ui/table";
+import { formatPeso } from "@/lib/formatters";
+import { cn } from "@/lib/utils";
+import { InfoTip } from "@/components/calculators/info-tip";
+import { TRAIN_BRACKETS } from "@/data/calculators/withholding-tax";
 
-const FREQUENCIES: PayFrequency[] = ["daily", "weekly", "semi-monthly", "monthly"];
+const FREQUENCIES: PayFrequency[] = ["monthly", "semi-monthly", "weekly", "daily"];
 
-const TAX_BRACKETS_DISPLAY = [
-  { range: "₱0 - ₱250,000", rate: "0%", tax: "₱0" },
-  { range: "₱250,001 - ₱400,000", rate: "15%", tax: "15% of excess over ₱250,000" },
-  { range: "₱400,001 - ₱800,000", rate: "20%", tax: "₱22,500 + 20% of excess over ₱400,000" },
-  { range: "₱800,001 - ₱2,000,000", rate: "25%", tax: "₱102,500 + 25% of excess over ₱800,000" },
-  { range: "₱2,000,001 - ₱8,000,000", rate: "30%", tax: "₱402,500 + 30% of excess over ₱2,000,000" },
-  { range: "Over ₱8,000,000", rate: "35%", tax: "₱2,202,500 + 35% of excess over ₱8,000,000" },
-];
+const GROSS_LABELS: Record<PayFrequency, string> = {
+  monthly: "Gross Monthly Pay",
+  "semi-monthly": "Gross Semi-Monthly Pay",
+  weekly: "Gross Weekly Pay",
+  daily: "Gross Daily Pay",
+};
 
-const selectClass =
-  "flex h-11 w-full rounded-[12px] border border-[#D6DEEC] bg-white px-3 text-[15px] text-[#0E1525] focus-visible:border-brand focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-brand/15";
+const RATE_PILL: Record<string, string> = {
+  "0%": "bg-[#EEF1F7] text-[#5B6678]",
+  "15%": "bg-[#E4EDFB] text-[#1E5FD0]",
+  "20%": "bg-[#E7E9FB] text-[#3D49C4]",
+  "25%": "bg-[#EDE8FC] text-[#6D4DE0]",
+  "30%": "bg-[#FBF0DC] text-[#B7791F]",
+  "35%": "bg-[#FBE6E7] text-[#C2484D]",
+};
+
+function greenFill(value: number, min: number, max: number) {
+  const pct = Math.max(0, Math.min(100, ((value - min) / (max - min)) * 100));
+  return `linear-gradient(to right,#0B8270 0%,#0B8270 ${pct}%,#E3E8F2 ${pct}%,#E3E8F2 100%)`;
+}
+
+function MoneyField({
+  label,
+  help,
+  value,
+  onChange,
+  max,
+  step,
+}: {
+  label: React.ReactNode;
+  help: string;
+  value: number;
+  onChange: (v: number) => void;
+  max: number;
+  step: number;
+}) {
+  const id = useId();
+  const thumb = "wt-" + id.replace(/[:]/g, "");
+  return (
+    <div>
+      <div className="mb-[7px] flex items-center gap-1.5">
+        <label htmlFor={id} className="text-[14px] font-bold text-[#0E1525]">
+          {label}
+        </label>
+        <InfoTip text={help} label={typeof label === "string" ? label : undefined} />
+      </div>
+      <div className="flex items-center rounded-[12px] border border-[#D6DEEC] bg-white px-[14px] transition-shadow focus-within:border-[#0B8270] focus-within:shadow-[0_0_0_3px_rgba(11,130,112,.12)]">
+        <span className="mr-2 font-mono text-[15px] text-[#6B7488]">₱</span>
+        <input
+          id={id}
+          type="number"
+          value={value === 0 ? "" : value}
+          placeholder="0"
+          min={0}
+          onChange={(e) => {
+            const v = parseFloat(e.target.value);
+            onChange(isNaN(v) ? 0 : Math.max(0, v));
+          }}
+          className="min-w-0 flex-1 border-none bg-transparent py-3 font-mono text-[16px] text-[#0E1525] outline-none"
+        />
+      </div>
+      <style>{`#${thumb}{-webkit-appearance:none;width:100%;height:6px;border-radius:6px;outline:none;cursor:pointer;margin-top:12px}#${thumb}::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid #0B8270;box-shadow:0 2px 6px rgba(11,130,112,.3);cursor:pointer}#${thumb}::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid #0B8270;cursor:pointer}`}</style>
+      <input
+        id={thumb}
+        type="range"
+        min={0}
+        max={max}
+        step={step}
+        value={Math.min(value, max)}
+        onChange={(e) => onChange(parseFloat(e.target.value))}
+        style={{ background: greenFill(Math.min(value, max), 0, max) }}
+      />
+    </div>
+  );
+}
+
+function SelectField({
+  label,
+  help,
+  value,
+  onChange,
+  children,
+}: {
+  label: string;
+  help: string;
+  value: string;
+  onChange: (v: string) => void;
+  children: React.ReactNode;
+}) {
+  const id = useId();
+  return (
+    <div>
+      <div className="mb-[7px] flex items-center gap-1.5">
+        <label htmlFor={id} className="text-[14px] font-bold text-[#0E1525]">
+          {label}
+        </label>
+        <InfoTip text={help} label={label} />
+      </div>
+      <div className="relative">
+        <select
+          id={id}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="w-full cursor-pointer appearance-none rounded-[12px] border border-[#D6DEEC] bg-white py-3 pl-[14px] pr-10 text-[15px] text-[#0E1525] outline-none transition-shadow focus:border-[#0B8270] focus:shadow-[0_0_0_3px_rgba(11,130,112,.12)]"
+        >
+          {children}
+        </select>
+        <ChevronDown className="pointer-events-none absolute right-[14px] top-1/2 size-[18px] -translate-y-1/2 text-[#6B7488]" />
+      </div>
+    </div>
+  );
+}
 
 export function WithholdingTaxCalculator() {
   const [frequency, setFrequency] = useState<PayFrequency>("monthly");
-  const [periodGross, setPeriodGross] = useState(35_000);
-  const [taxableAllowances, setTaxableAllowances] = useState(0);
-  const [taxExemptAllowances, setTaxExemptAllowances] = useState(0);
-  const [autoEstimate, setAutoEstimate] = useState(true);
-  const [sss, setSss] = useState(0);
-  const [philhealth, setPhilhealth] = useState(0);
-  const [pagibig, setPagibig] = useState(0);
+  const [gross, setGross] = useState(35_000);
+  const [taxableAllow, setTaxableAllow] = useState(0);
+  const [exemptAllow, setExemptAllow] = useState(0);
+  const [manual, setManual] = useState(false);
+  const [sssManual, setSssManual] = useState(1750);
+  const [philManual, setPhilManual] = useState(875);
+  const [pagibigManual, setPagibigManual] = useState(200);
+
+  const reset = () => {
+    setFrequency("monthly");
+    setGross(35_000);
+    setTaxableAllow(0);
+    setExemptAllow(0);
+    setManual(false);
+  };
 
   const result = useMemo(
     () =>
       calculateWithholdingTaxDetailed({
-        periodGross,
+        periodGross: gross,
         frequency,
-        taxableAllowances,
-        taxExemptAllowances,
-        autoEstimateContributions: autoEstimate,
-        sss,
-        philhealth,
-        pagibig,
+        taxableAllowances: taxableAllow,
+        taxExemptAllowances: exemptAllow,
+        autoEstimateContributions: !manual,
+        sss: sssManual,
+        philhealth: philManual,
+        pagibig: pagibigManual,
       }),
-    [periodGross, frequency, taxableAllowances, taxExemptAllowances, autoEstimate, sss, philhealth, pagibig]
+    [gross, frequency, taxableAllow, exemptAllow, manual, sssManual, philManual, pagibigManual]
   );
 
-  const freqLabel = PAY_FREQUENCY_LABELS[frequency];
+  // Monthly-equivalent figures for display
+  const toMonthly = PERIODS_PER_YEAR[frequency] / 12;
+  const mGross = gross * toMonthly;
+  const mTaxableAllow = taxableAllow * toMonthly;
+  const mExemptAllow = exemptAllow * toMonthly;
+  const mSss = result.contributions.sss * toMonthly;
+  const mPhil = result.contributions.philhealth * toMonthly;
+  const mPagibig = result.contributions.pagibig * toMonthly;
+  const mTaxableComp = result.annualTaxable / 12;
+  const mWithholding = result.monthlyTax;
+  const mNet = mGross + mTaxableAllow + mExemptAllow - (mSss + mPhil + mPagibig) - mWithholding;
+  const totalPay = mGross + mTaxableAllow + mExemptAllow;
+  const keepPct = totalPay > 0 ? (mNet / totalPay) * 100 : 0;
+
+  const mixSegments = [
+    { label: "SSS", value: mSss, color: "#FFB38A" },
+    { label: "PhilHealth", value: mPhil, color: "#7FE3DC" },
+    { label: "Pag-IBIG", value: mPagibig, color: "#FFD27F" },
+    { label: "Tax", value: mWithholding, color: "#FF9F9F" },
+    { label: "Take-home", value: Math.max(mNet, 0), color: "#7BF0CF" },
+  ];
+
+  const activeIdx = (() => {
+    const a = result.annualTaxable;
+    if (a <= 250_000) return 0;
+    for (let i = 0; i < TRAIN_BRACKETS.length; i++) {
+      if (a > TRAIN_BRACKETS[i].lo && a <= TRAIN_BRACKETS[i].hi) return i;
+    }
+    return 0;
+  })();
 
   const resultsSummary = [
-    `Pay Frequency: ${freqLabel}`,
-    `Gross ${freqLabel} Pay: ${formatPeso(periodGross)}`,
-    `Estimated ${freqLabel} Withholding Tax: ${formatPeso(result.periodTax)}`,
-    `Estimated Monthly Withholding Tax: ${formatPeso(result.monthlyTax)}`,
+    `Pay Frequency: ${PAY_FREQUENCY_LABELS[frequency]}`,
+    `Gross ${PAY_FREQUENCY_LABELS[frequency]} Pay: ${formatPeso(gross)}`,
+    `Estimated Monthly Withholding Tax: ${formatPeso(mWithholding)}`,
+    `Estimated ${PAY_FREQUENCY_LABELS[frequency]} Withholding: ${formatPeso(result.periodTax)}`,
     `Estimated Annual Income Tax: ${formatPeso(result.annualTax)}`,
-    `Estimated ${freqLabel} Net Pay: ${formatPeso(result.periodNet)}`,
-    `Effective Tax Rate: ${formatPercent(result.effectiveRate)}`,
+    `Taxable Compensation (monthly): ${formatPeso(mTaxableComp)}`,
+    `Effective Tax Rate: ${result.effectiveRate.toFixed(2)}%`,
     `Current Tax Bracket: ${result.bracket}`,
   ].join("\n");
 
+  const dedRow = "flex items-center justify-between gap-3 border-b border-[#F0F3F8] py-[11px]";
+
   return (
-    <div className="space-y-6">
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+    <div className="space-y-[18px]">
+      <div className="grid items-stretch gap-[18px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         {/* LEFT: Inputs */}
-        <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,28px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-          <div className="mb-5 flex items-center justify-between">
-            <h2 className="font-display text-[18px] font-semibold text-[#0E1525]">
-              Pay details
-            </h2>
-            <button
-              type="button"
-              onClick={() => {
-                setFrequency("monthly");
-                setPeriodGross(35_000);
-                setTaxableAllowances(0);
-                setTaxExemptAllowances(0);
-                setAutoEstimate(true);
-              }}
-              className="text-[14px] font-bold text-brand transition-colors hover:text-brand-light"
-            >
-              Reset
-            </button>
-          </div>
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="pay-frequency" className="text-[15px] font-semibold text-[#344054]">
-                Pay frequency
-              </Label>
-              <select
-                id="pay-frequency"
+        <div className="flex flex-col">
+          <div className="h-full rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(18px,2.5vw,26px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+            <div className="mb-[18px] flex items-center justify-between">
+              <h2 className="text-[16px] font-bold text-[#0E1525]">Withholding tax details</h2>
+              <button
+                type="button"
+                onClick={reset}
+                className="text-[14px] font-semibold text-[#0B8270] transition-opacity hover:opacity-80"
+              >
+                Reset
+              </button>
+            </div>
+
+            <div className="space-y-5">
+              <SelectField
+                label="Pay Frequency"
+                help="Choose how often you are paid. The BIR uses a different table for each payroll frequency."
                 value={frequency}
-                onChange={(e) => setFrequency(e.target.value as PayFrequency)}
-                className={selectClass}
+                onChange={(v) => setFrequency(v as PayFrequency)}
               >
                 {FREQUENCIES.map((f) => (
                   <option key={f} value={f}>
                     {PAY_FREQUENCY_LABELS[f]}
                   </option>
                 ))}
-              </select>
-              <p className="text-[14px] text-[#6B7488]">
-                The BIR uses a different table for each payroll frequency.
-              </p>
-            </div>
-            <CalculatorInput
-              label={`Gross ${freqLabel} pay`}
-              value={periodGross}
-              onChange={setPeriodGross}
-              prefix="₱"
-              min={0}
-              max={1_000_000}
-              step={1_000}
-              helpText="Your gross pay for one pay period, before deductions."
-              tooltip="Basic compensation for one payroll period. Enter allowances separately below."
-            />
-            <CalculatorInput
-              label="Taxable allowances (per period)"
-              value={taxableAllowances}
-              onChange={setTaxableAllowances}
-              prefix="₱"
-              min={0}
-              max={1_000_000}
-              step={500}
-              helpText="Allowances that are part of taxable compensation. 0 if none."
-              tooltip="Allowances treated as taxable income."
-            />
-            <CalculatorInput
-              label="Tax-exempt allowances (per period)"
-              value={taxExemptAllowances}
-              onChange={setTaxExemptAllowances}
-              prefix="₱"
-              min={0}
-              max={1_000_000}
-              step={500}
-              helpText="De minimis and other tax-exempt benefits. 0 if none."
-              tooltip="Benefits excluded from tax such as de minimis benefits within BIR limits."
-            />
-            <div className="space-y-2">
-              <Label htmlFor="contrib-mode" className="text-[15px] font-semibold text-[#344054]">
-                Mandatory contributions
-              </Label>
-              <select
-                id="contrib-mode"
-                value={autoEstimate ? "auto" : "manual"}
-                onChange={(e) => setAutoEstimate(e.target.value === "auto")}
-                className={selectClass}
-              >
-                <option value="auto">Estimate SSS, PhilHealth &amp; Pag-IBIG automatically</option>
-                <option value="manual">Enter my contributions manually</option>
-              </select>
-              <p className="text-[14px] text-[#6B7488]">
-                Contributions are deducted before withholding tax is computed.
-              </p>
-            </div>
-            {!autoEstimate && (
-              <div className="space-y-6 rounded-[14px] border border-[#E7EBF3] bg-[#F7F9FD] p-4">
-                <CalculatorInput label="SSS (per period)" value={sss} onChange={setSss} prefix="₱" min={0} max={100_000} step={50} helpText="Your SSS employee share for this pay period." />
-                <CalculatorInput label="PhilHealth (per period)" value={philhealth} onChange={setPhilhealth} prefix="₱" min={0} max={100_000} step={50} helpText="Your PhilHealth employee share for this pay period." />
-                <CalculatorInput label="Pag-IBIG (per period)" value={pagibig} onChange={setPagibig} prefix="₱" min={0} max={100_000} step={50} helpText="Your Pag-IBIG employee share for this pay period." />
+              </SelectField>
+
+              <MoneyField
+                label={GROSS_LABELS[frequency]}
+                help="Enter your gross pay for one pay period, before deductions."
+                value={gross}
+                onChange={setGross}
+                max={200_000}
+                step={500}
+              />
+
+              <MoneyField
+                label="Taxable Allowances (per period)"
+                help="Allowances that are part of taxable compensation. Leave at 0 if none."
+                value={taxableAllow}
+                onChange={setTaxableAllow}
+                max={50_000}
+                step={500}
+              />
+
+              <MoneyField
+                label="Tax-Exempt Allowances (per period)"
+                help="De minimis and other tax-exempt benefits. Leave at 0 if none."
+                value={exemptAllow}
+                onChange={setExemptAllow}
+                max={50_000}
+                step={500}
+              />
+
+              <div>
+                <SelectField
+                  label="Mandatory Contributions"
+                  help="SSS, PhilHealth, and Pag-IBIG are deducted before withholding tax is computed. Automatic mode estimates the employee share from your salary."
+                  value={manual ? "manual" : "auto"}
+                  onChange={(v) => setManual(v === "manual")}
+                >
+                  <option value="auto">Estimate SSS, PhilHealth &amp; Pag-IBIG automatically</option>
+                  <option value="manual">Enter my contributions manually</option>
+                </SelectField>
+
+                {manual && (
+                  <div className="mt-[14px] flex flex-col gap-[10px]">
+                    {[
+                      { label: "SSS", value: sssManual, set: setSssManual },
+                      { label: "PhilHealth", value: philManual, set: setPhilManual },
+                      { label: "Pag-IBIG", value: pagibigManual, set: setPagibigManual },
+                    ].map((m) => (
+                      <div key={m.label} className="flex items-center gap-3">
+                        <label className="w-[92px] shrink-0 text-[13px] font-bold text-[#475069]">{m.label}</label>
+                        <div className="flex flex-1 items-center rounded-[10px] border border-[#D6DEEC] bg-white px-3 transition-shadow focus-within:border-[#0B8270] focus-within:shadow-[0_0_0_3px_rgba(11,130,112,.12)]">
+                          <span className="mr-1.5 font-mono text-[14px] text-[#6B7488]">₱</span>
+                          <input
+                            type="number"
+                            value={m.value === 0 ? "" : m.value}
+                            placeholder="0"
+                            min={0}
+                            onChange={(e) => {
+                              const v = parseFloat(e.target.value);
+                              m.set(isNaN(v) ? 0 : Math.max(0, v));
+                            }}
+                            className="min-w-0 flex-1 border-none bg-transparent py-[11px] font-mono text-[15px] text-[#0E1525] outline-none"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                    <p className="text-[12.5px] leading-[1.5] text-[#8A93A6]">
+                      Enter your monthly employee-share contributions from your payslip.
+                    </p>
+                  </div>
+                )}
               </div>
-            )}
+
+              <p className="border-t border-[#EEF1F7] pt-4 text-[13px] leading-[1.55] text-[#8A93A6]">
+                This calculator estimates withholding tax on compensation. It deducts SSS,
+                PhilHealth, and Pag-IBIG (or your manual amounts) to get taxable compensation,
+                then applies the TRAIN Law table. Actual payroll may differ due to employer
+                rounding and other income items.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* RIGHT: Gradient result */}
+        {/* RIGHT: Green result */}
         <GradientResult
-          label={`Estimated ${freqLabel.toLowerCase()} withholding tax`}
+          accent="green"
+          label="Withholding tax"
           actions={
             <ResultActions
               calculatorType="Withholding Tax Calculator"
               resultsSummary={resultsSummary}
             />
           }
-          eyebrow={freqLabel}
-          figure={formatPeso(result.periodTax)}
-          sub={`Effective rate ${formatPercent(result.effectiveRate)} · ${formatPeso(result.monthlyTax)}/month`}
+          eyebrow="Estimated monthly withholding"
+          figure={formatPeso(mWithholding)}
+          sub={`Effective tax rate ${result.effectiveRate.toFixed(2)}% on taxable pay`}
         >
-          <BreakdownCard
-            title="Pay breakdown"
-            note="Deducts SSS, PhilHealth, and Pag-IBIG to get taxable compensation, then applies the TRAIN Law table."
-          >
-            <BreakdownRow label={`Gross ${freqLabel.toLowerCase()} pay`} value={formatPeso(periodGross)} />
-            <BreakdownRow label="− SSS" value={`−${formatPeso(result.contributions.sss)}`} tone="negative" />
-            <BreakdownRow label="− PhilHealth" value={`−${formatPeso(result.contributions.philhealth)}`} tone="negative" />
-            <BreakdownRow label="− Pag-IBIG" value={`−${formatPeso(result.contributions.pagibig)}`} tone="negative" />
-            <BreakdownRow label="Taxable compensation" value={formatPeso(result.periodTaxable)} />
-            <BreakdownRow label="− Withholding tax" value={`−${formatPeso(result.periodTax)}`} tone="negative" />
-            <BreakdownRow label={`${freqLabel} net pay`} value={formatPeso(result.periodNet)} tone="total" strong />
+          <MixBar
+            title="Where your peso goes"
+            segments={mixSegments}
+            footer={
+              <ProgressLine
+                label="You keep"
+                valueLabel={`${Math.round(keepPct)}% of pay`}
+                pct={keepPct}
+              />
+            }
+          />
+          <BreakdownCard title="Monthly breakdown" note="Figures shown as monthly equivalents. Net pay is after tax and mandatory contributions only.">
+            <div className={dedRow}>
+              <span className="text-[14px] text-[#5A6478]">Gross Monthly Pay</span>
+              <span className="font-mono text-[14px] font-medium text-[#0E1525]">{formatPeso(mGross)}</span>
+            </div>
+            {mTaxableAllow > 0 && (
+              <div className={dedRow}>
+                <span className="text-[14px] text-[#5A6478]">+ Taxable Allowances</span>
+                <span className="font-mono text-[14px] font-medium text-[#0E1525]">{formatPeso(mTaxableAllow)}</span>
+              </div>
+            )}
+            <div className={dedRow}>
+              <span className="text-[14px] text-[#5A6478]">− SSS</span>
+              <span className="font-mono text-[14px] font-medium text-[#C0392B]">−{formatPeso(mSss)}</span>
+            </div>
+            <div className={dedRow}>
+              <span className="text-[14px] text-[#5A6478]">− PhilHealth</span>
+              <span className="font-mono text-[14px] font-medium text-[#C0392B]">−{formatPeso(mPhil)}</span>
+            </div>
+            <div className={dedRow}>
+              <span className="text-[14px] text-[#5A6478]">− Pag-IBIG</span>
+              <span className="font-mono text-[14px] font-medium text-[#C0392B]">−{formatPeso(mPagibig)}</span>
+            </div>
+            <div className={dedRow}>
+              <span className="text-[14px] font-bold text-[#0E1525]">Taxable Compensation</span>
+              <span className="font-mono text-[14px] font-bold text-[#0E1525]">{formatPeso(mTaxableComp)}</span>
+            </div>
+            <div className={dedRow}>
+              <span className="text-[14px] text-[#5A6478]">− Withholding Tax</span>
+              <span className="font-mono text-[14px] font-medium text-[#C0392B]">−{formatPeso(mWithholding)}</span>
+            </div>
+            {mExemptAllow > 0 && (
+              <div className={dedRow}>
+                <span className="text-[14px] text-[#5A6478]">+ Tax-Exempt Allowances</span>
+                <span className="font-mono text-[14px] font-medium text-[#0E1525]">{formatPeso(mExemptAllow)}</span>
+              </div>
+            )}
+            <div className="mt-[3px] flex items-center justify-between gap-3 border-t border-[#E7EBF3] pt-[13px]">
+              <span className="text-[14px] font-bold text-[#0E1525]">Monthly Net Pay</span>
+              <span className="font-mono text-[16px] font-bold text-[#0B8270]">{formatPeso(mNet)}</span>
+            </div>
           </BreakdownCard>
         </GradientResult>
       </div>
 
-      {/* TRAIN Law bracket table */}
-      <div className="rounded-[18px] border border-[#E7EBF3] bg-white p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-        <h3 className="mb-3 font-display text-[18px] font-semibold text-[#0E1525]">
+      {/* Live bracket table */}
+      <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,30px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+        <h2 className="font-display text-[clamp(19px,2.1vw,23px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
           TRAIN Law annual tax brackets (2023 onwards)
-        </h3>
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Annual taxable income</TableHead>
-                <TableHead className="text-center">Rate</TableHead>
-                <TableHead>Tax due</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {TAX_BRACKETS_DISPLAY.map((bracket, i) => {
-                const a = result.annualTaxable;
-                const isActive =
-                  (i === 0 && a <= 250_000) ||
-                  (i === 1 && a > 250_000 && a <= 400_000) ||
-                  (i === 2 && a > 400_000 && a <= 800_000) ||
-                  (i === 3 && a > 800_000 && a <= 2_000_000) ||
-                  (i === 4 && a > 2_000_000 && a <= 8_000_000) ||
-                  (i === 5 && a > 8_000_000);
-                return (
-                  <TableRow key={i} className={isActive ? "bg-[#EAF0FF] font-medium" : ""}>
-                    <TableCell className="font-mono text-[14px] tabular-nums">{bracket.range}</TableCell>
-                    <TableCell className="text-center font-mono text-[14px] tabular-nums">{bracket.rate}</TableCell>
-                    <TableCell className="text-[14px]">{bracket.tax}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+        </h2>
+        <p className="mb-4 mt-1 text-[14.5px] text-[#6B7488]">
+          Your bracket is based on annualized taxable income of{" "}
+          <strong className="font-mono text-[#0E1525]">{formatPeso(result.annualTaxable, 0)}</strong>.
+        </p>
+        <div className="overflow-x-auto rounded-[14px] border border-[#E0E6F2]">
+          <div className="min-w-[520px]">
+            <div className="grid grid-cols-[1.3fr_0.5fr_1.6fr] gap-[14px] border-b border-[#E0E6F2] bg-[#EEF2FB] px-5 py-[13px] text-[12px] font-bold tracking-[.05em] text-[#56607A]">
+              <span>ANNUAL TAXABLE INCOME</span>
+              <span>RATE</span>
+              <span>TAX DUE</span>
+            </div>
+            {TRAIN_BRACKETS.map((b, i) => {
+              const active = i === activeIdx;
+              return (
+                <div
+                  key={b.range}
+                  className={cn(
+                    "grid grid-cols-[1.3fr_0.5fr_1.6fr] items-center gap-[14px] px-5 py-[14px]",
+                    i < TRAIN_BRACKETS.length - 1 && "border-b border-[#EEF1F7]",
+                    active
+                      ? "bg-[#EAF0FF] shadow-[inset_3px_0_0_#1535C7]"
+                      : i % 2 === 1 && "bg-[#FBFCFE]"
+                  )}
+                >
+                  <div className="flex items-center gap-[9px]">
+                    <span className="font-mono text-[13.5px] font-medium text-[#0E1525]">{b.range}</span>
+                    {active && (
+                      <span className="rounded-[6px] border border-[#C3D0F2] bg-white px-[7px] py-[2px] text-[10.5px] font-bold tracking-[.04em] text-brand">
+                        YOUR BRACKET
+                      </span>
+                    )}
+                  </div>
+                  <span>
+                    <span className={cn("inline-flex items-center rounded-[7px] px-[9px] py-[3px] font-display text-[12px] font-bold", RATE_PILL[b.rate])}>
+                      {b.rate}
+                    </span>
+                  </span>
+                  <span className="font-mono text-[13px] text-[#475069]">{b.due}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
+        <p className="mt-[14px] text-[13px] text-[#8A93A6]">
+          Your bracket (based on annual taxable income) is highlighted. Source: TRAIN Law (RA
+          10963), effective January 1, 2023.
+        </p>
       </div>
     </div>
   );

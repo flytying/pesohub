@@ -41,6 +41,9 @@ export function CalculatorInput({
   const [isFocused, setIsFocused] = useState(false);
   const [rawValue, setRawValue] = useState(String(value));
 
+  // Supporting text now lives in the tooltip beside the label, not below.
+  const tip = tooltip ?? helpText;
+
   const formattedDisplay = prefix
     ? `${prefix} ${formatNumber(value, step < 1 ? 2 : 0)}`
     : formatNumber(value, step < 1 ? 2 : 0);
@@ -86,7 +89,7 @@ export function CalculatorInput({
     <div className="space-y-2">
       <div className="flex items-center gap-1.5">
         <Label htmlFor={id} className="text-[16px] font-semibold leading-[1.6] text-gray-500">{label}</Label>
-        {tooltip && (
+        {tip && (
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger
@@ -96,7 +99,7 @@ export function CalculatorInput({
               >
                 <Info className="size-4" />
               </TooltipTrigger>
-              <TooltipContent side="top">{tooltip}</TooltipContent>
+              <TooltipContent side="top" className="max-w-[260px]">{tip}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
         )}
@@ -124,9 +127,6 @@ export function CalculatorInput({
         max={max}
         step={step}
       />
-      {helpText && (
-        <p className="text-[14px] text-gray-300">{helpText}</p>
-      )}
     </div>
   );
 }
