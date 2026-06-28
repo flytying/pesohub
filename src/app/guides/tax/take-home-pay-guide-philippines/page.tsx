@@ -7,8 +7,9 @@ import {
   Shield,
   Heart,
   Home,
-  Minus,
-  Info,
+  House,
+  HeartPulse,
+  Percent,
   TriangleAlert,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
@@ -106,10 +107,10 @@ export default function TakeHomePayGuidePage() {
       />
 
       <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20 pt-[clamp(20px,3vw,32px)]">
-        {/* Why Is Take-Home Pay Lower Than Gross Salary? */}
+        {/* Why is take-home pay lower than gross salary? */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Why Is Take-Home Pay Lower Than Gross Salary?
+            Why is take-home pay lower than gross salary?
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Gross salary is your pay before deductions. Take-home pay, or net pay,
@@ -120,29 +121,31 @@ export default function TakeHomePayGuidePage() {
           </p>
 
           {/* In simple terms */}
-          <div className="mt-6 flex gap-3 rounded-xl border border-amber-300 bg-amber-50 p-6">
-            <TriangleAlert className="mt-0.5 size-5 shrink-0 text-amber-500" />
-            <div>
-              <p className="text-[16px] font-semibold leading-[1.6] text-gray-500">
+          <div className="mt-6 rounded-[16px] border border-[#F6E2B0] bg-[#FFF8E8] px-5 py-[18px]">
+            <div className="mb-3 flex items-center gap-[9px]">
+              <TriangleAlert className="size-[17px] shrink-0 text-[#C99A22]" />
+              <span className="text-[15px] font-bold text-[#7A5B12]">
                 In simple terms:
-              </p>
-              <ul className="mt-3 space-y-3">
-                {simpleTerms.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                    <CheckCircle className="size-4 shrink-0 text-brand" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              </span>
             </div>
+            <ul className="space-y-[11px]">
+              {simpleTerms.map((item) => (
+                <li key={item} className="flex items-start gap-[11px]">
+                  <CheckCircle className="mt-0.5 size-[17px] shrink-0 text-[#C99A22]" />
+                  <span className="text-[15px] leading-[1.5] text-[#5C4A1A]">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
-        {/* Sample Gross-to-Net Salary Breakdown */}
+        {/* Sample gross-to-net salary breakdown */}
 
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Sample Gross-to-Net Salary Breakdown
+            Sample gross-to-net salary breakdown
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The easiest way to understand take-home pay is to compare a sample
@@ -151,47 +154,38 @@ export default function TakeHomePayGuidePage() {
             — it is simply your gross pay after payroll deductions.
           </p>
 
-          <div className="mt-6 overflow-hidden rounded-xl border border-gray-200">
-            <div className="divide-y divide-gray-200">
-              {sampleBreakdown.map((row) => (
-                <div
-                  key={row.label}
-                  className={`flex items-center justify-between px-5 py-3 ${
+          <div className="mt-6 overflow-hidden rounded-[16px] border border-[#E7EBF3]">
+            {sampleBreakdown.map((row, i) => (
+              <div
+                key={row.label}
+                className={`flex items-center justify-between gap-3 px-5 py-[14px] ${
+                  i < sampleBreakdown.length - 1 ? "border-b border-[#EEF1F7]" : ""
+                } ${row.highlight ? "bg-[#F4F7FE]" : ""}`}
+              >
+                <span
+                  className={`text-[15.5px] ${
                     row.highlight
-                      ? "bg-gray-200/20 font-semibold"
-                      : ""
+                      ? "font-bold text-[#0E1525]"
+                      : "text-[#475069]"
                   }`}
                 >
-                  <div className="flex items-center gap-2 text-[16px] leading-[1.6]">
-                    {row.isDeduction && (
-                      <Minus className="size-3.5 text-gray-400" />
-                    )}
-                    <span
-                      className={
-                        row.highlight
-                          ? "text-gray-500"
-                          : row.isDeduction
-                            ? "text-gray-400"
-                            : "text-gray-500 font-medium"
-                      }
-                    >
-                      {row.label}
-                    </span>
-                  </div>
-                  <span
-                    className={`text-[16px] tabular-nums ${
-                      row.highlight
-                        ? "text-brand text-lg font-bold"
-                        : row.isDeduction
-                          ? "text-gray-400"
-                          : "font-medium text-gray-500"
-                    }`}
-                  >
-                    {row.isDeduction ? `(${formatPeso(row.amount)})` : formatPeso(row.amount)}
-                  </span>
-                </div>
-              ))}
-            </div>
+                  {row.isDeduction ? `− ${row.label}` : row.label}
+                </span>
+                <span
+                  className={`text-[15.5px] font-semibold tabular-nums ${
+                    row.highlight
+                      ? "text-brand"
+                      : row.isDeduction
+                        ? "text-[#C0392B]"
+                        : "text-[#0E1525]"
+                  }`}
+                >
+                  {row.isDeduction
+                    ? `(${formatPeso(row.amount)})`
+                    : formatPeso(row.amount)}
+                </span>
+              </div>
+            ))}
           </div>
           <p className="mt-3 text-[14px] text-gray-400">
             Based on a sample ₱35,000 monthly salary. Actual amounts depend on
@@ -199,34 +193,45 @@ export default function TakeHomePayGuidePage() {
           </p>
         </section>
 
-        {/* What Deductions Reduce Take-Home Pay? */}
+        {/* What deductions reduce take-home pay? */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            What Deductions Reduce Take-Home Pay?
+            What deductions reduce take-home pay?
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             The most common payroll deductions in the Philippines usually include
             the following. Together, these deductions reduce gross salary into
             take-home pay.
           </p>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
-            {deductionExplainers.map((item) => (
-              <div key={item.title} className="rounded-xl border border-gray-200 bg-white p-6">
-                <h3 className="text-[20px] font-semibold leading-[26px] text-gray-500">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
-                  {item.description}
-                </p>
-              </div>
-            ))}
+          <div className="mt-8 grid gap-[14px] sm:grid-cols-2">
+            {deductionExplainers.map((item, i) => {
+              const Icon = [Percent, Shield, HeartPulse, House][i] ?? Percent;
+              return (
+                <div
+                  key={item.title}
+                  className="rounded-[16px] border border-[#EDF1F8] bg-[#F7F9FD] p-5"
+                >
+                  <div className="mb-[9px] flex items-center gap-[11px]">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-[#EAF0FF] text-brand">
+                      <Icon className="size-[19px]" />
+                    </span>
+                    <h3 className="text-[16.5px] font-semibold text-[#0E1525]">
+                      {item.title}
+                    </h3>
+                  </div>
+                  <p className="text-[14.5px] leading-[1.6] text-[#5A6478]">
+                    {item.description}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </section>
 
-        {/* Gross Pay Is Not Always the Same as Taxable Pay */}
+        {/* Gross pay is not always the same as taxable pay */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Gross Pay Is Not Always the Same as Taxable Pay
+            Gross pay is not always the same as taxable pay
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             One reason payroll can feel confusing is that gross salary is not
@@ -254,10 +259,10 @@ export default function TakeHomePayGuidePage() {
           </p>
         </section>
 
-        {/* Why Your Actual Payslip May Be Different */}
+        {/* Why your actual payslip may be different */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Why Your Actual Payslip May Be Different
+            Why your actual payslip may be different
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Even if two employees have the same gross salary, their actual
@@ -270,18 +275,18 @@ export default function TakeHomePayGuidePage() {
           </p>
           <ul className="mt-4 space-y-3">
             {whyPayslipDiffers.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-[16px] leading-[1.6] text-[#5A6478]">
-                <ArrowRight className="size-4 shrink-0 text-gray-300" />
+              <li key={item} className="flex items-start gap-3 text-[16px] leading-[1.6] text-[#344054]">
+                <ArrowRight className="mt-1 size-4 shrink-0 text-brand" />
                 {item}
               </li>
             ))}
           </ul>
         </section>
 
-        {/* What This Guide Helps You Check */}
+        {/* What this guide helps you check */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            What This Guide Helps You Check
+            What this guide helps you check
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Use this page if you want to:
@@ -311,31 +316,31 @@ export default function TakeHomePayGuidePage() {
           <FaqSection faqs={takeHomePayGuideFaqs} />
         </div>
 
-        {/* Related Payroll Guides and Tools */}
+        {/* Related payroll guides and tools */}
         <section className="mt-6">
           <h2 className="mb-6 text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Related Payroll Guides and Tools
+            Related payroll guides and tools
           </h2>
           <p className="mb-6 text-[16px] leading-[1.6] text-[#5A6478]">
             After reading this guide, you may also want to review these related
             pages.
           </p>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-[14px] sm:grid-cols-2">
             {relatedPages.map((page) => {
               const Icon = page.icon;
               return (
                 <Link
                   key={page.title}
                   href={page.href}
-                  className="group flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-shadow hover:shadow-[0_4px_12px_rgba(0,0,0,0.04)]"
+                  className="group flex items-center gap-[14px] rounded-[14px] border border-[#E7EBF3] bg-white px-[18px] py-[15px] transition-colors hover:border-[#C3D0F2] hover:bg-[#FBFCFE]"
                 >
-                  <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-gray-50 text-brand">
-                    <Icon className="size-4" />
-                  </div>
-                  <span className="flex-1 text-[16px] font-semibold text-gray-500 group-hover:text-brand">
+                  <span className="flex size-[38px] shrink-0 items-center justify-center rounded-[11px] bg-[#EAF0FF] text-brand">
+                    <Icon className="size-[18px]" />
+                  </span>
+                  <span className="flex-1 text-[15.5px] font-bold leading-[1.3] text-[#0E1525]">
                     {page.title}
                   </span>
-                  <ArrowRight className="size-4 shrink-0 text-gray-300" />
+                  <ArrowRight className="size-4 shrink-0 text-[#C4CCDB] transition-transform group-hover:translate-x-0.5" />
                 </Link>
               );
             })}
