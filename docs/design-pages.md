@@ -105,3 +105,19 @@ rounded-xl border border-gray-200 bg-white p-6 flex flex-col h-full
 - **Description + Icon:** flex row, description left (flex-1), 64px icon right
 - **Button:** `mt-auto pt-5` with brand pill button or coming-soon pill
 - **On colored backgrounds:** Remove border
+
+## Blog Pages
+
+Full reference: **[design-blog.md](design-blog.md)**.
+
+- **Hub (`/blog`)** — full `max-w-[1240px]` width: heading, a two-column featured
+  card (post hero image + `FEATURED` badge), a `lg:grid-cols-3` grid of
+  `BlogCard`s, bare FAQ, then an Explore-more link grid.
+- **Post (`/blog/[slug]`)** — narrower **920px** reading column (the footer is
+  constrained to match). Breadcrumb + H1 + lead, then a **meta badge row**
+  (category · read time · updated — all 11px uppercase pills), hero image,
+  a standalone **Quick Answer** card, the content as **one card per heading**
+  (calculator `CARD` style), a standalone disclaimer card, bare FAQ, bare related.
+- Content blocks come from `BlogContent` (`paragraph`, `list`, `ordered-list`,
+  `callout`, `quote`, `cta`, `table`). Bank rankings / comparisons use `table`,
+  not long lists.
