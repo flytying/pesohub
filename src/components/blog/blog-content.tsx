@@ -238,17 +238,31 @@ export function BlogContent({ sections }: BlogContentProps) {
   const visible = sections.filter(
     (s) =>
       !(
-        s.type === "callout" &&
-        /^\s*disclaimer\b/i.test(s.content ?? "")
+        s.type === "callout" && /^\s*disclaimer\b/i.test(s.content ?? "")
       ),
   );
+
+  // Group into cards: each level-2 heading starts a new card; everything up to
+  // the next H2 (intro paragraphs, H3s, lists, tables, callouts) shares it.
+  // Mirrors the calculator pages — one card per content section.
+  const groups: BlogSection[][] = [];
+  for (const section of visible) {
+    const isH2 =
+      section.type === "heading" && (section.level ?? 2) === 2;
+    if (isH2 || groups.length === 0) groups.push([]);
+    groups[groups.length - 1].push(section);
+  }
+
   return (
-    <>
-      {visible.map((section, i) => (
-        <span key={i} className="contents">
-          {renderSection(section, i)}
-        </span>
+    <div className="flex flex-col gap-[14px]">
+      {groups.map((group, gi) => (
+        <section
+          key={gi}
+          className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,30px)] shadow-[0_1px_2px_rgba(16,24,40,.04)] [&>*:first-child]:mt-0"
+        >
+          {group.map((section, i) => renderSection(section, i))}
+        </section>
       ))}
-    </>
+    </div>
   );
 }
