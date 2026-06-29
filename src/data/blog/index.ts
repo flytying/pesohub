@@ -134,4 +134,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-06-22",
     readTime: 9,
   },
+  {
+    slug: "maximize-digital-bank-interest-philippines",
+    title: "How to Maximize Your Digital Bank Interest in the Philippines",
+    excerpt: "Digital banks in the Philippines are offering savings rates up to 60 times higher than traditional passbook accounts. Here's how to layer accounts across Maya, Tonik, GSave, and GoTyme to maximize your yield — while staying within PDIC insurance limits.",
+    category: "savings",
+    publishedAt: "2026-06-29",
+    updatedAt: "2026-06-29",
+    readTime: 12,
+  },
 ];
