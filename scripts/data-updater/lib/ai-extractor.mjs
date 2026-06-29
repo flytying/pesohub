@@ -69,19 +69,46 @@ export async function extractStructuredData({
   extractionPrompt,
   schema,
   schemaName,
+  imageUrls = [],
 }) {
   const anthropic = getClient();
 
-  if (!pageText || pageText.trim().length === 0) {
+  const hasImages = Array.isArray(imageUrls) && imageUrls.length > 0;
+
+  if (!hasImages && (!pageText || pageText.trim().length === 0)) {
     throw new Error(
       `Empty page text for ${schemaName} (source: ${sourceUrl}) — nothing to extract`
     );
   }
 
-  const truncatedText =
-    pageText.length > MAX_PAGE_TEXT_CHARS
+  // Vision path: some government tables (e.g. the SSS contribution schedule)
+  // render only as images, so text extraction sees no numbers. When imageUrls
+  // are supplied we read the image(s) directly instead of relying on pageText.
+  const truncatedText = pageText
+    ? pageText.length > MAX_PAGE_TEXT_CHARS
       ? pageText.slice(0, MAX_PAGE_TEXT_CHARS)
-      : pageText;
+      : pageText
+    : "";
+
+  const instructions = `Instructions:
+- Extract only what is explicitly stated ${hasImages ? "in the image(s)" : "on the page"}. Do NOT invent or guess values.
+- If a field is not present, omit it (the tool schema marks required fields).
+- If no relevant data is visible, return an empty array for list fields and omit scalar fields.
+- Philippine peso amounts: return as plain numbers (e.g., 1000000 not "₱1,000,000").
+- Rates: return as percentages (e.g., 4.5 for 4.5%), not decimals (not 0.045).`;
+
+  const content = [];
+  for (const url of hasImages ? imageUrls : []) {
+    content.push({ type: "image", source: { type: "url", url } });
+  }
+  content.push({
+    type: "text",
+    text: `${extractionPrompt}
+
+Source URL: ${sourceUrl}
+${truncatedText ? `\nPage content:\n${truncatedText}\n` : ""}
+${instructions}`,
+  });
 
   const message = await withRetry(() =>
     anthropic.messages.create({
@@ -95,24 +122,7 @@ export async function extractStructuredData({
         },
       ],
       tool_choice: { type: "tool", name: schemaName },
-      messages: [
-        {
-          role: "user",
-          content: `${extractionPrompt}
-
-Source URL: ${sourceUrl}
-
-Page content:
-${truncatedText}
-
-Instructions:
-- Extract only what is explicitly stated on the page. Do NOT invent or guess values.
-- If a field is not present, omit it (the tool schema marks required fields).
-- If no relevant data is visible on the page (e.g., the page is a generic landing page without rates), return an empty array for list fields and omit scalar fields.
-- Philippine peso amounts: return as plain numbers (e.g., 1000000 not "₱1,000,000").
-- Rates: return as percentages (e.g., 4.5 for 4.5%), not decimals (not 0.045).`,
-        },
-      ],
+      messages: [{ role: "user", content }],
     })
   );
 

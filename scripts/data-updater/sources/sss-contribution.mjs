@@ -5,7 +5,6 @@
  * Checks for changes to SSS contribution rates, MSC ranges, or brackets.
  */
 
-import { extractWithFallback } from "../lib/fetcher.mjs";
 import { extractStructuredData } from "../lib/ai-extractor.mjs";
 import {
   readDataFile,
@@ -22,28 +21,13 @@ export async function run() {
   const content = readDataFile(config.dataFile);
   const sourceUrls = config.urls;
 
-  // Fetch page content
-  console.log(`  Fetching ${sourceUrls[0]}...`);
-  const result = await extractWithFallback(sourceUrls[0]);
-
-  if (!result) {
-    return {
-      sourceName: config.name,
-      dataFile: config.dataFile,
-      sourceUrls,
-      status: "failed",
-      changes: [],
-      warnings: [],
-      error: "Failed to extract SSS contribution page",
-    };
-  }
-
-  // Extract structured data
-  console.log("  Extracting contribution data...");
+  // The SSS contribution schedule is published only as circular images, so we
+  // read it via vision (config.imageUrls) rather than scraping page text.
+  console.log(`  Reading contribution table image: ${config.imageUrls[0]}...`);
   let extracted;
   try {
     extracted = await extractStructuredData({
-      pageText: result.rawContent,
+      imageUrls: config.imageUrls,
       sourceUrl: sourceUrls[0],
       extractionPrompt: config.extractionPrompt,
       schema: config.schema,
@@ -131,6 +115,6 @@ export async function run() {
     status: "updated",
     changes: validation.changes,
     warnings: validation.warnings,
-    rawContent: result.rawContent.slice(0, 3000),
+    rawContent: `Read via vision from ${config.imageUrls.join(", ")}. Extracted: ${JSON.stringify(newValues)}`,
   };
 }

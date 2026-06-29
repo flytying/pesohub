@@ -29,13 +29,9 @@ jobs:
         env:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        # NOTE: sss-contribution is intentionally excluded. Its schedule on
-        # sss.gov.ph renders entirely as images, so text extraction returns no
-        # ground truth — the AI fabricates a full set of values that varies
-        # run-to-run and opens date-only noise PRs (#173/#175/#177). The source
-        # script + config are kept for manual runs if SSS ever publishes a text
-        # table; freshness is tracked via the content-freshness job + registry.
-        run: node scripts/data-updater/run-update.mjs --sources sss-pension,pagibig-housing,pagibig-contribution,pagibig-mp2,philhealth,withholding-tax
+        # sss-contribution reads the schedule via vision (the table is published
+        # only as circular images); see scripts/data-updater/sources/sss-contribution.mjs.
+        run: node scripts/data-updater/run-update.mjs --sources sss-contribution,sss-pension,pagibig-housing,pagibig-contribution,pagibig-mp2,philhealth,withholding-tax
 
       - name: Check for changes
         id: changes
