@@ -48,21 +48,28 @@ Runs weekly via `.github/workflows/blog-post.yml` (Mon 03:00 UTC) which can auto
 A new blog post needs an entry in **both** `src/data/blog/index.ts` and
 `src/data/blog/post-modules.ts` to be reachable (see `docs/known-issues.md` for an orphan example).
 
-## 3. GSC Content Opportunity Finder — EXPERIMENTAL, NOT COMMITTED
+## 3. GSC Content Opportunity Finder
 
-> **Status: not in the repo.** The GSC opportunity finder (orchestrator, `lib/gsc-*.mjs`,
-> `evals/`, and its `gsc-opportunities.yml` workflow) exists **only as untracked working-tree
-> files**, all carrying the macOS `" 2"` duplicate suffix. No GSC file is git-tracked and the
-> workflow is not committed, so **it does not run in CI**. Treat it as a work-in-progress that
-> still needs to be cleaned up and committed before it is real.
+Turns Google Search Console data into reviewed blog-topic suggestions. Runs weekly via
+`.github/workflows/gsc-opportunities.yml` (Mon 01:30 UTC, before the blog-post cron). Never
+auto-publishes — it opens a GitHub issue to review.
 
-Intended design (for when it lands): pull GSC Search Analytics → detect striking-distance /
-content-gap / rising queries → Claude drafts `topic-queue.json`-shaped suggestions with an
-LLM-judge score → open a GitHub issue for review → log to Braintrust. It would never auto-publish;
-a human pastes the chosen snippet into `topic-queue.json` for the blog agent to pick up.
+Flow: pull GSC Search Analytics (`lib/gsc-client.mjs`, service-account JWT) → detect
+striking-distance / content-gap / rising queries (`lib/gsc-opportunities.mjs`) → Claude drafts
+`topic-queue.json`-shaped suggestions + LLM-judge score (`lib/gsc-suggester.mjs`) → ranked issue
+markdown (`lib/gsc-reporter.mjs`). Orchestrator: `scripts/blog-agent/gsc-opportunities.mjs`. A human
+pastes the chosen snippet into `topic-queue.json` for the blog agent to pick up. Suggestions + scores
+log to Braintrust; `evals/gsc-opportunities.eval.mjs` is the offline eval.
 
-Required secrets (when committed): `GSC_SERVICE_ACCOUNT_JSON`, `GSC_SITE_URL` (e.g.
-`sc-domain:pesohub.ph`); `ANTHROPIC_API_KEY` / `BRAINTRUST_API_KEY` already exist.
+Required secrets: `GSC_SERVICE_ACCOUNT_JSON`, `GSC_SITE_URL` (e.g. `sc-domain:pesohub.ph`);
+`ANTHROPIC_API_KEY` / `BRAINTRUST_API_KEY` already exist.
+
+```bash
+# Full run (writes /tmp/gsc-issue.md; workflow opens the issue)
+GSC_SERVICE_ACCOUNT_JSON="$(cat sa-key.json)" GSC_SITE_URL="sc-domain:pesohub.ph" \
+  ANTHROPIC_API_KEY=... BRAINTRUST_API_KEY=... \
+  node scripts/blog-agent/gsc-opportunities.mjs --dry-run
+```
 
 ## GitHub Workflows (committed)
 
@@ -73,5 +80,4 @@ Required secrets (when committed): `GSC_SERVICE_ACCOUNT_JSON`, `GSC_SITE_URL` (e
 | `update-government-data.yml` | 1st 03:00 | Gov data check (Tavily) → PR |
 | `content-freshness.yml` | Mon 01:00 | Staleness check → GitHub issue |
 | `blog-post.yml` | Mon 03:00 | Generate post from queue → auto-merge |
-
-`gsc-opportunities.yml` is **not committed** (only an untracked `gsc-opportunities 2.yml` dup exists).
+| `gsc-opportunities.yml` | Mon 01:30 | GSC opportunities → GitHub issue |

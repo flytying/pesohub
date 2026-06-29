@@ -1,36 +1,21 @@
 # Known Issues
 
-Findings from the 2026-06-30 code review. **All are unaddressed** — this was a documentation-only
-pass (no code deleted or refactored). Each item is verified and evidence-based. Treat this as the
-backlog for a future code-cleanup pass.
+Findings from the 2026-06-30 code review. Most were fixed in the follow-up pass (branch
+`fix/code-review-followups`); resolved items are marked **✓ RESOLVED**. Remaining items are the
+backlog. Each is verified and evidence-based.
 
-## Duplicate "<space>N" sync artifacts (macOS Finder/iCloud)
+## ✓ RESOLVED — Duplicate "<space>N" sync artifacts (macOS Finder/iCloud)
 
-Files copied with a ` 2` / ` 3` suffix by file sync. All verified **zero-reference**. Junk.
+All ` 2`/` 3` sync-duplicate files (tracked + untracked) were deleted, and the GSC ones renamed to
+their base names. A `.gitignore` rule (`* [0-9].*`, `* [0-9]/`) now blocks them from recurring — do
+not commit any path with that suffix.
 
-**Committed (tracked) — should be `git rm`'d:**
-- `src/components/layout/app-shell 2.tsx`, `sidebar 2.tsx`
-- `src/components/shared/chip 2.tsx`, `icon-tile 2.tsx`
-- `scripts/data-updater/lib 2/` (whole dir), `scripts/data-updater/sources 2/` (whole dir)
-- `scripts/blog-agent/lib/braintrust 2.mjs`, `unsplash-image 2.mjs`, `run 2.mjs`, `writer 2.mjs`
-- `public/pesohub-logo-white 2.png`, `pesohub-mark 2.png`
-- `server/package-lock 2.json`, `package-lock 3.json`
+## ✓ RESOLVED — GSC system committed
 
-**Untracked (working tree only) — `rm`:**
-- 19 files incl. `.github/workflows/gsc-opportunities 2.yml`, all `scripts/blog-agent/**/gsc-* 2.*`,
-  `public/logo-symbol 2.*`, `public/pesohub-logo-white 3.png`, `public/pesohub-mark 3.png`,
-  `server/package-lock 4.json`, `package-lock 5.json`, `scripts/blog-agent/lib/braintrust 3.mjs`,
-  `run 3.mjs`, `writer 3.mjs`. See `git status`.
-
-**Suggested fix:** delete all of the above; add a `.gitignore` rule like `* [0-9].*` and
-`* [0-9]/` to stop them recurring.
-
-## GSC system never committed
-
-The entire GSC Content Opportunity Finder exists **only as untracked ` 2` files** — no base file is
-tracked, the workflow is not committed, so it does not run in CI. The old CLAUDE.md documented it as
-a live feature; that was inaccurate. **Fix:** rename the ` 2` files to their base names, review, and
-commit — or delete if abandoned. See `docs/content-automation.md` §3.
+The GSC Content Opportunity Finder was previously present only as untracked ` 2` files. It has been
+renamed to base names, syntax-checked, and committed (orchestrator, `lib/gsc-*.mjs`, `evals/`, and
+`.github/workflows/gsc-opportunities.yml`). End-to-end run still needs `GSC_SERVICE_ACCOUNT_JSON` +
+`ANTHROPIC_API_KEY`. See `docs/content-automation.md` §3.
 
 ## Dead code (zero importers, confirmed)
 
