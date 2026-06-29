@@ -168,15 +168,21 @@ export const sssContributionConfig = {
   name: "SSS Contribution Table",
   dataFile: "src/data/government/sss-contribution.ts",
   updatedAtExport: "SSS_CONTRIBUTION_UPDATED_AT",
-  // Legacy appmanager/pages.jsp URL 404s since the SSS site relaunch. Current
-  // path verified 2026-06-29. Note: the schedule renders as images on this
-  // page, so text extraction yields no MSC numbers — the source script guards
-  // against that (skips rather than emitting a false-positive change).
+  // The schedule renders ONLY as circular images on sss-contribution-table/ —
+  // text extraction sees no numbers. We read the table via vision instead
+  // (imageUrls below). `urls` is kept for source attribution / human review.
   urls: [
     "https://www.sss.gov.ph/sss-contribution-table/",
   ],
+  // Employed-member schedule (Circular 2024-006) — canonical source for the
+  // employee/employer rate and MSC floor/ceiling this detector tracks. Other
+  // member categories (OFW, self-employed, etc.) have different MSC floors and
+  // would muddy the single scalar set, so only the Employers circular is used.
+  imageUrls: [
+    "https://www.sss.gov.ph/wp-content/uploads/2024/12/Cir-2024-006-Employers-scaled.jpg",
+  ],
   extractionPrompt:
-    "Extract the SSS contribution schedule from this Philippine government webpage. Return the payroll examples with salary, Monthly Salary Credit (MSC), employee share, employer share, and total contribution. Also extract the contribution rate and MSC range.",
+    "This image is the official SSS contribution schedule circular for employers and employees. Read the table and return the total contribution rate (as a percentage), the minimum Monthly Salary Credit (MSC floor), and the maximum MSC (ceiling).",
   schema: {
     type: "object",
     properties: {
