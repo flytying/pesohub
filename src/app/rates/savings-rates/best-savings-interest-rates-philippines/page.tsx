@@ -20,7 +20,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
-import { SavingsInterestCalculator } from "@/components/calculators/savings-interest-calculator";
+import { SavingsComparison } from "@/components/calculators/savings-comparison-calculator";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   Table,
@@ -34,7 +34,10 @@ import { generatePageMetadata } from "@/lib/seo";
 import {
   generateArticleSchema,
   generateBreadcrumbSchema,
+  generateCalculatorSchema,
+  generateItemListSchema,
 } from "@/lib/schema-markup";
+import { SITE_URL } from "@/config/site";
 import { formatPeso, formatPercent } from "@/lib/formatters";
 import {
   bankSavingsRates,
@@ -44,9 +47,9 @@ import {
 
 export const metadata = generatePageMetadata({
   title:
-    "Best Savings Interest Rates in the Philippines 2026",
+    "Best Savings Accounts Philippines 2026: Highest Interest Rates",
   description:
-    "Compare the best savings account interest rates in the Philippines for 2026. See traditional banks, digital banks, high-yield savings options, and estimated earnings.",
+    "Compare the best savings accounts in the Philippines for 2026, including high-yield digital banks, traditional bank savings rates, promo conditions, minimum balances, and estimated earnings.",
   slug: "rates/savings-rates/best-savings-interest-rates-philippines",
   updatedAt: SAVINGS_RATES_UPDATED_AT,
 });
@@ -163,10 +166,26 @@ const relatedPages = [
 ];
 
 export default function BestSavingsRatesPage() {
-  const topBanks = bankSavingsRates.slice(0, 3);
-  const calculatorAccounts = bankSavingsRates.map((bank) => ({
+  const rankedBanks = [...bankSavingsRates].sort(
+    (a, b) => b.interestRate - a.interestRate
+  );
+  const topBanks = rankedBanks.slice(0, 3);
+  const calculatorAccounts = rankedBanks.map((bank) => ({
     label: `${bank.bankName} — ${bank.accountType}`,
     rate: bank.interestRate,
+  }));
+  const comparisonRows = rankedBanks.map((bank) => ({
+    bankName: bank.bankName,
+    accountType: bank.accountType,
+    rate: bank.interestRate,
+    rateType: bank.rateType,
+    bankType: bank.bankType,
+    minimumBalance: bank.minimumBalance,
+    conditions: `${bank.rateType} rate · ${
+      bank.minimumBalance === 0
+        ? "No min. balance"
+        : `Min. ${formatPeso(bank.minimumBalance, 0)}`
+    }${bank.bestFor ? ` · ${bank.bestFor}` : ""}`,
   }));
 
   return (
@@ -174,17 +193,35 @@ export default function BestSavingsRatesPage() {
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
-          title: "Best Savings Interest Rates in the Philippines 2026",
+          title: "Best Savings Accounts Philippines 2026: Highest Interest Rates",
           description:
-            "Compare the best savings interest rates in the Philippines across digital and traditional banks.",
+            "Compare the best savings accounts in the Philippines across digital and traditional banks.",
           updatedAt: SAVINGS_RATES_UPDATED_AT,
           slug: "rates/savings-rates/best-savings-interest-rates-philippines",
         })}
       />
+      <JsonLd
+        data={generateCalculatorSchema({
+          title: "Savings Account Comparison Calculator",
+          description:
+            "Compare estimated monthly, annual, and after-tax interest across Philippine savings accounts.",
+        })}
+      />
+      <JsonLd
+        data={generateItemListSchema({
+          name: "Best Savings Accounts in the Philippines 2026",
+          items: rankedBanks.map((bank) => ({
+            name: `${bank.bankName} — ${bank.accountType} (${formatPercent(
+              bank.interestRate
+            )} p.a.)`,
+            url: `${SITE_URL}/rates/savings-rates/best-savings-interest-rates-philippines`,
+          })),
+        })}
+      />
 
       <PageHero
-        title="Best Savings Interest Rates in the Philippines 2026"
-        description="Compare savings account interest rates across Philippine banks for 2026. Find the highest interest savings accounts, check minimum balance requirements, and discover which bank offers the best savings rate for your needs — whether you prefer digital banks or traditional banks."
+        title="Best Savings Accounts in the Philippines 2026"
+        description="Compare the best savings accounts in the Philippines for 2026, including high-yield digital banks, traditional bank savings accounts, promo rates, minimum balance requirements, and estimated interest earnings."
         badge={SAVINGS_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
@@ -203,7 +240,7 @@ export default function BestSavingsRatesPage() {
             expressed as a percentage per annum (p.a.) — for example, a 5% p.a.
             rate means you earn roughly ₱5,000 per year on a ₱100,000 deposit.
             Rates vary widely between banks: traditional banks typically offer
-            0.10%–0.25% p.a., while digital banks may offer 3%–6% p.a. or
+            0.10%–0.25% p.a., while digital banks may offer 3%–5% p.a. or
             higher through promotional rates.
           </p>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
@@ -211,13 +248,23 @@ export default function BestSavingsRatesPage() {
             traditional and digital banks in the Philippines so you can find the
             best savings account for your situation.
           </p>
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
+            Looking only for app-based banks?{" "}
+            <Link
+              href="/rates/savings-rates/best-digital-bank-rates-philippines"
+              className="font-semibold text-brand underline-offset-2 hover:underline"
+            >
+              Compare the best digital bank rates in the Philippines
+            </Link>
+            .
+          </p>
         </section>
 
         {/* Top 3 Banks Summary */}
 
         <section className="mt-16">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Highest Interest Rate Savings Accounts in the Philippines
+            Highest Savings Interest Rates in the Philippines
           </h2>
           <p className="mt-2 text-[14px] text-gray-400">
             These are not universal winners. They are starting points based on
@@ -373,12 +420,16 @@ export default function BestSavingsRatesPage() {
             How Much Interest Can You Earn?
           </h2>
           <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
-            Pick an account, enter your deposit, and see the estimated monthly
-            and annual interest. Toggle the tax assumption to compare gross and
-            after-tax returns.
+            Compare estimated earnings across every account at once, or switch to
+            a single account for a detailed breakdown. Enter your deposit and
+            holding period, then filter by account type or rate type and toggle
+            the tax assumption.
           </p>
           <div className="mt-6">
-            <SavingsInterestCalculator accounts={calculatorAccounts} />
+            <SavingsComparison
+              rows={comparisonRows}
+              accounts={calculatorAccounts}
+            />
           </div>
         </section>
 
@@ -437,7 +488,7 @@ export default function BestSavingsRatesPage() {
         {/* Savings Interest Is Usually Shown Before Tax */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Savings Interest Is Usually Shown Before Tax
+            Savings Interest Tax in the Philippines
           </h2>
           <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
             Savings interest rates are often shown as gross rates. In the
@@ -592,7 +643,7 @@ export default function BestSavingsRatesPage() {
         {/* Best Savings Account Options by Need */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Best Savings Account Options by Need
+            Best High-Yield Savings Accounts by Need
           </h2>
           <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Start with the type of savings experience you want, not just the

@@ -51,6 +51,37 @@ export function generateArticleSchema(data: {
   };
 }
 
+export function generateCollectionPageSchema(data: {
+  name: string;
+  description: string;
+  url: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: data.name,
+    description: data.description,
+    url: `${SITE_URL}${data.url}`,
+  };
+}
+
+export function generateItemListSchema(data: {
+  name: string;
+  items: { name: string; url?: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: data.name,
+    itemListElement: data.items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      ...(item.url && { url: item.url }),
+    })),
+  };
+}
+
 export function generateBreadcrumbSchema(
   items: { label: string; href?: string }[]
 ) {
