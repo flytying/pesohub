@@ -4,6 +4,12 @@
 
 Email functionality is handled by an Express server hosted on Render (free tier). The static site on Vercel sends POST requests directly to the Render API, which calls Resend to deliver emails.
 
+> **Second implementation:** `workers/email-api/` is an **undeployed** Cloudflare Worker alternative.
+> It now mirrors the Express server's hardening (honeypot, 16KB body cap, field-length + email
+> validation, security headers, no legacy CORS origin) **except per-IP rate limiting** — Workers needs
+> Durable Objects or a Cloudflare zone-level Rate Limiting rule for that. Configure rate limiting at
+> the zone before ever deploying the Worker.
+
 ## Architecture
 
 ```

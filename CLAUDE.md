@@ -92,8 +92,9 @@ Two implementations; only the Express one is live.
 - **Live:** `server/index.mjs` — Express on Render (`pesohub-email-api.onrender.com`), Resend for
   delivery. Endpoints `POST /contact`, `POST /calculator`, `GET /health`. Hardened: rate limit,
   16KB body cap, Helmet, input validation, honeypot. Frontend wires it via `src/config/site.ts`.
-- **Undeployed alt:** `workers/email-api/` (Cloudflare Worker) — kept for a possible future move;
-  currently **missing honeypot + body cap** (do not deploy as-is). See known-issues.
+- **Undeployed alt:** `workers/email-api/` (Cloudflare Worker) — kept for a possible future move.
+  At parity with Express on validation/honeypot/body-cap/headers, **except per-IP rate limiting**
+  (needs Durable Objects or a Cloudflare zone rule — configure before deploying). See known-issues.
 - Honeypot field names must match server checks: `website` (contact, `src/app/contact/page.tsx`),
   `phone` (calculator, `src/components/calculators/result-actions.tsx`).
 - Details & DNS: **[docs/email-api.md](docs/email-api.md)**.
