@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored / generated copies that aren't project source:
+    ".claude/**",
+    ".design-handoff/**",
+    "**/node_modules/**",
   ]),
 ]);
 

@@ -73,14 +73,24 @@ export function Header({ onBurger }: { onBurger: () => void }) {
           }}
           placeholder="Search calculators, rates, guides…"
           aria-label="Search PesoHub"
+          role="combobox"
+          aria-expanded={showDropdown && results.length > 0}
+          aria-controls="header-search-results"
+          aria-autocomplete="list"
           className="h-[44px] w-full rounded-[12px] border border-[#E7EBF3] bg-white pl-[42px] pr-3 text-base text-[#0E1525] outline-none transition-shadow placeholder:text-gray-300 focus-visible:border-brand focus-visible:shadow-[0_0_0_3px_rgba(21,53,199,.12)]"
         />
 
         {showDropdown && results.length > 0 && (
-          <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-[0_16px_34px_-18px_rgba(35,71,217,.34)]">
+          <div
+            id="header-search-results"
+            role="listbox"
+            aria-label="Search results"
+            aria-live="polite"
+            className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-[0_16px_34px_-18px_rgba(35,71,217,.34)]"
+          >
             <ul className="py-1">
               {results.map((result) => (
-                <li key={result.href}>
+                <li key={result.href} role="option" aria-selected={false}>
                   <Link
                     href={result.href}
                     onClick={() => {
