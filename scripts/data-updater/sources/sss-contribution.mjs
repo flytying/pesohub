@@ -75,12 +75,15 @@ export async function run() {
   };
 
   // Guard: the contribution schedule renders as images on the SSS page, so
-  // text extraction often yields no scalar values. Treating undefined fields
-  // as a "change" would bump the timestamp and open a noise PR every run.
-  // Skip without changes (non-blocking) and flag for manual review instead.
-  if (Object.values(newValues).every((v) => v == null)) {
+  // text extraction never yields the full scalar set — and a PARTIAL read is
+  // untrustworthy (the AI sometimes guesses a single value off surrounding
+  // prose, which differs run-to-run and opens a date-only noise PR; see
+  // closed #173, #175). Require ALL key fields before comparing: skip unless
+  // we have a complete, trustworthy read. If SSS ever publishes a text table
+  // this resumes automatically. Manual review is covered by content-freshness.
+  if (Object.values(newValues).some((v) => v == null)) {
     console.log(
-      "  No readable values extracted (page is image-based). Skipping without changes."
+      "  Incomplete extraction (page is image-based). Skipping without changes."
     );
     return {
       sourceName: config.name,
@@ -91,7 +94,7 @@ export async function run() {
       warnings: [
         {
           level: "warn",
-          message: `${config.name}: no values extracted from ${sourceUrls[0]} (image-based page). Verify rates manually.`,
+          message: `${config.name}: incomplete read from ${sourceUrls[0]} (image-based page). Verify rates manually.`,
         },
       ],
     };
