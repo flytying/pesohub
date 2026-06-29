@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Send, CheckCircle, AlertCircle, Clock, Info, Mail } from "lucide-react";
 import { SITE_NAME, EMAIL_API_URL } from "@/config/site";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
-const CONTACT_EMAIL = "hello@pesohub.ph";
+// Split so the literal address never appears in the prerendered HTML — it is
+// reassembled client-side after mount, keeping it out of reach of scrapers.
+const EMAIL_USER = "hello";
+const EMAIL_DOMAIN = "pesohub.ph";
 
 export default function ContactPage() {
   const [formState, setFormState] = useState<FormState>("idle");
@@ -17,6 +20,11 @@ export default function ContactPage() {
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState(""); // honeypot — humans leave blank
   const [errorMsg, setErrorMsg] = useState("");
+  const [contactEmail, setContactEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    setContactEmail(`${EMAIL_USER}@${EMAIL_DOMAIN}`);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -51,7 +59,7 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero header */}
-      <section className="mx-auto max-w-6xl px-4 pb-2 pt-8 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-2 pt-8">
         <nav aria-label="Breadcrumb" className="mb-[14px]">
           <ol className="flex flex-wrap items-center gap-2 text-[14px]">
             <li>
@@ -80,7 +88,7 @@ export default function ContactPage() {
         </p>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20 pt-8">
         <div className="grid items-start gap-6 lg:grid-cols-[1fr_1.5fr]">
           {/* Left column — info cards */}
           <div className="space-y-5">
@@ -130,12 +138,18 @@ export default function ContactPage() {
                   </h2>
                   <p className="mt-1.5 text-[15px] leading-[1.6] text-[#5A6478]">
                     Reach us directly at{" "}
-                    <a
-                      href={`mailto:${CONTACT_EMAIL}`}
-                      className="font-semibold text-brand transition-colors hover:text-brand-light"
-                    >
-                      {CONTACT_EMAIL}
-                    </a>
+                    {contactEmail ? (
+                      <a
+                        href={`mailto:${contactEmail}`}
+                        className="font-semibold text-brand transition-colors hover:text-brand-light"
+                      >
+                        {contactEmail}
+                      </a>
+                    ) : (
+                      <span className="font-semibold text-brand">
+                        {EMAIL_USER} [at] {EMAIL_DOMAIN}
+                      </span>
+                    )}
                   </p>
                 </div>
               </div>
