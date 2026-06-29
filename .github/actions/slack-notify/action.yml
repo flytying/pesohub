@@ -1,0 +1,55 @@
+name: Slack Notify
+description: >
+  Post a message to a Slack incoming webhook. No-ops cleanly when the webhook
+  input is empty, so workflows stay green for forks/contributors without the
+  SLACK_WEBHOOK_URL secret configured.
+
+inputs:
+  webhook:
+    description: Slack incoming webhook URL (pass secrets.SLACK_WEBHOOK_URL). Empty = skip.
+    required: false
+    default: ""
+  status:
+    description: "success | failure | info — controls the emoji."
+    required: false
+    default: info
+  title:
+    description: Bold first line of the message.
+    required: true
+  message:
+    description: Optional body text.
+    required: false
+    default: ""
+  url:
+    description: Optional link appended on its own line (PR / issue / run URL).
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        SLACK_WEBHOOK_URL: ${{ inputs.webhook }}
+        STATUS: ${{ inputs.status }}
+        TITLE: ${{ inputs.title }}
+        MESSAGE: ${{ inputs.message }}
+        LINK: ${{ inputs.url }}
+      run: |
+        if [ -z "$SLACK_WEBHOOK_URL" ]; then
+          echo "SLACK_WEBHOOK_URL not set — skipping Slack notification."
+          exit 0
+        fi
+        case "$STATUS" in
+          success) EMOJI=":white_check_mark:" ;;
+          failure) EMOJI=":x:" ;;
+          *)       EMOJI=":information_source:" ;;
+        esac
+        TEXT="$EMOJI *${TITLE}*"
+        [ -n "$MESSAGE" ] && TEXT="${TEXT}"$'\n'"${MESSAGE}"
+        [ -n "$LINK" ] && TEXT="${TEXT}"$'\n'"${LINK}"
+        payload=$(jq -n --arg t "$TEXT" '{text: $t}')
+        curl -sS -X POST -H 'Content-type: application/json' \
+          --data "$payload" "$SLACK_WEBHOOK_URL" >/dev/null \
+          && echo "Slack notification sent." \
+          || echo "::warning::Slack notification failed to send."
