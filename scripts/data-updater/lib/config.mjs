@@ -169,20 +169,24 @@ export const sssContributionConfig = {
   dataFile: "src/data/government/sss-contribution.ts",
   updatedAtExport: "SSS_CONTRIBUTION_UPDATED_AT",
   // The schedule renders ONLY as circular images on sss-contribution-table/ —
-  // text extraction sees no numbers. We read the table via vision instead
-  // (imageUrls below). `urls` is kept for source attribution / human review.
+  // text extraction sees no numbers. We read each member category's circular
+  // via vision (categories below). `urls` is kept for source attribution.
   urls: [
     "https://www.sss.gov.ph/sss-contribution-table/",
   ],
-  // Employed-member schedule (Circular 2024-006) — canonical source for the
-  // employee/employer rate and MSC floor/ceiling this detector tracks. Other
-  // member categories (OFW, self-employed, etc.) have different MSC floors and
-  // would muddy the single scalar set, so only the Employers circular is used.
-  imageUrls: [
-    "https://www.sss.gov.ph/wp-content/uploads/2024/12/Cir-2024-006-Employers-scaled.jpg",
+  // One circular image per member category. Baselines (rate %, MSC floor,
+  // MSC ceiling) verified 2026-06-29 against the Dec-2024 circulars effective
+  // January 2025. The detector reads each image and flags any category whose
+  // values diverge from its baseline.
+  categories: [
+    { key: "Employee/Employer",   url: "https://www.sss.gov.ph/wp-content/uploads/2024/12/Cir-2024-006-Employers-scaled.jpg",      contributionRate: 15, minMSC: 5_000, maxMSC: 35_000 },
+    { key: "Self-Employed",       url: "https://www.sss.gov.ph/wp-content/uploads/2024/12/Cir-2024-008-Self-Employed-scaled.jpg",   contributionRate: 15, minMSC: 5_000, maxMSC: 35_000 },
+    { key: "Voluntary/NWS",       url: "https://www.sss.gov.ph/wp-content/uploads/2024/12/Cir-2024-009-Voluntary-NWS-scaled.jpg",    contributionRate: 15, minMSC: 5_000, maxMSC: 35_000 },
+    { key: "Land-based OFW",      url: "https://www.sss.gov.ph/wp-content/uploads/2024/12/Cir-2024-010-Landbased-OFWs-scaled.jpg",   contributionRate: 15, minMSC: 8_000, maxMSC: 35_000 },
+    { key: "Household/Kasambahay", url: "https://www.sss.gov.ph/wp-content/uploads/2024/12/Cir-2024-007-HR-Kasambahay-scaled.jpg",   contributionRate: 15, minMSC: 1_000, maxMSC: 35_000 },
   ],
   extractionPrompt:
-    "This image is the official SSS contribution schedule circular for employers and employees. Read the table and return the total contribution rate (as a percentage), the minimum Monthly Salary Credit (MSC floor), and the maximum MSC (ceiling).",
+    "This image is an official SSS contribution schedule circular for one member category. Read the table and return the total contribution rate (as a percentage), the minimum Monthly Salary Credit (MSC floor, the lowest MSC row), and the maximum MSC (ceiling, the highest MSC row).",
   schema: {
     type: "object",
     properties: {
