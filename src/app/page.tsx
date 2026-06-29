@@ -40,9 +40,9 @@ export const metadata = generatePageMetadata({
   // The root layout's title.template does NOT apply to the homepage (same
   // segment), so the brand suffix is included here explicitly.
   title:
-    "Financial Calculators, Savings Rates & Money Guides Philippines | PesoHub",
+    "Savings Rates, Digital Banks & 2026 Tax Tables | PesoHub",
   description:
-    "Compare loan payments, estimate take-home pay, check withholding tax, review savings rates, and browse Philippine finance guides and government reference tables on PesoHub.",
+    "Compare Philippine savings and digital bank rates, check 2026 BIR and SSS tables, and use free calculators for time deposits, take-home pay, and loans.",
   slug: "",
 });
 
@@ -337,7 +337,7 @@ export default function HomePage() {
               Free · Philippine-ready financial tools
             </div>
             <h1 className="mt-[14px] font-display text-[clamp(30px,4vw,50px)] font-semibold leading-[1.06] tracking-[-.02em]">
-              Smarter money decisions, made simple.
+              Philippine savings rates, tax tables, and calculators
             </h1>
             <p className="mx-auto mt-[15px] max-w-[48ch] text-[clamp(16px,1.6vw,18px)] leading-[1.55] text-[#C9D4FF] lg:mx-0">
               Compare high-yield savings and digital bank rates, check 2026 BIR
