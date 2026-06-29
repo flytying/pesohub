@@ -51,10 +51,10 @@ export function addToBlogRegistry(postData) {
 }
 
 /**
- * Add a post module import to the [slug] page.tsx.
+ * Add a post module loader to the postModules map.
  */
 export function addToPostModules(slug) {
-  const filePath = resolve(ROOT, "src/app/blog/[slug]/page.tsx");
+  const filePath = resolve(ROOT, "src/data/blog/post-modules.ts");
   let content = readFileSync(filePath, "utf-8");
 
   // Idempotent: the import target never changes for a slug, so on refresh /
@@ -67,13 +67,17 @@ export function addToPostModules(slug) {
   const importLine = `  "${slug}": () =>\n    import("@/data/blog/${slug}"),`;
 
   // Find the postModules object and insert before the closing };
-  content = content.replace(
-    /(const postModules:.*?{[\s\S]*?)(};)/m,
-    `$1${importLine}\n$2`
-  );
+  const re = /(export const postModules:[\s\S]*?{[\s\S]*?)(\n};)/m;
+  if (!re.test(content)) {
+    throw new Error(
+      "addToPostModules: could not locate the postModules object in " +
+        "src/data/blog/post-modules.ts — its shape changed; update this regex.",
+    );
+  }
+  content = content.replace(re, `$1${importLine}$2`);
 
   writeFileSync(filePath, content, "utf-8");
-  console.log(`  📝 Updated: src/app/blog/[slug]/page.tsx`);
+  console.log(`  📝 Updated: src/data/blog/post-modules.ts`);
 }
 
 /**
