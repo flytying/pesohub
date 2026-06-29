@@ -41,14 +41,11 @@ export function Footer({
               government agency or financial institution. Always consult a
               qualified professional before making financial decisions.
             </p>
-            <div className="mt-[18px] text-[13px] text-[#8A93A6]">
-              &copy; {new Date().getFullYear()} {SITE_NAME}
-            </div>
             <a
               href="https://verify.sentralid.com/t/pesohub-934885"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-[14px] inline-block"
+              className="mt-[18px] inline-block"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -58,6 +55,9 @@ export function Footer({
                 height={72}
               />
             </a>
+            <div className="mt-[14px] text-[13px] text-[#8A93A6]">
+              &copy; {new Date().getFullYear()} {SITE_NAME}
+            </div>
           </div>
 
           {/* Link columns */}
