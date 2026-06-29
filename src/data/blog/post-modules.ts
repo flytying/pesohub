@@ -38,6 +38,8 @@ export const postModules: Record<
     import("@/data/blog/high-yield-savings-account-philippines"),
   "highest-interest-digital-banks-philippines": () =>
     import("@/data/blog/highest-interest-digital-banks-philippines"),
+  "maximize-digital-bank-interest-philippines": () =>
+    import("@/data/blog/maximize-digital-bank-interest-philippines"),
 };
 
 /** Loads a post's hero image, or null if the slug/image is absent. */
