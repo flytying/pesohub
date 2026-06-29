@@ -61,3 +61,23 @@ jobs:
             --comment "✅ All content is within review cadence. Closing automatically."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify Slack — stale content
+        if: steps.check.outputs.exit_code == '1' && hashFiles('.github/freshness-report.md') != ''
+        uses: ./.github/actions/slack-notify
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          status: info
+          title: "Content freshness review needed"
+          message: "Some YMYL content is past its review cadence."
+          url: ${{ github.server_url }}/${{ github.repository }}/issues?q=is%3Aissue+is%3Aopen+label%3Acontent-freshness
+
+      - name: Notify Slack — run failed
+        if: failure()
+        uses: ./.github/actions/slack-notify
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          status: failure
+          title: "Content Freshness Check workflow failed"
+          message: "The freshness job errored. Check the run logs."
+          url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}

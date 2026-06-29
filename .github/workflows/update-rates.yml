@@ -47,4 +47,14 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: Notify Slack — run failed
+        if: failure()
+        uses: ./.github/actions/slack-notify
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          status: failure
+          title: "Update Exchange Rates workflow failed"
+          message: "Daily BSP rate fetch or build failed. Check the run logs."
+          url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
   # No deploy step needed — Vercel auto-deploys on push to main
