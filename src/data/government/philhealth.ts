@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const PHILHEALTH_UPDATED_AT = "2026-05-01";
+export const PHILHEALTH_UPDATED_AT = "2026-06-29";
 
 export const philhealthMeta = {
   title: "PhilHealth Contribution Table Philippines 2026",
