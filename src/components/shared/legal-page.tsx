@@ -31,7 +31,7 @@ export function LegalPage({
   return (
     <>
       {/* Hero header */}
-      <section className="mx-auto max-w-6xl px-4 pb-2 pt-8 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-2 pt-8">
         <nav aria-label="Breadcrumb" className="mb-[14px]">
           <ol className="flex flex-wrap items-center gap-2 text-[14px]">
             <li>
@@ -64,7 +64,7 @@ export function LegalPage({
         )}
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1240px] px-[clamp(20px,3vw,36px)] pb-20 pt-8">
         <div className="rounded-2xl border border-gray-200 bg-white p-6 sm:p-8 lg:p-10">
           {sections.map((section, index) => (
             <section

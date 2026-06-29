@@ -109,9 +109,10 @@ export default function AboutPage() {
         title={`About ${SITE_NAME}`}
         description={`${SITE_NAME} is a free finance utility website built for Filipinos who need quick, practical answers to everyday money questions — from loan payments and exchange rates to tax deductions and government contributions.`}
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
+        containerClassName="max-w-[1240px] px-[clamp(20px,3vw,36px)]"
       />
 
-      <div className="mx-auto max-w-6xl space-y-6 px-4 pb-20 pt-6 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1240px] space-y-6 px-[clamp(20px,3vw,36px)] pb-20 pt-6">
         {/* Our mission */}
         <section className={sectionCard}>
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
