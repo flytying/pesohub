@@ -2,7 +2,7 @@ import type { FAQ } from "@/types/content";
 
 export const EXCHANGE_RATE_SOURCE = "Bangko Sentral ng Pilipinas (BSP)";
 
-export const USD_PHP_UPDATED_AT = "2026-06-26";
+export const USD_PHP_UPDATED_AT = "2026-06-29";
 
 export interface ExchangeRateEntry {
   date: string;
@@ -25,9 +25,9 @@ export interface BSPRateDetails {
  * Current BSP reference rate for USD to PHP.
  */
 export const currentRate: ExchangeRateEntry = {
-  date: "2026-06-26",
-  rate: 61.3,
-  change: -0.25,
+  date: "2026-06-29",
+  rate: 61.28,
+  change: -0.02,
 };
 
 /**
@@ -48,13 +48,13 @@ export const bspRateDetails: BSPRateDetails = {
  * Historical BSP reference rates for the last 7 business days.
  */
 export const historicalRates: ExchangeRateEntry[] = [
+  { date: "2026-06-29", rate: 61.28, change: -0.02 },
   { date: "2026-06-26", rate: 61.3, change: -0.25 },
   { date: "2026-06-25", rate: 61.55, change: 0.2 },
   { date: "2026-06-24", rate: 61.35, change: 0.25 },
   { date: "2026-06-23", rate: 61.1, change: 0.3 },
   { date: "2026-06-22", rate: 60.8, change: 0.25 },
   { date: "2026-06-19", rate: 60.55, change: 0.15 },
-  { date: "2026-06-18", rate: 60.4, change: 0.1 },
 ];
 
 export const exchangeRateFaqs: FAQ[] = [

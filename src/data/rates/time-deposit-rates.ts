@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const TIME_DEPOSIT_RATES_UPDATED_AT = "2026-06-15";
+export const TIME_DEPOSIT_RATES_UPDATED_AT = "2026-06-29";
 
 export interface BankTimeDepositRate {
   bankName: string;
@@ -56,7 +56,7 @@ export const bankTimeDepositRates: BankTimeDepositRate[] = [
     minimumDeposit: 1_000,
     taxNote: "Gross before 20% WHT",
     bestFor: "Low minimum deposit",
-    notes: "CIMB announced revised rates effective January 9, 2026. 24-month tenor no longer offered for new placements effective February 11, 2026.",
+    notes: "CIMB announced revised rates effective January 9, 2026, then further revised rates effective June 1, 2026. 24-month tenor discontinued effective April 14, 2026. Verify current rate at cimbbank.com.ph before placing.",
   },
   {
     bankName: "CIMB",
@@ -66,7 +66,7 @@ export const bankTimeDepositRates: BankTimeDepositRate[] = [
     minimumDeposit: 1_000,
     taxNote: "Gross before 20% WHT",
     bestFor: "Low minimum deposit",
-    notes: "GCash-accessible. Verify current tenor availability.",
+    notes: "GCash-accessible. CIMB revised rates effective June 1, 2026; verify current rate and tenor availability at cimbbank.com.ph.",
   },
   {
     bankName: "MariBank",
