@@ -2,7 +2,9 @@
 
 /**
  * Source script: SSS Contribution Table
- * Checks for changes to SSS contribution rates, MSC ranges, or brackets.
+ * Checks for changes to SSS contribution rates and MSC ranges across all five
+ * member-category circulars. The schedule is published only as images, so each
+ * category's circular is read via vision and compared to a verified baseline.
  */
 
 import { extractStructuredData } from "../lib/ai-extractor.mjs";
@@ -21,74 +23,71 @@ export async function run() {
   const content = readDataFile(config.dataFile);
   const sourceUrls = config.urls;
 
-  // The SSS contribution schedule is published only as circular images, so we
-  // read it via vision (config.imageUrls) rather than scraping page text.
-  console.log(`  Reading contribution table image: ${config.imageUrls[0]}...`);
-  let extracted;
-  try {
-    extracted = await extractStructuredData({
-      imageUrls: config.imageUrls,
-      sourceUrl: sourceUrls[0],
-      extractionPrompt: config.extractionPrompt,
-      schema: config.schema,
-      schemaName: "extract_sss_contribution",
-    });
-  } catch (err) {
-    return {
-      sourceName: config.name,
-      dataFile: config.dataFile,
-      sourceUrls,
-      status: "failed",
-      changes: [],
-      warnings: [],
-      error: `AI extraction failed: ${err.message}`,
+  const currentValues = [];
+  const newValues = [];
+  const warnings = [];
+
+  for (const cat of config.categories) {
+    console.log(`  Reading ${cat.key} circular via vision...`);
+    let extracted;
+    try {
+      extracted = await extractStructuredData({
+        imageUrls: [cat.url],
+        sourceUrl: cat.url,
+        extractionPrompt: config.extractionPrompt,
+        schema: config.schema,
+        schemaName: "extract_sss_contribution",
+      });
+    } catch (err) {
+      warnings.push({
+        level: "warn",
+        message: `${config.name} (${cat.key}): extraction failed — ${err.message}`,
+      });
+      continue;
+    }
+
+    const next = {
+      contributionRate: extracted.contributionRate,
+      minMSC: extracted.minMSC,
+      maxMSC: extracted.maxMSC,
     };
+
+    // Require a complete read per category. A partial read is untrustworthy
+    // (the model can guess a lone value), so skip that category rather than
+    // risk a false-positive change (see closed #173/#175/#177).
+    if (Object.values(next).some((v) => v == null)) {
+      warnings.push({
+        level: "warn",
+        message: `${config.name} (${cat.key}): incomplete read from ${cat.url}. Verify manually.`,
+      });
+      continue;
+    }
+
+    currentValues.push({
+      category: cat.key,
+      contributionRate: cat.contributionRate,
+      minMSC: cat.minMSC,
+      maxMSC: cat.maxMSC,
+    });
+    newValues.push({ category: cat.key, ...next });
   }
 
-  // Compare key values against current data
-  const currentValues = {
-    contributionRate: 15, // Current 15% rate
-    minMSC: 5_000,
-    maxMSC: 35_000,
-  };
-
-  const newValues = {
-    contributionRate: extracted.contributionRate,
-    minMSC: extracted.minMSC,
-    maxMSC: extracted.maxMSC,
-  };
-
-  // Guard: the contribution schedule renders as images on the SSS page, so
-  // text extraction never yields the full scalar set — and a PARTIAL read is
-  // untrustworthy (the AI sometimes guesses a single value off surrounding
-  // prose, which differs run-to-run and opens a date-only noise PR; see
-  // closed #173, #175). Require ALL key fields before comparing: skip unless
-  // we have a complete, trustworthy read. If SSS ever publishes a text table
-  // this resumes automatically. Manual review is covered by content-freshness.
-  if (Object.values(newValues).some((v) => v == null)) {
-    console.log(
-      "  Incomplete extraction (page is image-based). Skipping without changes."
-    );
+  // Nothing could be read confidently — skip without changes (non-blocking).
+  if (newValues.length === 0) {
+    console.log("  No category read confidently. Skipping without changes.");
     return {
       sourceName: config.name,
       dataFile: config.dataFile,
       sourceUrls,
       status: "unchanged",
       changes: [],
-      warnings: [
-        {
-          level: "warn",
-          message: `${config.name}: incomplete read from ${sourceUrls[0]} (image-based page). Verify rates manually.`,
-        },
-      ],
+      warnings,
     };
   }
 
-  const validation = validateGovernmentData(
-    [currentValues],
-    [newValues],
-    config.name
-  );
+  // Index-aligned compare (currentValues[i] ↔ newValues[i]); null-safe.
+  const validation = validateGovernmentData(currentValues, newValues, config.name);
+  const allWarnings = [...warnings, ...validation.warnings];
 
   if (validation.changes.length === 0) {
     console.log("  No changes detected.");
@@ -98,7 +97,7 @@ export async function run() {
       sourceUrls,
       status: "unchanged",
       changes: [],
-      warnings: [],
+      warnings: allWarnings,
     };
   }
 
@@ -114,7 +113,7 @@ export async function run() {
     sourceUrls,
     status: "updated",
     changes: validation.changes,
-    warnings: validation.warnings,
-    rawContent: `Read via vision from ${config.imageUrls.join(", ")}. Extracted: ${JSON.stringify(newValues)}`,
+    warnings: allWarnings,
+    rawContent: `Read via vision per category. Extracted: ${JSON.stringify(newValues)}`,
   };
 }
