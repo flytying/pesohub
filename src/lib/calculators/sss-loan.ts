@@ -61,6 +61,19 @@ export function calculateSSSLoan({
     termMonths,
   });
 
+  // loanAmount/termMonths are already guarded above, so this never trips —
+  // it just narrows calculateLoan's LoanResult | CalcError union.
+  if ("error" in loan) {
+    return {
+      monthlyPayment: 0,
+      totalInterest: 0,
+      totalRepayment: loanAmount,
+      serviceFee,
+      netProceeds,
+      annualRate: SSS_LOAN_ANNUAL_RATE,
+    };
+  }
+
   return {
     monthlyPayment: loan.monthlyPayment,
     totalInterest: loan.totalInterest,

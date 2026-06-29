@@ -11,6 +11,7 @@ import {
   calculatePhilHealthEmployee,
   calculatePagIBIGEmployee,
 } from "@/lib/calculators/take-home-pay";
+import { round } from "./math-utils";
 
 export type PayFrequency = "daily" | "weekly" | "semi-monthly" | "monthly";
 
@@ -163,8 +164,4 @@ export function calculateWithholdingTaxDetailed(
     effectiveRate: tax.effectiveRate,
     bracket: tax.bracket,
   };
-}
-
-function round(value: number): number {
-  return Math.round(value * 100) / 100;
 }

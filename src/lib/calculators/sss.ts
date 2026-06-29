@@ -4,30 +4,6 @@
 // through 2024-010) and pension formulas.
 // ---------------------------------------------------------------------------
 
-/**
- * Input parameters for the SSS pension calculation.
- */
-export interface SSSInput {
-  /** Monthly Salary Credit (MSC) used as the basis for contributions. */
-  monthlySalaryCredit: number;
-  /** Total number of years the member has contributed to SSS. */
-  yearsOfContribution: number;
-}
-
-/**
- * Result of an SSS pension computation.
- */
-export interface SSSResult {
-  /** Estimated monthly pension amount. */
-  monthlyPension: number;
-  /** Which formula produced the highest (winning) pension amount. */
-  method: "formula_a" | "formula_b" | "minimum_pension";
-  /** Monthly SSS contribution based on the salary credit. */
-  monthlyContribution: number;
-  /** Estimated total contributions over the membership period. */
-  totalContributions: number;
-}
-
 // ---------------------------------------------------------------------------
 // 2025 SSS Contribution Table (Effective January 2025)
 //
@@ -259,85 +235,9 @@ export const SSS_MEMBER_TYPES: {
 ];
 
 // ---------------------------------------------------------------------------
-// Main computation
+// NOTE: The live SSS pension calculator uses computeSSSPension() from
+// sss-pension-formula.ts; the SSS contribution calculator uses
+// computeSSSContribution() from sss-contribution-wisp.ts. This file now only
+// supplies the contribution table + member-type metadata used by the reference
+// page (sss-contribution-tabs.tsx) and take-home-pay.ts.
 // ---------------------------------------------------------------------------
-
-/**
- * Calculate the estimated SSS monthly pension.
- *
- * The pension is the **highest** of three formulas:
- *   (a) 300 + 20% of average MSC + 2% of average MSC * credited years over 10
- *   (b) 40% of average MSC
- *   (c) Minimum pension: PHP 2,000 (10-20 CYS) or PHP 4,000 (20+ CYS)
- *
- * This function is pure -- it has no side effects.
- */
-export function calculateSSPension(input: SSSInput): SSSResult {
-  const { monthlySalaryCredit, yearsOfContribution } = input;
-
-  // Look up the contribution bracket for the given MSC
-  const bracket = findContributionBracket(monthlySalaryCredit);
-  const monthlyContribution = bracket.totalContribution;
-  const totalContributions = round(monthlyContribution * yearsOfContribution * 12);
-
-  // -- Formula (a) --
-  const yearsOver10 = Math.max(yearsOfContribution - 10, 0);
-  const formulaA = round(
-    300 + 0.2 * monthlySalaryCredit + 0.02 * monthlySalaryCredit * yearsOver10,
-  );
-
-  // -- Formula (b) --
-  const formulaB = round(0.4 * monthlySalaryCredit);
-
-  // -- Formula (c): Minimum pension --
-  let minimumPension = 0;
-  if (yearsOfContribution >= 20) {
-    minimumPension = 4_000;
-  } else if (yearsOfContribution >= 10) {
-    minimumPension = 2_000;
-  }
-
-  // Determine the winning method
-  const candidates: { value: number; method: SSSResult["method"] }[] = [
-    { value: formulaA, method: "formula_a" },
-    { value: formulaB, method: "formula_b" },
-    { value: minimumPension, method: "minimum_pension" },
-  ];
-
-  const winner = candidates.reduce((best, current) =>
-    current.value > best.value ? current : best,
-  );
-
-  return {
-    monthlyPension: winner.value,
-    method: winner.method,
-    monthlyContribution: round(monthlyContribution),
-    totalContributions,
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Lookup helper
-// ---------------------------------------------------------------------------
-
-function findContributionBracket(msc: number): SSSContributionBracket {
-  const exact = SSS_CONTRIBUTION_TABLE_2025.find(
-    (b) => b.monthlySalaryCredit === msc,
-  );
-  if (exact) return exact;
-
-  for (const bracket of SSS_CONTRIBUTION_TABLE_2025) {
-    if (msc >= bracket.minSalary && msc <= bracket.maxSalary) {
-      return bracket;
-    }
-  }
-
-  const last = SSS_CONTRIBUTION_TABLE_2025[SSS_CONTRIBUTION_TABLE_2025.length - 1];
-  if (msc > last.maxSalary) return last;
-
-  return SSS_CONTRIBUTION_TABLE_2025[0];
-}
-
-function round(value: number): number {
-  return Math.round(value * 100) / 100;
-}

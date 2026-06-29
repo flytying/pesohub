@@ -14,6 +14,7 @@ import {
   COMPUTATION_TYPE_LABELS,
   type ComputationType,
 } from "@/lib/calculators/thirteenth-month";
+import { CalcErrorState } from "@/components/calculators/calc-error-state";
 import { formatPeso } from "@/lib/formatters";
 
 export function ThirteenthMonthCalculator() {
@@ -29,6 +30,19 @@ export function ThirteenthMonthCalculator() {
       computationType,
     });
   }, [monthlyBasicSalary, monthsWorked, computationType]);
+
+  if ("error" in result) {
+    return (
+      <CalcErrorState
+        message={result.error}
+        onReset={() => {
+          setMonthlyBasicSalary(24_000);
+          setMonthsWorked(12);
+          setComputationType("full_year");
+        }}
+      />
+    );
+  }
 
   const resultsSummary = [
     `Monthly Basic Salary: ${formatPeso(monthlyBasicSalary)}`,

@@ -13,6 +13,7 @@ import {
   calculateForTerm,
   calculateTimeDeposit,
 } from "@/lib/calculators/time-deposit";
+import { CalcErrorState } from "@/components/calculators/calc-error-state";
 import { formatPeso, formatPercent } from "@/lib/formatters";
 import { Label } from "@/components/ui/label";
 
@@ -68,6 +69,13 @@ export function SavingsInterestCalculator({
     () => calculateForTerm(depositAmount, annualRate, 12),
     [depositAmount, annualRate]
   );
+
+  if ("error" in period) {
+    return <CalcErrorState message={period.error} onReset={reset} />;
+  }
+  if ("error" in annual) {
+    return <CalcErrorState message={annual.error} onReset={reset} />;
+  }
 
   const periodInterest = applyTax ? period.afterTaxInterest : period.grossInterest;
   const annualInterest = applyTax ? annual.afterTaxInterest : annual.grossInterest;

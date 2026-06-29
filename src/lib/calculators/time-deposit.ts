@@ -5,6 +5,8 @@
 // Pure TypeScript computation library.
 // ---------------------------------------------------------------------------
 
+import { round, type CalcError } from "./math-utils";
+
 /** Unit the term is expressed in. */
 export type TermUnit = "days" | "months" | "years";
 
@@ -90,10 +92,21 @@ const PERIODS_PER_YEAR: Record<InterestMethod, number> = {
  */
 export function calculateTimeDeposit(
   input: TimeDepositInput,
-): TimeDepositResult {
+): TimeDepositResult | CalcError {
   const { depositAmount, annualRate, term, termUnit } = input;
   const taxRate = input.taxRate ?? INTEREST_WITHHOLDING_TAX_RATE;
   const method = input.method ?? "simple";
+
+  // -- Input validation --
+  if (!Number.isFinite(depositAmount) || depositAmount <= 0) {
+    return { error: "Enter a deposit amount greater than zero." };
+  }
+  if (!Number.isFinite(annualRate) || annualRate < 0) {
+    return { error: "Enter an interest rate of zero or more." };
+  }
+  if (!Number.isFinite(term) || term <= 0) {
+    return { error: "Enter a term greater than zero." };
+  }
 
   const termInYears = toYears(term, termUnit);
   const termInMonths = Math.round(termInYears * 12);
@@ -150,7 +163,7 @@ export function calculateForTerm(
   months: number,
   taxRate: number = INTEREST_WITHHOLDING_TAX_RATE,
   method: InterestMethod = "simple",
-): TimeDepositResult {
+): TimeDepositResult | CalcError {
   return calculateTimeDeposit({
     depositAmount,
     annualRate,
@@ -174,11 +187,4 @@ function toYears(term: number, unit: TermUnit): number {
 function formatTermLabel(term: number, unit: TermUnit): string {
   const noun = unit === "years" ? "Year" : unit === "days" ? "Day" : "Month";
   return term === 1 ? `1 ${noun}` : `${term} ${noun}s`;
-}
-
-/**
- * Round a number to two decimal places.
- */
-function round(value: number): number {
-  return Math.round(value * 100) / 100;
 }
