@@ -97,10 +97,7 @@ function CalcCard({ item, accent }: { item: CalcItem; accent: Accent }) {
           <Icon className="size-6" style={{ color: a.ink }} />
         </span>
       </div>
-      <div
-        className="mt-auto inline-flex items-center gap-2 text-[15px] font-bold"
-        style={{ color: a.ink }}
-      >
+      <div className="mt-auto inline-flex items-center gap-2 text-[15px] font-bold text-brand">
         Use calculator
         <ArrowRight className="size-4" />
       </div>
