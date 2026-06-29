@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SSS_CONTRIBUTION_UPDATED_AT = "2026-05-01";
+export const SSS_CONTRIBUTION_UPDATED_AT = "2026-06-29";
 
 export const sssContributionMeta = {
   title: "SSS Contribution Table Philippines 2026",
