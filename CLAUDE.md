@@ -1,196 +1,143 @@
 # PesoHub
 
-Philippine personal finance tools and information site.
+Philippine personal finance tools and information site. Static Next.js site — calculators, rates,
+government reference tables, guides, and a blog. All content is TypeScript data; no database.
 
 ## Tech Stack
 
-- **Framework:** Next.js 16.1.6 with static export (`output: 'export'`)
-- **Language:** TypeScript 5
-- **Styling:** Tailwind CSS 4
-- **UI Components:** shadcn/ui + Radix (via @base-ui/react)
-- **Charts:** Recharts 3
-- **Icons:** Lucide React
-- **Node:** 20+
+- **Framework:** Next.js 16.1.6, static export (`output: 'export'`, `trailingSlash: true`)
+- **Language:** TypeScript 5 · **React:** 19.2.3
+- **Styling:** Tailwind CSS 4 · **UI:** shadcn/ui + Radix via `@base-ui/react`
+- **Charts:** Recharts 3 · **Icons:** Lucide React · **Node:** 20+
 
 ## Project Structure
 
 ```
 src/
-├── app/                    # Next.js App Router pages
-│   ├── calculators/       # Loan, tax, SSS pension calculators
-│   ├── rates/             # Exchange rates, savings rates
-│   ├── guides/            # Financial guides
-│   ├── government/        # BSP, SSS, Pag-IBIG, BIR tables
-│   └── (about|contact|privacy|terms|disclaimer)/
-├── components/
-│   ├── calculators/       # Calculator UI components
-│   ├── layout/            # Header, Footer, Breadcrumbs
-│   ├── shared/            # FAQs, Disclaimers, Cards
-│   ├── ui/                # shadcn/ui primitives
-│   ├── seo/               # JSON-LD schema components
-│   └── rates/             # Rate display components
-├── data/                  # All content data (TypeScript, no DB)
-│   ├── rates/             # exchange-rates.ts, savings-rates.ts
-│   ├── government/        # SSS, tax, Pag-IBIG, BSP data
-│   ├── calculators/       # Calculator metadata
-│   └── navigation.ts      # Site navigation config
-├── lib/
-│   ├── calculators/       # Pure TS calc logic (loan, tax, sss)
-│   ├── formatters.ts      # Number/date formatting (₱, commas)
-│   ├── seo.ts             # Metadata generation
-│   └── schema-markup.ts   # JSON-LD schema generation
-├── hooks/                 # useDebounce, useCalculator
-├── types/                 # TypeScript type definitions
-└── config/                # Site configuration
-scripts/
-├── update-exchange-rates.mjs  # Cron script to fetch rates
-├── check-content-freshness.mjs # Content staleness checker
-└── data-updater/              # Automated data update agent
-    ├── run-update.mjs         # Orchestrator CLI
-    ├── lib/                   # Shared: fetcher, AI extractor, validator, etc.
-    └── sources/               # Per-source scripts (bank rates, gov data)
-.github/workflows/
-├── update-rates.yml           # Daily exchange rate update
-├── update-bank-rates.yml      # Biweekly bank rate scraping (Tavily AI)
-├── update-government-data.yml # Monthly gov data check (Tavily AI)
-└── content-freshness.yml      # Weekly YMYL content check
+├── app/             # App Router pages (static). calculators, rates, government,
+│                    #   guides, blog, blog/[slug], search, + about/contact/legal
+│   ├── sitemap.ts   # generates sitemap.xml
+│   └── robots.ts    # generates robots.txt
+├── components/      # calculators/ layout/ shared/ ui/ seo/ rates/ blog/
+├── data/            # All content as TS: rates/ government/ calculators/ blog/ navigation.ts
+├── lib/             # calculators/ (pure calc fns), formatters, seo, schema-markup,
+│                    #   internal-links, search, utils, constants
+├── hooks/           # use-debounce, use-calculator
+├── types/ config/   # content types; site config (incl. EMAIL_API_URL)
+scripts/             # update-exchange-rates.mjs, check-content-freshness.mjs,
+│                    #   data-updater/ (Tavily scrape→PR), blog-agent/ (post generation)
+server/              # Express email API (deployed on Render) — index.mjs
+workers/email-api/   # Cloudflare Worker email API — UNDEPLOYED alternative (see Email API)
+docs/                # Supporting docs (see links below)
 ```
 
 ## Key Commands
 
 ```bash
-npm run dev      # Start dev server (localhost:3000)
-npm run build    # Build static site to out/
-npm run lint     # ESLint
+npm run dev          # dev server on :3000
+npm run build        # static export to out/
+npm run lint         # ESLint
+npm run sync-prompt  # push blog-agent prompt to Braintrust
+npm run sync-dataset # push blog-agent dataset to Braintrust
 ```
 
-## Hosting & Deployment
+## App Areas & Routes
 
-- **Site:** [Vercel](https://vercel.com) (free tier) — auto-deploys on push to `main`
-- **Email API:** [Render](https://render.com) (free tier) — Express server at `pesohub-email-api.onrender.com`
-- **DNS:** Vercel DNS (nameservers: `ns1.vercel-dns.com`, `ns2.vercel-dns.com`)
-- **Email provider:** [Resend](https://resend.com) (free tier) — sends from `noreply@pesohub.ph`
-- **Email hosting:** dotPH free email (`hello@pesohub.ph`, webmail at `webmail.pesohub.ph`)
-- **Domain registrar:** dotPH (`pesohub.ph`)
-- **Repo:** github.com/flytying/pesohub (private)
+- **Calculators** (12) — loans, savings, salary, tax, retirement, SSS. Logic in `src/lib/calculators/`.
+- **Rates** (4) — USD/PHP, savings, digital bank, time deposit.
+- **Government** (11) — BIR, PhilHealth, BSP, SSS, Pag-IBIG reference tables.
+- **Guides** (5), **Blog** (`/blog`, `/blog/[slug]`), **Search** (`/search` + header box).
+- Full map: **[docs/routes.md](docs/routes.md)**.
 
-### DNS Records (Vercel DNS)
+## Coding Conventions
 
-| Type | Name | Value |
-|------|------|-------|
-| A | `mail` | `192.250.235.76` |
-| A | `webmail` | `192.250.235.76` |
-| MX | `@` | `mail.pesohub.ph` (priority 10) |
-| TXT | `send` | `v=spf1 include:amazonses.com ~all` |
-| MX | `send` | `feedback-smtp.ap-northeast-1.amazonses.com` (priority 10) |
-| TXT | `resend._domainkey` | DKIM key |
-| ALIAS | `*` | `cname.vercel-dns.com` (auto) |
-| ALIAS | `@` | Vercel deployment (auto) |
+- **Static export:** no SSR, no API routes, no `getServerSideProps`. All pages deterministic at build.
+- **Images:** `unoptimized: true`; dynamic remote images use raw `<img>` with alt (eslint-disabled).
+- **Currency:** Philippine Peso `₱` (never `P` or `PHP` prefix).
+- **Calculator logic** lives in `src/lib/calculators/` as **pure functions** (no side effects); UI
+  components stay presentational. Reuse existing fns — the live SSS path uses
+  `sss-pension-formula.ts` + `sss-contribution-wisp.ts` (other SSS files have dead variants; see
+  known-issues before touching).
+- **Card borders:** on colored surfaces (`surface-secondary/tertiary`) use no border; on white use
+  `border border-gray-200`.
+- **FAQ / Related sections:** bare, no outer card wrapper.
+- **Content width:** page wrappers + footer share `max-w-[1240px] px-[clamp(20px,3vw,36px)]`.
 
-### Vercel Config
+## Design
 
-- **Framework:** `null` (static site — serves `out/` directory)
-- **Build command:** `npm run build`
-- **Output directory:** `out`
-- See `vercel.json` for headers and config
-
-## Email API
-
-- **Host:** Render (free tier, Singapore region)
-- **URL:** `https://pesohub-email-api.onrender.com`
-- **Source:** `server/index.mjs`
-- **Endpoints:** `POST /contact`, `POST /calculator`, `GET /health`
-- **CORS:** Allows `pesohub.ph`, `www.pesohub.ph`, `*.vercel.app`, `localhost:3000`
-- **Environment vars (Render dashboard):** `RESEND_API_KEY`, `FROM_EMAIL`, `TO_EMAIL`, `ALLOWED_ORIGIN`
-- See `render.yaml` for deployment blueprint
-
-### Abuse Hardening
-
-The API is the site's only dynamic surface (static frontend has none). Protections in `server/index.mjs`:
-
-- **Rate limit:** 5 req/min per IP on `/contact` + `/calculator` (`express-rate-limit`); `/health` unthrottled. `trust proxy` is set so the limiter sees the real client IP behind Render's proxy.
-- **Body cap:** `express.json({ limit: "16kb" })` → 413 on larger payloads.
-- **Helmet:** default security headers on API responses.
-- **Input validation:** type + length caps (name ≤120, email ≤200, subject ≤60, message ≤5000, calculatorType ≤120, results ≤20000) and email-shape regex → 400 on violation.
-- **Honeypot:** hidden field per form (`website` on contact, `phone` on calculator). If filled, API returns 200 without sending — silently drops bots. Frontend hidden inputs live in `src/app/contact/page.tsx` and `src/components/calculators/result-actions.tsx`; the field name must match the server check.
+- **Colors:** primary `#093CB5`, cyan `#00D2D8`, orange `#E57300`.
+- **Surfaces:** primary `#FFFFFF`, secondary `#EDEEFF`, tertiary `#F5F6FF`, quaternary `#FCFDFF`.
+- **Font:** Public Sans (400/500/600). **Logo:** `/public/pesohub-logo.png`
+  (dark variant `logo-pesohub-dark.png`). **Favicon:** `src/app/favicon.ico` + `icon.png`.
+- Calculator result-hero accent by category: loans=blue, salary/SSS=green, saving/planning=purple.
+- Full tokens & component patterns: **[docs/design-system.md](docs/design-system.md)** and the other
+  `docs/design-*.md` files.
 
 ## Data Architecture
 
-All financial data lives in `/src/data/` as TypeScript files. No database, no API routes.
+All financial data is TypeScript in `src/data/` (no DB, no API routes).
 
-- **Exchange rates** (`rates/exchange-rates.ts`): Auto-updated daily via cron (BSP RERB API + BSP Exchange Rate API)
-- **Bank rates** (`rates/savings-rates.ts`, `digital-bank-rates.ts`, `time-deposit-rates.ts`): Auto-scraped biweekly via data-updater agent (Tavily AI), creates PRs for review
-- **Government data** (`government/`): SSS, Pag-IBIG (contributions, housing loan, MP2), PhilHealth, BIR — auto-checked monthly via data-updater agent, creates PRs when changes detected
-- **Calculator logic** lives in `/src/lib/calculators/` as pure functions (no side effects)
+- **Exchange rates** (`rates/exchange-rates.ts`) — auto-updated weekdays via BSP APIs.
+- **Bank rates** (`rates/{savings,digital-bank,time-deposit}-rates.ts`) — biweekly Tavily scrape → PR.
+- **Government data** (`government/`) — monthly Tavily check → PR.
+- **Blog posts** (`data/blog/`) — a post is reachable only if registered in **both**
+  `index.ts` and `post-modules.ts`.
+- Government data files export `UPDATED_AT`, a meta object, typed data arrays, and a FAQ array.
+- Rate source attribution must always reference **BSP** (Bangko Sentral ng Pilipinas).
 
-## Brand
+## Email API
 
-- **Primary color:** #093CB5
-- **Accent Cyan:** #00D2D8
-- **Accent Orange:** #E57300
-- **Font:** Public Sans (400, 500, 600)
-- **Logo:** `/public/pesohub-logo.png` (horizontal with text, dark bg variant: `logo-pesohub-dark.png`)
-- **Favicon:** `/src/app/favicon.ico` + `/src/app/icon.png` (P symbol)
-- **Surfaces:** Primary #FFFFFF, Secondary #EDEEFF, Tertiary #F5F6FF, Quaternary #FCFDFF
-- **Design docs:** See `docs/design-system.md` for full design token reference
+Two implementations; only the Express one is live.
 
-## Automated Data Updater
+- **Live:** `server/index.mjs` — Express on Render (`pesohub-email-api.onrender.com`), Resend for
+  delivery. Endpoints `POST /contact`, `POST /calculator`, `GET /health`. Hardened: rate limit,
+  16KB body cap, Helmet, input validation, honeypot. Frontend wires it via `src/config/site.ts`.
+- **Undeployed alt:** `workers/email-api/` (Cloudflare Worker) — kept for a possible future move;
+  currently **missing honeypot + body cap** (do not deploy as-is). See known-issues.
+- Honeypot field names must match server checks: `website` (contact, `src/app/contact/page.tsx`),
+  `phone` (calculator, `src/components/calculators/result-actions.tsx`).
+- Details & DNS: **[docs/email-api.md](docs/email-api.md)**.
 
-The data-updater agent (`scripts/data-updater/`) automatically scrapes financial data and creates PRs for review.
+## Automation
 
-### How It Works
+GitHub Actions crons; all produce PRs / issues or auto-merge generated blog posts — none mutate live
+figures without a review path.
 
-1. **Tavily Extract** fetches page content from bank/government websites
-2. **Tavily AI Search** extracts structured data from the page text
-3. **Validator** checks for anomalies (large rate changes, empty data)
-4. **File Writer** updates the TypeScript data files (preserving FAQs, types)
-5. A **Pull Request** is created for human review (never auto-merges)
+| Workflow | Schedule (UTC) | Purpose |
+|----------|----------------|---------|
+| `update-rates.yml` | Mon–Fri 01:00 | Exchange rates (BSP) |
+| `update-bank-rates.yml` | 1st + 15th 02:00 | Bank rate scrape → PR |
+| `update-government-data.yml` | 1st 03:00 | Gov data check → PR |
+| `content-freshness.yml` | Mon 01:00 | Staleness → issue |
+| `blog-post.yml` | Mon 03:00 | Generate post → auto-merge |
 
-### Manual Run
+Data updater, blog agent, and the (not-yet-committed) GSC finder:
+**[docs/content-automation.md](docs/content-automation.md)**.
+Hosting, DNS, secrets, troubleshooting: **[docs/deployment-and-automation.md](docs/deployment-and-automation.md)**.
 
-```bash
-# Bank rates
-TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources savings-rates,digital-rates,time-deposit-rates
+## Adding a Government Reference Page
 
-# Government data
-TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources sss-contribution,sss-pension,pagibig-housing,pagibig-contribution,pagibig-mp2,philhealth,withholding-tax
+1. **Data file** (`src/data/government/[name].ts`): `UPDATED_AT`, meta (`title`, `metaTitle`,
+   `metaDescription`, `slug`, `directAnswer`), typed data arrays, FAQ array.
+2. **Page** (`src/app/government/[agency]/[slug]/page.tsx`): `PageHero` (variant="dark"),
+   `FaqSection`, `DisclaimerBox`, `SourceCitation`, `JsonLd` (breadcrumb + article), `GOVERNMENT_DISCLAIMER`.
+3. **Navigation** (`src/data/navigation.ts`) → Government children.
+4. **Content registry** (`src/data/content-registry.ts`) → `ContentEntry` with review cadence.
+5. **Government hub** (`src/app/government/page.tsx`) → `governmentPages` array.
+6. **Internal links** (`src/lib/internal-links.ts`) → `ALL_PAGES` + `LINK_MAP`; update siblings.
+7. Add as related link on relevant sibling pages.
+8. (Optional) data-updater source — see content-automation doc.
 
-# All sources
-TAVILY_API_KEY=... node scripts/data-updater/run-update.mjs --sources all
-```
+## Do Not Change Casually
 
-### Adding a New Source
+- `next.config.ts` static-export settings (`output: 'export'`, `trailingSlash`, `unoptimized`).
+- Honeypot field names (must match between frontend forms and `server/index.mjs`).
+- The live SSS calculator path (`sss-pension-formula.ts`, `sss-contribution-wisp.ts`).
+- `src/data/blog/{index,post-modules}.ts` registration coupling.
+- `src/lib/{seo,schema-markup,internal-links}.ts` — affect SEO across all pages.
 
-1. Add source config to `scripts/data-updater/lib/config.mjs`
-2. Create a source script in `scripts/data-updater/sources/`
-3. Register the source module in `run-update.mjs` sourceModules map
-4. Add the source to the appropriate GitHub workflow (`.github/workflows/`)
-5. Add the page to `src/data/content-registry.ts`
+## Known Issues
 
-### Required Secrets (GitHub)
-
-- `TAVILY_API_KEY` — Tavily API for web extraction and AI-powered data parsing (free tier: 1,000 credits/month)
-
-## Adding a New Government Reference Page
-
-Follow this checklist when creating a new page under `/government/`:
-
-1. **Data file** (`src/data/government/[name].ts`): Export `UPDATED_AT`, meta object (`title`, `metaTitle`, `metaDescription`, `slug`, `directAnswer`), typed data arrays, and FAQ array
-2. **Page component** (`src/app/government/[agency]/[slug]/page.tsx`): Use `PageHero` (variant="dark"), `FaqSection`, `DisclaimerBox`, `SourceCitation`, `JsonLd` (breadcrumb + article schema), `GOVERNMENT_DISCLAIMER`
-3. **Navigation** (`src/data/navigation.ts`): Add to Government children
-4. **Content registry** (`src/data/content-registry.ts`): Add `ContentEntry` with review cadence and checklist
-5. **Government hub** (`src/app/government/page.tsx`): Add to `governmentPages` array
-6. **Internal links** (`src/lib/internal-links.ts`): Add to `ALL_PAGES` and `LINK_MAP`, update sibling entries
-7. **Sibling pages**: Add as related page link on relevant existing pages
-8. **Data updater** (optional): Add source config, source script, and register in workflow
-
-Card rules: On colored backgrounds (`surface-secondary`, `surface-tertiary`) use no border. On white backgrounds use `border border-gray-200`.
-
-## Important Notes
-
-- Static export mode: No SSR, no API routes, no `getServerSideProps`
-- All pages must be deterministic at build time
-- Images must use `unoptimized: true` (no Next.js image optimization in static mode)
-- Philippine Peso symbol: ₱ (not P or PHP prefix)
-- BSP = Bangko Sentral ng Pilipinas (central bank, primary data source)
-- Rate source attribution must always reference BSP
+Dead code, duplicate ` 2`/` 3` sync-artifact files (some committed), an orphan blog post, SSS logic
+divergence, the uncommitted GSC system, and calculator input-validation gaps are catalogued in
+**[docs/known-issues.md](docs/known-issues.md)**. Do not assume those are intentional patterns.
