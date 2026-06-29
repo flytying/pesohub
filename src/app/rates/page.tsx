@@ -11,13 +11,16 @@ import {
 import { FaqSection } from "@/components/shared/faq-section";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generatePageMetadata } from "@/lib/seo";
-import { generateBreadcrumbSchema } from "@/lib/schema-markup";
+import {
+  generateBreadcrumbSchema,
+  generateCollectionPageSchema,
+} from "@/lib/schema-markup";
 
 export const metadata = generatePageMetadata({
   title:
-    "Best Savings & Digital Bank Interest Rates Philippines",
+    "Savings and Digital Bank Rates in the Philippines",
   description:
-    "Compare the best savings interest rates and digital bank rates in the Philippines. Plus time deposit rates and USD to PHP exchange rates, updated regularly.",
+    "Compare savings account rates, digital bank interest rates, time deposit rates, and USD to PHP exchange rates in the Philippines — starting with the best savings accounts and best digital banks for 2026.",
   slug: "rates",
 });
 
@@ -29,19 +32,19 @@ const breadcrumbs = [
 const featuredCards = [
   {
     icon: PiggyBank,
-    title: "Best Savings Interest Rates in the Philippines",
+    title: "Best Savings Accounts Philippines 2026",
     description:
-      "Compare savings account rates from Philippine banks and digital banks. See which accounts offer higher interest for your savings.",
+      "Compare the best savings accounts in the Philippines — high-yield digital banks, traditional bank rates, promo conditions, minimum balances, and estimated earnings.",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
-    cta: "View Savings Rates",
+    cta: "Compare savings accounts",
   },
   {
     icon: Smartphone,
-    title: "Best Digital Bank Rates in the Philippines",
+    title: "Best Digital Banks Philippines 2026",
     description:
-      "Compare digital bank interest rates in the Philippines, including app-based savings accounts, stashes, goals, and promo rates.",
+      "Compare digital banks in the Philippines — base and promo interest rates, balance caps, requirements, PDIC notes, and estimated earnings.",
     href: "/rates/savings-rates/best-digital-bank-rates-philippines",
-    cta: "View Digital Bank Rates",
+    cta: "Compare digital banks",
   },
 ];
 
@@ -115,6 +118,14 @@ export default function RatesPage() {
   return (
     <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(20px,3vw,36px)]">
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
+      <JsonLd
+        data={generateCollectionPageSchema({
+          name: "Savings and Digital Bank Rates in the Philippines",
+          description:
+            "Compare savings account rates, digital bank interest rates, time deposit rates, and exchange rates in the Philippines.",
+          url: "/rates",
+        })}
+      />
 
       {/* Heading */}
       <div className="mb-6">
@@ -122,12 +133,13 @@ export default function RatesPage() {
           Rates
         </div>
         <h1 className="font-display text-[clamp(28px,3.4vw,40px)] font-semibold tracking-[-.02em] text-[#0E1525]">
-          Rates in the Philippines
+          Savings and Digital Bank Rates in the Philippines
         </h1>
         <p className="mt-[10px] max-w-[72ch] text-[17px] leading-[1.55] text-[#5A6478]">
-          See how the peso is moving against the dollar, compare savings interest
-          rates across banks, and find the best time deposit or digital bank
-          rates — updated regularly so you can decide faster.
+          Compare savings account rates, digital bank interest rates, time
+          deposit rates, and exchange rates in the Philippines. Start with the
+          most searched guides: best savings accounts and best digital banks for
+          2026.
         </p>
       </div>
 
