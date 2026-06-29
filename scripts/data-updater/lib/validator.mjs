@@ -136,20 +136,39 @@ export function validateRateChanges(currentData, newData, options) {
 }
 
 /**
- * Filter out rows that are missing required fields.
- * Used to clean AI-extracted rate data before the merge + circuit-breaker step,
- * so that a single bad row from Claude doesn't fail an otherwise-valid bank.
+ * Phrases that signal the AI guessed or hedged a value instead of reading a
+ * real one off the page. Rows with any of these in a string field are dropped:
+ * they produce un-mergeable PRs (see closed #110 — "rate inferred from
+ * context", "Rate assumed consistent…", "treat with caution", "<UNKNOWN>").
+ * Kept deliberately tight so legitimate "no minimum balance stated" notes,
+ * which describe a real absence, are NOT matched.
+ */
+export const HEDGE_PATTERNS = [
+  /<unknown>/i,
+  /\binferred\b/i,
+  /\bassumed\b/i,
+  /treat with caution/i,
+];
+
+/**
+ * Filter out rows that are missing required fields or contain hedged/guessed
+ * values. Used to clean AI-extracted rate data before the merge + circuit-
+ * breaker step, so that a single bad row from Claude doesn't fail an
+ * otherwise-valid bank.
  *
  * @param {Array<object>} rows
  * @param {object} options
  * @param {string[]} [options.requiredStringFields]
  * @param {string[]} [options.requiredNumberFields]
+ * @param {RegExp[]} [options.hedgePatterns=HEDGE_PATTERNS] - drop rows whose
+ *   string fields match any of these (set to [] to disable)
  * @returns {{ valid: Array<object>, dropped: number }}
  */
 export function filterValidRows(rows, options = {}) {
   const {
     requiredStringFields = [],
     requiredNumberFields = [],
+    hedgePatterns = HEDGE_PATTERNS,
   } = options;
 
   const valid = [];
@@ -175,6 +194,16 @@ export function filterValidRows(rows, options = {}) {
           !Number.isFinite(val) ||
           val <= 0
         ) {
+          ok = false;
+          break;
+        }
+      }
+    }
+
+    // Drop rows where any string field shows the AI hedged/guessed the value.
+    if (ok && hedgePatterns.length > 0) {
+      for (const val of Object.values(row)) {
+        if (typeof val === "string" && hedgePatterns.some((re) => re.test(val))) {
           ok = false;
           break;
         }
