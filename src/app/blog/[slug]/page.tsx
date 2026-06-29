@@ -44,6 +44,18 @@ const CATEGORY_TONE: Record<string, { bg: string; ink: string }> = {
 // ---------------------------------------------------------------------------
 
 export function generateStaticParams() {
+  // Guardrail: every registry slug must have a postModules loader, or its
+  // route builds but renders notFound() at runtime (silent 404). Fail the
+  // build loudly instead. See src/data/blog/post-modules.ts.
+  const missing = blogPosts
+    .filter((post) => !postModules[post.slug])
+    .map((post) => post.slug);
+  if (missing.length > 0) {
+    throw new Error(
+      `Blog post(s) in index.ts have no postModules entry (would 404): ` +
+        `${missing.join(", ")}. Add them to src/data/blog/post-modules.ts.`,
+    );
+  }
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
