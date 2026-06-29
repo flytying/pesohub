@@ -311,6 +311,13 @@ export function validateDataIntegrity(currentData, newData, options = {}) {
  * Validate government data changes (contribution tables, tax brackets, etc.).
  * Any change to government data is flagged as a potential policy change.
  *
+ * Compares ONLY the fields the scraper actually extracted (non-null). Many
+ * government pages render their tables as images, so Claude returns null for
+ * fields it can't read. A naive whole-object compare treats `null !== 5000`
+ * as a change and opens a date-only "noise" PR every run (see closed #104,
+ * #173). Skipping null fields means we flag a change only when a value we
+ * could actually read differs from the baseline.
+ *
  * @param {Array<object>} currentData
  * @param {Array<object>} newData
  * @param {string} sourceName - Name of the data source for messaging
@@ -330,11 +337,24 @@ export function validateGovernmentData(currentData, newData, sourceName) {
     };
   }
 
-  // Stringify comparison for detecting any changes
-  const currentJson = JSON.stringify(currentData, null, 2);
-  const newJson = JSON.stringify(newData, null, 2);
+  let comparedAnyField = false;
+  let differs = false;
 
-  if (currentJson !== newJson) {
+  for (let i = 0; i < newData.length; i++) {
+    const current = currentData[i] || {};
+    const next = newData[i] || {};
+    for (const [key, value] of Object.entries(next)) {
+      // Skip fields the scraper couldn't read — null means "unknown", not
+      // "removed", so a null must never count as a change.
+      if (value == null) continue;
+      comparedAnyField = true;
+      if (JSON.stringify(value) !== JSON.stringify(current[key])) {
+        differs = true;
+      }
+    }
+  }
+
+  if (comparedAnyField && differs) {
     changes.push({
       field: sourceName,
       message: "Data has changed. Possible policy update detected.",
