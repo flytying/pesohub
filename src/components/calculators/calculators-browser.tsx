@@ -85,9 +85,6 @@ function CalcCard({ item, accent }: { item: CalcItem; accent: Accent }) {
             <span className="font-display text-[20px] font-semibold text-[#0E1525]">
               {item.name}
             </span>
-            <span className="rounded-[6px] bg-[#E3F6ED] px-[7px] py-[3px] text-[11px] font-bold uppercase tracking-[.06em] text-[#0E9F6E]">
-              Live
-            </span>
           </div>
           <p className="mt-2 max-w-[42ch] text-[15px] leading-[1.55] text-[#5A6478]">
             {item.desc}
