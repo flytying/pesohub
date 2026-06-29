@@ -168,8 +168,12 @@ export const sssContributionConfig = {
   name: "SSS Contribution Table",
   dataFile: "src/data/government/sss-contribution.ts",
   updatedAtExport: "SSS_CONTRIBUTION_UPDATED_AT",
+  // Legacy appmanager/pages.jsp URL 404s since the SSS site relaunch. Current
+  // path verified 2026-06-29. Note: the schedule renders as images on this
+  // page, so text extraction yields no MSC numbers — the source script guards
+  // against that (skips rather than emitting a false-positive change).
   urls: [
-    "https://www.sss.gov.ph/sss/appmanager/pages.jsp?page=scheduleofcontribution",
+    "https://www.sss.gov.ph/sss-contribution-table/",
   ],
   extractionPrompt:
     "Extract the SSS contribution schedule from this Philippine government webpage. Return the payroll examples with salary, Monthly Salary Credit (MSC), employee share, employer share, and total contribution. Also extract the contribution rate and MSC range.",
@@ -205,8 +209,10 @@ export const sssPensionConfig = {
   name: "SSS Pension Table",
   dataFile: "src/data/government/sss-pension-table.ts",
   updatedAtExport: "SSS_PENSION_TABLE_UPDATED_AT",
+  // Legacy appmanager/pages.jsp URL 404s since the SSS site relaunch. Current
+  // path verified 2026-06-29 (has text formulas, minimum pension, eligibility).
   urls: [
-    "https://www.sss.gov.ph/sss/appmanager/pages.jsp?page=retirementbenefits",
+    "https://www.sss.gov.ph/retirement-benefit/",
   ],
   extractionPrompt:
     "Extract SSS pension information from this Philippine government webpage. Look for pension computation formulas, minimum pension amounts, MSC ceiling, and any eligibility requirements or changes.",

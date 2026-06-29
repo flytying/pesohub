@@ -74,6 +74,29 @@ export async function run() {
     maxMSC: extracted.maxMSC,
   };
 
+  // Guard: the contribution schedule renders as images on the SSS page, so
+  // text extraction often yields no scalar values. Treating undefined fields
+  // as a "change" would bump the timestamp and open a noise PR every run.
+  // Skip without changes (non-blocking) and flag for manual review instead.
+  if (Object.values(newValues).every((v) => v == null)) {
+    console.log(
+      "  No readable values extracted (page is image-based). Skipping without changes."
+    );
+    return {
+      sourceName: config.name,
+      dataFile: config.dataFile,
+      sourceUrls,
+      status: "unchanged",
+      changes: [],
+      warnings: [
+        {
+          level: "warn",
+          message: `${config.name}: no values extracted from ${sourceUrls[0]} (image-based page). Verify rates manually.`,
+        },
+      ],
+    };
+  }
+
   const validation = validateGovernmentData(
     [currentValues],
     [newValues],
