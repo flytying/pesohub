@@ -1,6 +1,47 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { Info, TriangleAlert, Lightbulb } from "lucide-react";
 import type { BlogSection } from "@/types/content";
+
+// Render inline markdown links — [label](/internal) or [label](https://external)
+// — inside otherwise-plain content. Internal paths use next/link for client
+// navigation; everything else stays literal text.
+const INLINE_LINK_RE = /\[([^\]]+)\]\(([^)]+)\)/g;
+const linkClass = "text-brand underline underline-offset-2 hover:text-brand/80";
+
+function renderRichText(text?: string): ReactNode {
+  if (!text) return null;
+  if (!text.includes("](")) return text; // fast path: no links
+  const nodes: ReactNode[] = [];
+  let last = 0;
+  let key = 0;
+  let m: RegExpExecArray | null;
+  INLINE_LINK_RE.lastIndex = 0;
+  while ((m = INLINE_LINK_RE.exec(text))) {
+    if (m.index > last) nodes.push(text.slice(last, m.index));
+    const [, label, href] = m;
+    nodes.push(
+      href.startsWith("/") ? (
+        <Link key={key++} href={href} className={linkClass}>
+          {label}
+        </Link>
+      ) : (
+        <a
+          key={key++}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClass}
+        >
+          {label}
+        </a>
+      )
+    );
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+}
 
 const calloutConfig = {
   info: {
@@ -65,7 +106,7 @@ function renderSection(section: BlogSection, index: number) {
           key={index}
           className="mt-4 text-[16px] leading-[1.6] text-[#344054]"
         >
-          {section.content}
+          {renderRichText(section.content)}
         </p>
       );
 
@@ -78,7 +119,7 @@ function renderSection(section: BlogSection, index: number) {
               className="flex gap-2 text-[16px] leading-[1.6] text-[#344054]"
             >
               <span className="mt-2 size-1.5 shrink-0 rounded-full bg-gray-300" />
-              {item}
+              {renderRichText(item)}
             </li>
           ))}
         </ul>
@@ -94,7 +135,7 @@ function renderSection(section: BlogSection, index: number) {
               </span>
               <span className="pt-[3px] text-[16px] leading-[1.65] text-[#344054]">
                 {/* Drop a redundant "Step N —" prefix; the badge already numbers it. */}
-                {item.replace(/^Step\s+\d+\s*[—–-]\s*/, "")}
+                {renderRichText(item.replace(/^Step\s+\d+\s*[—–-]\s*/, ""))}
               </span>
             </li>
           ))}
@@ -180,7 +221,7 @@ function renderSection(section: BlogSection, index: number) {
             <Icon className={`size-5 ${config.iconColor}`} />
           </span>
           <p className="self-center text-[15.5px] leading-[1.6] text-[#344054]">
-            {section.content}
+            {renderRichText(section.content)}
           </p>
         </div>
       );
@@ -192,7 +233,7 @@ function renderSection(section: BlogSection, index: number) {
           key={index}
           className="mt-6 border-l-4 border-brand/30 pl-6 text-[16px] italic leading-[1.6] text-[#475069]"
         >
-          {section.content}
+          {renderRichText(section.content)}
         </blockquote>
       );
 

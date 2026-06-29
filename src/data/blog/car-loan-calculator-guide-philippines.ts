@@ -34,7 +34,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "That's exactly what the PesoHub Car Loan Calculator (/calculators/loans/car-loan-calculator-philippines) is built for. Plug in your numbers, get your estimate in seconds, and walk into any bank or dealer conversation fully informed. Try it now before reading further — then come back to understand what the numbers actually mean."
+      "content": "That's exactly what the PesoHub [Car Loan Calculator](/calculators/loans/car-loan-calculator-philippines) is built for. Plug in your numbers, get your estimate in seconds, and walk into any bank or dealer conversation fully informed. Try it now before reading further — then come back to understand what the numbers actually mean."
     },
     {
       "type": "callout",
@@ -100,7 +100,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Using the PesoHub Car Loan Calculator (/calculators/loans/car-loan-calculator-philippines) takes less than two minutes. Here's how to get the most accurate estimate:"
+      "content": "Using the PesoHub [Car Loan Calculator](/calculators/loans/car-loan-calculator-philippines) takes less than two minutes. Here's how to get the most accurate estimate:"
     },
     {
       "type": "ordered-list",
@@ -209,7 +209,7 @@ const post: BlogPostData = {
         "Compare at least three lenders. Don't accept the first quote. Get formal quotations from at least one major universal bank (e.g., BPI or BDO), one mid-sized bank (e.g., RCBC or EastWest), and the manufacturer's captive finance arm. Rates vary enough between lenders to make this comparison genuinely worthwhile.",
         "Consider a shorter loan term if your cash flow allows. The monthly payment is higher on a 36-month vs. 60-month loan, but the total interest savings can be substantial — often ₱50,000–₱100,000 on mid-range vehicles.",
         "Time your purchase strategically. With Philippine vehicle sales down nearly 10% in Q1 2026, banks and dealers are under pressure to hit volume targets. End-of-quarter and end-of-year periods are often when the best rate promotions are released to boost sales numbers.",
-        "Check whether a personal loan makes sense for smaller amounts. For loan amounts under ₱300,000, an unsecured personal loan from a bank may sometimes offer comparable rates without requiring chattel mortgage registration or comprehensive insurance mandates. Use the PesoHub Personal Loan Calculator (/calculators/loans/personal-loan-calculator-philippines) to compare the numbers before deciding."
+        "Check whether a personal loan makes sense for smaller amounts. For loan amounts under ₱300,000, an unsecured personal loan from a bank may sometimes offer comparable rates without requiring chattel mortgage registration or comprehensive insurance mandates. Use the PesoHub [Personal Loan Calculator](/calculators/loans/personal-loan-calculator-philippines) to compare the numbers before deciding."
       ]
     },
     {

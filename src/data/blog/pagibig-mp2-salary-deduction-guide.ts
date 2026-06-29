@@ -44,7 +44,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "For a comprehensive breakdown of the MP2 program — including how dividends are calculated and how to withdraw at maturity — read our full guide at /government/pag-ibig/pag-ibig-mp2-savings-guide."
+      "content": "For a comprehensive breakdown of the MP2 program — including how dividends are calculated and how to withdraw at maturity — read our [full MP2 savings guide](/government/pag-ibig/pag-ibig-mp2-savings-guide)."
     },
     {
       "type": "heading",
@@ -219,7 +219,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Verdict: For employed Filipinos who want better-than-bank returns with minimal effort and zero capital risk, MP2 via salary deduction is an excellent 'set-and-forget' savings tool. It is particularly well-suited for goal-based saving with a clear five-year horizon — a house down payment, a child's college tuition, a small business fund, or a supplement to your emergency savings. Not sure how much of your salary you can realistically allocate? Use our emergency fund calculator at /calculators/savings/emergency-fund-calculator-philippines to establish your baseline before committing a fixed amount to MP2."
+      "content": "Verdict: For employed Filipinos who want better-than-bank returns with minimal effort and zero capital risk, MP2 via salary deduction is an excellent 'set-and-forget' savings tool. It is particularly well-suited for goal-based saving with a clear five-year horizon — a house down payment, a child's college tuition, a small business fund, or a supplement to your emergency savings. Not sure how much of your salary you can realistically allocate? Use our [emergency fund calculator](/calculators/savings/emergency-fund-calculator-philippines) to establish your baseline before committing a fixed amount to MP2."
     },
     {
       "type": "heading",
@@ -260,7 +260,7 @@ const post: BlogPostData = {
         "Start with an amount you won't miss. Even ₱500 per month is a meaningful start — the discipline of the habit matters more than the initial amount. You can always increase later.",
         "Consider MP2 laddering. You can open multiple MP2 accounts at different times, each with its own five-year maturity date. For example, open Account 1 in 2025, Account 2 in 2026, and Account 3 in 2027. This gives you annual liquidity windows while keeping most of your savings earning MP2 dividends at all times.",
         "Verify your postings every month. Log into your Virtual Pag-IBIG account after each payroll cycle to confirm the deducted amount was actually remitted and posted. It takes two minutes and protects your dividend calculations.",
-        "Before setting your MP2 contribution amount, make sure your emergency fund is adequately funded. Contributions locked in an MP2 account for five years don't help you during a sudden job loss or medical emergency. Use /calculators/savings/emergency-fund-calculator-philippines to determine your target emergency reserve first."
+        "Before setting your MP2 contribution amount, make sure your emergency fund is adequately funded. Contributions locked in an MP2 account for five years don't help you during a sudden job loss or medical emergency. Use the [emergency fund calculator](/calculators/savings/emergency-fund-calculator-philippines) to determine your target emergency reserve first."
       ]
     },
     {

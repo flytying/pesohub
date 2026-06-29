@@ -21,7 +21,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "This is not a trivial choice. Picking the wrong option — or failing to compare both — could mean paying tens of thousands, even hundreds of thousands, of pesos more in interest over a 20- to 30-year loan term. This guide breaks down both options side by side, walks you through real-peso scenarios, and explains how to use a home loan calculator Philippines to run the numbers yourself before you sign anything. Use our Home Loan Calculator at /calculators/loans/home-loan-calculator-philippines to estimate your monthly amortization in minutes."
+      "content": "This is not a trivial choice. Picking the wrong option — or failing to compare both — could mean paying tens of thousands, even hundreds of thousands, of pesos more in interest over a 20- to 30-year loan term. This guide breaks down both options side by side, walks you through real-peso scenarios, and explains how to use a home loan calculator Philippines to run the numbers yourself before you sign anything. Use our [Home Loan Calculator](/calculators/loans/home-loan-calculator-philippines) to estimate your monthly amortization in minutes."
     },
     {
       "type": "heading",
@@ -55,7 +55,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "The maximum loanable amount under the Pag-IBIG housing loan program is ₱6 million, which covers socialized, economic, and mid-range housing. Loan terms can extend up to 30 years. Pag-IBIG loans can be used to buy a house and lot, a condominium unit, a townhouse, or even to construct a new home or renovate an existing one — making it more flexible in use than many people realize. For a full step-by-step application walkthrough, read the Pag-IBIG Housing Loan Guide at /government/pag-ibig/pag-ibig-housing-loan-guide."
+      "content": "The maximum loanable amount under the Pag-IBIG housing loan program is ₱6 million, which covers socialized, economic, and mid-range housing. Loan terms can extend up to 30 years. Pag-IBIG loans can be used to buy a house and lot, a condominium unit, a townhouse, or even to construct a new home or renovate an existing one — making it more flexible in use than many people realize. For a full step-by-step application walkthrough, read the Pag-IBIG [Pag-IBIG Housing Loan Guide](/government/pag-ibig/pag-ibig-housing-loan-guide)."
     },
     {
       "type": "heading",
@@ -82,7 +82,7 @@ const post: BlogPostData = {
     {
       "type": "callout",
       "variant": "tip",
-      "content": "Before comparing lenders, always compute affordability first. A good rule of thumb: your monthly amortization should not exceed 30–35% of your gross monthly income. If you earn ₱50,000 a month, keep your target monthly payment at or below ₱15,000–₱17,500. Use our Home Loan Calculator at /calculators/loans/home-loan-calculator-philippines to test different loan amounts and rates against your actual income."
+      "content": "Before comparing lenders, always compute affordability first. A good rule of thumb: your monthly amortization should not exceed 30–35% of your gross monthly income. If you earn ₱50,000 a month, keep your target monthly payment at or below ₱15,000–₱17,500. Use our [Home Loan Calculator](/calculators/loans/home-loan-calculator-philippines) to test different loan amounts and rates against your actual income."
     },
     {
       "type": "heading",
@@ -103,7 +103,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "One mistake first-time buyers commonly make is focusing only on the monthly payment rather than the Total Interest Paid (TIP) over the entire loan life. A lower monthly payment on a 30-year term often costs more in total interest than a slightly higher payment on a 20-year term. Always run both scenarios on the calculator before deciding. Try different combinations now at /calculators/loans/home-loan-calculator-philippines — and run one simulation for the current bank rate and another for the Pag-IBIG rate to see the real-peso difference across your target term."
+      "content": "One mistake first-time buyers commonly make is focusing only on the monthly payment rather than the Total Interest Paid (TIP) over the entire loan life. A lower monthly payment on a 30-year term often costs more in total interest than a slightly higher payment on a 20-year term. Always run both scenarios on the calculator before deciding. Try different combinations now in our [Home Loan Calculator](/calculators/loans/home-loan-calculator-philippines) — and run one simulation for the current bank rate and another for the Pag-IBIG rate to see the real-peso difference across your target term."
     },
     {
       "type": "heading",
