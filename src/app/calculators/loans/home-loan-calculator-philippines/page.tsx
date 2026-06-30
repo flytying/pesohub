@@ -17,7 +17,6 @@ import {
   CircleCheck,
   HelpCircle,
   TriangleAlert,
-  Info,
   Car,
   type LucideIcon,
 } from "lucide-react";
@@ -28,6 +27,7 @@ import {
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
 import { FaqSection } from "@/components/shared/faq-section";
+import { CalculatorNotice } from "@/components/shared/calculator-notice";
 import { HomeLoanCalculator } from "@/components/calculators/home-loan-calculator";
 import { homeLoanData } from "@/data/calculators/home-loan";
 import { formatDate } from "@/lib/formatters";
@@ -220,12 +220,7 @@ export default function HomeLoanCalculatorPage() {
             </div>
           </section>
 
-          <div className="flex gap-3 rounded-[15px] border border-[#F0E2BE] bg-[#FFF8E8] p-[18px]">
-            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
-            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
-              PesoHub provides free financial tools and information for educational purposes only. It is not affiliated with any bank or government agency. Rates and terms shown are estimates — always confirm the final figures with your lender and consult a qualified professional before making financial decisions.
-            </p>
-          </div>
+          <CalculatorNotice />
         </div>
       </div>
     </>

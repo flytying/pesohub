@@ -1,5 +1,5 @@
 /**
- * Format a number as Philippine Peso (e.g., "PHP 1,234,567.89")
+ * Format a number as Philippine Peso (e.g., "₱1,234,567.89")
  */
 export function formatPeso(value: number, decimals = 2): string {
   return `₱${value.toLocaleString("en-PH", {

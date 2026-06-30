@@ -11,6 +11,7 @@ import { SSS_PENSION_TABLE_UPDATED_AT } from "@/data/government/sss-pension-tabl
 import { WITHHOLDING_TAX_TABLE_UPDATED_AT } from "@/data/government/withholding-tax-table";
 import { PAGIBIG_CONTRIBUTION_UPDATED_AT } from "@/data/government/pag-ibig-contribution";
 import { PAGIBIG_HOUSING_LOAN_UPDATED_AT } from "@/data/government/pag-ibig-housing-loan";
+import { PAGIBIG_MP2_UPDATED_AT } from "@/data/government/pag-ibig-mp2";
 import { PHILHEALTH_UPDATED_AT } from "@/data/government/philhealth";
 import { BSP_EXCHANGE_RATE_UPDATED_AT } from "@/data/government/bsp-exchange-rate";
 import { WITHHOLDING_TAX_UPDATED_AT } from "@/data/guides/withholding-tax-guide";
@@ -256,6 +257,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: `${SITE_URL}/government/pag-ibig/pag-ibig-mp2-savings-guide/`,
+      lastModified: toDate(PAGIBIG_MP2_UPDATED_AT),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
 
     /* ── Government — BSP ──────────────────────────────────── */
     {
@@ -263,6 +270,38 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: toDate(BSP_EXCHANGE_RATE_UPDATED_AT),
       changeFrequency: "monthly",
       priority: 0.7,
+    },
+
+    /* ── Static / Legal ────────────────────────────────────── */
+    {
+      url: `${SITE_URL}/about/`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.4,
+    },
+    {
+      url: `${SITE_URL}/contact/`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.4,
+    },
+    {
+      url: `${SITE_URL}/disclaimer/`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${SITE_URL}/privacy/`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: `${SITE_URL}/terms/`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
     },
   ];
 }

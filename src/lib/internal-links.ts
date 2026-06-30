@@ -26,6 +26,18 @@ export const ALL_PAGES: PageLink[] = [
     category: "calculator",
   },
   {
+    slug: "/calculators/tax/take-home-pay-calculator-philippines",
+    title: "Take-Home Pay Calculator",
+    description: "Estimate net pay after SSS, PhilHealth, Pag-IBIG, and withholding tax.",
+    category: "calculator",
+  },
+  {
+    slug: "/calculators/sss/sss-contribution-calculator-philippines",
+    title: "SSS Contribution Calculator",
+    description: "Compute your monthly SSS contribution by member type and salary credit.",
+    category: "calculator",
+  },
+  {
     slug: "/calculators/retirement/sss-pension-calculator",
     title: "SSS Pension Calculator",
     description: "Estimate your monthly SSS retirement pension based on contributions.",

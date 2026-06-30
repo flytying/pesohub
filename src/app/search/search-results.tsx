@@ -69,7 +69,7 @@ export function SearchResults() {
       {/* Results */}
       {query.trim().length >= 2 && (
         <>
-          <p className="mb-6 text-[14px] text-gray-300">
+          <p role="status" aria-live="polite" className="mb-6 text-[14px] text-gray-300">
             {results.length === 0
               ? `No results found for "${query.trim()}"`
               : `Found ${results.length} result${results.length !== 1 ? "s" : ""} for "${query.trim()}"`}

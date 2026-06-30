@@ -28,6 +28,7 @@ import {
   TableRow,
   TableHead,
   TableCell,
+  TableCaption,
 } from "@/components/ui/table";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -274,6 +275,10 @@ export default function DigitalBankRatesPage() {
           </div>
           <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
             <Table>
+              <TableCaption className="sr-only">
+                Digital bank savings interest rates in the Philippines, compared by
+                base rate, promo rate, and balance cap.
+              </TableCaption>
               <TableHeader>
                 <TableRow>
                   <TableHead>Digital Bank</TableHead>

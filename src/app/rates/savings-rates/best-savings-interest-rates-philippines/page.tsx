@@ -29,6 +29,7 @@ import {
   TableRow,
   TableHead,
   TableCell,
+  TableCaption,
 } from "@/components/ui/table";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -349,6 +350,10 @@ export default function BestSavingsRatesPage() {
           </div>
           <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
             <Table>
+              <TableCaption className="sr-only">
+                Savings account interest rates from Philippine banks, compared by
+                bank and rate.
+              </TableCaption>
               <TableHeader>
                 <TableRow>
                   <TableHead>Bank</TableHead>
