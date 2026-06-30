@@ -72,10 +72,15 @@ export function logSpan(span, payload) {
 export function logScore(span, name, value, opts = {}) {
   const c = client();
   if (!c || !span) return;
-  c.score.observation(
-    { otelSpan: span },
-    { name, value, ...(opts.comment ? { comment: opts.comment } : {}), ...(opts.dataType ? { dataType: opts.dataType } : {}) }
-  );
+  // Score the active trace — logScore is always called inside the active
+  // observation, so activeTrace resolves the right trace without needing the
+  // raw OTel span (the LangfuseSpan wrapper has no spanContext()).
+  c.score.activeTrace({
+    name,
+    value,
+    ...(opts.comment ? { comment: opts.comment } : {}),
+    ...(opts.dataType ? { dataType: opts.dataType } : {}),
+  });
 }
 
 /**
