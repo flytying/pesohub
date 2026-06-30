@@ -84,7 +84,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "These rates apply to your annualized taxable compensation. Because payroll is processed monthly, semi-monthly, weekly, or daily depending on your employer, the BIR publishes official withholding tax tables for each payroll frequency. These tables convert the annual tax into smaller per-period deductions so employers can apply the correct withholding without manually annualizing every pay cycle. You can ask your HR or payroll team which specific table applies to your payroll setup. For a fast automated result, use the PesoHub Withholding Tax Calculator at /calculators/tax/withholding-tax-calculator-philippines."
+      "content": "These rates apply to your annualized taxable compensation. Because payroll is processed monthly, semi-monthly, weekly, or daily depending on your employer, the BIR publishes official withholding tax tables for each payroll frequency. These tables convert the annual tax into smaller per-period deductions so employers can apply the correct withholding without manually annualizing every pay cycle. You can ask your HR or payroll team which specific table applies to your payroll setup. For a fast automated result, use the PesoHub [Withholding Tax Calculator](/calculators/tax/withholding-tax-calculator-philippines)."
     },
     {
       "type": "heading",
@@ -163,7 +163,7 @@ const post: BlogPostData = {
     {
       "type": "callout",
       "variant": "tip",
-      "content": "Skip the manual math — use the PesoHub Withholding Tax Calculator at /calculators/tax/withholding-tax-calculator-philippines. Enter your gross salary and contributions and get your estimated monthly withholding tax instantly, based on the current TRAIN Law rates."
+      "content": "Skip the manual math — use the PesoHub [Withholding Tax Calculator](/calculators/tax/withholding-tax-calculator-philippines). Enter your gross salary and contributions and get your estimated monthly withholding tax instantly, based on the current TRAIN Law rates."
     },
     {
       "type": "heading",
@@ -176,7 +176,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "The practical benefit of understanding the underlying formula, however, is that you can verify your own payslip. If the numbers on your payslip do not match what the formula produces — or what the PesoHub calculator shows — that is a signal worth investigating. Errors can happen in payroll software configurations, especially after salary increases or changes in contribution rates. If too little tax is withheld throughout the year, you will owe a balance when you file your annual income tax return (ITR). If too much is withheld, you are entitled to a refund — but only if you file. For a broader explanation of how the system works in practice, visit the PesoHub guide at /guides/tax/how-withholding-tax-works-philippines."
+      "content": "The practical benefit of understanding the underlying formula, however, is that you can verify your own payslip. If the numbers on your payslip do not match what the formula produces — or what the PesoHub calculator shows — that is a signal worth investigating. Errors can happen in payroll software configurations, especially after salary increases or changes in contribution rates. If too little tax is withheld throughout the year, you will owe a balance when you file your annual income tax return (ITR). If too much is withheld, you are entitled to a refund — but only if you file. For a broader explanation of how the system works in practice, visit the PesoHub [guide on how withholding tax works](/guides/tax/how-withholding-tax-works-philippines)."
     },
     {
       "type": "heading",
@@ -251,7 +251,7 @@ const post: BlogPostData = {
       "type": "ordered-list",
       "items": [
         "Request a detailed breakdown from your HR or payroll department. They are obligated to explain how your withholding tax was computed. Ask them to show you the gross compensation figure used, the government contributions deducted, the taxable compensation, and the applicable BIR tax table.",
-        "Use the PesoHub Withholding Tax Calculator at /calculators/tax/withholding-tax-calculator-philippines. Enter your current gross monthly salary, your SSS, PhilHealth, and Pag-IBIG contributions, and any other relevant inputs. Compare the result to what appears on your payslip.",
+        "Use the PesoHub [Withholding Tax Calculator](/calculators/tax/withholding-tax-calculator-philippines). Enter your current gross monthly salary, your SSS, PhilHealth, and Pag-IBIG contributions, and any other relevant inputs. Compare the result to what appears on your payslip.",
         "Check your BIR Form 2316 at year-end. The annual total tax withheld shown on Form 2316 should match the sum of all monthly deductions on your payslips. If there is a significant discrepancy, raise it with HR before the January 31 deadline.",
         "If you suspect under-withholding, ask your employer to adjust the withholding for the remaining months of the year. It is much easier to address a shortfall gradually during the year than to pay a lump-sum tax deficiency when you file your ITR.",
         "If your employer refuses to withhold or is not remitting the tax to the BIR, report this to the BIR through their official channels (bir.gov.ph or the BIR contact center). Non-remitting employers expose themselves to penalties and surcharges — and in certain circumstances, employees who knew about non-withholding and failed to report it could also face complications."
@@ -270,7 +270,7 @@ const post: BlogPostData = {
   "faqs": [
     {
       "question": "How much income tax will I pay if I earn ₱25,000 a month in the Philippines?",
-      "answer": "At ₱25,000 basic monthly salary, you first subtract your mandatory contributions — roughly ₱1,125 for SSS (employee share varies by MSC bracket), ₱625 for PhilHealth (2.5% of ₱25,000), and ₱100 for Pag-IBIG — giving you approximately ₱23,150 in monthly taxable compensation. Annualized, that is ₱277,800. Under the TRAIN Law, the first ₱250,000 is tax-free, and the excess of ₱27,800 is taxed at 15%, resulting in an annual tax of approximately ₱4,170, or about ₱347.50 per month. The exact amount depends on your actual SSS monthly salary credit and whether you have any other taxable income or benefits. Use the PesoHub calculator at /calculators/tax/withholding-tax-calculator-philippines for a precise figure."
+      "answer": "At ₱25,000 basic monthly salary, you first subtract your mandatory contributions — roughly ₱1,125 for SSS (employee share varies by MSC bracket), ₱625 for PhilHealth (2.5% of ₱25,000), and ₱100 for Pag-IBIG — giving you approximately ₱23,150 in monthly taxable compensation. Annualized, that is ₱277,800. Under the TRAIN Law, the first ₱250,000 is tax-free, and the excess of ₱27,800 is taxed at 15%, resulting in an annual tax of approximately ₱4,170, or about ₱347.50 per month. The exact amount depends on your actual SSS monthly salary credit and whether you have any other taxable income or benefits. Use the PesoHub [Withholding Tax Calculator](/calculators/tax/withholding-tax-calculator-philippines) for a precise figure."
     },
     {
       "question": "Are 13th month pay and bonuses subject to withholding tax in the Philippines?",

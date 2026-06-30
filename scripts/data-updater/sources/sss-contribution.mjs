@@ -2,10 +2,11 @@
 
 /**
  * Source script: SSS Contribution Table
- * Checks for changes to SSS contribution rates, MSC ranges, or brackets.
+ * Checks for changes to SSS contribution rates and MSC ranges across all five
+ * member-category circulars. The schedule is published only as images, so each
+ * category's circular is read via vision and compared to a verified baseline.
  */
 
-import { extractWithFallback } from "../lib/fetcher.mjs";
 import { extractStructuredData } from "../lib/ai-extractor.mjs";
 import {
   readDataFile,
@@ -22,63 +23,71 @@ export async function run() {
   const content = readDataFile(config.dataFile);
   const sourceUrls = config.urls;
 
-  // Fetch page content
-  console.log(`  Fetching ${sourceUrls[0]}...`);
-  const result = await extractWithFallback(sourceUrls[0]);
+  const currentValues = [];
+  const newValues = [];
+  const warnings = [];
 
-  if (!result) {
-    return {
-      sourceName: config.name,
-      dataFile: config.dataFile,
-      sourceUrls,
-      status: "failed",
-      changes: [],
-      warnings: [],
-      error: "Failed to extract SSS contribution page",
+  for (const cat of config.categories) {
+    console.log(`  Reading ${cat.key} circular via vision...`);
+    let extracted;
+    try {
+      extracted = await extractStructuredData({
+        imageUrls: [cat.url],
+        sourceUrl: cat.url,
+        extractionPrompt: config.extractionPrompt,
+        schema: config.schema,
+        schemaName: "extract_sss_contribution",
+      });
+    } catch (err) {
+      warnings.push({
+        level: "warn",
+        message: `${config.name} (${cat.key}): extraction failed — ${err.message}`,
+      });
+      continue;
+    }
+
+    const next = {
+      contributionRate: extracted.contributionRate,
+      minMSC: extracted.minMSC,
+      maxMSC: extracted.maxMSC,
     };
-  }
 
-  // Extract structured data
-  console.log("  Extracting contribution data...");
-  let extracted;
-  try {
-    extracted = await extractStructuredData({
-      pageText: result.rawContent,
-      sourceUrl: sourceUrls[0],
-      extractionPrompt: config.extractionPrompt,
-      schema: config.schema,
-      schemaName: "extract_sss_contribution",
+    // Require a complete read per category. A partial read is untrustworthy
+    // (the model can guess a lone value), so skip that category rather than
+    // risk a false-positive change (see closed #173/#175/#177).
+    if (Object.values(next).some((v) => v == null)) {
+      warnings.push({
+        level: "warn",
+        message: `${config.name} (${cat.key}): incomplete read from ${cat.url}. Verify manually.`,
+      });
+      continue;
+    }
+
+    currentValues.push({
+      category: cat.key,
+      contributionRate: cat.contributionRate,
+      minMSC: cat.minMSC,
+      maxMSC: cat.maxMSC,
     });
-  } catch (err) {
+    newValues.push({ category: cat.key, ...next });
+  }
+
+  // Nothing could be read confidently — skip without changes (non-blocking).
+  if (newValues.length === 0) {
+    console.log("  No category read confidently. Skipping without changes.");
     return {
       sourceName: config.name,
       dataFile: config.dataFile,
       sourceUrls,
-      status: "failed",
+      status: "unchanged",
       changes: [],
-      warnings: [],
-      error: `AI extraction failed: ${err.message}`,
+      warnings,
     };
   }
 
-  // Compare key values against current data
-  const currentValues = {
-    contributionRate: 15, // Current 15% rate
-    minMSC: 5_000,
-    maxMSC: 35_000,
-  };
-
-  const newValues = {
-    contributionRate: extracted.contributionRate,
-    minMSC: extracted.minMSC,
-    maxMSC: extracted.maxMSC,
-  };
-
-  const validation = validateGovernmentData(
-    [currentValues],
-    [newValues],
-    config.name
-  );
+  // Index-aligned compare (currentValues[i] ↔ newValues[i]); null-safe.
+  const validation = validateGovernmentData(currentValues, newValues, config.name);
+  const allWarnings = [...warnings, ...validation.warnings];
 
   if (validation.changes.length === 0) {
     console.log("  No changes detected.");
@@ -88,7 +97,7 @@ export async function run() {
       sourceUrls,
       status: "unchanged",
       changes: [],
-      warnings: [],
+      warnings: allWarnings,
     };
   }
 
@@ -104,7 +113,7 @@ export async function run() {
     sourceUrls,
     status: "updated",
     changes: validation.changes,
-    warnings: validation.warnings,
-    rawContent: result.rawContent.slice(0, 3000),
+    warnings: allWarnings,
+    rawContent: `Read via vision per category. Extracted: ${JSON.stringify(newValues)}`,
   };
 }

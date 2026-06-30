@@ -79,7 +79,7 @@ const post: BlogPostData = {
     {
       "type": "callout",
       "variant": "tip",
-      "content": "Use PesoHub's Savings Goal Calculator at /calculators/savings/savings-goal-calculator-philippines to see exactly how your current savings rate translates into a timeline for reaching your specific financial goal — whether that is an emergency fund, a house down payment, or a retirement target."
+      "content": "Use PesoHub's [Savings Goal Calculator](/calculators/savings/savings-goal-calculator-philippines) to see exactly how your current savings rate translates into a timeline for reaching your specific financial goal — whether that is an emergency fund, a house down payment, or a retirement target."
     },
     {
       "type": "paragraph",
@@ -133,7 +133,7 @@ const post: BlogPostData = {
     {
       "type": "callout",
       "variant": "info",
-      "content": "Compare current Philippine savings account interest rates at /rates/savings-rates/best-savings-interest-rates-philippines to make sure the money you do save is in an account that works as hard as possible for you."
+      "content": "Compare current Philippine savings account [best savings interest rates](/rates/savings-rates/best-savings-interest-rates-philippines) to make sure the money you do save is in an account that works as hard as possible for you."
     },
     {
       "type": "heading",
@@ -229,7 +229,7 @@ const post: BlogPostData = {
     {
       "type": "callout",
       "variant": "tip",
-      "content": "Use PesoHub's Savings Goal Calculator at /calculators/savings/savings-goal-calculator-philippines to plug in your target amount, current savings balance, and expected return — and find out exactly what monthly savings rate you need to hit your goal on time."
+      "content": "Use PesoHub's [Savings Goal Calculator](/calculators/savings/savings-goal-calculator-philippines) to plug in your target amount, current savings balance, and expected return — and find out exactly what monthly savings rate you need to hit your goal on time."
     },
     {
       "type": "heading",

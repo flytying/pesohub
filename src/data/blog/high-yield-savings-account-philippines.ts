@@ -48,7 +48,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Below is a snapshot of the top-performing savings products in the Philippines as of 2026. Rates are subject to change — always verify with the bank directly before opening an account. For a live, regularly updated comparison, see our full rate table at /rates/savings-rates/best-savings-interest-rates-philippines."
+      "content": "Below is a snapshot of the top-performing savings products in the Philippines as of 2026. Rates are subject to change — always verify with the bank directly before opening an account. For a live, regularly updated comparison, see our [full savings rate table](/rates/savings-rates/best-savings-interest-rates-philippines)."
     },
     {
       "type": "table",
@@ -129,7 +129,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Yes — and doing so is a smart strategy, not a workaround. There is no rule preventing you from holding savings accounts at Tonik, Maya, GoTyme, and SeaBank simultaneously. Many financially savvy Filipinos already do this: one account for the emergency fund (prioritizing simplicity — GoTyme or SeaBank), one for transaction-linked savings (Maya), and one for time deposits (Tonik). Each account is separately PDIC-insured up to ₱1 million. For a side-by-side comparison of digital bank rates updated regularly, visit /rates/savings-rates/best-digital-bank-rates-philippines."
+      "content": "Yes — and doing so is a smart strategy, not a workaround. There is no rule preventing you from holding savings accounts at Tonik, Maya, GoTyme, and SeaBank simultaneously. Many financially savvy Filipinos already do this: one account for the emergency fund (prioritizing simplicity — GoTyme or SeaBank), one for transaction-linked savings (Maya), and one for time deposits (Tonik). Each account is separately PDIC-insured up to ₱1 million. For a side-by-side comparison of digital bank rates updated regularly, visit our [digital bank rates page](/rates/savings-rates/best-digital-bank-rates-philippines)."
     },
     {
       "type": "heading",

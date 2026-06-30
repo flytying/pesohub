@@ -71,6 +71,26 @@ export async function run() {
     maxMSC: extracted.maxMSC,
   };
 
+  // Guard: if no scalar values could be extracted (page layout changed or
+  // values render as images), treating undefined fields as a "change" would
+  // open a noise PR every run. Skip without changes and flag for manual review.
+  if (Object.values(newValues).every((v) => v == null)) {
+    console.log("  No readable values extracted. Skipping without changes.");
+    return {
+      sourceName: config.name,
+      dataFile: config.dataFile,
+      sourceUrls,
+      status: "unchanged",
+      changes: [],
+      warnings: [
+        {
+          level: "warn",
+          message: `${config.name}: no values extracted from ${sourceUrls[0]}. Verify pension figures manually.`,
+        },
+      ],
+    };
+  }
+
   const validation = validateGovernmentData(
     [currentValues],
     [newValues],

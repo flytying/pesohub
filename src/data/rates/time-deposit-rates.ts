@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const TIME_DEPOSIT_RATES_UPDATED_AT = "2026-06-15";
+export const TIME_DEPOSIT_RATES_UPDATED_AT = "2026-06-29";
 
 export interface BankTimeDepositRate {
   bankName: string;
@@ -22,31 +22,31 @@ export const bankTimeDepositRates: BankTimeDepositRate[] = [
     bankName: "Tonik Bank",
     product: "Time Deposit",
     termLength: "12 months",
-    grossRate: 8,
+    grossRate: 5.5,
     minimumDeposit: 5_000,
     taxNote: "Gross before 20% WHT",
     bestFor: "Highest digital bank TD rate",
-    notes: "Updated May 20, 2026: tiered rates of 6% (6-month), 7% (9-month), 8% (12-month), and 6% (18- and 24-month). Minimum deposit PHP 5,000; max PHP 250,000 per account (up to 5 active TDs). No conditions or promo code required.",
+    notes: "Updated June 5, 2026 (cut from the previous 6–7–8% structure): tiered rates of 4.5% (6-month), 5.0% (9-month), 5.5% (12-month), and 5.0% (18- and 24-month). Minimum deposit PHP 5,000; max PHP 250,000 per account (up to 5 active TDs). No conditions or promo code required.",
   },
   {
     bankName: "Tonik Bank",
     product: "Time Deposit",
     termLength: "9 months",
-    grossRate: 7,
+    grossRate: 5,
     minimumDeposit: 5_000,
     taxNote: "Gross before 20% WHT",
     bestFor: "Mid-term digital bank TD",
-    notes: "Part of Tonik's 6–7–8% tiered time deposit structure (updated May 20, 2026). Minimum deposit PHP 5,000; max PHP 250,000 per account.",
+    notes: "Part of Tonik's 4.5–5.0–5.5% tiered time deposit structure (updated June 5, 2026). Minimum deposit PHP 5,000; max PHP 250,000 per account.",
   },
   {
     bankName: "Tonik Bank",
     product: "Time Deposit",
     termLength: "6 months",
-    grossRate: 6,
+    grossRate: 4.5,
     minimumDeposit: 5_000,
     taxNote: "Gross before 20% WHT",
     bestFor: "Short-term digital bank TD",
-    notes: "Part of Tonik's 6–7–8% tiered time deposit structure (updated May 20, 2026). Minimum deposit PHP 5,000; max PHP 250,000 per account. 18- and 24-month terms also earn 6% p.a.",
+    notes: "Part of Tonik's 4.5–5.0–5.5% tiered time deposit structure (updated June 5, 2026). Minimum deposit PHP 5,000; max PHP 250,000 per account. 18- and 24-month terms earn 5.0% p.a.",
   },
   {
     bankName: "CIMB",

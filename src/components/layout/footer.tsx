@@ -44,6 +44,20 @@ export function Footer({
             <div className="mt-[18px] text-[13px] text-[#8A93A6]">
               &copy; {new Date().getFullYear()} {SITE_NAME}
             </div>
+            <a
+              href="https://verify.sentralid.com/t/pesohub-934885"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-[14px] inline-block"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://verify.sentralid.com/badge/SID-HQYT-SKMD/svg"
+                alt="Verified by Sentral ID"
+                width={280}
+                height={72}
+              />
+            </a>
           </div>
 
           {/* Link columns */}

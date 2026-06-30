@@ -19,7 +19,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
 import { DisclaimerBox } from "@/components/shared/disclaimer-box";
 import { SourceCitation } from "@/components/shared/source-citation";
-import { SavingsInterestCalculator } from "@/components/calculators/savings-interest-calculator";
+import { DigitalBankComparison } from "@/components/calculators/savings-comparison-calculator";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   Table,
@@ -33,7 +33,10 @@ import { generatePageMetadata } from "@/lib/seo";
 import {
   generateArticleSchema,
   generateBreadcrumbSchema,
+  generateCalculatorSchema,
+  generateItemListSchema,
 } from "@/lib/schema-markup";
+import { SITE_URL } from "@/config/site";
 import { formatPercent } from "@/lib/formatters";
 import {
   digitalBankRates,
@@ -43,9 +46,9 @@ import {
 
 export const metadata = generatePageMetadata({
   title:
-    "Best Digital Bank Rates in the Philippines 2026",
+    "Best Digital Banks Philippines 2026: Interest Rates Compared",
   description:
-    "Compare digital bank interest rates in the Philippines for 2026. See savings rates, promo rates, balance caps, requirements, and estimated earnings.",
+    "Compare digital banks in the Philippines for 2026, including base interest rates, promo rates, balance caps, requirements, PDIC coverage notes, and estimated earnings.",
   slug: "rates/savings-rates/best-digital-bank-rates-philippines",
   updatedAt: DIGITAL_BANK_RATES_UPDATED_AT,
 });
@@ -61,7 +64,7 @@ const needCards = [
     icon: TrendingUp,
     title: "Best digital bank for high interest",
     description:
-      "For the highest standard yield, Tonik leads at up to 6% p.a. on the Tonik Account (8% on its 12-month time deposit). Maya advertises up to 15% p.a., but only as a conditional promo capped at ₱100,000.",
+      "For the highest standard yield, Tonik's Group Stash pays 4.5% p.a. and its 12-month time deposit 5.5% p.a.; OwnBank reaches 3.8% p.a. Maya advertises up to 15% p.a., but only as a conditional promo capped at ₱100,000.",
   },
   {
     icon: PiggyBank,
@@ -102,7 +105,7 @@ const bankSections = [
     id: "tonik-solo-stash",
     name: "Tonik Solo Stash interest rate 2026",
     rate: "4% p.a. (Solo Stash)",
-    body: "Tonik's Solo Stash earns 4% p.a. for goal-based saving. The main Tonik Account pays up to 6% p.a., the Group Stash 4.5% p.a. (with at least 3 members), and Tonik time deposits go up to 8% p.a. on a 12-month term. None require promo missions, and deposits are PDIC-insured up to ₱1,000,000.",
+    body: "Tonik's Solo Stash earns 4% p.a. for goal-based saving and the Group Stash 4.5% p.a. (owner plus at least 2 participants). Tonik time deposits pay up to 5.5% p.a. on a 12-month term (effective June 5, 2026, down from 8%). Note the plain Tonik Account was cut to 1% p.a. on the same date. None of the Stash products require promo missions, and deposits are PDIC-insured up to ₱1,000,000.",
   },
   {
     id: "gotyme",
@@ -200,23 +203,50 @@ export default function DigitalBankRatesPage() {
     label: bank.bankName,
     rate: bank.baseRate,
   }));
+  const comparisonRows = digitalBankRates.map((bank) => ({
+    bankName: bank.bankName,
+    baseRate: bank.baseRate,
+    promoRate: bank.promoRate,
+    balanceCap: bank.balanceCap,
+    requirement: bank.requirement,
+  }));
 
   return (
     <>
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
-          title: "Best Digital Bank Rates in the Philippines 2026",
+          title: "Best Digital Banks Philippines 2026: Interest Rates Compared",
           description:
             "Compare digital bank interest rates in the Philippines. Find the highest interest rate digital bank for your needs.",
           updatedAt: DIGITAL_BANK_RATES_UPDATED_AT,
           slug: "rates/savings-rates/best-digital-bank-rates-philippines",
         })}
       />
+      <JsonLd
+        data={generateCalculatorSchema({
+          title: "Digital Bank Interest Calculator",
+          description:
+            "Compare estimated monthly, annual, and after-tax interest across Philippine digital banks using base or promo rates.",
+        })}
+      />
+      <JsonLd
+        data={generateItemListSchema({
+          name: "Best Digital Banks in the Philippines 2026",
+          items: digitalBankRates.map((bank) => ({
+            name: `${bank.bankName} (${formatPercent(bank.baseRate)} p.a. base${
+              bank.promoRate != null
+                ? `, up to ${formatPercent(bank.promoRate)} promo`
+                : ""
+            })`,
+            url: `${SITE_URL}/rates/savings-rates/best-digital-bank-rates-philippines`,
+          })),
+        })}
+      />
 
       <PageHero
-        title="Best Digital Bank Rates in the Philippines 2026"
-        description="Compare digital bank interest rates in the Philippines for 2026 — SeaBank (now MariBank), Tonik, GoTyme, Maya, CIMB, GCash, UNO, OwnBank, and NetBank. See base rates, promo rates, balance caps, and the conditions behind each headline number."
+        title="Best Digital Banks in the Philippines 2026"
+        description="Compare digital banks in the Philippines for 2026, including base interest rates, promo rates, balance caps, requirements, PDIC coverage notes, and estimated interest earnings."
         badge={DIGITAL_BANK_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
@@ -227,7 +257,7 @@ export default function DigitalBankRatesPage() {
         {/* Digital Bank Comparison Table */}
         <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            High Yield Savings Accounts: Digital Bank Comparison
+            Digital Bank Interest Rates 2026
           </h2>
           <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Compare digital banks side by side using the features that matter
@@ -325,14 +355,16 @@ export default function DigitalBankRatesPage() {
             Digital Bank Interest Calculator
           </h2>
           <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
-            Pick a digital bank, enter your balance, and estimate the monthly
-            and annual interest. Promo rates often apply only up to a balance
-            cap, so compare the base rate too.
+            Compare estimated earnings across digital banks at once, or switch to
+            a single bank for a detailed breakdown. Enter your balance and
+            holding period, then choose base or promo rates and a tax assumption.
+            Promo rates often apply only up to a balance cap, so compare the base
+            rate too.
           </p>
           <div className="mt-6">
-            <SavingsInterestCalculator
+            <DigitalBankComparison
+              rows={comparisonRows}
               accounts={calculatorAccounts}
-              title="Digital Bank Interest Calculator"
             />
           </div>
         </section>
@@ -447,7 +479,7 @@ export default function DigitalBankRatesPage() {
         {/* Bank-specific rate sections */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Digital Bank Interest Rates 2026 (By Bank)
+            Digital Bank Interest Rates 2026 by Bank
           </h2>
           <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             The exact rate, conditions, and balance caps for the digital banks

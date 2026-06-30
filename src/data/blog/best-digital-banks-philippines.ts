@@ -103,7 +103,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Maya Bank is best for: active daily spenders who already use Maya for bills, shopping, and QR payments — and who can consistently hit the activity requirements to unlock the higher interest tiers. For current Maya rate details, see our full comparison at /rates/savings-rates/best-digital-bank-rates-philippines."
+      "content": "Maya Bank is best for: active daily spenders who already use Maya for bills, shopping, and QR payments — and who can consistently hit the activity requirements to unlock the higher interest tiers. For current Maya rate details, see our full comparison on our [digital bank rates page](/rates/savings-rates/best-digital-bank-rates-philippines)."
     },
     {
       "type": "callout",
@@ -129,7 +129,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Tonik is best for: disciplined savers who want predictable returns without jumping through activity hoops, and anyone looking to lock in a fixed rate via time deposits. For current Tonik rates, check /rates/savings-rates/best-digital-bank-rates-philippines."
+      "content": "Tonik is best for: disciplined savers who want predictable returns without jumping through activity hoops, and anyone looking to lock in a fixed rate via time deposits. For current Tonik rates, check our [digital bank rates page](/rates/savings-rates/best-digital-bank-rates-philippines)."
     },
     {
       "type": "heading",
@@ -178,7 +178,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "For a full, up-to-date rate comparison with current figures, visit our dedicated page at /rates/savings-rates/best-digital-bank-rates-philippines. To see how digital bank rates stack up against traditional bank savings accounts and time deposits, visit /rates/savings-rates/best-savings-interest-rates-philippines."
+      "content": "For a full, up-to-date rate comparison with current figures, visit our [dedicated digital bank rates page](/rates/savings-rates/best-digital-bank-rates-philippines). To see how digital bank rates stack up against traditional bank savings accounts and time deposits, visit our [savings interest rates page](/rates/savings-rates/best-savings-interest-rates-philippines)."
     },
     {
       "type": "heading",
