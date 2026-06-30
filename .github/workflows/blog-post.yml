@@ -12,8 +12,8 @@ on:
         required: false
         type: number
   schedule:
-    # Weekly on Monday at 03:00 UTC (11:00 AM PHT)
-    - cron: "0 3 * * 1"
+    # Mon/Wed/Fri at 03:00 UTC (11:00 AM PHT) — one post per run, 3 review PRs/week.
+    - cron: "0 3 * * 1,3,5"
 
 permissions:
   contents: write
@@ -70,7 +70,7 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Create PR
+      - name: Create review PR
         if: steps.changes.outputs.changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -79,17 +79,29 @@ jobs:
           BRANCH="auto/blog-${SLUG}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # -B resets the branch if a stale one lingers; force-with-lease keeps
-          # evergreen refresh (same slug → same branch name) from being rejected.
+
+          # 1) Queue bookkeeping → main directly, so the next Mon/Wed/Fri run
+          #    won't re-pick this topic while the content PR is in review.
+          #    Set the content changes aside, commit only the queue, push to main.
+          git stash push -- src scripts/blog-agent/output 2>/dev/null || true
+          git add scripts/blog-agent/topic-queue.json
+          if git commit -m "queue: advance after ${SLUG} (automated)"; then
+            git pull --rebase origin main || true
+            git push origin HEAD:main || echo "Queue push skipped (protected branch?)."
+          else
+            echo "No queue change."
+          fi
+          git stash pop 2>/dev/null || true
+
+          # 2) Content → review PR (NO auto-merge). src/ for new posts; output/ for
+          #    update/merge action packages.
           git checkout -B "$BRANCH"
-          # src/ for new posts; output/ for update/merge action packages.
-          git add src/ scripts/blog-agent/topic-queue.json scripts/blog-agent/output 2>/dev/null || git add src/ scripts/blog-agent/topic-queue.json
-          git commit -m "blog: add post — ${SLUG} (automated)"
+          git add src/ scripts/blog-agent/output 2>/dev/null || git add src/
+          git commit -m "blog: ${SLUG} (automated)"
           git push -u --force-with-lease origin "$BRANCH"
-          # Ensure label exists (idempotent)
           gh label create "blog" --color "5319E7" --description "Blog post PR" 2>/dev/null || true
-          PR_URL=$(gh pr create \
+          gh pr create \
             --title "blog: ${SLUG}" \
             --body-file /tmp/pr-body.md \
-            --label "blog")
-          gh pr merge "$PR_URL" --squash --auto --delete-branch || gh pr merge "$PR_URL" --squash --delete-branch
+            --label "blog" \
+            || gh pr edit "$BRANCH" --body-file /tmp/pr-body.md

@@ -1,7 +1,7 @@
 # Content Automation
 
-Three automation systems generate or refresh site content. **All open PRs / issues or auto-merge
-generated posts — none change live financial figures without a path through review.**
+Three automation systems generate or refresh site content. **All open PRs / issues for review —
+nothing changes live financial figures without a path through review.**
 
 For hosting, DNS, secrets, and the rate-update crons see `docs/deployment-and-automation.md`.
 
@@ -34,7 +34,10 @@ reporter, config) · `sources/` (one script per source).
 ## 2. Blog Agent — `scripts/blog-agent/`
 
 Generates blog posts from a topic queue, reviews them, and writes the post files + registry entries.
-Runs weekly via `.github/workflows/blog-post.yml` (Mon 03:00 UTC) which can auto-merge the post PR.
+Runs `.github/workflows/blog-post.yml` **Mon/Wed/Fri 03:00 UTC** — one post per run, opened as a
+**review PR (no auto-merge)** on this YMYL site. The queue is auto-fed by the GSC analysis (below), so
+the week's keyword opportunities turn into ~3 review PRs. The queue status advances on `main` at
+generation time (separate from the content PR) so the next run never re-picks the same topic.
 
 - `run.mjs` — orchestrator (keyword or `topic-queue.json`-driven). Branches on each topic's
   `recommendedAction`: new-post / supporting-page write a TS file; update/merge emit a Markdown
@@ -67,9 +70,12 @@ striking-distance / content-gap / rising queries (`lib/gsc-opportunities.mjs`) �
 opportunity agent** scores each cluster and picks a content action (`lib/gsc-suggester.mjs`,
 `analyzeOpportunity`, prompt `lib/prompts/keyword-opportunity.mjs`) → ranked issue markdown grouped by
 priority/action (`lib/gsc-reporter.mjs`). Orchestrator: `scripts/blog-agent/gsc-opportunities.mjs`
-(caps analysis to the top 12 opportunities/run). A human pastes the chosen snippet into
-`topic-queue.json` for the blog agent. Decisions + scores log to the `gsc-opportunities` Langfuse
-dataset; `evals/keyword-opportunity.experiment.mjs` is the offline experiment.
+(caps analysis to the top 12 opportunities/run). It **auto-promotes** the top `PROMOTE_COUNT` (repo var,
+default 3) `publish_as_new_post` / supporting decisions into `topic-queue.json` as `pending` topics
+(ordered priority A→B→C then score, deduped by slug) — `update`/`merge` decisions are **not** queued,
+they stay notify-only (issue alert + assignee). The issue still opens for visibility; auto-queued items
+are marked "✅ Auto-queued". Decisions + scores log to the `gsc-opportunities` Langfuse dataset;
+`evals/keyword-opportunity.experiment.mjs` is the offline experiment.
 
 Required secrets: `GSC_SERVICE_ACCOUNT_JSON`, `GSC_SITE_URL` (e.g. `sc-domain:pesohub.ph`);
 `ANTHROPIC_API_KEY` already exists. Optional: `LANGFUSE_PUBLIC_KEY` / `LANGFUSE_SECRET_KEY` /
@@ -90,5 +96,5 @@ GSC_SERVICE_ACCOUNT_JSON="$(cat sa-key.json)" GSC_SITE_URL="sc-domain:pesohub.ph
 | `update-bank-rates.yml` | 1st + 15th 02:00 | Bank rate scrape (Tavily) → PR |
 | `update-government-data.yml` | 1st 03:00 | Gov data check (Tavily) → PR |
 | `content-freshness.yml` | Mon 01:00 | Staleness check → GitHub issue |
-| `blog-post.yml` | Mon 03:00 | Generate post from queue → auto-merge |
-| `gsc-opportunities.yml` | Mon 01:30 | GSC opportunities → GitHub issue |
+| `blog-post.yml` | Mon/Wed/Fri 03:00 | Generate 1 post from queue → review PR (no auto-merge) |
+| `gsc-opportunities.yml` | Mon 01:30 | GSC analysis → issue + auto-queue top 3 new posts |

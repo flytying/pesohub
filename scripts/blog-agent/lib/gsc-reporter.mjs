@@ -51,13 +51,18 @@ function internalLinks(d) {
 }
 
 /** Paste-ready topic-queue.json object for an actionable new/supporting item. */
-function queueSnippet(decision, id) {
+/**
+ * Build a topic-queue.json entry from a keyword-opportunity decision. Shared by
+ * the paste-ready issue snippet and the auto-promotion in gsc-opportunities.mjs,
+ * so both produce identical entries.
+ */
+export function buildQueueEntry(decision, id) {
   const seed = decision.topic_seed ?? {};
   const linksTo = (decision.recommended_internal_links ?? [])
     .map((l) => l.target_page_or_tool)
     .filter((p) => typeof p === "string" && p.startsWith("/"))
     .slice(0, 2);
-  const obj = {
+  return {
     id,
     title: seed.title ?? "",
     slug: seed.slug ?? "",
@@ -66,14 +71,24 @@ function queueSnippet(decision, id) {
     linksTo,
     brief: seed.brief ?? decision.recommended_content_angle ?? "",
     recommendedAction: decision.recommended_action,
+    // Trimmed decision so the writer can reuse the agent's angle/links.
+    decision: {
+      content_gap: decision.content_gap ?? "",
+      recommended_content_angle: decision.recommended_content_angle ?? "",
+      recommended_internal_links: decision.recommended_internal_links ?? [],
+      related_queries_to_include: decision.related_queries_to_include ?? [],
+    },
     evergreen: true,
     refreshIntervalDays: 120,
     status: "pending",
   };
-  return JSON.stringify(obj, null, 2);
 }
 
-function decisionBlock({ opp, decision }, queueId) {
+function queueSnippet(decision, id) {
+  return JSON.stringify(buildQueueEntry(decision, id), null, 2);
+}
+
+function decisionBlock({ opp, decision }, queueId, queued = false) {
   const isNew =
     decision.recommended_action === "publish_as_new_post" ||
     decision.recommended_action === "create_supporting_page_with_internal_links";
@@ -96,7 +111,9 @@ function decisionBlock({ opp, decision }, queueId) {
   lines.push(...internalLinks(decision));
   if (decision.next_step) lines.push(`  - Next step: ${decision.next_step}`);
 
-  if (isNew) {
+  if (isNew && queued) {
+    lines.push("  - ✅ _Auto-queued for this week — no action needed._");
+  } else if (isNew) {
     lines.push(
       "  <details><summary>Paste into <code>topic-queue.json</code></summary>",
       "",
@@ -123,11 +140,12 @@ const PRIORITY_TITLE = {
  *   nextId: number,
  *   weekLabel: string,
  *   opportunityCount: number,
- *   notifyHandle?: string     // GitHub handle to @mention when pages need updates
+ *   notifyHandle?: string,    // GitHub handle to @mention when pages need updates
+ *   autoQueuedCount?: number  // new posts auto-promoted to topic-queue.json this run
  * }} input
  * @returns {{title: string, body: string, updateCount: number}}
  */
-export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCount, notifyHandle }) {
+export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCount, notifyHandle, autoQueuedCount = 0, queuedSlugs = new Set() }) {
   const actionable = decided.filter(
     (d) => !["hold", "reject"].includes(d.decision.recommended_action)
   );
@@ -164,6 +182,13 @@ export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCou
     ""
   );
 
+  if (autoQueuedCount > 0) {
+    body.push(
+      `✅ **Auto-queued ${autoQueuedCount} new post(s)** for this week — the blog agent generates them Mon/Wed/Fri as review PRs. Update/merge items are notify-only (above).`,
+      ""
+    );
+  }
+
   for (const p of PRIORITY_ORDER) {
     const group = actionable.filter((d) => d.decision.priority === p);
     if (!group.length) continue;
@@ -172,7 +197,8 @@ export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCou
       const isNew = ["publish_as_new_post", "create_supporting_page_with_internal_links"].includes(
         d.decision.recommended_action
       );
-      body.push(decisionBlock(d, isNew ? id++ : 0), "");
+      const queued = queuedSlugs.has(d.decision.topic_seed?.slug);
+      body.push(decisionBlock(d, isNew && !queued ? id++ : 0, queued), "");
     }
   }
 
