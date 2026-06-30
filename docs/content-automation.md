@@ -43,6 +43,8 @@ Runs weekly via `.github/workflows/blog-post.yml` (Mon 03:00 UTC) which can auto
   canonical **writing-agent** prompt (`lib/prompts/writing-agent.mjs`).
 - `reviewer.mjs` / `lib/blog-evaluator.mjs` — the 10-criterion **Boolean** judge
   (`lib/prompts/blog-eval.mjs`); publish gate = `publish` + all 6 critical criteria pass.
+  Runs on **OpenAI** (`gpt-4.1`, override via `OPENAI_EVAL_MODEL`) — cross-provider grading,
+  since the writer/keyword agents run on Anthropic. Needs `OPENAI_API_KEY`.
 - `lib/` — `file-generator`, `registry-updater` (edits `src/data/blog/index.ts` + `post-modules.ts`),
   `tavily-search`, `unsplash-image`, `reporter`, `observability` (Langfuse guard) + `instrumentation`
   (OTel bootstrap), `prompts/` (the 3 canonical prompts).

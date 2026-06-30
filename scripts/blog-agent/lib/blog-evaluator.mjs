@@ -1,30 +1,33 @@
 /**
  * Blog Content Evaluator — the 10-criterion Boolean judge.
  *
- * Replaces the former 0–100 reviewer. Uses the canonical blog-content-evaluator
- * prompt (Langfuse production label, committed fallback) and forces structured
- * output via a tool mirroring the prompt's OUTPUT JSON.
+ * Cross-provider on purpose: the writer/keyword agents run on Anthropic, so the
+ * judge runs on **OpenAI** (gpt-4.1 by default) to avoid self-grading bias.
+ * Uses the canonical blog-content-evaluator prompt (Langfuse production label,
+ * committed fallback) and JSON-object response mode — the prompt already pins
+ * the exact OUTPUT JSON.
+ *
+ * Env: OPENAI_API_KEY (required to run the judge), OPENAI_EVAL_MODEL (optional,
+ * defaults to gpt-4.1).
  */
 
-import Anthropic from "@anthropic-ai/sdk";
-import { observeGeneration, getPrompt } from "./observability.mjs";
-import { MODEL } from "./claude-writer.mjs";
+import OpenAI from "openai";
+import { startObservation } from "@langfuse/tracing";
+import { getPrompt, LANGFUSE_ENABLED } from "./observability.mjs";
 import {
   BLOG_EVAL_PROMPT,
   BLOG_EVAL_PROMPT_NAME,
   CRITICAL_CRITERIA,
 } from "./prompts/blog-eval.mjs";
 
-const anthropic = new Anthropic();
+export const EVAL_MODEL = process.env.OPENAI_EVAL_MODEL || "gpt-4.1";
 
-const CRITERION = {
-  type: "object",
-  properties: {
-    result: { type: "string", enum: ["pass", "fail"] },
-    reason: { type: "string" },
-  },
-  required: ["result", "reason"],
-};
+// Lazy client — constructing OpenAI throws without OPENAI_API_KEY, so defer it
+// to call time (importing this module must never throw).
+let _openai;
+function openaiClient() {
+  return (_openai ??= new OpenAI());
+}
 
 const CRITERIA_KEYS = [
   "intent_match",
@@ -38,76 +41,6 @@ const CRITERIA_KEYS = [
   "trust_and_safety",
   "pesohub_internal_linking_and_conversion",
 ];
-
-const EVAL_TOOL = {
-  name: "save_evaluation",
-  description: "Save the strict Boolean content evaluation for the blog post.",
-  input_schema: {
-    type: "object",
-    properties: {
-      publish_recommendation: { type: "string", enum: ["publish", "revise", "reject"] },
-      recommended_content_action: {
-        type: "string",
-        enum: [
-          "publish_as_new_post",
-          "update_existing_page",
-          "merge_with_existing_page",
-          "create_supporting_page_with_internal_links",
-          "reject",
-        ],
-      },
-      summary: { type: "string" },
-      criteria: {
-        type: "object",
-        properties: Object.fromEntries(CRITERIA_KEYS.map((k) => [k, CRITERION])),
-        required: CRITERIA_KEYS,
-      },
-      cannibalization_analysis: {
-        type: "object",
-        properties: {
-          risk_level: { type: "string", enum: ["low", "medium", "high"] },
-          competing_existing_pages: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: { url: { type: "string" }, reason: { type: "string" } },
-            },
-          },
-          should_this_be_a_new_page: { type: "string", enum: ["yes", "no"] },
-          best_page_to_update_instead: { type: "string" },
-          recommended_positioning: { type: "string" },
-        },
-      },
-      critical_issues: { type: "array", items: { type: "string" } },
-      unverified_or_risky_claims: { type: "array", items: { type: "string" } },
-      missing_query_coverage: {
-        type: "array",
-        items: {
-          type: "object",
-          properties: {
-            related_query: { type: "string" },
-            recommended_fix: { type: "string" },
-          },
-        },
-      },
-      missing_sections_or_examples: { type: "array", items: { type: "string" } },
-      recommended_internal_links: {
-        type: "array",
-        items: {
-          type: "object",
-          properties: {
-            anchor_text: { type: "string" },
-            target_page_or_tool: { type: "string" },
-            reason: { type: "string" },
-          },
-        },
-      },
-      recommended_fixes: { type: "array", items: { type: "string" } },
-      final_verdict: { type: "string" },
-    },
-    required: ["publish_recommendation", "recommended_content_action", "summary", "criteria", "final_verdict"],
-  },
-};
 
 /** Render the structured BlogPostData body to Markdown for the judge. */
 function renderPost(postData) {
@@ -125,18 +58,6 @@ function renderPost(postData) {
     .join("\n");
   const faqs = (postData.faqs ?? []).map((f) => `**${f.question}**\n${f.answer}`).join("\n\n");
   return `# ${postData.title}\n\n${postData.directAnswer ?? ""}\n${body}\n\n## FAQs\n${faqs}`;
-}
-
-function extractToolInput(message, toolName) {
-  if (message.stop_reason === "max_tokens") {
-    throw new Error("Evaluation truncated (hit max_tokens).");
-  }
-  const block = message.content.find((b) => b.type === "tool_use" && b.name === toolName);
-  if (!block) {
-    const text = message.content.find((b) => b.type === "text")?.text ?? "";
-    throw new Error(`Judge did not call "${toolName}". stop_reason: ${message.stop_reason}. ${text.slice(0, 200)}`);
-  }
-  return block.input;
 }
 
 /**
@@ -158,10 +79,10 @@ export function summarizeCriteria(criteria = {}) {
  * @param {object} postData
  * @param {string} keyword
  * @param {object} research
- * @returns {Promise<object>} the evaluation object (see EVAL_TOOL)
+ * @returns {Promise<object>} the evaluation object (see the prompt's OUTPUT JSON)
  */
 export async function evaluatePost(postData, keyword, research = {}) {
-  console.log(`  🔍 Evaluating: "${postData.title}"...`);
+  console.log(`  🔍 Evaluating (OpenAI ${EVAL_MODEL}): "${postData.title}"...`);
 
   const prompt = await getPrompt(BLOG_EVAL_PROMPT_NAME, BLOG_EVAL_PROMPT);
   const system = prompt.compile({
@@ -180,23 +101,38 @@ export async function evaluatePost(postData, keyword, research = {}) {
     generated_blog_post: renderPost(postData),
   });
 
-  const message = await observeGeneration(
-    "blog-evaluation",
-    { model: MODEL, prompt: prompt.handle, input: postData.title },
-    () =>
-      anthropic.messages
-        .stream({
-          model: MODEL,
-          max_tokens: 4096,
-          system,
-          tools: [EVAL_TOOL],
-          tool_choice: { type: "tool", name: EVAL_TOOL.name },
-          messages: [
-            { role: "user", content: "Evaluate the generated blog post above. Call save_evaluation." },
-          ],
-        })
-        .finalMessage()
-  );
-
-  return extractToolInput(message, EVAL_TOOL.name);
+  // Manual Langfuse generation span (OpenAI usage shape differs from Anthropic).
+  const gen = LANGFUSE_ENABLED
+    ? startObservation(
+        "blog-evaluation",
+        { model: EVAL_MODEL, input: postData.title, ...(prompt.handle ? { prompt: prompt.handle } : {}) },
+        { asType: "generation" }
+      )
+    : null;
+  try {
+    const resp = await openaiClient().chat.completions.create({
+      model: EVAL_MODEL,
+      temperature: 0,
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: system },
+        {
+          role: "user",
+          content:
+            "Evaluate the generated blog post in the system prompt. Return ONLY the JSON object specified under OUTPUT FORMAT — no prose, no code fences.",
+        },
+      ],
+    });
+    const content = resp.choices?.[0]?.message?.content ?? "{}";
+    const evaluation = JSON.parse(content);
+    gen?.update({
+      output: evaluation,
+      ...(resp.usage
+        ? { usageDetails: { input: resp.usage.prompt_tokens, output: resp.usage.completion_tokens } }
+        : {}),
+    });
+    return evaluation;
+  } finally {
+    gen?.end();
+  }
 }
