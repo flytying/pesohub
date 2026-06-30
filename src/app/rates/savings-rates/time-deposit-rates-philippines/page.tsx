@@ -29,6 +29,7 @@ import {
   TableRow,
   TableHead,
   TableCell,
+  TableCaption,
 } from "@/components/ui/table";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -195,6 +196,10 @@ export default function TimeDepositRatesPage() {
           </div>
           <div className="mt-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
             <Table>
+              <TableCaption className="sr-only">
+                Time deposit interest rates from Philippine banks, compared by bank
+                and term.
+              </TableCaption>
               <TableHeader>
                 <TableRow>
                   <TableHead>Bank</TableHead>

@@ -91,13 +91,14 @@ export interface WithholdingTaxDetailedResult {
 export function calculateWithholdingTaxDetailed(
   input: WithholdingTaxDetailedInput,
 ): WithholdingTaxDetailedResult {
-  const {
-    periodGross,
-    frequency,
-    taxableAllowances = 0,
-    taxExemptAllowances = 0,
-    autoEstimateContributions,
-  } = input;
+  const { frequency, autoEstimateContributions } = input;
+
+  // Defensive: coerce money inputs so NaN/negative values can't yield garbage.
+  // UI fields already clamp, so this is a guard rather than a user-facing path.
+  const nonNeg = (n: number | undefined) => Math.max(0, Number(n) || 0);
+  const periodGross = nonNeg(input.periodGross);
+  const taxableAllowances = nonNeg(input.taxableAllowances);
+  const taxExemptAllowances = nonNeg(input.taxExemptAllowances);
 
   const periods = PERIODS_PER_YEAR[frequency];
   const toMonthly = periods / 12; // period amount × this = monthly-equivalent
@@ -114,9 +115,9 @@ export function calculateWithholdingTaxDetailed(
     pagibigMonthly = calculatePagIBIGEmployee(monthlyGross);
   } else {
     // Manual amounts are entered per pay period → convert to monthly.
-    sssMonthly = (input.sss ?? 0) * toMonthly;
-    philhealthMonthly = (input.philhealth ?? 0) * toMonthly;
-    pagibigMonthly = (input.pagibig ?? 0) * toMonthly;
+    sssMonthly = nonNeg(input.sss) * toMonthly;
+    philhealthMonthly = nonNeg(input.philhealth) * toMonthly;
+    pagibigMonthly = nonNeg(input.pagibig) * toMonthly;
   }
 
   const monthlyTaxableAllow = taxableAllowances * toMonthly;

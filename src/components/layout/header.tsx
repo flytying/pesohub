@@ -59,7 +59,7 @@ export function Header({ onBurger }: { onBurger: () => void }) {
 
       {/* Search */}
       <div ref={containerRef} className="relative w-full max-w-[440px]">
-        <Search className="pointer-events-none absolute left-[14px] top-1/2 size-[18px] -translate-y-1/2 text-gray-300" />
+        <Search aria-hidden="true" className="pointer-events-none absolute left-[14px] top-1/2 size-[18px] -translate-y-1/2 text-gray-300" />
         <input
           type="search"
           value={query}
