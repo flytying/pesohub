@@ -44,6 +44,7 @@ const QUEUE_PATH = join(__dirname, "topic-queue.json");
 const LEDGER_PATH = join(__dirname, "gsc-suggestions-log.json");
 const ISSUE_MD = "/tmp/gsc-issue.md";
 const ISSUE_TITLE = "/tmp/gsc-issue-title.txt";
+const UPDATE_COUNT = "/tmp/gsc-update-count.txt";
 const LEDGER_MAX_WEEKS = 12;
 // Bound the number of LLM analysis calls per weekly run (one call per
 // opportunity). Opportunities beyond this are dropped and logged — not silently.
@@ -195,10 +196,13 @@ async function runWeekly({ dryRun, fixture }) {
     nextId,
     weekLabel,
     opportunityCount: opportunities.length,
+    notifyHandle: process.env.NOTIFY_GH_HANDLE || null,
   });
   writeFileSync(ISSUE_MD, issue.body + "\n");
   writeFileSync(ISSUE_TITLE, issue.title + "\n");
-  console.log(`Wrote ${ISSUE_MD} (${issue.title}).`);
+  // Count of pages needing updates — the workflow assigns the issue when > 0.
+  writeFileSync(UPDATE_COUNT, String(issue.updateCount ?? 0) + "\n");
+  console.log(`Wrote ${ISSUE_MD} (${issue.title}). ${issue.updateCount} page(s) need updates.`);
 
   // 5. Append to the durable ledger (feeds the --feedback eval pass).
   const ledger = readLedger().filter((e) => e.week !== weekLabel);
