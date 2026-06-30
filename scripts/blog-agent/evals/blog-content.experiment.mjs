@@ -8,8 +8,8 @@
  * evaluators report the dataset-wide mean pass-rate and % publishable. Use it to
  * iterate on the evaluator prompt and to track content quality over time.
  *
- * Run:
- *   LANGFUSE_PUBLIC_KEY=... LANGFUSE_SECRET_KEY=... ANTHROPIC_API_KEY=... \
+ * Run (the judge runs on OpenAI):
+ *   LANGFUSE_PUBLIC_KEY=... LANGFUSE_SECRET_KEY=... OPENAI_API_KEY=... \
  *     node scripts/blog-agent/evals/blog-content.experiment.mjs
  *
  * Prereqs: the dataset must have items — run.mjs upserts them, or backfill with

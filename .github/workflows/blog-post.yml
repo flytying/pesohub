@@ -37,6 +37,8 @@ jobs:
         env:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # OpenAI runs the blog-content-evaluator (judge) — cross-provider grading.
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           # Optional — when unset, the agent's Langfuse layer is a clean no-op.
           LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
           LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
