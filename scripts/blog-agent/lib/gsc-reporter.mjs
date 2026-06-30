@@ -1,33 +1,71 @@
 /**
  * Renders the weekly GSC opportunity review into GitHub-issue markdown.
  *
- * Grouped by action: "new post" candidates carry a ready-to-paste
- * topic-queue.json snippet (tick the box, paste, done); "optimize existing"
- * items point at the page already ranking and what to improve. The existing
- * blog agent does the actual writing once a snippet lands in the queue.
+ * Each opportunity carries the Keyword Opportunity Agent's scored decision:
+ * recommended action, opportunity score + breakdown, cannibalization risk, the
+ * target page (for updates/merges), an internal-link plan, and — for new-post /
+ * supporting-page actions — a ready-to-paste topic-queue.json snippet (tick the
+ * box, paste, done). Held/rejected clusters are listed separately with the
+ * blocking reason. The blog agent does the actual writing once a snippet lands.
  */
 
-function metricsLine(m) {
+const ACTION_LABEL = {
+  publish_as_new_post: "🆕 New post",
+  create_supporting_page_with_internal_links: "🔗 Supporting page",
+  update_existing_page: "✏️ Update existing",
+  merge_with_existing_page: "🔀 Merge",
+  hold: "⏸️ Hold",
+  reject: "🚫 Reject",
+};
+
+function metricsLine(o) {
   const parts = [
-    `**${m.impressions.toLocaleString()}** impressions`,
-    `${m.clicks} clicks`,
-    `pos **${m.position}**`,
-    `CTR ${(m.ctr * 100).toFixed(1)}%`,
+    `**${(o.impressions ?? 0).toLocaleString()}** impressions`,
+    `${o.clicks ?? 0} clicks`,
+    `pos **${o.position ?? 0}**`,
+    `CTR ${((o.ctr ?? 0) * 100).toFixed(1)}%`,
   ];
-  if (m.deltaPct != null) parts.push(`${m.deltaPct >= 0 ? "+" : ""}${m.deltaPct}% WoW`);
+  if (o.deltaPct != null) parts.push(`${o.deltaPct >= 0 ? "+" : ""}${o.deltaPct}% WoW`);
   return parts.join(" · ");
 }
 
-/** Paste-ready topic-queue.json object for a new-post suggestion. */
-function queueSnippet(item, id) {
+function scoreLine(d) {
+  const b = d.score_breakdown ?? {};
+  return (
+    `score **${(d.opportunity_score ?? 0).toFixed(2)}** ` +
+    `(demand ${fmt(b.demand_score)}, pos ${fmt(b.position_opportunity_score)}, ` +
+    `ctr-gap ${fmt(b.ctr_gap_score)}, fit ${fmt(b.tool_business_fit_score)}, ` +
+    `source ${fmt(b.source_confidence_score)}, action ${fmt(b.content_action_score)}, ` +
+    `cannib −${fmt(b.cannibalization_penalty)})`
+  );
+}
+const fmt = (n) => (typeof n === "number" ? n.toFixed(2) : "—");
+
+function internalLinks(d) {
+  const links = d.recommended_internal_links ?? [];
+  if (!links.length) return [];
+  return [
+    "  - Internal links:",
+    ...links.map((l) => `    - [${l.anchor_text}](${l.target_page_or_tool}) — ${l.reason ?? ""}`),
+  ];
+}
+
+/** Paste-ready topic-queue.json object for an actionable new/supporting item. */
+function queueSnippet(decision, id) {
+  const seed = decision.topic_seed ?? {};
+  const linksTo = (decision.recommended_internal_links ?? [])
+    .map((l) => l.target_page_or_tool)
+    .filter((p) => typeof p === "string" && p.startsWith("/"))
+    .slice(0, 2);
   const obj = {
     id,
-    title: item.title,
-    slug: item.slug,
-    keywords: item.keywords,
-    category: item.category,
-    linksTo: item.linksTo,
-    brief: item.brief,
+    title: seed.title ?? "",
+    slug: seed.slug ?? "",
+    keywords: seed.keywords ?? decision.related_queries_to_include ?? [],
+    category: seed.category ?? "general",
+    linksTo,
+    brief: seed.brief ?? decision.recommended_content_angle ?? "",
+    recommendedAction: decision.recommended_action,
     evergreen: true,
     refreshIntervalDays: 120,
     status: "pending",
@@ -35,23 +73,35 @@ function queueSnippet(item, id) {
   return JSON.stringify(obj, null, 2);
 }
 
-function suggestionBlock(item, queueId) {
-  const judge = item.judge ? ` · judge **${item.judge.score.toFixed(2)}**` : "";
-  const lines = [
-    `- [ ] **${item.title}**`,
-    `  - Targets: \`${item.sourceQuery}\` · ${metricsLine(item.metrics)}${judge}`,
-    `  - _${item.rationale}_`,
-  ];
-  if (item.judge?.verdict) lines.push(`  - Judge: ${item.judge.verdict}`);
+function decisionBlock({ opp, decision }, queueId) {
+  const isNew =
+    decision.recommended_action === "publish_as_new_post" ||
+    decision.recommended_action === "create_supporting_page_with_internal_links";
+  const title = decision.topic_seed?.title || decision.primary_query || opp.query;
 
-  if (item.type === "optimize-existing") {
-    lines.push(`  - **Optimize:** \`${item.metrics.topPagePath}\` — ${item.brief}`);
-  } else {
+  const lines = [
+    `- [ ] **${title}** — ${ACTION_LABEL[decision.recommended_action] ?? decision.recommended_action}`,
+    `  - Targets: \`${decision.primary_query ?? opp.query}\` · ${metricsLine(opp)}`,
+    `  - ${scoreLine(decision)} · cannibalization **${decision.cannibalization_risk}** · source facts **${decision.source_fact_status}**`,
+  ];
+  if (decision.reason) lines.push(`  - _${decision.reason}_`);
+  if (decision.content_gap) lines.push(`  - Content gap: ${decision.content_gap}`);
+  if (
+    (decision.recommended_action === "update_existing_page" ||
+      decision.recommended_action === "merge_with_existing_page") &&
+    decision.target_page_to_update
+  ) {
+    lines.push(`  - **Target page:** \`${decision.target_page_to_update}\``);
+  }
+  lines.push(...internalLinks(decision));
+  if (decision.next_step) lines.push(`  - Next step: ${decision.next_step}`);
+
+  if (isNew) {
     lines.push(
       "  <details><summary>Paste into <code>topic-queue.json</code></summary>",
       "",
       "  ```json",
-      ...queueSnippet(item, queueId).split("\n").map((l) => `  ${l}`),
+      ...queueSnippet(decision, queueId).split("\n").map((l) => `  ${l}`),
       "  ```",
       "  </details>"
     );
@@ -59,55 +109,71 @@ function suggestionBlock(item, queueId) {
   return lines.join("\n");
 }
 
+const PRIORITY_ORDER = ["A", "B", "C"];
+const PRIORITY_TITLE = {
+  A: "## 🅰️ Priority A — do first",
+  B: "## 🅱️ Priority B — good, less urgent",
+  C: "## 🅲 Priority C — monitor / batch later",
+};
+
 /**
  * @param {{
  *   windows: {current:{start,end}, prior:{start,end}},
- *   items: Array,            // suggestions enriched with .metrics and .judge
- *   nextId: number,          // next free topic-queue id
- *   weekLabel: string,       // e.g. "2026-06-22"
- *   opportunityCount: number // total opportunities detected (pre-suggestion)
+ *   decided: Array<{opp: object, decision: object}>,
+ *   nextId: number,
+ *   weekLabel: string,
+ *   opportunityCount: number
  * }} input
  * @returns {{title: string, body: string}}
  */
-export function buildIssue({ windows, items, nextId, weekLabel, opportunityCount }) {
-  const newPosts = items.filter((i) => i.type === "new-post");
-  const optimize = items.filter((i) => i.type === "optimize-existing");
+export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCount }) {
+  const actionable = decided.filter(
+    (d) => !["hold", "reject"].includes(d.decision.recommended_action)
+  );
+  const held = decided.filter((d) =>
+    ["hold", "reject"].includes(d.decision.recommended_action)
+  );
 
   let id = nextId;
   const body = [];
   body.push(
     `_Search Console window: **${windows.current.start} → ${windows.current.end}** (vs prior ${windows.prior.start} → ${windows.prior.end})._`,
     "",
-    `Detected **${opportunityCount}** opportunities → **${items.length}** topic suggestions. Tick a box and paste its snippet into \`scripts/blog-agent/topic-queue.json\`; the weekly blog agent writes it on the next run.`,
+    `Analyzed **${opportunityCount}** opportunities → **${actionable.length}** actionable, **${held.length}** held/rejected. ` +
+      "Tick a box and paste its snippet into `scripts/blog-agent/topic-queue.json`; the weekly blog agent writes it on the next run. " +
+      "Update/merge items have no snippet — apply them to the live page directly.",
     ""
   );
 
-  if (newPosts.length) {
-    body.push("## 🎯 New post candidates", "");
-    for (const item of newPosts) {
-      body.push(suggestionBlock(item, id++), "");
+  for (const p of PRIORITY_ORDER) {
+    const group = actionable.filter((d) => d.decision.priority === p);
+    if (!group.length) continue;
+    body.push(PRIORITY_TITLE[p], "");
+    for (const d of group) {
+      const isNew = ["publish_as_new_post", "create_supporting_page_with_internal_links"].includes(
+        d.decision.recommended_action
+      );
+      body.push(decisionBlock(d, isNew ? id++ : 0), "");
     }
   }
 
-  if (optimize.length) {
-    body.push(
-      "## 🔧 Optimize existing pages",
-      "",
-      "_We already rank for these — improve the live page rather than writing new._",
-      ""
-    );
-    for (const item of optimize) {
-      body.push(suggestionBlock(item, id++), "");
+  if (held.length) {
+    body.push("## ⏸️ Held / rejected", "");
+    for (const { opp, decision } of held) {
+      body.push(
+        `- ${ACTION_LABEL[decision.recommended_action]} \`${decision.primary_query ?? opp.query}\` — ${decision.reason ?? decision.next_step ?? "blocked"}`
+      );
     }
+    body.push("");
   }
 
-  if (!items.length) {
-    body.push("_No new opportunities cleared the thresholds this week._", "");
+  if (!decided.length) {
+    body.push("_No opportunities cleared the thresholds this week._", "");
   }
 
   body.push(
     "---",
-    `<sub>Generated by \`scripts/blog-agent/gsc-opportunities.mjs\`. Suggestions + judge scores logged to the \`gsc-opportunities\` Braintrust dataset. Closing/checking boxes feeds the \`--feedback\` eval pass.</sub>`
+    "<sub>Generated by `scripts/blog-agent/gsc-opportunities.mjs`. Decisions + scores logged to the `gsc-opportunities` Langfuse dataset. Closing/checking boxes feeds the `--feedback` eval pass.</sub>"
   );
 
   return {

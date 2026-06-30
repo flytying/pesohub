@@ -6,7 +6,7 @@
  *
  * Auth: a Google service account (JWT). The account's email must be added as a
  * user on the Search Console property (Settings → Users and permissions).
- * Unlike the blog agent's optional Braintrust layer, this job REQUIRES creds —
+ * Unlike the blog agent's optional Langfuse layer, this job REQUIRES creds —
  * missing creds throw a clear, actionable error rather than no-op'ing.
  *
  * Env:

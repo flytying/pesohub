@@ -13,18 +13,20 @@
  *   ANTHROPIC_API_KEY — Anthropic API key for Claude
  */
 
+import "./lib/instrumentation.mjs"; // must load first — registers the OTel tracer
 import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { run as runWriter } from "./writer.mjs";
 import { run as runReviewer } from "./reviewer.mjs";
-import { writePrBody } from "./lib/reporter.mjs";
+import { writePrBody, writePackagePrBody } from "./lib/reporter.mjs";
 import { SYSTEM_PROMPT_VERSION, MODEL } from "./lib/claude-writer.mjs";
 import {
   tracedGeneration,
   logSpan,
-  flushBraintrust,
-  upsertDatasetRecord,
-} from "./lib/braintrust.mjs";
+  logScore,
+  flush,
+  upsertBlogPostRecord,
+} from "./lib/observability.mjs";
 
 const QUEUE_PATH = resolve(import.meta.dirname, "topic-queue.json");
 
@@ -147,6 +149,8 @@ async function main() {
       category: result.topic.category,
       linksTo: result.topic.linksTo || [],
       brief: result.topic.brief,
+      recommendedAction: result.topic.recommendedAction || "publish_as_new_post",
+      decision: result.topic.decision ?? null,
     };
     console.log(
       `\n📋 Topic #${topicId}: ${topicMeta.title}${isRefresh ? " (refresh)" : ""}`
@@ -158,133 +162,150 @@ async function main() {
   console.log(`\n🚀 PesoHub Blog Agent`);
   console.log(`════════════════════════════════════════`);
 
-  // Wrap the whole generation in a Braintrust span (no-op without a key).
-  // The reviewer runs inside the span so its score attaches to the same trace.
-  const { slug, review } = await tracedGeneration(
-    "blog-generation",
-    async (span) => {
-      logSpan(span, {
-        input: {
-          keyword,
-          slug: topicMeta.slug ?? null,
-          title: topicMeta.title ?? null,
-          category: topicMeta.category ?? null,
-          mode,
-        },
-        metadata: {
-          systemPromptVersion: SYSTEM_PROMPT_VERSION,
-          model: MODEL,
-          isRefresh,
-          topicId,
-        },
-      });
-
-      // Step 1: Writer (Anthropic calls auto-traced as child spans)
-      const { slug, postData, research } = await runWriter(keyword, topicMeta, {
+  // Wrap the whole generation in a Langfuse span (no-op without keys). The
+  // reviewer runs inside the span so its scores attach to the same trace.
+  const outcome = await tracedGeneration("blog-generation", async (span) => {
+    logSpan(span, {
+      input: {
+        keyword,
+        slug: topicMeta.slug ?? null,
+        title: topicMeta.title ?? null,
+        category: topicMeta.category ?? null,
+        recommendedAction: topicMeta.recommendedAction,
+        mode,
+      },
+      metadata: {
+        systemPromptVersion: SYSTEM_PROMPT_VERSION,
+        model: MODEL,
         isRefresh,
-      });
+        topicId,
+      },
+    });
 
-      // Step 2: Reviewer — runs after writing, score attaches to the span
-      const review = await runReviewer(slug, keyword, postData, research);
+    // Step 1: Writer — branches on recommended_action.
+    const writerResult = await runWriter(keyword, topicMeta, { isRefresh });
 
-      // Extract the Unsplash photo id so duplicate hero images across posts
-      // are visible in Braintrust (group logs by imageId to spot repeats).
-      const imageId =
-        (postData.image?.src ?? "").match(/unsplash\.com\/([^?]+)/)?.[1] ?? null;
-
+    // Non-post action (update/merge/hold/reject): emit a human-apply package.
+    if (writerResult.kind === "package") {
       logSpan(span, {
-        output: {
-          slug,
-          title: postData.title,
-          excerpt: postData.excerpt,
-          wordCount: review.wordCount,
-          sectionCount: postData.sections.length,
-          faqCount: postData.faqs.length,
-          imageId,
-        },
-        // Braintrust scores must be 0..1 — never log raw 0–100.
-        scores: {
-          quality: review.score / 100,
-          approved: review.approved ? 1 : 0,
-        },
-        metadata: {
-          issues: review.issues,
-          suggestions: review.suggestions,
-          imageId,
-        },
+        output: { kind: "package", action: writerResult.action, slug: writerResult.slug },
+        metadata: { action: writerResult.action, file: writerResult.file },
       });
-
-      // Upsert this post into the "blog-posts" dataset (keyed by slug, so a
-      // refresh overwrites). input = re-runnable topic, expected = the
-      // generated post (golden baseline), metadata = provenance + scores.
-      upsertDatasetRecord({
-        id: slug,
-        input: {
-          keyword,
-          category: topicMeta.category ?? postData.category,
-          keywords: postData.keywords,
-          links: postData.relatedSlugs,
-          title: postData.title,
-        },
-        expected: {
-          title: postData.title,
-          metaTitle: postData.metaTitle,
-          metaDescription: postData.metaDescription,
-          directAnswer: postData.directAnswer,
-          excerpt: postData.excerpt,
-          sections: postData.sections,
-          faqs: postData.faqs,
-          readTime: postData.readTime,
-        },
-        metadata: {
-          slug,
-          systemPromptVersion: SYSTEM_PROMPT_VERSION,
-          model: MODEL,
-          score: review.score,
-          approved: review.approved,
-          wordCount: review.wordCount,
-          imageId,
-          publishedAt: postData.publishedAt,
-          updatedAt: postData.updatedAt,
-          isRefresh,
-        },
+      writePackagePrBody({
+        slug: writerResult.slug,
+        action: writerResult.action,
+        keyword,
+        file: writerResult.file,
+        markdown: writerResult.markdown,
       });
+      if (queue && topicId !== null) markTopicCompleted(queue, topicId);
+      return { kind: "package", slug: writerResult.slug, action: writerResult.action };
+    }
 
-      // Step 3: PR body
-      writePrBody({
+    // Post action: review + gate + dataset.
+    const { slug, postData, research } = writerResult;
+    const review = await runReviewer(slug, keyword, postData, research);
+
+    // Unsplash photo id — surfaces duplicate hero images across posts in traces.
+    const imageId =
+      (postData.image?.src ?? "").match(/unsplash\.com\/([^?]+)/)?.[1] ?? null;
+
+    logSpan(span, {
+      output: {
         slug,
         title: postData.title,
-        keyword,
-        review,
+        excerpt: postData.excerpt,
         wordCount: review.wordCount,
-      });
+        sectionCount: postData.sections.length,
+        faqCount: postData.faqs.length,
+        imageId,
+      },
+      metadata: {
+        publishRecommendation: review.publishRecommendation,
+        criticalPassed: review.criticalPassed,
+        failedCriteria: review.failedCriteria,
+        issues: review.issues,
+        suggestions: review.suggestions,
+        imageId,
+      },
+    });
+    logScore(span, "criteria_pass_rate", review.passRate, { dataType: "NUMERIC" });
+    logScore(span, "approved", review.approved ? 1 : 0, { dataType: "BOOLEAN" });
+    logScore(span, "publish_recommendation", review.publishRecommendation, {
+      dataType: "CATEGORICAL",
+    });
 
-      // Step 4: Mark queue topic as completed (resets evergreen staleness clock)
-      if (queue && topicId !== null) {
-        markTopicCompleted(queue, topicId);
-      }
+    // Upsert into the "blog-posts" dataset (keyed by slug — refresh overwrites).
+    await upsertBlogPostRecord({
+      id: slug,
+      input: {
+        keyword,
+        category: topicMeta.category ?? postData.category,
+        keywords: postData.keywords,
+        links: postData.relatedSlugs,
+        title: postData.title,
+      },
+      expected: {
+        title: postData.title,
+        metaTitle: postData.metaTitle,
+        metaDescription: postData.metaDescription,
+        directAnswer: postData.directAnswer,
+        excerpt: postData.excerpt,
+        sections: postData.sections,
+        faqs: postData.faqs,
+        readTime: postData.readTime,
+      },
+      metadata: {
+        slug,
+        systemPromptVersion: SYSTEM_PROMPT_VERSION,
+        model: MODEL,
+        publishRecommendation: review.publishRecommendation,
+        passRate: review.passRate,
+        approved: review.approved,
+        wordCount: review.wordCount,
+        imageId,
+        publishedAt: postData.publishedAt,
+        updatedAt: postData.updatedAt,
+        isRefresh,
+      },
+    });
 
-      return { slug, review };
-    }
-  );
+    writePrBody({
+      slug,
+      title: postData.title,
+      keyword,
+      review,
+      wordCount: review.wordCount,
+    });
+
+    if (queue && topicId !== null) markTopicCompleted(queue, topicId);
+
+    return { kind: "post", slug, review };
+  });
 
   // Final status
   console.log(`\n════════════════════════════════════════`);
-  if (review.approved) {
-    console.log(`✅ Article approved! Slug: ${slug}`);
+  if (outcome.kind === "package") {
+    console.log(`📦 Content action package (${outcome.action}): ${outcome.slug}`);
+    console.log(`   PR body: /tmp/pr-body.md`);
+  } else if (outcome.review.approved) {
+    console.log(`✅ Article approved (publish)! Slug: ${outcome.slug}`);
     console.log(`   PR body: /tmp/pr-body.md`);
   } else {
-    console.log(`⚠️  Article has issues (score: ${review.score}/100)`);
-    console.log(`   Issues: ${review.issues.join("; ")}`);
+    console.log(
+      `⚠️  Article verdict: ${outcome.review.publishRecommendation} ` +
+        `(${outcome.review.passed}/${outcome.review.total} criteria)`
+    );
+    console.log(`   Issues: ${outcome.review.issues.join("; ")}`);
     console.log(`   PR body still written for review: /tmp/pr-body.md`);
   }
 
   // REQUIRED: flush before exit — beforeExit does not fire on process.exit().
-  await flushBraintrust();
+  await flush();
 }
 
 main().catch(async (err) => {
   console.error("❌ Blog agent failed:", err);
-  await flushBraintrust();
+  await flush();
   process.exit(1);
 });

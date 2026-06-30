@@ -1,188 +1,226 @@
 /**
- * Claude suggestion layer for the GSC opportunity finder.
+ * Keyword Opportunity Agent layer for the GSC opportunity finder.
  *
- * Turns ranked Search Console opportunities into topic-queue-shaped suggestions
- * a human can paste straight into scripts/blog-agent/topic-queue.json. Reuses
- * the blog writer's tool_use → forced-JSON pattern and the same wrapped client
- * (so calls are auto-traced when Braintrust is enabled).
- *
- * Also exposes an LLM-judge that scores each suggestion 0..1 — logged to the
- * "gsc-opportunities" Braintrust dataset as the eval signal until the human
- * accept/reject ground truth arrives via the `--feedback` pass.
+ * Replaces the former "propose a topic + LLM judge" pair with a single scored
+ * decision per opportunity, following the canonical keyword-opportunity-agent
+ * prompt (Langfuse production label, committed fallback). For each classified
+ * GSC opportunity the agent returns a recommended content action, an
+ * opportunity score with breakdown, cannibalization analysis, an internal-link
+ * plan, and (for actionable items) a `topic_seed` ready to paste into
+ * topic-queue.json.
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import { maybeWrapAnthropic } from "./braintrust.mjs";
+import { observeGeneration, getPrompt } from "./observability.mjs";
 import { MODEL } from "./claude-writer.mjs";
+import {
+  KEYWORD_OPPORTUNITY_PROMPT,
+  KEYWORD_OPPORTUNITY_PROMPT_NAME,
+} from "./prompts/keyword-opportunity.mjs";
 
-const anthropic = maybeWrapAnthropic(new Anthropic());
+const anthropic = new Anthropic();
 
 const BLOG_CATEGORIES = [
   "savings", "investing", "tax", "government", "banking", "budgeting",
   "insurance", "general",
 ];
 
-const SYSTEM_PROMPT = `You are an SEO content strategist for PesoHub (pesohub.ph), a Philippine personal finance site.
+const ACTIONS = [
+  "update_existing_page",
+  "publish_as_new_post",
+  "create_supporting_page_with_internal_links",
+  "merge_with_existing_page",
+  "reject",
+  "hold",
+];
 
-You are given Google Search Console opportunities — search queries where PesoHub already gets impressions but is leaving clicks on the table (ranking just outside the top, no dedicated page, or fast-rising demand).
+/** Actions that should auto-generate a paste-ready topic-queue snippet. */
+export const ACTIONABLE_NEW = new Set([
+  "publish_as_new_post",
+  "create_supporting_page_with_internal_links",
+]);
 
-For each opportunity, propose a concrete blog topic that targets it. Be specific and Philippine-focused: name real banks/agencies (BSP, BIR, SSS, PhilHealth, Pag-IBIG, Maya, GoTyme, SeaBank, Tonik, CIMB), use ₱ figures, and write a tight editorial brief that steers the angle — not a generic summary.
-
-Match the existing topic-queue voice: a "brief" is 2-4 sentences telling the writer exactly what angle to lead with and what to cover.`;
-
-const SUGGEST_TOOL = {
-  name: "save_suggestions",
-  description: "Save the ranked blog topic suggestions derived from GSC opportunities.",
-  input_schema: {
-    type: "object",
-    properties: {
-      suggestions: {
-        type: "array",
-        items: {
-          type: "object",
-          properties: {
-            sourceQuery: { type: "string", description: "The GSC query this targets (verbatim)." },
-            type: {
-              type: "string",
-              enum: ["new-post", "optimize-existing"],
-              description: "new-post = write a dedicated article; optimize-existing = improve a page we already rank with.",
-            },
-            title: { type: "string", description: "Proposed article title (Philippine-specific)." },
-            slug: { type: "string", description: "URL slug, kebab-case, ends with -philippines where natural." },
-            category: { type: "string", enum: BLOG_CATEGORIES },
-            keywords: {
-              type: "array",
-              items: { type: "string" },
-              description: "3-7 target keywords incl. the source query + close variants.",
-            },
-            linksTo: {
-              type: "array",
-              items: { type: "string" },
-              description: "1-2 existing PesoHub page paths to link to (choose from the provided list).",
-            },
-            brief: { type: "string", description: "2-4 sentence editorial angle steering the writer." },
-            rationale: { type: "string", description: "1 sentence: why this is worth writing, citing the GSC metrics." },
-          },
-          required: ["sourceQuery", "type", "title", "slug", "category", "keywords", "linksTo", "brief", "rationale"],
-        },
-      },
-    },
-    required: ["suggestions"],
+const LINK = {
+  type: "object",
+  properties: {
+    anchor_text: { type: "string" },
+    target_page_or_tool: { type: "string" },
+    reason: { type: "string" },
   },
 };
 
-const JUDGE_TOOL = {
-  name: "save_scores",
-  description: "Score each suggestion for how well it exploits the GSC opportunity.",
+const ANALYSIS_TOOL = {
+  name: "save_analysis",
+  description: "Save the scored keyword-opportunity decision in the exact output schema.",
   input_schema: {
     type: "object",
     properties: {
-      scores: {
+      search_intent_cluster: { type: "string" },
+      primary_query: { type: "string" },
+      related_queries: { type: "array", items: { type: "string" } },
+      top_page_path: { type: "string" },
+      recommended_action: { type: "string", enum: ACTIONS },
+      priority: { type: "string", enum: ["A", "B", "C", "Hold"] },
+      opportunity_score: { type: "number" },
+      estimated_click_gain: { type: "number" },
+      score_breakdown: {
+        type: "object",
+        properties: {
+          demand_score: { type: "number" },
+          position_opportunity_score: { type: "number" },
+          ctr_gap_score: { type: "number" },
+          tool_business_fit_score: { type: "number" },
+          source_confidence_score: { type: "number" },
+          content_action_score: { type: "number" },
+          cannibalization_penalty: { type: "number" },
+        },
+        required: [
+          "demand_score",
+          "position_opportunity_score",
+          "ctr_gap_score",
+          "tool_business_fit_score",
+          "source_confidence_score",
+          "content_action_score",
+          "cannibalization_penalty",
+        ],
+      },
+      reason: { type: "string" },
+      why_this_cluster_matters: { type: "string" },
+      cannibalization_risk: { type: "string", enum: ["low", "medium", "high"] },
+      cannibalization_notes: { type: "string" },
+      target_page_to_update: { type: "string" },
+      content_gap: { type: "string" },
+      recommended_content_angle: { type: "string" },
+      recommended_internal_links: { type: "array", items: LINK },
+      source_fact_status: { type: "string", enum: ["complete", "partial", "missing"] },
+      related_queries_to_include: { type: "array", items: { type: "string" } },
+      related_queries_to_exclude: {
         type: "array",
         items: {
           type: "object",
-          properties: {
-            slug: { type: "string" },
-            score: { type: "number", description: "0..1 — real, non-duplicate, on-brand opportunity well-matched by this topic?" },
-            verdict: { type: "string", description: "1 short sentence justifying the score." },
-          },
-          required: ["slug", "score", "verdict"],
+          properties: { query: { type: "string" }, reason: { type: "string" } },
+        },
+      },
+      next_step: { type: "string" },
+      // Extra (not in the canonical OUTPUT JSON): a paste-ready queue seed for
+      // actionable new-post / supporting-page items.
+      topic_seed: {
+        type: "object",
+        description: "Only for publish_as_new_post / create_supporting_page_with_internal_links.",
+        properties: {
+          title: { type: "string", description: "Proposed Philippine-specific article title." },
+          slug: { type: "string", description: "kebab-case URL slug, ends with -philippines where natural." },
+          category: { type: "string", enum: BLOG_CATEGORIES },
+          keywords: { type: "array", items: { type: "string" } },
+          brief: { type: "string", description: "2-4 sentence editorial angle for the writer." },
         },
       },
     },
-    required: ["scores"],
+    required: [
+      "recommended_action",
+      "priority",
+      "opportunity_score",
+      "score_breakdown",
+      "cannibalization_risk",
+      "source_fact_status",
+    ],
   },
 };
+
+const WEIGHTS = {
+  demand_score: 0.25,
+  position_opportunity_score: 0.2,
+  ctr_gap_score: 0.2,
+  tool_business_fit_score: 0.15,
+  source_confidence_score: 0.1,
+  content_action_score: 0.1,
+};
+
+/** Recompute the weighted opportunity score from a breakdown (code guard). */
+export function weightedScore(b = {}) {
+  const sum = Object.entries(WEIGHTS).reduce(
+    (acc, [k, w]) => acc + (Number(b[k]) || 0) * w,
+    0
+  );
+  const penalty = Number(b.cannibalization_penalty) || 0;
+  return Math.max(0, Math.min(1, sum - penalty));
+}
 
 function extractToolInput(message, toolName) {
   if (message.stop_reason === "max_tokens") {
-    throw new Error("Response truncated (hit max_tokens).");
+    throw new Error("Analysis truncated (hit max_tokens).");
   }
   const block = message.content.find((b) => b.type === "tool_use" && b.name === toolName);
   if (!block) {
     const text = message.content.find((b) => b.type === "text")?.text ?? "";
-    throw new Error(`Claude did not call tool "${toolName}". stop_reason: ${message.stop_reason}. Text: ${text.slice(0, 300)}`);
+    throw new Error(`Agent did not call "${toolName}". stop_reason: ${message.stop_reason}. ${text.slice(0, 200)}`);
   }
   return block.input;
 }
 
-function opportunityLines(opportunities) {
-  return opportunities
-    .map(
-      (o, i) =>
-        `${i + 1}. [${o.opportunity}] "${o.query}" — ${o.impressions} impressions, ${o.clicks} clicks, pos ${o.position}, CTR ${(o.ctr * 100).toFixed(1)}%, top page ${o.topPagePath}. ${o.reason}`
-    )
-    .join("\n");
+function metricsLine(o) {
+  return (
+    `${o.impressions} impressions, ${o.clicks} clicks, ` +
+    `avg position ${o.position}, CTR ${(o.ctr * 100).toFixed(2)}%` +
+    (o.deltaPct != null ? `, ${o.deltaPct >= 0 ? "+" : ""}${o.deltaPct}% WoW` : "") +
+    `. ${o.reason ?? ""}`
+  );
 }
 
 /**
- * Generate topic suggestions for the given ranked opportunities.
+ * Analyze one classified GSC opportunity into a scored content-action decision.
  *
- * @param {Array} opportunities  from classifyOpportunities()
- * @param {string[]} pagePaths   existing PesoHub page paths for linksTo (coverage.allSlugs)
- * @returns {Promise<Array>} suggestion objects (see SUGGEST_TOOL)
+ * @param {object} opp  from classifyOpportunities()
+ * @param {{pagePaths?: string[], overlappingPages?: string, sourceFacts?: string}} [ctx]
+ * @returns {Promise<object>} the decision object (see ANALYSIS_TOOL)
  */
-export async function generateSuggestions(opportunities, pagePaths = []) {
-  if (opportunities.length === 0) return [];
+export async function analyzeOpportunity(opp, ctx = {}) {
+  const pagePaths = (ctx.pagePaths ?? []).filter((s) => s.startsWith("/")).slice(0, 60);
 
-  const linkOptions = pagePaths.filter((s) => s.startsWith("/")).slice(0, 80);
+  const prompt = await getPrompt(KEYWORD_OPPORTUNITY_PROMPT_NAME, KEYWORD_OPPORTUNITY_PROMPT);
+  const system = prompt.compile({
+    primary_query: opp.query,
+    related_queries: "None provided",
+    search_console_data: metricsLine(opp),
+    impressions: String(opp.impressions ?? 0),
+    average_position: String(opp.position ?? 0),
+    ctr: `${((opp.ctr ?? 0) * 100).toFixed(2)}%`,
+    top_page_path: opp.topPagePath ?? "/",
+    search_intent_cluster: opp.opportunity ?? "unknown",
+    topic: opp.query,
+    related_pages_or_tools: pagePaths.join("\n") || "None provided",
+    overlapping_existing_pages: ctx.overlappingPages || "None provided",
+    source_facts: ctx.sourceFacts || "None provided",
+  });
 
-  const message = await anthropic.messages
-    .stream({
-      model: MODEL,
-      max_tokens: 8192,
-      system: SYSTEM_PROMPT,
-      tools: [SUGGEST_TOOL],
-      tool_choice: { type: "tool", name: SUGGEST_TOOL.name },
-      messages: [
-        {
-          role: "user",
-          content: `Here are this week's Google Search Console opportunities for PesoHub, ranked:
+  const message = await observeGeneration(
+    "keyword-opportunity",
+    { model: MODEL, prompt: prompt.handle, input: opp.query },
+    () =>
+      anthropic.messages
+        .stream({
+          model: MODEL,
+          max_tokens: 4096,
+          system,
+          tools: [ANALYSIS_TOOL],
+          tool_choice: { type: "tool", name: ANALYSIS_TOOL.name },
+          messages: [
+            {
+              role: "user",
+              content:
+                "Analyze this opportunity and call save_analysis. For publish_as_new_post or create_supporting_page_with_internal_links, also fill topic_seed (title, slug, category, keywords, brief) so it can be pasted into topic-queue.json.",
+            },
+          ],
+        })
+        .finalMessage()
+  );
 
-${opportunityLines(opportunities)}
+  const decision = extractToolInput(message, ANALYSIS_TOOL.name);
 
-Existing PesoHub pages you may reference in "linksTo" (use exact paths):
-${linkOptions.join("\n")}
-
-Propose one blog topic per opportunity (skip any that are genuinely too thin to be worth a dedicated article). Call save_suggestions.`,
-        },
-      ],
-    })
-    .finalMessage();
-
-  return extractToolInput(message, SUGGEST_TOOL.name).suggestions ?? [];
-}
-
-/**
- * LLM-judge: score each suggestion 0..1 against its source opportunity. Used as
- * the Braintrust eval signal. Returns a Map slug → {score, verdict}.
- */
-export async function judgeSuggestions(suggestions, opportunities) {
-  if (suggestions.length === 0) return new Map();
-
-  const message = await anthropic.messages
-    .stream({
-      model: MODEL,
-      max_tokens: 4096,
-      system:
-        "You are a strict SEO editor grading topic suggestions against the Search Console data that motivated them. Reward suggestions that target a real, high-impression, under-served query with a specific, non-duplicate, Philippine-focused angle. Penalize vague, off-brand, or redundant topics.",
-      tools: [JUDGE_TOOL],
-      tool_choice: { type: "tool", name: JUDGE_TOOL.name },
-      messages: [
-        {
-          role: "user",
-          content: `GSC opportunities:
-${opportunityLines(opportunities)}
-
-Suggestions to score:
-${suggestions.map((s) => `- slug: ${s.slug}\n  targets: "${s.sourceQuery}" (${s.type})\n  title: ${s.title}\n  brief: ${s.brief}`).join("\n")}
-
-Score each suggestion 0..1. Call save_scores.`,
-        },
-      ],
-    })
-    .finalMessage();
-
-  const { scores } = extractToolInput(message, JUDGE_TOOL.name);
-  return new Map((scores ?? []).map((s) => [s.slug, { score: Math.max(0, Math.min(1, s.score)), verdict: s.verdict }]));
+  // Code guard: clamp the model's score and reconcile with the weighted formula.
+  decision.primary_query = decision.primary_query || opp.query;
+  decision.top_page_path = decision.top_page_path || opp.topPagePath || "/";
+  const recomputed = weightedScore(decision.score_breakdown);
+  decision.opportunity_score = recomputed;
+  return decision;
 }

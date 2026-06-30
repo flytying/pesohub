@@ -1,13 +1,30 @@
 /**
- * Blog Writer Agent
+ * Blog Writer Agent (action-aware).
  *
- * Takes a keyword (and optional topic metadata), researches the topic,
- * generates an outline, writes the full article, and saves the data file.
+ * Driven by the upstream Keyword Opportunity Agent's recommended_action,
+ * carried on the topic-queue entry as `recommendedAction` (defaults to
+ * publish_as_new_post):
+ *
+ *   publish_as_new_post / create_supporting_page_with_internal_links
+ *     → research → outline → article → BlogPostData → src/data/blog/<slug>.ts
+ *       + registries. Returns { kind: "post", ... }.
+ *   update_existing_page / merge_with_existing_page / hold / reject
+ *     → a Markdown "content action package" written to
+ *       scripts/blog-agent/output/<slug>-<action>.md for a human to apply.
+ *       No live page is auto-edited (static TS site). Returns { kind: "package", ... }.
  */
 
+import { mkdirSync, writeFileSync } from "fs";
+import { resolve } from "path";
 import { getUnsplashImage } from "./lib/unsplash-image.mjs";
 import { researchTopic } from "./lib/tavily-search.mjs";
-import { generateOutline, writeArticle } from "./lib/claude-writer.mjs";
+import {
+  generateOutline,
+  writeArticle,
+  writeActionPackage,
+  getWritingSystem,
+  buildWritingVars,
+} from "./lib/claude-writer.mjs";
 import {
   writePostDataFile,
   keywordToSlug,
@@ -15,35 +32,62 @@ import {
 } from "./lib/file-generator.mjs";
 import { updateRegistries } from "./lib/registry-updater.mjs";
 
+const OUTPUT_DIR = resolve(import.meta.dirname, "output");
+
+/** Actions that produce a new standalone post file. */
+const POST_ACTIONS = new Set([
+  "publish_as_new_post",
+  "create_supporting_page_with_internal_links",
+]);
+
 /**
  * Run the writer agent.
  *
- * @param {string} keyword - Target keyword
- * @param {object} [topicMeta] - Optional metadata from topic queue (title, slug, linksTo, category)
+ * @param {string} keyword
+ * @param {object} [topicMeta]  queue metadata (title, slug, keywords, category,
+ *                              linksTo, brief, recommendedAction, decision)
  * @param {object} [options]
- * @param {boolean} [options.isRefresh] - Evergreen refresh of an existing post
- * @returns {Promise<{slug: string, postData: object, research: object}>}
+ * @param {boolean} [options.isRefresh]
+ * @returns {Promise<object>} { kind: "post"|"package", ... }
  */
 export async function run(keyword, topicMeta = {}, { isRefresh = false } = {}) {
+  const action = topicMeta.recommendedAction || "publish_as_new_post";
   console.log(`\n🖊️  Blog Writer Agent`);
-  console.log(`  Keyword: "${keyword}"`);
+  console.log(`  Keyword: "${keyword}"  ·  Action: ${action}`);
 
-  // 1. Research
+  // 1. Research (source facts for the writing agent).
   const research = await researchTopic(keyword);
 
-  // 2. Generate outline
-  const outline = await generateOutline(keyword, research, topicMeta);
+  // 2. Compile the writing-agent system prompt for this task.
+  const vars = buildWritingVars(keyword, topicMeta, research, topicMeta.decision ?? null);
+  const ctx = await getWritingSystem(vars);
 
-  // 3. Write full article
-  const article = await writeArticle(outline, research, topicMeta);
-
-  // 4. Assemble BlogPostData
   const slug = topicMeta.slug || keywordToSlug(keyword);
+
+  // ── Non-post actions: emit a Markdown action package, no file/registry write.
+  if (!POST_ACTIONS.has(action)) {
+    const markdown = await writeActionPackage(ctx, keyword);
+    mkdirSync(OUTPUT_DIR, { recursive: true });
+    const file = resolve(OUTPUT_DIR, `${slug}-${action}.md`);
+    writeFileSync(
+      file,
+      `# Content action: ${action}\n\n` +
+        `- Keyword: \`${keyword}\`\n- Target page: \`${topicMeta.linksTo?.[0] ?? "n/a"}\`\n\n---\n\n` +
+        markdown +
+        "\n",
+      "utf-8"
+    );
+    console.log(`  📦 Wrote action package: scripts/blog-agent/output/${slug}-${action}.md`);
+    return { kind: "package", slug, action, file, markdown, research };
+  }
+
+  // ── Post actions: structured outline → article → BlogPostData.
+  const outline = await generateOutline(keyword, research, topicMeta, ctx);
+  const article = await writeArticle(outline, research, topicMeta, ctx);
+
   const today = new Date().toISOString().split("T")[0];
 
   // Evergreen refresh: preserve the original publish date, bump updatedAt.
-  // Derive `refreshing` from file existence too, so accidental keyword
-  // re-runs of an existing slug also preserve publishedAt.
   const existingPublishedAt = readExistingPublishedAt(slug);
   const refreshing = isRefresh || existingPublishedAt !== null;
   if (refreshing && existingPublishedAt) {
@@ -83,5 +127,5 @@ export async function run(keyword, topicMeta = {}, { isRefresh = false } = {}) {
   updateRegistries(postData);
 
   console.log(`  ✅ Writer complete: ${slug}`);
-  return { slug, postData, research };
+  return { kind: "post", action, slug, postData, research };
 }

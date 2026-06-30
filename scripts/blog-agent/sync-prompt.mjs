@@ -1,107 +1,57 @@
 #!/usr/bin/env node
 
 /**
- * Sync the blog-agent SYSTEM_PROMPT to the Braintrust prompt registry (mirror).
+ * Seed the three canonical blog-agent prompts into Langfuse prompt management.
  *
- * The repo is the runtime source of truth — this only keeps the Braintrust
- * "Prompts" entry in sync for Playground/Experiment use. It compares the
- * registry's stored system message against the current code and only PUTs when
- * they differ, so it's a cheap no-op on unchanged runs.
+ * The committed fallbacks in lib/prompts/*.mjs are the source of truth; this
+ * pushes each as a Langfuse text prompt (label "production"), versioning on
+ * every run with the same name. Runtime fetches the production label and falls
+ * back to the committed copy when Langfuse is unset or unreachable.
  *
- * No-op when BRAINTRUST_API_KEY is unset (local runs, contributors w/o a key).
+ * No-op when LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY are unset (local runs,
+ * contributors without keys). Non-fatal: a sync failure never breaks anything.
  *
  *   node scripts/blog-agent/sync-prompt.mjs
  */
 
-import { readFileSync } from "fs";
-import { resolve } from "path";
-import { SYSTEM_PROMPT_VERSION } from "./lib/claude-writer.mjs";
+import "./lib/instrumentation.mjs";
+import { upsertPrompt, LANGFUSE_ENABLED } from "./lib/observability.mjs";
+import {
+  KEYWORD_OPPORTUNITY_PROMPT,
+  KEYWORD_OPPORTUNITY_PROMPT_NAME,
+} from "./lib/prompts/keyword-opportunity.mjs";
+import {
+  WRITING_AGENT_PROMPT,
+  WRITING_AGENT_PROMPT_NAME,
+} from "./lib/prompts/writing-agent.mjs";
+import {
+  BLOG_EVAL_PROMPT,
+  BLOG_EVAL_PROMPT_NAME,
+} from "./lib/prompts/blog-eval.mjs";
+import { flush } from "./lib/observability.mjs";
 
-const API = "https://api.braintrust.dev";
-const PROJECT_NAME = "pesohub-blog-agent";
-const PROMPT_SLUG = "blog-writer-system-prompt";
-const MODEL = "claude-sonnet-4-6";
-
-const key = process.env.BRAINTRUST_API_KEY;
-if (!key) {
-  console.log("ℹ️  BRAINTRUST_API_KEY unset — skipping prompt mirror sync.");
-  process.exit(0);
-}
-
-const headers = {
-  Authorization: `Bearer ${key}`,
-  "Content-Type": "application/json",
-};
-
-// Read SYSTEM_PROMPT straight from the source of truth.
-const src = readFileSync(
-  resolve(import.meta.dirname, "lib/claude-writer.mjs"),
-  "utf-8"
-);
-const match = src.match(/const SYSTEM_PROMPT = `([\s\S]*?)`;/);
-if (!match) {
-  console.error("❌ Could not extract SYSTEM_PROMPT from claude-writer.mjs");
-  process.exit(1);
-}
-const SYSTEM_PROMPT = match[1];
-
-async function api(path, opts = {}) {
-  const r = await fetch(`${API}${path}`, { headers, ...opts });
-  const j = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(`${r.status} ${path}: ${JSON.stringify(j)}`);
-  return j;
-}
+const PROMPTS = [
+  [KEYWORD_OPPORTUNITY_PROMPT_NAME, KEYWORD_OPPORTUNITY_PROMPT],
+  [WRITING_AGENT_PROMPT_NAME, WRITING_AGENT_PROMPT],
+  [BLOG_EVAL_PROMPT_NAME, BLOG_EVAL_PROMPT],
+];
 
 async function main() {
-  // Resolve project id by name (project is auto-created on first log).
-  const projects = await api("/v1/project");
-  const project = (projects.objects || []).find((p) => p.name === PROJECT_NAME);
-  if (!project) {
-    console.error(`❌ Project "${PROJECT_NAME}" not found in Braintrust.`);
-    process.exit(1);
-  }
-
-  // Fetch existing mirror, if any, and compare its system message to code.
-  const prompts = await api(`/v1/prompt?project_id=${project.id}`);
-  const existing = (prompts.objects || []).find((p) => p.slug === PROMPT_SLUG);
-  const existingSystem = existing?.prompt_data?.prompt?.messages?.find(
-    (m) => m.role === "system"
-  )?.content;
-
-  if (existingSystem === SYSTEM_PROMPT) {
-    console.log(`✅ Prompt mirror already up to date (${SYSTEM_PROMPT_VERSION}).`);
+  if (!LANGFUSE_ENABLED) {
+    console.log("ℹ️  LANGFUSE keys unset — skipping prompt seed.");
     return;
   }
-
-  const body = {
-    project_id: project.id,
-    name: "Blog Writer System Prompt",
-    slug: PROMPT_SLUG,
-    description: `MIRROR of the blog-agent SYSTEM_PROMPT (scripts/blog-agent/lib/claude-writer.mjs). Source of truth is the repo; runtime does NOT load from here. Version: ${SYSTEM_PROMPT_VERSION}. Iterate in the Playground/Experiments, then port changes back to code.`,
-    prompt_data: {
-      prompt: {
-        type: "chat",
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          {
-            role: "user",
-            content:
-              "Write a Philippine personal finance article for the target keyword: {{keyword}}\n\n(In production the writer also injects Tavily research and forces structured output via the OUTLINE_TOOL / ARTICLE_TOOL tools.)",
-          },
-        ],
-      },
-      options: { model: MODEL, params: { temperature: 1, max_tokens: 32000 } },
-    },
-  };
-
-  await api("/v1/prompt", { method: "PUT", body: JSON.stringify(body) });
-  console.log(
-    `🔄 Prompt mirror ${existing ? "updated" : "created"} → ${SYSTEM_PROMPT_VERSION}.`
-  );
+  for (const [name, text] of PROMPTS) {
+    await upsertPrompt(name, text);
+    console.log(`🔄 Seeded prompt → ${name} (label: production).`);
+  }
+  await flush();
+  console.log(`✅ Synced ${PROMPTS.length} prompts to Langfuse.`);
 }
 
-main().catch((err) => {
-  // Non-fatal: a sync failure must never break the generation pipeline.
-  console.error("⚠️  Prompt mirror sync failed (non-fatal):", err.message);
+main().catch(async (err) => {
+  // Non-fatal: a sync failure must never break the pipeline.
+  console.error("⚠️  Prompt seed failed (non-fatal):", err.message);
+  await flush().catch(() => {});
   process.exit(0);
 });

@@ -104,3 +104,13 @@ As of 2026-06-30, `UPDATED_AT` ≥ 60 days in `src/data/government/sss-contribut
 `content-registry.ts` exist to catch this; verify the encoded values are still correct. All encoded
 rates carry a source citation (BIR RR 11-2018, SSS Jan-2025 circulars, PhilHealth Circ 2019-0009,
 HDMF Circ 460, RA 11199) and are guarded by `official-rates.test.ts`.
+
+### Blog-agent: non-post content actions are human-apply
+
+The keyword-opportunity agent can recommend `update_existing_page` / `merge_with_existing_page`. The
+writer does NOT auto-edit live pages (static TS site, too risky) — it emits a Markdown action package
+to `scripts/blog-agent/output/<slug>-<action>.md`, surfaced in the PR body for a human to apply. Only
+`publish_as_new_post` / `create_supporting_page_with_internal_links` generate a TS post file.
+
+The weekly GSC run caps LLM analysis to the top `MAX_ANALYZE` (12) opportunities; the rest are dropped
+and logged (see `gsc-opportunities.mjs`). Bump the cap if weekly volume grows.

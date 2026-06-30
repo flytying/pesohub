@@ -2,22 +2,23 @@
 /**
  * Weekly GSC content-opportunity finder.
  *
- * Pull Search Console → detect opportunities → Claude drafts topic suggestions
- * → log to Braintrust (eval dataset + judge score) → write the review issue
- * markdown to /tmp. The GitHub workflow opens/updates the issue from that file;
- * a human ticks boxes and pastes snippets into topic-queue.json, after which
- * the existing blog agent writes the posts. No auto-publish here.
+ * Pull Search Console → detect opportunities → Keyword Opportunity Agent scores
+ * each + picks a content action → log to Langfuse (eval dataset + scores) →
+ * write the review issue markdown to /tmp. The GitHub workflow opens/updates the
+ * issue from that file; a human ticks boxes and pastes snippets into
+ * topic-queue.json, after which the blog agent writes the posts. No auto-publish.
  *
  * Usage:
  *   node scripts/blog-agent/gsc-opportunities.mjs            # full weekly run
- *   node scripts/blog-agent/gsc-opportunities.mjs --dry-run  # same, but the workflow skips the gh step
- *   node scripts/blog-agent/gsc-opportunities.mjs --fixture rows.json   # use local rows, skip the GSC API
- *   node scripts/blog-agent/gsc-opportunities.mjs --feedback # log accept/reject ground truth to Braintrust
+ *   node scripts/blog-agent/gsc-opportunities.mjs --dry-run  # build issue, workflow skips the gh step
+ *   node scripts/blog-agent/gsc-opportunities.mjs --fixture rows.json   # local rows, skip the GSC API
+ *   node scripts/blog-agent/gsc-opportunities.mjs --feedback # log accept/reject ground truth to Langfuse
  *
  * Env: GSC_SERVICE_ACCOUNT_JSON, GSC_SITE_URL, ANTHROPIC_API_KEY,
- *      BRAINTRUST_API_KEY (optional — Braintrust layer no-ops without it).
+ *      LANGFUSE_PUBLIC_KEY / LANGFUSE_SECRET_KEY (optional — Langfuse no-ops without them).
  */
 
+import "./lib/instrumentation.mjs"; // must load first — registers the OTel tracer
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -28,14 +29,15 @@ import {
   classifyOpportunities,
   loadCoverage,
 } from "./lib/gsc-opportunities.mjs";
-import { generateSuggestions, judgeSuggestions } from "./lib/gsc-suggester.mjs";
+import { analyzeOpportunity } from "./lib/gsc-suggester.mjs";
 import { buildIssue } from "./lib/gsc-reporter.mjs";
 import {
   tracedGeneration,
   logSpan,
+  logScore,
   upsertOpportunityRecord,
-  flushBraintrust,
-} from "./lib/braintrust.mjs";
+  flush,
+} from "./lib/observability.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const QUEUE_PATH = join(__dirname, "topic-queue.json");
@@ -43,6 +45,9 @@ const LEDGER_PATH = join(__dirname, "gsc-suggestions-log.json");
 const ISSUE_MD = "/tmp/gsc-issue.md";
 const ISSUE_TITLE = "/tmp/gsc-issue-title.txt";
 const LEDGER_MAX_WEEKS = 12;
+// Bound the number of LLM analysis calls per weekly run (one call per
+// opportunity). Opportunities beyond this are dropped and logged — not silently.
+const MAX_ANALYZE = 12;
 
 function parseArgs(argv) {
   const args = { dryRun: false, feedback: false, fixture: null };
@@ -73,14 +78,24 @@ function readLedger() {
 }
 
 function writeLedger(entries) {
-  // Keep only the most recent N weeks to bound file size.
   const weeks = [...new Set(entries.map((e) => e.week))].sort().slice(-LEDGER_MAX_WEEKS);
   const keep = new Set(weeks);
   const trimmed = entries.filter((e) => keep.has(e.week));
   writeFileSync(LEDGER_PATH, JSON.stringify(trimmed, null, 2) + "\n");
 }
 
-// ── Feedback pass: log human accept/reject as Braintrust ground truth ────────
+/** Stable ledger/dataset key for an opportunity decision. */
+function decisionSlug(opp, decision) {
+  return (
+    decision.topic_seed?.slug ||
+    `${decision.recommended_action}:${(decision.primary_query ?? opp.query)
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")}`
+  );
+}
+
+// ── Feedback pass: log human accept/reject as Langfuse ground truth ──────────
 
 async function runFeedback() {
   const ledger = readLedger();
@@ -96,16 +111,21 @@ async function runFeedback() {
     if (isAccepted) accepted++;
     e.resolved = true;
     e.accepted = isAccepted;
-    upsertOpportunityRecord({
+    await upsertOpportunityRecord({
       id: `${e.week}::${e.slug}`,
       input: { query: e.sourceQuery, ...(e.opportunity ?? {}) },
-      output: { slug: e.slug, type: e.type, title: e.title },
       expected: { accepted: isAccepted },
-      metadata: { week: e.week, judgeScore: e.judgeScore ?? null, accepted: isAccepted },
+      metadata: {
+        week: e.week,
+        recommendedAction: e.recommendedAction ?? null,
+        priority: e.priority ?? null,
+        opportunityScore: e.opportunityScore ?? null,
+        accepted: isAccepted,
+      },
     });
   }
   writeLedger(ledger);
-  await flushBraintrust();
+  await flush();
   console.log(
     `Feedback logged: ${accepted}/${ledger.length} suggested slugs accepted into the queue.`
   );
@@ -142,41 +162,36 @@ async function runWeekly({ dryRun, fixture }) {
     coverage
   );
   console.log(`Detected ${opportunities.length} opportunities.`);
-  for (const o of opportunities.slice(0, 10)) {
-    console.log(`  • [${o.opportunity}] "${o.query}" — ${o.impressions} impr, pos ${o.position}`);
+
+  const toAnalyze = opportunities.slice(0, MAX_ANALYZE);
+  if (opportunities.length > MAX_ANALYZE) {
+    console.log(
+      `⚠️  Capping analysis to the top ${MAX_ANALYZE} of ${opportunities.length} ` +
+        `opportunities (dropped ${opportunities.length - MAX_ANALYZE}).`
+    );
   }
 
-  // 3. Claude suggestions + judge.
-  const suggestions = await generateSuggestions(opportunities, coverage.allSlugs);
-  const judged = await judgeSuggestions(suggestions, opportunities);
-  console.log(`Generated ${suggestions.length} suggestions.`);
+  // 3. Keyword Opportunity Agent — one scored decision per opportunity.
+  const decided = [];
+  for (const opp of toAnalyze) {
+    try {
+      const decision = await analyzeOpportunity(opp, { pagePaths: coverage.allSlugs });
+      decided.push({ opp, decision });
+      console.log(
+        `  • [${decision.priority}] ${decision.recommended_action} "${opp.query}" ` +
+          `(score ${decision.opportunity_score.toFixed(2)})`
+      );
+    } catch (err) {
+      console.log(`  ⚠️  Analysis failed for "${opp.query}": ${err.message}`);
+    }
+  }
 
-  // 4. Enrich each suggestion with its source opportunity metrics + judge score.
-  const oppByQuery = new Map(opportunities.map((o) => [o.query, o]));
-  const items = suggestions.map((s) => {
-    const opp = oppByQuery.get(s.sourceQuery) ?? {};
-    return {
-      ...s,
-      metrics: {
-        impressions: opp.impressions ?? 0,
-        clicks: opp.clicks ?? 0,
-        position: opp.position ?? 0,
-        ctr: opp.ctr ?? 0,
-        deltaPct: opp.deltaPct ?? null,
-        opportunity: opp.opportunity ?? "unknown",
-        topPagePath: opp.topPagePath ?? "/",
-        reason: opp.reason ?? "",
-      },
-      judge: judged.get(s.slug) ?? null,
-    };
-  });
-
-  // 5. Build the review issue markdown.
+  // 4. Build the review issue markdown.
   const ids = readQueue().topics.map((t) => t.id ?? 0);
   const nextId = (ids.length ? Math.max(...ids) : 0) + 1;
   const issue = buildIssue({
     windows,
-    items,
+    decided,
     nextId,
     weekLabel,
     opportunityCount: opportunities.length,
@@ -185,50 +200,63 @@ async function runWeekly({ dryRun, fixture }) {
   writeFileSync(ISSUE_TITLE, issue.title + "\n");
   console.log(`Wrote ${ISSUE_MD} (${issue.title}).`);
 
-  // 6. Append to the durable ledger (feeds the --feedback eval pass).
+  // 5. Append to the durable ledger (feeds the --feedback eval pass).
   const ledger = readLedger().filter((e) => e.week !== weekLabel);
-  for (const item of items) {
+  for (const { opp, decision } of decided) {
     ledger.push({
       week: weekLabel,
-      slug: item.slug,
-      title: item.title,
-      type: item.type,
-      sourceQuery: item.sourceQuery,
-      opportunity: item.metrics,
-      judgeScore: item.judge?.score ?? null,
+      slug: decisionSlug(opp, decision),
+      title: decision.topic_seed?.title ?? null,
+      recommendedAction: decision.recommended_action,
+      priority: decision.priority,
+      opportunityScore: decision.opportunity_score,
+      sourceQuery: decision.primary_query ?? opp.query,
+      opportunity: {
+        impressions: opp.impressions ?? 0,
+        clicks: opp.clicks ?? 0,
+        position: opp.position ?? 0,
+        ctr: opp.ctr ?? 0,
+        deltaPct: opp.deltaPct ?? null,
+        opportunity: opp.opportunity ?? "unknown",
+        topPagePath: opp.topPagePath ?? "/",
+      },
+      cannibalizationRisk: decision.cannibalization_risk,
       resolved: false,
       accepted: null,
     });
   }
   writeLedger(ledger);
 
-  // 7. Braintrust: dataset records + span scores.
-  for (const item of items) {
-    upsertOpportunityRecord({
-      id: `${weekLabel}::${item.slug}`,
-      input: { query: item.sourceQuery, ...item.metrics },
-      output: {
-        slug: item.slug,
-        type: item.type,
-        title: item.title,
-        category: item.category,
-        keywords: item.keywords,
-        brief: item.brief,
+  // 6. Langfuse dataset records.
+  for (const { opp, decision } of decided) {
+    await upsertOpportunityRecord({
+      id: `${weekLabel}::${decisionSlug(opp, decision)}`,
+      input: {
+        query: decision.primary_query ?? opp.query,
+        impressions: opp.impressions ?? 0,
+        clicks: opp.clicks ?? 0,
+        position: opp.position ?? 0,
+        ctr: opp.ctr ?? 0,
+        opportunity: opp.opportunity ?? "unknown",
+        topPagePath: opp.topPagePath ?? "/",
+        reason: opp.reason ?? "",
       },
+      expected: { accepted: null },
       metadata: {
         week: weekLabel,
-        opportunity: item.metrics.opportunity,
-        judgeScore: item.judge?.score ?? null,
-        judgeVerdict: item.judge?.verdict ?? null,
+        recommendedAction: decision.recommended_action,
+        priority: decision.priority,
+        opportunityScore: decision.opportunity_score,
+        cannibalizationRisk: decision.cannibalization_risk,
+        sourceFactStatus: decision.source_fact_status,
       },
     });
   }
-  const judgeScores = items.map((i) => i.judge?.score).filter((s) => typeof s === "number");
-  const avgJudge = judgeScores.length
-    ? judgeScores.reduce((a, b) => a + b, 0) / judgeScores.length
-    : null;
 
-  return { issue, opportunities, items, avgJudge, weekLabel, dryRun };
+  const scores = decided.map((d) => d.decision.opportunity_score).filter((s) => typeof s === "number");
+  const avgScore = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : null;
+
+  return { issue, opportunities, decided, avgScore, weekLabel, dryRun };
 }
 
 async function main() {
@@ -242,21 +270,31 @@ async function main() {
   await tracedGeneration("gsc-opportunities", async (span) => {
     const result = await runWeekly(args);
     logSpan(span, {
-      input: { week: result.weekLabel, opportunities: result.opportunities },
-      output: { suggestions: result.items.map((i) => ({ slug: i.slug, type: i.type, title: i.title })) },
-      scores: result.avgJudge != null ? { judge: result.avgJudge } : undefined,
+      input: { week: result.weekLabel, opportunityCount: result.opportunities.length },
+      output: {
+        decisions: result.decided.map((d) => ({
+          query: d.decision.primary_query ?? d.opp.query,
+          action: d.decision.recommended_action,
+          priority: d.decision.priority,
+          score: d.decision.opportunity_score,
+        })),
+      },
       metadata: {
         opportunityCount: result.opportunities.length,
-        suggestionCount: result.items.length,
+        analyzedCount: result.decided.length,
         dryRun: result.dryRun,
       },
     });
+    if (result.avgScore != null) {
+      logScore(span, "avg_opportunity_score", result.avgScore, { dataType: "NUMERIC" });
+    }
   });
 
-  await flushBraintrust();
+  await flush();
 }
 
-main().catch((err) => {
+main().catch(async (err) => {
   console.error("gsc-opportunities failed:", err.message);
+  await flush();
   process.exit(1);
 });
