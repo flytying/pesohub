@@ -11,7 +11,12 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import { observeGeneration, getPrompt } from "./observability.mjs";
+import {
+  observeGeneration,
+  getPrompt,
+  tracedGeneration,
+  logObservationScore,
+} from "./observability.mjs";
 import { MODEL } from "./claude-writer.mjs";
 import {
   KEYWORD_OPPORTUNITY_PROMPT,
@@ -175,6 +180,12 @@ function metricsLine(o) {
  * @returns {Promise<object>} the decision object (see ANALYSIS_TOOL)
  */
 export async function analyzeOpportunity(opp, ctx = {}) {
+  // Per-opportunity observation so the decision's scores attach to its own span
+  // (the generation runs as a child). One score row per opportunity in Langfuse.
+  return tracedGeneration(`opportunity: ${opp.query}`, () => analyze(opp, ctx));
+}
+
+async function analyze(opp, ctx) {
   const pagePaths = (ctx.pagePaths ?? []).filter((s) => s.startsWith("/")).slice(0, 60);
 
   const prompt = await getPrompt(KEYWORD_OPPORTUNITY_PROMPT_NAME, KEYWORD_OPPORTUNITY_PROMPT);
@@ -222,5 +233,19 @@ export async function analyzeOpportunity(opp, ctx = {}) {
   decision.top_page_path = decision.top_page_path || opp.topPagePath || "/";
   const recomputed = weightedScore(decision.score_breakdown);
   decision.opportunity_score = recomputed;
+
+  // Per-decision scores on this opportunity's observation.
+  logObservationScore("opportunity_score", recomputed, {
+    dataType: "NUMERIC",
+    comment: decision.reason,
+  });
+  logObservationScore("recommended_action", decision.recommended_action, {
+    dataType: "CATEGORICAL",
+  });
+  logObservationScore("priority", decision.priority, { dataType: "CATEGORICAL" });
+  logObservationScore("cannibalization_risk", decision.cannibalization_risk, {
+    dataType: "CATEGORICAL",
+  });
+
   return decision;
 }

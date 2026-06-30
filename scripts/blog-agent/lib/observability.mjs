@@ -84,6 +84,26 @@ export function logScore(span, name, value, opts = {}) {
 }
 
 /**
+ * Attach a score to the currently active observation (not the trace). Use
+ * inside a tracedGeneration callback to score that specific span — e.g. one
+ * score per decision. No-op when disabled.
+ *
+ * @param {string} name
+ * @param {number|string} value
+ * @param {{comment?: string, dataType?: "NUMERIC"|"CATEGORICAL"|"BOOLEAN"}} [opts]
+ */
+export function logObservationScore(name, value, opts = {}) {
+  const c = client();
+  if (!c) return;
+  c.score.activeObservation({
+    name,
+    value,
+    ...(opts.comment ? { comment: opts.comment } : {}),
+    ...(opts.dataType ? { dataType: opts.dataType } : {}),
+  });
+}
+
+/**
  * Trace one LLM call as a child `generation` observation. Captures model,
  * input, prompt linkage, output text and token usage. When disabled, just runs
  * `fn` with no tracing overhead.
