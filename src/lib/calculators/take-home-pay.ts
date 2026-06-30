@@ -68,20 +68,25 @@ const PAGIBIG_MAX_MSC = 10_000;
 export function calculateTakeHomePay(
   input: TakeHomePayInput,
 ): TakeHomePayResult {
-  const { monthlySalary } = input;
+  // Defensive: coerce so NaN/negative salary can't yield garbage (UI clamps too).
+  const monthlySalary = Math.max(0, Number(input.monthlySalary) || 0);
 
-  // 1. Withholding tax (monthly)
-  const taxResult = calculateWithholdingTax({ monthlySalary });
-  const withholdingTax = taxResult.monthlyTax;
-
-  // 2. SSS employee share
+  // 1. Mandatory contributions (employee shares, monthly)
   const sssContribution = lookupSSSEmployeeShare(monthlySalary);
-
-  // 3. PhilHealth employee share
   const philhealthContribution = calculatePhilHealthEmployee(monthlySalary);
-
-  // 4. Pag-IBIG employee share
   const pagibigContribution = calculatePagIBIGEmployee(monthlySalary);
+
+  // 2. Withholding tax — BIR taxes income *net* of mandatory contributions, so
+  //    the tax base is gross less SSS/PhilHealth/Pag-IBIG employee shares (this
+  //    mirrors calculateWithholdingTaxDetailed). Taxing gross would overstate tax.
+  const monthlyTaxable = Math.max(
+    monthlySalary - (sssContribution + philhealthContribution + pagibigContribution),
+    0,
+  );
+  const taxResult = calculateWithholdingTax({
+    annualTaxableIncome: monthlyTaxable * 12,
+  });
+  const withholdingTax = taxResult.monthlyTax;
 
   // Totals
   const totalDeductions = round(
