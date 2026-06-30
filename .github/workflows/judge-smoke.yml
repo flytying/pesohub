@@ -1,0 +1,31 @@
+name: Judge Smoke
+
+# Manually verify the OpenAI blog-content-evaluator against one committed post.
+# No content generation, no file writes, no PR.
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Blog post slug (substring) to judge; blank = first post"
+        required: false
+        type: string
+
+jobs:
+  judge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+      - name: Run judge smoke
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_EVAL_MODEL: ${{ vars.OPENAI_EVAL_MODEL }}
+          LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+          LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+          LANGFUSE_BASEURL: ${{ secrets.LANGFUSE_BASEURL }}
+        run: node scripts/blog-agent/judge-smoke.mjs "${{ inputs.slug }}"
