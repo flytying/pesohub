@@ -122,24 +122,43 @@ const PRIORITY_TITLE = {
  *   decided: Array<{opp: object, decision: object}>,
  *   nextId: number,
  *   weekLabel: string,
- *   opportunityCount: number
+ *   opportunityCount: number,
+ *   notifyHandle?: string     // GitHub handle to @mention when pages need updates
  * }} input
- * @returns {{title: string, body: string}}
+ * @returns {{title: string, body: string, updateCount: number}}
  */
-export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCount }) {
+export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCount, notifyHandle }) {
   const actionable = decided.filter(
     (d) => !["hold", "reject"].includes(d.decision.recommended_action)
   );
   const held = decided.filter((d) =>
     ["hold", "reject"].includes(d.decision.recommended_action)
   );
+  const updates = actionable.filter((d) =>
+    ["update_existing_page", "merge_with_existing_page"].includes(d.decision.recommended_action)
+  );
 
   let id = nextId;
   const body = [];
+
+  // Top alert: pages needing updates (@mention drives the GitHub notification).
+  if (updates.length) {
+    const mention = notifyHandle ? ` — @${notifyHandle}` : "";
+    body.push(
+      `> ⚠️ **${updates.length} page(s) need updating this week**${mention}`,
+      ...updates.map(({ opp, decision }) => {
+        const page = decision.target_page_to_update || opp.topPagePath || "/";
+        return `> - \`${page}\` — ${ACTION_LABEL[decision.recommended_action]} (${decision.primary_query ?? opp.query})`;
+      }),
+      ""
+    );
+  }
+
   body.push(
     `_Search Console window: **${windows.current.start} → ${windows.current.end}** (vs prior ${windows.prior.start} → ${windows.prior.end})._`,
     "",
-    `Analyzed **${opportunityCount}** opportunities → **${actionable.length}** actionable, **${held.length}** held/rejected. ` +
+    `Analyzed **${opportunityCount}** opportunities → **${actionable.length}** actionable ` +
+      `(**${updates.length}** updates), **${held.length}** held/rejected. ` +
       "Tick a box and paste its snippet into `scripts/blog-agent/topic-queue.json`; the weekly blog agent writes it on the next run. " +
       "Update/merge items have no snippet — apply them to the live page directly.",
     ""
@@ -179,5 +198,6 @@ export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCou
   return {
     title: `GSC Opportunities — week of ${weekLabel}`,
     body: body.join("\n"),
+    updateCount: updates.length,
   };
 }
