@@ -77,13 +77,30 @@
 - **Method:** Tavily Extract + AI Search (queries must be under 400 chars)
 - **Output:** Creates a PR for review (never auto-merges)
 
-### Required Secrets (GitHub)
+### Required Secrets (GitHub → Settings → Secrets and variables → Actions → Secrets)
 
-| Secret | Purpose |
-|--------|---------|
-| `TAVILY_API_KEY` | Tavily API for bank/gov data scraping |
+| Secret | Used by | Purpose |
+|--------|---------|---------|
+| `TAVILY_API_KEY` | data-updater, blog-post | Tavily API for bank/gov data scraping + blog research |
+| `ANTHROPIC_API_KEY` | blog-post, gsc-opportunities | Writer + keyword-opportunity agent (Claude Sonnet 4.6) |
+| `OPENAI_API_KEY` | blog-post | Blog-content-evaluator judge (OpenAI gpt-4.1) — cross-provider grading |
+| `GSC_SERVICE_ACCOUNT_JSON` | gsc-opportunities | Google Search Console service-account key (raw or base64 JSON) |
+| `GSC_SITE_URL` | gsc-opportunities | GSC property, e.g. `sc-domain:pesohub.ph` |
+| `LANGFUSE_PUBLIC_KEY` | blog-post, gsc-opportunities | Langfuse Cloud tracing/datasets/scores (optional — no-op when unset) |
+| `LANGFUSE_SECRET_KEY` | blog-post, gsc-opportunities | Langfuse Cloud (optional) |
+| `LANGFUSE_BASEURL` | blog-post, gsc-opportunities | Langfuse base URL, e.g. `https://cloud.langfuse.com` (optional) |
 
-Note: `DEPLOY_SSH_KEY` and `DEPLOY_HOST` are no longer needed (DigitalOcean removed).
+### Repository Variables (Actions → Variables — not secrets)
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `PROMOTE_COUNT` | `3` | New-post decisions auto-queued per weekly GSC run |
+| `NOTIFY_GH_HANDLE` | repo owner | Handle @mentioned/assigned when a page needs an update |
+| `OPENAI_EVAL_MODEL` | `gpt-4.1` | Override the judge model |
+
+Notes:
+- `DEPLOY_SSH_KEY` / `DEPLOY_HOST` are no longer needed (DigitalOcean removed).
+- The former `BRAINTRUST_API_KEY` was removed — evals migrated to Langfuse.
 
 ---
 
