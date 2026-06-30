@@ -30,7 +30,7 @@ import {
   loadCoverage,
 } from "./lib/gsc-opportunities.mjs";
 import { analyzeOpportunity } from "./lib/gsc-suggester.mjs";
-import { buildIssue } from "./lib/gsc-reporter.mjs";
+import { buildIssue, buildQueueEntry } from "./lib/gsc-reporter.mjs";
 import {
   tracedGeneration,
   logSpan,
@@ -67,6 +67,52 @@ function ymd(date) {
 
 function readQueue() {
   return JSON.parse(readFileSync(QUEUE_PATH, "utf8"));
+}
+
+function writeQueue(queue) {
+  writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2) + "\n");
+}
+
+const PRIORITY_RANK = { A: 0, B: 1, C: 2, Hold: 3 };
+
+/**
+ * Append the top new-post / supporting-page decisions to the queue as `pending`
+ * topics. Ordered by priority (A→B→C) then opportunity_score desc; skips slugs
+ * already in the queue (any status) and decisions without a topic_seed.slug.
+ * Mutates `queue` in place and returns the appended entries.
+ *
+ * @param {object} queue  parsed topic-queue.json
+ * @param {Array<{opp:object, decision:object}>} decided
+ * @param {number} count
+ */
+function promoteToQueue(queue, decided, count) {
+  const existing = new Set(queue.topics.map((t) => t.slug));
+  let nextId = (queue.topics.map((t) => t.id ?? 0).reduce((a, b) => Math.max(a, b), 0)) + 1;
+
+  const candidates = decided
+    .map((d) => d.decision)
+    .filter(
+      (d) =>
+        ["publish_as_new_post", "create_supporting_page_with_internal_links"].includes(
+          d.recommended_action
+        ) && d.topic_seed?.slug
+    )
+    .sort(
+      (a, b) =>
+        (PRIORITY_RANK[a.priority] ?? 9) - (PRIORITY_RANK[b.priority] ?? 9) ||
+        (b.opportunity_score ?? 0) - (a.opportunity_score ?? 0)
+    );
+
+  const appended = [];
+  for (const decision of candidates) {
+    if (appended.length >= count) break;
+    if (existing.has(decision.topic_seed.slug)) continue;
+    const entry = buildQueueEntry(decision, nextId++);
+    queue.topics.push(entry);
+    existing.add(entry.slug);
+    appended.push(entry);
+  }
+  return appended;
 }
 
 function readLedger() {
@@ -187,8 +233,22 @@ async function runWeekly({ dryRun, fixture }) {
     }
   }
 
-  // 4. Build the review issue markdown.
-  const ids = readQueue().topics.map((t) => t.id ?? 0);
+  // 4. Auto-promote the top new-post decisions into the queue (skipped on
+  //    dry-run). update/merge are NOT promoted — they stay notify-only.
+  const queue = readQueue();
+  const promoteCount = parseInt(process.env.PROMOTE_COUNT ?? "3", 10);
+  let promoted = [];
+  if (!dryRun && promoteCount > 0) {
+    promoted = promoteToQueue(queue, decided, promoteCount);
+    if (promoted.length) {
+      writeQueue(queue);
+      console.log(`Auto-queued ${promoted.length} new post(s): ${promoted.map((p) => p.slug).join(", ")}`);
+    }
+  }
+  const queuedSlugs = new Set(promoted.map((p) => p.slug));
+
+  // 5. Build the review issue markdown (ids start after any promoted entries).
+  const ids = queue.topics.map((t) => t.id ?? 0);
   const nextId = (ids.length ? Math.max(...ids) : 0) + 1;
   const issue = buildIssue({
     windows,
@@ -197,6 +257,8 @@ async function runWeekly({ dryRun, fixture }) {
     weekLabel,
     opportunityCount: opportunities.length,
     notifyHandle: process.env.NOTIFY_GH_HANDLE || null,
+    autoQueuedCount: promoted.length,
+    queuedSlugs,
   });
   writeFileSync(ISSUE_MD, issue.body + "\n");
   writeFileSync(ISSUE_TITLE, issue.title + "\n");
@@ -297,8 +359,13 @@ async function main() {
   await flush();
 }
 
-main().catch(async (err) => {
-  console.error("gsc-opportunities failed:", err.message);
-  await flush();
-  process.exit(1);
-});
+// Only run when executed directly (so the helpers above can be imported in tests).
+if (process.argv[1] && process.argv[1].endsWith("gsc-opportunities.mjs")) {
+  main().catch(async (err) => {
+    console.error("gsc-opportunities failed:", err.message);
+    await flush();
+    process.exit(1);
+  });
+}
+
+export { promoteToQueue };

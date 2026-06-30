@@ -107,8 +107,8 @@ Two implementations; only the Express one is live.
 
 ## Automation
 
-GitHub Actions crons; all produce PRs / issues or auto-merge generated blog posts — none mutate live
-figures without a review path.
+GitHub Actions crons; all produce PRs / issues for review — none mutate live figures or publish content
+without a review path.
 
 | Workflow | Schedule (UTC) | Purpose |
 |----------|----------------|---------|
@@ -116,8 +116,8 @@ figures without a review path.
 | `update-bank-rates.yml` | 1st + 15th 02:00 | Bank rate scrape → PR |
 | `update-government-data.yml` | 1st 03:00 | Gov data check → PR |
 | `content-freshness.yml` | Mon 01:00 | Staleness → issue |
-| `blog-post.yml` | Mon 03:00 | Generate post → auto-merge |
-| `gsc-opportunities.yml` | Mon 01:30 | GSC opportunities → issue |
+| `blog-post.yml` | Mon/Wed/Fri 03:00 | Generate 1 post from queue → review PR (no auto-merge) |
+| `gsc-opportunities.yml` | Mon 01:30 | GSC analysis → issue + auto-queue top 3 new posts |
 
 Data updater, blog agent, and the GSC opportunity finder:
 **[docs/content-automation.md](docs/content-automation.md)**.
