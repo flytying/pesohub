@@ -36,8 +36,10 @@ jobs:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          # Optional — Braintrust layer is a clean no-op when unset.
-          BRAINTRUST_API_KEY: ${{ secrets.BRAINTRUST_API_KEY }}
+          # Optional — Langfuse layer is a clean no-op when unset.
+          LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+          LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+          LANGFUSE_BASEURL: ${{ secrets.LANGFUSE_BASEURL }}
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             node scripts/blog-agent/gsc-opportunities.mjs --dry-run

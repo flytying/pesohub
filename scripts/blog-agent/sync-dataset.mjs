@@ -1,27 +1,28 @@
 #!/usr/bin/env node
 
 /**
- * Backfill the Braintrust "blog-posts" dataset from existing post data files.
+ * Backfill the Langfuse "blog-posts" dataset from existing post data files.
  *
  * Going forward, run.mjs upserts each new generation automatically; this is the
  * one-time (re-runnable) backfill for posts that already exist in the repo.
  * Records are keyed by slug, so re-running upserts rather than duplicating.
  *
- * No-op when BRAINTRUST_API_KEY is unset.
+ * No-op when LANGFUSE keys are unset.
  *
  *   node scripts/blog-agent/sync-dataset.mjs
  */
 
+import "./lib/instrumentation.mjs";
 import { readdirSync, readFileSync } from "fs";
 import { resolve } from "path";
 import {
-  upsertDatasetRecord,
-  flushBraintrust,
-  BRAINTRUST_ENABLED,
-} from "./lib/braintrust.mjs";
+  upsertBlogPostRecord,
+  flush,
+  LANGFUSE_ENABLED,
+} from "./lib/observability.mjs";
 
-if (!BRAINTRUST_ENABLED) {
-  console.log("ℹ️  BRAINTRUST_API_KEY unset — skipping dataset backfill.");
+if (!LANGFUSE_ENABLED) {
+  console.log("ℹ️  LANGFUSE keys unset — skipping dataset backfill.");
   process.exit(0);
 }
 
@@ -63,7 +64,7 @@ for (const file of files) {
     continue;
   }
 
-  upsertDatasetRecord({
+  await upsertBlogPostRecord({
     id: post.slug,
     input: {
       keyword: (post.keywords && post.keywords[0]) || post.slug,
@@ -96,5 +97,5 @@ for (const file of files) {
   console.log(`  ✅ ${post.slug}`);
 }
 
-await flushBraintrust();
+await flush();
 console.log(`\n🗂️  Backfilled ${ok}/${files.length} posts into the "blog-posts" dataset.`);

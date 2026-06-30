@@ -19,9 +19,8 @@ import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
-// Resolve the repo root from this file's location. Guarded because the
-// Braintrust eval CLI bundles to CommonJS, where import.meta.url is empty —
-// fall back to cwd (evals run from the repo root).
+// Resolve the repo root from this file's location. Guarded for bundlers where
+// import.meta.url may be empty — fall back to cwd (evals run from the repo root).
 let REPO_ROOT;
 try {
   REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");

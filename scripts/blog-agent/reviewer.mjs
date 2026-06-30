@@ -1,15 +1,12 @@
 /**
  * Blog Reviewer Agent
  *
- * Reviews a generated blog post for quality, SEO, and consistency.
- * Returns a structured review report.
+ * Gates a generated post with cheap structural pre-checks (fail-fast) then the
+ * 10-criterion Boolean judge (blog-content-evaluator). Returns a structured
+ * review report including the publish gate.
  */
 
-import { readFileSync } from "fs";
-import { resolve } from "path";
-import { reviewArticle } from "./lib/claude-reviewer.mjs";
-
-const ROOT = resolve(import.meta.dirname, "../../");
+import { evaluatePost, summarizeCriteria } from "./lib/blog-evaluator.mjs";
 
 /**
  * Run structural validation checks (no AI needed).
@@ -84,42 +81,57 @@ function structuralChecks(postData, keyword) {
 /**
  * Run the reviewer agent.
  *
- * @param {string} slug - The post slug
- * @param {string} keyword - The target keyword
- * @param {object} postData - The BlogPostData object
- * @param {object} research - The research data used by the writer
- * @returns {Promise<{approved: boolean, score: number, issues: string[], suggestions: string[], wordCount: number}>}
+ * Publish gate: structural checks clean AND publish_recommendation === "publish"
+ * AND all 6 critical criteria pass.
+ *
+ * @param {string} slug
+ * @param {string} keyword
+ * @param {object} postData
+ * @param {object} research
+ * @returns {Promise<object>} review report (approved, publishRecommendation,
+ *   criteria, passRate, issues, suggestions, wordCount, evaluation)
  */
 export async function run(slug, keyword, postData, research) {
   console.log(`\n🔍 Blog Reviewer Agent`);
   console.log(`  Slug: "${slug}"`);
 
-  // 1. Structural checks
+  // 1. Structural checks (fail-fast, no LLM)
   const structural = structuralChecks(postData, keyword);
   console.log(
     `  📏 Structural: ${structural.issues.length} issues, ~${structural.wordCount} words`
   );
 
-  // 2. AI quality review
-  const aiReview = await reviewArticle(postData, keyword, research);
+  // 2. Boolean judge
+  const evaluation = await evaluatePost(postData, keyword, research);
+  const summary = summarizeCriteria(evaluation.criteria);
   console.log(
-    `  🤖 AI Review: score ${aiReview.score}/100, ${aiReview.approved ? "approved" : "rejected"}`
+    `  🤖 Judge: ${evaluation.publish_recommendation} · ${summary.passed}/${summary.total} criteria · ` +
+      `${summary.criticalPassed ? "critical OK" : "CRITICAL FAIL: " + summary.failed.filter((f) => f).join(", ")}`
   );
 
-  // 3. Combine results
-  const allIssues = [...structural.issues, ...aiReview.issues];
-  const approved = structural.issues.length === 0 && aiReview.approved;
+  // 3. Publish gate
+  const approved =
+    structural.issues.length === 0 &&
+    evaluation.publish_recommendation === "publish" &&
+    summary.criticalPassed;
 
   const result = {
     approved,
-    score: aiReview.score,
-    issues: allIssues,
-    suggestions: aiReview.suggestions || [],
+    publishRecommendation: evaluation.publish_recommendation,
+    recommendedContentAction: evaluation.recommended_content_action,
+    passRate: summary.passRate,
+    passed: summary.passed,
+    total: summary.total,
+    criticalPassed: summary.criticalPassed,
+    failedCriteria: summary.failed,
+    issues: [...structural.issues, ...(evaluation.critical_issues ?? [])],
+    suggestions: evaluation.recommended_fixes ?? [],
     wordCount: structural.wordCount,
+    evaluation,
   };
 
   console.log(
-    `  ${result.approved ? "✅" : "⚠️"} Review complete: ${result.approved ? "APPROVED" : "NEEDS REVISION"}`
+    `  ${approved ? "✅" : "⚠️"} Review complete: ${approved ? "PUBLISH" : evaluation.publish_recommendation.toUpperCase()}`
   );
 
   return result;

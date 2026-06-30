@@ -37,8 +37,10 @@ jobs:
         env:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          # Optional — when unset, the agent's Braintrust layer is a clean no-op.
-          BRAINTRUST_API_KEY: ${{ secrets.BRAINTRUST_API_KEY }}
+          # Optional — when unset, the agent's Langfuse layer is a clean no-op.
+          LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+          LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+          LANGFUSE_BASEURL: ${{ secrets.LANGFUSE_BASEURL }}
         run: |
           if [ -n "${{ inputs.keyword }}" ]; then
             node scripts/blog-agent/run.mjs --keyword "${{ inputs.keyword }}"
@@ -48,11 +50,13 @@ jobs:
             node scripts/blog-agent/run.mjs --from-queue
           fi
 
-      - name: Sync prompt mirror to Braintrust
+      - name: Seed prompts to Langfuse
         env:
-          BRAINTRUST_API_KEY: ${{ secrets.BRAINTRUST_API_KEY }}
-        # Updates the Braintrust Prompts mirror only when SYSTEM_PROMPT changed.
-        # Self-guards (no key -> no-op) and never fails the pipeline.
+          LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+          LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+          LANGFUSE_BASEURL: ${{ secrets.LANGFUSE_BASEURL }}
+        # Seeds the three canonical prompts (production label). Self-guards
+        # (no keys -> no-op) and never fails the pipeline.
         run: node scripts/blog-agent/sync-prompt.mjs
 
       - name: Check for changes
@@ -76,7 +80,8 @@ jobs:
           # -B resets the branch if a stale one lingers; force-with-lease keeps
           # evergreen refresh (same slug → same branch name) from being rejected.
           git checkout -B "$BRANCH"
-          git add src/ scripts/blog-agent/topic-queue.json
+          # src/ for new posts; output/ for update/merge action packages.
+          git add src/ scripts/blog-agent/topic-queue.json scripts/blog-agent/output 2>/dev/null || git add src/ scripts/blog-agent/topic-queue.json
           git commit -m "blog: add post — ${SLUG} (automated)"
           git push -u --force-with-lease origin "$BRANCH"
           # Ensure label exists (idempotent)

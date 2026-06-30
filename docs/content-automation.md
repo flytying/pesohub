@@ -36,14 +36,20 @@ reporter, config) · `sources/` (one script per source).
 Generates blog posts from a topic queue, reviews them, and writes the post files + registry entries.
 Runs weekly via `.github/workflows/blog-post.yml` (Mon 03:00 UTC) which can auto-merge the post PR.
 
-- `run.mjs` — orchestrator (keyword or `topic-queue.json`-driven).
-- `writer.mjs` / `lib/claude-writer.mjs` — research (Tavily) → outline → draft.
-- `reviewer.mjs` / `lib/claude-reviewer.mjs` — quality review pass.
+- `run.mjs` — orchestrator (keyword or `topic-queue.json`-driven). Branches on each topic's
+  `recommendedAction`: new-post / supporting-page write a TS file; update/merge emit a Markdown
+  action package to `scripts/blog-agent/output/`; hold/reject are logged only.
+- `writer.mjs` / `lib/claude-writer.mjs` — research (Tavily) → outline → draft, driven by the
+  canonical **writing-agent** prompt (`lib/prompts/writing-agent.mjs`).
+- `reviewer.mjs` / `lib/blog-evaluator.mjs` — the 10-criterion **Boolean** judge
+  (`lib/prompts/blog-eval.mjs`); publish gate = `publish` + all 6 critical criteria pass.
 - `lib/` — `file-generator`, `registry-updater` (edits `src/data/blog/index.ts` + `post-modules.ts`),
-  `tavily-search`, `unsplash-image`, `reporter`, `braintrust`.
-- `topic-queue.json` — pending topics (`status: "pending"`).
-- `sync-prompt` / `sync-dataset` — push the agent prompt / dataset to Braintrust
+  `tavily-search`, `unsplash-image`, `reporter`, `observability` (Langfuse guard) + `instrumentation`
+  (OTel bootstrap), `prompts/` (the 3 canonical prompts).
+- `topic-queue.json` — pending topics (`status: "pending"`, optional `recommendedAction`).
+- `sync-prompt` / `sync-dataset` — seed the 3 prompts / backfill the `blog-posts` dataset to Langfuse
   (`npm run sync-prompt`, `npm run sync-dataset`).
+- `evals/*.experiment.mjs` — Langfuse experiments (`npm run eval:keyword`, `npm run eval:content`).
 
 A new blog post needs an entry in **both** `src/data/blog/index.ts` and
 `src/data/blog/post-modules.ts` to be reachable (see `docs/known-issues.md` for an orphan example).
@@ -55,19 +61,22 @@ Turns Google Search Console data into reviewed blog-topic suggestions. Runs week
 auto-publishes — it opens a GitHub issue to review.
 
 Flow: pull GSC Search Analytics (`lib/gsc-client.mjs`, service-account JWT) → detect
-striking-distance / content-gap / rising queries (`lib/gsc-opportunities.mjs`) → Claude drafts
-`topic-queue.json`-shaped suggestions + LLM-judge score (`lib/gsc-suggester.mjs`) → ranked issue
-markdown (`lib/gsc-reporter.mjs`). Orchestrator: `scripts/blog-agent/gsc-opportunities.mjs`. A human
-pastes the chosen snippet into `topic-queue.json` for the blog agent to pick up. Suggestions + scores
-log to Braintrust; `evals/gsc-opportunities.eval.mjs` is the offline eval.
+striking-distance / content-gap / rising queries (`lib/gsc-opportunities.mjs`) → the **keyword
+opportunity agent** scores each cluster and picks a content action (`lib/gsc-suggester.mjs`,
+`analyzeOpportunity`, prompt `lib/prompts/keyword-opportunity.mjs`) → ranked issue markdown grouped by
+priority/action (`lib/gsc-reporter.mjs`). Orchestrator: `scripts/blog-agent/gsc-opportunities.mjs`
+(caps analysis to the top 12 opportunities/run). A human pastes the chosen snippet into
+`topic-queue.json` for the blog agent. Decisions + scores log to the `gsc-opportunities` Langfuse
+dataset; `evals/keyword-opportunity.experiment.mjs` is the offline experiment.
 
 Required secrets: `GSC_SERVICE_ACCOUNT_JSON`, `GSC_SITE_URL` (e.g. `sc-domain:pesohub.ph`);
-`ANTHROPIC_API_KEY` / `BRAINTRUST_API_KEY` already exist.
+`ANTHROPIC_API_KEY` already exists. Optional: `LANGFUSE_PUBLIC_KEY` / `LANGFUSE_SECRET_KEY` /
+`LANGFUSE_BASEURL` (the Langfuse layer no-ops when unset).
 
 ```bash
 # Full run (writes /tmp/gsc-issue.md; workflow opens the issue)
 GSC_SERVICE_ACCOUNT_JSON="$(cat sa-key.json)" GSC_SITE_URL="sc-domain:pesohub.ph" \
-  ANTHROPIC_API_KEY=... BRAINTRUST_API_KEY=... \
+  ANTHROPIC_API_KEY=... LANGFUSE_PUBLIC_KEY=... LANGFUSE_SECRET_KEY=... \
   node scripts/blog-agent/gsc-opportunities.mjs --dry-run
 ```
 

@@ -7,10 +7,13 @@
 
 import Anthropic from "@anthropic-ai/sdk";
 import { createHash } from "crypto";
-import { maybeWrapAnthropic } from "./braintrust.mjs";
+import { observeGeneration, getPrompt } from "./observability.mjs";
+import {
+  WRITING_AGENT_PROMPT,
+  WRITING_AGENT_PROMPT_NAME,
+} from "./prompts/writing-agent.mjs";
 
-// Wrapped for Braintrust auto-tracing when enabled; identical client otherwise.
-const anthropic = maybeWrapAnthropic(new Anthropic());
+const anthropic = new Anthropic();
 export const MODEL = "claude-sonnet-4-6";
 
 function extractToolInput(message, toolName) {
@@ -43,24 +46,57 @@ async function withRetry(fn, { retries = 3, delayMs = 5000 } = {}) {
   }
 }
 
-const SYSTEM_PROMPT = `You are a Philippine personal finance content writer for PesoHub (pesohub.ph).
-
-Your articles are:
-- Written for a Filipino audience (employees, savers, borrowers, OFWs)
-- Practical and actionable — not generic filler
-- Based on current Philippine financial rules, rates, and institutions
-- Properly disclaimed (this is YMYL content)
-- Original analysis and explanation, not restating sources
-
-Use Philippine Peso symbol ₱ (not PHP or P).
-Refer to the Bangko Sentral ng Pilipinas (BSP), BIR, SSS, PhilHealth, Pag-IBIG by name.
-Write in clear, plain English. Avoid jargon unless you explain it.`;
-
-// Version identifier for the system prompt, logged to Braintrust so prompt
-// effectiveness is attributable to a revision. The hash auto-changes whenever
-// SYSTEM_PROMPT is edited; bump the "v1" prefix for human-readable majors.
+// Provenance tag for the writing-agent system prompt, logged to Langfuse so a
+// generation is attributable to a prompt revision. Hash of the committed
+// fallback; the Langfuse-managed version (when enabled) carries its own version.
 export const SYSTEM_PROMPT_VERSION =
-  "v1-" + createHash("sha256").update(SYSTEM_PROMPT).digest("hex").slice(0, 8);
+  "writing-agent-" +
+  createHash("sha256").update(WRITING_AGENT_PROMPT).digest("hex").slice(0, 8);
+
+/**
+ * Fetch the writing-agent prompt (Langfuse production label, committed
+ * fallback) and compile it for one content task. Returns `{ system, handle }`
+ * — `system` is the compiled prompt string used as the Anthropic system prompt,
+ * `handle` links the generation to its Langfuse prompt version (null when off).
+ *
+ * @param {object} vars  the writing-agent {{mustache}} inputs
+ */
+export async function getWritingSystem(vars) {
+  const p = await getPrompt(WRITING_AGENT_PROMPT_NAME, WRITING_AGENT_PROMPT);
+  return { system: p.compile(vars), handle: p.handle };
+}
+
+/**
+ * Build the writing-agent variable map from the queue topic + research +
+ * (optional) upstream keyword-opportunity decision.
+ */
+export function buildWritingVars(keyword, topicMeta = {}, research = {}, decision = null) {
+  const links = (topicMeta.linksTo || []).join(", ") || "None provided";
+  return {
+    keyword_opportunity_output: decision
+      ? JSON.stringify(decision, null, 2)
+      : JSON.stringify(
+          {
+            recommended_action: topicMeta.recommendedAction || "publish_as_new_post",
+            content_gap: topicMeta.brief || "",
+            recommended_content_angle: topicMeta.brief || "",
+          },
+          null,
+          2
+        ),
+    primary_query: keyword,
+    related_queries: (topicMeta.keywords || [keyword]).join(", "),
+    search_console_data: "Curated topic from the PesoHub editorial queue.",
+    top_page_path: (topicMeta.linksTo && topicMeta.linksTo[0]) || "/",
+    search_intent_cluster: topicMeta.category || "general",
+    topic: topicMeta.title || keyword,
+    related_pages_or_tools: links,
+    overlapping_existing_pages: "None provided",
+    source_facts: research.summary || "No external research provided.",
+    writing_goal:
+      "Produce a publish-ready, Philippine-focused article that satisfies the search intent without cannibalizing existing PesoHub pages.",
+  };
+}
 
 const OUTLINE_TOOL = {
   name: "save_outline",
@@ -175,21 +211,26 @@ const ARTICLE_TOOL = {
   },
 };
 
-export async function generateOutline(keyword, research, topicMeta = {}) {
+export async function generateOutline(keyword, research, topicMeta = {}, ctx = {}) {
   console.log(`  📝 Generating outline for: "${keyword}"...`);
+  const system = ctx.system ?? WRITING_AGENT_PROMPT;
 
-  const message = await withRetry(() =>
-    anthropic.messages
-      .stream({
-        model: MODEL,
-        max_tokens: 8192,
-        system: SYSTEM_PROMPT,
-        tools: [OUTLINE_TOOL],
-        tool_choice: { type: "tool", name: OUTLINE_TOOL.name },
-        messages: [
-          {
-            role: "user",
-            content: `Generate a detailed article outline for the keyword: "${keyword}"
+  const message = await observeGeneration(
+    "outline",
+    { model: MODEL, prompt: ctx.promptHandle, input: keyword },
+    () =>
+      withRetry(() =>
+        anthropic.messages
+          .stream({
+            model: MODEL,
+            max_tokens: 8192,
+            system,
+            tools: [OUTLINE_TOOL],
+            tool_choice: { type: "tool", name: OUTLINE_TOOL.name },
+            messages: [
+              {
+                role: "user",
+                content: `Generate a detailed article outline for the keyword: "${keyword}"
 
 ${topicMeta.title ? `Suggested title: ${topicMeta.title}` : ""}
 ${topicMeta.brief ? `Editorial angle (follow this): ${topicMeta.brief}` : ""}
@@ -202,35 +243,41 @@ Key sources:
 ${research.sources.map((s) => `- ${s.title}: ${s.content.slice(0, 300)}`).join("\n")}
 
 Call the save_outline tool with the structured outline.`,
-          },
-        ],
-      })
-      .finalMessage()
+              },
+            ],
+          })
+          .finalMessage()
+      )
   );
 
   return extractToolInput(message, OUTLINE_TOOL.name);
 }
 
-export async function writeArticle(outline, research, topicMeta = {}) {
+export async function writeArticle(outline, research, topicMeta = {}, ctx = {}) {
   console.log(`  ✍️  Writing full article...`);
+  const system = ctx.system ?? WRITING_AGENT_PROMPT;
 
-  const message = await withRetry(() =>
-    anthropic.messages
-      .stream({
-        model: MODEL,
-        // Long structured articles (1500+ words + JSON tool overhead)
-        // overran the prior 16k cap → max_tokens truncation. sonnet-4-6
-        // supports up to 64k output; 32k gives ample headroom.
-        // Streaming required: SDK rejects non-streamed requests whose
-        // max_tokens implies a >10min worst-case duration.
-        max_tokens: 32000,
-        system: SYSTEM_PROMPT,
-        tools: [ARTICLE_TOOL],
-        tool_choice: { type: "tool", name: ARTICLE_TOOL.name },
-        messages: [
-          {
-            role: "user",
-            content: `Write a complete blog article based on this outline and research.
+  const message = await observeGeneration(
+    "article",
+    { model: MODEL, prompt: ctx.promptHandle, input: outline.title },
+    () =>
+      withRetry(() =>
+        anthropic.messages
+          .stream({
+            model: MODEL,
+            // Long structured articles (1500+ words + JSON tool overhead)
+            // overran the prior 16k cap → max_tokens truncation. sonnet-4-6
+            // supports up to 64k output; 32k gives ample headroom.
+            // Streaming required: SDK rejects non-streamed requests whose
+            // max_tokens implies a >10min worst-case duration.
+            max_tokens: 32000,
+            system,
+            tools: [ARTICLE_TOOL],
+            tool_choice: { type: "tool", name: ARTICLE_TOOL.name },
+            messages: [
+              {
+                role: "user",
+                content: `Write a complete blog article based on this outline and research.
 
 Title: ${outline.title}
 Category: ${outline.category}
@@ -258,11 +305,56 @@ Requirements:
 - Link to internal PesoHub pages using inline markdown: [descriptive anchor text](/path) — e.g. "use the [Time Deposit Calculator](/calculators/savings/time-deposit-calculator-philippines)". NEVER write a bare path like "at /calculators/..."; always wrap it in a markdown link with natural anchor text. Link each relevant page at least once where it genuinely helps the reader.
 
 Call the save_article tool with the structured article content.`,
-          },
-        ],
-      })
-      .finalMessage()
+              },
+            ],
+          })
+          .finalMessage()
+      )
   );
 
   return extractToolInput(message, ARTICLE_TOOL.name);
+}
+
+/**
+ * Free-form (non-structured) writing-agent call for actions that do NOT produce
+ * a new TS post file — update_existing_page, merge_with_existing_page, hold,
+ * reject. Returns the agent's markdown "content action package" as a string.
+ *
+ * @param {object} ctx  { system, promptHandle } from getWritingSystem()
+ * @param {string} keyword
+ */
+export async function writeActionPackage(ctx, keyword) {
+  console.log(`  📦 Writing content-action package for: "${keyword}"...`);
+  const system = ctx.system ?? WRITING_AGENT_PROMPT;
+
+  const message = await observeGeneration(
+    "action-package",
+    { model: MODEL, prompt: ctx.promptHandle, input: keyword },
+    () =>
+      withRetry(() =>
+        anthropic.messages
+          .stream({
+            model: MODEL,
+            max_tokens: 16000,
+            system,
+            messages: [
+              {
+                role: "user",
+                content:
+                  "Follow the Keyword Opportunity Agent's recommended_action. Produce the full output using the writing-agent OUTPUT FORMAT (CONTENT STRATEGY, SEO DETAILS, CONTENT OUTPUT, INTERNAL LINK SUGGESTIONS, SOURCE DISCIPLINE NOTES, FINAL SELF-CHECK) in clean Markdown.",
+              },
+            ],
+          })
+          .finalMessage()
+      )
+  );
+
+  if (message.stop_reason === "max_tokens") {
+    throw new Error("Action package truncated (hit max_tokens).");
+  }
+  return message.content
+    .filter((b) => b.type === "text")
+    .map((b) => b.text)
+    .join("\n")
+    .trim();
 }

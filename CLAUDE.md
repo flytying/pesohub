@@ -38,8 +38,10 @@ npm run dev          # dev server on :3000
 npm run build        # static export to out/
 npm run lint         # ESLint
 npm test             # vitest — calculator unit/regression tests (src/lib/calculators/*.test.ts)
-npm run sync-prompt  # push blog-agent prompt to Braintrust
-npm run sync-dataset # push blog-agent dataset to Braintrust
+npm run sync-prompt  # seed the 3 canonical blog-agent prompts to Langfuse
+npm run sync-dataset # backfill the blog-posts dataset to Langfuse
+npm run eval:keyword # Langfuse experiment: keyword-opportunity agent
+npm run eval:content # Langfuse experiment: blog-content evaluator
 ```
 
 ## App Areas & Routes

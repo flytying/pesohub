@@ -1,0 +1,25 @@
+name: Sync Langfuse Prompts
+
+# Seeds the three canonical blog-agent prompts into Langfuse (production label).
+# Run once after adding the LANGFUSE_* secrets, and again whenever a committed
+# fallback prompt in scripts/blog-agent/lib/prompts/ changes.
+on:
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+      - name: Seed prompts to Langfuse
+        env:
+          LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
+          LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
+          LANGFUSE_BASEURL: ${{ secrets.LANGFUSE_BASEURL }}
+        run: node scripts/blog-agent/sync-prompt.mjs
