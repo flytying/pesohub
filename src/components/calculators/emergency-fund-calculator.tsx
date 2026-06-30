@@ -11,6 +11,7 @@ import {
   BreakdownRow,
 } from "@/components/calculators/gradient-result";
 import { formatPeso, formatNumber } from "@/lib/formatters";
+import { computeEmergencyFund } from "@/lib/calculators/emergency-fund";
 import { cn } from "@/lib/utils";
 
 const MONTH_OPTIONS = [3, 4, 5, 6, 9, 12];
@@ -53,10 +54,7 @@ export function EmergencyFundCalculator() {
 
   const { monthlyTotal, targetAmount, gap, progress } = useMemo(() => {
     const monthlyTotal = EXPENSE_CATEGORIES.reduce((a, c) => a + (expenses[c.key] || 0), 0);
-    const targetAmount = monthlyTotal * months;
-    const gap = Math.max(targetAmount - savings, 0);
-    const progress = targetAmount > 0 ? Math.min((savings / targetAmount) * 100, 100) : 0;
-    return { monthlyTotal, targetAmount, gap, progress };
+    return { monthlyTotal, ...computeEmergencyFund(monthlyTotal, months, savings) };
   }, [expenses, months, savings]);
 
   const update = (key: string, value: number) =>

@@ -10,40 +10,8 @@ import {
   BreakdownRow,
 } from "@/components/calculators/gradient-result";
 import { formatPeso, formatNumber } from "@/lib/formatters";
+import { calculateMonthlySavings } from "@/lib/calculators/savings-goal";
 import { cn } from "@/lib/utils";
-
-function calculateMonthlySavings(
-  targetAmount: number,
-  startingBalance: number,
-  months: number,
-  annualRate: number
-) {
-  const remaining = targetAmount - startingBalance;
-  if (remaining <= 0) return { monthly: 0, totalContributions: 0, interestEarned: 0 };
-  if (months <= 0)
-    return { monthly: remaining, totalContributions: remaining, interestEarned: 0 };
-
-  const monthlyRate = annualRate / 100 / 12;
-  if (monthlyRate === 0) {
-    const monthly = remaining / months;
-    return { monthly, totalContributions: monthly * months, interestEarned: 0 };
-  }
-
-  const fvStarting = startingBalance * Math.pow(1 + monthlyRate, months);
-  const amountNeeded = targetAmount - fvStarting;
-  if (amountNeeded <= 0) {
-    return { monthly: 0, totalContributions: 0, interestEarned: fvStarting - startingBalance };
-  }
-
-  const monthly = amountNeeded * (monthlyRate / (Math.pow(1 + monthlyRate, months) - 1));
-  const totalContributions = monthly * months;
-  const interestEarned = targetAmount - startingBalance - totalContributions;
-  return {
-    monthly: Math.max(monthly, 0),
-    totalContributions: Math.max(totalContributions, 0),
-    interestEarned: Math.max(interestEarned, 0),
-  };
-}
 
 function monthsLabel(m: number) {
   if (m % 12 === 0) {
