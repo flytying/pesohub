@@ -41,7 +41,7 @@ const breadcrumbs = [
 const CARD =
   "rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(20px,2.5vw,30px)] shadow-[0_1px_2px_rgba(16,24,40,.04)]";
 const H2 = "font-display text-[22px] font-semibold tracking-[-0.02em] text-[#0E1525]";
-const LEAD = "mt-[10px] max-w-[80ch] text-[16px] leading-[1.65] text-[#475069]";
+const LEAD = "mt-[10px] text-[16px] leading-[1.65] text-[#475069]";
 
 const commonGoals = [
   {
@@ -170,7 +170,7 @@ export default function SavingsGoalCalculatorPage() {
           <h1 className="font-display text-[clamp(26px,3.4vw,38px)] font-semibold leading-[1.1] tracking-[-.02em] text-[#0E1525]">
             {TITLE}
           </h1>
-          <p className="mt-[9px] max-w-[80ch] text-[16px] leading-[1.55] text-[#5A6478]">{INTRO}</p>
+          <p className="mt-[9px] text-[16px] leading-[1.55] text-[#5A6478]">{INTRO}</p>
         </div>
 
         {/* Calculator */}
