@@ -4,6 +4,26 @@ Findings from the 2026-06-30 code review. Most were fixed in the follow-up pass 
 `fix/code-review-followups`); resolved items are marked **✓ RESOLVED**. Remaining items are the
 backlog. Each is verified and evidence-based.
 
+## ✓ RESOLVED — Take-home pay taxed gross instead of taxable income (#191)
+
+`calculateTakeHomePay` computed withholding tax on gross salary; BIR taxes income net of mandatory
+SSS/PhilHealth/Pag-IBIG. It now deducts contributions first and taxes the reduced base (matching
+`calculateWithholdingTaxDetailed` and the page's own copy). E.g. ₱35k gross: take-home 86% → 87%.
+
+## ✓ RESOLVED — Calculator test coverage (#190, #191)
+
+Vitest added (`npm test`). Every calculator's pure function has a co-located `*.test.ts`
+(75 tests / 12 files) covering happy path, boundaries, invalid input, and golden-value correctness;
+`official-rates.test.ts` guards the encoded PH rates against drift. The savings-goal and emergency-fund
+calculators had inline component logic — extracted to `src/lib/calculators/{savings-goal,emergency-fund}.ts`
+so they're unit-testable.
+
+## ✓ RESOLVED — a11y / SEO follow-ups (#190)
+
+Table `scope="col"` + sr-only captions, search `aria-live`, decorative-icon `aria-hidden`; contact page
+split into a server component (now exports metadata: title/description/canonical) + `contact-form.tsx`
+client child; sitemap now includes the Pag-IBIG MP2 page + static/legal pages; `ALL_PAGES` completed.
+
 ## ✓ RESOLVED — Duplicate "<space>N" sync artifacts (macOS Finder/iCloud)
 
 All ` 2`/` 3` sync-duplicate files (tracked + untracked) were deleted, and the GSC ones renamed to
@@ -78,6 +98,9 @@ match RA 11199; the conflicting ₱4,000/₱2,000 lived only in the now-deleted 
 
 ### Stale data timestamps (content cadence, not a bug)
 
-As of 2026-06-30, `UPDATED_AT` > 60 days in `src/data/government/{sss-contribution,philhealth,
-sss-pension-table}.ts` and `pag-ibig-mp2.ts`. The freshness workflow + `content-registry.ts` exist to
-catch this; verify the values are still correct.
+As of 2026-06-30, `UPDATED_AT` ≥ 60 days in `src/data/government/sss-contribution.ts` and
+`philhealth.ts` (both exactly 60d) and `pag-ibig-mp2.ts` (89d). `sss-pension-table.ts`,
+`withholding-tax-table.ts`, and `pag-ibig-contribution.ts` are fresh. The freshness workflow +
+`content-registry.ts` exist to catch this; verify the encoded values are still correct. All encoded
+rates carry a source citation (BIR RR 11-2018, SSS Jan-2025 circulars, PhilHealth Circ 2019-0009,
+HDMF Circ 460, RA 11199) and are guarded by `official-rates.test.ts`.

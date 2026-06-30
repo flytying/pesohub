@@ -37,6 +37,7 @@ docs/                # Supporting docs (see links below)
 npm run dev          # dev server on :3000
 npm run build        # static export to out/
 npm run lint         # ESLint
+npm test             # vitest — calculator unit/regression tests (src/lib/calculators/*.test.ts)
 npm run sync-prompt  # push blog-agent prompt to Braintrust
 npm run sync-dataset # push blog-agent dataset to Braintrust
 ```
@@ -57,7 +58,10 @@ npm run sync-dataset # push blog-agent dataset to Braintrust
 - **Calculator logic** lives in `src/lib/calculators/` as **pure functions** (no side effects); UI
   components stay presentational. Reuse existing fns — the live SSS path uses
   `sss-pension-formula.ts` + `sss-contribution-wisp.ts` (other SSS files have dead variants; see
-  known-issues before touching).
+  known-issues before touching). Keep math in the lib, not inline in components, so it stays
+  unit-testable: every calculator has a co-located `*.test.ts` (run with `npm test`), and
+  `official-rates.test.ts` pins each encoded PH rate to its source value so data drift fails loudly.
+  Take-home/withholding tax is computed on income **net of** SSS/PhilHealth/Pag-IBIG (BIR rule), not gross.
 - **Card borders:** on colored surfaces (`surface-secondary/tertiary`) use no border; on white use
   `border border-gray-200`.
 - **FAQ / Related sections:** bare, no outer card wrapper.

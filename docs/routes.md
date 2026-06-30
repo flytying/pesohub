@@ -75,7 +75,9 @@ Hub: `/guides`.
 ## Static / legal
 
 `/`, `/about`, `/contact`, `/privacy`, `/terms`, `/disclaimer`, plus `not-found.tsx`.
+`/contact` is a server component (exports `metadata`) wrapping a `contact-form.tsx` client child.
 
 ## SEO endpoints
 
-`src/app/sitemap.ts` and `src/app/robots.ts` generate `sitemap.xml` / `robots.txt` at build.
+`src/app/sitemap.ts` and `src/app/robots.ts` generate `sitemap.xml` / `robots.txt` at build. The
+sitemap covers all content routes plus the static/legal pages (`/search` is intentionally excluded).
