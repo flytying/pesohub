@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Search } from "lucide-react";
@@ -31,13 +31,16 @@ function groupByCategory(results: SearchResult[]) {
 export function SearchResults() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const initialQuery = searchParams.get("q") ?? "";
-  const [query, setQuery] = useState(initialQuery);
+  const urlQuery = searchParams.get("q") ?? "";
+  const [query, setQuery] = useState(urlQuery);
 
-  // Sync from URL changes (e.g. browser back/forward)
-  useEffect(() => {
-    setQuery(searchParams.get("q") ?? "");
-  }, [searchParams]);
+  // Sync state when the URL changes (e.g. browser back/forward) without an
+  // effect: the render-time "adjust state on prop change" pattern.
+  const [prevUrlQuery, setPrevUrlQuery] = useState(urlQuery);
+  if (urlQuery !== prevUrlQuery) {
+    setPrevUrlQuery(urlQuery);
+    setQuery(urlQuery);
+  }
 
   const results = query.trim().length >= 2 ? search(query.trim()) : [];
   const groups = groupByCategory(results);

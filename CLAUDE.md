@@ -92,8 +92,9 @@ Two implementations; only the Express one is live.
 - **Live:** `server/index.mjs` — Express on Render (`pesohub-email-api.onrender.com`), Resend for
   delivery. Endpoints `POST /contact`, `POST /calculator`, `GET /health`. Hardened: rate limit,
   16KB body cap, Helmet, input validation, honeypot. Frontend wires it via `src/config/site.ts`.
-- **Undeployed alt:** `workers/email-api/` (Cloudflare Worker) — kept for a possible future move;
-  currently **missing honeypot + body cap** (do not deploy as-is). See known-issues.
+- **Undeployed alt:** `workers/email-api/` (Cloudflare Worker) — kept for a possible future move.
+  At parity with Express on validation/honeypot/body-cap/headers, **except per-IP rate limiting**
+  (needs Durable Objects or a Cloudflare zone rule — configure before deploying). See known-issues.
 - Honeypot field names must match server checks: `website` (contact, `src/app/contact/page.tsx`),
   `phone` (calculator, `src/components/calculators/result-actions.tsx`).
 - Details & DNS: **[docs/email-api.md](docs/email-api.md)**.
@@ -110,8 +111,9 @@ figures without a review path.
 | `update-government-data.yml` | 1st 03:00 | Gov data check → PR |
 | `content-freshness.yml` | Mon 01:00 | Staleness → issue |
 | `blog-post.yml` | Mon 03:00 | Generate post → auto-merge |
+| `gsc-opportunities.yml` | Mon 01:30 | GSC opportunities → issue |
 
-Data updater, blog agent, and the (not-yet-committed) GSC finder:
+Data updater, blog agent, and the GSC opportunity finder:
 **[docs/content-automation.md](docs/content-automation.md)**.
 Hosting, DNS, secrets, troubleshooting: **[docs/deployment-and-automation.md](docs/deployment-and-automation.md)**.
 
@@ -138,6 +140,6 @@ Hosting, DNS, secrets, troubleshooting: **[docs/deployment-and-automation.md](do
 
 ## Known Issues
 
-Dead code, duplicate ` 2`/` 3` sync-artifact files (some committed), an orphan blog post, SSS logic
-divergence, the uncommitted GSC system, and calculator input-validation gaps are catalogued in
-**[docs/known-issues.md](docs/known-issues.md)**. Do not assume those are intentional patterns.
+Remaining tech debt (SSS member-type enum fragmentation, Worker rate-limiting, stale content dates)
+is catalogued in **[docs/known-issues.md](docs/known-issues.md)**. A `.gitignore` rule blocks the
+recurring ` 2`/` 3` macOS sync-duplicate files — do not commit any path with that suffix.

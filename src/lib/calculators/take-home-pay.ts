@@ -5,6 +5,7 @@
 // ---------------------------------------------------------------------------
 
 import { calculateWithholdingTax } from "@/lib/calculators/tax";
+import { round } from "./math-utils";
 import { SSS_CONTRIBUTION_TABLE_2025 } from "@/lib/calculators/sss";
 
 /**
@@ -148,11 +149,4 @@ export function calculatePagIBIGEmployee(monthlySalary: number): number {
   const cappedSalary = Math.min(monthlySalary, PAGIBIG_MAX_MSC);
   const rate = monthlySalary <= 1_500 ? 0.01 : 0.02;
   return round(cappedSalary * rate);
-}
-
-/**
- * Round a number to two decimal places.
- */
-function round(value: number): number {
-  return Math.round(value * 100) / 100;
 }

@@ -20,6 +20,7 @@ import {
   type TermUnit,
   type InterestMethod,
 } from "@/lib/calculators/time-deposit";
+import { CalcErrorState } from "@/components/calculators/calc-error-state";
 import { formatPeso, formatNumber } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 
@@ -94,6 +95,14 @@ export function TimeDepositCalculator() {
         calculateForTerm(depositAmount, annualRate, m, taxRate, method),
       ),
     [depositAmount, annualRate, taxRate, method],
+  );
+
+  if ("error" in result) {
+    return <CalcErrorState message={result.error} onReset={reset} />;
+  }
+
+  const validComparisons = comparisons.filter(
+    (c): c is Exclude<typeof c, { error: string }> => !("error" in c),
   );
 
   const totalBalance = depositAmount + result.afterTaxInterest;
@@ -294,7 +303,7 @@ export function TimeDepositCalculator() {
           deposit at {annualRate.toFixed(2)}%. Tap a term to apply it.
         </p>
         <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {comparisons.map((comp) => {
+          {validComparisons.map((comp) => {
             const on =
               comp.termInMonths === result.termInMonths &&
               termUnit === "months";

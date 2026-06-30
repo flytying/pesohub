@@ -26,11 +26,28 @@ interface CalculatorPayload {
   results: string;
 }
 
+// Cap request bodies — these endpoints only ever receive small JSON payloads.
+const MAX_BODY_BYTES = 16 * 1024; // 16KB, matches server/index.mjs
+
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+// Security headers mirroring helmet() on the Express server.
+const SECURITY_HEADERS: Record<string, string> = {
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "no-referrer",
+};
+
+// Validate a field is a non-empty string within maxLen. Returns trimmed value or null.
+function cleanField(value: unknown, maxLen: number): string | null {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed.length > maxLen) return null;
+  return trimmed;
+}
+
 function corsHeaders(origin: string, allowedOrigin: string): HeadersInit {
-  const allowed =
-    origin === allowedOrigin ||
-    origin === "https://pesohub.pages.dev" ||
-    origin === "http://localhost:3000";
+  const allowed = origin === allowedOrigin || origin === "http://localhost:3000";
 
   return {
     "Access-Control-Allow-Origin": allowed ? origin : allowedOrigin,
@@ -50,6 +67,7 @@ function jsonResponse(
     status,
     headers: {
       "Content-Type": "application/json",
+      ...SECURITY_HEADERS,
       ...corsHeaders(origin, allowedOrigin),
     },
   });
@@ -149,7 +167,7 @@ export default {
     if (request.method === "OPTIONS") {
       return new Response(null, {
         status: 204,
-        headers: corsHeaders(origin, env.ALLOWED_ORIGIN),
+        headers: { ...SECURITY_HEADERS, ...corsHeaders(origin, env.ALLOWED_ORIGIN) },
       });
     }
 
@@ -157,14 +175,39 @@ export default {
       return jsonResponse({ error: "Method not allowed" }, 405, origin, env.ALLOWED_ORIGIN);
     }
 
+    // Body-size cap (matches express.json({ limit: "16kb" })).
+    // NOTE: per-IP rate limiting is intentionally not implemented here — in
+    // Workers that needs Durable Objects or a zone-level Cloudflare Rate
+    // Limiting rule. Configure that at the zone before deploying. See
+    // docs/email-api.md.
+    const contentLength = Number(request.headers.get("Content-Length") || "0");
+    if (contentLength > MAX_BODY_BYTES) {
+      return jsonResponse({ error: "Payload too large" }, 413, origin, env.ALLOWED_ORIGIN);
+    }
+
     try {
-      const body = await request.json();
+      const raw = await request.text();
+      if (raw.length > MAX_BODY_BYTES) {
+        return jsonResponse({ error: "Payload too large" }, 413, origin, env.ALLOWED_ORIGIN);
+      }
+      const body = JSON.parse(raw) as Record<string, unknown>;
 
       if (url.pathname === "/contact") {
-        const { name, email, subject, message } = body as ContactPayload;
+        // Honeypot — bots fill the hidden "website" field. Pretend success, send nothing.
+        if (typeof body.website === "string" && body.website.trim() !== "") {
+          return jsonResponse({ success: true }, 200, origin, env.ALLOWED_ORIGIN);
+        }
+
+        const name = cleanField(body.name, 120);
+        const email = cleanField(body.email, 200);
+        const subject = cleanField(body.subject, 60);
+        const message = cleanField(body.message, 5000);
 
         if (!name || !email || !subject || !message) {
           return jsonResponse({ error: "All fields are required" }, 400, origin, env.ALLOWED_ORIGIN);
+        }
+        if (!EMAIL_RE.test(email)) {
+          return jsonResponse({ error: "Invalid email address" }, 400, origin, env.ALLOWED_ORIGIN);
         }
 
         const subjectLabels: Record<string, string> = {
@@ -194,10 +237,20 @@ export default {
       }
 
       if (url.pathname === "/calculator") {
-        const { email, calculatorType, results } = body as CalculatorPayload;
+        // Honeypot — bots fill the hidden "phone" field. Pretend success, send nothing.
+        if (typeof body.phone === "string" && body.phone.trim() !== "") {
+          return jsonResponse({ success: true }, 200, origin, env.ALLOWED_ORIGIN);
+        }
+
+        const email = cleanField(body.email, 200);
+        const calculatorType = cleanField(body.calculatorType, 120);
+        const results = cleanField(body.results, 20000);
 
         if (!email || !calculatorType || !results) {
           return jsonResponse({ error: "All fields are required" }, 400, origin, env.ALLOWED_ORIGIN);
+        }
+        if (!EMAIL_RE.test(email)) {
+          return jsonResponse({ error: "Invalid email address" }, 400, origin, env.ALLOWED_ORIGIN);
         }
 
         const emailRes = await sendEmail(

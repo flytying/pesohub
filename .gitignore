@@ -45,3 +45,7 @@ next-env.d.ts
 
 # Claude Design handoff reference (not committed)
 .design-handoff/
+
+# macOS Finder/iCloud sync duplicates ("foo 2.ts", "lib 2/")
+* [0-9].*
+* [0-9]/

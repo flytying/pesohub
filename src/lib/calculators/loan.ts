@@ -3,6 +3,8 @@
 // Supports car loans, home loans, and personal loans (same annuity formula).
 // ---------------------------------------------------------------------------
 
+import { round, type CalcError } from "./math-utils";
+
 /**
  * Input parameters for a loan calculation.
  */
@@ -59,8 +61,19 @@ export interface LoanResult {
  *
  * This function is pure – it has no side effects.
  */
-export function calculateLoan(input: LoanInput): LoanResult {
+export function calculateLoan(input: LoanInput): LoanResult | CalcError {
   const { principal, annualInterestRate, termMonths } = input;
+
+  // -- Input validation --
+  if (!Number.isFinite(principal) || principal <= 0) {
+    return { error: "Enter a loan amount greater than zero." };
+  }
+  if (!Number.isFinite(annualInterestRate) || annualInterestRate < 0) {
+    return { error: "Enter an interest rate of zero or more." };
+  }
+  if (!Number.isFinite(termMonths) || termMonths < 1) {
+    return { error: "Enter a loan term of at least one month." };
+  }
 
   // -- Edge case: zero-interest loan --
   if (annualInterestRate === 0) {
@@ -157,11 +170,4 @@ function calculateZeroInterestLoan(
     totalInterest: 0,
     schedule,
   };
-}
-
-/**
- * Round a number to two decimal places (standard currency rounding).
- */
-function round(value: number): number {
-  return Math.round(value * 100) / 100;
 }

@@ -3,6 +3,8 @@
 // Pure TypeScript computation library.
 // ---------------------------------------------------------------------------
 
+import { round } from "./math-utils";
+
 /**
  * Input parameters for the withholding tax calculation.
  *
@@ -166,11 +168,4 @@ function findBracket(annualIncome: number): TaxBracket {
 
   // Income is zero or negative -- falls into the first (0%) bracket.
   return TAX_BRACKETS[0];
-}
-
-/**
- * Round a number to two decimal places.
- */
-function round(value: number): number {
-  return Math.round(value * 100) / 100;
 }

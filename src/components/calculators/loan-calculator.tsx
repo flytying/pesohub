@@ -10,6 +10,7 @@ import {
   BreakdownRow,
 } from "@/components/calculators/gradient-result";
 import { calculateLoan } from "@/lib/calculators/loan";
+import { CalcErrorState } from "@/components/calculators/calc-error-state";
 import { formatPeso } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import {
@@ -192,10 +193,6 @@ export function LoanCalculator({ config }: { config: LoanConfig }) {
     return calculateLoan({ principal: loanAmount, annualInterestRate: interestRate, termMonths });
   }, [loanAmount, interestRate, termMonths]);
 
-  const totalCost = downAmount + result.totalPayment;
-  const totalOfPayments = loanAmount + result.totalInterest;
-  const principalPct = totalOfPayments > 0 ? (loanAmount / totalOfPayments) * 100 : 100;
-
   const comparisons = useMemo(
     () =>
       c.compareTerms.map((t) => {
@@ -203,10 +200,19 @@ export function LoanCalculator({ config }: { config: LoanConfig }) {
           loanAmount > 0
             ? calculateLoan({ principal: loanAmount, annualInterestRate: interestRate, termMonths: t.m })
             : { monthlyPayment: 0, totalInterest: 0 };
-        return { ...t, monthly: l.monthlyPayment, interest: l.totalInterest };
+        const ok = "error" in l ? { monthlyPayment: 0, totalInterest: 0 } : l;
+        return { ...t, monthly: ok.monthlyPayment, interest: ok.totalInterest };
       }),
     [loanAmount, interestRate, c.compareTerms]
   );
+
+  if ("error" in result) {
+    return <CalcErrorState message={result.error} onReset={reset} />;
+  }
+
+  const totalCost = downAmount + result.totalPayment;
+  const totalOfPayments = loanAmount + result.totalInterest;
+  const principalPct = totalOfPayments > 0 ? (loanAmount / totalOfPayments) * 100 : 100;
 
   const termYears = termMonths / 12;
   const termWord =

@@ -1,108 +1,82 @@
 # Known Issues
 
-Findings from the 2026-06-30 code review. **All are unaddressed** — this was a documentation-only
-pass (no code deleted or refactored). Each item is verified and evidence-based. Treat this as the
-backlog for a future code-cleanup pass.
+Findings from the 2026-06-30 code review. Most were fixed in the follow-up pass (branch
+`fix/code-review-followups`); resolved items are marked **✓ RESOLVED**. Remaining items are the
+backlog. Each is verified and evidence-based.
 
-## Duplicate "<space>N" sync artifacts (macOS Finder/iCloud)
+## ✓ RESOLVED — Duplicate "<space>N" sync artifacts (macOS Finder/iCloud)
 
-Files copied with a ` 2` / ` 3` suffix by file sync. All verified **zero-reference**. Junk.
+All ` 2`/` 3` sync-duplicate files (tracked + untracked) were deleted, and the GSC ones renamed to
+their base names. A `.gitignore` rule (`* [0-9].*`, `* [0-9]/`) now blocks them from recurring — do
+not commit any path with that suffix.
 
-**Committed (tracked) — should be `git rm`'d:**
-- `src/components/layout/app-shell 2.tsx`, `sidebar 2.tsx`
-- `src/components/shared/chip 2.tsx`, `icon-tile 2.tsx`
-- `scripts/data-updater/lib 2/` (whole dir), `scripts/data-updater/sources 2/` (whole dir)
-- `scripts/blog-agent/lib/braintrust 2.mjs`, `unsplash-image 2.mjs`, `run 2.mjs`, `writer 2.mjs`
-- `public/pesohub-logo-white 2.png`, `pesohub-mark 2.png`
-- `server/package-lock 2.json`, `package-lock 3.json`
+## ✓ RESOLVED — GSC system committed
 
-**Untracked (working tree only) — `rm`:**
-- 19 files incl. `.github/workflows/gsc-opportunities 2.yml`, all `scripts/blog-agent/**/gsc-* 2.*`,
-  `public/logo-symbol 2.*`, `public/pesohub-logo-white 3.png`, `public/pesohub-mark 3.png`,
-  `server/package-lock 4.json`, `package-lock 5.json`, `scripts/blog-agent/lib/braintrust 3.mjs`,
-  `run 3.mjs`, `writer 3.mjs`. See `git status`.
+The GSC Content Opportunity Finder was previously present only as untracked ` 2` files. It has been
+renamed to base names, syntax-checked, and committed (orchestrator, `lib/gsc-*.mjs`, `evals/`, and
+`.github/workflows/gsc-opportunities.yml`). End-to-end run still needs `GSC_SERVICE_ACCOUNT_JSON` +
+`ANTHROPIC_API_KEY`. See `docs/content-automation.md` §3.
 
-**Suggested fix:** delete all of the above; add a `.gitignore` rule like `* [0-9].*` and
-`* [0-9]/` to stop them recurring.
+## ✓ RESOLVED — Dead code
 
-## GSC system never committed
+Deleted `src/lib/calculators/sss-contribution.ts` (zero imports) and the unused
+`calculateSSPension`/`SSSInput`/`SSSResult` + private helpers from `sss.ts` (live pension path is
+`computeSSSPension` in `sss-pension-formula.ts`). Deleted unused components: `chip`, `category-card`,
+`related-pages`, `stat-counter`, `update-badge`, `icon-tile`. **Kept** the shadcn primitives
+(`ui/{badge,select,separator,skeleton,tabs}.tsx`) — cheap scaffolding.
 
-The entire GSC Content Opportunity Finder exists **only as untracked ` 2` files** — no base file is
-tracked, the workflow is not committed, so it does not run in CI. The old CLAUDE.md documented it as
-a live feature; that was inaccurate. **Fix:** rename the ` 2` files to their base names, review, and
-commit — or delete if abandoned. See `docs/content-automation.md` §3.
+## ✓ RESOLVED — Orphan blog post
 
-## Dead code (zero importers, confirmed)
+Deleted `src/data/blog/best-digital-banks-philippines-2026.ts` (was in neither `index.ts` nor
+`post-modules.ts`). The live post `best-digital-banks-philippines.ts` is unaffected.
 
-- `src/lib/calculators/sss.ts` → `calculateSSPension()` unused. Live calculator uses
-  `computeSSSPension()` from `sss-pension-formula.ts`.
-- `src/lib/calculators/sss-contribution.ts` → `calculateSSSContribution()` unused (whole file
-  effectively dead). Live calculator uses `computeSSSContribution()` from `sss-contribution-wisp.ts`.
-- Unused components: `src/components/shared/chip.tsx`, `category-card.tsx`, `related-pages.tsx`,
-  `stat-counter.tsx`, `update-badge.tsx`, `icon-tile.tsx` (only imported by dead `category-card`).
-- Unused shadcn primitives: `src/components/ui/{badge,select,separator,skeleton,tabs}.tsx`.
+## ✓ RESOLVED — Calculator input validation
 
-**Suggested fix:** delete after confirming no near-term use. shadcn primitives are cheap to keep.
+`calculateLoan`, `calculateTimeDeposit`, `calculateForTerm`, and `calculateThirteenthMonthPay` now
+return `Result | CalcError` and reject negative/zero/NaN inputs. Consumers narrow the union and show
+`CalcErrorState`. UI fields clamp to safe minimums, so this is a defensive guard.
 
-## Orphan blog post
+## ✓ RESOLVED — Duplicate `round()` helper
 
-`src/data/blog/best-digital-banks-philippines-2026.ts` is fully populated but registered in
-**neither** `src/data/blog/index.ts` nor `post-modules.ts` → unreachable (no listing, no URL).
-The live post is `best-digital-banks-philippines.ts`. **Fix:** delete the orphan or register it.
+Extracted to `src/lib/calculators/math-utils.ts` (also exports `CalcError`); the 7 calculator files
+import it instead of redefining.
 
-## SSS calculator logic divergence
+## ✓ RESOLVED — Accessibility (search dropdown)
 
-Three overlapping SSS modules with **fragmented `SSSMemberType` enums**:
-- `sss.ts` → `"employer-employee" | "kasambahay" | "self-employed" | "voluntary" | "ofw"`
-- `sss-contribution.ts` → `"employee" | "self_employed" | "voluntary" | "non_working_spouse" | "ofw"`
-- `sss-contribution-wisp.ts` → `"employed" | "self" | "voluntary" | "ofw"` (the live one)
+`header.tsx` search now has combobox/listbox roles, `aria-expanded`/`aria-controls`/`aria-autocomplete`,
+`aria-live="polite"`, and `role="option"` on results. (Blog raw `<img>` for dynamic Unsplash/Pexels
+URLs is acceptable under static export — no change.)
 
-Pension minimums also differ: `sss.ts` uses ₱4,000/₱2,000; `sss-pension-formula.ts` (live) uses
-₱2,400/₱1,200. Confirm which is current SSS policy and consolidate to one source of truth.
+## ✓ RESOLVED — Email API Worker parity (minus rate-limit)
 
-## Calculator input validation gaps
+`workers/email-api/src/index.ts` now has honeypot (`website`/`phone`), a 16KB body cap, field-length +
+email-regex validation, and security headers, and drops the legacy `pesohub.pages.dev` CORS origin.
+Still undeployed. **Remaining:** per-IP rate limiting is not implemented — Workers needs Durable
+Objects or a Cloudflare zone-level rule; configure that before any deploy (see `docs/email-api.md`).
 
-`src/lib/calculators/{time-deposit,loan,thirteenth-month}.ts` do not reject negative/zero inputs →
-can produce mathematically invalid output. The Express email API validates its inputs well; the
-calculators rely on UI constraints only. **Fix:** add guards returning a typed error or clamped zero.
+## ✓ RESOLVED — README + Lint
 
-## Duplicate `round()` helper
+README replaced with a project-specific stub. `eslint.config.mjs` now ignores `.claude/`,
+`.design-handoff/`, `**/node_modules/**`; `npx eslint src` is clean of errors (the search-results
+setState error is fixed). Pre-existing unused-import warnings remain (e.g. `Info` in
+`withholding-tax-calculator.tsx`, `Button` in `amortization-table.tsx`) — cosmetic, not addressed.
 
-Identical private `round(v) = Math.round(v*100)/100` defined in 8 calculator files. **Fix:** extract
-to a shared `src/lib/calculators/math-utils.ts`.
+---
 
-## Accessibility
+## Remaining backlog
 
-- Header search dropdown (`src/components/layout/header.tsx` ~L79) lacks `aria-live="polite"` — screen
-  readers aren't told results appeared. **Fix:** add the live region.
-- Blog uses raw `<img>` for dynamic Unsplash/Pexels URLs (`src/app/blog/**`). Alt text present,
-  `eslint-disable`d. **Acceptable** under static export (`unoptimized: true`); no action needed.
+### SSS calculator member-type enum fragmentation
 
-## Email API — second implementation lacks parity
+Two live member-type enums serve different UIs and are not unified:
+- `sss.ts` `SSSMemberType` → `"employer-employee" | "kasambahay" | "self-employed" | "voluntary" | "ofw"`
+  (reference table, `sss-contribution-tabs.tsx`)
+- `sss-contribution-wisp.ts` `SSSMember` → `"employed" | "self" | "voluntary" | "ofw"` (the calculator)
 
-`workers/email-api/src/index.ts` (Cloudflare Worker, **undeployed**; live API is the Express
-`server/index.mjs` on Render) is missing the honeypot check and the 16KB body cap that the Express
-version has, and still lists the legacy `pesohub.pages.dev` CORS origin. Kept as a future/alt option
-per decision. **Fix before any deploy:** bring it to validation parity with `server/index.mjs`.
+Not harmful (no shared call site), but confusing. Left as-is — unifying is cosmetic and risks the
+live contribution UI. The live pension minimums (₱1,200/₱2,400 + ₱1,000 in `sss-pension-formula.ts`)
+match RA 11199; the conflicting ₱4,000/₱2,000 lived only in the now-deleted dead code.
 
-## README is boilerplate
-
-`README.md` is unmodified create-next-app output (references `npm start` — N/A for static export —
-and the Geist font, which the site doesn't use). Replaced in this pass with a project-specific stub
-pointing to `CLAUDE.md`.
-
-## Lint
-
-- **Config doesn't ignore vendored copies.** `npm run lint` reports ~53k problems because ESLint
-  scans `.claude/worktrees/` and `.design-handoff/` (full repo copies incl. `node_modules`). `src/`
-  alone has only **1 error + 15 warnings**. **Fix:** add `.claude/`, `.design-handoff/`,
-  `**/node_modules/`, `workers/*/node_modules/` to the `ignores` in `eslint.config.mjs`.
-- **Pre-existing src error:** `src/app/search/search-results.tsx:39` — setState called
-  synchronously in an effect (`react-hooks/set-state-in-effect`). `npm run build` still succeeds.
-- Pre-existing unused-import warnings: `Info` in `withholding-tax-calculator.tsx`, `Button` in
-  `amortization-table.tsx`, etc.
-
-## Stale data timestamps (content cadence, not a bug)
+### Stale data timestamps (content cadence, not a bug)
 
 As of 2026-06-30, `UPDATED_AT` > 60 days in `src/data/government/{sss-contribution,philhealth,
 sss-pension-table}.ts` and `pag-ibig-mp2.ts`. The freshness workflow + `content-registry.ts` exist to

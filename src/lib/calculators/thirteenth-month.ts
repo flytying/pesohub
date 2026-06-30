@@ -4,6 +4,8 @@
 // Pure TypeScript computation library.
 // ---------------------------------------------------------------------------
 
+import { round, type CalcError } from "./math-utils";
+
 /**
  * Computation type for 13th month pay.
  */
@@ -56,8 +58,15 @@ export interface ThirteenthMonthResult {
  */
 export function calculateThirteenthMonthPay(
   input: ThirteenthMonthInput,
-): ThirteenthMonthResult {
+): ThirteenthMonthResult | CalcError {
   const { monthlyBasicSalary, monthsWorked, computationType } = input;
+
+  if (!Number.isFinite(monthlyBasicSalary) || monthlyBasicSalary < 0) {
+    return { error: "Enter a monthly basic salary of zero or more." };
+  }
+  if (!Number.isFinite(monthsWorked) || monthsWorked < 0) {
+    return { error: "Enter a valid number of months worked." };
+  }
 
   const clampedMonths = Math.min(Math.max(Math.round(monthsWorked), 0), 12);
   const totalBasicSalaryEarned = round(monthlyBasicSalary * clampedMonths);
@@ -70,15 +79,4 @@ export function calculateThirteenthMonthPay(
     monthsWorked: clampedMonths,
     computationType,
   };
-}
-
-// ---------------------------------------------------------------------------
-// Internal helpers
-// ---------------------------------------------------------------------------
-
-/**
- * Round a number to two decimal places.
- */
-function round(value: number): number {
-  return Math.round(value * 100) / 100;
 }
