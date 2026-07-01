@@ -35,6 +35,13 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scripts/data-updater/run-update.mjs --sources savings-rates,digital-rates,time-deposit-rates
 
+      - name: Typecheck regenerated data (schema-drift guard)
+        # The updater rewrites each data file from a hardcoded interface +
+        # emitter. If those drift from what the pages consume, the Vercel build
+        # breaks (see #200). Fail here — before any PR is opened — so a drift is
+        # a red run + email, never a broken preview deploy. (#201)
+        run: npx tsc --noEmit
+
       - name: Check for changes
         id: changes
         run: |
