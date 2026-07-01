@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const PAGIBIG_MP2_UPDATED_AT = "2026-04-02";
+export const PAGIBIG_MP2_UPDATED_AT = "2026-07-02";
 
 export const pagibigMp2Meta = {
   title: "Pag-IBIG MP2 Savings Guide Philippines 2026",
@@ -32,8 +32,8 @@ export const mp2AtAGlance: Mp2QuickFact[] = [
   },
   {
     label: "Latest Dividend Rate",
-    value: "5.61%",
-    note: "2024 rate (tax-exempt)",
+    value: "7.12%",
+    note: "2025 rate (tax-exempt), announced February 2026",
   },
   {
     label: "Tax on Dividends",
@@ -75,9 +75,9 @@ export const mp2VsRegularComparison: Mp2ComparisonRow[] = [
     mp2: "Employer deducts only if you request it",
   },
   {
-    feature: "Dividend Rate (2024)",
-    regularPagibig: "5.61%",
-    mp2: "5.61%",
+    feature: "Dividend Rate (2025)",
+    regularPagibig: "6.62%",
+    mp2: "7.12%",
   },
   {
     feature: "Tax on Dividends",
@@ -170,9 +170,10 @@ export interface Mp2DividendYear {
 }
 
 export const mp2DividendHistory: Mp2DividendYear[] = [
-  { year: 2024, dividendRate: "5.61%" },
+  { year: 2025, dividendRate: "7.12%", note: "Announced February 2026" },
+  { year: 2024, dividendRate: "7.10%" },
   { year: 2023, dividendRate: "7.05%" },
-  { year: 2022, dividendRate: "6.53%" },
+  { year: 2022, dividendRate: "7.03%" },
   { year: 2021, dividendRate: "6.00%" },
   { year: 2020, dividendRate: "6.12%" },
   { year: 2019, dividendRate: "7.23%", note: "Highest rate in recent years" },
@@ -206,7 +207,7 @@ export const pagibigMp2Faqs: FAQ[] = [
   {
     question: "What is the difference between regular Pag-IBIG and MP2?",
     answer:
-      "Regular Pag-IBIG is a mandatory contribution (up to ₱200/month employee share) that both employee and employer pay. MP2 is a voluntary savings program with a ₱500/month minimum, paid only by the employee, with a 5-year maturity period. Both earn the same dividend rate and are tax-exempt.",
+      "Regular Pag-IBIG is a mandatory contribution (up to ₱200/month employee share) that both employee and employer pay. MP2 is a voluntary savings program with a ₱500/month minimum, paid only by the employee, with a 5-year maturity period. MP2 has historically earned a higher dividend rate than the regular fund (7.12% vs 6.62% for 2025), and both are tax-exempt.",
   },
   {
     question: "Is the MP2 dividend taxable?",
@@ -231,7 +232,7 @@ export const pagibigMp2Faqs: FAQ[] = [
   {
     question: "What is the Pag-IBIG MP2 dividend rate for 2025?",
     answer:
-      "The Pag-IBIG MP2 dividend rate for 2025 has not yet been announced — it is typically released in the first half of the following year. The 2024 MP2 dividend rate was announced by Pag-IBIG Fund through its official channels. Check back for updates or visit the Pag-IBIG website for the latest announcement.",
+      "The Pag-IBIG MP2 dividend rate for 2025 is 7.12% per annum, announced by Pag-IBIG Fund in February 2026 — a record ₱64.34 billion in total dividends. This is up from 7.10% in 2024. Dividend rates are declared annually and are not guaranteed; visit the Pag-IBIG website for the latest announcement.",
   },
   {
     question: "Is Pag-IBIG MP2 a good investment?",
