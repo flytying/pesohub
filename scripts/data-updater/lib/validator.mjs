@@ -151,6 +151,95 @@ export const HEDGE_PATTERNS = [
 ];
 
 /**
+ * True if the text contains any rate-like signal (a percentage or a "p.a." /
+ * "per annum" phrase). Bank homepages that render rates only in-app or via JS
+ * come back from Tavily as nav/ad/cookie copy with NO such token — extracting
+ * a "rate" from that text is always a hallucination (see closed #199, where a
+ * phantom "6% hero rate" was invented from a Credit Builder ad). Callers use
+ * this to reject a whole bank's extraction as no-data (preserve existing).
+ *
+ * @param {string} text
+ * @returns {boolean}
+ */
+export function hasRateSignal(text) {
+  if (!text || typeof text !== "string") return false;
+  return (
+    /\d+(?:\.\d+)?\s*%/.test(text) ||
+    /\bp\.?\s?a\.?\b/i.test(text) ||
+    /per\s?annum/i.test(text)
+  );
+}
+
+/** Acceptable string forms of a numeric rate value, e.g. 4.5 → 4.5, 4.50. */
+function rateForms(value) {
+  const forms = new Set([String(value)]);
+  if (Number.isInteger(value)) {
+    forms.add(`${value}.0`);
+    forms.add(`${value}.00`);
+  } else {
+    forms.add(`${value}0`); // one extra trailing zero, e.g. 4.5 → 4.50
+  }
+  return [...forms];
+}
+
+/**
+ * True if `value` appears in `text` AS A RATE — i.e. the exact number (not a
+ * substring of a larger number like 2026 or 16) immediately followed by a rate
+ * indicator (%, p.a., per annum). Requiring the indicator is deliberate: a bare
+ * "6" occurs all over ad copy, which is exactly how #199 slipped through.
+ */
+function valueIsGrounded(value, text) {
+  const indicator = "\\s*(?:%|p\\.?\\s?a\\.?|per\\s?annum)";
+  return rateForms(value).some((form) => {
+    const num = form.replace(/\./g, "\\.");
+    const re = new RegExp(`(?<![\\d.])${num}(?![\\d])${indicator}`, "i");
+    return re.test(text);
+  });
+}
+
+/**
+ * Anti-hallucination guard. Drops any row whose extracted rate value does not
+ * literally appear as a rate in the source text. A row is kept only when every
+ * non-null rate value it carries is grounded AND it carries at least one. This
+ * is the direct fix for #199: an invented value that isn't in the page text is
+ * rejected before it can be written or flagged.
+ *
+ * @param {Array<object>} rows
+ * @param {string} sourceText - the raw fetched text the rows were extracted from
+ * @param {object} options
+ * @param {string[]} options.rateFields - numeric fields that must be grounded
+ * @returns {{ valid: Array<object>, dropped: number, ungrounded: Array<{ row: object, field: string, value: number }> }}
+ */
+export function filterGroundedRows(rows, sourceText, options = {}) {
+  const { rateFields = [] } = options;
+  const valid = [];
+  const ungrounded = [];
+  let dropped = 0;
+
+  for (const row of rows) {
+    const values = rateFields
+      .map((f) => ({ field: f, value: row[f] }))
+      .filter((x) => typeof x.value === "number" && Number.isFinite(x.value) && x.value !== 0);
+
+    if (values.length === 0) {
+      dropped++;
+      ungrounded.push({ row, field: rateFields[0] ?? "", value: NaN });
+      continue;
+    }
+
+    const bad = values.find((x) => !valueIsGrounded(x.value, sourceText));
+    if (bad) {
+      dropped++;
+      ungrounded.push({ row, field: bad.field, value: bad.value });
+    } else {
+      valid.push(row);
+    }
+  }
+
+  return { valid, dropped, ungrounded };
+}
+
+/**
  * Filter out rows that are missing required fields or contain hedged/guessed
  * values. Used to clean AI-extracted rate data before the merge + circuit-
  * breaker step, so that a single bad row from Claude doesn't fail an

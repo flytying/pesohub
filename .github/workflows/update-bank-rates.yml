@@ -25,6 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright chromium
+        # Rendered-page extraction for JS-only bank rate pages (#202).
+        run: npx playwright install --with-deps chromium
+
       - name: Run bank rate updater
         env:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
