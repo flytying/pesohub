@@ -5,8 +5,6 @@
  * Scrapes digital bank websites and extracts comparison data.
  */
 
-import { extractWithFallback } from "../lib/fetcher.mjs";
-import { extractStructuredData } from "../lib/ai-extractor.mjs";
 import {
   readDataFile,
   writeDataFile,
@@ -18,8 +16,9 @@ import {
 import {
   validateRateChanges,
   validateDataIntegrity,
-  filterValidRows,
 } from "../lib/validator.mjs";
+import { fetchBankSources, extractGuardedRates } from "../lib/bank-guards.mjs";
+import { checkAgainstBaselines } from "../lib/baselines.mjs";
 import { bankDigitalRatesConfig as config } from "../lib/config.mjs";
 
 const REQUIRED_STRING_FIELDS = ["bankName"];
@@ -49,57 +48,15 @@ export async function run() {
   const currentRates = parseDataArray(content, config.dataArrayExport);
   const sourceUrls = config.urls.map((u) => u.url);
 
-  const allExtracted = [];
-  let rawContentLog = "";
+  const { allExtracted, rawContentLog } = await fetchBankSources(config);
 
-  for (const { bankName, url } of config.urls) {
-    console.log(`  Fetching ${bankName} (${url})...`);
-    const result = await extractWithFallback(url);
-    if (result) {
-      allExtracted.push({ bankName, ...result });
-      rawContentLog += `\n--- ${bankName} (${url}) ---\n${result.rawContent.slice(0, 1000)}\n`;
-    } else {
-      console.warn(`  ⚠ Failed to extract ${bankName}`);
-    }
-  }
-
-  const newRatesByBank = new Map();
-  for (const { bankName, rawContent, url } of allExtracted) {
-    try {
-      console.log(`  Extracting rates for ${bankName}...`);
-      const data = await extractStructuredData({
-        pageText: rawContent,
-        sourceUrl: url,
-        extractionPrompt: config.extractionPrompt,
-        schema: config.schema,
-        schemaName: "extract_digital_bank_rates",
-      });
-
-      if (data.rates && data.rates.length > 0) {
-        for (const rate of data.rates) {
-          rate.bankName = rate.bankName || bankName;
-        }
-        const { valid, dropped } = filterValidRows(data.rates, {
-          requiredStringFields: REQUIRED_STRING_FIELDS,
-          requiredNumberFields: REQUIRED_NUMBER_FIELDS,
-        });
-        if (dropped > 0) {
-          console.log(
-            `    (dropped ${dropped} invalid row${dropped === 1 ? "" : "s"} from ${bankName})`
-          );
-        }
-        if (valid.length > 0) {
-          newRatesByBank.set(bankName, valid);
-        } else {
-          console.log(`    (no valid rates from ${bankName} page)`);
-        }
-      } else {
-        console.log(`    (no rates visible on ${bankName} page)`);
-      }
-    } catch (err) {
-      console.warn(`  ⚠ AI extraction failed for ${bankName}: ${err.message}`);
-    }
-  }
+  const newRatesByBank = await extractGuardedRates({
+    allExtracted,
+    config,
+    schemaName: "extract_digital_bank_rates",
+    requiredStringFields: REQUIRED_STRING_FIELDS,
+    requiredNumberFields: REQUIRED_NUMBER_FIELDS,
+  });
 
   // Merge strategy: use new rates per-bank, preserve existing when no new data
   const mergedRates = [];
@@ -203,6 +160,14 @@ export async function run() {
     };
   }
 
+  // Flag any grounded value that diverges sharply from the curated baseline —
+  // written (guarded auto-write) but loudly surfaced for human confirmation.
+  const { flags: baselineFlags } = checkAgainstBaselines(mergedRates, config.baselines, {
+    nameField: config.validationOptions.nameField,
+    rateFields: config.validationOptions.rateFields,
+    verifiedAt: config.baselinesVerifiedAt,
+  });
+
   mergedRates.sort((a, b) => (b.baseRate || 0) - (a.baseRate || 0));
 
   const faqs = extractFaqSection(content, config.faqExport);
@@ -249,7 +214,7 @@ ${faqs}
     sourceUrls,
     status: "updated",
     changes: validation.changes,
-    warnings: validation.warnings,
+    warnings: [...validation.warnings, ...baselineFlags],
     rawContent: rawContentLog,
   };
 }

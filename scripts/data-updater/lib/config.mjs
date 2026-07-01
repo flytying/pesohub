@@ -4,6 +4,14 @@
  * Source configuration for all automated data updates.
  * Each source defines: URLs to scrape, target data file, extraction prompt,
  * schema for Claude, and validation thresholds.
+ *
+ * Bank sources additionally support (see #202 / lib/bank-guards.mjs):
+ *   - `baselines` + `baselinesVerifiedAt` — curated known-good values; a scraped
+ *     value diverging sharply from its baseline is flagged in the PR body.
+ *   - A `urls[]` entry may set `renderStrategy: "browser"` to render the page
+ *     with Playwright (for rates shown only after JS hydration), or carry
+ *     `imageUrls: string[]` to read a rate table via vision (mirrors the SSS
+ *     circular pattern). Both are opt-in per entry; default is Tavily text.
  */
 
 // ── Bank Rate Sources ────────────────────────────────────────────────
@@ -58,6 +66,21 @@ export const bankSavingsRatesConfig = {
     rateFields: ["interestRate"],
     maxRateChangePercent: 50,
   },
+  // Curated known-good values; update when a change is confirmed against source.
+  baselinesVerifiedAt: "2026-06-29",
+  baselines: [
+    { bankName: "Maya", interestRate: 15 },
+    { bankName: "Tonik Bank", interestRate: 4.5 },
+    { bankName: "Tonik Bank", interestRate: 4 },
+    { bankName: "MariBank", interestRate: 3.25 },
+    { bankName: "GoTyme", interestRate: 3 },
+    { bankName: "CIMB", interestRate: 2.5 },
+    { bankName: "ING Philippines", interestRate: 2.5 },
+    { bankName: "Tonik Bank", interestRate: 1 },
+    { bankName: "BDO", interestRate: 0.25 },
+    { bankName: "BPI", interestRate: 0.25 },
+    { bankName: "Metrobank", interestRate: 0.25 },
+  ],
 };
 
 export const bankDigitalRatesConfig = {
@@ -120,6 +143,20 @@ export const bankDigitalRatesConfig = {
     rateFields: ["baseRate", "promoRate"],
     maxRateChangePercent: 50,
   },
+  baselinesVerifiedAt: "2026-06-29",
+  baselines: [
+    { bankName: "Tonik Bank – Time Deposit", baseRate: 5.5, promoRate: null },
+    { bankName: "Tonik Bank – Group Stash", baseRate: 4.5, promoRate: null },
+    { bankName: "Tonik Bank – Solo Stash", baseRate: 4, promoRate: null },
+    { bankName: "OwnBank", baseRate: 3.8, promoRate: null },
+    { bankName: "UNO Digital Bank", baseRate: 3.5, promoRate: null },
+    { bankName: "MariBank", baseRate: 3.25, promoRate: null },
+    { bankName: "NetBank", baseRate: 3.25, promoRate: null },
+    { bankName: "Maya", baseRate: 3, promoRate: 15 },
+    { bankName: "GoTyme", baseRate: 3, promoRate: null },
+    { bankName: "CIMB", baseRate: 2.5, promoRate: 7 },
+    { bankName: "Tonik Bank – Tonik Account", baseRate: 1, promoRate: null },
+  ],
 };
 
 export const bankTimeDepositRatesConfig = {
@@ -170,6 +207,21 @@ export const bankTimeDepositRatesConfig = {
     rateFields: ["grossRate"],
     maxRateChangePercent: 50,
   },
+  baselinesVerifiedAt: "2026-06-29",
+  baselines: [
+    { bankName: "Tonik Bank", grossRate: 5.5 },
+    { bankName: "Tonik Bank", grossRate: 5 },
+    { bankName: "Tonik Bank", grossRate: 4.5 },
+    { bankName: "CIMB", grossRate: 5.5 },
+    { bankName: "CIMB", grossRate: 5 },
+    { bankName: "MariBank", grossRate: 5 },
+    { bankName: "Maya", grossRate: 5 },
+    { bankName: "Metrobank", grossRate: 5 },
+    { bankName: "Metrobank", grossRate: 4.125 },
+    { bankName: "BPI", grossRate: 3.25 },
+    { bankName: "BPI", grossRate: 2.75 },
+    { bankName: "BDO", grossRate: 0.5 },
+  ],
 };
 
 // ── Government Data Sources ──────────────────────────────────────────

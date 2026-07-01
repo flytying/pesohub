@@ -5,8 +5,6 @@
  * Scrapes individual bank websites and extracts savings rates.
  */
 
-import { extractWithFallback } from "../lib/fetcher.mjs";
-import { extractStructuredData } from "../lib/ai-extractor.mjs";
 import {
   readDataFile,
   writeDataFile,
@@ -18,8 +16,9 @@ import {
 import {
   validateRateChanges,
   validateDataIntegrity,
-  filterValidRows,
 } from "../lib/validator.mjs";
+import { fetchBankSources, extractGuardedRates } from "../lib/bank-guards.mjs";
+import { checkAgainstBaselines } from "../lib/baselines.mjs";
 import { bankSavingsRatesConfig as config } from "../lib/config.mjs";
 
 const REQUIRED_STRING_FIELDS = ["bankName"];
@@ -80,73 +79,21 @@ export async function run() {
   const currentRates = parseDataArray(content, config.dataArrayExport);
   const sourceUrls = config.urls.map((u) => u.url);
 
-  // Extract content from all bank URLs
-  const allExtracted = [];
-  const fetchFailedBanks = new Set();
-  let rawContentLog = "";
+  const { allExtracted, rawContentLog } = await fetchBankSources(config);
 
-  for (const { bankName, url } of config.urls) {
-    console.log(`  Fetching ${bankName} (${url})...`);
-    const result = await extractWithFallback(url);
-    if (result) {
-      allExtracted.push({ bankName, ...result });
-      rawContentLog += `\n--- ${bankName} (${url}) ---\n${result.rawContent.slice(0, 1000)}\n`;
-    } else {
-      fetchFailedBanks.add(bankName);
-      console.warn(`  ⚠ Failed to extract ${bankName}`);
-    }
-  }
-
-  // Extract structured data from each bank's page content.
-  // Track which banks produced valid new rate data so we can merge
-  // with existing data for banks whose pages returned nothing.
-  const newRatesByBank = new Map();
-  const aiFailedBanks = new Set();
-
-  for (const { bankName, rawContent, url } of allExtracted) {
-    try {
-      console.log(`  Extracting rates for ${bankName}...`);
-      const data = await extractStructuredData({
-        pageText: rawContent,
-        sourceUrl: url,
-        extractionPrompt: config.extractionPrompt,
-        schema: config.schema,
-        schemaName: "extract_savings_rates",
-      });
-
-      if (data.rates && data.rates.length > 0) {
-        for (const rate of data.rates) {
-          rate.bankName = rate.bankName || bankName;
-        }
-        const { valid, dropped } = filterValidRows(data.rates, {
-          requiredStringFields: REQUIRED_STRING_FIELDS,
-          requiredNumberFields: REQUIRED_NUMBER_FIELDS,
-        });
-        if (dropped > 0) {
-          console.log(
-            `    (dropped ${dropped} invalid row${dropped === 1 ? "" : "s"} from ${bankName})`
-          );
-        }
-        if (valid.length > 0) {
-          newRatesByBank.set(bankName, valid);
-        } else {
-          console.log(`    (no valid rates from ${bankName} page)`);
-        }
-      } else {
-        console.log(`    (no rates visible on ${bankName} page)`);
-      }
-    } catch (err) {
-      aiFailedBanks.add(bankName);
-      console.warn(`  ⚠ AI extraction failed for ${bankName}: ${err.message}`);
-    }
-  }
+  const newRatesByBank = await extractGuardedRates({
+    allExtracted,
+    config,
+    schemaName: "extract_savings_rates",
+    requiredStringFields: REQUIRED_STRING_FIELDS,
+    requiredNumberFields: REQUIRED_NUMBER_FIELDS,
+  });
 
   // Merge strategy: use new rates for banks that succeeded,
   // preserve existing rates for banks that had no new data.
   const mergedRates = [];
   const preservedBanks = [];
   const updatedBanks = [];
-  const missingFromBoth = [];
 
   const knownBanks = new Set([
     ...config.urls.map((u) => u.bankName),
@@ -162,8 +109,6 @@ export async function run() {
       if (existing.length > 0) {
         mergedRates.push(...existing);
         preservedBanks.push(bankName);
-      } else {
-        missingFromBoth.push(bankName);
       }
     }
   }
@@ -253,6 +198,14 @@ export async function run() {
     };
   }
 
+  // Flag grounded values that diverge sharply from the curated baseline —
+  // written (guarded auto-write) but surfaced for human confirmation.
+  const { flags: baselineFlags } = checkAgainstBaselines(mergedRates, config.baselines, {
+    nameField: config.validationOptions.nameField,
+    rateFields: config.validationOptions.rateFields,
+    verifiedAt: config.baselinesVerifiedAt,
+  });
+
   // Sort by interestRate descending (match existing file convention)
   mergedRates.sort((a, b) => (b.interestRate || 0) - (a.interestRate || 0));
 
@@ -299,7 +252,7 @@ ${faqs}
     sourceUrls,
     status: "updated",
     changes: validation.changes,
-    warnings: validation.warnings,
+    warnings: [...validation.warnings, ...baselineFlags],
     rawContent: rawContentLog,
   };
 }

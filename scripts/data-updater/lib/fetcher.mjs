@@ -6,6 +6,8 @@
  */
 
 import { tavily } from "@tavily/core";
+import { fetchRendered } from "./browser-fetcher.mjs";
+import { hasRateSignal } from "./validator.mjs";
 
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
 
@@ -73,13 +75,8 @@ export async function extractUrls(urls, options = {}) {
   return { results, failed };
 }
 
-/**
- * Extract a single URL with automatic retry using advanced depth on failure.
- *
- * @param {string} url
- * @returns {Promise<{ url: string, rawContent: string, fetchedAt: string } | null>}
- */
-export async function extractWithFallback(url) {
+/** Tavily basic → advanced-depth extraction for a single URL. */
+async function tavilyExtract(url) {
   const { results, failed } = await extractUrls([url], {
     extractDepth: "basic",
   });
@@ -98,4 +95,49 @@ export async function extractWithFallback(url) {
     `Advanced extraction also failed for ${url}: ${retry.failed[0]?.error}`
   );
   return null;
+}
+
+/**
+ * Extract a single URL's text, with two escalation paths:
+ *
+ * 1. Tavily basic → advanced depth (server-fetched HTML). Fast, no browser.
+ * 2. Headless-browser render (Playwright) for JS-rendered rate widgets Tavily
+ *    can't see. Used when `renderStrategy === "browser"` (browser-first), or as
+ *    an automatic rescue when Tavily returned text with NO rate signal — the
+ *    exact failure mode behind #199/#202, where the page needs hydration to show
+ *    its rates.
+ *
+ * @param {string} url
+ * @param {{ renderStrategy?: "browser" }} [options]
+ * @returns {Promise<{ url: string, rawContent: string, fetchedAt: string } | null>}
+ */
+export async function extractWithFallback(url, { renderStrategy } = {}) {
+  // Browser-first: sources known to render rates client-side opt in explicitly.
+  if (renderStrategy === "browser") {
+    const rendered = await fetchRendered(url);
+    if (rendered && hasRateSignal(rendered.rawContent)) return rendered;
+    console.warn(
+      `  ↻ Rendered fetch for ${url} had no rate signal; falling back to Tavily.`
+    );
+  }
+
+  const tavilyResult = await tavilyExtract(url);
+
+  // Rescue: Tavily got *something* but it carries no rate signal (nav/ad shell).
+  // Try a browser render before accepting the signal-less text.
+  if (
+    renderStrategy !== "browser" &&
+    tavilyResult &&
+    !hasRateSignal(tavilyResult.rawContent)
+  ) {
+    const rendered = await fetchRendered(url);
+    if (rendered && hasRateSignal(rendered.rawContent)) {
+      console.log(
+        `  ↻ Using rendered fetch for ${url} (Tavily text had no rate signal).`
+      );
+      return rendered;
+    }
+  }
+
+  return tavilyResult;
 }
