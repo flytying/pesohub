@@ -87,6 +87,7 @@ function MoneyField({
       <input
         id={thumb}
         type="range"
+        aria-label={typeof label === "string" ? label : undefined}
         min={0}
         max={max}
         step={step}

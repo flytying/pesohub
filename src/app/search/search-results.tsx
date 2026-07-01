@@ -58,6 +58,7 @@ export function SearchResults() {
         <Search className="absolute left-3.5 top-1/2 size-5 -translate-y-1/2 text-gray-300" />
         <input
           type="search"
+          aria-label="Search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for calculators, rates, guides..."

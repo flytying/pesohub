@@ -88,6 +88,7 @@ export function MoneyField({
       <input
         id={thumb}
         type="range"
+        aria-label={label}
         min={min}
         max={max}
         step={step}
