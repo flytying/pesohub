@@ -1,14 +1,12 @@
 import type { FAQ } from "@/types/content";
 
-export const SAVINGS_RATES_UPDATED_AT = "2026-06-29";
+export const SAVINGS_RATES_UPDATED_AT = "2026-07-01";
 
 export interface BankSavingsRate {
   bankName: string;
   accountType: string;
   interestRate: number;
   rateType: "Promo" | "Standard";
-  /** Whether the provider is an app-based digital bank or a traditional branch bank. */
-  bankType: "digital" | "traditional";
   minimumBalance: number;
   liquidity: string;
   bestFor: string;
@@ -25,29 +23,66 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "Personal Savings",
     interestRate: 15,
     rateType: "Promo",
-    bankType: "digital",
     minimumBalance: 0,
     liquidity: "App-based transfers",
     bestFor: "Highest promo rate",
     notes: "Promo rate of up to 15% p.a. (requires missions: deposits, bills, card spending); capped at ₱100,000. Base rate is 3.0% p.a. (lowered from 3.5% in 2026). Formerly PayMaya.",
   },
   {
+    bankName: "Tonik Digital Bank",
+    accountType: "High-Interest Savings (Homepage Hero Rate)",
+    interestRate: 6,
+    rateType: "Standard",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "6% annual interest rate highlighted on the homepage banner. Specific account type not explicitly named on this page.",
+  },
+  {
+    bankName: "Tonik Digital Bank",
+    accountType: "Group Stash",
+    interestRate: 6,
+    rateType: "Standard",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "Group savings account for squad/group goals. Interest rate not explicitly stated for Group Stash on this page; 6% is the homepage-featured rate. No specific rate mentioned for Group Stash.",
+  },
+  {
+    bankName: "Tonik Digital Bank",
+    accountType: "Time Deposit",
+    interestRate: 5.5,
+    rateType: "Standard",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "5.5% annual interest rate on Time Deposits.",
+  },
+  {
     bankName: "Tonik Bank",
     accountType: "Group Stash",
     interestRate: 4.5,
     rateType: "Standard",
-    bankType: "digital",
     minimumBalance: 0,
     liquidity: "App-based transfers",
     bestFor: "Collaborative/group savings goals",
     notes: "Group savings stash earning 4.0% p.a. standard, or 4.5% p.a. when the owner saves with at least 2 other participants toward a shared goal.",
   },
   {
+    bankName: "Tonik Digital Bank",
+    accountType: "Solo Stash",
+    interestRate: 4,
+    rateType: "Standard",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "4% annual interest rate. Earn 4 times more than a regular savings account.",
+  },
+  {
     bankName: "Tonik Bank",
     accountType: "Solo Stash",
     interestRate: 4,
     rateType: "Standard",
-    bankType: "digital",
     minimumBalance: 0,
     liquidity: "App-based transfers",
     bestFor: "Goal-based solo savings",
@@ -58,7 +93,6 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "Regular Savings",
     interestRate: 3.25,
     rateType: "Standard",
-    bankType: "digital",
     minimumBalance: 0,
     liquidity: "App-based transfers",
     bestFor: "Everyday digital savings",
@@ -69,7 +103,6 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "GoSave",
     interestRate: 3,
     rateType: "Standard",
-    bankType: "digital",
     minimumBalance: 0,
     liquidity: "App + kiosk withdrawals",
     bestFor: "Low minimum balance",
@@ -80,7 +113,6 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "GSave / UpSave",
     interestRate: 2.5,
     rateType: "Standard",
-    bankType: "digital",
     minimumBalance: 0,
     liquidity: "App + GCash integration",
     bestFor: "Low minimum balance",
@@ -91,7 +123,6 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "Savings Account",
     interestRate: 2.5,
     rateType: "Standard",
-    bankType: "digital",
     minimumBalance: 0,
     liquidity: "App-based transfers",
     bestFor: "Parked short-term cash",
@@ -102,7 +133,6 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "Tonik Account",
     interestRate: 1,
     rateType: "Standard",
-    bankType: "digital",
     minimumBalance: 0,
     liquidity: "App-based transfers",
     bestFor: "Everyday digital wallet savings",
@@ -113,7 +143,6 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "Regular Savings",
     interestRate: 0.25,
     rateType: "Standard",
-    bankType: "traditional",
     minimumBalance: 10_000,
     liquidity: "Branch + ATM + app",
     bestFor: "Traditional bank users",
@@ -124,7 +153,6 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "Regular Savings",
     interestRate: 0.25,
     rateType: "Standard",
-    bankType: "traditional",
     minimumBalance: 3_000,
     liquidity: "Branch + ATM + app",
     bestFor: "Traditional bank users",
@@ -135,7 +163,6 @@ export const bankSavingsRates: BankSavingsRate[] = [
     accountType: "Regular Savings",
     interestRate: 0.25,
     rateType: "Standard",
-    bankType: "traditional",
     minimumBalance: 10_000,
     liquidity: "Branch + ATM + app",
     bestFor: "Traditional bank users",
