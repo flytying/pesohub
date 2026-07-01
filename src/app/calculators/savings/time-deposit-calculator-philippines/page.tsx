@@ -19,6 +19,7 @@ import {
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
 import { FaqSection } from "@/components/shared/faq-section";
+import { CalculatorNotice } from "@/components/shared/calculator-notice";
 import { TimeDepositCalculator } from "@/components/calculators/time-deposit-calculator";
 import { timeDepositData } from "@/data/calculators/time-deposit";
 import { formatDate } from "@/lib/formatters";
@@ -418,16 +419,7 @@ export default function TimeDepositCalculatorPage() {
           </section>
 
           {/* Disclaimer */}
-          <div className="flex gap-3 rounded-[14px] border border-[#F0E2BE] bg-[#FFF8E8] p-5">
-            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
-            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
-              This calculator provides estimates for planning purposes only.
-              Actual bank products may use different compounding, rates, crediting,
-              or early-withdrawal rules, and promotional rates may have conditions.
-              It is not an official bank quote — always confirm final figures with
-              the bank.
-            </p>
-          </div>
+          <CalculatorNotice text="This calculator provides estimates for planning purposes only. Actual bank products may use different compounding, rates, crediting, or early-withdrawal rules, and promotional rates may have conditions. It is not an official bank quote — always confirm final figures with the bank." />
 
           {/* FAQ */}
           <section className="pt-7">
