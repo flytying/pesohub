@@ -39,7 +39,8 @@ export const postModules: Record<
   "highest-interest-digital-banks-philippines": () =>
     import("@/data/blog/highest-interest-digital-banks-philippines"),
   "maximize-digital-bank-interest-philippines": () =>
-    import("@/data/blog/maximize-digital-bank-interest-philippines"),
+    import("@/data/blog/maximize-digital-bank-interest-philippines"),  "are-digital-banks-safe-philippines": () =>
+    import("@/data/blog/are-digital-banks-safe-philippines"),
 };
 
 /** Loads a post's hero image, or null if the slug/image is absent. */
