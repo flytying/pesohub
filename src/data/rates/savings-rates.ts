@@ -4,6 +4,7 @@ export const SAVINGS_RATES_UPDATED_AT = "2026-07-01";
 
 export interface BankSavingsRate {
   bankName: string;
+  bankType: "digital" | "traditional";
   accountType: string;
   interestRate: number;
   rateType: "Promo" | "Standard";
@@ -20,6 +21,7 @@ export interface BankSavingsRate {
 export const bankSavingsRates: BankSavingsRate[] = [
   {
     bankName: "Maya",
+    bankType: "digital",
     accountType: "Personal Savings",
     interestRate: 15,
     rateType: "Promo",
@@ -30,6 +32,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "Tonik Digital Bank",
+    bankType: "digital",
     accountType: "High-Interest Savings (Homepage Hero Rate)",
     interestRate: 6,
     rateType: "Standard",
@@ -40,6 +43,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "Tonik Digital Bank",
+    bankType: "digital",
     accountType: "Group Stash",
     interestRate: 6,
     rateType: "Standard",
@@ -50,6 +54,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "Tonik Digital Bank",
+    bankType: "digital",
     accountType: "Time Deposit",
     interestRate: 5.5,
     rateType: "Standard",
@@ -60,6 +65,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "Tonik Bank",
+    bankType: "digital",
     accountType: "Group Stash",
     interestRate: 4.5,
     rateType: "Standard",
@@ -70,6 +76,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "Tonik Digital Bank",
+    bankType: "digital",
     accountType: "Solo Stash",
     interestRate: 4,
     rateType: "Standard",
@@ -80,6 +87,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "Tonik Bank",
+    bankType: "digital",
     accountType: "Solo Stash",
     interestRate: 4,
     rateType: "Standard",
@@ -90,6 +98,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "MariBank",
+    bankType: "digital",
     accountType: "Regular Savings",
     interestRate: 3.25,
     rateType: "Standard",
@@ -100,6 +109,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "GoTyme",
+    bankType: "digital",
     accountType: "GoSave",
     interestRate: 3,
     rateType: "Standard",
@@ -110,6 +120,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "CIMB",
+    bankType: "digital",
     accountType: "GSave / UpSave",
     interestRate: 2.5,
     rateType: "Standard",
@@ -120,6 +131,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "ING Philippines",
+    bankType: "digital",
     accountType: "Savings Account",
     interestRate: 2.5,
     rateType: "Standard",
@@ -130,6 +142,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "Tonik Bank",
+    bankType: "digital",
     accountType: "Tonik Account",
     interestRate: 1,
     rateType: "Standard",
@@ -140,6 +153,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "BDO",
+    bankType: "traditional",
     accountType: "Regular Savings",
     interestRate: 0.25,
     rateType: "Standard",
@@ -150,6 +164,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "BPI",
+    bankType: "traditional",
     accountType: "Regular Savings",
     interestRate: 0.25,
     rateType: "Standard",
@@ -160,6 +175,7 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "Metrobank",
+    bankType: "traditional",
     accountType: "Regular Savings",
     interestRate: 0.25,
     rateType: "Standard",

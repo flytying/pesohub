@@ -7,6 +7,10 @@ export interface DigitalBankRate {
   bestFor: string;
   baseRate: number;
   promoRate: number | null;
+  /** Short summary of the balance cap that limits the headline rate, e.g. "₱100,000" or "No cap". */
+  balanceCap: string;
+  /** Short summary of what you must do to earn the headline rate, e.g. "None" or "Monthly missions". */
+  requirement: string;
   cardAtmAccess: string;
   transfers: string;
   limitsConditions: string;
@@ -24,6 +28,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Highest-yield time deposit savings",
     baseRate: 5.5,
     promoRate: null,
+    balanceCap: "₱250,000 per account (up to 5 active TDs)",
+    requirement: "Min ₱5,000; funds locked for the chosen term",
     cardAtmAccess: "Managed via Tonik app",
     transfers: "Fund transfers available in-app",
     limitsConditions: "Tiered rates by term (effective June 5, 2026): 4.5% (6-month), 5.0% (9-month), 5.5% (12-month), 5.0% (18- and 24-month); minimum deposit PHP 5,000; maximum PHP 250,000 per account (up to 5 active TDs)",
@@ -35,6 +41,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Collaborative/group savings goals",
     baseRate: 4.5,
     promoRate: null,
+    balanceCap: "No cap stated",
+    requirement: "Save with at least 2 other participants for 4.5% p.a.",
     cardAtmAccess: "Managed via Tonik app",
     transfers: "Fund transfers available in-app",
     limitsConditions: "4.0% p.a. standard; 4.5% p.a. when the owner saves with at least 2 other participants toward a shared goal.",
@@ -46,6 +54,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "High-yield savings, group savings goals, and digital lending",
     baseRate: 4,
     promoRate: null,
+    balanceCap: "No cap stated",
+    requirement: "None",
     cardAtmAccess: "Mastercard debit card (card lock/block feature available, 3D Secure)",
     transfers: "Fund transfers supported; PESONet available; zero-fee QRPH payments to 675,000+ merchants",
     limitsConditions: "Deposits insured up to ₱1,000,000 per depositor. Time Deposit rate: 5.5% p.a. Solo Stash rate: 4% p.a. Group Stash available for group savings. Onboarding via app in ~5 minutes. Credit Builder Loan available up to ₱50,000.",
@@ -57,6 +67,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Goal-based solo savings",
     baseRate: 4,
     promoRate: null,
+    balanceCap: "No cap stated",
+    requirement: "None",
     cardAtmAccess: "Managed via Tonik app",
     transfers: "Fund transfers available in-app",
     limitsConditions: "Individual savings stash at 4% p.a.; no minimum balance explicitly stated on page",
@@ -68,6 +80,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Savers comparing newer high-yield apps",
     baseRate: 3.8,
     promoRate: null,
+    balanceCap: "No cap stated",
+    requirement: "None (8% intro rate: new users, first 7 days only)",
     cardAtmAccess: "No card; app-only",
     transfers: "App-based transfers, InstaPay, PESONet",
     limitsConditions: "\"Own It\" savings up to 3.8% p.a. with daily interest. Time deposits up to ~5.2% p.a. (8% p.a. for the first 7 days, new users only).",
@@ -79,6 +93,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Savers who want a simple, no-conditions rate",
     baseRate: 3.5,
     promoRate: null,
+    balanceCap: "No cap stated",
+    requirement: "₱5,000+ balance for the 3.5% p.a. tier",
     cardAtmAccess: "Virtual debit card; app-managed",
     transfers: "App-based transfers, InstaPay, PESONet; can be linked to GCash GSave",
     limitsConditions: "UNOReady savings 3.0% p.a., up to 3.5% p.a. with a ₱5,000+ balance (daily interest crediting). Time deposits up to ~5.5% p.a. (UNOBoost) depending on tenure.",
@@ -90,6 +106,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Everyday digital savings",
     baseRate: 3.25,
     promoRate: null,
+    balanceCap: "3.25% up to ₱1M; 3.75% above ₱1M",
+    requirement: "None (no maintaining balance)",
     cardAtmAccess: "No card; app-only",
     transfers: "App-based transfers, InstaPay, PESONet",
     limitsConditions: "3.25% p.a. for balances up to ₱1M; 3.75% p.a. for balances above ₱1M (effective January 15, 2026). No maintaining balance.",
@@ -101,6 +119,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "No-frills daily-compounding savings",
     baseRate: 3.25,
     promoRate: null,
+    balanceCap: "No cap stated",
+    requirement: "None (no minimum or maintaining balance)",
     cardAtmAccess: "No card; app-only",
     transfers: "App-based transfers, InstaPay, PESONet",
     limitsConditions: "PesoSAVERS savings at 3.25% p.a. with daily interest crediting and compounding. No minimum initial deposit or maintaining balance. Time deposits: ~4.5% p.a. (6-month) and ~5% p.a. (12-month).",
@@ -112,6 +132,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Everyday spending",
     baseRate: 3,
     promoRate: null,
+    balanceCap: "No cap",
+    requirement: "None (no maintaining balance)",
     cardAtmAccess: "Debit card + kiosk withdrawals",
     transfers: "App-based transfers, InstaPay",
     limitsConditions: "GoSave rate cut to 3% p.a. from 3.5% effective January 1, 2026. No maintaining balance.",
@@ -123,6 +145,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Promo-driven savers",
     baseRate: 3,
     promoRate: 15,
+    balanceCap: "Promo rate capped at ₱100,000",
+    requirement: "Missions (deposits, bills, card spending) for the promo rate",
     cardAtmAccess: "Virtual and physical card available",
     transfers: "App-based transfers, InstaPay, PESONet",
     limitsConditions: "Base rate 3.0% p.a. (lowered from 3.5% in 2026). Promo rate up to 15% requires missions (deposits, bills, card spending); capped at ₱100,000.",
@@ -134,6 +158,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Transfer-heavy users",
     baseRate: 2.5,
     promoRate: 7,
+    balanceCap: "No cap stated",
+    requirement: "Grow/Prime conditions (ADB growth) for higher rates",
     cardAtmAccess: "No card; app-only",
     transfers: "App + GCash integration, InstaPay",
     limitsConditions: "UpSave base rate around 2.3%–2.5% p.a. Higher rates on Grow (4% base + 3% conditional = up to 7%) and CIMB Prime with ADB growth requirement.",
@@ -145,6 +171,8 @@ export const digitalBankRates: DigitalBankRate[] = [
     bestFor: "Everyday wallet savings",
     baseRate: 1,
     promoRate: null,
+    balanceCap: "No cap",
+    requirement: "None (no maintaining balance)",
     cardAtmAccess: "Mastercard debit card with 3D Secure; card lock/block and limit management in-app",
     transfers: "Fund transfers available in-app; zero-fee QRPH payments to 675,000+ merchants",
     limitsConditions: "1.0% p.a. on end-of-day balance (cut from 6% effective June 5, 2026). No maintaining balance.",
