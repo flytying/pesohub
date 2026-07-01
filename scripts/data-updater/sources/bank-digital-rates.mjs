@@ -32,6 +32,8 @@ function formatRateEntry(rate) {
     bestFor: "${rate.bestFor || ""}",
     baseRate: ${rate.baseRate},
     promoRate: ${promoRate},
+    balanceCap: "${(rate.balanceCap || "No cap stated").replace(/"/g, '\\"')}",
+    requirement: "${(rate.requirement || "None").replace(/"/g, '\\"')}",
     cardAtmAccess: "${(rate.cardAtmAccess || "").replace(/"/g, '\\"')}",
     transfers: "${(rate.transfers || "").replace(/"/g, '\\"')}",
     limitsConditions: "${(rate.limitsConditions || "").replace(/"/g, '\\"')}",
@@ -216,6 +218,10 @@ export interface DigitalBankRate {
   bestFor: string;
   baseRate: number;
   promoRate: number | null;
+  /** Short summary of the balance cap that limits the headline rate, e.g. "₱100,000" or "No cap". */
+  balanceCap: string;
+  /** Short summary of what you must do to earn the headline rate, e.g. "None" or "Monthly missions". */
+  requirement: string;
   cardAtmAccess: string;
   transfers: string;
   limitsConditions: string;

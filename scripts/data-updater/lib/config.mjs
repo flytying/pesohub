@@ -93,6 +93,16 @@ export const bankDigitalRatesConfig = {
               type: ["number", "null"],
               description: "Promo rate if available, null otherwise",
             },
+            balanceCap: {
+              type: "string",
+              description:
+                'Short summary of the balance cap that limits the headline rate, e.g. "₱100,000" or "No cap"',
+            },
+            requirement: {
+              type: "string",
+              description:
+                'Short summary of what you must do to earn the headline rate, e.g. "None" or "Monthly missions"',
+            },
             cardAtmAccess: { type: "string" },
             transfers: { type: "string" },
             limitsConditions: { type: "string" },

@@ -25,6 +25,32 @@ import { bankSavingsRatesConfig as config } from "../lib/config.mjs";
 const REQUIRED_STRING_FIELDS = ["bankName"];
 const REQUIRED_NUMBER_FIELDS = ["interestRate"];
 
+// Traditional branch banks — everything else is treated as a digital bank.
+// bankType is a classification, not a scrapeable value, so it is derived here.
+const TRADITIONAL_BANKS = [
+  "bdo",
+  "bpi",
+  "metrobank",
+  "pnb",
+  "landbank",
+  "dbp",
+  "security bank",
+  "china bank",
+  "chinabank",
+  "rcbc",
+  "unionbank",
+  "eastwest",
+  "psbank",
+  "robinsons bank",
+];
+
+/** Classify a bank as "traditional" or "digital" from its name. */
+function classifyBankType(bankName, existing) {
+  if (existing === "traditional" || existing === "digital") return existing;
+  const name = (bankName || "").toLowerCase();
+  return TRADITIONAL_BANKS.some((b) => name.includes(b)) ? "traditional" : "digital";
+}
+
 /**
  * Format a rate entry as TypeScript source.
  */
@@ -35,6 +61,7 @@ function formatRateEntry(rate) {
     accountType: "${rate.accountType}",
     interestRate: ${rate.interestRate},
     rateType: "${rate.rateType}",
+    bankType: "${classifyBankType(rate.bankName, rate.bankType)}",
     minimumBalance: ${minBal >= 1000 ? minBal.toLocaleString("en-US").replace(/,/g, "_") : minBal},
     liquidity: "${rate.liquidity || "App-based transfers"}",
     bestFor: "${rate.bestFor || ""}",
@@ -244,6 +271,8 @@ export interface BankSavingsRate {
   accountType: string;
   interestRate: number;
   rateType: "Promo" | "Standard";
+  /** Whether the provider is an app-based digital bank or a traditional branch bank. */
+  bankType: "digital" | "traditional";
   minimumBalance: number;
   liquidity: string;
   bestFor: string;
