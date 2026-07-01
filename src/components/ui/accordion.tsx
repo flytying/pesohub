@@ -31,7 +31,7 @@ function AccordionTrigger({
   ...props
 }: AccordionPrimitive.Trigger.Props) {
   return (
-    <AccordionPrimitive.Header render={<h4 />} className="flex">
+    <AccordionPrimitive.Header render={<h3 />} className="flex">
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(

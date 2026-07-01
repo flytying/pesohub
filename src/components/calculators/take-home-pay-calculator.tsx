@@ -107,6 +107,7 @@ export function TakeHomePayCalculator() {
             <input
               id={thumb}
               type="range"
+              aria-label="Monthly gross salary"
               min={0}
               max={SLIDER_MAX}
               step={1000}
