@@ -99,6 +99,25 @@ jobs:
           git add src/ scripts/blog-agent/output 2>/dev/null || git add src/
           git commit -m "blog: ${SLUG} (automated)"
           git push -u --force-with-lease origin "$BRANCH"
+
+          # Nudge the reviewer to check the RENDERED post, not just the JSON diff —
+          # layout issues (e.g. a duplicated Quick Answer card) are invisible in
+          # the data file. The Vercel bot posts the branch preview URL on the PR;
+          # this appends the exact post path to open under it.
+          {
+            echo ""
+            echo "---"
+            echo "### 👀 Review the rendered post — not just the JSON"
+            echo ""
+            echo "When the Vercel **Preview** deployment on this PR finishes, open its URL and append:"
+            echo ""
+            echo "\`\`\`"
+            echo "/blog/${SLUG}/"
+            echo "\`\`\`"
+            echo ""
+            echo "Scan the page in the browser for layout problems the data diff hides — duplicate cards, heading order, broken callouts, image alt text."
+          } >> /tmp/pr-body.md
+
           gh label create "blog" --color "5319E7" --description "Blog post PR" 2>/dev/null || true
           gh pr create \
             --title "blog: ${SLUG}" \
