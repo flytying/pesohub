@@ -7,6 +7,12 @@
 import { calculateWithholdingTax } from "@/lib/calculators/tax";
 import { round } from "./math-utils";
 import { SSS_CONTRIBUTION_TABLE_2025 } from "@/lib/calculators/sss";
+import {
+  PAGIBIG_MAX_MSC,
+  PAGIBIG_EMPLOYEE_RATE_LOW,
+  PAGIBIG_EMPLOYEE_RATE_HIGH,
+  PAGIBIG_LOW_SALARY_THRESHOLD,
+} from "@/data/government/pag-ibig-contribution";
 
 /**
  * Input parameters for the take-home pay calculation.
@@ -47,14 +53,9 @@ const PHILHEALTH_EMPLOYEE_SHARE = 0.5;
 const PHILHEALTH_SALARY_FLOOR = 10_000;
 const PHILHEALTH_SALARY_CEILING = 100_000;
 
-// ---------------------------------------------------------------------------
-// Pag-IBIG constants
-// Employee share: 1% if salary ≤ ₱1,500, else 2%.
-// Maximum monthly salary credit: ₱10,000 → max employee contribution: ₱200.
-// Per HDMF Circular No. 460, effective February 2024.
-// ---------------------------------------------------------------------------
-
-const PAGIBIG_MAX_MSC = 10_000;
+// Pag-IBIG constants (rates, threshold, MSC cap) are imported from
+// @/data/government/pag-ibig-contribution — the single source of truth
+// per HDMF Circular No. 460, effective February 2024.
 
 // ---------------------------------------------------------------------------
 // Main computation
@@ -152,6 +153,9 @@ export function calculatePhilHealthEmployee(monthlySalary: number): number {
  */
 export function calculatePagIBIGEmployee(monthlySalary: number): number {
   const cappedSalary = Math.min(monthlySalary, PAGIBIG_MAX_MSC);
-  const rate = monthlySalary <= 1_500 ? 0.01 : 0.02;
+  const rate =
+    monthlySalary <= PAGIBIG_LOW_SALARY_THRESHOLD
+      ? PAGIBIG_EMPLOYEE_RATE_LOW
+      : PAGIBIG_EMPLOYEE_RATE_HIGH;
   return round(cappedSalary * rate);
 }

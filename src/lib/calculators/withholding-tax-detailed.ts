@@ -121,13 +121,14 @@ export function calculateWithholdingTaxDetailed(
   }
 
   const monthlyTaxableAllow = taxableAllowances * toMonthly;
-  const monthlyExemptAllow = taxExemptAllowances * toMonthly;
 
   // Monthly taxable compensation: gross + taxable allowances, less mandatory
-  // contributions and tax-exempt allowances. Floored at zero.
+  // contributions. Floored at zero. Tax-exempt allowances (de minimis) are
+  // pay on top of gross — they are added to net pay below but never enter the
+  // tax base, so they must not be subtracted from gross here.
   const monthlyContribs = sssMonthly + philhealthMonthly + pagibigMonthly;
   const monthlyTaxable = Math.max(
-    monthlyGross + monthlyTaxableAllow - monthlyExemptAllow - monthlyContribs,
+    monthlyGross + monthlyTaxableAllow - monthlyContribs,
     0,
   );
 
