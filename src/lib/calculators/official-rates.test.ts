@@ -7,6 +7,13 @@ import {
 } from "./take-home-pay";
 import { computeSSSContribution } from "./sss-contribution-wisp";
 import { computeSSSPension } from "./sss-pension-formula";
+import {
+  PAGIBIG_MAX_MSC,
+  PAGIBIG_EMPLOYEE_RATE_LOW,
+  PAGIBIG_EMPLOYEE_RATE_HIGH,
+  PAGIBIG_EMPLOYER_RATE,
+  PAGIBIG_LOW_SALARY_THRESHOLD,
+} from "@/data/government/pag-ibig-contribution";
 
 // ---------------------------------------------------------------------------
 // Official-rate regression guards. Each assertion pins an encoded PH rule to its
@@ -37,6 +44,14 @@ describe("Pag-IBIG — 1%/2% tiers, ₱10k MSC cap (HDMF Circular 460, Feb 2024)
     expect(calculatePagIBIGEmployee(1_500)).toBe(15); // 1% tier
     expect(calculatePagIBIGEmployee(10_000)).toBe(200); // cap
     expect(calculatePagIBIGEmployee(99_999)).toBe(200);
+  });
+
+  it("pins the Circular 460 constants (single source of truth in data/)", () => {
+    expect(PAGIBIG_MAX_MSC).toBe(10_000);
+    expect(PAGIBIG_EMPLOYEE_RATE_LOW).toBe(0.01);
+    expect(PAGIBIG_EMPLOYEE_RATE_HIGH).toBe(0.02);
+    expect(PAGIBIG_EMPLOYER_RATE).toBe(0.02);
+    expect(PAGIBIG_LOW_SALARY_THRESHOLD).toBe(1_500);
   });
 });
 

@@ -75,6 +75,15 @@ describe("calculateTakeHomePay", () => {
     expect(r.takeHomePay).toBeGreaterThan(0);
   });
 
+  it("stays finite for a very large salary (deduction caps apply)", () => {
+    const r = calculateTakeHomePay({ monthlySalary: 1e12 });
+    expect(r.sssContribution).toBe(1_750); // ₱35k MSC cap
+    expect(r.philhealthContribution).toBe(2_500); // ₱100k ceiling
+    expect(r.pagibigContribution).toBe(200); // ₱10k MSC cap
+    expect(Number.isFinite(r.takeHomePay)).toBe(true);
+    expect(r.takeHomePay).toBeGreaterThan(0);
+  });
+
   it("clamps NaN/negative salary to the zero-salary result (no crash, all finite)", () => {
     // Note: the SSS/PhilHealth floors still apply at ₱0, so take-home is the
     // (negative) floor-deduction figure — documented here, not a runtime error.
