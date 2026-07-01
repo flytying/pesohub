@@ -13,7 +13,7 @@ const post: BlogPostData = {
   "category": "banking",
   "excerpt": "Digital banks in the Philippines are safe in 2026 — they hold full BSP licences, follow the same rules as traditional banks, and all deposits are PDIC-insured for up to ₱500,000–₱1,000,000 per depositor. Here is everything you need to know.",
   "readTime": 9,
-  "directAnswer": "Yes, digital banks in the Philippines are safe in 2026. They hold full BSP digital-bank licences, follow the same rules as traditional banks, and all deposits are PDIC-insured for up to ₱500,000–₱1,000,000 per depositor.",
+  "directAnswer": "Yes. Digital banks in the Philippines are safe in 2026. They hold full Bangko Sentral ng Pilipinas (BSP) digital-bank licences, are subject to the same prudential rules as traditional commercial banks, and all deposits are insured by the Philippine Deposit Insurance Corporation (PDIC) for up to ₱500,000–₱1,000,000 per depositor. As long as you practise basic cyber-hygiene, your money is as protected as it would be in any conventional Philippine bank.",
   "sections": [
     {
       "type": "paragraph",
@@ -23,11 +23,6 @@ const post: BlogPostData = {
       "type": "heading",
       "level": 2,
       "heading": "Quick Answer: Are Digital Banks in the Philippines Safe?"
-    },
-    {
-      "type": "callout",
-      "variant": "info",
-      "content": "Yes. Digital banks in the Philippines are safe in 2026. They hold full Bangko Sentral ng Pilipinas (BSP) digital-bank licences, are subject to the same prudential rules as traditional commercial banks, and all deposits are insured by the Philippine Deposit Insurance Corporation (PDIC) for up to ₱500,000–₱1,000,000 per depositor. As long as you practise basic cyber-hygiene, your money is as protected as it would be in any conventional Philippine bank."
     },
     {
       "type": "list",
