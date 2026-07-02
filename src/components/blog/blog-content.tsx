@@ -147,61 +147,66 @@ function renderSection(section: BlogSection, index: number) {
       const rows = section.rows ?? [];
       const n = columns.length || rows[0]?.length || 0;
       // 3-column tables are bank rankings: bank · rate · conditions, with a
-      // toned rate pill and a wider conditions column. Anything else is a
-      // generic comparison grid with equal columns.
+      // toned rate pill. Semantic <table> markup so search engines can read
+      // the comparison (featured snippet eligibility).
       const ranking = n === 3;
-      const template = ranking
-        ? "minmax(116px,1.1fr) minmax(92px,0.7fr) minmax(220px,1.5fr)"
-        : `minmax(140px,1.1fr) repeat(${Math.max(n - 1, 1)}, minmax(150px,1fr))`;
       const minWidth = ranking ? 560 : Math.max(n, 1) * 170;
+      const cellPad = "px-3 py-[14px] first:pl-[18px] last:pr-[18px]";
       return (
         <div
           key={index}
           className="mt-6 overflow-x-auto rounded-[14px] border border-[#E0E6F2]"
         >
-          <div style={{ minWidth }}>
-            {/* Header */}
-            <div
-              className="grid gap-3 border-b border-[#E0E6F2] bg-[#EEF2FB] px-[18px] py-[13px] text-[11px] font-bold uppercase tracking-[.05em] text-[#56607A]"
-              style={{ gridTemplateColumns: template }}
-            >
-              {columns.map((c, i) => (
-                <span key={i}>{c}</span>
+          <table
+            className="w-full border-collapse text-left"
+            style={{ minWidth }}
+          >
+            <thead>
+              <tr className="border-b border-[#E0E6F2] bg-[#EEF2FB]">
+                {columns.map((c, i) => (
+                  <th
+                    key={i}
+                    scope="col"
+                    className="px-3 py-[13px] text-[11px] font-bold uppercase tracking-[.05em] text-[#56607A] first:pl-[18px] last:pr-[18px]"
+                  >
+                    {c}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, ri) => (
+                <tr
+                  key={ri}
+                  className={`${
+                    ri < rows.length - 1 ? "border-b border-[#EEF1F7]" : ""
+                  } ${ri % 2 === 1 ? "bg-[#FAFBFE]" : ""}`}
+                >
+                  {row.map((cell, ci) =>
+                    ci === 0 ? (
+                      <td
+                        key={ci}
+                        className={`${cellPad} font-display text-[14px] font-semibold text-[#0E1525]`}
+                      >
+                        {cell}
+                      </td>
+                    ) : ranking && ci === 1 ? (
+                      <td key={ci} className={cellPad}>
+                        <span className={ratePillClass(cell)}>{cell}</span>
+                      </td>
+                    ) : (
+                      <td
+                        key={ci}
+                        className={`${cellPad} text-[14px] leading-[1.5] text-[#5A6478]`}
+                      >
+                        {cell}
+                      </td>
+                    ),
+                  )}
+                </tr>
               ))}
-            </div>
-            {/* Rows */}
-            {rows.map((row, ri) => (
-              <div
-                key={ri}
-                className={`grid items-center gap-3 px-[18px] py-[14px] ${
-                  ri < rows.length - 1 ? "border-b border-[#EEF1F7]" : ""
-                } ${ri % 2 === 1 ? "bg-[#FAFBFE]" : ""}`}
-                style={{ gridTemplateColumns: template }}
-              >
-                {row.map((cell, ci) =>
-                  ci === 0 ? (
-                    <span
-                      key={ci}
-                      className="font-display text-[14px] font-semibold text-[#0E1525]"
-                    >
-                      {cell}
-                    </span>
-                  ) : ranking && ci === 1 ? (
-                    <span key={ci}>
-                      <span className={ratePillClass(cell)}>{cell}</span>
-                    </span>
-                  ) : (
-                    <span
-                      key={ci}
-                      className="text-[14px] leading-[1.5] text-[#5A6478]"
-                    >
-                      {cell}
-                    </span>
-                  ),
-                )}
-              </div>
-            ))}
-          </div>
+            </tbody>
+          </table>
         </div>
       );
     }

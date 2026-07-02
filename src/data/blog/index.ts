@@ -29,10 +29,10 @@ export const blogPosts: BlogPostEntry[] = [
     slug: "best-savings-account-philippines-2026",
     title: "How to Choose the Best Savings Account in the Philippines (2026)",
     excerpt:
-      "Not all savings accounts are equal. Interest rates in the Philippines range from 0.05% to over 5% per year depending on the bank. Here is how to find the right account for your situation.",
+      "Not all savings accounts are equal. Interest rates in the Philippines range from 0.25% at the big traditional banks to 4.5% at digital banks, with promo rates going higher. Here is how to find the right account for your situation.",
     category: "savings",
     publishedAt: "2026-04-11",
-    updatedAt: "2026-04-11",
+    updatedAt: "2026-07-02",
     readTime: 7,
   },
   {
