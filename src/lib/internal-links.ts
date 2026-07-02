@@ -51,14 +51,14 @@ export const ALL_PAGES: PageLink[] = [
   },
   {
     slug: "/rates/savings-rates/best-savings-interest-rates-philippines",
-    title: "Best Savings Interest Rates",
-    description: "Compare savings account interest rates from Philippine banks.",
+    title: "Savings Account Interest Rates",
+    description: "A full list of savings account interest rates from Philippine banks.",
     category: "rate",
   },
   {
     slug: "/rates/savings-rates/best-digital-bank-rates-philippines",
-    title: "Best Digital Bank Rates",
-    description: "Compare digital bank interest rates, promo rates, balance caps, and requirements.",
+    title: "High-Yield Savings Accounts (Digital Banks)",
+    description: "Compare high-yield savings accounts from digital banks: rates, promo rates, balance caps, and requirements.",
     category: "rate",
   },
   {
