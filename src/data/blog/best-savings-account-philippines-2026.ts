@@ -1,6 +1,6 @@
 import type { BlogPostData } from "@/types/content";
 
-export const BEST_SAVINGS_ACCOUNT_2026_UPDATED_AT = "2026-04-11";
+export const BEST_SAVINGS_ACCOUNT_2026_UPDATED_AT = "2026-07-02";
 
 const post: BlogPostData = {
   slug: "best-savings-account-philippines-2026",
@@ -8,17 +8,44 @@ const post: BlogPostData = {
   metaTitle:
     "How to Choose the Best Savings Account in the Philippines (2026)",
   metaDescription:
-    "Compare savings accounts from Philippine banks based on interest rates, fees, access, and deposit insurance. Find the right account for your needs in 2026.",
+    "Tonik pays up to 4.5% and MariBank 3.25% on savings, while BDO and BPI pay 0.25%. Compare rates, maintaining balance, and PDIC cover for 2026.",
   author: "PesoHub Team",
   publishedAt: "2026-04-11",
-  updatedAt: "2026-04-11",
+  updatedAt: "2026-07-02",
   category: "savings",
   excerpt:
-    "Not all savings accounts are equal. Interest rates in the Philippines range from 0.05% to over 5% per year depending on the bank. Here is how to find the right account for your situation.",
+    "Not all savings accounts are equal. Interest rates in the Philippines range from 0.25% at the big traditional banks to 4.5% at digital banks, with promo rates going higher. Here is how to find the right account for your situation.",
   readTime: 7,
   directAnswer:
-    "The best savings account depends on what you need: if you want the highest interest rate, digital banks like Maya, GCash, and Tonik often offer 3-6% per year. If you need branch access and ATMs, traditional banks like BDO, BPI, and Metrobank are more convenient but offer lower rates. Always check the maintaining balance, fees, and PDIC insurance coverage before opening an account.",
+    "The best savings account depends on what you need: if you want the highest interest rate, digital banks like Tonik, MariBank, and GoTyme pay 3% to 4.5% per year on standard rates. If you need branch access and ATMs, traditional banks like BDO, BPI, and Metrobank are more convenient but pay around 0.25%. Always check the maintaining balance, fees, and PDIC insurance coverage before opening an account.",
   sections: [
+    {
+      type: "paragraph",
+      content:
+        "Here are current savings account interest rates from major Philippine banks, last checked June 29, 2026.",
+    },
+    {
+      type: "table",
+      columns: [
+        "Bank",
+        "Interest rate (p.a.)",
+        "Minimum balance",
+        "PDIC insurance",
+      ],
+      rows: [
+        ["Maya (Personal Savings)", "Up to 15% promo, 3% base", "None", "Insured up to ₱1M"],
+        ["Tonik Bank (Group Stash)", "4.5%", "None", "Insured up to ₱1M"],
+        ["Tonik Bank (Solo Stash)", "4%", "None", "Insured up to ₱1M"],
+        ["MariBank (Regular Savings)", "3.25%", "None", "Insured up to ₱1M"],
+        ["GoTyme (GoSave)", "3%", "None", "Insured up to ₱1M"],
+        ["CIMB (GSave / UpSave)", "2.5%", "None", "Insured up to ₱1M"],
+        ["ING Philippines (Savings Account)", "2.5%", "None", "Insured up to ₱1M"],
+        ["Tonik Bank (Tonik Account)", "1%", "None", "Insured up to ₱1M"],
+        ["BDO (Regular Savings)", "0.25%", "₱10,000", "Insured up to ₱1M"],
+        ["BPI (Regular Savings)", "0.25%", "₱3,000", "Insured up to ₱1M"],
+        ["Metrobank (Regular Savings)", "0.25%", "₱10,000", "Insured up to ₱1M"],
+      ],
+    },
     {
       type: "heading",
       heading: "Why Your Savings Account Choice Matters",
@@ -51,7 +78,7 @@ const post: BlogPostData = {
         "Maintaining balance — The minimum amount you must keep in the account to avoid fees. Some digital banks have no maintaining balance.",
         "Fees — Monthly service charges, ATM withdrawal fees, transfer fees, and dormancy fees can eat into your interest earnings.",
         "Access — Can you withdraw or transfer money easily? Do you need branch access, or is an app sufficient?",
-        "PDIC insurance — The Philippine Deposit Insurance Corporation covers up to ₱500,000 per depositor per bank. Make sure your bank is PDIC-insured.",
+        "PDIC insurance — The Philippine Deposit Insurance Corporation covers up to ₱1,000,000 per depositor per bank. Make sure your bank is PDIC-insured.",
         "Deposit and withdrawal limits — Some digital banks have daily or monthly transaction limits.",
       ],
     },
@@ -83,7 +110,7 @@ const post: BlogPostData = {
     {
       type: "paragraph",
       content:
-        "Digital banks like Maya Bank, GCash (CIMB), Tonik, and GoTyme operate entirely through mobile apps. Without the overhead of physical branches, they can offer significantly higher interest rates — typically 3% to 6% per year. They also tend to have no maintaining balance requirements. The trade-off is that you cannot visit a branch, and some have lower transaction limits.",
+        "Digital banks like Maya Bank, GCash (CIMB), Tonik, and GoTyme operate entirely through mobile apps. Without the overhead of physical branches, they can offer significantly higher interest rates — typically 2.5% to 4.5% per year on standard rates, with some promo rates advertised higher. They also tend to have no maintaining balance requirements. The trade-off is that you cannot visit a branch, and some have lower transaction limits.",
     },
     {
       type: "callout",
@@ -104,10 +131,10 @@ const post: BlogPostData = {
     {
       type: "list",
       items: [
-        "Traditional banks: 0.05% to 0.50% per year on regular savings",
-        "Digital banks: 3.0% to 6.0% per year on regular savings",
-        "Time deposits: 1.5% to 5.5% per year depending on term and amount",
-        "High-yield savings (promo rates): Up to 7% per year, but usually capped at a maximum balance or limited to a promotional period",
+        "Traditional banks: around 0.25% per year on regular savings at BDO, BPI, and Metrobank",
+        "Digital banks: mostly 2.5% to 4.5% per year on standard rates",
+        "Time deposits: up to 5.5% per year depending on term and amount",
+        "Promo rates: up to 15% per year at Maya, but capped at ₱100,000 and tied to monthly conditions",
       ],
     },
     {
@@ -150,7 +177,7 @@ const post: BlogPostData = {
     {
       type: "paragraph",
       content:
-        "All legitimate banks in the Philippines — including digital banks — are required to be insured by the Philippine Deposit Insurance Corporation (PDIC). This means your deposits are protected up to ₱500,000 per depositor per bank, even if the bank fails.",
+        "All legitimate banks in the Philippines — including digital banks — are required to be insured by the Philippine Deposit Insurance Corporation (PDIC). This means your deposits are protected up to ₱1,000,000 per depositor per bank (the coverage increased from ₱500,000 effective March 15, 2025), even if the bank fails.",
     },
     {
       type: "callout",
@@ -200,12 +227,12 @@ const post: BlogPostData = {
       question:
         "What is the best savings account in the Philippines right now?",
       answer:
-        "It depends on your needs. For the highest interest rates, digital banks like Maya, Tonik, and GoTyme typically offer 3-6% per year. For branch access and ATM networks, traditional banks like BDO, BPI, and Metrobank are more convenient. Check the PesoHub savings rates page for the latest comparison.",
+        "It depends on your needs. For the highest interest rates, digital banks like Tonik, MariBank, and GoTyme typically pay 3% to 4.5% per year on standard rates. For branch access and ATM networks, traditional banks like BDO, BPI, and Metrobank are more convenient. Check the PesoHub savings rates page for the latest comparison.",
     },
     {
       question: "Are digital banks safe in the Philippines?",
       answer:
-        "Yes, as long as they are licensed by the Bangko Sentral ng Pilipinas (BSP) and insured by the Philippine Deposit Insurance Corporation (PDIC). All major digital banks operating in the Philippines are both BSP-licensed and PDIC-insured, which means your deposits are protected up to ₱500,000 per depositor per bank.",
+        "Yes, as long as they are licensed by the Bangko Sentral ng Pilipinas (BSP) and insured by the Philippine Deposit Insurance Corporation (PDIC). All major digital banks operating in the Philippines are both BSP-licensed and PDIC-insured, which means your deposits are protected up to ₱1,000,000 per depositor per bank.",
     },
     {
       question: "How much interest will I earn on a savings account?",
@@ -215,7 +242,7 @@ const post: BlogPostData = {
     {
       question: "Can I have savings accounts in multiple banks?",
       answer:
-        "Yes. There is no limit to how many savings accounts you can have. Many Filipinos use a traditional bank for salary and daily transactions, and a digital bank for savings. Just remember that PDIC insurance covers up to ₱500,000 per depositor per bank — having accounts at different banks increases your total coverage.",
+        "Yes. There is no limit to how many savings accounts you can have. Many Filipinos use a traditional bank for salary and daily transactions, and a digital bank for savings. Just remember that PDIC insurance covers up to ₱1,000,000 per depositor per bank — having accounts at different banks increases your total coverage.",
     },
     {
       question: "What happens if I do not meet the maintaining balance?",
