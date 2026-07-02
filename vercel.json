@@ -12,6 +12,11 @@
       "source": "/blog/bir-withholding-tax-table-2026-explained",
       "destination": "/government/bir/withholding-tax-table-philippines",
       "permanent": true
+    },
+    {
+      "source": "/blog/high-yield-savings-account-philippines",
+      "destination": "/rates/savings-rates/best-digital-bank-rates-philippines",
+      "statusCode": 301
     }
   ],
   "headers": [

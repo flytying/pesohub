@@ -31,20 +31,20 @@ const breadcrumbs = [
 
 const featuredCards = [
   {
-    icon: PiggyBank,
-    title: "Best Savings Accounts Philippines 2026",
+    icon: Smartphone,
+    title: "Best High-Yield Savings Accounts 2026",
     description:
-      "Compare the best savings accounts in the Philippines — high-yield digital banks, traditional bank rates, promo conditions, minimum balances, and estimated earnings.",
-    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
-    cta: "Compare savings accounts",
+      "Compare high-yield savings accounts from Philippine digital banks: base and promo interest rates, balance caps, requirements, PDIC notes, and estimated earnings.",
+    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
+    cta: "Compare high-yield savings accounts",
   },
   {
-    icon: Smartphone,
-    title: "Best Digital Banks Philippines 2026",
+    icon: PiggyBank,
+    title: "Savings Account Interest Rates: Full List",
     description:
-      "Compare digital banks in the Philippines — base and promo interest rates, balance caps, requirements, PDIC notes, and estimated earnings.",
-    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
-    cta: "Compare digital banks",
+      "A full list of savings account interest rates from Philippine digital and traditional banks, with promo conditions, minimum balances, and estimated earnings.",
+    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
+    cta: "See the full rate list",
   },
 ];
 
