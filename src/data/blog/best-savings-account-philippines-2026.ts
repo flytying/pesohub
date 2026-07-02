@@ -1,6 +1,24 @@
 import type { BlogPostData } from "@/types/content";
+import {
+  bankSavingsRates,
+  SAVINGS_RATES_UPDATED_AT,
+} from "@/data/rates/savings-rates";
+import { formatDate, formatPeso } from "@/lib/formatters";
 
 export const BEST_SAVINGS_ACCOUNT_2026_UPDATED_AT = "2026-07-02";
+
+// The comparison table derives from the live rates data so the biweekly
+// bank-rate scrape updates this post automatically instead of drifting.
+const rateTableRows: string[][] = [...bankSavingsRates]
+  .sort((a, b) => b.interestRate - a.interestRate)
+  .map((bank) => [
+    `${bank.bankName} (${bank.accountType})`,
+    bank.rateType === "Promo"
+      ? `Up to ${bank.interestRate}% (promo)`
+      : `${bank.interestRate}%`,
+    bank.minimumBalance === 0 ? "None" : formatPeso(bank.minimumBalance, 0),
+    "Insured up to ₱1M",
+  ]);
 
 const post: BlogPostData = {
   slug: "best-savings-account-philippines-2026",
@@ -21,8 +39,7 @@ const post: BlogPostData = {
   sections: [
     {
       type: "paragraph",
-      content:
-        "Here are current savings account interest rates from major Philippine banks, last checked June 29, 2026.",
+      content: `Here are current savings account interest rates from major Philippine banks, last checked ${formatDate(`${SAVINGS_RATES_UPDATED_AT}T00:00:00`)}.`,
     },
     {
       type: "table",
@@ -32,19 +49,7 @@ const post: BlogPostData = {
         "Minimum balance",
         "PDIC insurance",
       ],
-      rows: [
-        ["Maya (Personal Savings)", "Up to 15% promo, 3% base", "None", "Insured up to ₱1M"],
-        ["Tonik Bank (Group Stash)", "4.5%", "None", "Insured up to ₱1M"],
-        ["Tonik Bank (Solo Stash)", "4%", "None", "Insured up to ₱1M"],
-        ["MariBank (Regular Savings)", "3.25%", "None", "Insured up to ₱1M"],
-        ["GoTyme (GoSave)", "3%", "None", "Insured up to ₱1M"],
-        ["CIMB (GSave / UpSave)", "2.5%", "None", "Insured up to ₱1M"],
-        ["ING Philippines (Savings Account)", "2.5%", "None", "Insured up to ₱1M"],
-        ["Tonik Bank (Tonik Account)", "1%", "None", "Insured up to ₱1M"],
-        ["BDO (Regular Savings)", "0.25%", "₱10,000", "Insured up to ₱1M"],
-        ["BPI (Regular Savings)", "0.25%", "₱3,000", "Insured up to ₱1M"],
-        ["Metrobank (Regular Savings)", "0.25%", "₱10,000", "Insured up to ₱1M"],
-      ],
+      rows: rateTableRows,
     },
     {
       type: "heading",
