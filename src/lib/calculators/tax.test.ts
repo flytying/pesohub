@@ -15,6 +15,21 @@ describe("calculateWithholdingTax — TRAIN brackets", () => {
     expect(calculateWithholdingTax({ annualTaxableIncome: income }).annualTax).toBe(expected);
   });
 
+  // One peso either side of every bracket floor: the marginal rate must apply
+  // only to the excess over the floor.
+  it.each([
+    [249_999, 0],
+    [250_001, 0.15], //       15% of ₱1
+    [400_001, 22_500.2], //   20% of ₱1
+    [800_001, 102_500.25], // 25% of ₱1
+    [2_000_001, 402_500.3], //30% of ₱1
+    [8_000_001, 2_202_500.35], // 35% of ₱1
+  ])("annual %d → annual tax %d (±₱1 bracket edge)", (income, expected) => {
+    expect(
+      calculateWithholdingTax({ annualTaxableIncome: income }).annualTax,
+    ).toBeCloseTo(expected, 2);
+  });
+
   it("is tax-free up to and including ₱250,000 (bracket uses > floor)", () => {
     expect(calculateWithholdingTax({ annualTaxableIncome: 250_000 }).annualTax).toBe(0);
     // Just over the threshold → 15% of the excess.

@@ -21,10 +21,11 @@ import {
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
 import { FaqSection } from "@/components/shared/faq-section";
+import { CalculatorNotice } from "@/components/shared/calculator-notice";
 import { TakeHomePayCalculator } from "@/components/calculators/take-home-pay-calculator";
 import { takeHomePayData } from "@/data/calculators/take-home-pay";
 import { calculateTakeHomePay } from "@/lib/calculators/take-home-pay";
-import { formatPeso } from "@/lib/formatters";
+import { formatDate, formatPeso } from "@/lib/formatters";
 
 export const metadata: Metadata = generatePageMetadata({
   title: takeHomePayData.metaTitle,
@@ -156,7 +157,7 @@ export default function TakeHomePayCalculatorPage() {
           </p>
           <div className="mt-[11px] flex items-center gap-[6px] text-[15px] font-semibold text-[#6B7488]">
             <Clock className="size-[15px]" />
-            Updated March 16, 2026
+            Updated {formatDate(takeHomePayData.updatedAt)}
           </div>
         </div>
 
@@ -283,16 +284,7 @@ export default function TakeHomePayCalculatorPage() {
           </section>
 
           {/* Disclaimer */}
-          <div className="flex gap-3 rounded-[14px] border border-[#F0E2BE] bg-[#FFF8E8] p-5">
-            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
-            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
-              This calculator provides estimates for planning purposes only.
-              Actual deductions depend on the current SSS, PhilHealth, and
-              Pag-IBIG schedules, your exact salary bracket, taxable allowances,
-              and your employer&apos;s payroll rules. Always check your official
-              payslip.
-            </p>
-          </div>
+          <CalculatorNotice text="This calculator provides estimates for planning purposes only. Actual deductions depend on the current SSS, PhilHealth, and Pag-IBIG schedules, your exact salary bracket, taxable allowances, and your employer's payroll rules. Always check your official payslip." />
 
           {/* FAQ */}
           <section className="pt-7">

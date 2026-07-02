@@ -11,7 +11,10 @@ export function CalcErrorState({
   onReset?: () => void;
 }) {
   return (
-    <div className="rounded-[20px] border border-[#E7EBF3] bg-white p-8 text-center shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+    <div
+      role="alert"
+      className="rounded-[20px] border border-[#E7EBF3] bg-white p-8 text-center shadow-[0_1px_2px_rgba(16,24,40,.04)]"
+    >
       <p className="text-[16px] font-semibold text-[#0E1525]">
         Check your inputs
       </p>

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-  Info,
   Check,
   Target,
   GraduationCap,
@@ -19,6 +18,7 @@ import {
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
 import { FaqSection } from "@/components/shared/faq-section";
+import { CalculatorNotice } from "@/components/shared/calculator-notice";
 import { SavingsGoalCalculator } from "@/components/calculators/savings-goal-calculator";
 
 const TITLE = "Savings Goal Calculator Philippines";
@@ -233,14 +233,7 @@ export default function SavingsGoalCalculatorPage() {
           </section>
 
           {/* Disclaimer */}
-          <div className="flex gap-3 rounded-[14px] border border-[#F0E2BE] bg-[#FFF8E8] p-5">
-            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
-            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
-              This calculator provides estimates for planning purposes only. Actual interest earned
-              may vary depending on the bank, account type, and rate changes over time. Consider
-              consulting a qualified financial advisor for personalized guidance.
-            </p>
-          </div>
+          <CalculatorNotice text="This calculator provides estimates for planning purposes only. Actual interest earned may vary depending on the bank, account type, and rate changes over time. Consider consulting a qualified financial advisor for personalized guidance." />
 
           {/* FAQ */}
           <section className="pt-7">

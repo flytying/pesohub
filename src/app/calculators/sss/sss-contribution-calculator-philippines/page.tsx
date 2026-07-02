@@ -18,10 +18,11 @@ import {
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
 import { FaqSection } from "@/components/shared/faq-section";
+import { CalculatorNotice } from "@/components/shared/calculator-notice";
 import { SSSContributionCalculator } from "@/components/calculators/sss-contribution-calculator";
 import { sssContributionCalcData } from "@/data/calculators/sss-contribution";
 import { computeSSSContribution } from "@/lib/calculators/sss-contribution-wisp";
-import { formatPeso } from "@/lib/formatters";
+import { formatDate, formatPeso } from "@/lib/formatters";
 
 export const metadata: Metadata = generatePageMetadata({
   title: sssContributionCalcData.metaTitle,
@@ -142,7 +143,7 @@ export default function SSSContributionCalculatorPage() {
           </p>
           <div className="mt-[11px] flex items-center gap-[6px] text-[15px] font-semibold text-[#6B7488]">
             <Clock className="size-[15px]" />
-            Updated March 16, 2026
+            Updated {formatDate(sssContributionCalcData.updatedAt)}
           </div>
         </div>
 
@@ -256,15 +257,7 @@ export default function SSSContributionCalculatorPage() {
           </section>
 
           {/* Disclaimer */}
-          <div className="flex gap-3 rounded-[14px] border border-[#F0E2BE] bg-[#FFF8E8] p-5">
-            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
-            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
-              This calculator provides estimates based on the current SSS contribution schedule
-              and is not affiliated with the Social Security System. The official MSC brackets, EC
-              contribution, and WISP rules determine the exact amount. Always check the official
-              SSS contribution table or your member account.
-            </p>
-          </div>
+          <CalculatorNotice text="This calculator provides estimates based on the current SSS contribution schedule and is not affiliated with the Social Security System. The official MSC brackets, EC contribution, and WISP rules determine the exact amount. Always check the official SSS contribution table or your member account." />
 
           {/* FAQ */}
           <section className="pt-7">

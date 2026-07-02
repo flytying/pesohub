@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
-  Info,
   Clock,
   Check,
   X,
@@ -19,6 +18,7 @@ import {
 } from "@/lib/schema-markup";
 import { JsonLd } from "@/components/seo/json-ld";
 import { FaqSection } from "@/components/shared/faq-section";
+import { CalculatorNotice } from "@/components/shared/calculator-notice";
 import { ThirteenthMonthCalculator } from "@/components/calculators/thirteenth-month-calculator";
 import { thirteenthMonthData } from "@/data/calculators/thirteenth-month";
 import { formatDate } from "@/lib/formatters";
@@ -269,14 +269,7 @@ export default function ThirteenthMonthPayCalculatorPage() {
           </section>
 
           {/* Disclaimer */}
-          <div className="flex gap-3 rounded-[14px] border border-[#F0E2BE] bg-[#FFF8E8] p-5">
-            <Info className="mt-0.5 size-5 shrink-0 text-[#C99A22]" />
-            <p className="text-[15px] leading-[1.6] text-[#7A6320]">
-              This calculator provides a basic salary-based estimate for planning only. It does not
-              classify every payroll item, apply company-specific rules, or constitute legal advice.
-              Confirm your final 13th month pay with your employer&apos;s payroll.
-            </p>
-          </div>
+          <CalculatorNotice text="This calculator provides a basic salary-based estimate for planning only. It does not classify every payroll item, apply company-specific rules, or constitute legal advice. Confirm your final 13th month pay with your employer's payroll." />
 
           {/* FAQ */}
           <section className="pt-7">

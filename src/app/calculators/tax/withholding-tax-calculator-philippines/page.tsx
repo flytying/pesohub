@@ -19,6 +19,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { FaqSection } from "@/components/shared/faq-section";
 import { WithholdingTaxCalculator } from "@/components/calculators/withholding-tax-calculator";
 import { withholdingTaxData, TRAIN_BRACKETS } from "@/data/calculators/withholding-tax";
+import { formatDate } from "@/lib/formatters";
 
 export const metadata: Metadata = generatePageMetadata({
   title: withholdingTaxData.metaTitle,
@@ -134,7 +135,7 @@ export default function WithholdingTaxCalculatorPage() {
           </p>
           <div className="mt-[11px] flex items-center gap-[6px] text-[15px] font-semibold text-[#6B7488]">
             <Clock className="size-[15px]" />
-            Updated June 26, 2026
+            Updated {formatDate(withholdingTaxData.updatedAt)}
           </div>
         </div>
 

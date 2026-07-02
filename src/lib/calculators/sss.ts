@@ -40,7 +40,8 @@ export interface SSSContributionRow {
 const CONTRIBUTION_RATE = 0.15;
 const EMPLOYEE_RATE = 0.05; // 1/3 of 15%
 const EMPLOYER_RATE = 0.10; // 2/3 of 15%
-const MPF_THRESHOLD = 20_000;
+/** MSC portion above this funds the mandatory provident fund (WISP). */
+export const MPF_THRESHOLD = 20_000;
 const EC_LOW = 10; // EC for MSC ≤ 14,500
 const EC_HIGH = 30; // EC for MSC ≥ 15,000
 

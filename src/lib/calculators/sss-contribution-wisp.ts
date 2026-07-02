@@ -7,6 +7,8 @@
 // effects.
 // ---------------------------------------------------------------------------
 
+import { MPF_THRESHOLD } from "@/lib/calculators/sss";
+
 export type SSSMember = "employed" | "self" | "voluntary" | "ofw";
 
 export const SSS_MEMBER_LABELS: Record<SSSMember, string> = {
@@ -54,8 +56,8 @@ export function computeSSSContribution(
   member: SSSMember,
 ): SSSContributionResult {
   const msc = clamp(Math.round(salary / 500) * 500, sssMscMin(member), 35_000);
-  const regMSC = Math.min(msc, 20_000);
-  const wispMSC = Math.max(msc - 20_000, 0);
+  const regMSC = Math.min(msc, MPF_THRESHOLD);
+  const wispMSC = Math.max(msc - MPF_THRESHOLD, 0);
   const ee = msc * 0.05;
   const er = msc * 0.1;
   const hasEC = member === "employed" || member === "self";

@@ -123,6 +123,9 @@ export function calculateTimeDeposit(
   }
   grossInterest = round(grossInterest);
 
+  // Tax is computed on the already-rounded gross interest, so downstream
+  // figures stay self-consistent (afterTax = gross − tax exactly). Deviation
+  // from taxing the unrounded amount is < ₱0.005 — irrelevant for estimates.
   const taxOnInterest = round(grossInterest * taxRate);
   const afterTaxInterest = round(grossInterest - taxOnInterest);
 
