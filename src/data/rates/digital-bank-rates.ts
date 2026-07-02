@@ -205,6 +205,16 @@ export const digitalBankFaqs: FAQ[] = [
       "A digital bank savings account may be better if you want easier access and app-based flexibility. A time deposit may be better if you can lock in funds for a fixed term — and several digital banks (Tonik, UNO, NetBank, OwnBank) offer time deposits up to around 5%–5.5% p.a.",
   },
   {
+    question: "What happens to my savings rate when the BSP cuts rates?",
+    answer:
+      "Most digital bank savings rates are variable, so the bank can lower them at any time, and they usually fall after the BSP cuts its policy rate. A time deposit is the exception: the rate you open at stays locked for the full term. If you expect rates to keep falling and have funds you will not need for a while, a time deposit locks in the current rate.",
+  },
+  {
+    question: "Can I open accounts at several digital banks?",
+    answer:
+      "Yes. There is no rule against holding savings accounts at multiple BSP-licensed banks at the same time. Many savers use one bank for their emergency fund and another for time deposits. Each bank is separately PDIC-insured up to ₱1,000,000 per depositor, so spreading larger balances across banks also keeps more of your money within the insured limit.",
+  },
+  {
     question: "What should I check after reading this page?",
     answer:
       "Compare savings rates, check time deposit alternatives, and use a calculator if you want to estimate growth instead of only comparing features.",
