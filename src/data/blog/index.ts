@@ -152,4 +152,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-07-01",
     readTime: 9,
   },
+  {
+    slug: "maya-vs-gotyme-vs-seabank-vs-tonik",
+    title: "Maya vs GoTyme vs SeaBank vs Tonik: Which Digital Bank Wins?",
+    excerpt: "Maya Savings offers up to ~15%/year for active users, while GoTyme Go Save pays a flat 3%–3.5% with zero conditions. Here's how Maya, GoTyme, SeaBank, and Tonik compare in 2026 — with peso math, a decision guide, and everything you need to choose the right digital bank in the Philippines.",
+    category: "banking",
+    publishedAt: "2026-07-03",
+    updatedAt: "2026-07-03",
+    readTime: 9,
+  },
 ];
