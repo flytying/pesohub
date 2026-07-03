@@ -6,14 +6,14 @@ const post: BlogPostData = {
   "slug": "maya-vs-gotyme-vs-seabank-vs-tonik",
   "title": "Maya vs GoTyme vs SeaBank vs Tonik: Which Digital Bank Wins?",
   "metaTitle": "Maya vs GoTyme vs SeaBank vs Tonik 2026",
-  "metaDescription": "Compare Maya, GoTyme, SeaBank, and Tonik savings rates in 2026. See which BSP-licensed digital bank pays more for Filipino savers — no jargon, just peso math.",
+  "metaDescription": "Compare Maya, GoTyme, SeaBank (MariBank), and Tonik savings rates in 2026. See which BSP-licensed digital bank pays more for Filipino savers — no jargon, just peso math.",
   "author": "PesoHub Team",
   "publishedAt": "2026-07-03",
   "updatedAt": "2026-07-03",
   "category": "banking",
-  "excerpt": "Maya Savings offers up to ~15%/year for active users, while GoTyme Go Save pays a flat 3%–3.5% with zero conditions. Here's how Maya, GoTyme, SeaBank, and Tonik compare in 2026 — with peso math, a decision guide, and everything you need to choose the right digital bank in the Philippines.",
+  "excerpt": "Maya Savings offers up to ~15%/year for active users (on balances up to ₱100,000), while GoTyme Go Save pays a flat 3% with zero conditions. Here's how Maya, GoTyme, SeaBank (now MariBank), and Tonik compare in 2026 — with peso math, a decision guide, and everything you need to choose the right digital bank in the Philippines.",
   "readTime": 9,
-  "directAnswer": "Maya offers the highest potential savings rate (up to ~15%/year) for active users who complete monthly spending missions, while GoTyme offers a simpler flat 3%–3.5% (up to 5%) with no conditions — both are BSP-licensed and PDIC-insured up to ₱1 million per depositor.",
+  "directAnswer": "Maya offers the highest potential savings rate (up to ~15%/year on balances up to ₱100,000) for active users who complete monthly spending missions, while GoTyme offers a simpler flat 3% with no conditions — both are BSP-licensed and PDIC-insured up to ₱1 million per depositor. SeaBank (now MariBank) pays 3.25% and Tonik's Stash products pay 4%–4.5%.",
   "sections": [
     {
       "type": "heading",
@@ -22,12 +22,12 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Choosing a digital bank in the Philippines can feel overwhelming when every app promises the highest rate or the most features. The short answer: Maya Savings wins on raw interest potential — up to roughly 15% per year — but only if you actively use the Maya ecosystem and complete monthly spending missions. GoTyme Go Save offers a simpler, condition-free flat rate of 3%–3.5% (sometimes quoted up to 5%) that you earn automatically. SeaBank and Tonik round out the group as solid, passive-friendly options. All four are BSP-licensed digital banks with deposits covered by PDIC insurance up to ₱1 million per depositor."
+      "content": "Choosing a digital bank in the Philippines can feel overwhelming when every app promises the highest rate or the most features. The short answer: Maya Savings wins on raw interest potential — up to roughly 15% per year, but only on balances up to ₱100,000 and only if you complete monthly spending missions (the base rate is 3.0%). GoTyme Go Save offers a simpler, condition-free flat rate of 3.0% that you earn automatically. SeaBank — which rebranded to MariBank in 2026 — pays 3.25% with no conditions, and Tonik's Stash products pay 4%–4.5%, with time deposits up to 5.5% if you can lock funds in. All four are BSP-licensed digital banks with deposits covered by PDIC insurance up to ₱1 million per depositor."
     },
     {
       "type": "callout",
       "variant": "info",
-      "content": "All rates shown are based on available 2026 data and may change without notice. Always verify the current rate directly with each bank before opening an account."
+      "content": "Rates in this article reflect PesoHub's tracked data as of June 29, 2026 and can change without notice — digital banks cut several rates in 2026 alone. Before you decide, check the live figures on PesoHub's [best digital bank rates tracker](/rates/savings-rates/best-digital-bank-rates-philippines) and confirm on each bank's official app or website."
     },
     {
       "type": "table",
@@ -39,29 +39,29 @@ const post: BlogPostData = {
       "rows": [
         [
           "Maya Savings",
-          "Up to ~15%/yr (base 3.5%)",
-          "Monthly spending missions required for boosted rate"
+          "Up to ~15%/yr promo (base 3.0%)",
+          "Monthly missions required · Promo rate capped at ₱100,000 · Verify in-app"
         ],
         [
           "GoTyme Go Save",
-          "3%–3.5% (up to 5%)",
-          "No activity conditions · Flat rate"
+          "3.0% flat",
+          "No activity conditions (cut from 3.5% in Jan 2026) · Verify in-app"
         ],
         [
-          "SeaBank Philippines",
-          "Competitive flat rate",
-          "No lock-in · Verify current rate at SeaBank's official site"
+          "SeaBank (now MariBank)",
+          "3.25% up to ₱1M (3.75% above)",
+          "No lock-in, no conditions · Verify at MariBank's official site"
         ],
         [
           "Tonik Digital Bank",
-          "Fair savings rate; higher for time deposits",
-          "Higher rates require funds to be locked in · Verify at Tonik's official site"
+          "Stash 4%–4.5% · Time deposits up to 5.5%",
+          "Plain account only 1.0% · TD rates need a fixed lock-in · Verify at Tonik's official site"
         ]
       ]
     },
     {
       "type": "paragraph",
-      "content": "Here is a one-line verdict for each bank to help you decide at a glance: Maya is the highest-yield option for active spenders. GoTyme is the no-fuss pick for passive savers. SeaBank is a solid choice for Shopee regulars who want a stable rate. Tonik is best for Filipinos who can lock in money for a fixed period and want a guaranteed return."
+      "content": "Here is a one-line verdict for each bank to help you decide at a glance: Maya is the highest-yield option for active spenders with up to ₱100,000 to park. GoTyme is the no-fuss pick for passive savers. SeaBank (MariBank) is a solid choice for Shopee regulars who want a stable rate. Tonik pays the most without missions — 4% on a Solo Stash, up to 5.5% if you can lock money in a time deposit."
     },
     {
       "type": "heading",
@@ -91,7 +91,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "The base interest rate is 3.5% per year, credited daily. That alone already beats most traditional bank savings accounts in the Philippines by a wide margin. But the real headline feature is the boosted rate: complete activity-based missions within the Maya ecosystem each month, and your rate can climb to roughly 15% per year. These missions typically involve spending a certain amount via Maya, paying bills, or using Maya-linked services — the kind of activity many Filipinos are already doing anyway."
+      "content": "The base interest rate is 3.0% per year (lowered from 3.5% in 2026), credited daily. That alone already beats most traditional bank savings accounts in the Philippines by a wide margin. But the real headline feature is the boosted rate: complete activity-based missions within the Maya ecosystem each month — deposits, bills, card spending — and your rate can climb to roughly 15% per year. Two conditions matter: the boosted rate applies only to balances up to ₱100,000, and the missions must be completed every month."
     },
     {
       "type": "paragraph",
@@ -100,14 +100,14 @@ const post: BlogPostData = {
     {
       "type": "callout",
       "variant": "warning",
-      "content": "Watch out: If you miss the monthly spending missions, your savings rate drops back to the base rate of 3.5% for that month. The boosted rate is not guaranteed — it must be re-earned every month. Plan accordingly before treating the 15% rate as a sure thing."
+      "content": "Watch out: If you miss the monthly spending missions, your savings rate drops back to the base rate of 3.0% for that month, and any balance above ₱100,000 earns only the base rate even when missions are met. The boosted rate is not guaranteed — it must be re-earned every month. Plan accordingly before treating the 15% rate as a sure thing."
     },
     {
       "type": "list",
       "items": [
         "Minimum balance: ₱0",
-        "Base interest rate: 3.5% per year",
-        "Boosted interest rate: up to ~15% per year (monthly missions required)",
+        "Base interest rate: 3.0% per year (lowered from 3.5% in 2026)",
+        "Boosted interest rate: up to ~15% per year (monthly missions required; capped at ₱100,000)",
         "Interest crediting: daily",
         "Card: virtual Visa (free) + optional physical card",
         "Extras: crypto, loans, bills, QR payments — all in one app",
@@ -126,7 +126,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Go Save pays a flat interest rate of 3%–3.5%, sometimes quoted up to 5% depending on promotions, with no activity conditions whatsoever. You deposit money, and it earns — full stop. There are no spending missions, no minimum transaction requirements, and no hoops to jump through. This predictability is GoTyme's biggest selling point for passive savers and people who prefer a set-it-and-forget-it approach to building their emergency fund or savings buffer."
+      "content": "Go Save pays a flat interest rate of 3.0% per year — cut from 3.5% effective January 1, 2026 — with no activity conditions whatsoever. You deposit money, and it earns — full stop. There are no spending missions, no minimum transaction requirements, and no hoops to jump through. This predictability is GoTyme's biggest selling point for passive savers and people who prefer a set-it-and-forget-it approach to building their emergency fund or savings buffer."
     },
     {
       "type": "paragraph",
@@ -140,7 +140,7 @@ const post: BlogPostData = {
       "type": "list",
       "items": [
         "Minimum balance: ₱0",
-        "Interest rate: 3%–3.5% (up to 5% on select promos) — no conditions required",
+        "Interest rate: 3.0% flat (cut from 3.5% in January 2026) — no conditions required",
         "Multiple savings jars: yes",
         "Card: free physical Visa debit card included",
         "Onboarding: fully digital app OR in-person kiosk (e.g., Robinsons malls)",
@@ -151,20 +151,20 @@ const post: BlogPostData = {
     {
       "type": "heading",
       "level": 2,
-      "heading": "SeaBank Philippines: Consistent Rate, No Conditions"
+      "heading": "SeaBank (Now MariBank): Consistent Rate, No Conditions"
     },
     {
       "type": "paragraph",
-      "content": "SeaBank Philippines is backed by Sea Group, the parent company of Shopee and Garena, giving it a large and familiar ecosystem for Filipino digital consumers. SeaBank operates as a fully BSP-licensed digital bank and offers savings accounts with competitive interest rates and no lock-in period — meaning your money stays accessible whenever you need it."
+      "content": "SeaBank Philippines — rebranded to MariBank in 2026 — is backed by Sea Group, the parent company of Shopee and Garena, giving it a large and familiar ecosystem for Filipino digital consumers. MariBank operates as a fully BSP-licensed digital bank and pays 3.25% per year on balances up to ₱1 million (and 3.75% on the portion above ₱1 million, effective January 15, 2026), with no maintaining balance and no lock-in period — meaning your money stays accessible whenever you need it."
     },
     {
       "type": "paragraph",
-      "content": "SeaBank's savings product is particularly appealing to Shopee regulars because of the natural integration with Sea Group's broader ecosystem. Transfers are straightforward, and the account operates without the activity-based conditions that Maya requires for its boosted rate. For Filipinos who want a stable, passive savings option and already live within the Shopee world, SeaBank is a natural fit."
+      "content": "MariBank's savings product is particularly appealing to Shopee regulars because of the natural integration with Sea Group's broader ecosystem. Transfers are straightforward (InstaPay and PESONet supported), and the account operates without the activity-based conditions that Maya requires for its boosted rate. Sample math: at 3.25%, a ₱50,000 balance earns about ₱1,625 in gross interest over a year. For Filipinos who want a stable, passive savings option and already live within the Shopee world, MariBank is a natural fit. Note it is app-only — there is no debit card."
     },
     {
       "type": "callout",
       "variant": "info",
-      "content": "Note: Specific SeaBank interest rate figures were not available in the verified source facts used for this article. Before opening a SeaBank account, check the current rate directly at SeaBank's official website or app to confirm the latest figures."
+      "content": "Rates as of PesoHub's June 29, 2026 tracking. MariBank has adjusted rates before (the current 3.25% tier took effect January 15, 2026), so confirm the latest figure on the MariBank app or the [PesoHub digital bank rates tracker](/rates/savings-rates/best-digital-bank-rates-philippines) before opening an account."
     },
     {
       "type": "heading",
@@ -173,20 +173,20 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Tonik was one of the first digital banks to receive a BSP license in the Philippines, and it has built a reputation around transparent, condition-free savings rates. Its product lineup includes basic savings accounts (called Stashes) and fixed-term time deposit products that offer higher guaranteed rates in exchange for locking in your money for a set period."
+      "content": "Tonik was one of the first digital banks to receive a BSP license in the Philippines. Its product lineup has three tiers as of mid-2026: the plain Tonik Account earns just 1.0% per year (cut from 6% on June 5, 2026), Stash savings earn 4.0% (Solo Stash) to 4.5% (Group Stash, when saving with at least two other participants), and fixed-term time deposits earn 4.5%–5.5% depending on the term — the 12-month term pays the top 5.5% rate, with a ₱5,000 minimum and a ₱250,000 cap per time deposit."
     },
     {
       "type": "paragraph",
-      "content": "For Filipinos who have a lump sum they do not need to touch for a few months — say, a 13th-month pay, a bonus, or savings from a freelance project — Tonik's time deposit options can be a compelling way to lock in a better guaranteed rate without taking on investment risk. Unlike Maya's boosted rate, which must be re-earned monthly, Tonik's time deposit rate is fixed for the entire term once you commit."
+      "content": "For Filipinos who have a lump sum they do not need to touch for a few months — say, a 13th-month pay, a bonus, or savings from a freelance project — Tonik's time deposit options can be a compelling way to lock in a better guaranteed rate without taking on investment risk. Sample math: ₱100,000 in a 12-month time deposit at 5.5% earns about ₱5,500 gross (roughly ₱4,400 after the 20% withholding tax). Unlike Maya's boosted rate, which must be re-earned monthly, Tonik's time deposit rate is fixed for the entire term once you commit."
     },
     {
       "type": "paragraph",
-      "content": "Tonik's basic savings rate is consistently fair without requiring any activity conditions, making it comparable to GoTyme for everyday passive saving. The real edge shows up in the locked-in products, where the return improves meaningfully over the standard savings rate."
+      "content": "One caution: do not park everyday money in the plain Tonik Account expecting a high yield — at 1.0% it now pays less than GoTyme or MariBank. Move savings into a Solo or Group Stash (4%–4.5%, no conditions) or a time deposit to get Tonik's real rates. Set up that way, Tonik pays the highest condition-free everyday rate of the four banks compared here."
     },
     {
       "type": "callout",
       "variant": "info",
-      "content": "Note: Specific Tonik interest rate figures were not available in the verified source facts used for this article. Check the latest rates directly at Tonik's official website or app before making a deposit decision."
+      "content": "Rates as of PesoHub's June 29, 2026 tracking. Tonik cut several rates on June 5, 2026 (time deposits previously reached 8%), so check the latest figures on the Tonik app or the [PesoHub digital bank rates tracker](/rates/savings-rates/best-digital-bank-rates-philippines) before making a deposit decision."
     },
     {
       "type": "heading",
@@ -195,42 +195,42 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Numbers make the difference clearer. Here is a sample computation table showing estimated annual gross interest at three common deposit amounts, using verified rates for Maya and GoTyme. SeaBank and Tonik rows are included as placeholders — verify current rates directly with each bank before using these for personal planning."
+      "content": "Numbers make the difference clearer. Here is a sample computation showing estimated annual gross interest at three common deposit amounts, using the rates PesoHub tracked as of June 29, 2026 (Tonik shown at its 4.0% Solo Stash rate). These are estimates for comparison — verify current rates on the [digital bank rates tracker](/rates/savings-rates/best-digital-bank-rates-philippines) and with each bank before using them for personal planning."
     },
     {
       "type": "table",
       "columns": [
         "Scenario",
-        "Maya (3.5% base)",
+        "Maya (3.0% base)",
         "Maya (~15% boosted)",
-        "GoTyme (3.5%)",
-        "SeaBank",
-        "Tonik"
+        "GoTyme (3.0%)",
+        "MariBank (3.25%)",
+        "Tonik Solo Stash (4.0%)"
       ],
       "rows": [
         [
           "₱10,000 deposited",
-          "₱350/yr gross",
+          "₱300/yr gross",
           "₱1,500/yr gross",
-          "₱350/yr gross",
-          "Verify rate",
-          "Verify rate"
+          "₱300/yr gross",
+          "₱325/yr gross",
+          "₱400/yr gross"
         ],
         [
           "₱50,000 deposited",
-          "₱1,750/yr gross",
+          "₱1,500/yr gross",
           "₱7,500/yr gross",
-          "₱1,750/yr gross",
-          "Verify rate",
-          "Verify rate"
+          "₱1,500/yr gross",
+          "₱1,625/yr gross",
+          "₱2,000/yr gross"
         ],
         [
           "₱100,000 deposited",
-          "₱3,500/yr gross",
+          "₱3,000/yr gross",
           "₱15,000/yr gross",
-          "₱3,500/yr gross",
-          "Verify rate",
-          "Verify rate"
+          "₱3,000/yr gross",
+          "₱3,250/yr gross",
+          "₱4,000/yr gross"
         ]
       ]
     },
@@ -241,7 +241,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "The peso math illustrates the real-world stakes of Maya's mission condition. At ₱100,000 deposited, the gap between Maya's base rate (₱3,500/yr gross) and the boosted rate (₱15,000/yr gross) is ₱11,500 per year — a meaningful difference. But if you miss the monthly missions even occasionally, that gap narrows significantly. Over a year, inconsistent mission completion could bring your effective rate much closer to GoTyme's flat rate, erasing the advantage."
+      "content": "The peso math illustrates the real-world stakes of Maya's mission condition. At ₱100,000 deposited — the maximum balance the boosted rate covers — the gap between Maya's base rate (₱3,000/yr gross) and the boosted rate (₱15,000/yr gross) is ₱12,000 per year, a meaningful difference. But if you miss the monthly missions even occasionally, that gap narrows fast. Over a year, inconsistent mission completion could bring your effective rate below Tonik's condition-free 4% Stash rate, erasing the advantage."
     },
     {
       "type": "paragraph",
@@ -254,7 +254,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "The best digital bank for you depends on how you manage money day to day. There is no single winner — each bank fits a different Filipino saver profile."
+      "content": "The best digital bank for you depends on how you manage money day to day. There is no single winner — each bank fits a different Filipino saver profile. Whichever way you lean, confirm the current rate first on PesoHub's [best digital bank rates tracker](/rates/savings-rates/best-digital-bank-rates-philippines) — several of these banks cut rates during 2026, and the tracker is refreshed as rates move."
     },
     {
       "type": "table",
@@ -266,23 +266,23 @@ const post: BlogPostData = {
       "rows": [
         [
           "Maya Savings",
-          "Already a regular Maya Wallet user who pays bills, shops QR, and can commit to monthly missions",
-          "Highest possible rate (~15%/yr boosted) if missions are completed consistently"
+          "Already a regular Maya Wallet user who pays bills, shops QR, can commit to monthly missions, and keeps up to ₱100,000 in savings",
+          "Highest possible rate (~15%/yr boosted, base 3.0%) if missions are completed consistently"
         ],
         [
           "GoTyme Go Save",
           "A passive saver who wants a steady, condition-free rate and values a free physical debit card",
-          "No activity requirements, savings jars, and in-person kiosk onboarding at Robinsons"
+          "Flat 3.0% with no activity requirements, savings jars, and in-person kiosk onboarding at Robinsons"
         ],
         [
-          "SeaBank",
+          "SeaBank (MariBank)",
           "A Shopee regular who wants a simple, stable savings account with no lock-in",
-          "Tied to Sea Group ecosystem; condition-free and accessible rate"
+          "3.25% condition-free; tied to the Sea Group ecosystem (app-only, no card)"
         ],
         [
           "Tonik",
-          "A saver with a lump sum to set aside and a preference for locked-in, guaranteed returns",
-          "Time deposit products offer higher fixed rates for a set term — no missions needed"
+          "A saver who wants the best condition-free rate, or has a lump sum for a locked-in return",
+          "Stash savings at 4%–4.5% with no missions; time deposits up to 5.5% for a fixed term"
         ]
       ]
     },
@@ -335,11 +335,11 @@ const post: BlogPostData = {
     },
     {
       "question": "What happens to my Maya savings rate if I don't complete the monthly missions?",
-      "answer": "If you do not complete the monthly spending missions in the Maya ecosystem, your savings rate drops to the base rate of 3.5% per year for that month. The boosted rate of up to approximately 15% per year is not a permanent feature — it must be re-earned each month by meeting the activity requirements. This is the most important condition to understand before treating Maya's headline rate as a reliable, guaranteed return."
+      "answer": "If you do not complete the monthly spending missions in the Maya ecosystem, your savings rate drops to the base rate of 3.0% per year for that month. The boosted rate of up to approximately 15% per year is not a permanent feature — it must be re-earned each month by meeting the activity requirements, and it only applies to balances up to ₱100,000. This is the most important condition to understand before treating Maya's headline rate as a reliable, guaranteed return."
     },
     {
       "question": "Which digital bank has the highest interest rate in the Philippines in 2026?",
-      "answer": "Based on available 2026 data, Maya Savings offers the highest potential interest rate — up to approximately 15% per year when monthly spending missions are completed. However, this rate is conditional. For unconditional savings rates, GoTyme Go Save offers 3%–3.5% (up to 5% on select promotions) with no activity requirements. SeaBank and Tonik also offer competitive rates — verify current figures directly with each bank, as rates can change."
+      "answer": "Based on PesoHub's tracked data as of June 29, 2026, Maya Savings offers the highest potential interest rate — up to approximately 15% per year on balances up to ₱100,000 when monthly spending missions are completed. However, this rate is conditional. For unconditional rates, Tonik's Stash products lead at 4%–4.5%, followed by MariBank (formerly SeaBank) at 3.25% and GoTyme at 3.0%. Tonik time deposits reach 5.5% for a 12-month lock-in. Rates change often — verify current figures on PesoHub's digital bank rates tracker and directly with each bank."
     },
     {
       "question": "Is my money safe in a digital bank in the Philippines?",
