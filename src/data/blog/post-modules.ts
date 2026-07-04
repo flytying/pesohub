@@ -34,8 +34,6 @@ export const postModules: Record<
     import("@/data/blog/best-digital-banks-philippines"),
   "digital-bank-interest-rates-philippines": () =>
     import("@/data/blog/digital-bank-interest-rates-philippines"),
-  "high-yield-savings-account-philippines": () =>
-    import("@/data/blog/high-yield-savings-account-philippines"),
   "highest-interest-digital-banks-philippines": () =>
     import("@/data/blog/highest-interest-digital-banks-philippines"),
   "maximize-digital-bank-interest-philippines": () =>

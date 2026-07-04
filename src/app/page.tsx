@@ -87,20 +87,20 @@ const popularTools: {
   accent: keyof typeof ACCENT;
 }[] = [
   {
-    title: "Best Savings Interest Rates 2026",
-    desc: "Compare the highest-yield savings account rates in the Philippines, updated for 2026.",
-    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
-    badge: "RATES",
-    icon: TrendingUp,
-    accent: "salary",
-  },
-  {
-    title: "Best Digital Bank Rates 2026",
-    desc: "See which digital banks pay the most on your savings, side by side with current rates.",
+    title: "High-Yield Savings Accounts 2026",
+    desc: "Compare high-yield savings accounts from Philippine digital banks, side by side with current rates.",
     href: "/rates/savings-rates/best-digital-bank-rates-philippines",
     badge: "RATES",
     icon: Smartphone,
     accent: "save",
+  },
+  {
+    title: "Savings Account Interest Rates",
+    desc: "A full list of savings account rates from digital and traditional banks, updated for 2026.",
+    href: "/rates/savings-rates/best-savings-interest-rates-philippines",
+    badge: "RATES",
+    icon: TrendingUp,
+    accent: "salary",
   },
   {
     title: "BIR Withholding Tax Table 2026",
@@ -152,22 +152,22 @@ const savingsCards: {
   icon: LucideIcon;
 }[] = [
   {
-    title: "Best savings interest rates",
-    desc: "See the highest-yield savings account rates in the Philippines, updated for 2026.",
+    title: "High-yield savings accounts",
+    desc: "Compare high-yield savings accounts from digital banks like MariBank, Maya, Tonik, GoTyme, and more.",
+    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
+    cta: "Compare accounts",
+    icon: Smartphone,
+  },
+  {
+    title: "Savings account interest rates",
+    desc: "See the full list of savings account rates from digital and traditional banks, updated for 2026.",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
     cta: "View rates",
     icon: TrendingUp,
   },
   {
-    title: "Best digital bank rates",
-    desc: "Compare interest rates across digital banks like SeaBank, Maya, Tonik, GoTyme, and more.",
-    href: "/rates/savings-rates/best-digital-bank-rates-philippines",
-    cta: "Compare banks",
-    icon: Smartphone,
-  },
-  {
     title: "Time deposit vs savings account",
-    desc: "See whether a time deposit or a high-yield savings account grows your money faster.",
+    desc: "See whether a time deposit or a regular savings account grows your money faster.",
     href: "/rates/savings-rates/time-deposit-rates-philippines",
     cta: "Compare returns",
     icon: PiggyBank,
@@ -219,7 +219,7 @@ const refTables: {
     icon: Landmark,
   },
   {
-    title: "Best Savings Interest Rates",
+    title: "Savings Account Interest Rates",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
     updated: SAVINGS_RATES_UPDATED_AT,
     icon: TrendingUp,

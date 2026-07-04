@@ -47,9 +47,9 @@ import {
 
 export const metadata = generatePageMetadata({
   title:
-    "Best Digital Banks Philippines 2026: Interest Rates Compared",
+    "High-Yield Savings Accounts Philippines 2026: Digital Banks",
   description:
-    "Compare digital banks in the Philippines for 2026, including base interest rates, promo rates, balance caps, requirements, PDIC coverage notes, and estimated earnings.",
+    "Compare high-yield savings accounts at Philippine digital banks. Tonik Stash pays up to 4.5%, OwnBank 3.8%, UNO 3.5%. Rates, caps, and PDIC notes.",
   slug: "rates/savings-rates/best-digital-bank-rates-philippines",
   updatedAt: DIGITAL_BANK_RATES_UPDATED_AT,
 });
@@ -173,7 +173,7 @@ const relatedPages = [
     icon: BookOpen,
   },
   {
-    title: "Best Savings Interest Rates",
+    title: "Savings Account Interest Rates (Full List)",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
     icon: PiggyBank,
   },
@@ -222,9 +222,9 @@ export default function DigitalBankRatesPage() {
       <JsonLd data={generateBreadcrumbSchema(breadcrumbs)} />
       <JsonLd
         data={generateArticleSchema({
-          title: "Best Digital Banks Philippines 2026: Interest Rates Compared",
+          title: "High-Yield Savings Accounts Philippines 2026: Digital Banks",
           description:
-            "Compare digital bank interest rates in the Philippines. Find the highest interest rate digital bank for your needs.",
+            "Compare high-yield savings accounts and interest rates at Philippine digital banks, with balance caps, requirements, and PDIC coverage notes.",
           updatedAt: DIGITAL_BANK_RATES_UPDATED_AT,
           slug: "rates/savings-rates/best-digital-bank-rates-philippines",
         })}
@@ -238,7 +238,7 @@ export default function DigitalBankRatesPage() {
       />
       <JsonLd
         data={generateItemListSchema({
-          name: "Best Digital Banks in the Philippines 2026",
+          name: "Best High-Yield Savings Accounts in the Philippines 2026: Digital Banks",
           items: digitalBankRates.map((bank) => ({
             name: `${bank.bankName} (${formatPercent(bank.baseRate)} p.a. base${
               bank.promoRate != null
@@ -251,8 +251,8 @@ export default function DigitalBankRatesPage() {
       />
 
       <PageHero
-        title="Best Digital Banks in the Philippines 2026"
-        description="Compare digital banks in the Philippines for 2026, including base interest rates, promo rates, balance caps, requirements, PDIC coverage notes, and estimated interest earnings."
+        title="Best High-Yield Savings Accounts in the Philippines 2026: Digital Bank Rates Compared"
+        description="Compare high-yield savings accounts from Philippine digital banks for 2026, including base interest rates, promo rates, balance caps, requirements, PDIC coverage notes, and estimated interest earnings."
         badge={DIGITAL_BANK_RATES_UPDATED_AT}
         breadcrumbs={breadcrumbs}
         variant="dark"
@@ -452,6 +452,22 @@ export default function DigitalBankRatesPage() {
             clearest trust signals users look for when comparing where to keep
             money.
           </p>
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
+            The coverage is per depositor, per bank. If you keep more than
+            ₱1,000,000 with a single bank, only the first ₱1,000,000 is insured.
+            Savers with larger balances often spread deposits across two or
+            three PDIC member banks so each balance stays within the insured
+            limit.
+          </p>
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
+            One distinction matters here: e-wallet balances are not bank
+            deposits. Money sitting in a GCash or Maya wallet is e-money
+            regulated by the BSP, but it is not PDIC-insured. Only funds held
+            inside a BSP-licensed bank account, such as a Maya Bank savings
+            account or a CIMB account behind GSave, carry PDIC coverage. UITFs
+            and other investment products sold through bank apps are not
+            deposits either and are not covered.
+          </p>
         </section>
 
         {/* Best Digital Bank Options by Need */}
@@ -514,6 +530,32 @@ export default function DigitalBankRatesPage() {
           <p className="mt-6 text-[14px] text-gray-400">
             Digital bank rates change frequently. Always confirm the current
             rate in the bank&apos;s app before depositing.
+          </p>
+        </section>
+
+        {/* How BSP policy rates affect savings rates */}
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
+            How BSP Policy Rates Affect Digital Bank Savings Rates
+          </h2>
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
+            Digital bank savings rates track the Bangko Sentral ng Pilipinas
+            policy rate, the benchmark that sets how much it costs banks to
+            borrow. When the BSP raises its policy rate, banks compete harder
+            for deposits and savings rates tend to rise. When the BSP cuts,
+            banks can fund themselves more cheaply and deposit rates usually
+            follow downward. Several of the rate cuts in the table above
+            happened during the current easing cycle.
+          </p>
+          <p className="mt-4 text-[16px] leading-[1.6] text-[#5A6478]">
+            Most high-yield savings accounts pay a variable rate, so the bank
+            can change it at any time. A time deposit works differently: the
+            rate you open at is locked for the full term regardless of what the
+            BSP does afterward. If you have funds you will not need for a fixed
+            period and expect rates to keep falling, a time deposit locks in
+            today&apos;s rate. The BSP Monetary Board reviews the policy rate
+            roughly every six weeks, and those announcements are the earliest
+            signal of where savings rates are heading.
           </p>
         </section>
 
