@@ -11,6 +11,7 @@ import {
   Calculator,
   ShieldCheck,
   Banknote,
+  BookOpen,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -130,6 +131,11 @@ const ratesBridge = [
 ];
 
 const relatedPages = [
+  {
+    title: "time deposit vs savings account",
+    href: "/blog/time-deposit-vs-savings-account-philippines",
+    icon: BookOpen,
+  },
   {
     title: "best savings interest rates in the Philippines",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",

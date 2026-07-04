@@ -168,6 +168,11 @@ const accessPoints = [
 
 const relatedPages = [
   {
+    title: "High-Interest Savings Accounts Guide",
+    href: "/blog/high-interest-savings-account-philippines",
+    icon: BookOpen,
+  },
+  {
     title: "Best Savings Interest Rates",
     href: "/rates/savings-rates/best-savings-interest-rates-philippines",
     icon: PiggyBank,

@@ -111,6 +111,11 @@ const notesChecklist = [
 
 const relatedPages = [
   {
+    title: "Time Deposit vs Savings Account",
+    href: "/blog/time-deposit-vs-savings-account-philippines",
+    icon: BookOpen,
+  },
+  {
     title: "Time Deposit Calculator",
     href: "/calculators/savings/time-deposit-calculator-philippines",
     icon: Calculator,
