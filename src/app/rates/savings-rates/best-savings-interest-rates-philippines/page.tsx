@@ -15,6 +15,7 @@ import {
   Calculator,
   Target,
   TriangleAlert,
+  BookOpen,
 } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { FaqSection } from "@/components/shared/faq-section";
@@ -134,6 +135,16 @@ const chooseChecklist = [
 ];
 
 const relatedPages = [
+  {
+    title: "High-Interest Savings Accounts Guide",
+    href: "/blog/high-interest-savings-account-philippines",
+    icon: BookOpen,
+  },
+  {
+    title: "What Is a Savings Rate?",
+    href: "/blog/what-is-a-savings-rate-philippines",
+    icon: BookOpen,
+  },
   {
     title: "Best Digital Bank Rates",
     href: "/rates/savings-rates/best-digital-bank-rates-philippines",

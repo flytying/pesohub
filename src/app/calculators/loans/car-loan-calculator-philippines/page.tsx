@@ -101,6 +101,7 @@ const questions = [
 ];
 
 const relatedContent = [
+  { title: "Car Loan Calculator Guide", href: "/blog/car-loan-calculator-guide-philippines", icon: BookOpen },
   { title: "Home Loan Calculator", href: "/calculators/loans/home-loan-calculator-philippines", icon: Calculator },
   { title: "Personal Loan Calculator", href: "/calculators/loans/personal-loan-calculator-philippines", icon: Calculator },
   { title: "Guides Hub", href: "/guides", icon: BookOpen },
