@@ -142,6 +142,11 @@ const shareCards: { title: string; icon: LucideIcon; sub: string }[] = [
 
 const relatedPages = [
   {
+    title: "PhilHealth Contribution Guide",
+    href: "/guides/government/philhealth-contribution-guide",
+    icon: BookOpen,
+  },
+  {
     title: "Take-Home Pay Calculator",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
     icon: Wallet,

@@ -102,6 +102,11 @@ const relatedPages = [
     icon: Target,
   },
   {
+    title: "13th Month Pay Calculator",
+    href: "/calculators/salary/thirteenth-month-pay-calculator-philippines",
+    icon: Calculator,
+  },
+  {
     title: "Calculators Hub",
     href: "/calculators",
     icon: Calculator,
