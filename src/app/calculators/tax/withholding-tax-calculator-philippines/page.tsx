@@ -9,6 +9,7 @@ import {
   FileText,
   Wallet,
   Clock,
+  Gift,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -81,6 +82,11 @@ const relatedPages = [
     title: "Take-Home Pay Calculator",
     href: "/calculators/tax/take-home-pay-calculator-philippines",
     icon: Wallet,
+  },
+  {
+    title: "13th Month Pay Calculator",
+    href: "/calculators/salary/thirteenth-month-pay-calculator-philippines",
+    icon: Gift,
   },
   {
     title: "Calculators Hub",
