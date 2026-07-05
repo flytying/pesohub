@@ -13,6 +13,7 @@ import {
   PiggyBank,
   Target,
   Clock,
+  BookOpen,
 } from "lucide-react";
 import { generatePageMetadata } from "@/lib/seo";
 import {
@@ -75,6 +76,11 @@ const tips = [
 ];
 
 const relatedPages = [
+  {
+    title: "Take-Home Pay Guide",
+    href: "/guides/tax/take-home-pay-guide-philippines",
+    icon: BookOpen,
+  },
   {
     title: "Withholding Tax Calculator",
     href: "/calculators/tax/withholding-tax-calculator-philippines",
