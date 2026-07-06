@@ -43,7 +43,8 @@ jobs:
           # GitHub handle to @mention/assign when pages need updates.
           # Override with repo variable NOTIFY_GH_HANDLE; defaults to the repo owner.
           NOTIFY_GH_HANDLE: ${{ vars.NOTIFY_GH_HANDLE || github.repository_owner }}
-          # How many new-post decisions to auto-queue per week (override via repo var).
+          # How many decisions to auto-queue per week — new posts and update
+          # packages share this budget (override via repo var).
           PROMOTE_COUNT: ${{ vars.PROMOTE_COUNT || '3' }}
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
