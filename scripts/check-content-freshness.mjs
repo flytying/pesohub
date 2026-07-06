@@ -49,6 +49,22 @@ if (entries.length === 0) {
   process.exit(1);
 }
 
+// ── Business-day elapsed count ──────────────────────────────────
+// Number of Mon–Fri days strictly after `start` up to and including `end`.
+// Weekend days (Sat/Sun) don't accrue. Fri→Mon = 1, Fri→Fri(same week+1) etc.
+function businessDaysBetween(start, end) {
+  if (end <= start) return 0;
+  let count = 0;
+  const cursor = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+  const last = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+  while (cursor < last) {
+    cursor.setDate(cursor.getDate() + 1);
+    const day = cursor.getDay(); // 0=Sun, 6=Sat
+    if (day !== 0 && day !== 6) count++;
+  }
+  return count;
+}
+
 // ── Check each entry ────────────────────────────────────────────
 const today = new Date();
 const results = [];
@@ -92,13 +108,28 @@ for (const entry of entries) {
   const daysSinceUpdate = Math.floor(
     (today - updatedAt) / (1000 * 60 * 60 * 24)
   );
-  const daysOverdue = daysSinceUpdate - entry.reviewCadenceDays;
+
+  // High-frequency sources (BSP exchange/bank rates) only publish on business
+  // days, so a Fri→Mon gap is 2 calendar days but 0 trading days. Counting
+  // calendar days flags them stale every Monday and after every holiday — pure
+  // noise. For tight cadences (<= 7d) measure elapsed time in business days so
+  // weekends don't accrue. Longer cadences (monthly/quarterly gov reviews) keep
+  // calendar-day math unchanged.
+  const BUSINESS_DAY_CADENCE_THRESHOLD = 7;
+  const useBusinessDays =
+    entry.reviewCadenceDays <= BUSINESS_DAY_CADENCE_THRESHOLD;
+  const elapsed = useBusinessDays
+    ? businessDaysBetween(updatedAt, today)
+    : daysSinceUpdate;
+  const daysOverdue = elapsed - entry.reviewCadenceDays;
 
   results.push({
     ...entry,
     status: daysOverdue > 0 ? "stale" : "fresh",
     updatedAt: dateMatch[1],
     daysSinceUpdate,
+    elapsedDays: elapsed,
+    countsBusinessDaysOnly: useBusinessDays,
     daysOverdue: Math.max(0, daysOverdue),
     nextReview: new Date(
       updatedAt.getTime() + entry.reviewCadenceDays * 24 * 60 * 60 * 1000
@@ -133,9 +164,11 @@ if (stale.length > 0) {
       `  ⚠️  ${r.title}`
     );
     console.log(
-      `     Updated: ${r.updatedAt} (${r.daysSinceUpdate} days ago, ${r.daysOverdue} days overdue)`
+      `     Updated: ${r.updatedAt} (${r.daysSinceUpdate} days ago, ${r.daysOverdue} ${r.countsBusinessDaysOnly ? "business days" : "days"} overdue)`
     );
-    console.log(`     Review cadence: every ${r.reviewCadenceDays} days`);
+    console.log(
+      `     Review cadence: every ${r.reviewCadenceDays} ${r.countsBusinessDaysOnly ? "business days" : "days"}`
+    );
     console.log(`     Source: ${r.source}`);
     console.log(`     File: ${r.dataFile}\n`);
   }
@@ -165,11 +198,12 @@ if (mode === "--github" && stale.length > 0) {
   // Output for GitHub Actions to create an issue
   let issueBody = `## 📋 Content Freshness Report\n\n`;
   issueBody += `**${stale.length} page(s) are overdue for review.**\n\n`;
-  issueBody += `| Page | Last Updated | Days Overdue | Cadence | Source |\n`;
-  issueBody += `|------|-------------|-------------|---------|--------|\n`;
+  issueBody += `| Page | Last Updated | Overdue By | Cadence | Source |\n`;
+  issueBody += `|------|-------------|-----------|---------|--------|\n`;
 
   for (const r of stale.sort((a, b) => b.daysOverdue - a.daysOverdue)) {
-    issueBody += `| [${r.title}](https://pesohub.ph/${r.slug}) | ${r.updatedAt} | **${r.daysOverdue}** | ${r.reviewCadenceDays}d | [${r.source}](${r.sourceUrl}) |\n`;
+    const unit = r.countsBusinessDaysOnly ? "business days" : "days";
+    issueBody += `| [${r.title}](https://pesohub.ph/${r.slug}) | ${r.updatedAt} | **${r.daysOverdue} ${unit}** | ${r.reviewCadenceDays}${r.countsBusinessDaysOnly ? "d (biz)" : "d"} | [${r.source}](${r.sourceUrl}) |\n`;
   }
 
   issueBody += `\n### Review Checklist\n\n`;
