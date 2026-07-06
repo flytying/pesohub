@@ -152,4 +152,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-07-03",
     readTime: 9,
   },
+  {
+    slug: "digital-banking-guide-philippines",
+    title: "A Beginner's Guide to Digital Banking in the Philippines",
+    excerpt: "New to digital banking in the Philippines? Learn what digital banks are, how they differ from traditional banks, how to open an account, which banks are BSP-licensed, and how to earn up to 8% p.a. on your savings in 2026.",
+    category: "banking",
+    publishedAt: "2026-07-06",
+    updatedAt: "2026-07-06",
+    readTime: 9,
+  },
 ];
