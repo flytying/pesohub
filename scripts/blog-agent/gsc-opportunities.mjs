@@ -2,11 +2,19 @@
 /**
  * Weekly GSC content-opportunity finder.
  *
- * Pull Search Console → detect opportunities → Keyword Opportunity Agent scores
- * each + picks a content action → log to Langfuse (eval dataset + scores) →
- * write the review issue markdown to /tmp. The GitHub workflow opens/updates the
- * issue from that file; a human ticks boxes and pastes snippets into
- * topic-queue.json, after which the blog agent writes the posts. No auto-publish.
+ * Pull Search Console → detect striking-distance/rising opportunities → Keyword
+ * Opportunity Agent scores each + picks a content action → log to Langfuse (eval
+ * dataset + scores) → auto-queue the top decisions and write a review issue.
+ *
+ * Sourcing is automatic — no manual paste. promoteToQueue() appends the top
+ * PROMOTE_COUNT decisions/week (default 3) to topic-queue.json as `pending`; the
+ * workflow commits queue + ledger to main and the blog-post cron works them:
+ *   • publish_as_new_post / create_supporting_page → a new post.
+ *   • update_existing_page / merge_with_existing_page → a human-apply package
+ *     for the page that already ranks (no duplicate post; see writer.mjs).
+ * Promoting update/merge keeps the pipeline fed even in weeks where every
+ * opportunity is on a page we already cover. No auto-publish — every result
+ * still lands as a review PR.
  *
  * Usage:
  *   node scripts/blog-agent/gsc-opportunities.mjs            # full weekly run
@@ -75,11 +83,28 @@ function writeQueue(queue) {
 
 const PRIORITY_RANK = { A: 0, B: 1, C: 2, Hold: 3 };
 
+// Actions that can be auto-queued. New-post/supporting produce a fresh post;
+// update/merge produce a human-apply package for the page that already ranks
+// (no duplicate post — see writer.mjs). Update/merge are promoted so the blog
+// pipeline always has work even in weeks where every opportunity is on a page
+// we already cover.
+const NEW_POST_ACTIONS = new Set([
+  "publish_as_new_post",
+  "create_supporting_page_with_internal_links",
+]);
+const PROMOTABLE_ACTIONS = new Set([
+  ...NEW_POST_ACTIONS,
+  "update_existing_page",
+  "merge_with_existing_page",
+]);
+
 /**
- * Append the top new-post / supporting-page decisions to the queue as `pending`
- * topics. Ordered by priority (A→B→C) then opportunity_score desc; skips slugs
- * already in the queue (any status) and decisions without a topic_seed.slug.
- * Mutates `queue` in place and returns the appended entries.
+ * Append the top promotable decisions to the queue as `pending` topics.
+ * Ordered by priority (A→B→C), then new-post before update/merge, then
+ * opportunity_score desc. Skips entries whose slug can't be derived or is
+ * already in the queue (any status — so a page's update task isn't re-queued
+ * while one still exists). Mutates `queue` in place and returns the appended
+ * entries.
  *
  * @param {object} queue  parsed topic-queue.json
  * @param {Array<{opp:object, decision:object}>} decided
@@ -87,27 +112,26 @@ const PRIORITY_RANK = { A: 0, B: 1, C: 2, Hold: 3 };
  */
 function promoteToQueue(queue, decided, count) {
   const existing = new Set(queue.topics.map((t) => t.slug));
-  let nextId = (queue.topics.map((t) => t.id ?? 0).reduce((a, b) => Math.max(a, b), 0)) + 1;
+  let nextId =
+    queue.topics.map((t) => t.id ?? 0).reduce((a, b) => Math.max(a, b), 0) + 1;
 
   const candidates = decided
     .map((d) => d.decision)
-    .filter(
-      (d) =>
-        ["publish_as_new_post", "create_supporting_page_with_internal_links"].includes(
-          d.recommended_action
-        ) && d.topic_seed?.slug
-    )
+    .filter((d) => PROMOTABLE_ACTIONS.has(d.recommended_action))
     .sort(
       (a, b) =>
         (PRIORITY_RANK[a.priority] ?? 9) - (PRIORITY_RANK[b.priority] ?? 9) ||
+        (NEW_POST_ACTIONS.has(b.recommended_action) ? 1 : 0) -
+          (NEW_POST_ACTIONS.has(a.recommended_action) ? 1 : 0) ||
         (b.opportunity_score ?? 0) - (a.opportunity_score ?? 0)
     );
 
   const appended = [];
   for (const decision of candidates) {
     if (appended.length >= count) break;
-    if (existing.has(decision.topic_seed.slug)) continue;
-    const entry = buildQueueEntry(decision, nextId++);
+    const entry = buildQueueEntry(decision, nextId);
+    if (!entry.slug || existing.has(entry.slug)) continue; // undeducible or dup
+    nextId++;
     queue.topics.push(entry);
     existing.add(entry.slug);
     appended.push(entry);

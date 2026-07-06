@@ -151,6 +151,7 @@ async function main() {
       brief: result.topic.brief,
       recommendedAction: result.topic.recommendedAction || "publish_as_new_post",
       decision: result.topic.decision ?? null,
+      targetPage: result.topic.targetPage ?? null,
     };
     console.log(
       `\n📋 Topic #${topicId}: ${topicMeta.title}${isRefresh ? " (refresh)" : ""}`
@@ -197,6 +198,7 @@ async function main() {
         keyword,
         file: writerResult.file,
         markdown: writerResult.markdown,
+        targetPage: topicMeta.targetPage,
       });
       if (queue && topicId !== null) markTopicCompleted(queue, topicId);
       return { kind: "package", slug: writerResult.slug, action: writerResult.action };

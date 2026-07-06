@@ -50,23 +50,72 @@ function internalLinks(d) {
   ];
 }
 
+const UPDATE_ACTIONS = new Set([
+  "update_existing_page",
+  "merge_with_existing_page",
+]);
+
+/**
+ * Stable slug for an update/merge task, keyed on the whole page path (or the
+ * primary query when no page is given) so the same page can't be re-queued
+ * while an entry for it already exists. Slugifying the full path keeps it unique
+ * across pages that happen to share a last segment.
+ */
+export function updateTaskSlug(decision) {
+  const base = String(
+    decision.target_page_to_update || decision.primary_query || ""
+  ).split(/[#?]/)[0]; // drop any query string / fragment
+  const clean = base
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  return clean ? `update-${clean}` : "";
+}
+
+/**
+ * Canonical topic-queue slug for a decision — the single source of truth shared
+ * by buildQueueEntry (what gets written), promoteToQueue (dedup) and buildIssue
+ * (matching a decision to its queued entry). Empty string when undeducible.
+ */
+export function decisionQueueSlug(decision) {
+  return (
+    decision.topic_seed?.slug ||
+    (UPDATE_ACTIONS.has(decision.recommended_action)
+      ? updateTaskSlug(decision)
+      : "")
+  );
+}
+
 /** Paste-ready topic-queue.json object for an actionable new/supporting item. */
 /**
  * Build a topic-queue.json entry from a keyword-opportunity decision. Shared by
  * the paste-ready issue snippet and the auto-promotion in gsc-opportunities.mjs,
- * so both produce identical entries.
+ * so both produce identical entries. Handles two shapes:
+ *   • new-post / supporting-page — driven by the agent's `topic_seed`.
+ *   • update / merge — no topic_seed; slug/title/keywords derive from the page
+ *     being updated so the writer emits a human-apply package for that page
+ *     (not a duplicate post).
  */
 export function buildQueueEntry(decision, id) {
   const seed = decision.topic_seed ?? {};
+  const isUpdate = UPDATE_ACTIONS.has(decision.recommended_action);
   const linksTo = (decision.recommended_internal_links ?? [])
     .map((l) => l.target_page_or_tool)
     .filter((p) => typeof p === "string" && p.startsWith("/"))
     .slice(0, 2);
-  return {
+  const primary = decision.primary_query ?? "";
+  const slug = decisionQueueSlug(decision);
+  const keywords =
+    seed.keywords ??
+    decision.related_queries_to_include ??
+    (primary ? [primary] : []);
+  const entry = {
     id,
-    title: seed.title ?? "",
-    slug: seed.slug ?? "",
-    keywords: seed.keywords ?? decision.related_queries_to_include ?? [],
+    title:
+      seed.title ||
+      (isUpdate && primary ? `Update existing page: ${primary}` : ""),
+    slug,
+    keywords,
     category: seed.category ?? "general",
     linksTo,
     brief: seed.brief ?? decision.recommended_content_angle ?? "",
@@ -82,6 +131,11 @@ export function buildQueueEntry(decision, id) {
     refreshIntervalDays: 120,
     status: "pending",
   };
+  // Carry the page under repair so the writer/PR can point the human at it.
+  if (isUpdate && decision.target_page_to_update) {
+    entry.targetPage = decision.target_page_to_update;
+  }
+  return entry;
 }
 
 function queueSnippet(decision, id) {
@@ -111,8 +165,16 @@ function decisionBlock({ opp, decision }, queueId, queued = false) {
   lines.push(...internalLinks(decision));
   if (decision.next_step) lines.push(`  - Next step: ${decision.next_step}`);
 
-  if (isNew && queued) {
-    lines.push("  - ✅ _Auto-queued for this week — no action needed._");
+  const isUpdate =
+    decision.recommended_action === "update_existing_page" ||
+    decision.recommended_action === "merge_with_existing_page";
+
+  if (queued) {
+    lines.push(
+      isNew
+        ? "  - ✅ _Auto-queued — the blog agent generates a post as a review PR._"
+        : "  - ✅ _Auto-queued — the blog agent generates a human-apply update package as a review PR._"
+    );
   } else if (isNew) {
     lines.push(
       "  <details><summary>Paste into <code>topic-queue.json</code></summary>",
@@ -121,6 +183,10 @@ function decisionBlock({ opp, decision }, queueId, queued = false) {
       ...queueSnippet(decision, queueId).split("\n").map((l) => `  ${l}`),
       "  ```",
       "  </details>"
+    );
+  } else if (isUpdate) {
+    lines.push(
+      "  - _Not auto-queued this week (over the weekly promote budget) — apply to the live page directly, or it becomes eligible next run._"
     );
   }
   return lines.join("\n");
@@ -160,10 +226,11 @@ export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCou
   const body = [];
 
   // Top alert: pages needing updates (@mention drives the GitHub notification).
+  // The top ones are auto-queued as human-apply packages; this is the review cue.
   if (updates.length) {
     const mention = notifyHandle ? ` — @${notifyHandle}` : "";
     body.push(
-      `> ⚠️ **${updates.length} page(s) need updating this week**${mention}`,
+      `> ⚠️ **${updates.length} page(s) flagged for updates** — top ones auto-queued as apply-packages; review the PRs${mention}`,
       ...updates.map(({ opp, decision }) => {
         const page = decision.target_page_to_update || opp.topPagePath || "/";
         return `> - \`${page}\` — ${ACTION_LABEL[decision.recommended_action]} (${decision.primary_query ?? opp.query})`;
@@ -177,14 +244,14 @@ export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCou
     "",
     `Analyzed **${opportunityCount}** opportunities → **${actionable.length}** actionable ` +
       `(**${updates.length}** updates), **${held.length}** held/rejected. ` +
-      "Tick a box and paste its snippet into `scripts/blog-agent/topic-queue.json`; the weekly blog agent writes it on the next run. " +
-      "Update/merge items have no snippet — apply them to the live page directly.",
+      "The top items (new posts + update packages) are auto-queued into `scripts/blog-agent/topic-queue.json` and the blog agent works them Mon/Wed/Fri as review PRs — no manual paste. " +
+      "Anything not auto-queued (over the weekly budget) shows a snippet or can be applied directly.",
     ""
   );
 
   if (autoQueuedCount > 0) {
     body.push(
-      `✅ **Auto-queued ${autoQueuedCount} new post(s)** for this week — the blog agent generates them Mon/Wed/Fri as review PRs. Update/merge items are notify-only (above).`,
+      `✅ **Auto-queued ${autoQueuedCount} item(s)** this week (new posts and/or update packages) — the blog agent generates each as a review PR Mon/Wed/Fri. Items marked below without the ✅ were not queued this run.`,
       ""
     );
   }
@@ -197,7 +264,7 @@ export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCou
       const isNew = ["publish_as_new_post", "create_supporting_page_with_internal_links"].includes(
         d.decision.recommended_action
       );
-      const queued = queuedSlugs.has(d.decision.topic_seed?.slug);
+      const queued = queuedSlugs.has(decisionQueueSlug(d.decision));
       body.push(decisionBlock(d, isNew && !queued ? id++ : 0, queued), "");
     }
   }
