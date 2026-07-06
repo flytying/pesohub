@@ -2,11 +2,21 @@
 /**
  * Weekly GSC content-opportunity finder.
  *
- * Pull Search Console → detect opportunities → Keyword Opportunity Agent scores
- * each + picks a content action → log to Langfuse (eval dataset + scores) →
- * write the review issue markdown to /tmp. The GitHub workflow opens/updates the
- * issue from that file; a human ticks boxes and pastes snippets into
- * topic-queue.json, after which the blog agent writes the posts. No auto-publish.
+ * Pull Search Console → detect striking-distance/rising opportunities → Keyword
+ * Opportunity Agent scores each + picks a content action → log to Langfuse (eval
+ * dataset + scores) → auto-queue the top new-post decisions and write a review
+ * issue.
+ *
+ * Sourcing is automatic, no manual paste required:
+ *  - Uncovered striking-distance queries the agent marks `publish_as_new_post`
+ *    are appended to topic-queue.json as `pending` by promoteToQueue() (top
+ *    PROMOTE_COUNT/week, default 3). The workflow commits queue + ledger to main;
+ *    the blog-post cron then generates those posts. No auto-publish — every post
+ *    still lands as a review PR.
+ *  - `update_existing_page` / `merge_*` decisions are NOT queued — they stay
+ *    notify-only in the review issue, since new-post promotion is coverage-gated
+ *    (covered queries → improve the ranking page, don't cannibalize with a new
+ *    post). So new-post volume tracks how many *uncovered* queries GSC surfaces.
  *
  * Usage:
  *   node scripts/blog-agent/gsc-opportunities.mjs            # full weekly run
