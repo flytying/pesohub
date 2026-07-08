@@ -40,7 +40,8 @@ export const postModules: Record<
     import("@/data/blog/maximize-digital-bank-interest-philippines"),  "are-digital-banks-safe-philippines": () =>
     import("@/data/blog/are-digital-banks-safe-philippines"),  "maya-vs-gotyme-vs-seabank-vs-tonik": () =>
     import("@/data/blog/maya-vs-gotyme-vs-seabank-vs-tonik"),  "digital-banking-guide-philippines": () =>
-    import("@/data/blog/digital-banking-guide-philippines"),
+    import("@/data/blog/digital-banking-guide-philippines"),  "digital-bank-vs-traditional-bank-philippines": () =>
+    import("@/data/blog/digital-bank-vs-traditional-bank-philippines"),
 };
 
 /** Loads a post's hero image, or null if the slug/image is absent. */
