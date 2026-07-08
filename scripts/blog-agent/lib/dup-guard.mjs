@@ -20,11 +20,51 @@
  * never re-target the owned phrases.
  */
 
-import { tokenize, tokenCoverageRatio, COVERAGE_TOKEN_RATIO } from "./gsc-opportunities.mjs";
+import { tokenCoverageRatio } from "./gsc-opportunities.mjs";
+
+/**
+ * Guard-local tokenizer. The GSC `tokenize()` strips "best" as a stopword —
+ * right for query-coverage matching, fatal here: it collapses the owned phrase
+ * "best digital bank" to [digital, bank], so ANY keyword mentioning digital
+ * banking hits 100% coverage and gets blocked (the 2026-07-08 cron failure).
+ * Intent modifiers (best/highest/high) ARE the transactional signal the guard
+ * exists to protect, so this tokenizer keeps them and drops only grammatical
+ * stopwords, geo qualifiers, and bare years.
+ */
+const GUARD_STOPWORDS = new Set([
+  "the", "a", "an", "in", "to", "for", "of", "and", "or", "is", "are", "what",
+  "how", "do", "does", "you", "your", "my", "i", "philippines", "ph",
+  "philippine", "filipino",
+]);
+function guardTokenize(text) {
+  return (text || "")
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((t) => t && !GUARD_STOPWORDS.has(t) && !/^(19|20)\d{2}$/.test(t));
+}
+
+/**
+ * Guard-specific coverage threshold — deliberately stricter than the GSC
+ * coverage ratio (0.6). At 0.6 the guard flags any keyword sharing 2 tokens of
+ * a 3-token phrase, which blocks legitimate adjacent angles ("should i use a
+ * digital bank philippines" vs the owned "best digital bank" — the 2026-07-08
+ * cron failure). 0.75 still catches synonym swaps of 4-token phrases ("high
+ * INTEREST savings account" covers 3/4 of "high yield savings account") while
+ * letting 2-of-3 overlaps through.
+ */
+export const DUP_GUARD_TOKEN_RATIO = 0.75;
+
+/**
+ * Comparison keywords ("x vs y", "x versus y") are a distinct search intent —
+ * the searcher wants a comparison, not the transactional "best X" list the
+ * rates pages own. They are exactly the "different angle" blogs are supposed
+ * to take, so they are exempt from the guard.
+ */
+const COMPARISON_RE = /(^|\s)(vs\.?|versus)(\s|$)/i;
 
 /**
  * Page → the short, DISTINCTIVE intent phrases it owns. A blog keyword covering
- * ≥ COVERAGE_TOKEN_RATIO of a phrase's tokens is treated as a duplicate.
+ * ≥ DUP_GUARD_TOKEN_RATIO of a phrase's tokens is treated as a duplicate.
  *
  * Phrases are kept short and specific on purpose: padding them with generic
  * tokens ("savings", "account", "philippines") would flag almost any savings
@@ -53,8 +93,9 @@ export const PAGE_OWNED_INTENTS = [
 
 /**
  * Does any of `keywords` duplicate a page's owned intent? A keyword duplicates
- * an owned phrase when ≥ COVERAGE_TOKEN_RATIO of the phrase's tokens appear in
- * the keyword (year/stopword tokens are ignored by tokenize).
+ * an owned phrase when ≥ DUP_GUARD_TOKEN_RATIO of the phrase's tokens appear
+ * in the keyword (year/stopword tokens are ignored by tokenize). Comparison
+ * keywords ("vs"/"versus") are a distinct intent and never flagged.
  *
  * @param {string[]} keywords            the candidate post's target keywords
  * @param {Array<{slug,phrases}>} [map]  ownership map (defaults to PAGE_OWNED_INTENTS)
@@ -63,16 +104,17 @@ export const PAGE_OWNED_INTENTS = [
 export function duplicatesOwnedPage(keywords, map = PAGE_OWNED_INTENTS) {
   const owned = map.map((p) => ({
     slug: p.slug,
-    phrases: p.phrases.map((ph) => ({ phrase: ph, tokens: tokenize(ph) })),
+    phrases: p.phrases.map((ph) => ({ phrase: ph, tokens: guardTokenize(ph) })),
   }));
   for (const kw of keywords ?? []) {
-    const kwTokens = tokenize(kw);
+    if (COMPARISON_RE.test(kw)) continue; // comparison intent — different angle
+    const kwTokens = guardTokenize(kw);
     if (kwTokens.length === 0) continue;
     for (const page of owned) {
       for (const { phrase, tokens } of page.phrases) {
         if (
           tokens.length &&
-          tokenCoverageRatio(tokens, kwTokens) >= COVERAGE_TOKEN_RATIO
+          tokenCoverageRatio(tokens, kwTokens) >= DUP_GUARD_TOKEN_RATIO
         ) {
           return { slug: page.slug, keyword: kw, phrase };
         }
