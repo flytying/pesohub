@@ -18,6 +18,7 @@ import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { run as runWriter } from "./writer.mjs";
 import { run as runReviewer } from "./reviewer.mjs";
+import { duplicatesOwnedPage } from "./lib/dup-guard.mjs";
 import { writePrBody, writePackagePrBody } from "./lib/reporter.mjs";
 import { SYSTEM_PROMPT_VERSION, MODEL } from "./lib/claude-writer.mjs";
 import {
@@ -158,6 +159,28 @@ async function main() {
     );
   } else {
     keyword = rawKeyword;
+  }
+
+  // Cannibalization guard: never generate a NEW post whose keywords duplicate a
+  // page's owned intent (the failure that sank "high yield savings account 2026
+  // philippines"). update/merge packages and refreshes are exempt.
+  const guardAction = topicMeta.recommendedAction || "publish_as_new_post";
+  const isNewPost =
+    guardAction === "publish_as_new_post" ||
+    guardAction === "create_supporting_page_with_internal_links";
+  if (mode === "queue" && !isRefresh && isNewPost) {
+    const dup = duplicatesOwnedPage(topicMeta.keywords);
+    if (dup) {
+      console.error(
+        `\n🛑 Skipping topic #${topicId}: keyword "${dup.keyword}" duplicates the ` +
+          `intent owned by /${dup.slug} ("${dup.phrase}"). Retarget the topic to a ` +
+          `distinct angle (analysis / how-to / ranked list) or link to that page instead.`
+      );
+      const t = queue.topics.find((x) => x.id === topicId);
+      if (t) t.status = "skipped-duplicate";
+      writeFileSync(QUEUE_PATH, JSON.stringify(queue, null, 2) + "\n", "utf-8");
+      process.exit(0);
+    }
   }
 
   console.log(`\n🚀 PesoHub Blog Agent`);

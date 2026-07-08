@@ -82,7 +82,7 @@ export function isNavigational(query) {
 }
 
 /** Fraction of `query` tokens that appear in `targetTokens`. */
-function tokenCoverageRatio(queryTokens, targetTokens) {
+export function tokenCoverageRatio(queryTokens, targetTokens) {
   if (queryTokens.length === 0) return 0;
   const set = new Set(targetTokens);
   const hit = queryTokens.filter((t) => set.has(t)).length;

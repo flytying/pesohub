@@ -114,6 +114,8 @@ export default async function BlogPostPage({
           description: post.metaDescription,
           updatedAt: post.updatedAt,
           slug: `blog/${post.slug}`,
+          publishedAt: post.publishedAt,
+          author: post.author,
         })}
       />
 

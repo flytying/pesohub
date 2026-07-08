@@ -25,6 +25,13 @@
 - **Nameservers:** `ns1.vercel-dns.com`, `ns2.vercel-dns.com`
 - **Domain registrar:** dotPH (pesohub.ph)
 
+**Canonical domain:** the apex `pesohub.ph` is primary (since 2026-07-02). `www.pesohub.ph`
+must redirect to the apex with a **permanent** redirect — set this in the Vercel dashboard
+(Project → Domains → set `www` to *Redirect to* `pesohub.ph`), **not** in `vercel.json` (static
+export has no runtime redirect layer). All SEO output (canonicals, sitemap, robots, JSON-LD) is
+already apex-only via `SITE_URL` in `src/config/site.ts`. Verify: `curl -sI https://www.pesohub.ph/`
+returns `301`/`308` with `location: https://pesohub.ph/`.
+
 | Type | Name | Value | Purpose |
 |------|------|-------|---------|
 | A | `mail` | `192.250.235.76` | dotPH mail server |
