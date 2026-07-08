@@ -58,4 +58,35 @@ describe("duplicatesOwnedPage", () => {
     expect(duplicatesOwnedPage(undefined)).toBeNull();
     expect(duplicatesOwnedPage([""])).toBeNull();
   });
+
+  it("does NOT flag comparison (vs/versus) keywords — distinct intent", () => {
+    expect(
+      duplicatesOwnedPage([
+        "digital bank vs traditional bank philippines",
+        "online bank vs traditional bank",
+        "high yield savings vs time deposit philippines",
+        "digital bank versus regular bank",
+      ])
+    ).toBeNull();
+  });
+
+  it("does NOT flag adjacent advice angles sharing 2 of 3 phrase tokens", () => {
+    // 2/3 of "best digital bank" (0.67) — under the 0.75 guard threshold.
+    // This exact keyword (topic #19) crashed the 2026-07-08 cron at 0.6.
+    expect(
+      duplicatesOwnedPage(["should i use a digital bank philippines"])
+    ).toBeNull();
+    expect(
+      duplicatesOwnedPage(["emergency fund digital bank or time deposit"])
+    ).toBeNull();
+  });
+
+  it("still flags full-coverage transactional keywords", () => {
+    expect(duplicatesOwnedPage(["best digital bank philippines 2026"])?.slug).toBe(
+      "rates/savings-rates/best-digital-bank-rates-philippines"
+    );
+    expect(
+      duplicatesOwnedPage(["highest interest rate digital bank philippines"])
+    ).not.toBeNull();
+  });
 });

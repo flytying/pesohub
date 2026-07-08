@@ -75,23 +75,36 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          SLUG=$(cat /tmp/blog-slug.txt)
-          BRANCH="auto/blog-${SLUG}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           # 1) Queue bookkeeping → main directly, so the next Mon/Wed/Fri run
-          #    won't re-pick this topic while the content PR is in review.
-          #    Set the content changes aside, commit only the queue, push to main.
+          #    won't re-pick this topic. Runs whether a post was generated or the
+          #    dup-guard skipped the topic (status: skipped-duplicate) — the skip
+          #    marker MUST persist or the cron re-picks the same blocked topic
+          #    forever. Set content changes aside, commit only the queue.
+          if [ -f /tmp/blog-slug.txt ]; then
+            NOTE="advance after $(cat /tmp/blog-slug.txt)"
+          else
+            NOTE="mark topic skipped (dup-guard)"
+          fi
           git stash push -- src scripts/blog-agent/output 2>/dev/null || true
           git add scripts/blog-agent/topic-queue.json
-          if git commit -m "queue: advance after ${SLUG} (automated)"; then
+          if git commit -m "queue: ${NOTE} (automated)"; then
             git pull --rebase origin main || true
             git push origin HEAD:main || echo "Queue push skipped (protected branch?)."
           else
             echo "No queue change."
           fi
           git stash pop 2>/dev/null || true
+
+          # No post generated this run (dup-guard skip) → bookkeeping only, done.
+          if [ ! -f /tmp/blog-slug.txt ]; then
+            echo "No post generated — queue bookkeeping committed, skipping PR."
+            exit 0
+          fi
+          SLUG=$(cat /tmp/blog-slug.txt)
+          BRANCH="auto/blog-${SLUG}"
 
           # 2) Content → review PR (NO auto-merge). src/ for new posts; output/ for
           #    update/merge action packages.
