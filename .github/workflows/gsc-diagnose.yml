@@ -1,0 +1,52 @@
+name: GSC Drop Diagnostic
+
+# Manual, read-only diagnostic: classifies a GSC impressions drop as site-wide
+# vs isolated. Prints the report in the run log — creates no issues/PRs/commits.
+on:
+  workflow_dispatch:
+    inputs:
+      end:
+        description: "Window end date YYYY-MM-DD (default: 3 days ago)"
+        required: false
+        type: string
+      window:
+        description: "Window length in days"
+        required: false
+        type: string
+        default: "7"
+      page:
+        description: "Target page substring"
+        required: false
+        type: string
+        default: "best-digital-bank-rates-philippines"
+      query:
+        description: "Target query"
+        required: false
+        type: string
+        default: "high yield savings account 2026 philippines"
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Run diagnostic
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+        run: |
+          ARGS=(--window "${{ inputs.window }}" --page "${{ inputs.page }}" --query "${{ inputs.query }}")
+          if [ -n "${{ inputs.end }}" ]; then ARGS+=(--end "${{ inputs.end }}"); fi
+          node scripts/blog-agent/gsc-diagnose.mjs "${ARGS[@]}"
