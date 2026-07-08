@@ -365,7 +365,8 @@
       ],
       "evergreen": true,
       "refreshIntervalDays": 120,
-      "status": "pending"
+      "status": "completed",
+      "completedAt": "2026-07-08"
     },
     {
       "id": 20,
