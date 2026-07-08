@@ -1,15 +1,15 @@
 import type { BlogPostData } from "@/types/content";
 
-export const HIGH_INTEREST_SAVINGS_ACCOUNT_PHILIPPINES_UPDATED_AT = "2026-04-11";
+export const HIGH_INTEREST_SAVINGS_ACCOUNT_PHILIPPINES_UPDATED_AT = "2026-07-08";
 
 const post: BlogPostData = {
   "slug": "high-interest-savings-account-philippines",
-  "title": "High-Interest Savings Accounts Philippines: What Rates Can You Actually Get?",
-  "metaTitle": "High-Interest Savings Accounts Philippines 2026 Rates",
-  "metaDescription": "Compare actual high-interest savings account rates in the Philippines. Find which banks offer 3-4% rates and how they stack against inflation.",
+  "title": "Do Savings Accounts Beat Inflation in the Philippines?",
+  "metaTitle": "High-Interest Savings vs Inflation in the Philippines (2026)",
+  "metaDescription": "Do Philippine high-interest savings accounts actually beat inflation? We weigh 3-4% savings rates against the BSP's 5.1% 2026 inflation outlook and the PH-vs-US rate gap.",
   "author": "PesoHub Team",
   "publishedAt": "2026-04-11",
-  "updatedAt": "2026-04-11",
+  "updatedAt": "2026-07-08",
   "category": "savings",
   "excerpt": "Philippine high-interest savings accounts offer 3-4% annual rates, but with 5.1% projected inflation, real returns may be near zero for peso savers.",
   "readTime": 8,
@@ -240,15 +240,16 @@ const post: BlogPostData = {
     }
   ],
   "relatedSlugs": [
+    "rates/savings-rates/best-digital-bank-rates-philippines",
     "rates/savings-rates/best-savings-interest-rates-philippines",
     "rates/savings-rates/time-deposit-rates-philippines"
   ],
   "keywords": [
-    "high interest savings account",
-    "high yield savings account philippines",
-    "highest interest rate savings account philippines",
-    "bank with high interest rate savings account philippines",
-    "savings account with high interest rate philippines"
+    "do savings accounts beat inflation philippines",
+    "savings account real return philippines",
+    "philippine savings rate vs inflation 2026",
+    "why savings account interest is low philippines",
+    "are savings accounts worth it philippines"
   ],
   "disclaimer": true,
   "image": {

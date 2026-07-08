@@ -216,6 +216,13 @@ export default function DigitalBankRatesPage() {
     balanceCap: bank.balanceCap,
     requirement: bank.requirement,
   }));
+  // Top high-yield savings accounts by base rate — derived from data so the
+  // direct answer never drifts from the comparison table below it. Time-deposit
+  // products are excluded so we don't call a locked-term product a "savings account".
+  const topHighYield = [...digitalBankRates]
+    .filter((b) => !/time deposit/i.test(b.bankName))
+    .sort((a, b) => b.baseRate - a.baseRate)
+    .slice(0, 3);
 
   return (
     <>
@@ -227,6 +234,7 @@ export default function DigitalBankRatesPage() {
             "Compare high-yield savings accounts and interest rates at Philippine digital banks, with balance caps, requirements, and PDIC coverage notes.",
           updatedAt: DIGITAL_BANK_RATES_UPDATED_AT,
           slug: "rates/savings-rates/best-digital-bank-rates-philippines",
+          author: "PesoHub Team",
         })}
       />
       <JsonLd
@@ -260,10 +268,38 @@ export default function DigitalBankRatesPage() {
       />
 
       <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(18px,3vw,34px)]">
-        {/* Digital Bank Comparison Table */}
-        <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
+        {/* Direct answer — targets "high yield savings account 2026 philippines" */}
+        <section className="rounded-[20px] border border-[#E7EBF3] bg-[#F5F6FF] p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Digital Bank Interest Rates 2026
+            What is the highest-yield savings account in the Philippines in 2026?
+          </h2>
+          <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
+            The highest-yield savings accounts in the Philippines in 2026 are
+            offered by digital banks. As of {DIGITAL_BANK_RATES_UPDATED_AT}, the
+            top base rates come from{" "}
+            {topHighYield.map((bank, i) => (
+              <span key={bank.bankName}>
+                {i > 0 ? (i === topHighYield.length - 1 ? ", and " : ", ") : ""}
+                <strong className="text-[#0E1525]">{bank.bankName}</strong> (
+                {formatPercent(bank.baseRate)} p.a.)
+              </span>
+            ))}
+            . Promo rates can run higher on capped balances. Compare every
+            high-yield savings account below by base rate, promo rate, balance
+            cap, requirements, and PDIC coverage before you open one.
+          </p>
+          <p className="mt-4 border-t border-[#E7EBF3] pt-3 text-[13px] leading-[1.6] text-[#6B7488]">
+            Reviewed by the PesoHub editorial team · Last reviewed{" "}
+            {DIGITAL_BANK_RATES_UPDATED_AT}. Rates are verified against the
+            Bangko Sentral ng Pilipinas (BSP) and each bank&rsquo;s published
+            product rates; promotional and conditional rates change often.
+          </p>
+        </section>
+
+        {/* Digital Bank Comparison Table */}
+        <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
+          <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
+            High-Yield Savings Account Rates 2026 (Philippine Digital Banks)
           </h2>
           <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             Compare digital banks side by side using the features that matter
@@ -505,7 +541,7 @@ export default function DigitalBankRatesPage() {
         {/* Bank-specific rate sections */}
         <section className="mt-6 rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
-            Digital Bank Interest Rates 2026 by Bank
+            High-Yield Savings Account Rates by Bank (2026)
           </h2>
           <p className="mt-2 text-[16px] leading-[1.6] text-[#5A6478]">
             The exact rate, conditions, and balance caps for the digital banks

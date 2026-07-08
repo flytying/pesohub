@@ -36,17 +36,41 @@ export function generateArticleSchema(data: {
   description: string;
   updatedAt: string;
   slug: string;
+  /** Original publish date. Falls back to updatedAt when omitted. */
+  publishedAt?: string;
+  /** Author/reviewer name. A "Team"/brand name is emitted as an Organization,
+   *  a personal name as a Person. Defaults to the publishing Organization. */
+  author?: string;
 }) {
+  const publisher = {
+    "@type": "Organization",
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/pesohub-logo.png`,
+    },
+  };
+  const author = data.author
+    ? {
+        "@type":
+          /team|pesohub/i.test(data.author) ? "Organization" : "Person",
+        name: data.author,
+        url: SITE_URL,
+      }
+    : publisher;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: data.title,
     description: data.description,
+    datePublished: data.publishedAt ?? data.updatedAt,
     dateModified: data.updatedAt,
-    publisher: {
-      "@type": "Organization",
-      name: SITE_NAME,
-      url: SITE_URL,
+    author,
+    publisher,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/${data.slug}/`,
     },
   };
 }

@@ -71,11 +71,20 @@ opportunity agent** scores each cluster and picks a content action (`lib/gsc-sug
 `analyzeOpportunity`, prompt `lib/prompts/keyword-opportunity.mjs`) → ranked issue markdown grouped by
 priority/action (`lib/gsc-reporter.mjs`). Orchestrator: `scripts/blog-agent/gsc-opportunities.mjs`
 (caps analysis to the top 12 opportunities/run). It **auto-promotes** the top `PROMOTE_COUNT` (repo var,
-default 3) `publish_as_new_post` / supporting decisions into `topic-queue.json` as `pending` topics
-(ordered priority A→B→C then score, deduped by slug) — `update`/`merge` decisions are **not** queued,
-they stay notify-only (issue alert + assignee). The issue still opens for visibility; auto-queued items
-are marked "✅ Auto-queued". Decisions + scores log to the `gsc-opportunities` Langfuse dataset;
-`evals/keyword-opportunity.experiment.mjs` is the offline experiment.
+default 3) decisions into `topic-queue.json` as `pending` topics (ordered priority A→B→C, new-post before
+update, then score; deduped by slug). New-post/supporting decisions become posts; `update`/`merge`
+decisions become human-apply update packages for the page that already ranks (no duplicate post). The
+issue still opens for visibility; auto-queued items are marked "✅ Auto-queued". Decisions + scores log to
+the `gsc-opportunities` Langfuse dataset; `evals/keyword-opportunity.experiment.mjs` is the offline experiment.
+
+**Cannibalization guard + keyword ownership.** New posts pass through `lib/dup-guard.mjs`
+(`duplicatesOwnedPage`) in `run.mjs`: a topic whose keywords duplicate a page's owned intent is skipped
+(`status: "skipped-duplicate"`) instead of generated, so the auto-queue can't recreate cannibalization.
+The `PAGE_OWNED_INTENTS` map there is the source of truth for the savings cluster — the
+`best-digital-bank-rates-philippines` page owns the "high-yield / best-digital-bank / highest-interest"
+intent; blogs take distinct angles (analysis vs inflation, ranked lists, how-tos). See the SEO recovery
+notes for why (the "high yield savings account 2026 philippines" collapse). Diagnose GSC drops with
+`node scripts/blog-agent/gsc-diagnose.mjs` (site-wide vs isolated).
 
 Required secrets: `GSC_SERVICE_ACCOUNT_JSON`, `GSC_SITE_URL` (e.g. `sc-domain:pesohub.ph`);
 `ANTHROPIC_API_KEY` already exists. Optional: `LANGFUSE_PUBLIC_KEY` / `LANGFUSE_SECRET_KEY` /

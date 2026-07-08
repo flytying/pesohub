@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-06-29";
+export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-07-08";
 
 export interface DigitalBankRate {
   bankName: string;
@@ -169,6 +169,12 @@ export const digitalBankRates: DigitalBankRate[] = [
 ];
 
 export const digitalBankFaqs: FAQ[] = [
+  {
+    question:
+      "What is the best high yield savings account in the Philippines for 2026?",
+    answer:
+      "For 2026, the best high yield savings accounts in the Philippines are from digital banks. On standard (non-promotional) rates, Tonik's Group Stash leads at 4.5% p.a., followed by OwnBank up to 3.8% p.a., UNO Digital Bank up to 3.5% p.a., and MariBank and NetBank at 3.25% p.a. Maya offers up to 15% p.a. promotionally on a capped balance with monthly missions. All are PDIC-insured up to ₱1,000,000 per depositor, per bank. Rates change often — compare the base rate, promo rate, balance cap, and requirements in the table above before opening one.",
+  },
   {
     question: "What is a high yield savings account?",
     answer:
