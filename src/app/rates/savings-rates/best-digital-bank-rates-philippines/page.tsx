@@ -38,7 +38,7 @@ import {
   generateItemListSchema,
 } from "@/lib/schema-markup";
 import { SITE_URL } from "@/config/site";
-import { formatPercent } from "@/lib/formatters";
+import { formatDate, formatPercent } from "@/lib/formatters";
 import {
   digitalBankRates,
   digitalBankFaqs,
@@ -269,14 +269,15 @@ export default function DigitalBankRatesPage() {
 
       <div className="mx-auto w-full max-w-[1240px] px-[clamp(20px,3vw,36px)] py-[clamp(18px,3vw,34px)]">
         {/* Direct answer — targets "high yield savings account 2026 philippines" */}
-        <section className="rounded-[20px] border border-[#E7EBF3] bg-[#F5F6FF] p-[clamp(22px,3vw,32px)]">
+        <section className="rounded-[20px] border border-[#E7EBF3] bg-white p-[clamp(22px,3vw,32px)]">
           <h2 className="text-[clamp(20px,2.2vw,25px)] font-semibold tracking-[-0.02em] text-[#0E1525]">
             What is the highest-yield savings account in the Philippines in 2026?
           </h2>
           <p className="mt-3 text-[16px] leading-[1.6] text-[#5A6478]">
             The highest-yield savings accounts in the Philippines in 2026 are
-            offered by digital banks. As of {DIGITAL_BANK_RATES_UPDATED_AT}, the
-            top base rates come from{" "}
+            offered by digital banks. As of{" "}
+            {formatDate(DIGITAL_BANK_RATES_UPDATED_AT)}, the top base rates come
+            from{" "}
             {topHighYield.map((bank, i) => (
               <span key={bank.bankName}>
                 {i > 0 ? (i === topHighYield.length - 1 ? ", and " : ", ") : ""}
@@ -290,7 +291,8 @@ export default function DigitalBankRatesPage() {
           </p>
           <p className="mt-4 border-t border-[#E7EBF3] pt-3 text-[13px] leading-[1.6] text-[#6B7488]">
             Reviewed by the PesoHub editorial team · Last reviewed{" "}
-            {DIGITAL_BANK_RATES_UPDATED_AT}. Rates are verified against the
+            {formatDate(DIGITAL_BANK_RATES_UPDATED_AT)}. Rates are verified
+            against the
             Bangko Sentral ng Pilipinas (BSP) and each bank&rsquo;s published
             product rates; promotional and conditional rates change often.
           </p>
