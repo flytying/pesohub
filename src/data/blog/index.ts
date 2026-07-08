@@ -161,4 +161,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-07-06",
     readTime: 9,
   },
+  {
+    slug: "digital-bank-vs-traditional-bank-philippines",
+    title: "Digital Bank vs Traditional Bank in the Philippines: Which Should You Choose?",
+    excerpt: "Digital banks in the Philippines offer savings rates of 3–5% APY, free transfers, and instant app-based account opening, while traditional banks lead in loans, mortgages, and branch services. Here's how to choose the right one for your needs.",
+    category: "banking",
+    publishedAt: "2026-07-08",
+    updatedAt: "2026-07-08",
+    readTime: 9,
+  },
 ];
