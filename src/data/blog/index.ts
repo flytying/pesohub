@@ -170,4 +170,13 @@ export const blogPosts: BlogPostEntry[] = [
     updatedAt: "2026-07-08",
     readTime: 9,
   },
+  {
+    slug: "where-to-park-emergency-fund-philippines",
+    title: "Where to Park Your Emergency Fund: Digital Bank vs Time Deposit vs MP2",
+    excerpt: "Not sure where to park your emergency fund in the Philippines? This 2026 guide compares digital banks, time deposits, and MP2 — and explains which option keeps your money safe, liquid, and earning.",
+    category: "savings",
+    publishedAt: "2026-07-10",
+    updatedAt: "2026-07-10",
+    readTime: 7,
+  },
 ];
