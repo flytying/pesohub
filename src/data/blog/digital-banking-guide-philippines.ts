@@ -1,6 +1,34 @@
 import type { BlogPostData } from "@/types/content";
+import {
+  digitalBankRates,
+  DIGITAL_BANK_RATES_UPDATED_AT,
+} from "@/data/rates/digital-bank-rates";
+import { formatDate } from "@/lib/formatters";
 
-export const DIGITAL_BANKING_GUIDE_PHILIPPINES_UPDATED_AT = "2026-07-06";
+export const DIGITAL_BANKING_GUIDE_PHILIPPINES_UPDATED_AT = "2026-07-08";
+
+// The rates table derives from the live rates data (same pattern as the
+// best-savings post) so the biweekly bank-rate scrape updates this post
+// automatically instead of drifting into stale figures.
+const savingsProducts = digitalBankRates.filter(
+  (b) => !b.bankName.includes("Time Deposit")
+);
+const rateTableRows: string[][] = savingsProducts.slice(0, 8).map((b) => [
+  b.bankName,
+  b.promoRate
+    ? `${b.baseRate}% p.a. base · up to ${b.promoRate}% promo`
+    : `${b.baseRate}% p.a.`,
+  [
+    /^no cap/i.test(b.balanceCap)
+      ? "No balance cap"
+      : /cap/i.test(b.balanceCap)
+        ? b.balanceCap
+        : `Cap ${b.balanceCap}`,
+    /^none/i.test(b.requirement) ? "no conditions" : b.requirement,
+  ].join(" · "),
+]);
+const topBaseRate = Math.max(...savingsProducts.map((b) => b.baseRate));
+const topPromoRate = Math.max(...savingsProducts.map((b) => b.promoRate ?? 0));
 
 const post: BlogPostData = {
   "slug": "digital-banking-guide-philippines",
@@ -9,11 +37,11 @@ const post: BlogPostData = {
   "metaDescription": "New to digital banking in the Philippines? Learn how it works, which banks to consider, how to open an account, and how to find the best rates in 2026.",
   "author": "PesoHub Team",
   "publishedAt": "2026-07-06",
-  "updatedAt": "2026-07-06",
+  "updatedAt": "2026-07-08",
   "category": "banking",
-  "excerpt": "New to digital banking in the Philippines? Learn what digital banks are, how they differ from traditional banks, how to open an account, which banks are BSP-licensed, and how to earn up to 8% p.a. on your savings in 2026.",
+  "excerpt": `New to digital banking in the Philippines? Learn what digital banks are, how they differ from traditional banks, how to open an account, which banks are BSP-licensed, and how to earn up to ${topBaseRate}% p.a. base on your savings in 2026.`,
   "readTime": 9,
-  "directAnswer": "Digital banking in the Philippines lets you open and manage a bank account entirely through your smartphone — no branch visits required. BSP-licensed digital banks like Maya, GoTyme, Tonik, SeaBank, MariBank, and UnionDigital offer high-yield savings accounts with interest rates ranging from 4% to 8% p.a. as of 2026.",
+  "directAnswer": `Digital banking in the Philippines lets you open and manage a bank account entirely through your smartphone — no branch visits required. BSP-licensed digital banks like Maya, GoTyme, Tonik, SeaBank, MariBank, and UnionDigital offer high-yield savings accounts paying up to ${topBaseRate}% p.a. base as of 2026 — with capped promotional rates reaching ${topPromoRate}% — versus around 0.25% at the big traditional banks.`,
   "sections": [
     {
       "type": "heading",
@@ -22,7 +50,7 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Digital banking in the Philippines lets you open and manage a bank account entirely through your smartphone — no branch visits required. BSP-licensed digital banks like Maya, GoTyme, Tonik, SeaBank, MariBank, and UnionDigital offer high-yield savings accounts with interest rates ranging from 4% to 8% p.a. as of 2026."
+      "content": `Digital banking in the Philippines lets you open and manage a bank account entirely through your smartphone — no branch visits required. BSP-licensed digital banks like Maya, GoTyme, Tonik, SeaBank, MariBank, and UnionDigital offer high-yield savings accounts paying up to ${topBaseRate}% p.a. base as of 2026 — with capped promotional rates reaching ${topPromoRate}% — versus around 0.25% at the big traditional banks.`
     },
     {
       "type": "paragraph",
@@ -153,7 +181,7 @@ const post: BlogPostData = {
     {
       "type": "list",
       "items": [
-        "Higher savings interest rates: Digital banks offer 4% to 8% p.a. on savings, compared to traditional banks that often pay below 1% p.a. on regular savings accounts. That difference adds up significantly over time.",
+        `Higher savings interest rates: Digital banks pay up to ${topBaseRate}% p.a. base on savings — with capped promos going far higher — compared to traditional banks that often pay below 1% p.a. on regular savings accounts. That difference adds up significantly over time.`,
         "No maintaining balance: Most digital bank savings accounts have zero or very low maintaining balance requirements — a major relief for students, low-income earners, and the previously unbanked.",
         "Fully paperless account opening: You can open an account from your phone in under 15 minutes. No need to travel to a branch, fill out paper forms, or take half a day off work.",
         "Card-free and virtual card options: Some digital banks let you transact without a physical card, while others offer instant virtual debit cards for online shopping.",
@@ -266,57 +294,21 @@ const post: BlogPostData = {
     },
     {
       "type": "paragraph",
-      "content": "Digital banks in the Philippines are known for offering savings rates that are dramatically higher than traditional banks. Based on available data as of 2026, here is a summary of key players and their savings rate ranges. Note that rates are promotional and subject to change — always verify current rates directly with the bank."
+      "content": `Digital banks in the Philippines are known for offering savings rates that are dramatically higher than traditional banks. Here are the top base rates as of ${formatDate(DIGITAL_BANK_RATES_UPDATED_AT)}, sorted highest first. Headline promo rates only apply on capped balances with conditions — always verify in-app before opening.`
     },
     {
       "type": "table",
       "columns": [
-        "Bank",
+        "Bank / product",
         "Rate",
         "Conditions"
       ],
-      "rows": [
-        [
-          "Maya Bank",
-          "Up to 8% p.a.",
-          "Promotional rate · subject to terms and caps · verify in-app"
-        ],
-        [
-          "Tonik Digital Bank",
-          "Up to 6% p.a.",
-          "Varies by product (Stash, Solo Stash, Group Stash) · check current terms"
-        ],
-        [
-          "GoTyme Bank",
-          "Competitive high-yield rate",
-          "Check app for current rate · no maintaining balance"
-        ],
-        [
-          "SeaBank Philippines",
-          "High-yield savings",
-          "Rate varies · verify current offer in-app"
-        ],
-        [
-          "MariBank Philippines",
-          "High-yield savings",
-          "Mobile-first platform · verify current rate in-app"
-        ],
-        [
-          "CIMB Bank Philippines",
-          "Competitive savings rate",
-          "Pioneer digital bank · embedded banking features · verify in-app"
-        ],
-        [
-          "UnionDigital Bank",
-          "High-yield savings",
-          "Targets mass-market · verify current rate in-app"
-        ]
-      ]
+      "rows": rateTableRows
     },
     {
       "type": "callout",
       "variant": "warning",
-      "content": "Savings rates change frequently — sometimes without much notice. The figures above reflect general 2026 market data and should be used as a starting point only. For the most accurate and up-to-date rates, check [PesoHub's Best Digital Bank Rates Philippines page](/rates/savings-rates/best-digital-bank-rates-philippines), which is updated regularly."
+      "content": "Savings rates change frequently — sometimes without much notice. This table is generated from the same data as [PesoHub's Best Digital Bank Rates Philippines page](/rates/savings-rates/best-digital-bank-rates-philippines), which is verified against each bank's published product rates. Still confirm the current rate in the bank's app before opening an account."
     },
     {
       "type": "heading",
@@ -385,7 +377,7 @@ const post: BlogPostData = {
       "rows": [
         [
           "Savings interest rate",
-          "4%–8% p.a. (high yield)",
+          `Up to ${topBaseRate}% p.a. base (capped promos higher)`,
           "Typically below 1% p.a."
         ],
         [
@@ -455,7 +447,7 @@ const post: BlogPostData = {
     },
     {
       "question": "Which digital bank has the highest interest rate in the Philippines?",
-      "answer": "As of 2026, digital banks in the Philippines offer savings rates ranging from 4% to 8% p.a., with some promotional rates going higher depending on the product and conditions. Maya Bank has been among the banks offering higher promotional rates. However, rates change frequently and may apply only up to a certain balance cap or under specific conditions. Always check the current rate directly in the bank's app or on PesoHub's Best Digital Bank Rates Philippines page for the latest figures."
+      "answer": `As of 2026, digital banks in the Philippines pay up to ${topBaseRate}% p.a. base on savings. Promotional rates can go much higher — Maya has offered up to ${topPromoRate}% p.a. — but only on capped balances and with monthly conditions. Rates change frequently, so always check the current rate directly in the bank's app or on PesoHub's Best Digital Bank Rates Philippines page for the latest figures.`
     },
     {
       "question": "Are digital banks covered by PDIC in the Philippines?",
