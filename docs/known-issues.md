@@ -112,5 +112,5 @@ writer does NOT auto-edit live pages (static TS site, too risky) — it emits a 
 to `scripts/blog-agent/output/<slug>-<action>.md`, surfaced in the PR body for a human to apply. Only
 `publish_as_new_post` / `create_supporting_page_with_internal_links` generate a TS post file.
 
-The weekly GSC run caps LLM analysis to the top `MAX_ANALYZE` (12) opportunities; the rest are dropped
-and logged (see `gsc-opportunities.mjs`). Bump the cap if weekly volume grows.
+Each GSC run (blog weekly + content monthly) caps LLM analysis to the top `MAX_ANALYZE` (12)
+opportunities; the rest are dropped and logged (see `gsc-opportunities.mjs`). Bump the cap if volume grows.

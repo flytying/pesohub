@@ -207,11 +207,12 @@ const PRIORITY_TITLE = {
  *   weekLabel: string,
  *   opportunityCount: number,
  *   notifyHandle?: string,    // GitHub handle to @mention when pages need updates
- *   autoQueuedCount?: number  // new posts auto-promoted to topic-queue.json this run
+ *   autoQueuedCount?: number, // new posts auto-promoted to topic-queue.json this run
+ *   track?: "blog"|"content"|"all"  // cadence track — drives the issue title
  * }} input
  * @returns {{title: string, body: string, updateCount: number}}
  */
-export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCount, notifyHandle, autoQueuedCount = 0, queuedSlugs = new Set() }) {
+export function buildIssue({ windows, decided, nextId, weekLabel, track = "all", opportunityCount, notifyHandle, autoQueuedCount = 0, queuedSlugs = new Set() }) {
   const actionable = decided.filter(
     (d) => !["hold", "reject"].includes(d.decision.recommended_action)
   );
@@ -289,8 +290,19 @@ export function buildIssue({ windows, decided, nextId, weekLabel, opportunityCou
   );
 
   return {
-    title: `GSC Opportunities — week of ${weekLabel}`,
+    title: issueTitle(track, weekLabel),
     body: body.join("\n"),
     updateCount: updates.length,
   };
+}
+
+/**
+ * Track-aware issue title. Blog runs weekly (dated by day so each week rolls a
+ * fresh issue); content runs monthly (dated by month). `all` keeps the legacy
+ * weekly title for manual/local runs.
+ */
+function issueTitle(track, weekLabel) {
+  if (track === "blog") return `GSC Blog Opportunities — week of ${weekLabel}`;
+  if (track === "content") return `GSC Content Opportunities — ${weekLabel.slice(0, 7)}`;
+  return `GSC Opportunities — week of ${weekLabel}`;
 }

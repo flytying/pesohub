@@ -61,21 +61,34 @@ A new blog post needs an entry in **both** `src/data/blog/index.ts` and
 
 ## 3. GSC Content Opportunity Finder
 
-Turns Google Search Console data into reviewed blog-topic suggestions. Runs weekly via
-`.github/workflows/gsc-opportunities.yml` (Mon 01:30 UTC, before the blog-post cron). Never
-auto-publishes — it opens a GitHub issue to review.
+Turns Google Search Console data into reviewed blog-topic suggestions. One script,
+`scripts/blog-agent/gsc-opportunities.mjs`, runs on **two cadence tracks** via a `--track` flag —
+each in its own workflow. Never auto-publishes — each opens a GitHub issue to review.
 
-Flow: pull GSC Search Analytics (`lib/gsc-client.mjs`, service-account JWT) → detect
+- **`--track blog`** — `.github/workflows/gsc-opportunities.yml`, **weekly** (Mon 01:30 UTC,
+  before the blog-post cron). Promotes only `publish_as_new_post` (fresh posts); `PROMOTE_COUNT`
+  default 3 matches the Mon/Wed/Fri blog PRs. Ledger `gsc-suggestions-log.json`, issue label `gsc-blog`.
+- **`--track content`** — `.github/workflows/gsc-content.yml`, **monthly** (1st 01:30 UTC).
+  Promotes `create_supporting_page` + `update`/`merge`; `CONTENT_PROMOTE_COUNT` default 4. Ledger
+  `gsc-suggestions-content-log.json`, issue label `gsc-content`. Monthly gives cleaner signal — the
+  GSC window is already 28 days (`dateWindows`), so weekly re-runs compared ~75%-overlapping data.
+- **`--track all`** (default) — legacy union of every promotable action, for manual/local runs.
+
+Both tracks write to the same `topic-queue.json`; the blog cron drains it regardless of which
+finder queued an entry. Per-track ledger and `/tmp/gsc-issue-<track>.*` paths keep the two from
+clobbering each other when the monthly 1st lands on a Monday.
+
+Flow (per track): pull GSC Search Analytics (`lib/gsc-client.mjs`, service-account JWT) → detect
 striking-distance / content-gap / rising queries (`lib/gsc-opportunities.mjs`) → the **keyword
 opportunity agent** scores each cluster and picks a content action (`lib/gsc-suggester.mjs`,
-`analyzeOpportunity`, prompt `lib/prompts/keyword-opportunity.mjs`) → ranked issue markdown grouped by
-priority/action (`lib/gsc-reporter.mjs`). Orchestrator: `scripts/blog-agent/gsc-opportunities.mjs`
-(caps analysis to the top 12 opportunities/run). It **auto-promotes** the top `PROMOTE_COUNT` (repo var,
-default 3) decisions into `topic-queue.json` as `pending` topics (ordered priority A→B→C, new-post before
-update, then score; deduped by slug). New-post/supporting decisions become posts; `update`/`merge`
-decisions become human-apply update packages for the page that already ranks (no duplicate post). The
-issue still opens for visibility; auto-queued items are marked "✅ Auto-queued". Decisions + scores log to
-the `gsc-opportunities` Langfuse dataset; `evals/keyword-opportunity.experiment.mjs` is the offline experiment.
+`analyzeOpportunity`, prompt `lib/prompts/keyword-opportunity.mjs`) → filter to the track's actions →
+ranked issue markdown grouped by priority/action (`lib/gsc-reporter.mjs`). The orchestrator caps
+analysis to the top 12 opportunities/run and **auto-promotes** the top `PROMOTE_COUNT` decisions into
+`topic-queue.json` as `pending` topics (ordered priority A→B→C, new-post before update, then score;
+deduped by slug). New-post/supporting decisions become posts; `update`/`merge` decisions become
+human-apply update packages for the page that already ranks (no duplicate post). Auto-queued items are
+marked "✅ Auto-queued". Decisions + scores log to the `gsc-opportunities` Langfuse dataset;
+`evals/keyword-opportunity.experiment.mjs` is the offline experiment.
 
 **Cannibalization guard + keyword ownership.** New posts pass through `lib/dup-guard.mjs`
 (`duplicatesOwnedPage`) in `run.mjs`: a topic whose keywords duplicate a page's owned intent is skipped
@@ -91,10 +104,10 @@ Required secrets: `GSC_SERVICE_ACCOUNT_JSON`, `GSC_SITE_URL` (e.g. `sc-domain:pe
 `LANGFUSE_BASEURL` (the Langfuse layer no-ops when unset).
 
 ```bash
-# Full run (writes /tmp/gsc-issue.md; workflow opens the issue)
+# Full run (writes /tmp/gsc-issue-<track>.md; workflow opens the issue)
 GSC_SERVICE_ACCOUNT_JSON="$(cat sa-key.json)" GSC_SITE_URL="sc-domain:pesohub.ph" \
   ANTHROPIC_API_KEY=... LANGFUSE_PUBLIC_KEY=... LANGFUSE_SECRET_KEY=... \
-  node scripts/blog-agent/gsc-opportunities.mjs --dry-run
+  node scripts/blog-agent/gsc-opportunities.mjs --track blog --dry-run
 ```
 
 ## GitHub Workflows (committed)
@@ -106,4 +119,5 @@ GSC_SERVICE_ACCOUNT_JSON="$(cat sa-key.json)" GSC_SITE_URL="sc-domain:pesohub.ph
 | `update-government-data.yml` | 1st 03:00 | Gov data check (Tavily) → PR |
 | `content-freshness.yml` | Mon 01:00 | Staleness check → GitHub issue |
 | `blog-post.yml` | Mon/Wed/Fri 03:00 | Generate 1 post from queue → review PR (no auto-merge) |
-| `gsc-opportunities.yml` | Mon 01:30 | GSC analysis → issue + auto-queue top 3 new posts |
+| `gsc-opportunities.yml` | Mon 01:30 | GSC analysis (blog track) → issue + auto-queue top 3 new posts |
+| `gsc-content.yml` | 1st 01:30 | GSC analysis (content track) → issue + auto-queue updates + new supporting pages |

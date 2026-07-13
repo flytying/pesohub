@@ -117,7 +117,8 @@ without a review path.
 | `update-government-data.yml` | 1st 03:00 | Gov data check → PR |
 | `content-freshness.yml` | Mon 01:00 | Staleness → issue |
 | `blog-post.yml` | Mon/Wed/Fri 03:00 | Generate 1 post from queue → review PR (no auto-merge) |
-| `gsc-opportunities.yml` | Mon 01:30 | GSC analysis → issue + auto-queue top 3 new posts |
+| `gsc-opportunities.yml` | Mon 01:30 | GSC analysis (blog track) → issue + auto-queue top 3 new posts |
+| `gsc-content.yml` | 1st 01:30 | GSC analysis (content track) → issue + auto-queue updates + new supporting pages |
 
 Data updater, blog agent, and the GSC opportunity finder:
 **[docs/content-automation.md](docs/content-automation.md)**.
