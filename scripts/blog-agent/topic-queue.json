@@ -444,8 +444,9 @@
       },
       "evergreen": true,
       "refreshIntervalDays": 120,
-      "status": "pending",
-      "targetPage": "/government/bir/withholding-tax-table-philippines/"
+      "status": "completed",
+      "targetPage": "/government/bir/withholding-tax-table-philippines/",
+      "completedAt": "2026-07-13"
     },
     {
       "id": 22,
