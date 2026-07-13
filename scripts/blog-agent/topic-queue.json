@@ -387,6 +387,176 @@
       "refreshIntervalDays": 120,
       "status": "completed",
       "completedAt": "2026-07-10"
+    },
+    {
+      "id": 21,
+      "title": "Update existing page: withholding tax table 2026",
+      "slug": "update-government-bir-withholding-tax-table-philippines",
+      "keywords": [],
+      "category": "general",
+      "linksTo": [
+        "/calculators/tax/withholding-tax-calculator-philippines",
+        "/calculators/tax/take-home-pay-calculator-philippines"
+      ],
+      "brief": "Update the existing page to explicitly target \"2026\" by: (1) adding the year to the title tag, H1, and meta description; (2) embedding or refreshing the verified BIR withholding tax table for 2026 with a clear section header; (3) adding a step-by-step worked example for both monthly and semi-monthly payroll; (4) adding an FAQ block answering common 2026-specific questions; (5) adding a strong CTA linking to the withholding tax calculator and take-home pay calculator; (6) noting any BIR Revenue Regulation updates effective in 2025–2026. Do NOT publish a separate post for this query — all updates belong on the existing ranking page.",
+      "recommendedAction": "update_existing_page",
+      "decision": {
+        "content_gap": "1. The page likely lacks an explicit \"2026\" year reference in the title tag, H1, and opening paragraph — the primary reason searchers are not clicking. 2. Missing a clear year-labeled withholding tax table section (e.g., \"BIR Withholding Tax Table 2026\"). 3. No worked examples showing how to compute monthly withholding tax using the current table. 4. Missing an FAQ section (e.g., \"Has the withholding tax table changed for 2026?\", \"What is the tax-exempt threshold in 2026?\"). 5. Internal links to the withholding tax calculator and take-home pay calculator are likely absent or weak. 6. No mention of any BIR Revenue Regulation updates relevant to 2026. 7. Page may be missing a comparison between old and updated tax schedules (a high-engagement format).",
+        "recommended_content_angle": "Update the existing page to explicitly target \"2026\" by: (1) adding the year to the title tag, H1, and meta description; (2) embedding or refreshing the verified BIR withholding tax table for 2026 with a clear section header; (3) adding a step-by-step worked example for both monthly and semi-monthly payroll; (4) adding an FAQ block answering common 2026-specific questions; (5) adding a strong CTA linking to the withholding tax calculator and take-home pay calculator; (6) noting any BIR Revenue Regulation updates effective in 2025–2026. Do NOT publish a separate post for this query — all updates belong on the existing ranking page.",
+        "recommended_internal_links": [
+          {
+            "anchor_text": "BIR Withholding Tax Calculator",
+            "target_page_or_tool": "/calculators/tax/withholding-tax-calculator-philippines",
+            "reason": "Direct tool match. Users reading the withholding tax table want to compute their actual tax — this calculator is the natural next step and strengthens tool engagement."
+          },
+          {
+            "anchor_text": "Take-Home Pay Calculator",
+            "target_page_or_tool": "/calculators/tax/take-home-pay-calculator-philippines",
+            "reason": "After understanding withholding tax, readers want to see their net pay. This link captures downstream intent and increases session depth."
+          },
+          {
+            "anchor_text": "take-home pay guide",
+            "target_page_or_tool": "/guides/tax/take-home-pay-guide-philippines",
+            "reason": "Contextual guide link for readers who want a fuller explanation of deductions beyond withholding tax."
+          },
+          {
+            "anchor_text": "how withholding tax works in the Philippines",
+            "target_page_or_tool": "/guides/tax/how-withholding-tax-works-philippines",
+            "reason": "Supports readers who need foundational context before interpreting the table. Reduces bounce and reinforces topical authority."
+          },
+          {
+            "anchor_text": "PhilHealth contribution table",
+            "target_page_or_tool": "/government/philhealth/philhealth-contribution-table-philippines",
+            "reason": "Payroll deduction cluster: readers computing withholding tax also need PhilHealth, SSS, and Pag-IBIG figures for accurate net pay."
+          },
+          {
+            "anchor_text": "Pag-IBIG contribution table",
+            "target_page_or_tool": "/government/pag-ibig/pag-ibig-contribution-table-philippines",
+            "reason": "Same payroll deduction cluster. Cross-links reinforce PesoHub's authority on mandatory government contributions."
+          },
+          {
+            "anchor_text": "SSS contribution guide",
+            "target_page_or_tool": "/government/sss/sss-contribution-guide",
+            "reason": "Completes the mandatory deduction set readers need alongside withholding tax to compute total payroll deductions."
+          }
+        ],
+        "related_queries_to_include": []
+      },
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending",
+      "targetPage": "/government/bir/withholding-tax-table-philippines/"
+    },
+    {
+      "id": 22,
+      "title": "Update existing page: high interest digital bank philippines 2026",
+      "slug": "update-rates-savings-rates-best-digital-bank-rates-philippines",
+      "keywords": [
+        "highest interest rate digital bank philippines 2026",
+        "best digital bank savings account philippines 2026",
+        "digital bank with highest interest rate philippines",
+        "maya bank interest rate 2026",
+        "seabank interest rate 2026",
+        "tonik bank interest rate 2026",
+        "komo interest rate 2026",
+        "gotyme interest rate 2026"
+      ],
+      "category": "general",
+      "linksTo": [
+        "/calculators/savings/savings-goal-calculator-philippines",
+        "/calculators/savings/emergency-fund-calculator-philippines"
+      ],
+      "brief": "Position the page as the definitive, annually updated guide to the highest-yielding digital bank savings accounts in the Philippines for 2026. Lead with a ranked comparison table showing each bank's current interest rate, minimum balance, and deposit insurance (PDIC) status. Add a clear \"best pick\" recommendation up top for users who want a fast answer, then support it with individual bank sections, an FAQ, and CTAs to the savings goal and emergency fund calculators.",
+      "recommendedAction": "update_existing_page",
+      "decision": {
+        "content_gap": "The page is ranking at position 6.5 with a CTR of only 0.84% against an expected ~5% for that position — a large CTR gap. Likely causes: (1) the page title or meta description does not include \"2026\" or a clear year signal, causing searchers to skip it in favour of fresher-looking results; (2) the page may lack a clear rate comparison table, individual bank-by-bank breakdown, or a \"highest rate\" answer in the opening paragraph; (3) no savings goal or time deposit calculator CTA is visible to searchers from the snippet; (4) missing FAQ section targeting common decision queries (e.g., \"which digital bank has the highest interest rate in the Philippines 2026?\").",
+        "recommended_content_angle": "Position the page as the definitive, annually updated guide to the highest-yielding digital bank savings accounts in the Philippines for 2026. Lead with a ranked comparison table showing each bank's current interest rate, minimum balance, and deposit insurance (PDIC) status. Add a clear \"best pick\" recommendation up top for users who want a fast answer, then support it with individual bank sections, an FAQ, and CTAs to the savings goal and emergency fund calculators.",
+        "recommended_internal_links": [
+          {
+            "anchor_text": "savings goal calculator",
+            "target_page_or_tool": "/calculators/savings/savings-goal-calculator-philippines",
+            "reason": "Converts rate-comparison readers into tool users by showing them how much faster they can reach a goal with a higher interest rate."
+          },
+          {
+            "anchor_text": "emergency fund calculator",
+            "target_page_or_tool": "/calculators/savings/emergency-fund-calculator-philippines",
+            "reason": "Digital bank savers frequently park emergency funds — linking here adds practical next-step value."
+          },
+          {
+            "anchor_text": "time deposit calculator",
+            "target_page_or_tool": "/calculators/savings/time-deposit-calculator-philippines",
+            "reason": "Readers comparing digital bank rates often also evaluate time deposits; cross-linking captures that adjacent intent."
+          },
+          {
+            "anchor_text": "best savings interest rates in the Philippines",
+            "target_page_or_tool": "/rates/savings-rates/best-savings-interest-rates-philippines",
+            "reason": "Provides context for readers who want to compare digital banks against traditional bank savings rates."
+          },
+          {
+            "anchor_text": "time deposit rates Philippines",
+            "target_page_or_tool": "/rates/savings-rates/time-deposit-rates-philippines",
+            "reason": "Readers evaluating high-yield accounts may also want to lock in a time deposit rate — this link serves that need."
+          }
+        ],
+        "related_queries_to_include": [
+          "highest interest rate digital bank philippines 2026",
+          "best digital bank savings account philippines 2026",
+          "digital bank with highest interest rate philippines",
+          "maya bank interest rate 2026",
+          "seabank interest rate 2026",
+          "tonik bank interest rate 2026",
+          "komo interest rate 2026",
+          "gotyme interest rate 2026"
+        ]
+      },
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending",
+      "targetPage": "/rates/savings-rates/best-digital-bank-rates-philippines/"
+    },
+    {
+      "id": 23,
+      "title": "Update existing page: how much does pag ibig deduct from salary",
+      "slug": "update-government-pag-ibig-pag-ibig-contribution-table-philippines",
+      "keywords": [],
+      "category": "general",
+      "linksTo": [
+        "/calculators/tax/take-home-pay-calculator-philippines",
+        "/guides/government/pag-ibig-deduction-guide"
+      ],
+      "brief": "Reframe the page around the user's question: \"How much Pag-IBIG is deducted from your salary depends on your monthly compensation.\" Lead with the deduction formula and employee/employer split, show a worked example table for common salary levels, call out the contribution cap, and link to the Take-Home Pay Calculator for a full payslip simulation. Add an FAQ block with exact query phrasing to improve snippet eligibility.",
+      "recommendedAction": "update_existing_page",
+      "decision": {
+        "content_gap": "The existing contribution table page likely presents the deduction table without directly answering \"how much is deducted from MY salary.\" Missing elements probably include: (1) a plain-language explanation of the employee share vs. employer share, (2) worked salary examples (e.g., ₱10,000 / ₱20,000 / ₱30,000 earner), (3) the maximum monthly contribution cap, (4) an FAQ section targeting the exact query phrasing, and (5) a clear callout or link to a Pag-IBIG contribution calculator or the Take-Home Pay Calculator.",
+        "recommended_content_angle": "Reframe the page around the user's question: \"How much Pag-IBIG is deducted from your salary depends on your monthly compensation.\" Lead with the deduction formula and employee/employer split, show a worked example table for common salary levels, call out the contribution cap, and link to the Take-Home Pay Calculator for a full payslip simulation. Add an FAQ block with exact query phrasing to improve snippet eligibility.",
+        "recommended_internal_links": [
+          {
+            "anchor_text": "compute your full take-home pay",
+            "target_page_or_tool": "/calculators/tax/take-home-pay-calculator-philippines",
+            "reason": "Directly answers the next question after learning the Pag-IBIG deduction amount — what is my actual net pay after all deductions."
+          },
+          {
+            "anchor_text": "Pag-IBIG deduction guide",
+            "target_page_or_tool": "/guides/government/pag-ibig-deduction-guide",
+            "reason": "Consolidates authority between the table page and the guide; the guide can handle the 'how it works' angle while the table page handles the 'how much' angle."
+          },
+          {
+            "anchor_text": "PhilHealth contribution table",
+            "target_page_or_tool": "/government/philhealth/philhealth-contribution-table-philippines",
+            "reason": "Users researching Pag-IBIG deductions are typically also researching PhilHealth and SSS deductions as part of understanding their payslip."
+          },
+          {
+            "anchor_text": "SSS contribution guide",
+            "target_page_or_tool": "/government/sss/sss-contribution-guide",
+            "reason": "Same user journey — employees want to understand all mandatory salary deductions together."
+          }
+        ],
+        "related_queries_to_include": []
+      },
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending",
+      "targetPage": "/government/pag-ibig/pag-ibig-contribution-table-philippines/"
     }
   ]
 }

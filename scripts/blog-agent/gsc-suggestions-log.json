@@ -202,5 +202,257 @@
     "cannibalizationRisk": "low",
     "resolved": false,
     "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:high-yield-savings-account-2026-philippines",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.6749999999999999,
+    "sourceQuery": "high yield savings account 2026 philippines",
+    "opportunity": {
+      "impressions": 4149,
+      "clicks": 1,
+      "position": 7.3,
+      "ctr": 0.0002,
+      "deltaPct": 4781,
+      "opportunity": "striking-distance",
+      "topPagePath": "/rates/savings-rates/best-digital-bank-rates-philippines/"
+    },
+    "cannibalizationRisk": "medium",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:best-savings-accounts-philippines-2026",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.6124999999999999,
+    "sourceQuery": "best savings accounts philippines 2026",
+    "opportunity": {
+      "impressions": 1750,
+      "clicks": 1,
+      "position": 8.3,
+      "ctr": 0.0006,
+      "deltaPct": 568,
+      "opportunity": "striking-distance",
+      "topPagePath": "/blog/best-savings-account-philippines-2026/"
+    },
+    "cannibalizationRisk": "medium",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:sss-pension-calculator",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.45000000000000007,
+    "sourceQuery": "sss pension calculator",
+    "opportunity": {
+      "impressions": 867,
+      "clicks": 8,
+      "position": 7,
+      "ctr": 0.0092,
+      "deltaPct": 1369,
+      "opportunity": "striking-distance",
+      "topPagePath": "/guides/sss/how-to-compute-sss-pension/"
+    },
+    "cannibalizationRisk": "high",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:withholding-tax-table-2026",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.75,
+    "sourceQuery": "withholding tax table 2026",
+    "opportunity": {
+      "impressions": 924,
+      "clicks": 10,
+      "position": 8.5,
+      "ctr": 0.0108,
+      "deltaPct": 89,
+      "opportunity": "striking-distance",
+      "topPagePath": "/government/bir/withholding-tax-table-philippines/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:sss-pension-calculator-for-voluntary-members",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.5875,
+    "sourceQuery": "sss pension calculator for voluntary members",
+    "opportunity": {
+      "impressions": 201,
+      "clicks": 5,
+      "position": 6.6,
+      "ctr": 0.0249,
+      "deltaPct": 1446,
+      "opportunity": "rising",
+      "topPagePath": "/calculators/retirement/sss-pension-calculator/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:best-high-yield-savings-account-philippines-2026",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.6124999999999999,
+    "sourceQuery": "best high yield savings account philippines 2026",
+    "opportunity": {
+      "impressions": 515,
+      "clicks": 1,
+      "position": 5.2,
+      "ctr": 0.0019,
+      "deltaPct": 11,
+      "opportunity": "striking-distance",
+      "topPagePath": "/rates/savings-rates/best-digital-bank-rates-philippines/"
+    },
+    "cannibalizationRisk": "medium",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:savings-account-2026",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.5499999999999999,
+    "sourceQuery": "savings account 2026",
+    "opportunity": {
+      "impressions": 560,
+      "clicks": 0,
+      "position": 8.5,
+      "ctr": 0,
+      "deltaPct": 55900,
+      "opportunity": "striking-distance",
+      "topPagePath": "/rates/savings-rates/best-savings-interest-rates-philippines/"
+    },
+    "cannibalizationRisk": "medium",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:how-much-pension-will-i-get-from-sss-after-10-years",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.38750000000000007,
+    "sourceQuery": "how much pension will i get from sss after 10 years",
+    "opportunity": {
+      "impressions": 123,
+      "clicks": 0,
+      "position": 6.2,
+      "ctr": 0,
+      "deltaPct": 1950,
+      "opportunity": "rising",
+      "topPagePath": "/guides/sss/how-to-compute-sss-pension/"
+    },
+    "cannibalizationRisk": "high",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:high-interest-digital-bank-philippines-2026",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.725,
+    "sourceQuery": "high interest digital bank philippines 2026",
+    "opportunity": {
+      "impressions": 359,
+      "clicks": 3,
+      "position": 6.5,
+      "ctr": 0.0084,
+      "deltaPct": 40,
+      "opportunity": "striking-distance",
+      "topPagePath": "/rates/savings-rates/best-digital-bank-rates-philippines/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:how-to-compute-sss-pension",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.65,
+    "sourceQuery": "how to compute sss pension",
+    "opportunity": {
+      "impressions": 213,
+      "clicks": 4,
+      "position": 6.1,
+      "ctr": 0.0188,
+      "deltaPct": 326,
+      "opportunity": "striking-distance",
+      "topPagePath": "/guides/sss/how-to-compute-sss-pension/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:monthly-withholding-tax-table-2026",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.6875,
+    "sourceQuery": "monthly withholding tax table 2026",
+    "opportunity": {
+      "impressions": 259,
+      "clicks": 3,
+      "position": 7.9,
+      "ctr": 0.0116,
+      "deltaPct": 408,
+      "opportunity": "striking-distance",
+      "topPagePath": "/government/bir/withholding-tax-table-philippines/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-07-13",
+    "slug": "update_existing_page:how-much-does-pag-ibig-deduct-from-salary",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.7,
+    "sourceQuery": "how much does pag ibig deduct from salary",
+    "opportunity": {
+      "impressions": 111,
+      "clicks": 0,
+      "position": 9.4,
+      "ctr": 0,
+      "deltaPct": null,
+      "opportunity": "rising",
+      "topPagePath": "/government/pag-ibig/pag-ibig-contribution-table-philippines/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
   }
 ]
