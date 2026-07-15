@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-07-08";
+export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-07-15";
 
 export interface DigitalBankRate {
   bankName: string;
@@ -115,19 +115,6 @@ export const digitalBankRates: DigitalBankRate[] = [
     notes: "Rate may adjust with NetBank's asset/liability requirements and market conditions. Confirm the current rate before opening an account.",
   },
   {
-    bankName: "Maya",
-    bestFor: "Promo-driven savers",
-    baseRate: 3,
-    promoRate: 15,
-    balanceCap: "Promo rate capped at ₱100,000",
-    requirement: "Promo needs missions (deposits, bills, card spend)",
-    cardAtmAccess: "Virtual and physical card available",
-    transfers: "App-based transfers, InstaPay, PESONet",
-    limitsConditions: "Base rate 3.0% p.a. (lowered from 3.5% in 2026). Promo rate up to 15% requires missions (deposits, bills, card spending); capped at ₱100,000.",
-    depositInsurance: "PDIC-insured up to ₱1,000,000",
-    notes: "Promo rate subject to change. Formerly PayMaya.",
-  },
-  {
     bankName: "GoTyme",
     bestFor: "Everyday spending",
     baseRate: 3,
@@ -139,6 +126,19 @@ export const digitalBankRates: DigitalBankRate[] = [
     limitsConditions: "GoSave rate cut to 3% p.a. from 3.5% effective January 1, 2026. No maintaining balance.",
     depositInsurance: "PDIC-insured up to ₱1,000,000",
     notes: "Joint venture of Gokongwei Group and Tyme Group.",
+  },
+  {
+    bankName: "Maya",
+    bestFor: "Promo-driven savers",
+    baseRate: 3,
+    promoRate: 15,
+    balanceCap: "Promo rate capped at ₱100,000",
+    requirement: "Promo needs missions (deposits, bills, card spend)",
+    cardAtmAccess: "Virtual and physical card available",
+    transfers: "App-based transfers, InstaPay, PESONet",
+    limitsConditions: "Base rate 3.0% p.a. (lowered from 3.5% in 2026). Promo rate up to 15% requires missions (deposits, bills, card spending); capped at ₱100,000.",
+    depositInsurance: "PDIC-insured up to ₱1,000,000",
+    notes: "Promo rate subject to change. Formerly PayMaya.",
   },
   {
     bankName: "CIMB",
