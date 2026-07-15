@@ -89,19 +89,20 @@ returns `301`/`308` with `location: https://pesohub.ph/`.
 | Secret | Used by | Purpose |
 |--------|---------|---------|
 | `TAVILY_API_KEY` | data-updater, blog-post | Tavily API for bank/gov data scraping + blog research |
-| `ANTHROPIC_API_KEY` | blog-post, gsc-opportunities | Writer + keyword-opportunity agent (Claude Sonnet 4.6) |
+| `ANTHROPIC_API_KEY` | blog-post, gsc-opportunities, gsc-content | Writer + keyword-opportunity agent (Claude Sonnet 4.6) |
 | `OPENAI_API_KEY` | blog-post | Blog-content-evaluator judge (OpenAI gpt-4.1) — cross-provider grading |
-| `GSC_SERVICE_ACCOUNT_JSON` | gsc-opportunities | Google Search Console service-account key (raw or base64 JSON) |
-| `GSC_SITE_URL` | gsc-opportunities | GSC property, e.g. `sc-domain:pesohub.ph` |
-| `LANGFUSE_PUBLIC_KEY` | blog-post, gsc-opportunities | Langfuse Cloud tracing/datasets/scores (optional — no-op when unset) |
-| `LANGFUSE_SECRET_KEY` | blog-post, gsc-opportunities | Langfuse Cloud (optional) |
-| `LANGFUSE_BASEURL` | blog-post, gsc-opportunities | Langfuse base URL, e.g. `https://cloud.langfuse.com` (optional) |
+| `GSC_SERVICE_ACCOUNT_JSON` | gsc-opportunities, gsc-content | Google Search Console service-account key (raw or base64 JSON) |
+| `GSC_SITE_URL` | gsc-opportunities, gsc-content | GSC property, e.g. `sc-domain:pesohub.ph` |
+| `LANGFUSE_PUBLIC_KEY` | blog-post, gsc-opportunities, gsc-content | Langfuse Cloud tracing/datasets/scores (optional — no-op when unset) |
+| `LANGFUSE_SECRET_KEY` | blog-post, gsc-opportunities, gsc-content | Langfuse Cloud (optional) |
+| `LANGFUSE_BASEURL` | blog-post, gsc-opportunities, gsc-content | Langfuse base URL, e.g. `https://cloud.langfuse.com` (optional) |
 
 ### Repository Variables (Actions → Variables — not secrets)
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `PROMOTE_COUNT` | `3` | New-post decisions auto-queued per weekly GSC run |
+| `PROMOTE_COUNT` | `3` | New-post decisions auto-queued per weekly blog GSC run (`gsc-opportunities.yml`) |
+| `CONTENT_PROMOTE_COUNT` | `4` | Content items (updates + new supporting pages) auto-queued per monthly GSC run (`gsc-content.yml`) |
 | `NOTIFY_GH_HANDLE` | repo owner | Handle @mentioned/assigned when a page needs an update |
 | `OPENAI_EVAL_MODEL` | `gpt-4.1` | Override the judge model |
 

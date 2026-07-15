@@ -39,6 +39,28 @@ const update = (over = {}) => ({
   ...over,
 });
 
+const supporting = (over = {}) => ({
+  recommended_action: "create_supporting_page_with_internal_links",
+  priority: "B",
+  opportunity_score: 0.65,
+  topic_seed: {
+    title: "Supporting Page",
+    slug: "supporting-page",
+    keywords: ["kw a", "kw b"],
+    category: "savings",
+    brief: "seed brief",
+  },
+  ...over,
+});
+
+// Cadence-track action sets — mirror TRACK_ACTIONS in gsc-opportunities.mjs.
+const BLOG_ACTIONS = new Set(["publish_as_new_post"]);
+const CONTENT_ACTIONS = new Set([
+  "create_supporting_page_with_internal_links",
+  "update_existing_page",
+  "merge_with_existing_page",
+]);
+
 describe("updateTaskSlug", () => {
   it("slugifies the full page path, stripping trailing slash", () => {
     expect(updateTaskSlug(update())).toBe(
@@ -203,5 +225,32 @@ describe("promoteToQueue", () => {
     const queue = { topics: [{ id: 1, slug: "x" }] };
     expect(promoteToQueue(queue, [], 3)).toEqual([]);
     expect(queue.topics).toHaveLength(1);
+  });
+
+  it("blog track promotes only new posts, dropping updates + supporting pages", () => {
+    const queue = { topics: [] };
+    const decided = wrap([
+      update({ target_page_to_update: "/a/" }),
+      supporting(),
+      newPost({ topic_seed: { slug: "np", title: "T", keywords: ["k"], category: "c" } }),
+    ]);
+    const appended = promoteToQueue(queue, decided, 5, BLOG_ACTIONS);
+    expect(appended.map((e) => e.recommendedAction)).toEqual(["publish_as_new_post"]);
+    expect(appended.map((e) => e.slug)).toEqual(["np"]);
+  });
+
+  it("content track promotes supporting pages + updates, dropping new posts", () => {
+    const queue = { topics: [] };
+    const decided = wrap([
+      newPost({ topic_seed: { slug: "np", title: "T", keywords: ["k"], category: "c" } }),
+      supporting(),
+      update({ target_page_to_update: "/a/" }),
+    ]);
+    const appended = promoteToQueue(queue, decided, 5, CONTENT_ACTIONS);
+    expect(appended.map((e) => e.recommendedAction).sort()).toEqual([
+      "create_supporting_page_with_internal_links",
+      "update_existing_page",
+    ]);
+    expect(appended.some((e) => e.recommendedAction === "publish_as_new_post")).toBe(false);
   });
 });

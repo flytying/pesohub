@@ -1,4 +1,4 @@
-name: GSC Content Opportunities
+name: GSC Blog Opportunities
 
 on:
   workflow_dispatch:
@@ -9,8 +9,9 @@ on:
         type: boolean
         default: false
   schedule:
-    # Weekly on Monday at 01:30 UTC (09:30 AM PHT) — lands the review issue
-    # before the 03:00 UTC blog-post generation cron.
+    # Weekly on Monday at 01:30 UTC (09:30 AM PHT) — lands the blog-post review
+    # issue and auto-queues new posts before the 03:00 UTC blog-post cron.
+    # Content updates + new supporting pages run monthly (see gsc-content.yml).
     - cron: "30 1 * * 1"
 
 permissions:
@@ -31,7 +32,7 @@ jobs:
 
       - run: npm ci
 
-      - name: Find opportunities
+      - name: Find blog opportunities
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
@@ -40,49 +41,35 @@ jobs:
           LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
           LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
           LANGFUSE_BASEURL: ${{ secrets.LANGFUSE_BASEURL }}
-          # GitHub handle to @mention/assign when pages need updates.
-          # Override with repo variable NOTIFY_GH_HANDLE; defaults to the repo owner.
-          NOTIFY_GH_HANDLE: ${{ vars.NOTIFY_GH_HANDLE || github.repository_owner }}
-          # How many decisions to auto-queue per week — new posts and update
-          # packages share this budget (override via repo var).
+          # How many new posts to auto-queue per week — matches the 3 blog PRs
+          # the Mon/Wed/Fri cron produces (override via repo var).
           PROMOTE_COUNT: ${{ vars.PROMOTE_COUNT || '3' }}
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
-            node scripts/blog-agent/gsc-opportunities.mjs --dry-run
+            node scripts/blog-agent/gsc-opportunities.mjs --track blog --dry-run
           else
-            node scripts/blog-agent/gsc-opportunities.mjs
+            node scripts/blog-agent/gsc-opportunities.mjs --track blog
           fi
 
       - name: Open or update review issue
         if: ${{ inputs.dry_run != true }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NOTIFY_GH_HANDLE: ${{ vars.NOTIFY_GH_HANDLE || github.repository_owner }}
         run: |
-          TITLE=$(cat /tmp/gsc-issue-title.txt)
-          UPDATES=$(cat /tmp/gsc-update-count.txt 2>/dev/null || echo 0)
-          gh label create "gsc-opportunities" --color "1D76DB" \
-            --description "Weekly GSC content opportunities" 2>/dev/null || true
+          TITLE=$(cat /tmp/gsc-issue-blog-title.txt)
+          gh label create "gsc-blog" --color "5319E7" \
+            --description "Weekly GSC blog-post opportunities" 2>/dev/null || true
           # Rolling per-week issue: update if one with this exact title is open.
-          EXISTING=$(gh issue list --state open --label "gsc-opportunities" \
+          EXISTING=$(gh issue list --state open --label "gsc-blog" \
             --json number,title \
             --jq ".[] | select(.title==\"${TITLE}\") | .number" | head -1)
           if [ -n "$EXISTING" ]; then
-            gh issue edit "$EXISTING" --body-file /tmp/gsc-issue.md
-            NUM="$EXISTING"
+            gh issue edit "$EXISTING" --body-file /tmp/gsc-issue-blog.md
             echo "Updated issue #$EXISTING"
           else
-            URL=$(gh issue create --title "$TITLE" --body-file /tmp/gsc-issue.md \
-              --label "gsc-opportunities")
-            NUM="${URL##*/}"
-            echo "Created issue #$NUM"
-          fi
-          # Notify: assign the issue when ≥1 page needs an update. The @mention
-          # in the body (added by the reporter) also triggers a notification.
-          if [ "$UPDATES" -gt 0 ] && [ -n "$NOTIFY_GH_HANDLE" ]; then
-            gh issue edit "$NUM" --add-assignee "$NOTIFY_GH_HANDLE" \
-              && echo "Assigned #$NUM to $NOTIFY_GH_HANDLE ($UPDATES updates)" \
-              || echo "Assign failed (handle not a collaborator?) — @mention still notifies."
+            URL=$(gh issue create --title "$TITLE" --body-file /tmp/gsc-issue-blog.md \
+              --label "gsc-blog")
+            echo "Created issue ${URL##*/}"
           fi
 
       - name: Commit ledger + auto-queued topics
@@ -93,7 +80,7 @@ jobs:
           # Ledger + any topics the analysis auto-promoted into the queue.
           if ! git diff --quiet scripts/blog-agent/gsc-suggestions-log.json scripts/blog-agent/topic-queue.json; then
             git add scripts/blog-agent/gsc-suggestions-log.json scripts/blog-agent/topic-queue.json
-            git commit -m "gsc: ledger + auto-queued topics (automated)"
+            git commit -m "gsc: blog ledger + auto-queued posts (automated)"
             git pull --rebase origin main || true
             # Non-fatal: a protected main just means it isn't persisted in CI.
             git push || echo "Push skipped (protected branch?)"
