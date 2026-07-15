@@ -512,8 +512,9 @@
       },
       "evergreen": true,
       "refreshIntervalDays": 120,
-      "status": "pending",
-      "targetPage": "/rates/savings-rates/best-digital-bank-rates-philippines/"
+      "status": "completed",
+      "targetPage": "/rates/savings-rates/best-digital-bank-rates-philippines/",
+      "completedAt": "2026-07-15"
     },
     {
       "id": 23,
