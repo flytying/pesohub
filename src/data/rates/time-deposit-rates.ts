@@ -19,16 +19,6 @@ export interface BankTimeDepositRate {
  */
 export const bankTimeDepositRates: BankTimeDepositRate[] = [
   {
-    bankName: "CIMB",
-    product: "Fixed Deposit",
-    termLength: "12 months",
-    grossRate: 5.5,
-    minimumDeposit: 1_000,
-    taxNote: "Gross before 20% WHT",
-    bestFor: "Low minimum deposit",
-    notes: "CIMB announced revised rates effective January 9, 2026. 24-month tenor no longer offered for new placements effective February 11, 2026.",
-  },
-  {
     bankName: "Tonik Bank",
     product: "Time Deposit",
     termLength: "12 months",
@@ -37,16 +27,6 @@ export const bankTimeDepositRates: BankTimeDepositRate[] = [
     taxNote: "Gross before 20% WHT",
     bestFor: "Highest digital bank TD rate",
     notes: "Updated June 5, 2026 (cut from the previous 6–7–8% structure): tiered rates of 4.5% (6-month), 5.0% (9-month), 5.5% (12-month), and 5.0% (18- and 24-month). Minimum deposit PHP 5,000; max PHP 250,000 per account (up to 5 active TDs). No conditions or promo code required.",
-  },
-  {
-    bankName: "CIMB",
-    product: "Fixed Deposit",
-    termLength: "6 months",
-    grossRate: 5,
-    minimumDeposit: 1_000,
-    taxNote: "Gross before 20% WHT",
-    bestFor: "Low minimum deposit",
-    notes: "GCash-accessible. Verify current tenor availability.",
   },
   {
     bankName: "Metrobank",
@@ -107,6 +87,26 @@ export const bankTimeDepositRates: BankTimeDepositRate[] = [
     taxNote: "Gross before 20% WHT",
     bestFor: "Traditional bank users",
     notes: "Shorter-term online TD; rate is within the 4.125%–5% p.a. range effective May 15, 2026. Verify exact rate in the Metrobank app as it varies by placement amount.",
+  },
+  {
+    bankName: "CIMB",
+    product: "MaxSave (Prime)",
+    termLength: "6 months",
+    grossRate: 4,
+    minimumDeposit: 1_000,
+    taxNote: "Gross before 20% WHT",
+    bestFor: "Higher CIMB tier",
+    notes: "CIMB MaxSave Prime tiered rates: 4.0% p.a. (3-month), 4.0% p.a. (6-month), 3.75% p.a. (12-month). GCash-accessible. Verify current tenor availability in the CIMB app.",
+  },
+  {
+    bankName: "CIMB",
+    product: "MaxSave (Regular)",
+    termLength: "12 months",
+    grossRate: 3.25,
+    minimumDeposit: 1_000,
+    taxNote: "Gross before 20% WHT",
+    bestFor: "Low minimum deposit",
+    notes: "CIMB MaxSave Regular tiered rates: 3.5% p.a. (3-month), 3.5% p.a. (6-month), 3.25% p.a. (12-month). GCash-accessible. Verify current tenor availability in the CIMB app.",
   },
   {
     bankName: "BPI",

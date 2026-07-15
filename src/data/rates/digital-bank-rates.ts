@@ -24,19 +24,6 @@ export interface DigitalBankRate {
  */
 export const digitalBankRates: DigitalBankRate[] = [
   {
-    bankName: "Tonik Digital Bank – Time Deposit",
-    bestFor: "Depositors wanting the highest available rate on locked-in savings",
-    baseRate: 5.5,
-    promoRate: null,
-    balanceCap: "No cap stated",
-    requirement: "None stated",
-    cardAtmAccess: "Mastercard debit card (card lock/block feature available)",
-    transfers: "PESONet, InstaPay (zero-fee QRPH payments to 675,000+ merchants)",
-    limitsConditions: "No specific term or minimum balance conditions stated on the homepage",
-    depositInsurance: "PDIC up to ₱1,000,000 per depositor",
-    notes: "Time Deposit product headline rate is 5.5% p.a. Page also references a 6% rate ('We'd really rather give you 6') but the explicit product rate shown is 5.5%. Full fee schedule and deposit interest rate details available on separate pages (/deposit-interest-rates and /fees-and-charges). BSP-regulated digital bank.",
-  },
-  {
     bankName: "Tonik Bank – Time Deposit",
     bestFor: "Highest-yield time deposit savings",
     baseRate: 5.5,
@@ -61,19 +48,6 @@ export const digitalBankRates: DigitalBankRate[] = [
     limitsConditions: "4.0% p.a. standard; 4.5% p.a. when the owner saves with at least 2 other participants toward a shared goal.",
     depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
     notes: "Group Stash earns 4.0% p.a. on your own, or 4.5% p.a. saving with a group. Allows saving with a group for shared goals.",
-  },
-  {
-    bankName: "Tonik Digital Bank – Solo Stash",
-    bestFor: "Individuals wanting a high-yield savings stash with easy app-based access",
-    baseRate: 4,
-    promoRate: null,
-    balanceCap: "No cap stated",
-    requirement: "None",
-    cardAtmAccess: "Mastercard debit card (card lock/block feature available)",
-    transfers: "PESONet, InstaPay (zero-fee QRPH payments to 675,000+ merchants)",
-    limitsConditions: "No specific balance cap or conditions stated on page for Solo Stash; onboarding via app only",
-    depositInsurance: "PDIC up to ₱1,000,000 per depositor",
-    notes: "Tonik is a BSP-regulated neobank (digital-only). Also offers Group Stash (shared savings with a group) and Time Deposit at 5.5% p.a. App available on Google Play and App Store. Onboarding takes ~5 minutes. Customer service 6AM–9PM; fraud hotline 24/7.",
   },
   {
     bankName: "Tonik Bank – Solo Stash",
