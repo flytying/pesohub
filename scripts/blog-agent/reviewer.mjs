@@ -6,7 +6,8 @@
  * review report including the publish gate.
  */
 
-import { evaluatePost, summarizeCriteria } from "./lib/blog-evaluator.mjs";
+import { evaluatePost, evaluatePackage, summarizeCriteria } from "./lib/blog-evaluator.mjs";
+import { PACKAGE_CRITICAL_CRITERIA } from "./lib/prompts/package-eval.mjs";
 
 /**
  * Run structural validation checks (no AI needed).
@@ -132,6 +133,92 @@ export async function run(slug, keyword, postData, research) {
 
   console.log(
     `  ${approved ? "✅" : "⚠️"} Review complete: ${approved ? "PUBLISH" : evaluation.publish_recommendation.toUpperCase()}`
+  );
+
+  return result;
+}
+
+/**
+ * Structural pre-checks for an action package (no LLM). Deliberately minimal:
+ * target-page correctness is a fuzzy judgment (the prose names the page, rarely
+ * pastes its URL path), so it's left to the judge's critical
+ * action_and_target_correctness criterion rather than a brittle substring match.
+ */
+function packageStructuralChecks(markdown) {
+  const issues = [];
+  const text = (markdown ?? "").trim();
+  const wordCount = text ? text.split(/\s+/).length : 0;
+
+  if (wordCount < 60) {
+    issues.push(`Action package too thin (~${wordCount} words, minimum 60)`);
+  }
+
+  return { issues, wordCount };
+}
+
+/**
+ * Run the reviewer on a non-post action package (update/merge/hold/reject).
+ *
+ * Apply gate: structural checks clean AND publish_recommendation === "apply"
+ * AND all critical package criteria pass.
+ *
+ * @param {string} slug
+ * @param {string} keyword
+ * @param {object} pkg
+ * @param {string} pkg.markdown
+ * @param {string} pkg.action
+ * @param {string} [pkg.targetPage]
+ * @param {string[]} [pkg.relatedQueries]
+ * @param {object} [pkg.research]
+ * @returns {Promise<object>} review report (approved, publishRecommendation,
+ *   criteria, passRate, issues, suggestions, wordCount, evaluation)
+ */
+export async function runPackage(slug, keyword, { markdown, action, targetPage, relatedQueries, research }) {
+  console.log(`\n🔍 Blog Package Reviewer`);
+  console.log(`  Slug: "${slug}"  ·  Action: ${action}`);
+
+  // 1. Structural checks (fail-fast, no LLM)
+  const structural = packageStructuralChecks(markdown);
+  console.log(
+    `  📏 Structural: ${structural.issues.length} issues, ~${structural.wordCount} words`
+  );
+
+  // 2. Boolean judge (package rubric)
+  const evaluation = await evaluatePackage(markdown, {
+    action,
+    keyword,
+    targetPage,
+    relatedQueries,
+    research,
+  });
+  const summary = summarizeCriteria(evaluation.criteria, PACKAGE_CRITICAL_CRITERIA);
+  console.log(
+    `  🤖 Judge: ${evaluation.publish_recommendation} · ${summary.passed}/${summary.total} criteria · ` +
+      `${summary.criticalPassed ? "critical OK" : "CRITICAL FAIL: " + summary.failed.filter((f) => f).join(", ")}`
+  );
+
+  // 3. Apply gate
+  const approved =
+    structural.issues.length === 0 &&
+    evaluation.publish_recommendation === "apply" &&
+    summary.criticalPassed;
+
+  const result = {
+    approved,
+    publishRecommendation: evaluation.publish_recommendation,
+    passRate: summary.passRate,
+    passed: summary.passed,
+    total: summary.total,
+    criticalPassed: summary.criticalPassed,
+    failedCriteria: summary.failed,
+    issues: [...structural.issues, ...(evaluation.critical_issues ?? [])],
+    suggestions: evaluation.recommended_fixes ?? [],
+    wordCount: structural.wordCount,
+    evaluation,
+  };
+
+  console.log(
+    `  ${approved ? "✅" : "⚠️"} Package review complete: ${approved ? "APPLY" : evaluation.publish_recommendation.toUpperCase()}`
   );
 
   return result;

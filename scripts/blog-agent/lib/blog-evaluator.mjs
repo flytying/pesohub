@@ -19,6 +19,10 @@ import {
   BLOG_EVAL_PROMPT_NAME,
   CRITICAL_CRITERIA,
 } from "./prompts/blog-eval.mjs";
+import {
+  PACKAGE_EVAL_PROMPT,
+  PACKAGE_EVAL_PROMPT_NAME,
+} from "./prompts/package-eval.mjs";
 
 export const EVAL_MODEL = process.env.OPENAI_EVAL_MODEL || "gpt-4.1";
 
@@ -64,11 +68,11 @@ function renderPost(postData) {
  * Count how many of the 10 criteria passed, and whether all 6 CRITICAL criteria
  * passed (the publish gate).
  */
-export function summarizeCriteria(criteria = {}) {
+export function summarizeCriteria(criteria = {}, criticalCriteria = CRITICAL_CRITERIA) {
   const entries = Object.entries(criteria);
   const passed = entries.filter(([, v]) => v?.result === "pass").length;
   const total = entries.length || CRITERIA_KEYS.length;
-  const criticalPassed = CRITICAL_CRITERIA.every((k) => criteria[k]?.result === "pass");
+  const criticalPassed = criticalCriteria.every((k) => criteria[k]?.result === "pass");
   const failed = entries.filter(([, v]) => v?.result === "fail").map(([k]) => k);
   return { passed, total, passRate: total ? passed / total : 0, criticalPassed, failed };
 }
@@ -120,6 +124,71 @@ export async function evaluatePost(postData, keyword, research = {}) {
           role: "user",
           content:
             "Evaluate the generated blog post in the system prompt. Return ONLY the JSON object specified under OUTPUT FORMAT — no prose, no code fences.",
+        },
+      ],
+    });
+    const content = resp.choices?.[0]?.message?.content ?? "{}";
+    const evaluation = JSON.parse(content);
+    gen?.update({
+      output: evaluation,
+      ...(resp.usage
+        ? { usageDetails: { input: resp.usage.prompt_tokens, output: resp.usage.completion_tokens } }
+        : {}),
+    });
+    return evaluation;
+  } finally {
+    gen?.end();
+  }
+}
+
+/**
+ * Evaluate a non-post action package (update/merge/hold/reject) against the
+ * package rubric. Grades the *recommendation* — accuracy, target correctness,
+ * actionability — since there is no generated article to judge.
+ *
+ * @param {string} markdown  the action-package Markdown (writer output)
+ * @param {object} ctx
+ * @param {string} ctx.action        recommended action (e.g. update_existing_page)
+ * @param {string} ctx.keyword       primary query
+ * @param {string} [ctx.targetPage]  existing page the edits apply to
+ * @param {string[]} [ctx.relatedQueries]
+ * @param {object} [ctx.research]    { summary }
+ * @returns {Promise<object>} the evaluation object (see package-eval OUTPUT JSON)
+ */
+export async function evaluatePackage(
+  markdown,
+  { action, keyword, targetPage, relatedQueries = [], research = {} } = {}
+) {
+  console.log(`  🔍 Evaluating package (OpenAI ${EVAL_MODEL}): "${action}" · "${keyword}"...`);
+
+  const prompt = await getPrompt(PACKAGE_EVAL_PROMPT_NAME, PACKAGE_EVAL_PROMPT);
+  const system = prompt.compile({
+    action: action || "update_existing_page",
+    primary_query: keyword,
+    related_queries: relatedQueries.length ? relatedQueries.join(", ") : keyword,
+    target_page: targetPage || "None provided",
+    source_facts: research.summary || "No external research provided.",
+    action_package: markdown,
+  });
+
+  const gen = LANGFUSE_ENABLED
+    ? startObservation(
+        "package-evaluation",
+        { model: EVAL_MODEL, input: `${action} · ${keyword}`, ...(prompt.handle ? { prompt: prompt.handle } : {}) },
+        { asType: "generation" }
+      )
+    : null;
+  try {
+    const resp = await openaiClient().chat.completions.create({
+      model: EVAL_MODEL,
+      temperature: 0,
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: system },
+        {
+          role: "user",
+          content:
+            "Evaluate the content action package in the system prompt. Return ONLY the JSON object specified under OUTPUT FORMAT — no prose, no code fences.",
         },
       ],
     });

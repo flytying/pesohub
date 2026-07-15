@@ -57,7 +57,7 @@ jobs:
           LANGFUSE_PUBLIC_KEY: ${{ secrets.LANGFUSE_PUBLIC_KEY }}
           LANGFUSE_SECRET_KEY: ${{ secrets.LANGFUSE_SECRET_KEY }}
           LANGFUSE_BASEURL: ${{ secrets.LANGFUSE_BASEURL }}
-        # Seeds the three canonical prompts (production label). Self-guards
+        # Seeds the canonical prompts (production label). Self-guards
         # (no keys -> no-op) and never fails the pipeline.
         run: node scripts/blog-agent/sync-prompt.mjs
 
@@ -77,6 +77,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Branch-safe: only mutate main / open review PRs on the real schedule
+          # (running on main). A workflow_dispatch off a feature branch is a test
+          # run — generation + grading already ran in the prior step; never rebase
+          # or push to main, and don't open a PR, from a non-main ref.
+          if [ "$GITHUB_REF" != "refs/heads/main" ]; then
+            echo "ℹ️  Off-main dispatch ($GITHUB_REF) — skipping queue→main bookkeeping and review PR (test run)."
+            exit 0
+          fi
 
           # 1) Queue bookkeeping → main directly, so the next Mon/Wed/Fri run
           #    won't re-pick this topic. Runs whether a post was generated or the
