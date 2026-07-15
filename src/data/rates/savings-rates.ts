@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SAVINGS_RATES_UPDATED_AT = "2026-06-29";
+export const SAVINGS_RATES_UPDATED_AT = "2026-07-15";
 
 export interface BankSavingsRate {
   bankName: string;
@@ -32,6 +32,17 @@ export const bankSavingsRates: BankSavingsRate[] = [
     notes: "Promo rate of up to 15% p.a. (requires missions: deposits, bills, card spending); capped at ₱100,000. Base rate is 3.0% p.a. (lowered from 3.5% in 2026). Formerly PayMaya.",
   },
   {
+    bankName: "Tonik Digital Bank",
+    accountType: "Time Deposit",
+    interestRate: 5.5,
+    rateType: "Standard",
+    bankType: "digital",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "5.5% annual interest rate on Time Deposits.",
+  },
+  {
     bankName: "Tonik Bank",
     accountType: "Group Stash",
     interestRate: 4.5,
@@ -41,6 +52,17 @@ export const bankSavingsRates: BankSavingsRate[] = [
     liquidity: "App-based transfers",
     bestFor: "Collaborative/group savings goals",
     notes: "Group savings stash earning 4.0% p.a. standard, or 4.5% p.a. when the owner saves with at least 2 other participants toward a shared goal.",
+  },
+  {
+    bankName: "Tonik Digital Bank",
+    accountType: "Solo Stash",
+    interestRate: 4,
+    rateType: "Standard",
+    bankType: "digital",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "4% annual interest rate. Described as 4x higher than a regular savings account.",
   },
   {
     bankName: "Tonik Bank",

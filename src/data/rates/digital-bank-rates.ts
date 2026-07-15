@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-07-08";
+export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-07-15";
 
 export interface DigitalBankRate {
   bankName: string;
@@ -23,6 +23,19 @@ export interface DigitalBankRate {
  * sorted by base rate descending.
  */
 export const digitalBankRates: DigitalBankRate[] = [
+  {
+    bankName: "Tonik Digital Bank – Time Deposit",
+    bestFor: "Depositors wanting the highest available rate on locked-in savings",
+    baseRate: 5.5,
+    promoRate: null,
+    balanceCap: "No cap stated",
+    requirement: "None stated",
+    cardAtmAccess: "Mastercard debit card (card lock/block feature available)",
+    transfers: "PESONet, InstaPay (zero-fee QRPH payments to 675,000+ merchants)",
+    limitsConditions: "No specific term or minimum balance conditions stated on the homepage",
+    depositInsurance: "PDIC up to ₱1,000,000 per depositor",
+    notes: "Time Deposit product headline rate is 5.5% p.a. Page also references a 6% rate ('We'd really rather give you 6') but the explicit product rate shown is 5.5%. Full fee schedule and deposit interest rate details available on separate pages (/deposit-interest-rates and /fees-and-charges). BSP-regulated digital bank.",
+  },
   {
     bankName: "Tonik Bank – Time Deposit",
     bestFor: "Highest-yield time deposit savings",
@@ -48,6 +61,19 @@ export const digitalBankRates: DigitalBankRate[] = [
     limitsConditions: "4.0% p.a. standard; 4.5% p.a. when the owner saves with at least 2 other participants toward a shared goal.",
     depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
     notes: "Group Stash earns 4.0% p.a. on your own, or 4.5% p.a. saving with a group. Allows saving with a group for shared goals.",
+  },
+  {
+    bankName: "Tonik Digital Bank – Solo Stash",
+    bestFor: "Individuals wanting a high-yield savings stash with easy app-based access",
+    baseRate: 4,
+    promoRate: null,
+    balanceCap: "No cap stated",
+    requirement: "None",
+    cardAtmAccess: "Mastercard debit card (card lock/block feature available)",
+    transfers: "PESONet, InstaPay (zero-fee QRPH payments to 675,000+ merchants)",
+    limitsConditions: "No specific balance cap or conditions stated on page for Solo Stash; onboarding via app only",
+    depositInsurance: "PDIC up to ₱1,000,000 per depositor",
+    notes: "Tonik is a BSP-regulated neobank (digital-only). Also offers Group Stash (shared savings with a group) and Time Deposit at 5.5% p.a. App available on Google Play and App Store. Onboarding takes ~5 minutes. Customer service 6AM–9PM; fraud hotline 24/7.",
   },
   {
     bankName: "Tonik Bank – Solo Stash",
@@ -115,19 +141,6 @@ export const digitalBankRates: DigitalBankRate[] = [
     notes: "Rate may adjust with NetBank's asset/liability requirements and market conditions. Confirm the current rate before opening an account.",
   },
   {
-    bankName: "Maya",
-    bestFor: "Promo-driven savers",
-    baseRate: 3,
-    promoRate: 15,
-    balanceCap: "Promo rate capped at ₱100,000",
-    requirement: "Promo needs missions (deposits, bills, card spend)",
-    cardAtmAccess: "Virtual and physical card available",
-    transfers: "App-based transfers, InstaPay, PESONet",
-    limitsConditions: "Base rate 3.0% p.a. (lowered from 3.5% in 2026). Promo rate up to 15% requires missions (deposits, bills, card spending); capped at ₱100,000.",
-    depositInsurance: "PDIC-insured up to ₱1,000,000",
-    notes: "Promo rate subject to change. Formerly PayMaya.",
-  },
-  {
     bankName: "GoTyme",
     bestFor: "Everyday spending",
     baseRate: 3,
@@ -139,6 +152,19 @@ export const digitalBankRates: DigitalBankRate[] = [
     limitsConditions: "GoSave rate cut to 3% p.a. from 3.5% effective January 1, 2026. No maintaining balance.",
     depositInsurance: "PDIC-insured up to ₱1,000,000",
     notes: "Joint venture of Gokongwei Group and Tyme Group.",
+  },
+  {
+    bankName: "Maya",
+    bestFor: "Promo-driven savers",
+    baseRate: 3,
+    promoRate: 15,
+    balanceCap: "Promo rate capped at ₱100,000",
+    requirement: "Promo needs missions (deposits, bills, card spend)",
+    cardAtmAccess: "Virtual and physical card available",
+    transfers: "App-based transfers, InstaPay, PESONet",
+    limitsConditions: "Base rate 3.0% p.a. (lowered from 3.5% in 2026). Promo rate up to 15% requires missions (deposits, bills, card spending); capped at ₱100,000.",
+    depositInsurance: "PDIC-insured up to ₱1,000,000",
+    notes: "Promo rate subject to change. Formerly PayMaya.",
   },
   {
     bankName: "CIMB",
