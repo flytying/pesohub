@@ -72,7 +72,7 @@ export async function run(keyword, topicMeta = {}, { isRefresh = false } = {}) {
     writeFileSync(
       file,
       `# Content action: ${action}\n\n` +
-        `- Keyword: \`${keyword}\`\n- Target page: \`${topicMeta.linksTo?.[0] ?? "n/a"}\`\n\n---\n\n` +
+        `- Keyword: \`${keyword}\`\n- Target page: \`${topicMeta.targetPage ?? topicMeta.linksTo?.[0] ?? "n/a"}\`\n\n---\n\n` +
         markdown +
         "\n",
       "utf-8"

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Seed the three canonical blog-agent prompts into Langfuse prompt management.
+ * Seed the canonical blog-agent prompts into Langfuse prompt management.
  *
  * The committed fallbacks in lib/prompts/*.mjs are the source of truth; this
  * pushes each as a Langfuse text prompt (label "production"), versioning on
@@ -28,12 +28,17 @@ import {
   BLOG_EVAL_PROMPT,
   BLOG_EVAL_PROMPT_NAME,
 } from "./lib/prompts/blog-eval.mjs";
+import {
+  PACKAGE_EVAL_PROMPT,
+  PACKAGE_EVAL_PROMPT_NAME,
+} from "./lib/prompts/package-eval.mjs";
 import { flush } from "./lib/observability.mjs";
 
 const PROMPTS = [
   [KEYWORD_OPPORTUNITY_PROMPT_NAME, KEYWORD_OPPORTUNITY_PROMPT],
   [WRITING_AGENT_PROMPT_NAME, WRITING_AGENT_PROMPT],
   [BLOG_EVAL_PROMPT_NAME, BLOG_EVAL_PROMPT],
+  [PACKAGE_EVAL_PROMPT_NAME, PACKAGE_EVAL_PROMPT],
 ];
 
 async function main() {

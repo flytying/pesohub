@@ -1,6 +1,6 @@
 name: Sync Langfuse Prompts
 
-# Seeds the three canonical blog-agent prompts into Langfuse (production label).
+# Seeds the canonical blog-agent prompts into Langfuse (production label).
 # Run once after adding the LANGFUSE_* secrets, and again whenever a committed
 # fallback prompt in scripts/blog-agent/lib/prompts/ changes.
 on:

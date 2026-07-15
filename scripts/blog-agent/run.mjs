@@ -17,7 +17,7 @@ import "./lib/instrumentation.mjs"; // must load first — registers the OTel tr
 import { readFileSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { run as runWriter } from "./writer.mjs";
-import { run as runReviewer } from "./reviewer.mjs";
+import { run as runReviewer, runPackage as runPackageReviewer } from "./reviewer.mjs";
 import { duplicatesOwnedPage } from "./lib/dup-guard.mjs";
 import { writePrBody, writePackagePrBody } from "./lib/reporter.mjs";
 import { SYSTEM_PROMPT_VERSION, MODEL } from "./lib/claude-writer.mjs";
@@ -211,20 +211,51 @@ async function main() {
 
     // Non-post action (update/merge/hold/reject): emit a human-apply package.
     if (writerResult.kind === "package") {
+      const targetPage = topicMeta.targetPage ?? topicMeta.linksTo?.[0] ?? null;
+
+      // Grade the recommendation itself (accuracy, target, actionability).
+      const pkgReview = await runPackageReviewer(writerResult.slug, keyword, {
+        markdown: writerResult.markdown,
+        action: writerResult.action,
+        targetPage,
+        relatedQueries: topicMeta.keywords,
+        research: writerResult.research,
+      });
+
       logSpan(span, {
         output: { kind: "package", action: writerResult.action, slug: writerResult.slug },
-        metadata: { action: writerResult.action, file: writerResult.file },
+        metadata: {
+          action: writerResult.action,
+          file: writerResult.file,
+          publishRecommendation: pkgReview.publishRecommendation,
+          criticalPassed: pkgReview.criticalPassed,
+          failedCriteria: pkgReview.failedCriteria,
+          issues: pkgReview.issues,
+          suggestions: pkgReview.suggestions,
+        },
       });
+      logScore(span, "criteria_pass_rate", pkgReview.passRate, { dataType: "NUMERIC" });
+      logScore(span, "approved", pkgReview.approved ? 1 : 0, { dataType: "BOOLEAN" });
+      logScore(span, "publish_recommendation", pkgReview.publishRecommendation, {
+        dataType: "CATEGORICAL",
+      });
+
       writePackagePrBody({
         slug: writerResult.slug,
         action: writerResult.action,
         keyword,
         file: writerResult.file,
         markdown: writerResult.markdown,
-        targetPage: topicMeta.targetPage,
+        targetPage,
+        review: pkgReview,
       });
       if (queue && topicId !== null) markTopicCompleted(queue, topicId);
-      return { kind: "package", slug: writerResult.slug, action: writerResult.action };
+      return {
+        kind: "package",
+        slug: writerResult.slug,
+        action: writerResult.action,
+        approved: pkgReview.approved,
+      };
     }
 
     // Post action: review + gate + dataset.

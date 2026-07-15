@@ -62,15 +62,36 @@ ${review.suggestions.length > 0 ? `**Suggestions:**\n${review.suggestions.map((s
  *
  * @param {{slug: string, action: string, keyword: string, file: string, markdown: string}} options
  */
-export function writePackagePrBody({ slug, action, keyword, file, markdown, targetPage }) {
+export function writePackagePrBody({ slug, action, keyword, file, markdown, targetPage, review }) {
   const rel = file.replace(/^.*\/(scripts\/blog-agent\/output\/.*)$/, "$1");
   const targetLine = targetPage ? `\n**Target page:** \`${targetPage}\`` : "";
+
+  let gradeSection = "";
+  if (review) {
+    const verdict = review.approved
+      ? "✅ APPLY"
+      : `⚠️ ${String(review.publishRecommendation || "review").toUpperCase()}`;
+    const pct = Math.round((review.passRate ?? 0) * 100);
+    const issues = (review.issues ?? []).length
+      ? `\n\n**Must-fix before applying:**\n${review.issues.map((i) => `- ${i}`).join("\n")}`
+      : "";
+    const fixes = (review.suggestions ?? []).length
+      ? `\n\n**Suggested improvements:**\n${review.suggestions.map((s) => `- ${s}`).join("\n")}`
+      : "";
+    gradeSection = `
+
+### Package grade: ${verdict}
+
+- Criteria passed: ${review.passed ?? "?"}/${review.total ?? "?"} (${pct}%)
+- Critical criteria: ${review.criticalPassed ? "OK" : "FAIL — " + (review.failedCriteria ?? []).join(", ")}${issues}${fixes}`;
+  }
+
   const body = `## Content action: \`${action}\`
 
 **Keyword:** \`${keyword}\`${targetLine}
 **Action package:** \`${rel}\`
 
-This is a **human-apply** package — the keyword-opportunity agent recommended \`${action}\`, not a new post, so no live page was auto-edited. Review the package and apply it manually.
+This is a **human-apply** package — the keyword-opportunity agent recommended \`${action}\`, not a new post, so no live page was auto-edited. Review the package and apply it manually.${gradeSection}
 
 ---
 
