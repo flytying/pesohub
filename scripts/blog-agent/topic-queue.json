@@ -557,8 +557,9 @@
       },
       "evergreen": true,
       "refreshIntervalDays": 120,
-      "status": "pending",
-      "targetPage": "/government/pag-ibig/pag-ibig-contribution-table-philippines/"
+      "status": "completed",
+      "targetPage": "/government/pag-ibig/pag-ibig-contribution-table-philippines/",
+      "completedAt": "2026-07-17"
     }
   ]
 }
