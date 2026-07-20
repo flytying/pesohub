@@ -1,7 +1,12 @@
 # Content action: update_existing_page
 
-- Keyword: `undefined`
-- Target page: `/government/pag-ibig/pag-ibig-contribution-table-philippines/`
+- Keyword: `how much does pag ibig deduct from salary`
+- Target page: `/calculators/tax/take-home-pay-calculator-philippines`
+
+> **Note:** The queue item was named after the Pag-IBIG contribution table topic,
+> but the blog agent's strategy (see below) targets the Take-Home Pay Calculator
+> page as the ranking URL for this query cluster. The target above reflects that
+> decision; the branch/file name retains the original queue slug.
 
 ---
 
