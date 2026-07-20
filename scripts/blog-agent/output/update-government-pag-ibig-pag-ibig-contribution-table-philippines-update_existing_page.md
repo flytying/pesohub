@@ -81,7 +81,7 @@ item comes from, here is the plain answer.
 ### The Quick Answer
 
 **Pag-IBIG deducts 1% or 2% of your monthly basic salary, depending on how
-much you earn — but your deduction is capped at ₱100 per month.**
+much you earn — but your deduction is capped at ₱200 per month.**
 
 Your employer also contributes on your behalf. That employer share is separate
 from your deduction and does not reduce your take-home pay.
@@ -97,17 +97,18 @@ based on your monthly compensation.
 |---|---|---|
 | ₱1,500 and below | 1% of monthly compensation | 2% of monthly compensation |
 | Above ₱1,500 | 2% of monthly compensation | 2% of monthly compensation |
-| **Maximum contribution base** | **₱5,000** | **₱5,000** |
+| **Maximum contribution base** | **₱10,000** | **₱10,000** |
 
 > **Important cap:** The contribution is calculated on a maximum compensation
-> base of **₱5,000 per month**. Even if your salary is ₱30,000, ₱50,000, or
+> base of **₱10,000 per month**. Even if your salary is ₱30,000, ₱50,000, or
 > higher, your Pag-IBIG deduction is still computed as if your salary were
-> ₱5,000. This means the **maximum employee deduction is ₱100 per month**
-> (2% × ₱5,000), and the **maximum employer share is also ₱100 per month**.
+> ₱10,000. This means the **maximum employee deduction is ₱200 per month**
+> (2% × ₱10,000), and the **maximum employer share is also ₱200 per month**.
 
-*Source: HDMF Circular and Republic Act 9679. Verify the current rates with
-the official Pag-IBIG Fund website (pagibigfund.gov.ph) or your HR department,
-as rates may be updated.*
+*Source: HDMF Circular 460 raised the maximum fund salary from ₱5,000 to
+₱10,000 (effective February 2024) under Republic Act 9679. Verify the current
+rates with the official Pag-IBIG Fund website (pagibigfund.gov.ph) or your HR
+department, as rates may be updated.*
 
 ---
 
@@ -120,13 +121,13 @@ Here is how the deduction is calculated across typical Filipino salary ranges.
 | Item | Computation | Amount |
 |---|---|---|
 | Monthly basic salary | — | ₱10,000 |
-| Contribution base (capped at ₱5,000) | — | ₱5,000 |
+| Contribution base (at the ₱10,000 cap) | — | ₱10,000 |
 | Employee share rate | 2% | — |
-| **Employee Pag-IBIG deduction** | 2% × ₱5,000 | **₱100** |
-| Employer share | 2% × ₱5,000 | ₱100 |
+| **Employee Pag-IBIG deduction** | 2% × ₱10,000 | **₱200** |
+| Employer share | 2% × ₱10,000 | ₱200 |
 
-Your payslip shows a deduction of **₱100**. Your employer separately remits
-another ₱100 to Pag-IBIG on your behalf.
+Your payslip shows a deduction of **₱200**. Your employer separately remits
+another ₱200 to Pag-IBIG on your behalf.
 
 ---
 
@@ -135,13 +136,13 @@ another ₱100 to Pag-IBIG on your behalf.
 | Item | Computation | Amount |
 |---|---|---|
 | Monthly basic salary | — | ₱20,000 |
-| Contribution base (capped at ₱5,000) | — | ₱5,000 |
+| Contribution base (capped at ₱10,000) | — | ₱10,000 |
 | Employee share rate | 2% | — |
-| **Employee Pag-IBIG deduction** | 2% × ₱5,000 | **₱100** |
-| Employer share | 2% × ₱5,000 | ₱100 |
+| **Employee Pag-IBIG deduction** | 2% × ₱10,000 | **₱200** |
+| Employer share | 2% × ₱10,000 | ₱200 |
 
 Even though your salary doubled compared to Example 1, your Pag-IBIG
-deduction stays at **₱100** because of the ₱5,000 cap.
+deduction stays at **₱200** because of the ₱10,000 cap.
 
 ---
 
@@ -150,13 +151,13 @@ deduction stays at **₱100** because of the ₱5,000 cap.
 | Item | Computation | Amount |
 |---|---|---|
 | Monthly basic salary | — | ₱30,000 |
-| Contribution base (capped at ₱5,000) | — | ₱5,000 |
+| Contribution base (capped at ₱10,000) | — | ₱10,000 |
 | Employee share rate | 2% | — |
-| **Employee Pag-IBIG deduction** | 2% × ₱5,000 | **₱100** |
-| Employer share | 2% × ₱5,000 | ₱100 |
+| **Employee Pag-IBIG deduction** | 2% × ₱10,000 | **₱200** |
+| Employer share | 2% × ₱10,000 | ₱200 |
 
 Same result. For the vast majority of employed Filipinos earning above
-₱1,500 per month, the Pag-IBIG deduction is a **flat ₱100 per month**.
+₱10,000 per month, the Pag-IBIG deduction is a **flat ₱200 per month**.
 
 ---
 
@@ -171,7 +172,7 @@ Same result. For the vast majority of employed Filipinos earning above
 | Employer share | 2% × ₱1,200 | ₱24 |
 
 Earners at or below ₱1,500 are charged the lower 1% rate, and their
-actual salary (not the ₱5,000 cap) is used as the base.
+actual salary (not the ₱10,000 cap) is used as the base.
 
 ---
 
@@ -185,7 +186,7 @@ realize there is a second contribution happening behind the scenes.
 | Who pays it | You (deducted from your salary) | Your employer (paid separately) |
 | How it appears | As a deduction on your payslip | Not visible on your payslip |
 | Rate | 1% or 2% depending on salary | 2% (regardless of salary tier) |
-| Maximum amount | ₱100/month | ₱100/month |
+| Maximum amount | ₱200/month | ₱200/month |
 | Where it goes | Your Pag-IBIG savings account | Your Pag-IBIG savings account |
 
 Both shares — yours and your employer's — are deposited into your personal
@@ -215,7 +216,7 @@ income for withholding tax purposes.
 ### Can You Voluntarily Contribute More?
 
 Yes. Pag-IBIG allows members to make **voluntary additional contributions**
-above the mandatory ₱100. This is often called an "over-the-counter" or
+above the mandatory ₱200. This is often called an "over-the-counter" or
 OTC contribution and is separate from the mandatory payroll deduction.
 Voluntary contributions can increase your loan eligibility and dividend
 earnings. Check with your HR department or the Pag-IBIG Fund directly for
@@ -248,9 +249,9 @@ Add these entries to the existing FAQ section of the page (or create a new FAQ b
 
 ### How much does Pag-IBIG deduct from my salary?
 
-For most employed Filipinos earning more than ₱1,500 per month, Pag-IBIG
-deducts **₱100 per month** from your salary. This is calculated as 2% of
-the ₱5,000 maximum contribution base set by the Pag-IBIG Fund. If your
+For most employed Filipinos earning ₱10,000 or more per month, Pag-IBIG
+deducts **₱200 per month** from your salary. This is calculated as 2% of
+the ₱10,000 maximum contribution base set by the Pag-IBIG Fund. If your
 monthly compensation is ₱1,500 or below, the rate is 1% of your actual
 salary, with a lower deduction.
 
@@ -258,18 +259,18 @@ salary, with a lower deduction.
 
 ### Is the Pag-IBIG deduction the same regardless of salary?
 
-For salaries **above ₱1,500 per month**, yes — the mandatory employee
-deduction is capped at **₱100 per month** for all salary levels. This is
-because contributions are calculated on a maximum base of ₱5,000, even if
-you earn significantly more. Your employer also contributes ₱100 per month
+For salaries **₱10,000 and above per month**, yes — the mandatory employee
+deduction is capped at **₱200 per month** for all salary levels. This is
+because contributions are calculated on a maximum base of ₱10,000, even if
+you earn significantly more. Your employer also contributes ₱200 per month
 on your behalf.
 
 ---
 
 ### What is the difference between the Pag-IBIG employee share and employer share?
 
-The **employee share** is the amount deducted from your salary (₱100 for
-most earners). The **employer share** is an equal amount (₱100) that your
+The **employee share** is the amount deducted from your salary (₱200 for
+most earners). The **employer share** is an equal amount (₱200) that your
 employer pays separately and does not appear as a deduction on your payslip.
 Both amounts go into your personal Pag-IBIG savings account.
 
@@ -288,11 +289,11 @@ and PhilHealth deductions.
 The formula is:
 
 **Employee deduction = Employee rate × Monthly compensation
-(maximum base: ₱5,000)**
+(maximum base: ₱10,000)**
 
 - If monthly compensation is **₱1,500 or below**: 1% × actual salary
 - If monthly compensation is **above ₱1,500**: 2% × salary, capped at
-  2% × ₱5,000 = **₱100**
+  2% × ₱10,000 = **₱200**
 
 ---
 
@@ -306,7 +307,7 @@ retirement, disability, or other qualifying events.
 
 ---
 
-### Can I contribute more than the required ₱100?
+### Can I contribute more than the required ₱200?
 
 Yes. Pag-IBIG allows voluntary contributions above the mandatory amount.
 Higher voluntary contributions can increase your dividend earnings and may
@@ -332,7 +333,8 @@ ask your HR department about the process.
 | Existing Content | Action |
 |---|---|
 | Any generic one-liner about Pag-IBIG (e.g., "Pag-IBIG contribution is 2% of your salary") without context or examples | **Replace** with the new worked examples section |
-| Any deduction table that shows rates without a cap callout | **Augment or replace** with the updated table that clearly shows the ₱5,000 contribution base ceiling |
+| Any deduction table that shows rates without a cap callout | **Augment or replace** with the updated table that clearly shows the ₱10,000 contribution base ceiling |
+| Any table or copy still citing the old ₱5,000 base or ₱100 max deduction | **Replace** — the maximum fund salary rose to ₱10,000 (max ₱200) per HDMF Circular 460, effective February 2024 |
 | Any FAQ entries that partially address this query without a complete answer | **Merge** with the new FAQ entries above to avoid duplication |
 | Generic "About Pag-IBIG" copy that explains the fund's history or housing loan products | **Move** a reference link to `/guides/government/pag-ibig-deduction-guide` instead of keeping long explanatory copy on the calculator page; the calculator page should stay focused on the *"how much"* intent |
 
@@ -368,13 +370,13 @@ ask your HR department about the process.
 
 ## SOURCE DISCIPLINE NOTES
 
-> ⚠️ The following items require verification before this update is published.
+> ✅ Figures below were verified on 2026-07-20 against PesoHub's encoded government data (`src/data/government/pag-ibig-contribution.ts`, `UPDATED_AT = 2026-06-15`), which pins to the official HDMF schedule. Re-confirm against pagibigfund.gov.ph if a newer circular is issued.
 
-1. **Contribution rates (1% / 2%):** The rates referenced in this update package are based on the long-standing HDMF contribution schedule under Republic Act 9679 and associated HDMF Circulars. **These rates must be confirmed against the current official Pag-IBIG Fund circular or the pagibigfund.gov.ph website before publishing.** Pag-IBIG has periodically issued updated circulars. Do not publish with incorrect rates.
+1. **Contribution rates (1% / 2%):** Confirmed against Republic Act 9679 and the current HDMF contribution schedule. Employee: 1% if monthly compensation ≤ ₱1,500, otherwise 2%. Employer: 2% regardless of salary. Matches the encoded PesoHub government data.
 
-2. **Maximum contribution base of ₱5,000:** The ₱5,000 compensation ceiling for contribution computation is sourced from HDMF guidelines in effect for mandatory contributions. **Verify this figure is still current.** There have been past discussions about raising this ceiling; confirm no new circular has changed it.
+2. **Maximum contribution base of ₱10,000:** Confirmed. HDMF Circular 460 raised the maximum fund salary (contribution base) from ₱5,000 to **₱10,000**, effective February 2024. The earlier ₱5,000 ceiling is obsolete. Matches the encoded PesoHub government data (Maximum MSC: ₱10,000).
 
-3. **Maximum employee deduction of ₱100/month:** This follows directly from 2% × ₱5,000. If either the rate or the base changes, this figure must be updated throughout the content.
+3. **Maximum employee deduction of ₱200/month:** Confirmed — follows from 2% × ₱10,000. The old ₱100 maximum (from the ₱5,000 base) is obsolete and was corrected throughout this package.
 
 4. **No new 2025–2026 HDMF policy changes were provided in the source facts input.** The `required_source_facts` field contained unrelated political and macroeconomic data about the Philippines in 2026 (Marcos–Duterte coalition tensions, Sabah claim, energy crisis, growth forecast cuts, Freedom House rating). **None of this information is relevant to Pag-IBIG contribution rates and should not appear in the published content.** This content has been excluded entirely.
 
@@ -392,7 +394,7 @@ ask your HR department about the process.
 | **Query cluster coverage** | ✅ Pass | Covers employee share vs. employer share, rate by salary tier, cap, deduction from gross salary, and what happens to contributions |
 | **Keyword cannibalization check** | ✅ Pass | No new post created. Update targets the existing ranking page. The Pag-IBIG guide at `/guides/government/pag-ibig-deduction-guide` retains its distinct intent and is linked to, not competed with |
 | **Philippine relevance** | ✅ Pass | All examples use Philippine pesos, refer to HDMF/Pag-IBIG, SSS, PhilHealth, BIR, and are framed for Filipino employees |
-| **Factual accuracy and source discipline** | ⚠️ Conditional | Contribution rates and the ₱5,000 base are well-established HDMF figures but must be verified against the current official HDMF circular before publishing. No facts were invented. No unrelated source data (political/economic) was used |
+| **Factual accuracy and source discipline** | ✅ Pass | Rates (1%/2%), the ₱10,000 maximum base, and the ₱200 max deduction verified 2026-07-20 against PesoHub's encoded HDMF data (`pag-ibig-contribution.ts`, updated 2026-06-15) reflecting HDMF Circular 460 (₱10,000 base, effective Feb 2024). The stale ₱5,000 base / ₱100 max figures were corrected throughout. No facts invented. No unrelated source data (political/economic) was used |
 | **Trust and safety** | ✅ Pass | Content includes clear notes to verify with official sources, does not present PesoHub calculator results as official government output, does not give investment or loan advice, and does not guarantee outcomes |
 
-**Publish readiness:** Conditionally ready. The content structure, examples, FAQs, and internal links are complete. **Publication should be cleared only after a PesoHub editor confirms the Pag-IBIG contribution rates (1%/2%) and the ₱5,000 maximum base are still current per the latest HDMF circular.** Once confirmed, this update package can be applied to the existing page at `/calculators/tax/take-home-pay-calculator-philippines` without further structural changes.
+**Publish readiness:** Ready. Content structure, examples, FAQs, and internal links are complete, and the Pag-IBIG rates (1%/2%), ₱10,000 maximum base, and ₱200 maximum deduction were verified 2026-07-20 against PesoHub's encoded HDMF data (`pag-ibig-contribution.ts`, updated 2026-06-15, reflecting HDMF Circular 460). This update package can be applied to the existing page at `/calculators/tax/take-home-pay-calculator-philippines` without further structural changes.
