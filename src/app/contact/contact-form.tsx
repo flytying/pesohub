@@ -1,33 +1,55 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { Send, CheckCircle, AlertCircle, Clock, Info, Mail } from "lucide-react";
+import { Send, CheckCircle, AlertCircle, Clock, Info } from "lucide-react";
 import { SITE_NAME, EMAIL_API_URL } from "@/config/site";
+import { validateEmail } from "@/lib/validate-email";
 
 type FormState = "idle" | "submitting" | "success" | "error";
-
-// Split so the literal address never appears in the prerendered HTML — it is
-// reassembled client-side after mount, keeping it out of reach of scrapers.
-const EMAIL_USER = "hello";
-const EMAIL_DOMAIN = "pesohub.ph";
 
 export function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [emailTouched, setEmailTouched] = useState(false);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState(""); // honeypot — humans leave blank
   const [errorMsg, setErrorMsg] = useState("");
-  const [contactEmail, setContactEmail] = useState<string | null>(null);
 
-  useEffect(() => {
-    setContactEmail(`${EMAIL_USER}@${EMAIL_DOMAIN}`);
-  }, []);
+  // Inline email validation — runs as the user types (once the field is
+  // touched) so junk/dummy addresses are flagged before they hit Send.
+  function handleEmailChange(value: string) {
+    setEmail(value);
+    if (emailTouched) {
+      const { valid, reason } = validateEmail(value);
+      setEmailError(valid ? "" : reason);
+    }
+  }
+
+  function handleEmailBlur() {
+    setEmailTouched(true);
+    if (email.trim() === "") {
+      setEmailError("");
+      return;
+    }
+    const { valid, reason } = validateEmail(email);
+    setEmailError(valid ? "" : reason);
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Guard: never submit an invalid or dummy address.
+    const check = validateEmail(email);
+    if (!check.valid) {
+      setEmailTouched(true);
+      setEmailError(check.reason);
+      return;
+    }
+
     setFormState("submitting");
     setErrorMsg("");
 
@@ -46,6 +68,8 @@ export function ContactForm() {
       setFormState("success");
       setName("");
       setEmail("");
+      setEmailError("");
+      setEmailTouched(false);
       setSubject("");
       setMessage("");
     } catch (err) {
@@ -127,33 +151,6 @@ export function ContactForm() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-surface-secondary p-6">
-              <div className="flex gap-4">
-                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white text-brand">
-                  <Mail className="size-5" />
-                </div>
-                <div>
-                  <h2 className="text-[13px] font-semibold uppercase tracking-wider text-brand">
-                    Prefer email?
-                  </h2>
-                  <p className="mt-1.5 text-[15px] leading-[1.6] text-[#5A6478]">
-                    Reach us directly at{" "}
-                    {contactEmail ? (
-                      <a
-                        href={`mailto:${contactEmail}`}
-                        className="font-semibold text-brand transition-colors hover:text-brand-light"
-                      >
-                        {contactEmail}
-                      </a>
-                    ) : (
-                      <span className="font-semibold text-brand">
-                        {EMAIL_USER} [at] {EMAIL_DOMAIN}
-                      </span>
-                    )}
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Right column — form */}
@@ -216,10 +213,26 @@ export function ContactForm() {
                       type="email"
                       required
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => handleEmailChange(e.target.value)}
+                      onBlur={handleEmailBlur}
+                      aria-invalid={emailError ? true : undefined}
+                      aria-describedby={emailError ? "email-error" : undefined}
                       placeholder="you@example.com"
-                      className="w-full rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-[14px] text-gray-500 placeholder:text-gray-400/50 outline-none transition-colors focus:border-brand focus:ring-1 focus:ring-brand"
+                      className={`w-full rounded-lg border bg-white px-3.5 py-2.5 text-[14px] text-gray-500 placeholder:text-gray-400/50 outline-none transition-colors ${
+                        emailError
+                          ? "border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500"
+                          : "border-gray-200 focus:border-brand focus:ring-1 focus:ring-brand"
+                      }`}
                     />
+                    {emailError && (
+                      <p
+                        id="email-error"
+                        className="mt-1.5 flex items-center gap-1.5 text-[13px] text-red-500"
+                      >
+                        <AlertCircle className="size-3.5 shrink-0" />
+                        {emailError}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -281,7 +294,10 @@ export function ContactForm() {
 
                 <button
                   type="submit"
-                  disabled={formState === "submitting"}
+                  disabled={
+                    formState === "submitting" ||
+                    !validateEmail(email).valid
+                  }
                   className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-brand/90 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {formState === "submitting" ? (

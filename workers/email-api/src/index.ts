@@ -29,7 +29,50 @@ interface CalculatorPayload {
 // Cap request bodies — these endpoints only ever receive small JSON payloads.
 const MAX_BODY_BYTES = 16 * 1024; // 16KB, matches server/index.mjs
 
-const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+// Email-quality checks — MIRROR of src/lib/validate-email.ts (client) and
+// server/index.mjs. Keep the regex, disposable list, and dummy patterns in sync.
+const EMAIL_RE =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+const DISPOSABLE_EMAIL_DOMAINS = new Set([
+  "mailinator.com", "guerrillamail.com", "guerrillamail.info", "sharklasers.com",
+  "10minutemail.com", "10minutemail.net", "tempmail.com", "temp-mail.org",
+  "tempmailo.com", "throwawaymail.com", "throwaway.email", "yopmail.com",
+  "trashmail.com", "getnada.com", "nada.email", "maildrop.cc", "dispostable.com",
+  "fakeinbox.com", "mailnesia.com", "mytemp.email", "moakt.com", "mohmal.com",
+  "spam4.me", "emailondeck.com", "mailsac.com", "inboxkitten.com", "tmpmail.org",
+  "burnermail.io",
+]);
+
+const DUMMY_EMAIL_DOMAINS = new Set([
+  "example.com", "example.org", "example.net", "example.edu", "test.com",
+  "test.net", "test.org", "test.test", "domain.com", "email.com", "mail.com",
+  "sample.com", "mydomain.com", "yourdomain.com", "yoursite.com", "website.com",
+  "abc.com", "asdf.com", "aaa.com", "xxx.com",
+]);
+
+const DUMMY_LOCAL_PARTS = new Set([
+  "test", "tester", "testing", "test123", "asdf", "asd", "asdfasdf", "qwerty",
+  "qwe", "abc", "abcd", "abcde", "aaa", "aaaa", "xxx", "xxxx", "dummy", "fake",
+  "fakeemail", "sample", "example", "none", "na", "nil", "null", "nobody",
+  "noreply", "no-reply", "donotreply", "user", "username", "email",
+]);
+
+// Returns true when the address is well-formed and not disposable/placeholder.
+function isValidEmail(raw: string): boolean {
+  const email = (raw || "").trim().toLowerCase();
+  if (!email || email.length > 254) return false;
+  if (email.includes("..")) return false;
+  if (!EMAIL_RE.test(email)) return false;
+  const atIndex = email.lastIndexOf("@");
+  const local = email.slice(0, atIndex);
+  const domain = email.slice(atIndex + 1);
+  const tld = domain.slice(domain.lastIndexOf(".") + 1);
+  if (tld.length < 2 || !/^[a-z]+$/.test(tld)) return false;
+  if (DISPOSABLE_EMAIL_DOMAINS.has(domain)) return false;
+  if (DUMMY_EMAIL_DOMAINS.has(domain) || DUMMY_LOCAL_PARTS.has(local)) return false;
+  return true;
+}
 
 // Security headers mirroring helmet() on the Express server.
 const SECURITY_HEADERS: Record<string, string> = {
@@ -206,8 +249,8 @@ export default {
         if (!name || !email || !subject || !message) {
           return jsonResponse({ error: "All fields are required" }, 400, origin, env.ALLOWED_ORIGIN);
         }
-        if (!EMAIL_RE.test(email)) {
-          return jsonResponse({ error: "Invalid email address" }, 400, origin, env.ALLOWED_ORIGIN);
+        if (!isValidEmail(email)) {
+          return jsonResponse({ error: "Please enter a valid, non-disposable email address" }, 400, origin, env.ALLOWED_ORIGIN);
         }
 
         const subjectLabels: Record<string, string> = {
@@ -249,8 +292,8 @@ export default {
         if (!email || !calculatorType || !results) {
           return jsonResponse({ error: "All fields are required" }, 400, origin, env.ALLOWED_ORIGIN);
         }
-        if (!EMAIL_RE.test(email)) {
-          return jsonResponse({ error: "Invalid email address" }, 400, origin, env.ALLOWED_ORIGIN);
+        if (!isValidEmail(email)) {
+          return jsonResponse({ error: "Please enter a valid, non-disposable email address" }, 400, origin, env.ALLOWED_ORIGIN);
         }
 
         const emailRes = await sendEmail(
