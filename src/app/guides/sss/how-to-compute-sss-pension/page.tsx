@@ -90,11 +90,11 @@ const relatedContent = [
 ];
 
 const mscRows = [
-  { range: "₱4,000 – ₱4,249.99", msc: "₱4,000", ee: "₱180", er: "₱380" },
-  { range: "₱9,750 – ₱10,249.99", msc: "₱10,000", ee: "₱450", er: "₱950" },
-  { range: "₱14,750 – ₱15,249.99", msc: "₱15,000", ee: "₱675", er: "₱1,425" },
-  { range: "₱19,750 – ₱20,249.99", msc: "₱20,000", ee: "₱900", er: "₱1,900" },
-  { range: "₱29,750 and above", msc: "₱30,000", ee: "₱1,350", er: "₱2,850" },
+  { range: "Below ₱5,250", msc: "₱5,000", ee: "₱250", er: "₱500" },
+  { range: "₱9,750 – ₱10,249.99", msc: "₱10,000", ee: "₱500", er: "₱1,000" },
+  { range: "₱14,750 – ₱15,249.99", msc: "₱15,000", ee: "₱750", er: "₱1,500" },
+  { range: "₱19,750 – ₱20,249.99", msc: "₱20,000", ee: "₱1,000", er: "₱2,000" },
+  { range: "₱34,750 and above", msc: "₱35,000", ee: "₱1,750", er: "₱3,500" },
 ];
 
 const exampleSteps = [
@@ -286,8 +286,8 @@ export default function SssPensionGuidePage() {
           </div>
           <p className="mt-3 text-[14px] text-[#8A93A6]">
             This is a simplified excerpt. The full SSS contribution table has
-            more brackets. Contribution amounts are based on the 2023 SSS
-            schedule and may be updated.
+            more brackets. Contribution amounts are based on the 2025 SSS
+            schedule (₱5,000–₱35,000 MSC, 15% total rate) and may be updated.
           </p>
         </section>
 
