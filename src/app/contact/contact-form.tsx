@@ -1,17 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { Send, CheckCircle, AlertCircle, Clock, Info, Mail } from "lucide-react";
+import { Send, CheckCircle, AlertCircle, Clock, Info } from "lucide-react";
 import { SITE_NAME, EMAIL_API_URL } from "@/config/site";
 import { validateEmail } from "@/lib/validate-email";
 
 type FormState = "idle" | "submitting" | "success" | "error";
-
-// Split so the literal address never appears in the prerendered HTML — it is
-// reassembled client-side after mount, keeping it out of reach of scrapers.
-const EMAIL_USER = "hello";
-const EMAIL_DOMAIN = "pesohub.ph";
 
 export function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
@@ -23,11 +18,6 @@ export function ContactForm() {
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState(""); // honeypot — humans leave blank
   const [errorMsg, setErrorMsg] = useState("");
-  const [contactEmail, setContactEmail] = useState<string | null>(null);
-
-  useEffect(() => {
-    setContactEmail(`${EMAIL_USER}@${EMAIL_DOMAIN}`);
-  }, []);
 
   // Inline email validation — runs as the user types (once the field is
   // touched) so junk/dummy addresses are flagged before they hit Send.
@@ -161,33 +151,6 @@ export function ContactForm() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-surface-secondary p-6">
-              <div className="flex gap-4">
-                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white text-brand">
-                  <Mail className="size-5" />
-                </div>
-                <div>
-                  <h2 className="text-[13px] font-semibold uppercase tracking-wider text-brand">
-                    Prefer email?
-                  </h2>
-                  <p className="mt-1.5 text-[15px] leading-[1.6] text-[#5A6478]">
-                    Reach us directly at{" "}
-                    {contactEmail ? (
-                      <a
-                        href={`mailto:${contactEmail}`}
-                        className="font-semibold text-brand transition-colors hover:text-brand-light"
-                      >
-                        {contactEmail}
-                      </a>
-                    ) : (
-                      <span className="font-semibold text-brand">
-                        {EMAIL_USER} [at] {EMAIL_DOMAIN}
-                      </span>
-                    )}
-                  </p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Right column — form */}
