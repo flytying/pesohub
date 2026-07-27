@@ -80,7 +80,51 @@ const emailLimiter = rateLimit({
 
 // ── Helpers ──────────────────────────────────────────────────────
 
-const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+// Email-quality checks — MIRROR of src/lib/validate-email.ts (client). Keep the
+// regex, the disposable list, and the dummy patterns in sync across both copies
+// and workers/email-api/src/index.ts.
+const EMAIL_RE =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+const DISPOSABLE_EMAIL_DOMAINS = new Set([
+  "mailinator.com", "guerrillamail.com", "guerrillamail.info", "sharklasers.com",
+  "10minutemail.com", "10minutemail.net", "tempmail.com", "temp-mail.org",
+  "tempmailo.com", "throwawaymail.com", "throwaway.email", "yopmail.com",
+  "trashmail.com", "getnada.com", "nada.email", "maildrop.cc", "dispostable.com",
+  "fakeinbox.com", "mailnesia.com", "mytemp.email", "moakt.com", "mohmal.com",
+  "spam4.me", "emailondeck.com", "mailsac.com", "inboxkitten.com", "tmpmail.org",
+  "burnermail.io",
+]);
+
+const DUMMY_EMAIL_DOMAINS = new Set([
+  "example.com", "example.org", "example.net", "example.edu", "test.com",
+  "test.net", "test.org", "test.test", "domain.com", "email.com", "mail.com",
+  "sample.com", "mydomain.com", "yourdomain.com", "yoursite.com", "website.com",
+  "abc.com", "asdf.com", "aaa.com", "xxx.com",
+]);
+
+const DUMMY_LOCAL_PARTS = new Set([
+  "test", "tester", "testing", "test123", "asdf", "asd", "asdfasdf", "qwerty",
+  "qwe", "abc", "abcd", "abcde", "aaa", "aaaa", "xxx", "xxxx", "dummy", "fake",
+  "fakeemail", "sample", "example", "none", "na", "nil", "null", "nobody",
+  "noreply", "no-reply", "donotreply", "user", "username", "email",
+]);
+
+// Returns true when the address is well-formed and not disposable/placeholder.
+function isValidEmail(raw) {
+  const email = (raw || "").trim().toLowerCase();
+  if (!email || email.length > 254) return false;
+  if (email.includes("..")) return false;
+  if (!EMAIL_RE.test(email)) return false;
+  const atIndex = email.lastIndexOf("@");
+  const local = email.slice(0, atIndex);
+  const domain = email.slice(atIndex + 1);
+  const tld = domain.slice(domain.lastIndexOf(".") + 1);
+  if (tld.length < 2 || !/^[a-z]+$/.test(tld)) return false;
+  if (DISPOSABLE_EMAIL_DOMAINS.has(domain)) return false;
+  if (DUMMY_EMAIL_DOMAINS.has(domain) || DUMMY_LOCAL_PARTS.has(local)) return false;
+  return true;
+}
 
 // Validate a field is a non-empty string within maxLen. Returns trimmed value or null.
 function cleanField(value, maxLen) {
@@ -188,8 +232,8 @@ app.post("/contact", emailLimiter, async (req, res) => {
     if (!name || !email || !subject || !message) {
       return res.status(400).json({ error: "All fields are required" });
     }
-    if (!EMAIL_RE.test(email)) {
-      return res.status(400).json({ error: "Invalid email address" });
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: "Please enter a valid, non-disposable email address" });
     }
 
     const emailRes = await sendEmail(
@@ -228,8 +272,8 @@ app.post("/calculator", emailLimiter, async (req, res) => {
     if (!email || !calculatorType || !results) {
       return res.status(400).json({ error: "All fields are required" });
     }
-    if (!EMAIL_RE.test(email)) {
-      return res.status(400).json({ error: "Invalid email address" });
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: "Please enter a valid, non-disposable email address" });
     }
 
     const emailRes = await sendEmail(
