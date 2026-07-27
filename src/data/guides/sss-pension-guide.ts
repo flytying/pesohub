@@ -53,7 +53,7 @@ export const sssPensionFaqs: FAQ[] = [
     question:
       "What is the average monthly salary credit (AMSC)?",
     answer:
-      "The AMSC is the average of your monthly salary credits (MSC) during your last 60 months of contributions, or the average of all your monthly salary credits, whichever is higher. The MSC is the basis for computing your SSS contributions and is capped at a maximum amount set by the SSS contribution schedule.",
+      "The AMSC is the average of your monthly salary credits (MSC) during your last 60 months of contributions, or the average of all your monthly salary credits, whichever is higher. The MSC is the basis for computing your SSS contributions and runs up to ₱35,000, but the pension formulas cap the AMSC at ₱20,000 — the MSC above ₱20,000 funds WISP (a separate provident-fund benefit) rather than increasing the formula-based pension.",
   },
   {
     question: "When can I start receiving my SSS pension?",

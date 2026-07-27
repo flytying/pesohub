@@ -29,4 +29,13 @@ describe("computeSSSPension (RA 11199)", () => {
     const r = computeSSSPension(2_000, 20);
     expect(r.f3).toBe(2_400);
   });
+
+  it("caps AMSC at the ₱20,000 regular ceiling (MSC above funds WISP, not the formula)", () => {
+    const capped = computeSSSPension(35_000, 25);
+    const atCeiling = computeSSSPension(20_000, 25);
+    // AMSC 35,000 must not out-earn AMSC 20,000 — the excess funds WISP separately.
+    expect(capped.base).toBe(10_300);
+    expect(capped.pension).toBe(11_300);
+    expect(capped).toEqual(atCeiling);
+  });
 });

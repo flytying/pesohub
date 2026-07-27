@@ -256,12 +256,19 @@ export default function SSSPensionCalculatorPage() {
               The Monthly Salary Credit is the salary bracket SSS assigns to your contributions —
               not your exact salary. Since the 2025 increase it runs from ₱5,000 to ₱35,000 in
               ₱500 steps. Your contributions and your future pension are both based on the MSC, so
-              the average of your salary credits (your AMSC) is what drives every pension formula.
+              the average of your salary credits (your AMSC) is what drives the pension formulas.
+            </p>
+            <p className={LEAD}>
+              One important limit: the three pension formulas use an AMSC capped at ₱20,000. The
+              portion of your MSC above ₱20,000 (up to ₱35,000) funds WISP — the Mandatory Provident
+              Fund, a separate defined-contribution benefit with market-based returns — rather than
+              increasing your formula-based monthly pension. So above ₱20,000, paying at a higher
+              salary credit builds your WISP account, not the regular pension.
             </p>
             <p className={LEAD}>
               Because the pension is based on contributions through your AMSC rather than your final
-              salary, contributing at a higher salary credit — and for more years — builds a bigger
-              pension. See how the MSC maps to contributions in the{" "}
+              salary, contributing at a higher salary credit up to the ₱20,000 ceiling — and for more
+              years — builds a bigger pension. See how the MSC maps to contributions in the{" "}
               <Link
                 href="/government/sss/sss-contribution-guide"
                 className="font-bold text-brand hover:underline"

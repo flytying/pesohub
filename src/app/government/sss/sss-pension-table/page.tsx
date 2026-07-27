@@ -140,6 +140,9 @@ export default function SSSPensionTablePage() {
             This table shows estimated monthly pension amounts based on your
             Average Monthly Salary Credit (AMSC) and total Credited Years of
             Service (CYS). The highest of the three SSS pension formulas is used.
+            The formulas cap the AMSC at ₱20,000, so the table stops there — the
+            portion of your MSC above ₱20,000 (up to ₱35,000) funds WISP, a
+            separate provident-fund benefit paid on top, not the formula pension.
           </p>
           <div className="mt-4 overflow-x-auto">
             <div className="overflow-hidden rounded-[16px] border border-[#E7EBF3] bg-white shadow-[0_1px_2px_rgba(16,24,40,.04)] min-w-[620px]">
