@@ -17,6 +17,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import dns from "node:dns/promises";
 
 const app = express();
 
@@ -123,6 +124,60 @@ function isValidEmail(raw) {
   if (tld.length < 2 || !/^[a-z]+$/.test(tld)) return false;
   if (DISPOSABLE_EMAIL_DOMAINS.has(domain)) return false;
   if (DUMMY_EMAIL_DOMAINS.has(domain) || DUMMY_LOCAL_PARTS.has(local)) return false;
+  return true;
+}
+
+// Check the email domain can actually receive mail (has an MX record, or an A/AAAA
+// fallback per RFC 5321). Fails OPEN on transient DNS errors or timeout so a DNS
+// hiccup never blocks a legitimate sender; only a definitive "no mail host" rejects.
+async function domainCanReceiveMail(email) {
+  const domain = email.slice(email.lastIndexOf("@") + 1).toLowerCase();
+  const withTimeout = (p) =>
+    Promise.race([
+      p,
+      new Promise((resolve) => setTimeout(() => resolve("timeout"), 3000)),
+    ]);
+  try {
+    const mx = await withTimeout(dns.resolveMx(domain));
+    if (mx === "timeout") return true; // fail open
+    if (Array.isArray(mx) && mx.length > 0) return true;
+  } catch (err) {
+    // ENOTFOUND / ENODATA → fall through to the A-record check; other errors fail open.
+    if (err.code !== "ENOTFOUND" && err.code !== "ENODATA") return true;
+  }
+  try {
+    const a = await withTimeout(dns.resolve(domain));
+    if (a === "timeout") return true;
+    return Array.isArray(a) && a.length > 0;
+  } catch {
+    return false;
+  }
+}
+
+// Message-quality heuristics — MIRROR of src/lib/validate-message.ts. Keep thresholds in sync.
+const MIN_MESSAGE_LENGTH = 10;
+function isValidMessage(raw) {
+  const message = (raw || "").trim();
+  if (message.length < MIN_MESSAGE_LENGTH) return false;
+  const tokens = message.split(/\s+/).filter(Boolean);
+  const letters = message.toLowerCase().replace(/[^a-z]/g, "");
+  if (tokens.length < 2 && message.length >= 15) return false;
+  if (letters.length >= 8) {
+    let vowels = 0;
+    for (const ch of letters) if ("aeiou".includes(ch)) vowels += 1;
+    if (vowels / letters.length < 0.2) return false;
+    for (const token of tokens) {
+      let run = 0;
+      for (const ch of token.toLowerCase()) {
+        if (ch >= "a" && ch <= "z" && !"aeiou".includes(ch)) {
+          run += 1;
+          if (run >= 7) return false;
+        } else {
+          run = 0;
+        }
+      }
+    }
+  }
   return true;
 }
 
@@ -235,6 +290,12 @@ app.post("/contact", emailLimiter, async (req, res) => {
     if (!isValidEmail(email)) {
       return res.status(400).json({ error: "Please enter a valid, non-disposable email address" });
     }
+    if (!isValidMessage(message)) {
+      return res.status(400).json({ error: "Please enter a real message" });
+    }
+    if (!(await domainCanReceiveMail(email))) {
+      return res.status(400).json({ error: "That email domain can’t receive mail — please check the address" });
+    }
 
     const emailRes = await sendEmail(
       FROM_EMAIL,
@@ -274,6 +335,9 @@ app.post("/calculator", emailLimiter, async (req, res) => {
     }
     if (!isValidEmail(email)) {
       return res.status(400).json({ error: "Please enter a valid, non-disposable email address" });
+    }
+    if (!(await domainCanReceiveMail(email))) {
+      return res.status(400).json({ error: "That email domain can’t receive mail — please check the address" });
     }
 
     const emailRes = await sendEmail(
