@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Send, CheckCircle, AlertCircle, Clock, Info } from "lucide-react";
 import { SITE_NAME, EMAIL_API_URL } from "@/config/site";
 import { validateEmail } from "@/lib/validate-email";
+import { validateMessage } from "@/lib/validate-message";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -16,6 +17,8 @@ export function ContactForm() {
   const [emailTouched, setEmailTouched] = useState(false);
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [messageError, setMessageError] = useState("");
+  const [messageTouched, setMessageTouched] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot — humans leave blank
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -39,14 +42,39 @@ export function ContactForm() {
     setEmailError(valid ? "" : reason);
   }
 
+  // Inline message-quality validation — flags empty/too-short/gibberish bodies.
+  function handleMessageChange(value: string) {
+    setMessage(value);
+    if (messageTouched) {
+      const { valid, reason } = validateMessage(value);
+      setMessageError(valid ? "" : reason);
+    }
+  }
+
+  function handleMessageBlur() {
+    setMessageTouched(true);
+    if (message.trim() === "") {
+      setMessageError("");
+      return;
+    }
+    const { valid, reason } = validateMessage(message);
+    setMessageError(valid ? "" : reason);
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    // Guard: never submit an invalid or dummy address.
-    const check = validateEmail(email);
-    if (!check.valid) {
+    // Guard: never submit an invalid address or a junk message body.
+    const emailCheck = validateEmail(email);
+    if (!emailCheck.valid) {
       setEmailTouched(true);
-      setEmailError(check.reason);
+      setEmailError(emailCheck.reason);
+      return;
+    }
+    const messageCheck = validateMessage(message);
+    if (!messageCheck.valid) {
+      setMessageTouched(true);
+      setMessageError(messageCheck.reason);
       return;
     }
 
@@ -72,6 +100,8 @@ export function ContactForm() {
       setEmailTouched(false);
       setSubject("");
       setMessage("");
+      setMessageError("");
+      setMessageTouched(false);
     } catch (err) {
       setErrorMsg(
         err instanceof Error ? err.message : "Something went wrong. Please try again."
@@ -274,10 +304,26 @@ export function ContactForm() {
                     required
                     rows={5}
                     value={message}
-                    onChange={(e) => setMessage(e.target.value)}
+                    onChange={(e) => handleMessageChange(e.target.value)}
+                    onBlur={handleMessageBlur}
+                    aria-invalid={messageError ? true : undefined}
+                    aria-describedby={messageError ? "message-error" : undefined}
                     placeholder="Tell us how we can help..."
-                    className="w-full resize-none rounded-lg border border-gray-200 bg-white px-3.5 py-2.5 text-[14px] text-gray-500 placeholder:text-gray-400/50 outline-none transition-colors focus:border-brand focus:ring-1 focus:ring-brand"
+                    className={`w-full resize-none rounded-lg border bg-white px-3.5 py-2.5 text-[14px] text-gray-500 placeholder:text-gray-400/50 outline-none transition-colors ${
+                      messageError
+                        ? "border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500"
+                        : "border-gray-200 focus:border-brand focus:ring-1 focus:ring-brand"
+                    }`}
                   />
+                  {messageError && (
+                    <p
+                      id="message-error"
+                      className="mt-1.5 flex items-center gap-1.5 text-[13px] text-red-500"
+                    >
+                      <AlertCircle className="size-3.5 shrink-0" />
+                      {messageError}
+                    </p>
+                  )}
                 </div>
 
                 {/* Honeypot — hidden from humans; bots that fill it are silently dropped */}
@@ -296,7 +342,8 @@ export function ContactForm() {
                   type="submit"
                   disabled={
                     formState === "submitting" ||
-                    !validateEmail(email).valid
+                    !validateEmail(email).valid ||
+                    !validateMessage(message).valid
                   }
                   className="inline-flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-brand/90 disabled:cursor-not-allowed disabled:opacity-60"
                 >

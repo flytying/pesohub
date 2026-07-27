@@ -74,6 +74,67 @@ function isValidEmail(raw: string): boolean {
   return true;
 }
 
+// Check the email domain can receive mail via DNS-over-HTTPS (Workers have no
+// node:dns). Looks for an MX record, then an A-record fallback (RFC 5321). Fails
+// OPEN on any network/parse error or timeout so a DNS hiccup never blocks a real
+// sender; only a definitive "no mail host" rejects. Mirror of server/index.mjs.
+async function domainCanReceiveMail(email: string): Promise<boolean> {
+  const domain = email.slice(email.lastIndexOf("@") + 1).toLowerCase();
+  const query = async (type: "MX" | "A"): Promise<number | null> => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 3000);
+    try {
+      const res = await fetch(
+        `https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(domain)}&type=${type}`,
+        { headers: { accept: "application/dns-json" }, signal: controller.signal }
+      );
+      if (!res.ok) return null; // unknown → caller fails open
+      const data = (await res.json()) as { Answer?: { type: number }[] };
+      const wanted = type === "MX" ? 15 : 1;
+      return Array.isArray(data.Answer)
+        ? data.Answer.filter((a) => a.type === wanted).length
+        : 0;
+    } catch {
+      return null;
+    } finally {
+      clearTimeout(timer);
+    }
+  };
+  const mx = await query("MX");
+  if (mx === null) return true; // fail open
+  if (mx > 0) return true;
+  const a = await query("A");
+  if (a === null) return true; // fail open
+  return a > 0;
+}
+
+// Message-quality heuristics — MIRROR of src/lib/validate-message.ts. Keep thresholds in sync.
+const MIN_MESSAGE_LENGTH = 10;
+function isValidMessage(raw: string): boolean {
+  const message = (raw || "").trim();
+  if (message.length < MIN_MESSAGE_LENGTH) return false;
+  const tokens = message.split(/\s+/).filter(Boolean);
+  const letters = message.toLowerCase().replace(/[^a-z]/g, "");
+  if (tokens.length < 2 && message.length >= 15) return false;
+  if (letters.length >= 8) {
+    let vowels = 0;
+    for (const ch of letters) if ("aeiou".includes(ch)) vowels += 1;
+    if (vowels / letters.length < 0.2) return false;
+    for (const token of tokens) {
+      let run = 0;
+      for (const ch of token.toLowerCase()) {
+        if (ch >= "a" && ch <= "z" && !"aeiou".includes(ch)) {
+          run += 1;
+          if (run >= 7) return false;
+        } else {
+          run = 0;
+        }
+      }
+    }
+  }
+  return true;
+}
+
 // Security headers mirroring helmet() on the Express server.
 const SECURITY_HEADERS: Record<string, string> = {
   "X-Content-Type-Options": "nosniff",
@@ -252,6 +313,12 @@ export default {
         if (!isValidEmail(email)) {
           return jsonResponse({ error: "Please enter a valid, non-disposable email address" }, 400, origin, env.ALLOWED_ORIGIN);
         }
+        if (!isValidMessage(message)) {
+          return jsonResponse({ error: "Please enter a real message" }, 400, origin, env.ALLOWED_ORIGIN);
+        }
+        if (!(await domainCanReceiveMail(email))) {
+          return jsonResponse({ error: "That email domain can’t receive mail — please check the address" }, 400, origin, env.ALLOWED_ORIGIN);
+        }
 
         const subjectLabels: Record<string, string> = {
           general: "General Inquiry",
@@ -294,6 +361,9 @@ export default {
         }
         if (!isValidEmail(email)) {
           return jsonResponse({ error: "Please enter a valid, non-disposable email address" }, 400, origin, env.ALLOWED_ORIGIN);
+        }
+        if (!(await domainCanReceiveMail(email))) {
+          return jsonResponse({ error: "That email domain can’t receive mail — please check the address" }, 400, origin, env.ALLOWED_ORIGIN);
         }
 
         const emailRes = await sendEmail(
