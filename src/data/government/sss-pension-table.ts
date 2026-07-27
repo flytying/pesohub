@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SSS_PENSION_TABLE_UPDATED_AT = "2026-06-28";
+export const SSS_PENSION_TABLE_UPDATED_AT = "2026-07-27";
 
 export const sssPensionTableMeta = {
   title: "SSS Pension Table Philippines",
@@ -16,8 +16,12 @@ export const sssPensionTableMeta = {
  * Pre-computed pension estimates for representative MSC values at different contribution years.
  * Each value is the governing (highest) result of the three SSS pension formulas in
  * src/lib/calculators/sss-pension-formula.ts, BEFORE the ₱1,000 across-the-board increase
- * and the 13th-month pension, which are added on top. MSC range reflects the 2025 schedule
- * (₱5,000 minimum to ₱35,000 maximum).
+ * and the 13th-month pension, which are added on top.
+ *
+ * The table stops at ₱20,000 because the regular pension formula caps the AMSC at ₱20,000.
+ * The portion of the MSC above ₱20,000 (up to the ₱35,000 schedule max) funds WISP — the
+ * Mandatory Provident Fund, a separate market-based benefit — and does NOT raise these
+ * formula figures, so rows above ₱20,000 would all equal the ₱20,000 row.
  */
 export interface PensionEstimate {
   monthlySalaryCredit: number;
@@ -35,9 +39,6 @@ export const pensionEstimates: PensionEstimate[] = [
   { monthlySalaryCredit: 10_000, pensionAt10Years: 4_000, pensionAt15Years: 4_000, pensionAt20Years: 4_300, pensionAt25Years: 5_300, pensionAt30Years: 6_300 },
   { monthlySalaryCredit: 15_000, pensionAt10Years: 6_000, pensionAt15Years: 6_000, pensionAt20Years: 6_300, pensionAt25Years: 7_800, pensionAt30Years: 9_300 },
   { monthlySalaryCredit: 20_000, pensionAt10Years: 8_000, pensionAt15Years: 8_000, pensionAt20Years: 8_300, pensionAt25Years: 10_300, pensionAt30Years: 12_300 },
-  { monthlySalaryCredit: 25_000, pensionAt10Years: 10_000, pensionAt15Years: 10_000, pensionAt20Years: 10_300, pensionAt25Years: 12_800, pensionAt30Years: 15_300 },
-  { monthlySalaryCredit: 30_000, pensionAt10Years: 12_000, pensionAt15Years: 12_000, pensionAt20Years: 12_300, pensionAt25Years: 15_300, pensionAt30Years: 18_300 },
-  { monthlySalaryCredit: 35_000, pensionAt10Years: 14_000, pensionAt15Years: 14_000, pensionAt20Years: 14_300, pensionAt25Years: 17_800, pensionAt30Years: 21_300 },
 ];
 
 export const eligibilityRequirements = [
@@ -56,7 +57,7 @@ export const sssPensionTableFaqs: FAQ[] = [
   {
     question: "What is the maximum SSS monthly pension?",
     answer:
-      "There is no hard cap on the SSS pension, but it is limited by the maximum Monthly Salary Credit (₱35,000 since the 2025 increase) and your total years of contribution. With the maximum ₱35,000 MSC and 30 years of contributions, the estimated pension is about ₱22,300 per month — ₱21,300 from the governing formula plus the ₱1,000 across-the-board increase.",
+      "The pension formulas cap the AMSC at ₱20,000, so a higher salary credit does not raise the formula pension beyond that point — the MSC above ₱20,000 (up to the ₱35,000 schedule max) funds WISP, a separate provident-fund benefit. At the ₱20,000 ceiling with 30 years of contributions, the estimated pension is about ₱13,300 per month — ₱12,300 from the governing formula plus the ₱1,000 across-the-board increase. More credited years keep raising the amount under Formula 1, and any WISP benefit is paid on top.",
   },
   {
     question: "Can I receive SSS pension and still work?",

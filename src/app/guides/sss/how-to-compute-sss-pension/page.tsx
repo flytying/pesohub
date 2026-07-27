@@ -60,7 +60,7 @@ const checkSteps = [
 
 const commonMistakes = [
   "Not checking for gaps in contributions. Even one missing month reduces your credited years. If you change jobs, make sure the new employer starts contributing immediately. Voluntary members should pay on time every month.",
-  "Confusing monthly salary credit with actual salary. Your MSC is capped at a maximum amount (currently ₱30,000). Even if you earn more, your contributions and pension are based on the capped MSC.",
+  "Confusing monthly salary credit with actual salary, and mixing up the two ceilings. Contributions run on an MSC up to ₱35,000, but the pension formulas use an AMSC capped at ₱20,000 — the MSC above ₱20,000 funds WISP, a separate benefit, so it does not raise your formula pension. Even if you earn more, your monthly pension is based on the ₱20,000-capped AMSC.",
   "Assuming you automatically qualify for a pension. You need at least 120 monthly contributions. If you fall short, you only receive a lump sum, which is significantly less than a lifetime monthly pension.",
   "Not factoring in the 13th-month pension. SSS pensioners receive a 13th-month pension (paid in December) in addition to the regular monthly amount. When planning for retirement income, include this extra month.",
   "Forgetting to update your SSS records after life changes. Marriages, new dependents, and change of beneficiaries should be updated at the SSS to ensure your benefits go to the right people.",

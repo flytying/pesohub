@@ -113,11 +113,11 @@ export function SSSPensionCalculator() {
           <div className="space-y-[18px]">
             <GreenSlider
               label="Average monthly salary credit"
-              tip="Your average salary credit across your contribution history. Higher salary credits build a bigger pension."
+              tip="Your average salary credit across your contribution history. The regular pension formula uses an AMSC capped at ₱20,000 — the portion of your MSC above ₱20,000 funds WISP, a separate benefit."
               value={amsc}
               display={`₱${formatNumber(amsc)}`}
               min={5_000}
-              max={35_000}
+              max={20_000}
               step={500}
               onChange={setAmsc}
             />
@@ -140,6 +140,15 @@ export function SSSPensionCalculator() {
               <span className="text-[14px] leading-[1.55] text-[#475069]">
                 With fewer than 120 contributions you receive a one-time lump sum instead of a
                 monthly pension.
+              </span>
+            </div>
+
+            <div className="flex items-start gap-[11px] rounded-[13px] border border-[#EDF1F8] bg-[#F7F9FD] p-[13px_15px]">
+              <Info className="mt-0.5 size-[18px] shrink-0 text-brand" />
+              <span className="text-[14px] leading-[1.55] text-[#475069]">
+                The regular pension formula caps the salary credit at ₱20,000. Contributions on the
+                MSC above ₱20,000 (up to ₱35,000) go to WISP — a separate provident-fund benefit with
+                market-based returns that this estimate does not include.
               </span>
             </div>
           </div>

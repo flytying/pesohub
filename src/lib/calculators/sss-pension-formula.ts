@@ -21,9 +21,18 @@ export interface SSSPensionResult {
 /** Across-the-board monthly pension increase added on top of the formula. */
 export const PENSION_INCREASE = 1_000;
 
+/**
+ * Regular-program AMSC ceiling for the pension formulas. Since 2021 the MSC above
+ * ₱20,000 (up to the ₱35,000 schedule max) funds WISP — the Mandatory Provident Fund,
+ * a separate market-based benefit — and does NOT increase the formula-based pension.
+ * So the AMSC fed into the three formulas is capped here.
+ */
+export const REGULAR_PENSION_MSC_CEILING = 20_000;
+
 export function computeSSSPension(amsc: number, cys: number): SSSPensionResult {
-  const f1 = 300 + 0.2 * amsc + 0.02 * amsc * Math.max(cys - 10, 0);
-  const f2 = 0.4 * amsc;
+  const a = Math.min(amsc, REGULAR_PENSION_MSC_CEILING);
+  const f1 = 300 + 0.2 * a + 0.02 * a * Math.max(cys - 10, 0);
+  const f2 = 0.4 * a;
   const f3 = cys >= 20 ? 2_400 : cys >= 10 ? 1_200 : 0;
   const base = Math.max(f1, f2, f3);
   const governs: 0 | 1 | 2 = base === f1 ? 0 : base === f2 ? 1 : 2;

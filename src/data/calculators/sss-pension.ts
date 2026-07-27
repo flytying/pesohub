@@ -7,11 +7,11 @@ export const sssPensionData: CalculatorPageData = {
   metaTitle:
     "SSS Pension Calculator Philippines 2026 - Estimate Your Monthly Pension",
   metaDescription:
-    "Calculate your estimated SSS monthly pension based on your salary credit and years of contribution. Uses the latest 2026 SSS contribution table (₱5,000–₱35,000 MSC) and the three official pension formulas.",
+    "Calculate your estimated SSS monthly pension based on your salary credit and years of contribution. Uses the three official pension formulas with the regular ₱20,000 AMSC ceiling (MSC above ₱20,000 funds WISP separately).",
   h1: "SSS Pension Calculator Philippines",
   intro:
     "Estimate your SSS monthly retirement pension based on your Monthly Salary Credit (MSC) and total years of contribution. This calculator uses the three official SSS pension formulas and returns the highest result.",
-  updatedAt: "2026-06-28",
+  updatedAt: "2026-07-27",
   defaultInputs: {
     monthlySalaryCredit: 20_000,
     yearsOfContribution: 25,
@@ -89,7 +89,7 @@ export const sssPensionData: CalculatorPageData = {
     {
       question: "What does MSC (Monthly Salary Credit) mean in SSS?",
       answer:
-        "The Monthly Salary Credit is the salary bracket SSS assigns to your contributions, not your exact salary. In 2026 it ranges from ₱5,000 to ₱35,000 in ₱500 steps. Your contributions and your future pension are based on the MSC, so contributing at a higher MSC builds a bigger pension.",
+        "The Monthly Salary Credit is the salary bracket SSS assigns to your contributions, not your exact salary. In 2026 it ranges from ₱5,000 to ₱35,000 in ₱500 steps. The pension formulas, however, use an AMSC capped at ₱20,000 — the MSC above ₱20,000 funds WISP (a separate provident-fund benefit), so contributing at a higher MSC builds a bigger pension only up to the ₱20,000 ceiling.",
     },
     {
       question: "How much SSS pension will I get after 10 years?",
