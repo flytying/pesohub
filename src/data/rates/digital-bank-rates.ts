@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-07-15";
+export const DIGITAL_BANK_RATES_UPDATED_AT = "2026-08-01";
 
 export interface DigitalBankRate {
   bankName: string;
@@ -24,17 +24,30 @@ export interface DigitalBankRate {
  */
 export const digitalBankRates: DigitalBankRate[] = [
   {
+    bankName: "Tonik Bank – Tonik Account",
+    bestFor: "High-yield everyday savings account",
+    baseRate: 6,
+    promoRate: null,
+    balanceCap: "No cap stated",
+    requirement: "None stated",
+    cardAtmAccess: "Mastercard debit card; 3D Secure (Mastercard SecureCode) for online payments; card lock/block and limit management available in-app; Face ID / Touch ID access",
+    transfers: "Fund transfers available in-app; QRPH payments to 675,000+ merchants (zero-fee)",
+    limitsConditions: "No specific balance cap or conditions stated on page for the 6% rate",
+    depositInsurance: "PDIC up to ₱1,000,000 per depositor",
+    notes: "Tonik is a licensed digital bank in the Philippines. App available on Google Play (4.6 stars, 112K reviews) and App Store (4.5 stars, 20.3K reviews). Onboarding takes ~5 minutes. Also offers Credit Builder Loan (up to ₱50,000).",
+  },
+  {
     bankName: "Tonik Bank – Time Deposit",
-    bestFor: "Highest-yield time deposit savings",
+    bestFor: "Fixed-term savers seeking higher guaranteed returns",
     baseRate: 5.5,
     promoRate: null,
-    balanceCap: "₱250,000 per account",
-    requirement: "Lock funds for a fixed term (6–24 months)",
-    cardAtmAccess: "Managed via Tonik app",
+    balanceCap: "No cap stated",
+    requirement: "None stated",
+    cardAtmAccess: "Managed via Tonik App; Mastercard card access",
     transfers: "Fund transfers available in-app",
-    limitsConditions: "Tiered rates by term (effective June 5, 2026): 4.5% (6-month), 5.0% (9-month), 5.5% (12-month), 5.0% (18- and 24-month); minimum deposit PHP 5,000; maximum PHP 250,000 per account (up to 5 active TDs)",
-    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
-    notes: "Rates lowered June 5, 2026 to a 4.5–5.0–5.5% structure (previously up to 8%). No conditions or promo code required. Accessible to everyone.",
+    limitsConditions: "No specific term length or minimum deposit amount stated on homepage",
+    depositInsurance: "PDIC up to ₱1,000,000 per depositor",
+    notes: "5.5% p.a. on Time Deposits. Details at tonikbank.com/savings-cards/time-deposit",
   },
   {
     bankName: "Tonik Bank – Group Stash",
@@ -51,16 +64,16 @@ export const digitalBankRates: DigitalBankRate[] = [
   },
   {
     bankName: "Tonik Bank – Solo Stash",
-    bestFor: "Goal-based solo savings",
+    bestFor: "Goal-based solo savings (individual stash/pocket)",
     baseRate: 4,
     promoRate: null,
-    balanceCap: "No cap",
-    requirement: "None",
-    cardAtmAccess: "Managed via Tonik app",
+    balanceCap: "No cap stated",
+    requirement: "None stated",
+    cardAtmAccess: "Managed via Tonik App; Mastercard card access",
     transfers: "Fund transfers available in-app",
-    limitsConditions: "Individual savings stash at 4% p.a.; no minimum balance explicitly stated on page",
-    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
-    notes: "4% annual interest rate on Solo Stash. Note Tonik's plain Tonik Account was cut to 1% p.a. on June 5, 2026, so the Stash products now carry the higher everyday rates.",
+    limitsConditions: "No specific conditions stated on homepage",
+    depositInsurance: "PDIC up to ₱1,000,000 per depositor",
+    notes: "4% p.a. — positioned as 4× a regular savings account. Details at tonikbank.com/savings-cards/stashes",
   },
   {
     bankName: "OwnBank",
@@ -152,19 +165,6 @@ export const digitalBankRates: DigitalBankRate[] = [
     limitsConditions: "UpSave base rate around 2.3%–2.5% p.a. Higher rates on Grow (4% base + 3% conditional = up to 7%) and CIMB Prime with ADB growth requirement.",
     depositInsurance: "PDIC-insured up to ₱1,000,000",
     notes: "GCash partner bank — GSave is powered by CIMB. UpSave base rate around 2.3%–2.5% p.a.; Grow and Prime products offer higher conditional rates.",
-  },
-  {
-    bankName: "Tonik Bank – Tonik Account",
-    bestFor: "Everyday wallet savings",
-    baseRate: 1,
-    promoRate: null,
-    balanceCap: "No cap",
-    requirement: "None",
-    cardAtmAccess: "Mastercard debit card with 3D Secure; card lock/block and limit management in-app",
-    transfers: "Fund transfers available in-app; zero-fee QRPH payments to 675,000+ merchants",
-    limitsConditions: "1.0% p.a. on end-of-day balance (cut from 6% effective June 5, 2026). No maintaining balance.",
-    depositInsurance: "PDIC insured up to ₱1,000,000 per depositor",
-    notes: "The plain Tonik Account dropped to 1.0% p.a. on June 5, 2026. For higher yields use Tonik's Solo/Group Stash (4%–4.5%) or time deposits (up to 5.5%).",
   },
 ];
 

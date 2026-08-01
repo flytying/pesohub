@@ -1,6 +1,6 @@
 import type { FAQ } from "@/types/content";
 
-export const SAVINGS_RATES_UPDATED_AT = "2026-07-15";
+export const SAVINGS_RATES_UPDATED_AT = "2026-08-01";
 
 export interface BankSavingsRate {
   bankName: string;
@@ -33,6 +33,28 @@ export const bankSavingsRates: BankSavingsRate[] = [
   },
   {
     bankName: "Tonik Bank",
+    accountType: "Tonik Account",
+    interestRate: 6,
+    rateType: "Standard",
+    bankType: "digital",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "Main savings account offering up to 6% interest p.a.",
+  },
+  {
+    bankName: "Tonik Bank",
+    accountType: "Time Deposit",
+    interestRate: 5.5,
+    rateType: "Standard",
+    bankType: "digital",
+    minimumBalance: 0,
+    liquidity: "App-based transfers",
+    bestFor: "",
+    notes: "5.5% annual interest rate on Time Deposits.",
+  },
+  {
+    bankName: "Tonik Bank",
     accountType: "Group Stash",
     interestRate: 4.5,
     rateType: "Standard",
@@ -50,8 +72,8 @@ export const bankSavingsRates: BankSavingsRate[] = [
     bankType: "digital",
     minimumBalance: 0,
     liquidity: "App-based transfers",
-    bestFor: "Goal-based solo savings",
-    notes: "Individual stash savings product with 4% annual interest rate.",
+    bestFor: "",
+    notes: "4% annual interest rate; individual savings stash product.",
   },
   {
     bankName: "MariBank",
@@ -96,17 +118,6 @@ export const bankSavingsRates: BankSavingsRate[] = [
     liquidity: "App-based transfers",
     bestFor: "Parked short-term cash",
     notes: "Verify availability; ING has scaled back operations in some markets.",
-  },
-  {
-    bankName: "Tonik Bank",
-    accountType: "Tonik Account",
-    interestRate: 1,
-    rateType: "Standard",
-    bankType: "digital",
-    minimumBalance: 0,
-    liquidity: "App-based transfers",
-    bestFor: "Everyday digital wallet savings",
-    notes: "Regular savings account at 1.0% p.a. on end-of-day balance (cut from 6% effective June 5, 2026). For higher yields, Tonik's Stash products (4%–4.5%) or time deposits (up to 5.5%) are stronger.",
   },
   {
     bankName: "BDO",
