@@ -560,6 +560,173 @@
       "status": "completed",
       "targetPage": "/government/pag-ibig/pag-ibig-contribution-table-philippines/",
       "completedAt": "2026-07-17"
+    },
+    {
+      "id": 24,
+      "title": "Update existing page: sss pension calculator",
+      "slug": "update-guides-sss-how-to-compute-sss-pension",
+      "keywords": [
+        "sss pension formula philippines",
+        "how to compute sss pension",
+        "sss monthly pension calculator",
+        "sss pension computation example",
+        "how much sss pension will i get",
+        "minimum sss pension philippines",
+        "sss pension 2024 computation"
+      ],
+      "category": "general",
+      "linksTo": [
+        "/calculators/retirement/sss-pension-calculator",
+        "/calculators/sss/sss-contribution-calculator-philippines"
+      ],
+      "brief": "Reposition the existing guide as \"SSS Pension Calculator + How to Compute Your Monthly Pension (Philippines)\". Lead with an embedded calculator widget linked from /calculators/retirement/sss-pension-calculator, follow with a plain-language explanation of the three SSS pension formula options (Formula 1, Formula 2, and the minimum pension), include a worked example in pesos for a typical Filipino worker, and close with an FAQ section targeting common long-tail questions. Update the meta title to include the word \"Calculator\" and rewrite the meta description to explicitly mention the interactive tool.",
+      "recommendedAction": "update_existing_page",
+      "decision": {
+        "content_gap": "1. The page likely reads as a manual computation guide, but the query intent is tool/calculator. The meta title and H1 should signal an interactive calculator experience. 2. The actual SSS pension calculator at /calculators/retirement/sss-pension-calculator is not prominently embedded or linked from this guide, creating a disconnect for tool-intent visitors. 3. Missing or outdated SSS pension formula data: the 2024–2025 SSS pension computation rules, the Average Monthly Salary Credit (AMSC) table, and the current credited years of service (CYS) multipliers should be verified and displayed. 4. No FAQ schema content answering common follow-up questions (e.g., \"How much SSS pension will I get after 10 years?\", \"What is the minimum SSS pension in the Philippines?\", \"How is AMSC calculated?\"). 5. Likely missing a worked example with real peso amounts that would improve featured snippet eligibility.",
+        "recommended_content_angle": "Reposition the existing guide as \"SSS Pension Calculator + How to Compute Your Monthly Pension (Philippines)\". Lead with an embedded calculator widget linked from /calculators/retirement/sss-pension-calculator, follow with a plain-language explanation of the three SSS pension formula options (Formula 1, Formula 2, and the minimum pension), include a worked example in pesos for a typical Filipino worker, and close with an FAQ section targeting common long-tail questions. Update the meta title to include the word \"Calculator\" and rewrite the meta description to explicitly mention the interactive tool.",
+        "recommended_internal_links": [
+          {
+            "anchor_text": "SSS Pension Calculator",
+            "target_page_or_tool": "/calculators/retirement/sss-pension-calculator",
+            "reason": "The primary calculator tool for this intent must be embedded or linked prominently at the top of the guide to satisfy tool-intent visitors and reduce the CTR gap."
+          },
+          {
+            "anchor_text": "SSS Contribution Calculator",
+            "target_page_or_tool": "/calculators/sss/sss-contribution-calculator-philippines",
+            "reason": "Pension amount is directly tied to contribution history; linking to the contribution calculator helps users understand their AMSC inputs before estimating pension."
+          },
+          {
+            "anchor_text": "SSS pension table",
+            "target_page_or_tool": "/government/sss/sss-pension-table",
+            "reason": "Users who want to cross-check their computed pension against official SSS tables should be directed here."
+          },
+          {
+            "anchor_text": "SSS contribution guide",
+            "target_page_or_tool": "/government/sss/sss-contribution-guide",
+            "reason": "Provides context on contribution rates and credited years of service, both of which feed into the pension formula."
+          },
+          {
+            "anchor_text": "take-home pay calculator",
+            "target_page_or_tool": "/calculators/tax/take-home-pay-calculator-philippines",
+            "reason": "Retirement planning context — users computing their future pension may also want to compare it against their current take-home pay."
+          }
+        ],
+        "related_queries_to_include": [
+          "sss pension formula philippines",
+          "how to compute sss pension",
+          "sss monthly pension calculator",
+          "sss pension computation example",
+          "how much sss pension will i get",
+          "minimum sss pension philippines",
+          "sss pension 2024 computation"
+        ]
+      },
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending",
+      "targetPage": "/guides/sss/how-to-compute-sss-pension/"
+    },
+    {
+      "id": 25,
+      "title": "Update existing page: sss pension calculator based on contribution",
+      "slug": "update-calculators-retirement-sss-pension-calculator",
+      "keywords": [],
+      "category": "general",
+      "linksTo": [
+        "/calculators/sss/sss-contribution-calculator-philippines",
+        "/government/sss/sss-pension-table"
+      ],
+      "brief": "Reframe the calculator page around the user question \"How much SSS pension will I get based on what I've contributed?\" — show the three official SSS pension formulas, explain Average Monthly Salary Credit (AMSC) in plain Filipino-friendly language, add a worked example with a real contribution history, surface the minimum pension guarantee, and make the calculator inputs obviously tied to contribution amounts and credited years.",
+      "recommendedAction": "update_existing_page",
+      "decision": {
+        "content_gap": "The current calculator page likely lacks: (1) a clear step-by-step explanation of how SSS pension is computed from actual contribution amounts and credited years of service (CYS); (2) the three pension formula options SSS uses and how the highest result is selected; (3) an input field or worked example that explicitly maps monthly salary credit (MSC) history → AMSC → pension estimate; (4) a note on the minimum pension floor (currently ₱2,000/month); (5) FAQs answering \"how does my contribution amount affect my pension?\"; (6) internal links to the SSS contribution calculator and SSS pension table so users can look up their MSC tier before computing. The +2,062% WoW impression spike signals that users are urgently searching for contribution-based pension math, not just a generic pension tool.",
+        "recommended_content_angle": "Reframe the calculator page around the user question \"How much SSS pension will I get based on what I've contributed?\" — show the three official SSS pension formulas, explain Average Monthly Salary Credit (AMSC) in plain Filipino-friendly language, add a worked example with a real contribution history, surface the minimum pension guarantee, and make the calculator inputs obviously tied to contribution amounts and credited years.",
+        "recommended_internal_links": [
+          {
+            "anchor_text": "SSS Contribution Calculator",
+            "target_page_or_tool": "/calculators/sss/sss-contribution-calculator-philippines",
+            "reason": "Users need to know their Monthly Salary Credit (MSC) before they can estimate their pension; linking here closes the logical user journey."
+          },
+          {
+            "anchor_text": "SSS Pension Table",
+            "target_page_or_tool": "/government/sss/sss-pension-table",
+            "reason": "Provides the official pension reference figures that support and validate the calculator output."
+          },
+          {
+            "anchor_text": "How to Compute SSS Pension",
+            "target_page_or_tool": "/guides/sss/how-to-compute-sss-pension",
+            "reason": "The guide can serve as the deep-dive companion to the calculator; cross-linking reinforces topical authority and prevents intent overlap."
+          },
+          {
+            "anchor_text": "SSS Contribution Guide",
+            "target_page_or_tool": "/government/sss/sss-contribution-guide",
+            "reason": "Helps users understand contribution tiers and how their payment history maps to salary credits used in the pension formula."
+          }
+        ],
+        "related_queries_to_include": []
+      },
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending",
+      "targetPage": "/calculators/retirement/sss-pension-calculator"
+    },
+    {
+      "id": 26,
+      "title": "Update existing page: bpi time deposit rates",
+      "slug": "update-rates-savings-rates-time-deposit-rates-philippines",
+      "keywords": [
+        "bpi time deposit interest rate",
+        "bpi time deposit rate 2024",
+        "bpi time deposit rate per annum",
+        "bpi time deposit minimum amount",
+        "bpi time deposit how to open",
+        "time deposit rates philippines bpi bdo metrobank"
+      ],
+      "category": "general",
+      "linksTo": [
+        "/calculators/savings/time-deposit-calculator-philippines",
+        "/rates/savings-rates/best-savings-interest-rates-philippines"
+      ],
+      "brief": "Position the page as the definitive Philippine bank time deposit rates comparison hub, with BPI given prominent placement as a named section — including a rate table by tenor, minimum placement, and a worked ₱100,000 example — then linking to the time deposit calculator for personalized interest projections.",
+      "recommendedAction": "update_existing_page",
+      "decision": {
+        "content_gap": "The existing page likely covers multiple banks generically but may lack: (1) a dedicated BPI time deposit rates section broken down by tenor (30, 60, 90, 180, 360 days) and minimum placement amount; (2) a comparison table showing BPI vs. other major banks (BDO, Metrobank, Security Bank); (3) an FAQ answering \"What is BPI's current time deposit rate?\", \"Is BPI time deposit PDIC-insured?\", and \"How do I open a BPI time deposit online?\"; (4) a direct CTA linking to the /calculators/savings/time-deposit-calculator-philippines tool; (5) a \"last updated\" timestamp to signal freshness.",
+        "recommended_content_angle": "Position the page as the definitive Philippine bank time deposit rates comparison hub, with BPI given prominent placement as a named section — including a rate table by tenor, minimum placement, and a worked ₱100,000 example — then linking to the time deposit calculator for personalized interest projections.",
+        "recommended_internal_links": [
+          {
+            "anchor_text": "time deposit calculator",
+            "target_page_or_tool": "/calculators/savings/time-deposit-calculator-philippines",
+            "reason": "Primary conversion path — users checking BPI rates want to calculate their projected earnings immediately. This is the most natural next step and reinforces PesoHub's tool utility."
+          },
+          {
+            "anchor_text": "best savings interest rates in the Philippines",
+            "target_page_or_tool": "/rates/savings-rates/best-savings-interest-rates-philippines",
+            "reason": "Users comparing BPI time deposit rates are often also weighing regular savings accounts. This link broadens their research and keeps them on PesoHub."
+          },
+          {
+            "anchor_text": "best digital bank rates",
+            "target_page_or_tool": "/rates/savings-rates/best-digital-bank-rates-philippines",
+            "reason": "Digital banks often offer higher yields than traditional banks like BPI. Linking here gives readers the full rate landscape and positions PesoHub as comprehensive."
+          },
+          {
+            "anchor_text": "savings goal calculator",
+            "target_page_or_tool": "/calculators/savings/savings-goal-calculator-philippines",
+            "reason": "Readers deciding whether to place money in a BPI time deposit may be working toward a savings goal. This calculator adds practical value and deepens engagement."
+          }
+        ],
+        "related_queries_to_include": [
+          "bpi time deposit interest rate",
+          "bpi time deposit rate 2024",
+          "bpi time deposit rate per annum",
+          "bpi time deposit minimum amount",
+          "bpi time deposit how to open",
+          "time deposit rates philippines bpi bdo metrobank"
+        ]
+      },
+      "evergreen": true,
+      "refreshIntervalDays": 120,
+      "status": "pending",
+      "targetPage": "/rates/savings-rates/time-deposit-rates-philippines/"
     }
   ]
 }

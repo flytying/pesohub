@@ -1,0 +1,254 @@
+[
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:sss-pension-calculator",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "A",
+    "opportunityScore": 0.7375,
+    "sourceQuery": "sss pension calculator",
+    "opportunity": {
+      "impressions": 4137,
+      "clicks": 37,
+      "position": 6.5,
+      "ctr": 0.0089,
+      "deltaPct": 559,
+      "opportunity": "striking-distance",
+      "topPagePath": "/guides/sss/how-to-compute-sss-pension/"
+    },
+    "cannibalizationRisk": "medium",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:sss-pension-calculator-based-on-contribution",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "A",
+    "opportunityScore": 0.5,
+    "sourceQuery": "sss pension calculator based on contribution",
+    "opportunity": {
+      "impressions": 800,
+      "clicks": 19,
+      "position": 7.3,
+      "ctr": 0.0238,
+      "deltaPct": 2062,
+      "opportunity": "rising",
+      "topPagePath": "/calculators/retirement/sss-pension-calculator/"
+    },
+    "cannibalizationRisk": "medium",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:withholding-tax-table-2026",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "A",
+    "opportunityScore": 0.8125000000000001,
+    "sourceQuery": "withholding tax table 2026",
+    "opportunity": {
+      "impressions": 2443,
+      "clicks": 43,
+      "position": 6.7,
+      "ctr": 0.0176,
+      "deltaPct": 255,
+      "opportunity": "striking-distance",
+      "topPagePath": "/government/bir/withholding-tax-table-philippines/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:sss-pension-computation",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.5625,
+    "sourceQuery": "sss pension computation",
+    "opportunity": {
+      "impressions": 636,
+      "clicks": 12,
+      "position": 6.6,
+      "ctr": 0.0189,
+      "deltaPct": 759,
+      "opportunity": "rising",
+      "topPagePath": "/guides/sss/how-to-compute-sss-pension/"
+    },
+    "cannibalizationRisk": "medium",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:bpi-time-deposit-rates",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.5875,
+    "sourceQuery": "bpi time deposit rates",
+    "opportunity": {
+      "impressions": 592,
+      "clicks": 17,
+      "position": 7.9,
+      "ctr": 0.0287,
+      "deltaPct": 8357,
+      "opportunity": "rising",
+      "topPagePath": "/rates/savings-rates/time-deposit-rates-philippines/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:how-to-compute-sss-pension",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.75,
+    "sourceQuery": "how to compute sss pension",
+    "opportunity": {
+      "impressions": 745,
+      "clicks": 16,
+      "position": 5.6,
+      "ctr": 0.0215,
+      "deltaPct": 369,
+      "opportunity": "striking-distance",
+      "topPagePath": "/guides/sss/how-to-compute-sss-pension/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:pension-calculator-sss",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.5875,
+    "sourceQuery": "pension calculator sss",
+    "opportunity": {
+      "impressions": 693,
+      "clicks": 5,
+      "position": 6.4,
+      "ctr": 0.0072,
+      "deltaPct": 777,
+      "opportunity": "striking-distance",
+      "topPagePath": "/guides/sss/how-to-compute-sss-pension/"
+    },
+    "cannibalizationRisk": "medium",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:tax-table-2026",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.7625,
+    "sourceQuery": "tax table 2026",
+    "opportunity": {
+      "impressions": 915,
+      "clicks": 2,
+      "position": 8.8,
+      "ctr": 0.0022,
+      "deltaPct": 10067,
+      "opportunity": "striking-distance",
+      "topPagePath": "/government/bir/withholding-tax-table-philippines/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:best-high-yield-savings-account-philippines",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.6375,
+    "sourceQuery": "best high yield savings account philippines",
+    "opportunity": {
+      "impressions": 919,
+      "clicks": 1,
+      "position": 9.3,
+      "ctr": 0.0011,
+      "deltaPct": 3435,
+      "opportunity": "striking-distance",
+      "topPagePath": "/rates/savings-rates/best-digital-bank-rates-philippines/"
+    },
+    "cannibalizationRisk": "medium",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:high-yield-savings-account-2026-philippines",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.7625,
+    "sourceQuery": "high yield savings account 2026 philippines",
+    "opportunity": {
+      "impressions": 512,
+      "clicks": 0,
+      "position": 6.2,
+      "ctr": 0,
+      "deltaPct": -87,
+      "opportunity": "striking-distance",
+      "topPagePath": "/rates/savings-rates/best-digital-bank-rates-philippines/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:sss-planner-pension-calculator",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.6875,
+    "sourceQuery": "sss planner pension calculator",
+    "opportunity": {
+      "impressions": 149,
+      "clicks": 1,
+      "position": 8.1,
+      "ctr": 0.0067,
+      "deltaPct": 2880,
+      "opportunity": "rising",
+      "topPagePath": "/calculators/retirement/sss-pension-calculator/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  },
+  {
+    "week": "2026-08-01",
+    "slug": "update_existing_page:bir-tax-table-2026",
+    "title": null,
+    "recommendedAction": "update_existing_page",
+    "priority": "B",
+    "opportunityScore": 0.6875,
+    "sourceQuery": "bir tax table 2026",
+    "opportunity": {
+      "impressions": 418,
+      "clicks": 6,
+      "position": 5.3,
+      "ctr": 0.0144,
+      "deltaPct": 597,
+      "opportunity": "striking-distance",
+      "topPagePath": "/government/bir/withholding-tax-table-philippines/"
+    },
+    "cannibalizationRisk": "low",
+    "resolved": false,
+    "accepted": null
+  }
+]
