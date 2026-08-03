@@ -623,8 +623,9 @@
       },
       "evergreen": true,
       "refreshIntervalDays": 120,
-      "status": "pending",
-      "targetPage": "/guides/sss/how-to-compute-sss-pension/"
+      "status": "completed",
+      "targetPage": "/guides/sss/how-to-compute-sss-pension/",
+      "completedAt": "2026-08-03"
     },
     {
       "id": 25,
