@@ -668,8 +668,9 @@
       },
       "evergreen": true,
       "refreshIntervalDays": 120,
-      "status": "pending",
-      "targetPage": "/calculators/retirement/sss-pension-calculator"
+      "status": "completed",
+      "targetPage": "/calculators/retirement/sss-pension-calculator",
+      "completedAt": "2026-08-05"
     },
     {
       "id": 26,
